@@ -1,0 +1,219 @@
+.watch-shell {
+  position: relative;
+  overflow: hidden;
+  border-color: #58756a !important;
+  background:
+    linear-gradient(180deg, rgb(5 14 12 / 98%), rgb(10 24 20 / 98%)) !important;
+  box-shadow:
+    inset 0 0 0 2px rgb(7 10 9 / 90%),
+    inset 0 0 18px rgb(62 255 155 / 10%),
+    0 0 12px rgb(0 0 0 / 70%);
+}
+
+.watch-shell::before {
+  position: absolute;
+  inset: 5px;
+  content: "";
+  pointer-events: none;
+  border: 1px solid rgb(100 151 127 / 22%);
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 3px,
+    rgb(96 255 167 / 3%) 3px,
+    rgb(96 255 167 / 3%) 4px
+  );
+}
+
+.watch-time {
+  position: relative;
+  display: block;
+  color: #76ffac !important;
+  font-family: "OCR A Std", "Lucida Console", "Courier New", monospace !important;
+  font-size: clamp(25px, 3.2vw, 45px) !important;
+  font-weight: 900 !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+  text-shadow:
+    0 0 2px #5aff9b,
+    0 0 9px rgb(71 255 150 / 72%),
+    3px 0 0 rgb(20 94 58 / 45%);
+  transform: scaleX(0.86);
+}
+
+.sleep-curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  opacity: 0;
+  background: #000;
+  transition: opacity 1s linear;
+}
+
+.sleep-curtain.is-black {
+  opacity: 1;
+}
+
+.survival-hud {
+  z-index: 60 !important;
+  transition: transform 280ms ease;
+  transform-origin: top right;
+}
+
+.survival-hud.is-fast-forward {
+  transform: scale(1.55);
+}
+
+.survival-hud.is-fast-forward .status-row {
+  opacity: 0.25;
+}
+
+.game-overlay {
+  z-index: 70 !important;
+}
+
+.sleep-panel {
+  width: min(620px, calc(100vw - 32px));
+  padding: clamp(22px, 5vw, 52px);
+  border: 2px solid #66756e;
+  border-radius: 8px;
+  color: #dce7df;
+  background: rgb(12 18 17 / 97%);
+  box-shadow: 0 18px 60px rgb(0 0 0 / 70%);
+  text-align: center;
+}
+
+.sleep-panel h2 {
+  margin: 0 0 24px;
+  color: #82e594;
+  font: 900 clamp(26px, 5vw, 42px)/1 "Lucida Console", monospace;
+  letter-spacing: 0.14em;
+}
+
+.sleep-stepper {
+  display: grid;
+  grid-template-columns: 90px 1fr 90px;
+  gap: 18px;
+  align-items: center;
+  margin: 0 auto 22px;
+}
+
+.sleep-stepper button,
+.sleep-confirm,
+.sleep-until button,
+.sleep-cancel,
+.message-panel button {
+  min-height: 62px;
+  border: 2px solid #70d783;
+  border-radius: 8px;
+  color: #c9ffd2;
+  background: #203c28;
+  font: 900 20px/1 monospace;
+  touch-action: manipulation;
+}
+
+.sleep-stepper button {
+  font-size: 42px;
+}
+
+.sleep-stepper div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 110px;
+  border: 2px solid #53685c;
+  border-radius: 7px;
+  background: #08100c;
+}
+
+.sleep-stepper strong {
+  color: #83ffad;
+  font: 900 clamp(44px, 9vw, 72px)/0.9 "Lucida Console", monospace;
+  text-shadow: 0 0 10px rgb(86 255 150 / 45%);
+}
+
+.sleep-stepper span {
+  margin-top: 10px;
+  color: #91a49a;
+  font: 700 13px/1 monospace;
+  letter-spacing: 0.18em;
+}
+
+.sleep-confirm {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.sleep-until {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.sleep-until button {
+  min-height: 54px;
+  color: #a8eab5;
+  background: #18271e;
+  font-size: 16px;
+}
+
+.sleep-cancel {
+  width: 100%;
+  border-color: #69716d;
+  color: #d0d6d2;
+  background: #242a27;
+}
+
+.wake-notice {
+  position: absolute;
+  z-index: 90;
+  left: 50%;
+  bottom: max(30px, env(safe-area-inset-bottom));
+  width: min(720px, calc(100vw - 32px));
+  padding: 16px 22px;
+  border: 2px solid #d6b245;
+  border-radius: 6px;
+  color: #ffe59a;
+  background: rgb(24 20 8 / 95%);
+  font: 800 14px/1.35 monospace;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.message-panel {
+  width: min(620px, calc(100vw - 32px));
+  padding: 38px;
+  border: 2px solid #66756e;
+  border-radius: 8px;
+  color: #dce7df;
+  background: rgb(12 18 17 / 97%);
+  text-align: center;
+}
+
+.message-panel h2 {
+  color: #82e594;
+  font-family: monospace;
+}
+
+.message-panel p {
+  margin: 24px 0;
+  font: 16px/1.5 monospace;
+}
+
+.message-panel button {
+  width: 100%;
+}
+
+@media (max-width: 650px) {
+  .sleep-stepper {
+    grid-template-columns: 66px 1fr 66px;
+    gap: 10px;
+  }
+
+  .sleep-until {
+    gap: 7px;
+  }
+}
