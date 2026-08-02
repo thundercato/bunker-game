@@ -5,7 +5,10 @@ let source = await readFile(path, "utf8");
 
 source = source
   .replaceAll("this.gamepad()", "this.currentGamepad()")
-  .replace("private gamepad(): Gamepad | null", "private currentGamepad(): Gamepad | null")
+  .replace(
+    "private gamepad(): Gamepad | null",
+    "private currentGamepad(): Gamepad | null",
+  )
   .replace("  private knifeStuck = false;\n", "")
   .replaceAll("    this.knifeStuck = true;\n", "")
   .replaceAll("    this.knifeStuck = false;\n", "");
