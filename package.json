@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "typecheck": "tsc --noEmit",
+    "dev": "node scripts/prepare-v7.mjs && vite",
+    "build": "node scripts/prepare-v7.mjs && tsc --noEmit && vite build",
+    "typecheck": "node scripts/prepare-v7.mjs && tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
