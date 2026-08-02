@@ -5,7 +5,7 @@ import type { GamepadSnapshot, InputSnapshot } from "@/input/InputTypes";
 const AXIS_DEADZONE = 0.12;
 const BUTTON_ACTIVITY_THRESHOLD = 0.1;
 
-type GamepadNavigator = Navigator & {
+type OptionalGamepadNavigator = {
   getGamepads?: () => readonly (Gamepad | null)[];
 };
 
@@ -40,7 +40,8 @@ export class InputService {
   public constructor(private readonly events: EventBus<GameEvents>) {}
 
   public isGamepadApiAvailable(): boolean {
-    return typeof (navigator as GamepadNavigator).getGamepads === "function";
+    const gamepadNavigator = navigator as unknown as OptionalGamepadNavigator;
+    return typeof gamepadNavigator.getGamepads === "function";
   }
 
   public getActivationCount(): number {
@@ -80,12 +81,14 @@ export class InputService {
   }
 
   public poll(): InputSnapshot {
-    const getGamepads = (navigator as GamepadNavigator).getGamepads;
-    const gamepads = getGamepads
-      ? Array.from(getGamepads.call(navigator))
-          .filter((gamepad): gamepad is Gamepad => gamepad !== null)
-          .map(snapshotGamepad)
-      : [];
+    const gamepadNavigator = navigator as unknown as OptionalGamepadNavigator;
+    let gamepads: GamepadSnapshot[] = [];
+
+    if (typeof gamepadNavigator.getGamepads === "function") {
+      gamepads = Array.from(gamepadNavigator.getGamepads())
+        .filter((gamepad): gamepad is Gamepad => gamepad !== null)
+        .map(snapshotGamepad);
+    }
 
     const currentIndexes = new Set(gamepads.map((gamepad) => gamepad.index));
 
