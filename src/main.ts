@@ -1,9 +1,11 @@
 import Phaser from "phaser";
 import { setVirtualKey } from "@/input/TouchInputBridge";
 import { BunkerV6Scene } from "@/scenes/BunkerV6Scene";
+import { SurvivalController } from "@/systems/SurvivalController";
 import "@/style.css";
+import "@/sleep.css";
 
-const VERSION = "0.5.10";
+const VERSION = "0.6.00";
 const parent = document.querySelector<HTMLElement>("#app");
 if (!parent) throw new Error("Missing #app element.");
 
@@ -22,6 +24,7 @@ const game = new Phaser.Game({
   antialias: false,
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
 });
+const survival = new SurvivalController(game);
 
 const versionBadge = document.createElement("div");
 versionBadge.className = "start-version";
@@ -38,6 +41,10 @@ hud.innerHTML = `
   <div class="status-row stamina-row"><span>STAMINA</span><i><b class="stamina-fill"></b></i></div>
 `;
 parent.append(hud);
+
+const sleepCurtain = document.createElement("div");
+sleepCurtain.className = "sleep-curtain";
+parent.append(sleepCurtain);
 
 const controls = document.createElement("div");
 controls.className = "touch-controls";
@@ -57,9 +64,7 @@ controls.innerHTML = `
 `;
 parent.append(controls);
 
-for (const button of controls.querySelectorAll<HTMLButtonElement>(
-  "[data-key]",
-)) {
+for (const button of controls.querySelectorAll<HTMLButtonElement>("[data-key]")) {
   const key = button.dataset.key;
   if (!key) continue;
   const press = (event: PointerEvent): void => {
@@ -70,8 +75,9 @@ for (const button of controls.querySelectorAll<HTMLButtonElement>(
   };
   const release = (event: PointerEvent): void => {
     event.preventDefault();
-    if (button.hasPointerCapture(event.pointerId))
+    if (button.hasPointerCapture(event.pointerId)) {
       button.releasePointerCapture(event.pointerId);
+    }
     button.classList.remove("is-pressed");
     setVirtualKey(game, key, false);
   };
@@ -86,12 +92,12 @@ for (const button of controls.querySelectorAll<HTMLButtonElement>(
 }
 
 const releaseAllTouchKeys = (): void => {
-  for (const key of ["w", "a", "s", "d", "e", "Escape", "Shift"])
+  for (const key of ["w", "a", "s", "d", "e", "Escape", "Shift"]) {
     setVirtualKey(game, key, false);
-  for (const button of controls.querySelectorAll<HTMLButtonElement>(
-    ".is-pressed",
-  ))
+  }
+  for (const button of controls.querySelectorAll<HTMLButtonElement>(".is-pressed")) {
     button.classList.remove("is-pressed");
+  }
 };
 window.addEventListener("blur", releaseAllTouchKeys);
 document.addEventListener("visibilitychange", () => {
@@ -112,11 +118,23 @@ type StoredItem = {
   taken: boolean;
 };
 let storageItems: StoredItem[] = [];
+let currentTime = "08:00";
 
-const closeStorage = (): void => {
+const showOverlay = (): void => {
+  overlay.classList.add("is-open");
+  controls.classList.add("is-hidden");
+  survival.setUiOpen(true);
+};
+
+const closeOverlay = (): void => {
   overlay.classList.remove("is-open");
   overlay.replaceChildren();
   controls.classList.remove("is-hidden");
+  survival.setUiOpen(false);
+};
+
+const closeStorage = (): void => {
+  closeOverlay();
   window.dispatchEvent(new Event("bunker-storage-close"));
 };
 
@@ -126,8 +144,7 @@ const itemArt = (item: StoredItem): string =>
     : `<div class="item-art jerky-art"><div class="jerky-pack"><span>BEEF</span><small>JERKY</small><i></i><i></i></div></div>`;
 
 const renderStorage = (): void => {
-  overlay.classList.add("is-open");
-  controls.classList.add("is-hidden");
+  showOverlay();
   const panel = document.createElement("div");
   panel.className = "storage-panel";
   panel.innerHTML = `<header><h2>STORAGE TRUNK</h2><p>6 × 3 storage grid</p></header><div class="storage-grid"></div><button class="overlay-back">BACK</button>`;
@@ -174,6 +191,95 @@ const renderItem = (item: StoredItem): void => {
   overlay.replaceChildren(panel);
 };
 
+const delay = async (milliseconds: number): Promise<void> =>
+  new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+
+const beginSleep = async (hours: number): Promise<void> => {
+  overlay.classList.remove("is-open");
+  overlay.replaceChildren();
+  controls.classList.add("is-hidden");
+  survival.setUiOpen(true);
+  sleepCurtain.classList.add("is-black");
+  await delay(1000);
+  hud.classList.add("is-fast-forward");
+
+  const result = await survival.sleep(hours);
+
+  hud.classList.remove("is-fast-forward");
+  sleepCurtain.classList.remove("is-black");
+  await delay(1000);
+  controls.classList.remove("is-hidden");
+  survival.setUiOpen(false);
+
+  if (result.wokeEarly) {
+    const notice = document.createElement("div");
+    notice.className = "wake-notice";
+    notice.textContent = "YOU WAKE EARLY. HUNGER OR THIRST IS TOO LOW.";
+    parent.append(notice);
+    window.setTimeout(() => notice.remove(), 3200);
+  }
+};
+
+const renderSleep = (): void => {
+  showOverlay();
+  let hours = 8;
+  const panel = document.createElement("div");
+  panel.className = "sleep-panel";
+  panel.innerHTML = `
+    <h2>SLEEP</h2>
+    <div class="sleep-stepper">
+      <button class="sleep-minus" aria-label="Reduce sleep time">−</button>
+      <div><strong class="sleep-hours">8</strong><span>HOURS</span></div>
+      <button class="sleep-plus" aria-label="Increase sleep time">+</button>
+    </div>
+    <button class="sleep-confirm">SLEEP</button>
+    <div class="sleep-until">
+      <button data-hour="6">06:00</button>
+      <button data-hour="12">12:00</button>
+      <button data-hour="18">18:00</button>
+    </div>
+    <button class="sleep-cancel">BACK</button>
+  `;
+  const display = panel.querySelector<HTMLElement>(".sleep-hours");
+  const updateHours = (): void => {
+    if (display) display.textContent = hours.toString();
+  };
+  panel.querySelector(".sleep-minus")?.addEventListener("click", () => {
+    hours = Math.max(1, hours - 1);
+    updateHours();
+  });
+  panel.querySelector(".sleep-plus")?.addEventListener("click", () => {
+    hours = Math.min(24, hours + 1);
+    updateHours();
+  });
+  panel
+    .querySelector(".sleep-confirm")
+    ?.addEventListener("click", () => void beginSleep(hours));
+  for (const button of panel.querySelectorAll<HTMLButtonElement>("[data-hour]")) {
+    button.addEventListener("click", () => {
+      const target = Number(button.dataset.hour);
+      void beginSleep(survival.hoursUntil(target));
+    });
+  }
+  panel
+    .querySelector(".sleep-cancel")
+    ?.addEventListener("click", closeOverlay);
+  overlay.replaceChildren(panel);
+};
+
+const renderMessage = (title: string, text: string): void => {
+  if (title === "YOUR BUNK") {
+    renderSleep();
+    return;
+  }
+  showOverlay();
+  const panel = document.createElement("div");
+  panel.className = "message-panel";
+  panel.innerHTML = `<h2>${title}</h2><p>${text}</p><button>BACK</button>`;
+  panel.querySelector("button")?.addEventListener("click", closeOverlay);
+  overlay.replaceChildren(panel);
+};
+
 window.addEventListener("bunker-state", ((
   event: CustomEvent<{
     time: string;
@@ -185,10 +291,13 @@ window.addEventListener("bunker-state", ((
 ) => {
   const setWidth = (selector: string, value: number): void => {
     const element = hud.querySelector<HTMLElement>(selector);
-    if (element) element.style.width = `${Math.max(0, Math.min(100, value))}%`;
+    if (element) {
+      element.style.width = `${Math.max(0, Math.min(100, value))}%`;
+    }
   };
+  currentTime = event.detail.time;
   const watch = hud.querySelector<HTMLElement>(".watch-time");
-  if (watch) watch.textContent = event.detail.time;
+  if (watch) watch.textContent = currentTime;
   setWidth(".health-fill", event.detail.health);
   setWidth(".hunger-fill", event.detail.hunger);
   setWidth(".thirst-fill", event.detail.thirst);
@@ -202,9 +311,13 @@ window.addEventListener("bunker-storage-open", ((
   renderStorage();
 }) as EventListener);
 window.addEventListener("bunker-storage-close-request", closeStorage);
+window.addEventListener("bunker-message", ((
+  event: CustomEvent<{ title: string; text: string }>,
+) => renderMessage(event.detail.title, event.detail.text)) as EventListener);
 
 const enterGame = (): void => {
   versionBadge.remove();
   controls.classList.add("is-active");
 };
 parent.addEventListener("pointerdown", enterGame, { once: true });
+window.addEventListener("beforeunload", () => survival.destroy());
