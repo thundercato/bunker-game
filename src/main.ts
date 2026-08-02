@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { KnifeTrainingScene } from "@/scenes/KnifeTrainingScene";
+import { TileWorldScene } from "@/scenes/TileWorldScene";
 import "@/style.css";
 
 const parent = document.querySelector<HTMLElement>("#app");
@@ -11,7 +11,16 @@ new Phaser.Game({
   width: 1280,
   height: 720,
   backgroundColor: "#05090d",
-  scene: [KnifeTrainingScene],
+  scene: [TileWorldScene],
+  physics: {
+    default: "arcade",
+    arcade: {
+      gravity: { x: 0, y: 0 },
+      debug: false,
+    },
+  },
+  pixelArt: true,
+  antialias: false,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
