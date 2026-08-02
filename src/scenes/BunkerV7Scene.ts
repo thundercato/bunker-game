@@ -71,8 +71,16 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     window.addEventListener("bunker-storage-open", this.captureStorage, true);
     window.addEventListener("bunker-take-item", this.captureTakeItem, true);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      window.removeEventListener("bunker-storage-open", this.captureStorage, true);
-      window.removeEventListener("bunker-take-item", this.captureTakeItem, true);
+      window.removeEventListener(
+        "bunker-storage-open",
+        this.captureStorage,
+        true,
+      );
+      window.removeEventListener(
+        "bunker-take-item",
+        this.captureTakeItem,
+        true,
+      );
       this.backpackButton.remove();
     });
   }
@@ -163,7 +171,9 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
       }
       grid.append(cell);
     }
-    panel.querySelector(".overlay-back")?.addEventListener("click", this.closeUi);
+    panel
+      .querySelector(".overlay-back")
+      ?.addEventListener("click", this.closeUi);
     this.overlay.replaceChildren(panel);
   }
 
@@ -179,9 +189,7 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
           new CustomEvent("bunker-take-item", { detail: { id: item.id } }),
         );
       }
-      this.openStorage(
-        items.filter((candidate) => candidate.id !== item.id),
-      );
+      this.openStorage(items.filter((candidate) => candidate.id !== item.id));
     });
     panel
       .querySelector(".item-back")
@@ -216,7 +224,9 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
       }
       grid.append(cell);
     }
-    panel.querySelector(".overlay-back")?.addEventListener("click", this.closeUi);
+    panel
+      .querySelector(".overlay-back")
+      ?.addEventListener("click", this.closeUi);
     this.overlay.replaceChildren(panel);
   }
 
@@ -255,10 +265,14 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     this.overlay.replaceChildren(panel);
   }
 
-  private itemPanel(item: InventoryItem, source: "storage" | "backpack"): HTMLElement {
+  private itemPanel(
+    item: InventoryItem,
+    source: "storage" | "backpack",
+  ): HTMLElement {
     const panel = document.createElement("div");
     panel.className = "item-panel inventory-item-v7";
-    const stats = item.id === "knife" ? this.currentKnifeItem().stats : item.stats;
+    const stats =
+      item.id === "knife" ? this.currentKnifeItem().stats : item.stats;
     panel.innerHTML = `
       <header><h2>${item.name}</h2><p>${item.description}</p></header>
       <div class="item-art ${item.id}-art-v7"><span>${this.itemGlyph(item.id)}</span></div>
@@ -357,7 +371,11 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     const runtime = this.runtime();
     const vector = this.directionVector();
     const slash = this.add
-      .image(runtime.player.x + vector.x * 34, runtime.player.y + vector.y * 34, "knife-v7")
+      .image(
+        runtime.player.x + vector.x * 34,
+        runtime.player.y + vector.y * 34,
+        "knife-v7",
+      )
       .setDepth(30)
       .setRotation(Math.atan2(vector.y, vector.x));
     this.tweens.add({
@@ -396,7 +414,8 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     this.throwStart.set(knife.x, knife.y);
     this.knifeFlying = flying;
     this.knifeStuck = false;
-    if (flying) body.setVelocity(vector.x * KNIFE_SPEED, vector.y * KNIFE_SPEED);
+    if (flying)
+      body.setVelocity(vector.x * KNIFE_SPEED, vector.y * KNIFE_SPEED);
     else body.setVelocity(0, 0);
 
     this.physics.add.collider(knife, runtime.walls, () => this.stickKnife());
@@ -438,7 +457,9 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     const knife = this.knifeSprite;
     if (!knife || this.knifeFlying) return false;
     const player = this.runtime().player;
-    return Phaser.Math.Distance.Between(player.x, player.y, knife.x, knife.y) < 78;
+    return (
+      Phaser.Math.Distance.Between(player.x, player.y, knife.x, knife.y) < 78
+    );
   }
 
   private retrieveKnife(): void {
