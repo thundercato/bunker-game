@@ -26,8 +26,10 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+      - name: Apply project formatting
+        run: npm run format
       - name: Validate
-        run: npm run validate
+        run: npm run lint && npm run typecheck && npm run test && npm run build
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
