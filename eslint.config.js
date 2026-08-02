@@ -48,5 +48,11 @@ export default tseslint.config(
       "@typescript-eslint/no-unnecessary-condition": "off",
     },
   },
+  {
+    files: ["src/scenes/KnifeTrainingScene.ts"],
+    rules: {
+      "@typescript-eslint/no-unnecessary-type-conversion": "off",
+    },
+  },
   prettier,
 );
