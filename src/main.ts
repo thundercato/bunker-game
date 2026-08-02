@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { BunkerRoomScene } from "@/scenes/BunkerRoomScene";
+import { KnifeTrainingScene } from "@/scenes/KnifeTrainingScene";
 import "@/style.css";
 
 const parent = document.querySelector<HTMLElement>("#app");
@@ -11,7 +11,7 @@ new Phaser.Game({
   width: 1280,
   height: 720,
   backgroundColor: "#05090d",
-  scene: [BunkerRoomScene],
+  scene: [KnifeTrainingScene],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
