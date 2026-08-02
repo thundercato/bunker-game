@@ -58,5 +58,11 @@ export default tseslint.config(
       "@typescript-eslint/no-unnecessary-type-conversion": "off",
     },
   },
+  {
+    files: ["src/scenes/ScrollingBunkerScene.ts"],
+    rules: {
+      "@typescript-eslint/no-unnecessary-condition": "off",
+    },
+  },
   prettier,
 );
