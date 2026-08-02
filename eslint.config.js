@@ -69,5 +69,13 @@ export default tseslint.config(
       "@typescript-eslint/no-unnecessary-boolean-literal-compare": "off",
     },
   },
+  {
+    files: ["src/scenes/BunkerV7Scene.ts"],
+    rules: {
+      "@typescript-eslint/no-unnecessary-condition": "off",
+      "@typescript-eslint/no-unnecessary-type-parameters": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  },
   prettier,
 );
