@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { ScrollingBunkerScene } from "@/scenes/ScrollingBunkerScene";
+import { ScrollingBunkerV3Scene } from "@/scenes/ScrollingBunkerV3Scene";
 import "@/style.css";
 
 const parent = document.querySelector<HTMLElement>("#app");
@@ -11,7 +11,7 @@ new Phaser.Game({
   width: 1280,
   height: 720,
   backgroundColor: "#05090d",
-  scene: [ScrollingBunkerScene],
+  scene: [ScrollingBunkerV3Scene],
   physics: {
     default: "arcade",
     arcade: {
