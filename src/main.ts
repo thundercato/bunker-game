@@ -64,7 +64,9 @@ controls.innerHTML = `
 `;
 parent.append(controls);
 
-for (const button of controls.querySelectorAll<HTMLButtonElement>("[data-key]")) {
+for (const button of controls.querySelectorAll<HTMLButtonElement>(
+  "[data-key]",
+)) {
   const key = button.dataset.key;
   if (!key) continue;
   const press = (event: PointerEvent): void => {
@@ -95,7 +97,9 @@ const releaseAllTouchKeys = (): void => {
   for (const key of ["w", "a", "s", "d", "e", "Escape", "Shift"]) {
     setVirtualKey(game, key, false);
   }
-  for (const button of controls.querySelectorAll<HTMLButtonElement>(".is-pressed")) {
+  for (const button of controls.querySelectorAll<HTMLButtonElement>(
+    ".is-pressed",
+  )) {
     button.classList.remove("is-pressed");
   }
 };
@@ -255,15 +259,15 @@ const renderSleep = (): void => {
   panel
     .querySelector(".sleep-confirm")
     ?.addEventListener("click", () => void beginSleep(hours));
-  for (const button of panel.querySelectorAll<HTMLButtonElement>("[data-hour]")) {
+  for (const button of panel.querySelectorAll<HTMLButtonElement>(
+    "[data-hour]",
+  )) {
     button.addEventListener("click", () => {
       const target = Number(button.dataset.hour);
       void beginSleep(survival.hoursUntil(target));
     });
   }
-  panel
-    .querySelector(".sleep-cancel")
-    ?.addEventListener("click", closeOverlay);
+  panel.querySelector(".sleep-cancel")?.addEventListener("click", closeOverlay);
   overlay.replaceChildren(panel);
 };
 
