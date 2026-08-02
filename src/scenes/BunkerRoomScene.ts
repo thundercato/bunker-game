@@ -73,14 +73,18 @@ export class BunkerRoomScene extends Phaser.Scene {
 
     const axisX = Math.abs(pad?.axes[0] ?? 0) > 0.16 ? (pad?.axes[0] ?? 0) : 0;
     const axisY = Math.abs(pad?.axes[1] ?? 0) > 0.16 ? (pad?.axes[1] ?? 0) : 0;
-    const move = new Phaser.Math.Vector2(axisX || keyboardX, axisY || keyboardY);
+    const move = new Phaser.Math.Vector2(
+      axisX || keyboardX,
+      axisY || keyboardY,
+    );
 
     const interactDown =
       Boolean(pad?.buttons[0]?.pressed) ||
       Boolean(this.keys.E?.isDown) ||
       Boolean(this.keys.X?.isDown) ||
       Boolean(this.keys.SPACE?.isDown);
-    const backDown = Boolean(pad?.buttons[1]?.pressed) || Boolean(this.keys.ESC?.isDown);
+    const backDown =
+      Boolean(pad?.buttons[1]?.pressed) || Boolean(this.keys.ESC?.isDown);
 
     if (this.modalOpen) {
       if (backDown && !this.previousBack) this.closeModal();
@@ -159,7 +163,14 @@ export class BunkerRoomScene extends Phaser.Scene {
     g.fillStyle(0x573c25).fillRoundedRect(x, y + 45, 300, 130, 6);
     g.fillStyle(0x241d16).fillRect(x + 15, y + 62, 270, 22);
     g.fillStyle(0x334630).fillRoundedRect(x + 30, y + 20, 105, 45, 6);
-    g.fillStyle(0x8c8f8d).fillTriangle(x + 175, y + 30, x + 250, y + 48, x + 175, y + 60);
+    g.fillStyle(0x8c8f8d).fillTriangle(
+      x + 175,
+      y + 30,
+      x + 250,
+      y + 48,
+      x + 175,
+      y + 60,
+    );
     g.fillStyle(0x8e3b28).fillRect(x + 245, y + 41, 38, 10);
     g.lineStyle(4, 0x21170f).strokeRoundedRect(x, y + 45, 300, 130, 6);
     this.add.text(x + 18, y - 5, "WEAPON STATION", {
@@ -282,7 +293,9 @@ export class BunkerRoomScene extends Phaser.Scene {
   }
 
   private panel(x: number, y: number, width: number, height: number): void {
-    const panel = this.add.rectangle(x, y, width, height, 0x05080b, 0.93).setOrigin(0);
+    const panel = this.add
+      .rectangle(x, y, width, height, 0x05080b, 0.93)
+      .setOrigin(0);
     panel.setStrokeStyle(2, 0x3a444d);
   }
 
@@ -331,7 +344,12 @@ export class BunkerRoomScene extends Phaser.Scene {
         color: "#f4f6f7",
       })
       .setOrigin(0, 0.5);
-    this.prompt = this.add.container(640, 510, [background, button, x, this.promptText]);
+    this.prompt = this.add.container(640, 510, [
+      background,
+      button,
+      x,
+      this.promptText,
+    ]);
     this.prompt.setDepth(20).setVisible(false);
   }
 
@@ -364,7 +382,13 @@ export class BunkerRoomScene extends Phaser.Scene {
         color: "#aab3b9",
       })
       .setOrigin(0.5);
-    this.modal = this.add.container(0, 0, [shade, panel, this.modalTitle, this.modalBody, close]);
+    this.modal = this.add.container(0, 0, [
+      shade,
+      panel,
+      this.modalTitle,
+      this.modalBody,
+      close,
+    ]);
     this.modal.setDepth(50).setVisible(false);
   }
 
@@ -397,7 +421,14 @@ export class BunkerRoomScene extends Phaser.Scene {
         fontStyle: "bold",
       })
       .setOrigin(0.5);
-    this.activation = this.add.container(0, 0, [shade, panel, title, text, button, label]);
+    this.activation = this.add.container(0, 0, [
+      shade,
+      panel,
+      title,
+      text,
+      button,
+      label,
+    ]);
     this.activation.setDepth(100);
     button.on("pointerdown", () => this.activation.destroy());
   }
@@ -450,23 +481,39 @@ export class BunkerRoomScene extends Phaser.Scene {
       this.prompt.setVisible(false);
       return;
     }
-    this.promptText.setText(nearest.kind === "door" && this.doorOpen ? "Close Door" : nearest.label);
-    this.prompt.setPosition(nearest.x, Math.max(110, nearest.y - 72)).setVisible(true);
+    this.promptText.setText(
+      nearest.kind === "door" && this.doorOpen ? "Close Door" : nearest.label,
+    );
+    this.prompt
+      .setPosition(nearest.x, Math.max(110, nearest.y - 72))
+      .setVisible(true);
   }
 
   private interact(kind: StationKind): void {
     switch (kind) {
       case "bed":
-        this.showModal("BUNK", "You lie down for a moment.\n\nGame saved.\nDay 1 • 06:00");
+        this.showModal(
+          "BUNK",
+          "You lie down for a moment.\n\nGame saved.\nDay 1 • 06:00",
+        );
         break;
       case "weapons":
-        this.showModal("WEAPON STATION", "EQUIPPED\n\n► Utility Knife\n\nMore weapon slots are locked.");
+        this.showModal(
+          "WEAPON STATION",
+          "EQUIPPED\n\n► Utility Knife\n\nMore weapon slots are locked.",
+        );
         break;
       case "storage":
-        this.showModal("STORAGE", "The storage box is empty.\n\nCapacity: 0 / 24");
+        this.showModal(
+          "STORAGE",
+          "The storage box is empty.\n\nCapacity: 0 / 24",
+        );
         break;
       case "cooking":
-        this.showModal("COOKING STATION", "Nothing to cook.\n\nFind ingredients in the corridors.");
+        this.showModal(
+          "COOKING STATION",
+          "Nothing to cook.\n\nFind ingredients in the corridors.",
+        );
         break;
       case "door":
         this.toggleDoor();
