@@ -7,6 +7,7 @@ const KEY_CODES: Partial<Record<string, number>> = {
   d: Phaser.Input.Keyboard.KeyCodes.D,
   e: Phaser.Input.Keyboard.KeyCodes.E,
   Escape: Phaser.Input.Keyboard.KeyCodes.ESC,
+  Shift: Phaser.Input.Keyboard.KeyCodes.SHIFT,
 };
 
 export const setVirtualKey = (
