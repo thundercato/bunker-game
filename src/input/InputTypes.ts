@@ -1,4 +1,4 @@
-export type InputDeviceType = 'gamepad' | 'keyboard' | 'touch';
+export type InputDeviceType = "gamepad" | "keyboard" | "touch";
 
 export interface GamepadButtonState {
   readonly index: number;

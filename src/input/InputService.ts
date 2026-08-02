@@ -1,6 +1,6 @@
-import type { EventBus } from '@/core/EventBus';
-import type { GameEvents } from '@/core/GameEvents';
-import type { GamepadSnapshot, InputSnapshot } from '@/input/InputTypes';
+import type { EventBus } from "@/core/EventBus";
+import type { GameEvents } from "@/core/GameEvents";
+import type { GamepadSnapshot, InputSnapshot } from "@/input/InputTypes";
 
 const AXIS_DEADZONE = 0.12;
 const BUTTON_ACTIVITY_THRESHOLD = 0.1;
@@ -37,16 +37,16 @@ export class InputService {
   public start(): void {
     if (this.started) return;
     this.started = true;
-    window.addEventListener('gamepadconnected', this.handleConnection);
-    window.addEventListener('gamepaddisconnected', this.handleDisconnection);
+    window.addEventListener("gamepadconnected", this.handleConnection);
+    window.addEventListener("gamepaddisconnected", this.handleDisconnection);
     this.poll();
   }
 
   public stop(): void {
     if (!this.started) return;
     this.started = false;
-    window.removeEventListener('gamepadconnected', this.handleConnection);
-    window.removeEventListener('gamepaddisconnected', this.handleDisconnection);
+    window.removeEventListener("gamepadconnected", this.handleConnection);
+    window.removeEventListener("gamepaddisconnected", this.handleDisconnection);
     this.previousIndexes.clear();
   }
 
@@ -59,7 +59,7 @@ export class InputService {
 
     for (const gamepad of gamepads) {
       if (!this.previousIndexes.has(gamepad.index)) {
-        this.events.emit('input:gamepad-connected', {
+        this.events.emit("input:gamepad-connected", {
           index: gamepad.index,
           id: gamepad.id,
         });
@@ -68,7 +68,7 @@ export class InputService {
 
     for (const index of this.previousIndexes) {
       if (!currentIndexes.has(index)) {
-        this.events.emit('input:gamepad-disconnected', { index });
+        this.events.emit("input:gamepad-disconnected", { index });
       }
     }
 
@@ -83,7 +83,7 @@ export class InputService {
     );
 
     this.lastSnapshot = {
-      activeDevice: activeGamepad ? 'gamepad' : this.lastSnapshot.activeDevice,
+      activeDevice: activeGamepad ? "gamepad" : this.lastSnapshot.activeDevice,
       gamepads,
     };
 
@@ -95,14 +95,14 @@ export class InputService {
   }
 
   private readonly handleConnection = (event: GamepadEvent): void => {
-    this.events.emit('input:gamepad-connected', {
+    this.events.emit("input:gamepad-connected", {
       index: event.gamepad.index,
       id: event.gamepad.id,
     });
   };
 
   private readonly handleDisconnection = (event: GamepadEvent): void => {
-    this.events.emit('input:gamepad-disconnected', {
+    this.events.emit("input:gamepad-disconnected", {
       index: event.gamepad.index,
     });
   };
