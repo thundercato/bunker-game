@@ -15,6 +15,7 @@
     "exactOptionalPropertyTypes": false,
     "baseUrl": ".",
     "paths": {
+      "@/scenes/BunkerV6Scene": ["src/scenes/BunkerV7Scene.ts"],
       "@/*": ["src/*"]
     },
     "types": ["vite/client"]
