@@ -51,7 +51,7 @@ export class InputService {
   }
 
   public poll(): InputSnapshot {
-    const gamepads = Array.from(navigator.getGamepads?.() ?? [])
+    const gamepads = Array.from(navigator.getGamepads())
       .filter((gamepad): gamepad is Gamepad => gamepad !== null)
       .map(snapshotGamepad);
 
@@ -76,7 +76,10 @@ export class InputService {
     const activeGamepad = gamepads.some(
       (gamepad) =>
         gamepad.axes.some((axis) => axis !== 0) ||
-        gamepad.buttons.some((button) => button.pressed || button.value > BUTTON_ACTIVITY_THRESHOLD),
+        gamepad.buttons.some(
+          (button) =>
+            button.pressed || button.value > BUTTON_ACTIVITY_THRESHOLD,
+        ),
     );
 
     this.lastSnapshot = {
@@ -99,6 +102,8 @@ export class InputService {
   };
 
   private readonly handleDisconnection = (event: GamepadEvent): void => {
-    this.events.emit('input:gamepad-disconnected', { index: event.gamepad.index });
+    this.events.emit('input:gamepad-disconnected', {
+      index: event.gamepad.index,
+    });
   };
 }
