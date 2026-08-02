@@ -25,12 +25,22 @@ const ROOMS: RoomZone[] = [
   },
   {
     name: "TRAINING ROOM",
-    bounds: new Phaser.Geom.Rectangle(40 * TILE, 3 * TILE, 20 * TILE, 15 * TILE),
+    bounds: new Phaser.Geom.Rectangle(
+      40 * TILE,
+      3 * TILE,
+      20 * TILE,
+      15 * TILE,
+    ),
     cameraMode: "room",
   },
   {
     name: "LOWER PASSAGE",
-    bounds: new Phaser.Geom.Rectangle(24 * TILE, 13 * TILE, 10 * TILE, 22 * TILE),
+    bounds: new Phaser.Geom.Rectangle(
+      24 * TILE,
+      13 * TILE,
+      10 * TILE,
+      22 * TILE,
+    ),
     cameraMode: "free",
   },
 ];
@@ -60,7 +70,10 @@ export class TileWorldScene extends Phaser.Scene {
     const keyboard = this.input.keyboard;
     if (!keyboard) throw new Error("Keyboard input unavailable");
     this.cursors = keyboard.createCursorKeys();
-    this.keys = keyboard.addKeys("W,A,S,D") as Record<string, Phaser.Input.Keyboard.Key>;
+    this.keys = keyboard.addKeys("W,A,S,D") as Record<
+      string,
+      Phaser.Input.Keyboard.Key
+    >;
 
     this.physics.world.setBounds(0, 0, MAP_WIDTH * TILE, MAP_HEIGHT * TILE);
     this.cameras.main.setBounds(0, 0, MAP_WIDTH * TILE, MAP_HEIGHT * TILE);
@@ -109,7 +122,12 @@ export class TileWorldScene extends Phaser.Scene {
     });
     makeTile("floor-metal", 0x273038, 0x52606b, (g) => {
       g.lineStyle(1, 0x151b20).strokeRect(4, 4, 24, 24);
-      for (const [x, y] of [[6, 6], [25, 6], [6, 25], [25, 25]] as Array<[number, number]>) {
+      for (const [x, y] of [
+        [6, 6],
+        [25, 6],
+        [6, 25],
+        [25, 25],
+      ] as Array<[number, number]>) {
         g.fillStyle(0x9a7741).fillCircle(x, y, 1);
       }
     });
@@ -153,7 +171,8 @@ export class TileWorldScene extends Phaser.Scene {
         g.fillStyle(0x1a2024).fillRect(10, 23, 5, frame === 0 ? 7 : 5);
         g.fillRect(17, 23, 5, frame === 0 ? 5 : 7);
         g.fillStyle(0x6d8d73).fillRect(10, 13, 12, 2);
-        const eyeX = direction === "left" ? 12 : direction === "right" ? 20 : 16;
+        const eyeX =
+          direction === "left" ? 12 : direction === "right" ? 20 : 16;
         const eyeY = direction === "up" ? 5 : 9;
         g.fillStyle(0xd5c49a).fillRect(eyeX - 1, eyeY, 2, 2);
         g.generateTexture(`player-${direction}-${frame}`, 32, 32);
@@ -171,7 +190,8 @@ export class TileWorldScene extends Phaser.Scene {
       for (let tx = 0; tx < MAP_WIDTH; tx += 1) {
         const x = tx * TILE + TILE / 2;
         const y = ty * TILE + TILE / 2;
-        const edge = tx === 0 || ty === 0 || tx === MAP_WIDTH - 1 || ty === MAP_HEIGHT - 1;
+        const edge =
+          tx === 0 || ty === 0 || tx === MAP_WIDTH - 1 || ty === MAP_HEIGHT - 1;
         const inPlayable = this.isPlayableTile(tx, ty);
 
         if (!inPlayable && !edge) continue;
@@ -184,17 +204,27 @@ export class TileWorldScene extends Phaser.Scene {
 
         let key = "floor-concrete";
         if ((tx + ty) % 11 === 0) key = "floor-cracked";
-        if (tx >= 21 && tx < 40) key = ty % 4 === 0 ? "floor-grate" : "floor-metal";
+        if (tx >= 21 && tx < 40)
+          key = ty % 4 === 0 ? "floor-grate" : "floor-metal";
         floor.add(this.add.image(x, y, key));
       }
     }
 
     const propData = [
-      [6, 7, "crate"], [7, 7, "crate"], [15, 12, "crate"], [46, 6, "crate"],
-      [53, 13, "crate"], [30, 27, "crate"], [31, 27, "crate"],
+      [6, 7, "crate"],
+      [7, 7, "crate"],
+      [15, 12, "crate"],
+      [46, 6, "crate"],
+      [53, 13, "crate"],
+      [30, 27, "crate"],
+      [31, 27, "crate"],
     ] as Array<[number, number, string]>;
     for (const [tx, ty, key] of propData) {
-      const prop = props.create(tx * TILE + 16, ty * TILE + 16, key) as Phaser.Physics.Arcade.Image;
+      const prop = props.create(
+        tx * TILE + 16,
+        ty * TILE + 16,
+        key,
+      ) as Phaser.Physics.Arcade.Image;
       prop.refreshBody();
     }
 
@@ -218,15 +248,33 @@ export class TileWorldScene extends Phaser.Scene {
       const localX = px - room.bounds.x;
       const localY = py - room.bounds.y;
       const onEdge =
-        localX < TILE || localY < TILE ||
-        localX >= room.bounds.width - TILE || localY >= room.bounds.height - TILE;
+        localX < TILE ||
+        localY < TILE ||
+        localX >= room.bounds.width - TILE ||
+        localY >= room.bounds.height - TILE;
       if (!onEdge) return false;
 
       const doorway =
-        (room.name === "LIVING QUARTERS" && localX >= room.bounds.width - TILE && localY >= 5 * TILE && localY <= 8 * TILE) ||
-        (room.name === "CENTRAL CORRIDOR" && ((localX < TILE && localY >= TILE && localY <= 5 * TILE) || (localX >= room.bounds.width - TILE && localY >= TILE && localY <= 5 * TILE) || (localY >= room.bounds.height - TILE && localX >= 3 * TILE && localX <= 12 * TILE))) ||
-        (room.name === "TRAINING ROOM" && localX < TILE && localY >= 5 * TILE && localY <= 8 * TILE) ||
-        (room.name === "LOWER PASSAGE" && localY < TILE && localX >= 2 * TILE && localX <= 7 * TILE);
+        (room.name === "LIVING QUARTERS" &&
+          localX >= room.bounds.width - TILE &&
+          localY >= 5 * TILE &&
+          localY <= 8 * TILE) ||
+        (room.name === "CENTRAL CORRIDOR" &&
+          ((localX < TILE && localY >= TILE && localY <= 5 * TILE) ||
+            (localX >= room.bounds.width - TILE &&
+              localY >= TILE &&
+              localY <= 5 * TILE) ||
+            (localY >= room.bounds.height - TILE &&
+              localX >= 3 * TILE &&
+              localX <= 12 * TILE))) ||
+        (room.name === "TRAINING ROOM" &&
+          localX < TILE &&
+          localY >= 5 * TILE &&
+          localY <= 8 * TILE) ||
+        (room.name === "LOWER PASSAGE" &&
+          localY < TILE &&
+          localX >= 2 * TILE &&
+          localX <= 7 * TILE);
       return !doorway;
     }
     return false;
@@ -234,71 +282,133 @@ export class TileWorldScene extends Phaser.Scene {
 
   private addFurniture(): void {
     const label = (x: number, y: number, text: string): void => {
-      this.add.text(x, y, text, {
-        fontFamily: "monospace",
-        fontSize: "12px",
-        color: "#a9b3b8",
-        backgroundColor: "#0a0e11cc",
-        padding: { x: 6, y: 3 },
-      }).setOrigin(0.5);
+      this.add
+        .text(x, y, text, {
+          fontFamily: "monospace",
+          fontSize: "12px",
+          color: "#a9b3b8",
+          backgroundColor: "#0a0e11cc",
+          padding: { x: 6, y: 3 },
+        })
+        .setOrigin(0.5);
     };
 
-    const bed = this.add.rectangle(7 * TILE, 9 * TILE, 5 * TILE, 2.6 * TILE, 0x334a36);
+    const bed = this.add.rectangle(
+      7 * TILE,
+      9 * TILE,
+      5 * TILE,
+      2.6 * TILE,
+      0x334a36,
+    );
     bed.setStrokeStyle(5, 0x5b3926);
-    this.add.rectangle(5.3 * TILE, 8.5 * TILE, 1.4 * TILE, 1.2 * TILE, 0xb6aa99);
+    this.add.rectangle(
+      5.3 * TILE,
+      8.5 * TILE,
+      1.4 * TILE,
+      1.2 * TILE,
+      0xb6aa99,
+    );
     label(7 * TILE, 10.7 * TILE, "BUNK");
 
-    const bench = this.add.rectangle(16 * TILE, 8 * TILE, 5 * TILE, 2 * TILE, 0x594027);
+    const bench = this.add.rectangle(
+      16 * TILE,
+      8 * TILE,
+      5 * TILE,
+      2 * TILE,
+      0x594027,
+    );
     bench.setStrokeStyle(4, 0x24170e);
     label(16 * TILE, 9.4 * TILE, "WEAPON STATION");
 
-    const storage = this.add.rectangle(7 * TILE, 14 * TILE, 4 * TILE, 1.6 * TILE, 0x2f4632);
+    const storage = this.add.rectangle(
+      7 * TILE,
+      14 * TILE,
+      4 * TILE,
+      1.6 * TILE,
+      0x2f4632,
+    );
     storage.setStrokeStyle(4, 0x142018);
     label(7 * TILE, 15.2 * TILE, "STORAGE");
 
     for (const x of [44, 49, 54, 58]) {
-      const target = this.add.rectangle(x * TILE, 10 * TILE, 1.1 * TILE, 2.2 * TILE, 0x79502f);
+      const target = this.add.rectangle(
+        x * TILE,
+        10 * TILE,
+        1.1 * TILE,
+        2.2 * TILE,
+        0x79502f,
+      );
       target.setStrokeStyle(3, 0x2b190e);
-      this.add.circle(x * TILE, 8.8 * TILE, 11, 0xa46f3d).setStrokeStyle(3, 0x2b190e);
+      this.add
+        .circle(x * TILE, 8.8 * TILE, 11, 0xa46f3d)
+        .setStrokeStyle(3, 0x2b190e);
     }
   }
 
   private createPlayer(): void {
-    this.player = this.physics.add.sprite(11 * TILE, 12 * TILE, "player-down-0");
+    this.player = this.physics.add.sprite(
+      11 * TILE,
+      12 * TILE,
+      "player-down-0",
+    );
     this.player.setCollideWorldBounds(true);
     this.player.setDepth(10);
     this.player.body.setSize(18, 20).setOffset(7, 10);
   }
 
   private createHud(): void {
-    this.roomText = this.add.text(18, 18, "", {
-      fontFamily: "monospace",
-      fontSize: "15px",
-      color: "#65e27c",
-      backgroundColor: "#05080be8",
-      padding: { x: 12, y: 8 },
-    }).setScrollFactor(0).setDepth(50);
+    this.roomText = this.add
+      .text(18, 18, "", {
+        fontFamily: "monospace",
+        fontSize: "15px",
+        color: "#65e27c",
+        backgroundColor: "#05080be8",
+        padding: { x: 12, y: 8 },
+      })
+      .setScrollFactor(0)
+      .setDepth(50);
 
-    this.add.text(1260, 698, `v${VERSION}`, {
-      fontFamily: "monospace",
-      fontSize: "11px",
-      color: "#829099",
-      backgroundColor: "#05080bd0",
-      padding: { x: 6, y: 3 },
-    }).setOrigin(1).setScrollFactor(0).setDepth(50);
+    this.add
+      .text(1260, 698, `v${VERSION}`, {
+        fontFamily: "monospace",
+        fontSize: "11px",
+        color: "#829099",
+        backgroundColor: "#05080bd0",
+        padding: { x: 6, y: 3 },
+      })
+      .setOrigin(1)
+      .setScrollFactor(0)
+      .setDepth(50);
   }
 
   private createActivationGate(): void {
-    const shade = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.78).setScrollFactor(0);
-    const button = this.add.rectangle(640, 360, 400, 120, 0x17351e).setScrollFactor(0);
+    const shade = this.add
+      .rectangle(640, 360, 1280, 720, 0x000000, 0.78)
+      .setScrollFactor(0);
+    const button = this.add
+      .rectangle(640, 360, 400, 120, 0x17351e)
+      .setScrollFactor(0);
     button.setStrokeStyle(3, 0x59dd72);
-    const title = this.add.text(640, 344, "TAP TO ENTER", {
-      fontFamily: "monospace", fontSize: "30px", color: "#6ff087", fontStyle: "bold",
-    }).setOrigin(0.5).setScrollFactor(0);
-    const subtitle = this.add.text(640, 390, "Smooth tile world • controller enabled", {
-      fontFamily: "monospace", fontSize: "14px", color: "#d9e4dc",
-    }).setOrigin(0.5).setScrollFactor(0);
-    this.activation = this.add.container(0, 0, [shade, button, title, subtitle]).setDepth(100);
+    const title = this.add
+      .text(640, 344, "TAP TO ENTER", {
+        fontFamily: "monospace",
+        fontSize: "30px",
+        color: "#6ff087",
+        fontStyle: "bold",
+      })
+      .setOrigin(0.5)
+      .setScrollFactor(0);
+    const subtitle = this.add
+      .text(640, 390, "Smooth tile world • controller enabled", {
+        fontFamily: "monospace",
+        fontSize: "14px",
+        color: "#d9e4dc",
+      })
+      .setOrigin(0.5)
+      .setScrollFactor(0);
+    this.activation = this.add
+      .container(0, 0, [shade, button, title, subtitle])
+      .setDepth(100);
     button.setInteractive({ useHandCursor: true }).on("pointerdown", () => {
       navigator.getGamepads();
       this.activation.destroy();
@@ -307,8 +417,16 @@ export class TileWorldScene extends Phaser.Scene {
 
   private readMove(pad: Gamepad | null): Phaser.Math.Vector2 {
     const key = (name: string): boolean => this.keys[name]?.isDown ?? false;
-    const keyboardX = (this.cursors.left.isDown ? -1 : 0) + (this.cursors.right.isDown ? 1 : 0) + (key("A") ? -1 : 0) + (key("D") ? 1 : 0);
-    const keyboardY = (this.cursors.up.isDown ? -1 : 0) + (this.cursors.down.isDown ? 1 : 0) + (key("W") ? -1 : 0) + (key("S") ? 1 : 0);
+    const keyboardX =
+      (this.cursors.left.isDown ? -1 : 0) +
+      (this.cursors.right.isDown ? 1 : 0) +
+      (key("A") ? -1 : 0) +
+      (key("D") ? 1 : 0);
+    const keyboardY =
+      (this.cursors.up.isDown ? -1 : 0) +
+      (this.cursors.down.isDown ? 1 : 0) +
+      (key("W") ? -1 : 0) +
+      (key("S") ? 1 : 0);
     const px = Math.abs(pad?.axes[0] ?? 0) > 0.16 ? (pad?.axes[0] ?? 0) : 0;
     const py = Math.abs(pad?.axes[1] ?? 0) > 0.16 ? (pad?.axes[1] ?? 0) : 0;
     return new Phaser.Math.Vector2(px || keyboardX, py || keyboardY).limit(1);
@@ -316,11 +434,15 @@ export class TileWorldScene extends Phaser.Scene {
 
   private updateFacing(move: Phaser.Math.Vector2): void {
     if (move.lengthSq() < 0.05) return;
-    if (Math.abs(move.x) > Math.abs(move.y)) this.facing = move.x < 0 ? "left" : "right";
+    if (Math.abs(move.x) > Math.abs(move.y))
+      this.facing = move.x < 0 ? "left" : "right";
     else this.facing = move.y < 0 ? "up" : "down";
   }
 
-  private updatePlayerAnimation(move: Phaser.Math.Vector2, delta: number): void {
+  private updatePlayerAnimation(
+    move: Phaser.Math.Vector2,
+    delta: number,
+  ): void {
     if (move.lengthSq() < 0.05) {
       this.walkFrame = 0;
       this.walkTimer = 0;
@@ -335,11 +457,15 @@ export class TileWorldScene extends Phaser.Scene {
   }
 
   private updateCameraMode(): void {
-    const zone = ROOMS.find((room) => room.bounds.contains(this.player.x, this.player.y));
+    const zone = ROOMS.find((room) =>
+      room.bounds.contains(this.player.x, this.player.y),
+    );
     if (!zone) return;
     if (zone.name !== this.currentRoom) {
       this.currentRoom = zone.name;
-      this.roomText.setText(`${zone.name}\n${zone.cameraMode === "room" ? "FRAMED CAMERA" : "FREE CAMERA"}`);
+      this.roomText.setText(
+        `${zone.name}\n${zone.cameraMode === "room" ? "FRAMED CAMERA" : "FREE CAMERA"}`,
+      );
     }
 
     if (zone.cameraMode === "room") {
@@ -347,8 +473,16 @@ export class TileWorldScene extends Phaser.Scene {
       const centreX = zone.bounds.centerX;
       const centreY = zone.bounds.centerY;
       camera.stopFollow();
-      camera.scrollX = Phaser.Math.Linear(camera.scrollX, centreX - camera.width / (2 * camera.zoom), 0.08);
-      camera.scrollY = Phaser.Math.Linear(camera.scrollY, centreY - camera.height / (2 * camera.zoom), 0.08);
+      camera.scrollX = Phaser.Math.Linear(
+        camera.scrollX,
+        centreX - camera.width / (2 * camera.zoom),
+        0.08,
+      );
+      camera.scrollY = Phaser.Math.Linear(
+        camera.scrollY,
+        centreY - camera.height / (2 * camera.zoom),
+        0.08,
+      );
     } else if (!this.cameras.main.followTarget) {
       this.cameras.main.startFollow(this.player, true, 0.09, 0.09);
     }
@@ -357,6 +491,8 @@ export class TileWorldScene extends Phaser.Scene {
   private getGamepad(): Gamepad | null {
     const getter = navigator.getGamepads?.bind(navigator);
     if (!getter) return null;
-    return Array.from(getter()).find((pad): pad is Gamepad => pad !== null) ?? null;
+    return (
+      Array.from(getter()).find((pad): pad is Gamepad => pad !== null) ?? null
+    );
   }
 }
