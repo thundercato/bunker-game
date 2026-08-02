@@ -57,7 +57,9 @@ controls.innerHTML = `
 `;
 parent.append(controls);
 
-for (const button of controls.querySelectorAll<HTMLButtonElement>("[data-key]")) {
+for (const button of controls.querySelectorAll<HTMLButtonElement>(
+  "[data-key]",
+)) {
   const key = button.dataset.key;
   if (!key) continue;
   const press = (event: PointerEvent): void => {
@@ -68,7 +70,8 @@ for (const button of controls.querySelectorAll<HTMLButtonElement>("[data-key]"))
   };
   const release = (event: PointerEvent): void => {
     event.preventDefault();
-    if (button.hasPointerCapture(event.pointerId)) button.releasePointerCapture(event.pointerId);
+    if (button.hasPointerCapture(event.pointerId))
+      button.releasePointerCapture(event.pointerId);
     button.classList.remove("is-pressed");
     setVirtualKey(game, key, false);
   };
@@ -83,11 +86,17 @@ for (const button of controls.querySelectorAll<HTMLButtonElement>("[data-key]"))
 }
 
 const releaseAllTouchKeys = (): void => {
-  for (const key of ["w", "a", "s", "d", "e", "Escape", "Shift"]) setVirtualKey(game, key, false);
-  for (const button of controls.querySelectorAll<HTMLButtonElement>(".is-pressed")) button.classList.remove("is-pressed");
+  for (const key of ["w", "a", "s", "d", "e", "Escape", "Shift"])
+    setVirtualKey(game, key, false);
+  for (const button of controls.querySelectorAll<HTMLButtonElement>(
+    ".is-pressed",
+  ))
+    button.classList.remove("is-pressed");
 };
 window.addEventListener("blur", releaseAllTouchKeys);
-document.addEventListener("visibilitychange", () => { if (document.hidden) releaseAllTouchKeys(); });
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) releaseAllTouchKeys();
+});
 
 const overlay = document.createElement("section");
 overlay.className = "game-overlay";
@@ -111,9 +120,10 @@ const closeStorage = (): void => {
   window.dispatchEvent(new Event("bunker-storage-close"));
 };
 
-const itemArt = (item: StoredItem): string => item.id === "cigarettes"
-  ? `<div class="item-art cigarettes-art"><div class="cig-pack"><span>№ 6</span><small>FILTER</small></div></div>`
-  : `<div class="item-art jerky-art"><div class="jerky-pack"><span>BEEF</span><small>JERKY</small><i></i><i></i></div></div>`;
+const itemArt = (item: StoredItem): string =>
+  item.id === "cigarettes"
+    ? `<div class="item-art cigarettes-art"><div class="cig-pack"><span>№ 6</span><small>FILTER</small></div></div>`
+    : `<div class="item-art jerky-art"><div class="jerky-pack"><span>BEEF</span><small>JERKY</small><i></i><i></i></div></div>`;
 
 const renderStorage = (): void => {
   overlay.classList.add("is-open");
@@ -124,7 +134,9 @@ const renderStorage = (): void => {
   const grid = panel.querySelector<HTMLElement>(".storage-grid");
   if (!grid) throw new Error("Storage grid missing");
   for (let slot = 0; slot < 18; slot += 1) {
-    const item = storageItems.find((candidate) => candidate.slot === slot && !candidate.taken);
+    const item = storageItems.find(
+      (candidate) => candidate.slot === slot && !candidate.taken,
+    );
     const cell = document.createElement("button");
     cell.className = `storage-cell${item ? " has-item" : ""}`;
     cell.disabled = !item;
@@ -134,7 +146,9 @@ const renderStorage = (): void => {
     }
     grid.append(cell);
   }
-  panel.querySelector<HTMLButtonElement>(".overlay-back")?.addEventListener("click", closeStorage);
+  panel
+    .querySelector<HTMLButtonElement>(".overlay-back")
+    ?.addEventListener("click", closeStorage);
   overlay.replaceChildren(panel);
 };
 
@@ -147,14 +161,28 @@ const renderItem = (item: StoredItem): void => {
     <div class="item-info"><p>${item.details}</p><ul>${item.stats.map((stat) => `<li>${stat}</li>`).join("")}</ul></div>
     <div class="item-actions"><button class="take-item">TAKE</button><button class="item-back">BACK</button></div>
   `;
-  panel.querySelector<HTMLButtonElement>(".take-item")?.addEventListener("click", () => {
-    window.dispatchEvent(new CustomEvent("bunker-take-item", { detail: { id: item.id } }));
-  });
-  panel.querySelector<HTMLButtonElement>(".item-back")?.addEventListener("click", renderStorage);
+  panel
+    .querySelector<HTMLButtonElement>(".take-item")
+    ?.addEventListener("click", () => {
+      window.dispatchEvent(
+        new CustomEvent("bunker-take-item", { detail: { id: item.id } }),
+      );
+    });
+  panel
+    .querySelector<HTMLButtonElement>(".item-back")
+    ?.addEventListener("click", renderStorage);
   overlay.replaceChildren(panel);
 };
 
-window.addEventListener("bunker-state", ((event: CustomEvent<{ time: string; health: number; hunger: number; thirst: number; stamina: number }>) => {
+window.addEventListener("bunker-state", ((
+  event: CustomEvent<{
+    time: string;
+    health: number;
+    hunger: number;
+    thirst: number;
+    stamina: number;
+  }>,
+) => {
   const setWidth = (selector: string, value: number): void => {
     const element = hud.querySelector<HTMLElement>(selector);
     if (element) element.style.width = `${Math.max(0, Math.min(100, value))}%`;
@@ -167,7 +195,9 @@ window.addEventListener("bunker-state", ((event: CustomEvent<{ time: string; hea
   setWidth(".stamina-fill", event.detail.stamina);
 }) as EventListener);
 
-window.addEventListener("bunker-storage-open", ((event: CustomEvent<{ items: StoredItem[] }>) => {
+window.addEventListener("bunker-storage-open", ((
+  event: CustomEvent<{ items: StoredItem[] }>,
+) => {
   storageItems = event.detail.items;
   renderStorage();
 }) as EventListener);
