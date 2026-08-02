@@ -233,7 +233,10 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
       const lx = x - zone.rect.x;
       const ly = y - zone.rect.y;
       const edge =
-        lx < T || ly < T || lx >= zone.rect.width - T || ly >= zone.rect.height - T;
+        lx < T ||
+        ly < T ||
+        lx >= zone.rect.width - T ||
+        ly >= zone.rect.height - T;
       if (!edge) return false;
       const open =
         (zone.name === "LIVING QUARTERS" &&
@@ -244,7 +247,10 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
           ((lx < T && ly >= T && ly <= 4 * T) ||
             (lx >= zone.rect.width - T && ly >= T && ly <= 4 * T) ||
             (ly >= zone.rect.height - T && lx >= 4 * T && lx <= 12 * T))) ||
-        (zone.name === "TRAINING ROOM" && lx < T && ly >= 5 * T && ly <= 8 * T) ||
+        (zone.name === "TRAINING ROOM" &&
+          lx < T &&
+          ly >= 5 * T &&
+          ly <= 8 * T) ||
         (zone.name === "LOWER PASSAGE" && ly < T && lx >= 2 * T && lx <= 6 * T);
       return !open;
     }
@@ -371,7 +377,9 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
       .setOrigin(0.5)
       .setScrollFactor(0);
 
-    this.gate = this.add.container(0, 0, [shade, button, title, sub]).setDepth(220);
+    this.gate = this.add
+      .container(0, 0, [shade, button, title, sub])
+      .setDepth(220);
     button.setInteractive({ useHandCursor: true }).on("pointerdown", () => {
       navigator.getGamepads();
       this.entered = true;
@@ -470,7 +478,9 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
   }
 
   private cameraLogic(): void {
-    const zone = ZONES.find((item) => item.rect.contains(this.player.x, this.player.y));
+    const zone = ZONES.find((item) =>
+      item.rect.contains(this.player.x, this.player.y),
+    );
     if (!zone) return;
 
     if (zone.name !== this.room) {
@@ -510,8 +520,7 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
 
   private handleInteraction(): void {
     const padPressed = this.gamepad()?.buttons[0]?.pressed ?? false;
-    const pressed =
-      this.keys.E.isDown || this.keys.SPACE.isDown || padPressed;
+    const pressed = this.keys.E.isDown || this.keys.SPACE.isDown || padPressed;
     if (pressed && !this.interactionHeld) this.tryInteract();
     this.interactionHeld = pressed;
 
@@ -522,7 +531,9 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
         storage: "STORAGE CHEST",
         weapons: "WEAPON STATION",
       };
-      this.promptLabel.setText(`E / A / USE  ${names[nearby]}`).setVisible(true);
+      this.promptLabel
+        .setText(`E / A / USE  ${names[nearby]}`)
+        .setVisible(true);
     } else {
       this.promptLabel.setVisible(false);
     }
@@ -541,7 +552,12 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
   }
 
   private nearbyInteraction(): Interaction | null {
-    const points: Array<{ type: Interaction; x: number; y: number; range: number }> = [
+    const points: Array<{
+      type: Interaction;
+      x: number;
+      y: number;
+      range: number;
+    }> = [
       { type: "bunk", x: 7 * T, y: 9 * T, range: 115 },
       { type: "storage", x: 7 * T, y: 14 * T, range: 100 },
       { type: "weapons", x: 16 * T, y: 8 * T, range: 110 },
@@ -549,14 +565,21 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
     return (
       points.find(
         (point) =>
-          Phaser.Math.Distance.Between(this.player.x, this.player.y, point.x, point.y) <
-          point.range,
+          Phaser.Math.Distance.Between(
+            this.player.x,
+            this.player.y,
+            point.x,
+            point.y,
+          ) < point.range,
       )?.type ?? null
     );
   }
 
   private openBunk(): void {
-    const panel = this.modalBase("YOUR BUNK", "A narrow military cot. The blanket smells faintly of dust and machine oil.");
+    const panel = this.modalBase(
+      "YOUR BUNK",
+      "A narrow military cot. The blanket smells faintly of dust and machine oil.",
+    );
     this.addModalButton(panel, 450, "SLEEP 1 HOUR", () => this.sleep(60));
     this.addModalButton(panel, 530, "SLEEP 4 HOURS", () => this.sleep(240));
     this.addModalButton(panel, 610, "SLEEP 8 HOURS", () => this.sleep(480));
@@ -567,14 +590,28 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
       "STORAGE CHEST",
       "A battered green chest with a stubborn latch. Two useful relics remain inside.",
     );
-    this.addItemCard(panel, 280, "CIGARETTES", "Old military issue. Dry, but probably smokeable.", this.cigarettesTaken, () => {
-      this.cigarettesTaken = true;
-      this.openStorage();
-    });
-    this.addItemCard(panel, 480, "BEEF JERKY", "Salty strips sealed in cloudy plastic.", this.jerkyTaken, () => {
-      this.jerkyTaken = true;
-      this.openStorage();
-    });
+    this.addItemCard(
+      panel,
+      280,
+      "CIGARETTES",
+      "Old military issue. Dry, but probably smokeable.",
+      this.cigarettesTaken,
+      () => {
+        this.cigarettesTaken = true;
+        this.openStorage();
+      },
+    );
+    this.addItemCard(
+      panel,
+      480,
+      "BEEF JERKY",
+      "Salty strips sealed in cloudy plastic.",
+      this.jerkyTaken,
+      () => {
+        this.jerkyTaken = true;
+        this.openStorage();
+      },
+    );
   }
 
   private openWeapons(): void {
@@ -601,7 +638,10 @@ export class ScrollingBunkerV3Scene extends Phaser.Scene {
     );
   }
 
-  private modalBase(title: string, description: string): Phaser.GameObjects.Container {
+  private modalBase(
+    title: string,
+    description: string,
+  ): Phaser.GameObjects.Container {
     this.closeModal();
     const shade = this.add
       .rectangle(640, 360, 1280, 720, 0x000000, 0.88)
