@@ -1,0 +1,30 @@
+name: Bootstrap repository
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - bootstrap.tar.gz.b64
+      - .github/workflows/bootstrap.yml
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Expand repository foundation
+        run: |
+          base64 --decode bootstrap.tar.gz.b64 > /tmp/bunker-game.tar.gz
+          tar -xzf /tmp/bunker-game.tar.gz
+          rm -f bootstrap.tar.gz.b64 .github/workflows/bootstrap.yml
+      - name: Commit foundation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git commit -m "chore: initialise modular Phaser foundation"
+          git push
