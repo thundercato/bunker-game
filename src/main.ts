@@ -61,7 +61,9 @@ const sendKey = (type: "keydown" | "keyup", key: string): void => {
   );
 };
 
-for (const button of controls.querySelectorAll<HTMLButtonElement>("[data-key]")) {
+for (const button of controls.querySelectorAll<HTMLButtonElement>(
+  "[data-key]",
+)) {
   const key = button.dataset.key;
   if (!key) continue;
 
