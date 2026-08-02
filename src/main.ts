@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 import { setVirtualKey } from "@/input/TouchInputBridge";
-import { BunkerV5Scene } from "@/scenes/BunkerV5Scene";
+import { BunkerV6Scene } from "@/scenes/BunkerV6Scene";
 import "@/style.css";
 
-const VERSION = "0.5.00";
+const VERSION = "0.5.10";
 const parent = document.querySelector<HTMLElement>("#app");
 if (!parent) throw new Error("Missing #app element.");
 
@@ -13,26 +13,31 @@ const game = new Phaser.Game({
   width: 1280,
   height: 720,
   backgroundColor: "#05090d",
-  scene: [BunkerV5Scene],
+  scene: [BunkerV6Scene],
   physics: {
     default: "arcade",
-    arcade: {
-      gravity: { x: 0, y: 0 },
-      debug: false,
-    },
+    arcade: { gravity: { x: 0, y: 0 }, debug: false },
   },
   pixelArt: true,
   antialias: false,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-  },
+  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
 });
 
 const versionBadge = document.createElement("div");
 versionBadge.className = "start-version";
 versionBadge.textContent = `BUNKER v${VERSION}`;
 parent.append(versionBadge);
+
+const hud = document.createElement("aside");
+hud.className = "survival-hud";
+hud.innerHTML = `
+  <div class="watch-shell"><span class="watch-time">08:00</span></div>
+  <div class="status-row"><span>HEALTH</span><i><b class="health-fill"></b></i></div>
+  <div class="status-row"><span>HUNGER</span><i><b class="hunger-fill"></b></i></div>
+  <div class="status-row"><span>THIRST</span><i><b class="thirst-fill"></b></i></div>
+  <div class="status-row stamina-row"><span>STAMINA</span><i><b class="stamina-fill"></b></i></div>
+`;
+parent.append(hud);
 
 const controls = document.createElement("div");
 controls.className = "touch-controls";
@@ -52,28 +57,21 @@ controls.innerHTML = `
 `;
 parent.append(controls);
 
-for (const button of controls.querySelectorAll<HTMLButtonElement>(
-  "[data-key]",
-)) {
+for (const button of controls.querySelectorAll<HTMLButtonElement>("[data-key]")) {
   const key = button.dataset.key;
   if (!key) continue;
-
   const press = (event: PointerEvent): void => {
     event.preventDefault();
     button.setPointerCapture(event.pointerId);
     button.classList.add("is-pressed");
     setVirtualKey(game, key, true);
   };
-
   const release = (event: PointerEvent): void => {
     event.preventDefault();
-    if (button.hasPointerCapture(event.pointerId)) {
-      button.releasePointerCapture(event.pointerId);
-    }
+    if (button.hasPointerCapture(event.pointerId)) button.releasePointerCapture(event.pointerId);
     button.classList.remove("is-pressed");
     setVirtualKey(game, key, false);
   };
-
   button.addEventListener("pointerdown", press);
   button.addEventListener("pointerup", release);
   button.addEventListener("pointercancel", release);
@@ -85,20 +83,95 @@ for (const button of controls.querySelectorAll<HTMLButtonElement>(
 }
 
 const releaseAllTouchKeys = (): void => {
-  for (const key of ["w", "a", "s", "d", "e", "Escape", "Shift"]) {
-    setVirtualKey(game, key, false);
-  }
-  for (const button of controls.querySelectorAll<HTMLButtonElement>(
-    ".is-pressed",
-  )) {
-    button.classList.remove("is-pressed");
-  }
+  for (const key of ["w", "a", "s", "d", "e", "Escape", "Shift"]) setVirtualKey(game, key, false);
+  for (const button of controls.querySelectorAll<HTMLButtonElement>(".is-pressed")) button.classList.remove("is-pressed");
+};
+window.addEventListener("blur", releaseAllTouchKeys);
+document.addEventListener("visibilitychange", () => { if (document.hidden) releaseAllTouchKeys(); });
+
+const overlay = document.createElement("section");
+overlay.className = "game-overlay";
+parent.append(overlay);
+
+type StoredItem = {
+  id: "cigarettes" | "jerky";
+  name: string;
+  description: string;
+  details: string;
+  stats: string[];
+  slot: number;
+  taken: boolean;
+};
+let storageItems: StoredItem[] = [];
+
+const closeStorage = (): void => {
+  overlay.classList.remove("is-open");
+  overlay.replaceChildren();
+  controls.classList.remove("is-hidden");
+  window.dispatchEvent(new Event("bunker-storage-close"));
 };
 
-window.addEventListener("blur", releaseAllTouchKeys);
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) releaseAllTouchKeys();
-});
+const itemArt = (item: StoredItem): string => item.id === "cigarettes"
+  ? `<div class="item-art cigarettes-art"><div class="cig-pack"><span>№ 6</span><small>FILTER</small></div></div>`
+  : `<div class="item-art jerky-art"><div class="jerky-pack"><span>BEEF</span><small>JERKY</small><i></i><i></i></div></div>`;
+
+const renderStorage = (): void => {
+  overlay.classList.add("is-open");
+  controls.classList.add("is-hidden");
+  const panel = document.createElement("div");
+  panel.className = "storage-panel";
+  panel.innerHTML = `<header><h2>STORAGE TRUNK</h2><p>6 × 3 storage grid</p></header><div class="storage-grid"></div><button class="overlay-back">BACK</button>`;
+  const grid = panel.querySelector<HTMLElement>(".storage-grid");
+  if (!grid) throw new Error("Storage grid missing");
+  for (let slot = 0; slot < 18; slot += 1) {
+    const item = storageItems.find((candidate) => candidate.slot === slot && !candidate.taken);
+    const cell = document.createElement("button");
+    cell.className = `storage-cell${item ? " has-item" : ""}`;
+    cell.disabled = !item;
+    if (item) {
+      cell.innerHTML = `${item.id === "cigarettes" ? "▥" : "▰"}<span>${item.id === "cigarettes" ? "CIGS" : "JERKY"}</span>`;
+      cell.addEventListener("click", () => renderItem(item));
+    }
+    grid.append(cell);
+  }
+  panel.querySelector<HTMLButtonElement>(".overlay-back")?.addEventListener("click", closeStorage);
+  overlay.replaceChildren(panel);
+};
+
+const renderItem = (item: StoredItem): void => {
+  const panel = document.createElement("div");
+  panel.className = "item-panel";
+  panel.innerHTML = `
+    <header><h2>${item.name}</h2><p>${item.description}</p></header>
+    ${itemArt(item)}
+    <div class="item-info"><p>${item.details}</p><ul>${item.stats.map((stat) => `<li>${stat}</li>`).join("")}</ul></div>
+    <div class="item-actions"><button class="take-item">TAKE</button><button class="item-back">BACK</button></div>
+  `;
+  panel.querySelector<HTMLButtonElement>(".take-item")?.addEventListener("click", () => {
+    window.dispatchEvent(new CustomEvent("bunker-take-item", { detail: { id: item.id } }));
+  });
+  panel.querySelector<HTMLButtonElement>(".item-back")?.addEventListener("click", renderStorage);
+  overlay.replaceChildren(panel);
+};
+
+window.addEventListener("bunker-state", ((event: CustomEvent<{ time: string; health: number; hunger: number; thirst: number; stamina: number }>) => {
+  const setWidth = (selector: string, value: number): void => {
+    const element = hud.querySelector<HTMLElement>(selector);
+    if (element) element.style.width = `${Math.max(0, Math.min(100, value))}%`;
+  };
+  const watch = hud.querySelector<HTMLElement>(".watch-time");
+  if (watch) watch.textContent = event.detail.time;
+  setWidth(".health-fill", event.detail.health);
+  setWidth(".hunger-fill", event.detail.hunger);
+  setWidth(".thirst-fill", event.detail.thirst);
+  setWidth(".stamina-fill", event.detail.stamina);
+}) as EventListener);
+
+window.addEventListener("bunker-storage-open", ((event: CustomEvent<{ items: StoredItem[] }>) => {
+  storageItems = event.detail.items;
+  renderStorage();
+}) as EventListener);
+window.addEventListener("bunker-storage-close-request", closeStorage);
 
 const enterGame = (): void => {
   versionBadge.remove();
