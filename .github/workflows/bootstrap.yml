@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - bootstrap.tar.gz.b64
+      - .bootstrap-trigger
       - .github/workflows/bootstrap.yml
 
 permissions:
