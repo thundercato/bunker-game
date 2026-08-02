@@ -5,6 +5,10 @@ import type { GamepadSnapshot, InputSnapshot } from "@/input/InputTypes";
 const AXIS_DEADZONE = 0.12;
 const BUTTON_ACTIVITY_THRESHOLD = 0.1;
 
+type GamepadNavigator = Navigator & {
+  getGamepads?: () => readonly (Gamepad | null)[];
+};
+
 function normaliseAxis(value: number): number {
   if (Math.abs(value) < AXIS_DEADZONE) return 0;
   return Math.round(value * 1000) / 1000;
@@ -31,14 +35,26 @@ export class InputService {
   private started = false;
   private previousIndexes = new Set<number>();
   private lastSnapshot: InputSnapshot = { activeDevice: null, gamepads: [] };
+  private activationCount = 0;
 
   public constructor(private readonly events: EventBus<GameEvents>) {}
+
+  public isGamepadApiAvailable(): boolean {
+    return typeof (navigator as GamepadNavigator).getGamepads === "function";
+  }
+
+  public getActivationCount(): number {
+    return this.activationCount;
+  }
 
   public start(): void {
     if (this.started) return;
     this.started = true;
     window.addEventListener("gamepadconnected", this.handleConnection);
     window.addEventListener("gamepaddisconnected", this.handleDisconnection);
+    window.addEventListener("focus", this.handleResume);
+    window.addEventListener("pageshow", this.handleResume);
+    document.addEventListener("visibilitychange", this.handleVisibilityChange);
     this.poll();
   }
 
@@ -47,13 +63,26 @@ export class InputService {
     this.started = false;
     window.removeEventListener("gamepadconnected", this.handleConnection);
     window.removeEventListener("gamepaddisconnected", this.handleDisconnection);
+    window.removeEventListener("focus", this.handleResume);
+    window.removeEventListener("pageshow", this.handleResume);
+    document.removeEventListener("visibilitychange", this.handleVisibilityChange);
     this.previousIndexes.clear();
   }
 
+  public activate(): InputSnapshot {
+    if (!this.started) this.start();
+    this.activationCount += 1;
+    this.previousIndexes.clear();
+    return this.poll();
+  }
+
   public poll(): InputSnapshot {
-    const gamepads = Array.from(navigator.getGamepads())
-      .filter((gamepad): gamepad is Gamepad => gamepad !== null)
-      .map(snapshotGamepad);
+    const getGamepads = (navigator as GamepadNavigator).getGamepads;
+    const gamepads = getGamepads
+      ? Array.from(getGamepads.call(navigator))
+          .filter((gamepad): gamepad is Gamepad => gamepad !== null)
+          .map(snapshotGamepad)
+      : [];
 
     const currentIndexes = new Set(gamepads.map((gamepad) => gamepad.index));
 
@@ -105,5 +134,13 @@ export class InputService {
     this.events.emit("input:gamepad-disconnected", {
       index: event.gamepad.index,
     });
+  };
+
+  private readonly handleResume = (): void => {
+    this.activate();
+  };
+
+  private readonly handleVisibilityChange = (): void => {
+    if (document.visibilityState === "visible") this.activate();
   };
 }
