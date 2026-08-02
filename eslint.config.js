@@ -62,9 +62,11 @@ export default tseslint.config(
     files: [
       "src/scenes/ScrollingBunkerV3Scene.ts",
       "src/scenes/BunkerV5Scene.ts",
+      "src/scenes/BunkerV6Scene.ts",
     ],
     rules: {
       "@typescript-eslint/no-unnecessary-condition": "off",
+      "@typescript-eslint/no-unnecessary-boolean-literal-compare": "off",
     },
   },
   prettier,
