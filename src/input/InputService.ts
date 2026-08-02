@@ -65,7 +65,10 @@ export class InputService {
     window.removeEventListener("gamepaddisconnected", this.handleDisconnection);
     window.removeEventListener("focus", this.handleResume);
     window.removeEventListener("pageshow", this.handleResume);
-    document.removeEventListener("visibilitychange", this.handleVisibilityChange);
+    document.removeEventListener(
+      "visibilitychange",
+      this.handleVisibilityChange,
+    );
     this.previousIndexes.clear();
   }
 

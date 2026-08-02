@@ -108,13 +108,18 @@ export class ControllerTestScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.device = this.add
-      .text(640, 292, "Connect your controller, tap Activate, then press a button", {
-        fontFamily: "monospace",
-        fontSize: "14px",
-        color: "#cbd5e1",
-        align: "center",
-        wordWrap: { width: 1050 },
-      })
+      .text(
+        640,
+        292,
+        "Connect your controller, tap Activate, then press a button",
+        {
+          fontFamily: "monospace",
+          fontSize: "14px",
+          color: "#cbd5e1",
+          align: "center",
+          wordWrap: { width: 1050 },
+        },
+      )
       .setOrigin(0.5);
 
     this.axes = this.add.text(130, 352, "AXES\n\nNo input", {
@@ -207,9 +212,11 @@ export class ControllerTestScene extends Phaser.Scene {
     );
 
     this.axes?.setText(
-      `AXES\n\n${pad.axes
-        .map((value, index) => `${String(index)}: ${value.toFixed(3)}`)
-        .join("\n") || "None"}`,
+      `AXES\n\n${
+        pad.axes
+          .map((value, index) => `${String(index)}: ${value.toFixed(3)}`)
+          .join("\n") || "None"
+      }`,
     );
 
     const pressed = pad.buttons
