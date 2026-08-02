@@ -6,7 +6,8 @@ const KNIFE_SPEED = 720;
 const MAX_SHARPNESS = 50;
 
 type RoomId = "quarters" | "corridor" | "kill" | "locked-a" | "locked-b";
-type KnifeState = "rack" | "held" | "flying" | "ground" | "stuck-wall" | "stuck-target";
+type KnifeState =
+  "rack" | "held" | "flying" | "ground" | "stuck-wall" | "stuck-target";
 
 type Target = {
   body: Phaser.GameObjects.Container;
@@ -66,7 +67,8 @@ export class KnifeTrainingScene extends Phaser.Scene {
 
     const interact = this.buttonPressed(2, pad) || Boolean(this.keys.E.isDown);
     const stab = this.buttonPressed(0, pad) || Boolean(this.keys.F.isDown);
-    const throwKnife = this.buttonPressed(3, pad) || Boolean(this.keys.Q.isDown);
+    const throwKnife =
+      this.buttonPressed(3, pad) || Boolean(this.keys.Q.isDown);
 
     if (interact) this.handleInteract();
     if (stab) this.stab();
@@ -144,7 +146,11 @@ export class KnifeTrainingScene extends Phaser.Scene {
     g.fillStyle(0xb0a79c).fillRoundedRect(x + 10, y + 10, 165, 45, 6);
   }
 
-  private drawBench(g: Phaser.GameObjects.Graphics, x: number, y: number): void {
+  private drawBench(
+    g: Phaser.GameObjects.Graphics,
+    x: number,
+    y: number,
+  ): void {
     g.fillStyle(0x563a24).fillRoundedRect(x, y + 35, 170, 140, 6);
     g.fillStyle(0x2e3d2f).fillRoundedRect(x + 18, y + 5, 75, 42, 5);
     g.fillStyle(0x8f9493).fillTriangle(
@@ -158,19 +164,31 @@ export class KnifeTrainingScene extends Phaser.Scene {
     g.fillStyle(0x7e3829).fillRect(x + 145, y + 25, 20, 10);
   }
 
-  private drawStorage(g: Phaser.GameObjects.Graphics, x: number, y: number): void {
+  private drawStorage(
+    g: Phaser.GameObjects.Graphics,
+    x: number,
+    y: number,
+  ): void {
     g.fillStyle(0x2b3e2d).fillRoundedRect(x, y, 185, 95, 7);
     g.lineStyle(4, 0x101711).strokeRoundedRect(x, y, 185, 95, 7);
     g.fillStyle(0x8b7a51).fillRect(x + 82, y + 40, 22, 13);
   }
 
-  private drawCooker(g: Phaser.GameObjects.Graphics, x: number, y: number): void {
+  private drawCooker(
+    g: Phaser.GameObjects.Graphics,
+    x: number,
+    y: number,
+  ): void {
     g.fillStyle(0x484d50).fillRoundedRect(x, y, 145, 110, 6);
     g.fillStyle(0x171b1d).fillCircle(x + 42, y + 40, 25);
     g.fillStyle(0x8b5c2d).fillEllipse(x + 42, y + 37, 28, 10);
   }
 
-  private wallLight(g: Phaser.GameObjects.Graphics, x: number, y: number): void {
+  private wallLight(
+    g: Phaser.GameObjects.Graphics,
+    x: number,
+    y: number,
+  ): void {
     g.fillStyle(0x6b542e, 0.22).fillCircle(x, y, 46);
     g.fillStyle(0xf4c66a).fillRoundedRect(x - 13, y - 4, 26, 8, 3);
   }
@@ -221,7 +239,11 @@ export class KnifeTrainingScene extends Phaser.Scene {
       g.strokeRoundedRect(-24, -8, 48, 78, 12);
       g.fillStyle(0xb64235).fillCircle(0, 15, 12);
       const body = this.add.container(x, y + 130, [g]);
-      this.targets.push({ body, active: false, timer: Phaser.Math.Between(900, 2500) });
+      this.targets.push({
+        body,
+        active: false,
+        timer: Phaser.Math.Between(900, 2500),
+      });
     }
   }
 
@@ -240,12 +262,17 @@ export class KnifeTrainingScene extends Phaser.Scene {
     });
 
     this.panel(965, 18, 295, 122);
-    this.weaponHud = this.add.text(983, 34, "KNIFE: ON RACK\nSHARPNESS: 50/50\nA STAB   X INTERACT   Y THROW", {
-      fontFamily: "monospace",
-      fontSize: "13px",
-      color: "#d7dde1",
-      lineSpacing: 7,
-    });
+    this.weaponHud = this.add.text(
+      983,
+      34,
+      "KNIFE: ON RACK\nSHARPNESS: 50/50\nA STAB   X INTERACT   Y THROW",
+      {
+        fontFamily: "monospace",
+        fontSize: "13px",
+        color: "#d7dde1",
+        lineSpacing: 7,
+      },
+    );
 
     this.prompt = this.add
       .text(640, 680, "", {
@@ -266,7 +293,9 @@ export class KnifeTrainingScene extends Phaser.Scene {
   }
 
   private panel(x: number, y: number, width: number, height: number): void {
-    const panel = this.add.rectangle(x, y, width, height, 0x05080b, 0.94).setOrigin(0);
+    const panel = this.add
+      .rectangle(x, y, width, height, 0x05080b, 0.94)
+      .setOrigin(0);
     panel.setStrokeStyle(2, 0x39434b);
   }
 
@@ -289,7 +318,9 @@ export class KnifeTrainingScene extends Phaser.Scene {
         color: "#d9e4dc",
       })
       .setOrigin(0.5);
-    this.activation = this.add.container(0, 0, [shade, button, text, help]).setDepth(100);
+    this.activation = this.add
+      .container(0, 0, [shade, button, text, help])
+      .setDepth(100);
     button.setInteractive({ useHandCursor: true }).on("pointerdown", () => {
       navigator.getGamepads();
       this.activation.destroy();
@@ -359,13 +390,22 @@ export class KnifeTrainingScene extends Phaser.Scene {
       return;
     }
 
-    if (this.room === "corridor" && this.player.x > 735 && this.player.y < 300) {
+    if (
+      this.room === "corridor" &&
+      this.player.x > 735 &&
+      this.player.y < 300
+    ) {
       this.flashMessage("DOOR LOCKED");
       return;
     }
 
-    if (this.room === "quarters" && Phaser.Math.Distance.Between(this.player.x, this.player.y, 430, 150) < 90) {
-      this.flashMessage(this.knifeState === "rack" ? "TAKE THE KNIFE" : "WEAPON STATION EMPTY");
+    if (
+      this.room === "quarters" &&
+      Phaser.Math.Distance.Between(this.player.x, this.player.y, 430, 150) < 90
+    ) {
+      this.flashMessage(
+        this.knifeState === "rack" ? "TAKE THE KNIFE" : "WEAPON STATION EMPTY",
+      );
       if (this.knifeState === "rack") {
         this.knifeState = "held";
         this.knife.setVisible(false);
@@ -378,14 +418,27 @@ export class KnifeTrainingScene extends Phaser.Scene {
     const tipX = this.player.x + this.facing.x * 60;
     const tipY = this.player.y + this.facing.y * 60;
     const hit = this.targets.find(
-      (target) => target.active && Phaser.Math.Distance.Between(tipX, tipY, target.body.x, target.body.y) < 50,
+      (target) =>
+        target.active &&
+        Phaser.Math.Distance.Between(tipX, tipY, target.body.x, target.body.y) <
+          50,
     );
     this.sharpness = Math.max(0, this.sharpness - 1);
-    this.tweens.add({ targets: this.player, x: this.player.x + this.facing.x * 15, y: this.player.y + this.facing.y * 15, yoyo: true, duration: 80 });
+    this.tweens.add({
+      targets: this.player,
+      x: this.player.x + this.facing.x * 15,
+      y: this.player.y + this.facing.y * 15,
+      yoyo: true,
+      duration: 80,
+    });
     if (hit) {
       hit.active = false;
       hit.timer = Phaser.Math.Between(900, 2200);
-      this.tweens.add({ targets: hit.body, y: hit.body.y + 130, duration: 140 });
+      this.tweens.add({
+        targets: hit.body,
+        y: hit.body.y + 130,
+        duration: 140,
+      });
       this.flashMessage("TARGET HIT  -1 SHARPNESS");
     } else {
       this.flashMessage("STAB MISSED  -1 SHARPNESS");
@@ -410,19 +463,34 @@ export class KnifeTrainingScene extends Phaser.Scene {
     this.throwDistance += Math.hypot(dx, dy);
 
     const target = this.targets.find(
-      (entry) => entry.active && Phaser.Math.Distance.Between(this.knife.x, this.knife.y, entry.body.x, entry.body.y) < 42,
+      (entry) =>
+        entry.active &&
+        Phaser.Math.Distance.Between(
+          this.knife.x,
+          this.knife.y,
+          entry.body.x,
+          entry.body.y,
+        ) < 42,
     );
     if (target) {
       target.active = false;
       target.timer = Phaser.Math.Between(900, 2200);
-      this.tweens.add({ targets: target.body, y: target.body.y + 130, duration: 140 });
+      this.tweens.add({
+        targets: target.body,
+        y: target.body.y + 130,
+        duration: 140,
+      });
       this.knifeState = "stuck-target";
       this.sharpness = Math.max(0, this.sharpness - 1);
       this.flashMessage("KNIFE STUCK IN TARGET  -1 SHARPNESS");
       return;
     }
 
-    const wall = this.knife.x < 55 || this.knife.x > 1225 || this.knife.y < 65 || this.knife.y > 655;
+    const wall =
+      this.knife.x < 55 ||
+      this.knife.x > 1225 ||
+      this.knife.y < 65 ||
+      this.knife.y > 655;
     if (wall) {
       this.knifeState = "stuck-wall";
       this.sharpness = Math.max(0, this.sharpness - 3);
@@ -452,19 +520,31 @@ export class KnifeTrainingScene extends Phaser.Scene {
 
   private updatePrompt(): void {
     let text = "";
-    if (this.knifeState !== "held" && this.distanceToKnife() < 75) text = "X  PICK UP KNIFE";
-    else if (this.room === "quarters" && Phaser.Math.Distance.Between(this.player.x, this.player.y, 430, 150) < 95)
+    if (this.knifeState !== "held" && this.distanceToKnife() < 75)
+      text = "X  PICK UP KNIFE";
+    else if (
+      this.room === "quarters" &&
+      Phaser.Math.Distance.Between(this.player.x, this.player.y, 430, 150) < 95
+    )
       text = this.knifeState === "rack" ? "X  TAKE KNIFE" : "WEAPON STATION";
-    else if (this.room === "corridor" && this.player.x > 720 && this.player.y < 300)
+    else if (
+      this.room === "corridor" &&
+      this.player.x > 720 &&
+      this.player.y < 300
+    )
       text = "X  TRY LOCKED DOOR";
     else if (this.room === "kill") text = "A STAB    Y THROW    X PICK UP";
     this.prompt.setText(text).setVisible(text.length > 0);
   }
 
   private updateHud(): void {
-    this.status.setText(`${this.room.toUpperCase()}\n${this.room === "kill" ? "TARGETS ACTIVE" : "FIND THE TARGET ROOM"}`);
+    this.status.setText(
+      `${this.room.toUpperCase()}\n${this.room === "kill" ? "TARGETS ACTIVE" : "FIND THE TARGET ROOM"}`,
+    );
     const state = this.knifeState.replace("-", " ").toUpperCase();
-    this.weaponHud.setText(`KNIFE: ${state}\nSHARPNESS: ${this.sharpness}/${MAX_SHARPNESS}\nA STAB   X INTERACT   Y THROW`);
+    this.weaponHud.setText(
+      `KNIFE: ${state}\nSHARPNESS: ${this.sharpness}/${MAX_SHARPNESS}\nA STAB   X INTERACT   Y THROW`,
+    );
   }
 
   private flashMessage(message: string): void {
@@ -473,12 +553,20 @@ export class KnifeTrainingScene extends Phaser.Scene {
   }
 
   private distanceToKnife(): number {
-    if (this.knifeState === "held" || this.knifeState === "rack") return Number.POSITIVE_INFINITY;
-    return Phaser.Math.Distance.Between(this.player.x, this.player.y, this.knife.x, this.knife.y);
+    if (this.knifeState === "held" || this.knifeState === "rack")
+      return Number.POSITIVE_INFINITY;
+    return Phaser.Math.Distance.Between(
+      this.player.x,
+      this.player.y,
+      this.knife.x,
+      this.knife.y,
+    );
   }
 
   private getGamepad(): Gamepad | null {
-    return Array.from(navigator.getGamepads()).find((pad) => pad !== null) ?? null;
+    return (
+      Array.from(navigator.getGamepads()).find((pad) => pad !== null) ?? null
+    );
   }
 
   private buttonPressed(index: number, pad: Gamepad | null): boolean {
