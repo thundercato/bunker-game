@@ -118,7 +118,8 @@ export class SurvivalController {
       if (scene.thirst <= 0) {
         scene.health = Math.max(
           0,
-          scene.health - HEALTH_LOSS_PER_SECOND_WHEN_DEHYDRATED * elapsedSeconds,
+          scene.health -
+            HEALTH_LOSS_PER_SECOND_WHEN_DEHYDRATED * elapsedSeconds,
         );
       }
 
