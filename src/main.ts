@@ -1,12 +1,13 @@
 import Phaser from "phaser";
+import { setVirtualKey } from "@/input/TouchInputBridge";
 import { ScrollingBunkerV3Scene } from "@/scenes/ScrollingBunkerV3Scene";
 import "@/style.css";
 
-const VERSION = "0.4.00";
+const VERSION = "0.4.02";
 const parent = document.querySelector<HTMLElement>("#app");
 if (!parent) throw new Error("Missing #app element.");
 
-new Phaser.Game({
+const game = new Phaser.Game({
   type: Phaser.AUTO,
   parent,
   width: 1280,
@@ -50,40 +51,53 @@ controls.innerHTML = `
 `;
 parent.append(controls);
 
-const sendKey = (type: "keydown" | "keyup", key: string): void => {
-  window.dispatchEvent(
-    new KeyboardEvent(type, {
-      key,
-      code: key === "Escape" ? "Escape" : `Key${key.toUpperCase()}`,
-      bubbles: true,
-      cancelable: true,
-    }),
-  );
-};
-
 for (const button of controls.querySelectorAll<HTMLButtonElement>(
   "[data-key]",
 )) {
   const key = button.dataset.key;
   if (!key) continue;
 
-  const press = (event: Event): void => {
+  const press = (event: PointerEvent): void => {
     event.preventDefault();
+    button.setPointerCapture(event.pointerId);
     button.classList.add("is-pressed");
-    sendKey("keydown", key);
+    setVirtualKey(game, key, true);
   };
-  const release = (event: Event): void => {
+
+  const release = (event: PointerEvent): void => {
     event.preventDefault();
+    if (button.hasPointerCapture(event.pointerId)) {
+      button.releasePointerCapture(event.pointerId);
+    }
     button.classList.remove("is-pressed");
-    sendKey("keyup", key);
+    setVirtualKey(game, key, false);
   };
 
   button.addEventListener("pointerdown", press);
   button.addEventListener("pointerup", release);
   button.addEventListener("pointercancel", release);
-  button.addEventListener("pointerleave", release);
+  button.addEventListener("lostpointercapture", () => {
+    button.classList.remove("is-pressed");
+    setVirtualKey(game, key, false);
+  });
   button.addEventListener("contextmenu", (event) => event.preventDefault());
 }
+
+const releaseAllTouchKeys = (): void => {
+  for (const key of ["w", "a", "s", "d", "e", "Escape"]) {
+    setVirtualKey(game, key, false);
+  }
+  for (const button of controls.querySelectorAll<HTMLButtonElement>(
+    ".is-pressed",
+  )) {
+    button.classList.remove("is-pressed");
+  }
+};
+
+window.addEventListener("blur", releaseAllTouchKeys);
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) releaseAllTouchKeys();
+});
 
 const enterGame = (): void => {
   versionBadge.remove();
