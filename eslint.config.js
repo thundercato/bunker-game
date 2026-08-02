@@ -42,10 +42,14 @@ export default tseslint.config(
     },
   },
   {
-    files: ["src/scenes/BunkerRoomScene.ts"],
+    files: [
+      "src/scenes/BunkerRoomScene.ts",
+      "src/scenes/ControllerTestScene.ts",
+    ],
     rules: {
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-unnecessary-condition": "off",
+      "@typescript-eslint/no-unnecessary-type-conversion": "off",
     },
   },
   {
