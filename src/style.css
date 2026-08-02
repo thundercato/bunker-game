@@ -108,10 +108,18 @@ canvas {
   transition: width 120ms linear;
 }
 
-.health-fill { background: #c53b3b; }
-.hunger-fill { background: #d7b938; }
-.thirst-fill { background: #3b86d1; }
-.stamina-fill { background: #69c97d; }
+.health-fill {
+  background: #c53b3b;
+}
+.hunger-fill {
+  background: #d7b938;
+}
+.thirst-fill {
+  background: #3b86d1;
+}
+.stamina-fill {
+  background: #69c97d;
+}
 
 .touch-controls {
   position: absolute;
@@ -168,10 +176,22 @@ canvas {
   background: rgb(42 86 52 / 92%);
 }
 
-.touch-up { top: 0; left: 58px; }
-.touch-left { top: 58px; left: 0; }
-.touch-down { top: 116px; left: 58px; }
-.touch-right { top: 58px; left: 116px; }
+.touch-up {
+  top: 0;
+  left: 58px;
+}
+.touch-left {
+  top: 58px;
+  left: 0;
+}
+.touch-down {
+  top: 116px;
+  left: 58px;
+}
+.touch-right {
+  top: 58px;
+  left: 116px;
+}
 
 .touch-use {
   right: 0;
@@ -215,7 +235,9 @@ canvas {
   display: none;
   align-items: center;
   justify-content: center;
-  padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  padding: max(18px, env(safe-area-inset-top))
+    max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom))
+    max(18px, env(safe-area-inset-left));
   background: rgb(0 0 0 / 83%);
   pointer-events: auto;
 }
@@ -331,7 +353,9 @@ canvas {
   transform: rotate(-4deg);
 }
 
-.cig-pack small { font-size: 14px; }
+.cig-pack small {
+  font-size: 14px;
+}
 
 .jerky-pack {
   position: relative;
@@ -346,9 +370,27 @@ canvas {
   transform: rotate(2deg);
 }
 
-.jerky-pack small { display: block; margin-top: 8px; font-size: 20px; }
-.jerky-pack i { position: absolute; left: 38px; bottom: 24px; width: 150px; height: 16px; background: #5b2e20; transform: rotate(-7deg); }
-.jerky-pack i:last-child { left: 62px; bottom: 43px; width: 128px; background: #6b3723; transform: rotate(10deg); }
+.jerky-pack small {
+  display: block;
+  margin-top: 8px;
+  font-size: 20px;
+}
+.jerky-pack i {
+  position: absolute;
+  left: 38px;
+  bottom: 24px;
+  width: 150px;
+  height: 16px;
+  background: #5b2e20;
+  transform: rotate(-7deg);
+}
+.jerky-pack i:last-child {
+  left: 62px;
+  bottom: 43px;
+  width: 128px;
+  background: #6b3723;
+  transform: rotate(10deg);
+}
 
 .item-info {
   display: grid;
@@ -367,7 +409,9 @@ canvas {
   color: #d9e6dc;
 }
 
-.item-info li { margin: 7px 0; }
+.item-info li {
+  margin: 7px 0;
+}
 
 .item-actions {
   display: flex;
@@ -377,26 +421,58 @@ canvas {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .touch-controls { display: none !important; }
+  .touch-controls {
+    display: none !important;
+  }
 }
 
 @media (max-height: 520px) {
   .touch-dpad,
-  .touch-actions { transform: scale(0.8); transform-origin: bottom left; }
-  .touch-actions { transform-origin: bottom right; }
-  .survival-hud { width: 210px; padding: 6px; }
-  .watch-shell { min-height: 32px; margin-bottom: 4px; }
-  .status-row { margin: 3px 0; }
+  .touch-actions {
+    transform: scale(0.8);
+    transform-origin: bottom left;
+  }
+  .touch-actions {
+    transform-origin: bottom right;
+  }
+  .survival-hud {
+    width: 210px;
+    padding: 6px;
+  }
+  .watch-shell {
+    min-height: 32px;
+    margin-bottom: 4px;
+  }
+  .status-row {
+    margin: 3px 0;
+  }
   .storage-panel,
-  .item-panel { padding: 12px 18px; }
-  .item-art { height: 180px; margin: 8px auto; }
+  .item-panel {
+    padding: 12px 18px;
+  }
+  .item-art {
+    height: 180px;
+    margin: 8px auto;
+  }
 }
 
 @media (max-width: 640px) {
-  .survival-hud { width: 190px; }
-  .status-row { grid-template-columns: 53px 1fr; font-size: 9px; }
-  .storage-grid { gap: 5px; }
+  .survival-hud {
+    width: 190px;
+  }
+  .status-row {
+    grid-template-columns: 53px 1fr;
+    font-size: 9px;
+  }
+  .storage-grid {
+    gap: 5px;
+  }
   .storage-panel,
-  .item-panel { padding: 14px; }
-  .item-info { grid-template-columns: 1fr; gap: 8px; }
+  .item-panel {
+    padding: 14px;
+  }
+  .item-info {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
 }
