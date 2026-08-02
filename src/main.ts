@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 import { setVirtualKey } from "@/input/TouchInputBridge";
-import { ScrollingBunkerV3Scene } from "@/scenes/ScrollingBunkerV3Scene";
+import { BunkerV5Scene } from "@/scenes/BunkerV5Scene";
 import "@/style.css";
 
-const VERSION = "0.4.02";
+const VERSION = "0.5.00";
 const parent = document.querySelector<HTMLElement>("#app");
 if (!parent) throw new Error("Missing #app element.");
 
@@ -13,7 +13,7 @@ const game = new Phaser.Game({
   width: 1280,
   height: 720,
   backgroundColor: "#05090d",
-  scene: [ScrollingBunkerV3Scene],
+  scene: [BunkerV5Scene],
   physics: {
     default: "arcade",
     arcade: {
@@ -45,6 +45,7 @@ controls.innerHTML = `
     <button class="touch-button touch-right" data-key="d" aria-label="Move right">▶</button>
   </div>
   <div class="touch-actions" aria-label="Action controls">
+    <button class="touch-button touch-run" data-key="Shift">RUN</button>
     <button class="touch-button touch-back" data-key="Escape">BACK</button>
     <button class="touch-button touch-use" data-key="e">USE</button>
   </div>
@@ -84,7 +85,7 @@ for (const button of controls.querySelectorAll<HTMLButtonElement>(
 }
 
 const releaseAllTouchKeys = (): void => {
-  for (const key of ["w", "a", "s", "d", "e", "Escape"]) {
+  for (const key of ["w", "a", "s", "d", "e", "Escape", "Shift"]) {
     setVirtualKey(game, key, false);
   }
   for (const button of controls.querySelectorAll<HTMLButtonElement>(
