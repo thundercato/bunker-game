@@ -1,6 +1,7 @@
 name: Bootstrap repository
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
@@ -20,7 +21,7 @@ jobs:
         run: |
           base64 --decode bootstrap.tar.gz.b64 > /tmp/bunker-game.tar.gz
           tar -xzf /tmp/bunker-game.tar.gz
-          rm -f bootstrap.tar.gz.b64 .github/workflows/bootstrap.yml
+          rm -f bootstrap.tar.gz.b64 .bootstrap-trigger .github/workflows/bootstrap.yml
       - name: Commit foundation
         run: |
           git config user.name "github-actions[bot]"
