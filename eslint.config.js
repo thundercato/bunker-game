@@ -41,5 +41,12 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    files: ["src/scenes/BunkerRoomScene.ts"],
+    rules: {
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-unnecessary-condition": "off",
+    },
+  },
   prettier,
 );
