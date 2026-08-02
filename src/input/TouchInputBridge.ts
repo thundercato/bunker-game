@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-const KEY_CODES: Record<string, number> = {
+const KEY_CODES: Partial<Record<string, number>> = {
   w: Phaser.Input.Keyboard.KeyCodes.W,
   a: Phaser.Input.Keyboard.KeyCodes.A,
   s: Phaser.Input.Keyboard.KeyCodes.S,
@@ -18,7 +18,7 @@ export const setVirtualKey = (
   if (keyCode === undefined) return;
 
   const scene = game.scene.getScene("ScrollingBunkerV3");
-  const keyboard = scene?.input.keyboard;
+  const keyboard = scene.input.keyboard;
   if (!keyboard) return;
 
   const key = keyboard.addKey(keyCode);
