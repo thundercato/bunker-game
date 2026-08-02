@@ -2,8 +2,11 @@
   position: relative;
   overflow: hidden;
   border-color: #58756a !important;
-  background:
-    linear-gradient(180deg, rgb(5 14 12 / 98%), rgb(10 24 20 / 98%)) !important;
+  background: linear-gradient(
+    180deg,
+    rgb(5 14 12 / 98%),
+    rgb(10 24 20 / 98%)
+  ) !important;
   box-shadow:
     inset 0 0 0 2px rgb(7 10 9 / 90%),
     inset 0 0 18px rgb(62 255 155 / 10%),
@@ -29,7 +32,8 @@
   position: relative;
   display: block;
   color: #76ffac !important;
-  font-family: "OCR A Std", "Lucida Console", "Courier New", monospace !important;
+  font-family:
+    "OCR A Std", "Lucida Console", "Courier New", monospace !important;
   font-size: clamp(25px, 3.2vw, 45px) !important;
   font-weight: 900 !important;
   font-variant-numeric: tabular-nums;
@@ -87,7 +91,9 @@
 .sleep-panel h2 {
   margin: 0 0 24px;
   color: #82e594;
-  font: 900 clamp(26px, 5vw, 42px)/1 "Lucida Console", monospace;
+  font:
+    900 clamp(26px, 5vw, 42px)/1 "Lucida Console",
+    monospace;
   letter-spacing: 0.14em;
 }
 
@@ -130,7 +136,9 @@
 
 .sleep-stepper strong {
   color: #83ffad;
-  font: 900 clamp(44px, 9vw, 72px)/0.9 "Lucida Console", monospace;
+  font:
+    900 clamp(44px, 9vw, 72px)/0.9 "Lucida Console",
+    monospace;
   text-shadow: 0 0 10px rgb(86 255 150 / 45%);
 }
 
