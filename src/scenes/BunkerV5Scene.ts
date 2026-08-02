@@ -201,9 +201,7 @@ export class BunkerV5Scene extends Phaser.Scene {
     });
     tile("hazard-v5", 0x20272c, 0x4e5a62, (graphics) => {
       for (let x = -10; x < 42; x += 12) {
-        graphics
-          .fillStyle(0xcfa72d)
-          .fillTriangle(x, 22, x + 8, 22, x + 16, 32);
+        graphics.fillStyle(0xcfa72d).fillTriangle(x, 22, x + 8, 22, x + 16, 32);
       }
     });
     tile("crate-v5", 0x5b4128, 0x946f43, (graphics) => {
@@ -220,7 +218,8 @@ export class BunkerV5Scene extends Phaser.Scene {
         graphics.fillStyle(0x405f47).fillRoundedRect(9, 13, 14, 14, 3);
         graphics.fillStyle(0x1b2125).fillRect(10, 26, 5, frame === 0 ? 6 : 4);
         graphics.fillRect(17, 26, 5, frame === 0 ? 4 : 6);
-        const eyeX = direction === "left" ? 11 : direction === "right" ? 19 : 15;
+        const eyeX =
+          direction === "left" ? 11 : direction === "right" ? 19 : 15;
         const eyeY = direction === "up" ? 5 : 9;
         graphics.fillStyle(0xd8c79e).fillRect(eyeX, eyeY, 2, 2);
         graphics.generateTexture(`survivor-${direction}-${frame}`, 32, 32);
@@ -272,7 +271,9 @@ export class BunkerV5Scene extends Phaser.Scene {
   }
 
   private inZone(tileX: number, tileY: number): boolean {
-    return ZONES.some((zone) => zone.rect.contains(tileX * TILE + 1, tileY * TILE + 1));
+    return ZONES.some((zone) =>
+      zone.rect.contains(tileX * TILE + 1, tileY * TILE + 1),
+    );
   }
 
   private isWall(tileX: number, tileY: number): boolean {
@@ -506,7 +507,9 @@ export class BunkerV5Scene extends Phaser.Scene {
       (key("S") ? 1 : 0);
     const padX = Math.abs(pad?.axes[0] ?? 0) > 0.16 ? (pad?.axes[0] ?? 0) : 0;
     const padY = Math.abs(pad?.axes[1] ?? 0) > 0.16 ? (pad?.axes[1] ?? 0) : 0;
-    return new Phaser.Math.Vector2(padX || keyboardX, padY || keyboardY).limit(1);
+    return new Phaser.Math.Vector2(padX || keyboardX, padY || keyboardY).limit(
+      1,
+    );
   }
 
   private runPressed(): boolean {
@@ -517,9 +520,15 @@ export class BunkerV5Scene extends Phaser.Scene {
   private updateStamina(running: boolean, delta: number): void {
     const seconds = delta / 1000;
     if (running) {
-      this.stamina = Math.max(0, this.stamina - STAMINA_DRAIN_PER_SECOND * seconds);
+      this.stamina = Math.max(
+        0,
+        this.stamina - STAMINA_DRAIN_PER_SECOND * seconds,
+      );
     } else {
-      this.stamina = Math.min(100, this.stamina + STAMINA_REFILL_PER_SECOND * seconds);
+      this.stamina = Math.min(
+        100,
+        this.stamina + STAMINA_REFILL_PER_SECOND * seconds,
+      );
     }
     this.updateStaminaBar();
   }
@@ -596,7 +605,8 @@ export class BunkerV5Scene extends Phaser.Scene {
 
   private handleInteraction(): void {
     const gamepadInteract = this.gamepad()?.buttons[0]?.pressed ?? false;
-    const pressed = this.keys.E.isDown || this.keys.SPACE.isDown || gamepadInteract;
+    const pressed =
+      this.keys.E.isDown || this.keys.SPACE.isDown || gamepadInteract;
     if (pressed && !this.interactionHeld) this.tryInteract();
     this.interactionHeld = pressed;
 
@@ -681,7 +691,9 @@ export class BunkerV5Scene extends Phaser.Scene {
         const slot = row * 6 + column;
         const x = startX + column * (size + gap);
         const y = startY + row * (size + gap);
-        const item = this.items.find((candidate) => candidate.slot === slot && !candidate.taken);
+        const item = this.items.find(
+          (candidate) => candidate.slot === slot && !candidate.taken,
+        );
         const cell = this.add
           .rectangle(x, y, size, size, 0x202927, 0.88)
           .setStrokeStyle(2, item ? 0x8da184 : 0x4e5a55)
@@ -742,7 +754,9 @@ export class BunkerV5Scene extends Phaser.Scene {
     y: number,
   ): Phaser.GameObjects.Container {
     if (itemId === "cigarettes") {
-      const pack = this.add.rectangle(x, y, 36, 48, 0x66745a).setStrokeStyle(2, 0xd8cdb0);
+      const pack = this.add
+        .rectangle(x, y, 36, 48, 0x66745a)
+        .setStrokeStyle(2, 0xd8cdb0);
       const stripe = this.add.rectangle(x, y + 8, 32, 8, 0xa63f35);
       return this.add.container(0, 0, [pack, stripe]);
     }
@@ -766,7 +780,9 @@ export class BunkerV5Scene extends Phaser.Scene {
         .rectangle(640, 305, 120, 164, 0x68765c)
         .setStrokeStyle(4, 0xd7ccb0)
         .setScrollFactor(0);
-      const stripe = this.add.rectangle(640, 335, 112, 28, 0xa34337).setScrollFactor(0);
+      const stripe = this.add
+        .rectangle(640, 335, 112, 28, 0xa34337)
+        .setScrollFactor(0);
       const text = this.add
         .text(640, 280, "№ 6\nFILTER", {
           fontFamily: "monospace",
