@@ -37,14 +37,11 @@ export class SurvivalController {
   }
 
   public setUiOpen(open: boolean): void {
-    const scene = this.scene();
-    if (!scene) return;
-    scene.uiOpen = open;
+    this.scene().uiOpen = open;
   }
 
   public hoursUntil(targetHour: number): number {
     const scene = this.scene();
-    if (!scene) return 1;
     const targetMinutes = targetHour * 60;
     let difference = targetMinutes - scene.gameMinutes;
     if (difference <= 0) difference += MINUTES_PER_DAY;
@@ -58,9 +55,6 @@ export class SurvivalController {
     const scene = this.scene();
     const safeHours = Phaser.Math.Clamp(Math.round(hours), 1, 24);
     const requestedMinutes = safeHours * 60;
-    if (!scene) {
-      return { requestedMinutes, sleptMinutes: 0, wokeEarly: true };
-    }
 
     scene.uiOpen = true;
     let sleptMinutes = 0;
@@ -103,7 +97,7 @@ export class SurvivalController {
     const elapsedSeconds = Math.min(0.25, (now - this.lastUpdate) / 1000);
     this.lastUpdate = now;
 
-    if (scene && !scene.uiOpen) {
+    if (!scene.uiOpen) {
       scene.hunger = Math.max(
         0,
         scene.hunger - PASSIVE_HUNGER_LOSS_PER_SECOND * elapsedSeconds,
@@ -118,8 +112,7 @@ export class SurvivalController {
       if (scene.thirst <= 0) {
         scene.health = Math.max(
           0,
-          scene.health -
-            HEALTH_LOSS_PER_SECOND_WHEN_DEHYDRATED * elapsedSeconds,
+          scene.health - HEALTH_LOSS_PER_SECOND_WHEN_DEHYDRATED * elapsedSeconds,
         );
       }
 
@@ -130,16 +123,16 @@ export class SurvivalController {
 
       this.lastStamina = scene.stamina;
       scene.emitState();
-    } else if (scene) {
+    } else {
       this.lastStamina = scene.stamina;
     }
 
     requestAnimationFrame(this.update);
   };
 
-  private scene(): BunkerRuntime | null {
-    const scene = this.game.scene.getScene("ScrollingBunkerV3");
-    if (!scene) return null;
-    return scene as unknown as BunkerRuntime;
+  private scene(): BunkerRuntime {
+    return this.game.scene.getScene(
+      "ScrollingBunkerV3",
+    ) as unknown as BunkerRuntime;
   }
 }
