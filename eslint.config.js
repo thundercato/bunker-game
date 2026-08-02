@@ -59,7 +59,10 @@ export default tseslint.config(
     },
   },
   {
-    files: ["src/scenes/ScrollingBunkerV3Scene.ts"],
+    files: [
+      "src/scenes/ScrollingBunkerV3Scene.ts",
+      "src/scenes/BunkerV5Scene.ts",
+    ],
     rules: {
       "@typescript-eslint/no-unnecessary-condition": "off",
     },
