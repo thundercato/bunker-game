@@ -1,0 +1,85 @@
+===== FORMAT =====
+
+> bunker-game@0.0.1 format:check
+> prettier --check .
+
+Checking formatting...
+[[33mwarn[39m] eslint.config.js
+[[33mwarn[39m] index.html
+[[33mwarn[39m] src/core/EventBus.ts
+[[33mwarn[39m] src/core/GameEvents.ts
+[[33mwarn[39m] src/input/InputService.ts
+[[33mwarn[39m] src/input/InputTypes.ts
+[[33mwarn[39m] src/main.ts
+[[33mwarn[39m] src/scenes/ControllerTestScene.ts
+[[33mwarn[39m] vite.config.ts
+[[33mwarn[39m] Code style issues found in 9 files. Run Prettier with --write to fix.
+EXIT CODE: 1
+
+===== LINT =====
+
+> bunker-game@0.0.1 lint
+> eslint . --max-warnings=0
+
+
+/home/runner/work/bunker-game/bunker-game/src/input/InputService.ts
+  54:33  error  Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined  @typescript-eslint/no-unnecessary-condition
+  54:54  error  Unnecessary optional chain on a non-nullish value                                                   @typescript-eslint/no-unnecessary-condition
+
+/home/runner/work/bunker-game/bunker-game/src/scenes/ControllerTestScene.ts
+  64:30  error  Invalid type "number" of template literal expression  @typescript-eslint/restrict-template-expressions
+  64:54  error  Invalid type "number" of template literal expression  @typescript-eslint/restrict-template-expressions
+  64:86  error  Invalid type "number" of template literal expression  @typescript-eslint/restrict-template-expressions
+  65:69  error  Invalid type "number" of template literal expression  @typescript-eslint/restrict-template-expressions
+  67:27  error  Invalid type "number" of template literal expression  @typescript-eslint/restrict-template-expressions
+
+/home/runner/work/bunker-game/bunker-game/vite.config.ts
+  0:0  error  Parsing error: /home/runner/work/bunker-game/bunker-game/vite.config.ts was not found by the project service. Consider either including it in the tsconfig.json or including it in allowDefaultProject
+
+✖ 8 problems (8 errors, 0 warnings)
+
+EXIT CODE: 1
+
+===== TYPECHECK =====
+
+> bunker-game@0.0.1 typecheck
+> tsc --noEmit
+
+EXIT CODE: 0
+
+===== TEST =====
+
+> bunker-game@0.0.1 test
+> vitest run
+
+
+[1m[46m RUN [49m[22m [36mv3.2.7 [39m[90m/home/runner/work/bunker-game/bunker-game[39m
+
+[31mNo test files found, exiting with code 1
+[39m
+[2minclude: [22m[33m**/*.{test,spec}.?(c|m)[jt]s?(x)[39m
+[2mexclude:  [22m[33m**/node_modules/**[2m, [22m**/dist/**[2m, [22m**/cypress/**[2m, [22m**/.{idea,git,cache,output,temp}/**[2m, [22m**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*[39m
+
+EXIT CODE: 1
+
+===== BUILD =====
+
+> bunker-game@0.0.1 build
+> tsc --noEmit && vite build
+
+[36mvite v7.3.6 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 11 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m    0.44 kB[22m[1m[22m[2m │ gzip:   0.30 kB[22m
+[2mdist/[22m[2massets/[22m[35mindex-COMl32Tp.css  [39m[1m[2m    0.25 kB[22m[1m[22m[2m │ gzip:   0.21 kB[22m
+[2mdist/[22m[2massets/[22m[36mindex-BchYX9fQ.js   [39m[1m[33m1,213.24 kB[39m[22m[2m │ gzip: 334.28 kB[22m[2m │ map: 10,143.30 kB[22m
+[33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[32m✓ built in 8.44s[39m
+EXIT CODE: 0
+
