@@ -45,10 +45,7 @@ export class BunkerV13Scene extends BunkerV12Scene {
     const zoom = camera.height / room.height;
     camera.stopFollow();
     camera.setZoom(zoom);
-    camera.setScroll(
-      room.centerX - camera.width / (2 * zoom),
-      room.y,
-    );
+    camera.setScroll(room.centerX - camera.width / (2 * zoom), room.y);
   }
 
   private readonly showMuzzleFlash = (): void => {
