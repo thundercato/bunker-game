@@ -44,7 +44,10 @@ export class BunkerV14Scene extends BunkerV13Scene {
     if (!room) return;
 
     const camera = this.cameras.main;
-    const zoom = Math.min(camera.width / room.width, camera.height / room.height);
+    const zoom = Math.min(
+      camera.width / room.width,
+      camera.height / room.height,
+    );
     camera.stopFollow();
     camera.setZoom(zoom);
     camera.setScroll(
@@ -54,7 +57,8 @@ export class BunkerV14Scene extends BunkerV13Scene {
   }
 
   private installIosHapticBridge(): void {
-    const weaponButton = document.querySelector<HTMLButtonElement>(".touch-weapon");
+    const weaponButton =
+      document.querySelector<HTMLButtonElement>(".touch-weapon");
     const actions = weaponButton?.parentElement;
     if (!weaponButton || !actions) return;
 
