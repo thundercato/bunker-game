@@ -41,12 +41,72 @@ type BaseRuntime = {
 
 export class BunkerV9Scene extends BunkerV8Scene {
   private readonly firearmItems = new Map<FirearmItemId, FirearmItem>([
-    ["makarov", { id: "makarov", name: "MAKAROV PM", kind: "pistol", slot: 7, location: "storage", rounds: 0 }],
-    ["makarov-mag-1", { id: "makarov-mag-1", name: "MAKAROV MAGAZINE A", kind: "magazine", slot: 8, location: "storage", rounds: 0 }],
-    ["makarov-mag-2", { id: "makarov-mag-2", name: "MAKAROV MAGAZINE B", kind: "magazine", slot: 9, location: "storage", rounds: 2 }],
-    ["ammo-box-1", { id: "ammo-box-1", name: "9×18MM AMMO BOX", kind: "ammo", slot: 10, location: "storage", rounds: 16 }],
-    ["ammo-box-2", { id: "ammo-box-2", name: "9×18MM AMMO PACKET", kind: "ammo", slot: 11, location: "storage", rounds: 6 }],
-    ["loose-9mm", { id: "loose-9mm", name: "LOOSE 9×18MM ROUNDS", kind: "ammo", slot: 12, location: "backpack", rounds: 0 }],
+    [
+      "makarov",
+      {
+        id: "makarov",
+        name: "MAKAROV PM",
+        kind: "pistol",
+        slot: 7,
+        location: "storage",
+        rounds: 0,
+      },
+    ],
+    [
+      "makarov-mag-1",
+      {
+        id: "makarov-mag-1",
+        name: "MAKAROV MAGAZINE A",
+        kind: "magazine",
+        slot: 8,
+        location: "storage",
+        rounds: 0,
+      },
+    ],
+    [
+      "makarov-mag-2",
+      {
+        id: "makarov-mag-2",
+        name: "MAKAROV MAGAZINE B",
+        kind: "magazine",
+        slot: 9,
+        location: "storage",
+        rounds: 2,
+      },
+    ],
+    [
+      "ammo-box-1",
+      {
+        id: "ammo-box-1",
+        name: "9×18MM AMMO BOX",
+        kind: "ammo",
+        slot: 10,
+        location: "storage",
+        rounds: 16,
+      },
+    ],
+    [
+      "ammo-box-2",
+      {
+        id: "ammo-box-2",
+        name: "9×18MM AMMO PACKET",
+        kind: "ammo",
+        slot: 11,
+        location: "storage",
+        rounds: 6,
+      },
+    ],
+    [
+      "loose-9mm",
+      {
+        id: "loose-9mm",
+        name: "LOOSE 9×18MM ROUNDS",
+        kind: "ammo",
+        slot: 12,
+        location: "backpack",
+        rounds: 0,
+      },
+    ],
   ]);
 
   private overlay!: HTMLElement;
@@ -68,9 +128,17 @@ export class BunkerV9Scene extends BunkerV8Scene {
     this.updateVersionLabels();
     this.installFirearmStyles();
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      window.removeEventListener("bunker-storage-open", this.captureStorage, true);
+      window.removeEventListener(
+        "bunker-storage-open",
+        this.captureStorage,
+        true,
+      );
       document.removeEventListener("click", this.captureBackpackClick, true);
-      window.removeEventListener("bunker-touch-attack", this.captureTouchFire, true);
+      window.removeEventListener(
+        "bunker-touch-attack",
+        this.captureTouchFire,
+        true,
+      );
     });
   }
 
@@ -81,7 +149,9 @@ export class BunkerV9Scene extends BunkerV8Scene {
     this.fireHeld = pressed;
   }
 
-  private runtimeV9(): BaseRuntime { return this as unknown as BaseRuntime; }
+  private runtimeV9(): BaseRuntime {
+    return this as unknown as BaseRuntime;
+  }
   private requireElement(selector: string): HTMLElement {
     const element = document.querySelector<HTMLElement>(selector);
     if (!element) throw new Error(`Missing element: ${selector}`);
@@ -95,7 +165,9 @@ export class BunkerV9Scene extends BunkerV8Scene {
 
   private readonly captureStorage = (event: Event): void => {
     event.stopImmediatePropagation();
-    const items = (event as CustomEvent<{ items: BaseItem[] }>).detail.items.map((item) => ({ ...item }));
+    const items = (
+      event as CustomEvent<{ items: BaseItem[] }>
+    ).detail.items.map((item) => ({ ...item }));
     const runtime = this.runtimeV9();
     if (runtime.knifeLocation === "storage") items.push({ ...runtime.knife });
     this.openStorage(items);
@@ -135,12 +207,21 @@ export class BunkerV9Scene extends BunkerV8Scene {
     panel.innerHTML = `<header><h2>STORAGE TRUNK</h2><p>6 × 3 storage grid</p></header><div class="storage-grid"></div><button class="overlay-back">BACK</button>`;
     const grid = panel.querySelector<HTMLElement>(".storage-grid");
     if (!grid) throw new Error("Storage grid missing");
-    const available = [...baseItems.filter((item) => !item.taken), ...Array.from(this.firearmItems.values()).filter((item) => item.location === "storage")];
+    const available = [
+      ...baseItems.filter((item) => !item.taken),
+      ...Array.from(this.firearmItems.values()).filter(
+        (item) => item.location === "storage",
+      ),
+    ];
     for (let slot = 0; slot < 18; slot += 1) {
       const cell = document.createElement("button");
       cell.className = "storage-cell";
-      const base = available.find((item) => "taken" in item && item.slot === slot) as BaseItem | undefined;
-      const firearm = available.find((item) => "location" in item && item.slot === slot) as FirearmItem | undefined;
+      const base = available.find(
+        (item) => "taken" in item && item.slot === slot,
+      ) as BaseItem | undefined;
+      const firearm = available.find(
+        (item) => "location" in item && item.slot === slot,
+      ) as FirearmItem | undefined;
       const item = base ?? firearm;
       cell.disabled = !item;
       if (base) {
@@ -150,11 +231,15 @@ export class BunkerV9Scene extends BunkerV8Scene {
       } else if (firearm) {
         cell.classList.add("has-item");
         cell.innerHTML = `${this.firearmGlyph(firearm)}<span>${this.shortName(firearm)}</span>`;
-        cell.addEventListener("click", () => this.openFirearmItem(firearm, "storage"));
+        cell.addEventListener("click", () =>
+          this.openFirearmItem(firearm, "storage"),
+        );
       }
       grid.append(cell);
     }
-    panel.querySelector(".overlay-back")?.addEventListener("click", this.closeUi);
+    panel
+      .querySelector(".overlay-back")
+      ?.addEventListener("click", this.closeUi);
     this.overlay.replaceChildren(panel);
   }
 
@@ -166,7 +251,9 @@ export class BunkerV9Scene extends BunkerV8Scene {
     const grid = panel.querySelector<HTMLElement>(".backpack-grid");
     if (!grid) throw new Error("Backpack grid missing");
     const baseItems = Array.from(this.runtimeV9().backpack.values());
-    const firearmItems = Array.from(this.firearmItems.values()).filter((item) => item.location === "backpack");
+    const firearmItems = Array.from(this.firearmItems.values()).filter(
+      (item) => item.location === "backpack",
+    );
     for (let slot = 0; slot < 12; slot += 1) {
       const cell = document.createElement("button");
       cell.className = "storage-cell";
@@ -181,11 +268,15 @@ export class BunkerV9Scene extends BunkerV8Scene {
       } else if (firearm) {
         cell.classList.add("has-item");
         cell.innerHTML = `${this.firearmGlyph(firearm)}<span>${this.shortName(firearm)}</span>`;
-        cell.addEventListener("click", () => this.openFirearmItem(firearm, "backpack"));
+        cell.addEventListener("click", () =>
+          this.openFirearmItem(firearm, "backpack"),
+        );
       }
       grid.append(cell);
     }
-    panel.querySelector(".overlay-back")?.addEventListener("click", this.closeUi);
+    panel
+      .querySelector(".overlay-back")
+      ?.addEventListener("click", this.closeUi);
     this.overlay.replaceChildren(panel);
   }
 
@@ -195,43 +286,152 @@ export class BunkerV9Scene extends BunkerV8Scene {
     panel.innerHTML = `<header><h2>${item.name}</h2><p>${item.description}</p></header><div class="firearm-art">${this.baseGlyph(item.id)}</div><div class="item-info"><p>${item.details}</p><ul>${item.stats.map((stat) => `<li>${stat}</li>`).join("")}</ul></div><div class="item-actions"></div>`;
     const actions = panel.querySelector<HTMLElement>(".item-actions");
     if (!actions) throw new Error("Actions missing");
-    if (!item.taken) actions.append(this.button("TAKE", () => {
-      window.dispatchEvent(new CustomEvent("bunker-take-item", { detail: { id: item.id } }));
-      item.taken = true;
-      this.runtimeV9().backpack.set(item.id, item);
-      this.openBackpack();
-    }));
-    actions.append(this.button("BACK", () => item.taken ? this.openBackpack() : this.openStorage([])));
+    if (!item.taken)
+      actions.append(
+        this.button("TAKE", () => {
+          window.dispatchEvent(
+            new CustomEvent("bunker-take-item", { detail: { id: item.id } }),
+          );
+          item.taken = true;
+          this.runtimeV9().backpack.set(item.id, item);
+          this.openBackpack();
+        }),
+      );
+    actions.append(
+      this.button("BACK", () =>
+        item.taken ? this.openBackpack() : this.openStorage([]),
+      ),
+    );
     this.overlay.replaceChildren(panel);
   }
 
-  private openFirearmItem(item: FirearmItem, origin: "storage" | "backpack"): void {
+  private openFirearmItem(
+    item: FirearmItem,
+    origin: "storage" | "backpack",
+  ): void {
     const panel = document.createElement("div");
     panel.className = "item-panel firearm-item-panel";
-    panel.innerHTML = `<header><h2>${item.name}</h2><p>${this.itemDescription(item)}</p></header><div class="firearm-art ${item.kind}">${this.firearmGlyph(item)}</div><div class="item-info"><ul>${this.itemStats(item).map((stat) => `<li>${stat}</li>`).join("")}</ul></div><div class="item-actions"></div>`;
+    panel.innerHTML = `<header><h2>${item.name}</h2><p>${this.itemDescription(item)}</p></header><div class="firearm-art ${item.kind}">${this.firearmGlyph(item)}</div><div class="item-info"><ul>${this.itemStats(
+      item,
+    )
+      .map((stat) => `<li>${stat}</li>`)
+      .join("")}</ul></div><div class="item-actions"></div>`;
     const actions = panel.querySelector<HTMLElement>(".item-actions");
     if (!actions) throw new Error("Actions missing");
-    if (origin === "storage") actions.append(this.button("TAKE", () => { item.location = "backpack"; this.openBackpack(); }));
+    if (origin === "storage")
+      actions.append(
+        this.button("TAKE", () => {
+          item.location = "backpack";
+          this.openBackpack();
+        }),
+      );
     else this.addBackpackActions(item, actions);
-    actions.append(this.button("BACK", () => origin === "storage" ? this.openStorage([]) : this.openBackpack()));
+    actions.append(
+      this.button("BACK", () =>
+        origin === "storage" ? this.openStorage([]) : this.openBackpack(),
+      ),
+    );
     this.overlay.replaceChildren(panel);
   }
 
   private addBackpackActions(item: FirearmItem, actions: HTMLElement): void {
     if (item.kind === "magazine") {
-      actions.append(this.button("LOAD MAGAZINE", () => { const loaded = this.loadMagazine(item); this.toast(loaded > 0 ? `${loaded} ROUND${loaded === 1 ? "" : "S"} LOADED` : "NO LOOSE AMMUNITION"); this.openFirearmItem(item, "backpack"); }));
-      actions.append(this.button("UNLOAD BULLETS", () => { const removed = item.rounds; if (removed > 0) { this.looseAmmo().rounds += removed; item.rounds = 0; } this.toast(removed > 0 ? `${removed} ROUNDS UNLOADED` : "MAGAZINE EMPTY"); this.openFirearmItem(item, "backpack"); }));
+      actions.append(
+        this.button("LOAD MAGAZINE", () => {
+          const loaded = this.loadMagazine(item);
+          this.toast(
+            loaded > 0
+              ? `${loaded} ROUND${loaded === 1 ? "" : "S"} LOADED`
+              : "NO LOOSE AMMUNITION",
+          );
+          this.openFirearmItem(item, "backpack");
+        }),
+      );
+      actions.append(
+        this.button("UNLOAD BULLETS", () => {
+          const removed = item.rounds;
+          if (removed > 0) {
+            this.looseAmmo().rounds += removed;
+            item.rounds = 0;
+          }
+          this.toast(
+            removed > 0 ? `${removed} ROUNDS UNLOADED` : "MAGAZINE EMPTY",
+          );
+          this.openFirearmItem(item, "backpack");
+        }),
+      );
     }
     if (item.kind === "ammo") {
-      actions.append(this.button("REMOVE ONE ROUND", () => { if (item.id !== "loose-9mm" && item.rounds > 0) { item.rounds -= 1; this.looseAmmo().rounds += 1; } this.openFirearmItem(item, "backpack"); }));
-      actions.append(this.button("MERGE AMMO", () => { this.mergeAmmoInto(item); this.openFirearmItem(item, "backpack"); }));
+      actions.append(
+        this.button("REMOVE ONE ROUND", () => {
+          if (item.id !== "loose-9mm" && item.rounds > 0) {
+            item.rounds -= 1;
+            this.looseAmmo().rounds += 1;
+          }
+          this.openFirearmItem(item, "backpack");
+        }),
+      );
+      actions.append(
+        this.button("MERGE AMMO", () => {
+          this.mergeAmmoInto(item);
+          this.openFirearmItem(item, "backpack");
+        }),
+      );
     }
     if (item.kind === "pistol") {
-      if (this.insertedMagazine) actions.append(this.button("UNLOAD MAGAZINE", () => { const magazine = this.firearmItems.get(this.insertedMagazine!); if (magazine) magazine.location = "backpack"; this.insertedMagazine = null; this.openFirearmItem(item, "backpack"); }));
-      else actions.append(this.button("LOAD MAGAZINE", () => { const magazine = this.carriedMagazines().find((candidate) => candidate.rounds > 0) ?? this.carriedMagazines()[0]; if (magazine) { magazine.location = "gun"; this.insertedMagazine = magazine.id; } this.openFirearmItem(item, "backpack"); }));
-      actions.append(this.button("RACK SLIDE", () => { this.rackSlide(); this.openFirearmItem(item, "backpack"); }));
-      actions.append(this.button("UNLOAD CHAMBER", () => { if (this.chamberedRound) { this.chamberedRound = false; this.looseAmmo().rounds += 1; } this.openFirearmItem(item, "backpack"); }));
-      actions.append(this.button(this.pistolArmed ? "ARMED" : "ARM", () => { this.pistolArmed = true; this.runtimeV9().knifeLocation = this.runtimeV9().knifeLocation === "armed" ? "backpack" : this.runtimeV9().knifeLocation; this.closeUi(); this.toast("MAKAROV ARMED · A / WEAPON TO FIRE"); }, this.pistolArmed));
+      if (this.insertedMagazine)
+        actions.append(
+          this.button("UNLOAD MAGAZINE", () => {
+            const magazine = this.firearmItems.get(this.insertedMagazine!);
+            if (magazine) magazine.location = "backpack";
+            this.insertedMagazine = null;
+            this.openFirearmItem(item, "backpack");
+          }),
+        );
+      else
+        actions.append(
+          this.button("LOAD MAGAZINE", () => {
+            const magazine =
+              this.carriedMagazines().find(
+                (candidate) => candidate.rounds > 0,
+              ) ?? this.carriedMagazines()[0];
+            if (magazine) {
+              magazine.location = "gun";
+              this.insertedMagazine = magazine.id;
+            }
+            this.openFirearmItem(item, "backpack");
+          }),
+        );
+      actions.append(
+        this.button("RACK SLIDE", () => {
+          this.rackSlide();
+          this.openFirearmItem(item, "backpack");
+        }),
+      );
+      actions.append(
+        this.button("UNLOAD CHAMBER", () => {
+          if (this.chamberedRound) {
+            this.chamberedRound = false;
+            this.looseAmmo().rounds += 1;
+          }
+          this.openFirearmItem(item, "backpack");
+        }),
+      );
+      actions.append(
+        this.button(
+          this.pistolArmed ? "ARMED" : "ARM",
+          () => {
+            this.pistolArmed = true;
+            this.runtimeV9().knifeLocation =
+              this.runtimeV9().knifeLocation === "armed"
+                ? "backpack"
+                : this.runtimeV9().knifeLocation;
+            this.closeUi();
+            this.toast("MAKAROV ARMED · A / WEAPON TO FIRE");
+          },
+          this.pistolArmed,
+        ),
+      );
     }
   }
 
@@ -240,40 +440,136 @@ export class BunkerV9Scene extends BunkerV8Scene {
     if (needed <= 0) return 0;
     let loaded = 0;
     for (const source of this.ammoSources()) {
-      while (source.rounds > 0 && loaded < needed) { source.rounds -= 1; magazine.rounds += 1; loaded += 1; }
+      while (source.rounds > 0 && loaded < needed) {
+        source.rounds -= 1;
+        magazine.rounds += 1;
+        loaded += 1;
+      }
       if (loaded >= needed) break;
     }
     return loaded;
   }
 
   private rackSlide(): void {
-    if (this.chamberedRound) { this.looseAmmo().rounds += 1; this.chamberedRound = false; }
-    const magazine = this.insertedMagazine ? this.firearmItems.get(this.insertedMagazine) : undefined;
-    if (magazine && magazine.rounds > 0) { magazine.rounds -= 1; this.chamberedRound = true; this.toast("ROUND CHAMBERED"); }
-    else this.toast("CLICK · NO ROUND AVAILABLE");
+    if (this.chamberedRound) {
+      this.looseAmmo().rounds += 1;
+      this.chamberedRound = false;
+    }
+    const magazine = this.insertedMagazine
+      ? this.firearmItems.get(this.insertedMagazine)
+      : undefined;
+    if (magazine && magazine.rounds > 0) {
+      magazine.rounds -= 1;
+      this.chamberedRound = true;
+      this.toast("ROUND CHAMBERED");
+    } else this.toast("CLICK · NO ROUND AVAILABLE");
   }
 
   private firePistol(): void {
     if (!this.pistolArmed || this.runtimeV9().uiOpen) return;
-    if (!this.chamberedRound) { this.toast("CLICK · CHAMBER EMPTY"); return; }
+    if (!this.chamberedRound) {
+      this.toast("CLICK · CHAMBER EMPTY");
+      return;
+    }
     this.chamberedRound = false;
     this.cameras.main.shake(80, 0.003);
     navigator.vibrate?.([24, 18, 38]);
     window.dispatchEvent(new Event("bunker-gunshot"));
-    const magazine = this.insertedMagazine ? this.firearmItems.get(this.insertedMagazine) : undefined;
-    if (magazine && magazine.rounds > 0) { magazine.rounds -= 1; this.chamberedRound = true; }
+    const magazine = this.insertedMagazine
+      ? this.firearmItems.get(this.insertedMagazine)
+      : undefined;
+    if (magazine && magazine.rounds > 0) {
+      magazine.rounds -= 1;
+      this.chamberedRound = true;
+    }
   }
 
-  private mergeAmmoInto(target: FirearmItem): void { if (target.kind !== "ammo") return; for (const source of this.ammoSources()) { if (source.id === target.id) continue; target.rounds += source.rounds; source.rounds = 0; } this.toast(`${target.rounds} ROUNDS IN PACKET`); }
-  private ammoSources(): FirearmItem[] { return Array.from(this.firearmItems.values()).filter((item) => item.kind === "ammo" && item.location === "backpack" && item.rounds > 0); }
-  private carriedMagazines(): FirearmItem[] { return Array.from(this.firearmItems.values()).filter((item) => item.kind === "magazine" && item.location === "backpack"); }
-  private looseAmmo(): FirearmItem { const item = this.firearmItems.get("loose-9mm"); if (!item) throw new Error("Loose ammunition state missing"); return item; }
-  private itemDescription(item: FirearmItem): string { if (item.kind === "pistol") return "A worn Soviet 9×18mm service pistol. Eight-round magazines only."; if (item.kind === "magazine") return "A steel single-stack Makarov magazine with visible witness holes."; return "9×18mm Makarov cartridges kept together as a physical ammunition packet."; }
-  private itemStats(item: FirearmItem): string[] { if (item.kind === "pistol") { const magazine = this.insertedMagazine ? this.firearmItems.get(this.insertedMagazine) : undefined; return [`Magazine: ${magazine ? `${magazine.rounds}/${MAGAZINE_CAPACITY}` : "Not inserted"}`, `Chamber: ${this.chamberedRound ? "Loaded" : "Empty"}`, `Status: ${this.pistolArmed ? "Armed" : "Stored"}`]; } if (item.kind === "magazine") return [`Rounds: ${item.rounds}/${MAGAZINE_CAPACITY}`, "Calibre: 9×18mm"]; return [`Rounds in packet: ${item.rounds}`, "Calibre: 9×18mm"]; }
-  private firearmGlyph(item: FirearmItem): string { if (item.kind === "pistol") return "▰🔫"; if (item.kind === "magazine") return "▥"; return "●"; }
-  private shortName(item: FirearmItem): string { if (item.kind === "pistol") return "MAKAROV"; if (item.kind === "magazine") return `MAG ${item.rounds}/8`; return `AMMO ${item.rounds}`; }
-  private baseGlyph(id: string): string { if (id === "knife") return "🔪"; if (id === "cigarettes") return "▥"; return "▰"; }
-  private button(label: string, action: () => void, disabled = false): HTMLButtonElement { const button = document.createElement("button"); button.textContent = label; button.disabled = disabled; button.addEventListener("click", action); return button; }
-  private toast(message: string): void { const toast = document.createElement("div"); toast.className = "inventory-toast"; toast.textContent = message; document.querySelector("#app")?.append(toast); window.setTimeout(() => toast.remove(), 1800); }
-  private installFirearmStyles(): void { if (document.querySelector("#firearm-v9-styles")) return; const style = document.createElement("style"); style.id = "firearm-v9-styles"; style.textContent = `.firearm-item-panel .firearm-art{margin:12px auto;width:min(560px,76vw);height:210px;display:grid;place-items:center;border:3px solid #66746c;background:radial-gradient(circle,#38413d,#101514 72%);font-size:96px}.firearm-item-panel .firearm-art.magazine{font-size:130px}.firearm-item-panel .firearm-art.ammo{font-size:120px;color:#d5a94c}.firearm-item-panel .item-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.firearm-item-panel .item-actions button{min-width:150px;padding:13px 16px}.firearm-inventory .storage-cell span{font-size:9px}.firearm-inventory header p{letter-spacing:.08em}`; document.head.append(style); this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => style.remove()); }
+  private mergeAmmoInto(target: FirearmItem): void {
+    if (target.kind !== "ammo") return;
+    for (const source of this.ammoSources()) {
+      if (source.id === target.id) continue;
+      target.rounds += source.rounds;
+      source.rounds = 0;
+    }
+    this.toast(`${target.rounds} ROUNDS IN PACKET`);
+  }
+  private ammoSources(): FirearmItem[] {
+    return Array.from(this.firearmItems.values()).filter(
+      (item) =>
+        item.kind === "ammo" && item.location === "backpack" && item.rounds > 0,
+    );
+  }
+  private carriedMagazines(): FirearmItem[] {
+    return Array.from(this.firearmItems.values()).filter(
+      (item) => item.kind === "magazine" && item.location === "backpack",
+    );
+  }
+  private looseAmmo(): FirearmItem {
+    const item = this.firearmItems.get("loose-9mm");
+    if (!item) throw new Error("Loose ammunition state missing");
+    return item;
+  }
+  private itemDescription(item: FirearmItem): string {
+    if (item.kind === "pistol")
+      return "A worn Soviet 9×18mm service pistol. Eight-round magazines only.";
+    if (item.kind === "magazine")
+      return "A steel single-stack Makarov magazine with visible witness holes.";
+    return "9×18mm Makarov cartridges kept together as a physical ammunition packet.";
+  }
+  private itemStats(item: FirearmItem): string[] {
+    if (item.kind === "pistol") {
+      const magazine = this.insertedMagazine
+        ? this.firearmItems.get(this.insertedMagazine)
+        : undefined;
+      return [
+        `Magazine: ${magazine ? `${magazine.rounds}/${MAGAZINE_CAPACITY}` : "Not inserted"}`,
+        `Chamber: ${this.chamberedRound ? "Loaded" : "Empty"}`,
+        `Status: ${this.pistolArmed ? "Armed" : "Stored"}`,
+      ];
+    }
+    if (item.kind === "magazine")
+      return [`Rounds: ${item.rounds}/${MAGAZINE_CAPACITY}`, "Calibre: 9×18mm"];
+    return [`Rounds in packet: ${item.rounds}`, "Calibre: 9×18mm"];
+  }
+  private firearmGlyph(item: FirearmItem): string {
+    if (item.kind === "pistol") return "▰🔫";
+    if (item.kind === "magazine") return "▥";
+    return "●";
+  }
+  private shortName(item: FirearmItem): string {
+    if (item.kind === "pistol") return "MAKAROV";
+    if (item.kind === "magazine") return `MAG ${item.rounds}/8`;
+    return `AMMO ${item.rounds}`;
+  }
+  private baseGlyph(id: string): string {
+    if (id === "knife") return "🔪";
+    if (id === "cigarettes") return "▥";
+    return "▰";
+  }
+  private button(
+    label: string,
+    action: () => void,
+    disabled = false,
+  ): HTMLButtonElement {
+    const button = document.createElement("button");
+    button.textContent = label;
+    button.disabled = disabled;
+    button.addEventListener("click", action);
+    return button;
+  }
+  private toast(message: string): void {
+    const toast = document.createElement("div");
+    toast.className = "inventory-toast";
+    toast.textContent = message;
+    document.querySelector("#app")?.append(toast);
+    window.setTimeout(() => toast.remove(), 1800);
+  }
+  private installFirearmStyles(): void {
+    if (document.querySelector("#firearm-v9-styles")) return;
+    const style = document.createElement("style");
+    style.id = "firearm-v9-styles";
+    style.textContent = `.firearm-item-panel .firearm-art{margin:12px auto;width:min(560px,76vw);height:210px;display:grid;place-items:center;border:3px solid #66746c;background:radial-gradient(circle,#38413d,#101514 72%);font-size:96px}.firearm-item-panel .firearm-art.magazine{font-size:130px}.firearm-item-panel .firearm-art.ammo{font-size:120px;color:#d5a94c}.firearm-item-panel .item-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.firearm-item-panel .item-actions button{min-width:150px;padding:13px 16px}.firearm-inventory .storage-cell span{font-size:9px}.firearm-inventory header p{letter-spacing:.08em}`;
+    document.head.append(style);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => style.remove());
+  }
 }
