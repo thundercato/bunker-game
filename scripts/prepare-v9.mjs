@@ -16,10 +16,19 @@ v9Source = v9Source
   .replaceAll("this.overlay", "this.v9Overlay")
   .replace("private overlay!: HTMLElement;", "private v9Overlay!: HTMLElement;")
   .replaceAll("this.controls", "this.v9Controls")
-  .replace(
-    "private controls!: HTMLElement;",
-    "private v9Controls!: HTMLElement;",
-  );
+  .replace("private controls!: HTMLElement;", "private v9Controls!: HTMLElement;")
+  .replaceAll("this.updateVersionLabels", "this.updateV9VersionLabels")
+  .replace("private updateVersionLabels(): void", "private updateV9VersionLabels(): void")
+  .replaceAll("this.captureStorage", "this.captureV9Storage")
+  .replace("private readonly captureStorage", "private readonly captureV9Storage")
+  .replaceAll("this.setUiOpen", "this.setV9UiOpen")
+  .replace("private setUiOpen(open: boolean): void", "private setV9UiOpen(open: boolean): void")
+  .replaceAll("this.closeUi", "this.closeV9Ui")
+  .replace("private closeUi", "private closeV9Ui")
+  .replaceAll("this.openStorage", "this.openV9Storage")
+  .replace("private openStorage(", "private openV9Storage(")
+  .replaceAll("this.openBackpack", "this.openV9Backpack")
+  .replace("private openBackpack(): void", "private openV9Backpack(): void");
 await writeFile(v9Path, v9Source, "utf8");
 
 const mainPath = new URL("../src/main.ts", import.meta.url);
