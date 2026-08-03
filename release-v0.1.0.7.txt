@@ -1,0 +1,4 @@
+Bunker Game v0.1.0.7
+
+- Native Safari switch-control haptic bridge for touchscreen firing
+- Room bounds expanded and centred to prevent top-edge clipping
