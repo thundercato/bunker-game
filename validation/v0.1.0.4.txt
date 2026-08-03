@@ -1,0 +1,3 @@
+Bunker Game v0.1.0.4
+
+Fixed landscape inventory and item inspection layouts with no scrolling.
