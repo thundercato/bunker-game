@@ -62,10 +62,7 @@ export class BunkerV14Scene extends BunkerV13Scene {
     // world at the sides rather than losing the room's ceiling or floor.
     const zoom = camera.height / room.height;
     camera.setZoom(zoom);
-    camera.setScroll(
-      room.centerX - camera.width / (2 * zoom),
-      room.y,
-    );
+    camera.setScroll(room.centerX - camera.width / (2 * zoom), room.y);
   }
 
   private pinTouchControls(): void {
