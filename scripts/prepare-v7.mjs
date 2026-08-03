@@ -32,7 +32,10 @@ if (!v8Source.includes("correctLivingRoomCamera")) {
       "private requireV8Element(selector: string): HTMLElement",
     )
     .replaceAll("this.overlay", "this.v8Overlay")
-    .replace("private overlay!: HTMLElement;", "private v8Overlay!: HTMLElement;")
+    .replace(
+      "private overlay!: HTMLElement;",
+      "private v8Overlay!: HTMLElement;",
+    )
     .replaceAll("this.controls", "this.v8Controls")
     .replace(
       "private controls!: HTMLElement;",
