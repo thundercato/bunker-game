@@ -1,0 +1,2 @@
+Bunker Game v0.1.0.2
+Makarov pistol, magazines, ammunition packets, loading, unloading, chambering and firing.
