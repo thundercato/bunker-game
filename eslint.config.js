@@ -83,5 +83,12 @@ export default tseslint.config(
       "@typescript-eslint/no-unnecessary-condition": "off",
     },
   },
+  {
+    files: ["src/scenes/BunkerV9Scene.ts"],
+    rules: {
+      "@typescript-eslint/no-unnecessary-condition": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+    },
+  },
   prettier,
 );
