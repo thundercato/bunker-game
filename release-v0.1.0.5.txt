@@ -1,0 +1,6 @@
+Bunker Game v0.1.0.5
+
+- Fits all overlays within the game viewport.
+- Keeps item controls and lower information visible.
+- Corrects framed room camera placement.
+- Removes clipped room tops and excessive lower black space.
