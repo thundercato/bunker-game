@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0.6 - 2026-08-03
+
+- Added supported-device vibration feedback when the Makarov fires.
+- Removed the on-screen BANG message from successful gunshots.
+- Added a brief directional white muzzle flash beside the player sprite.
+- Framed widescreen rooms from their exact top edge to exact bottom edge.
+- Made framed-room zoom derive from room height, zooming out horizontally where necessary.
+
 ## 0.1.0.5 - 2026-08-03
 
 - Corrected overlay sizing to use the game viewport rather than the browser viewport.
