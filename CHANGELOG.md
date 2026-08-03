@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0.8 - 2026-08-03
+
+- Restored smooth player-follow camera behaviour immediately after leaving a framed room.
+- Reworked framed-room camera fitting to show the full ceiling and floor from exact vertical bounds.
+- Prevented the iOS haptic bridge from changing the positioning context of the touchscreen action cluster.
+- Re-anchored Use, Back, Weapon and Throw controls to the lower-right safe area.
+
 ## 0.1.0.7 - 2026-08-03
 
 - Replaced unsupported iPhone vibration calls for touchscreen firing with a native Safari switch-control haptic bridge.
