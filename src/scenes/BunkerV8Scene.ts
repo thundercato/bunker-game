@@ -49,7 +49,11 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
     window.addEventListener("bunker-touch-attack", this.attack);
     window.addEventListener("bunker-touch-throw", this.throwWeapon);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      window.removeEventListener("bunker-message", this.captureWorkstation, true);
+      window.removeEventListener(
+        "bunker-message",
+        this.captureWorkstation,
+        true,
+      );
       window.removeEventListener("bunker-touch-attack", this.attack);
       window.removeEventListener("bunker-touch-throw", this.throwWeapon);
       this.attackButton.remove();
@@ -121,7 +125,9 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
       const track = oldFill?.parentElement;
       const row = track?.parentElement;
       if (!row || !track) continue;
-      const segments = Array.from(track.querySelectorAll<HTMLElement>(".lcd-segment"));
+      const segments = Array.from(
+        track.querySelectorAll<HTMLElement>(".lcd-segment"),
+      );
       segments.forEach((segment, index) => {
         const portion = Phaser.Math.Clamp(value / 10 - index, 0, 1);
         const level = Math.round(portion * 5);
@@ -160,7 +166,8 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
 
   private readonly throwWeapon = (): void => {
     const runtime = this.runtimeV8();
-    if (!runtime.uiOpen && runtime.knifeLocation === "armed") runtime.throwKnife();
+    if (!runtime.uiOpen && runtime.knifeLocation === "armed")
+      runtime.throwKnife();
   };
 
   private readonly captureWorkstation = (event: Event): void => {
@@ -193,19 +200,19 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
       </div>
       <button class="maintain-weapons">MAINTAIN WEAPONS</button>
       <button class="workstation-back">BACK</button>`;
-    panel.querySelector(".maintain-weapons")?.addEventListener("click", () =>
-      this.openWeaponList(),
-    );
-    panel.querySelector(".workstation-back")?.addEventListener(
-      "click",
-      this.closeWorkstation,
-    );
+    panel
+      .querySelector(".maintain-weapons")
+      ?.addEventListener("click", () => this.openWeaponList());
+    panel
+      .querySelector(".workstation-back")
+      ?.addEventListener("click", this.closeWorkstation);
     this.overlay.replaceChildren(panel);
   }
 
   private openWeaponList(): void {
     const runtime = this.runtimeV8();
-    const hasKnife = runtime.backpack.has("knife") || runtime.knifeLocation === "armed";
+    const hasKnife =
+      runtime.backpack.has("knife") || runtime.knifeLocation === "armed";
     const panel = document.createElement("div");
     panel.className = "workstation-screen weapon-list-screen";
     panel.innerHTML = `<h2>WEAPONS HELD</h2><div class="weapon-list"></div><button class="workstation-back">BACK</button>`;
@@ -220,9 +227,9 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
     } else {
       list.innerHTML = `<p class="empty-weapons">NO WEAPONS IN BACKPACK OR ARMED.</p>`;
     }
-    panel.querySelector(".workstation-back")?.addEventListener("click", () =>
-      this.openWorkstation(),
-    );
+    panel
+      .querySelector(".workstation-back")
+      ?.addEventListener("click", () => this.openWorkstation());
     this.overlay.replaceChildren(panel);
   }
 
@@ -245,7 +252,8 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
       this.lastRubPoint = { x: event.clientX, y: event.clientY };
     });
     zone.addEventListener("pointermove", (event) => {
-      if (!zone.hasPointerCapture(event.pointerId) || !this.lastRubPoint) return;
+      if (!zone.hasPointerCapture(event.pointerId) || !this.lastRubPoint)
+        return;
       const distance = Math.hypot(
         event.clientX - this.lastRubPoint.x,
         event.clientY - this.lastRubPoint.y,
@@ -265,16 +273,18 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
     };
     zone.addEventListener("pointerup", release);
     zone.addEventListener("pointercancel", release);
-    panel.querySelector(".workstation-back")?.addEventListener("click", () =>
-      this.openWeaponList(),
-    );
+    panel
+      .querySelector(".workstation-back")
+      ?.addEventListener("click", () => this.openWeaponList());
     this.overlay.replaceChildren(panel);
     this.refreshSharpness(panel);
   }
 
   private refreshSharpness(panel: HTMLElement): void {
     const value = Phaser.Math.Clamp(this.runtimeV8().knifeSharpness, 0, 100);
-    const number = panel.querySelector<HTMLElement>(".sharpness-readout strong");
+    const number = panel.querySelector<HTMLElement>(
+      ".sharpness-readout strong",
+    );
     const fill = panel.querySelector<HTMLElement>(".sharpness-readout div i");
     if (number) number.textContent = `${Math.round(value)}%`;
     if (fill) {
