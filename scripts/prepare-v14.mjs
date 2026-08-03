@@ -8,5 +8,6 @@ mainSource = mainSource
     'import { BunkerV14Scene } from "@/scenes/BunkerV14Scene";',
   )
   .replace("scene: [BunkerV13Scene]", "scene: [BunkerV14Scene]")
-  .replace('const VERSION = "0.1.0.6";', 'const VERSION = "0.1.0.7";');
+  .replace('const VERSION = "0.1.0.7";', 'const VERSION = "0.1.0.8";')
+  .replace('const VERSION = "0.1.0.6";', 'const VERSION = "0.1.0.8";');
 await writeFile(mainPath, mainSource, "utf8");
