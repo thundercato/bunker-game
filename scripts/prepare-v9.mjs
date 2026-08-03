@@ -16,7 +16,10 @@ v9Source = v9Source
   .replaceAll("this.overlay", "this.v9Overlay")
   .replace("private overlay!: HTMLElement;", "private v9Overlay!: HTMLElement;")
   .replaceAll("this.controls", "this.v9Controls")
-  .replace("private controls!: HTMLElement;", "private v9Controls!: HTMLElement;");
+  .replace(
+    "private controls!: HTMLElement;",
+    "private v9Controls!: HTMLElement;",
+  );
 await writeFile(v9Path, v9Source, "utf8");
 
 const mainPath = new URL("../src/main.ts", import.meta.url);
