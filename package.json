@@ -1,12 +1,12 @@
 {
   "name": "bunker-game",
-  "version": "0.1.0.2",
+  "version": "0.1.0.3",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/prepare-v7.mjs && node scripts/prepare-v9.mjs && vite",
-    "build": "node scripts/prepare-v7.mjs && node scripts/prepare-v9.mjs && tsc --noEmit && vite build",
-    "typecheck": "node scripts/prepare-v7.mjs && node scripts/prepare-v9.mjs && tsc --noEmit",
+    "dev": "node scripts/prepare-v7.mjs && node scripts/prepare-v9.mjs && node scripts/prepare-v10.mjs && vite",
+    "build": "node scripts/prepare-v7.mjs && node scripts/prepare-v9.mjs && node scripts/prepare-v10.mjs && tsc --noEmit && vite build",
+    "typecheck": "node scripts/prepare-v7.mjs && node scripts/prepare-v9.mjs && node scripts/prepare-v10.mjs && tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
