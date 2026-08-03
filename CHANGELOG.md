@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0.5 - 2026-08-03
+
+- Corrected overlay sizing to use the game viewport rather than the browser viewport.
+- Moved item inspection panels upward so their lower information and controls remain visible.
+- Tightened item artwork, information and action layouts without introducing scrolling.
+- Reframed the living quarters and training room against their actual room bounds.
+- Removed the clipped room top and excessive black strip below framed rooms.
+
 ## 0.1.0.4 - 2026-08-03
 
 - Rebuilt storage, backpack and item inspection screens as fixed landscape layouts.
