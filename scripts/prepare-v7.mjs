@@ -15,6 +15,21 @@ sceneSource = sceneSource
 
 await writeFile(scenePath, sceneSource, "utf8");
 
+const v8Path = new URL("../src/scenes/BunkerV8Scene.ts", import.meta.url);
+let v8Source = await readFile(v8Path, "utf8");
+v8Source = v8Source
+  .replaceAll("this.backpackButton", "this.workstationBackpackButton")
+  .replace(
+    "private backpackButton!: HTMLElement;",
+    "private workstationBackpackButton!: HTMLElement;",
+  )
+  .replaceAll("this.requireElement", "this.requireV8Element")
+  .replace(
+    "private requireElement(selector: string): HTMLElement",
+    "private requireV8Element(selector: string): HTMLElement",
+  );
+await writeFile(v8Path, v8Source, "utf8");
+
 const mainPath = new URL("../src/main.ts", import.meta.url);
 let mainSource = await readFile(mainPath, "utf8");
 mainSource = mainSource
