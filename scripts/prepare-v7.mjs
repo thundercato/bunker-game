@@ -31,7 +31,10 @@ v8Source = v8Source
   .replaceAll("this.overlay", "this.v8Overlay")
   .replace("private overlay!: HTMLElement;", "private v8Overlay!: HTMLElement;")
   .replaceAll("this.controls", "this.v8Controls")
-  .replace("private controls!: HTMLElement;", "private v8Controls!: HTMLElement;");
+  .replace(
+    "private controls!: HTMLElement;",
+    "private v8Controls!: HTMLElement;",
+  );
 await writeFile(v8Path, v8Source, "utf8");
 
 const mainPath = new URL("../src/main.ts", import.meta.url);
