@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0.7 - 2026-08-03
+
+- Replaced unsupported iPhone vibration calls for touchscreen firing with a native Safari switch-control haptic bridge.
+- Kept vibration and controller-rumble fallbacks for browsers and hardware that expose those APIs.
+- Expanded framed-room bounds by one tile around the rendered room geometry.
+- Recalculated room framing from both viewport width and height to prevent top-edge clipping.
+
 ## 0.1.0.6 - 2026-08-03
 
 - Added supported-device vibration feedback when the Makarov fires.
