@@ -18,36 +18,37 @@ await writeFile(scenePath, sceneSource, "utf8");
 
 const v8Path = new URL("../src/scenes/BunkerV8Scene.ts", import.meta.url);
 let v8Source = await readFile(v8Path, "utf8");
-v8Source = v8Source
-  .replace('const VERSION = "0.8.00";', 'const VERSION = "0.8.10";')
-  .replaceAll("this.backpackButton", "this.workstationBackpackButton")
-  .replace(
-    "private backpackButton!: HTMLElement;",
-    "private workstationBackpackButton!: HTMLElement;",
-  )
-  .replaceAll("this.requireElement", "this.requireV8Element")
-  .replace(
-    "private requireElement(selector: string): HTMLElement",
-    "private requireV8Element(selector: string): HTMLElement",
-  )
-  .replaceAll("this.overlay", "this.v8Overlay")
-  .replace("private overlay!: HTMLElement;", "private v8Overlay!: HTMLElement;")
-  .replaceAll("this.controls", "this.v8Controls")
-  .replace(
-    "private controls!: HTMLElement;",
-    "private v8Controls!: HTMLElement;",
-  )
-  .replaceAll("this.installStyles", "this.installV8Styles")
-  .replace("private installStyles(): void", "private installV8Styles(): void")
-  .replace(
-    "  private rubDistance = 0;\n",
-    `  private rubDistance = 0;
+if (!v8Source.includes("correctLivingRoomCamera")) {
+  v8Source = v8Source
+    .replace('const VERSION = "0.8.00";', 'const VERSION = "0.8.10";')
+    .replaceAll("this.backpackButton", "this.workstationBackpackButton")
+    .replace(
+      "private backpackButton!: HTMLElement;",
+      "private workstationBackpackButton!: HTMLElement;",
+    )
+    .replaceAll("this.requireElement", "this.requireV8Element")
+    .replace(
+      "private requireElement(selector: string): HTMLElement",
+      "private requireV8Element(selector: string): HTMLElement",
+    )
+    .replaceAll("this.overlay", "this.v8Overlay")
+    .replace("private overlay!: HTMLElement;", "private v8Overlay!: HTMLElement;")
+    .replaceAll("this.controls", "this.v8Controls")
+    .replace(
+      "private controls!: HTMLElement;",
+      "private v8Controls!: HTMLElement;",
+    )
+    .replaceAll("this.installStyles", "this.installV8Styles")
+    .replace("private installStyles(): void", "private installV8Styles(): void")
+    .replace(
+      "  private rubDistance = 0;\n",
+      `  private rubDistance = 0;
   private readonly bladePolish = Array.from({ length: 12 }, () => 0);
 `,
-  )
-  .replace(
-    "  private runtimeV8(): V8Runtime {",
-    `  public override update(time: number, delta: number): void {
+    )
+    .replace(
+      "  private runtimeV8(): V8Runtime {",
+      `  public override update(time: number, delta: number): void {
     super.update(time, delta);
     this.correctLivingRoomCamera();
   }
@@ -61,9 +62,9 @@ v8Source = v8Source
   }
 
   private runtimeV8(): V8Runtime {`,
-  )
-  .replace(
-    `    const values = new Map([
+    )
+    .replace(
+      `    const values = new Map([
       [".health-fill", detail.health],
       [".hunger-fill", detail.hunger],
       [".thirst-fill", detail.thirst],
@@ -83,7 +84,7 @@ v8Source = v8Source
         segment.dataset.level = level.toString();
       });
     }`,
-    `    const values = [
+      `    const values = [
       detail.health,
       detail.hunger,
       detail.thirst,
@@ -104,20 +105,20 @@ v8Source = v8Source
         segment.dataset.level = level.toString();
       });
     });`,
-  )
-  .replace(
-    '<div class="sharpen-zone"><div class="large-knife"><i></i><b></b></div><div class="stone"></div></div>',
-    '<div class="sharpen-zone"><div class="large-knife"><i></i><b><span class="rust-segments">${this.bladePolish.map((_, index) => `<em data-rust="${index}"></em>`).join("")}</span></b></div><div class="stone"></div><div class="spark-layer"></div></div>',
-  )
-  .replace(
-    `      this.rubDistance += distance;
+    )
+    .replace(
+      '<div class="sharpen-zone"><div class="large-knife"><i></i><b></b></div><div class="stone"></div></div>',
+      '<div class="sharpen-zone"><div class="large-knife"><i></i><b><span class="rust-segments">${this.bladePolish.map((_, index) => `<em data-rust="${index}"></em>`).join("")}</span></b></div><div class="stone"></div><div class="spark-layer"></div></div>',
+    )
+    .replace(
+      `      this.rubDistance += distance;
       runtime.knifeSharpness = Phaser.Math.Clamp(
         runtime.knifeSharpness + distance / 45,
         0,
         100,
       );
       this.refreshSharpness(panel);`,
-    `      const blade = panel.querySelector<HTMLElement>(".large-knife b");
+      `      const blade = panel.querySelector<HTMLElement>(".large-knife b");
       if (!blade) return;
       const bladeRect = blade.getBoundingClientRect();
       if (
@@ -148,10 +149,10 @@ v8Source = v8Source
       runtime.knifeSharpness = 15 + averagePolish * 85;
       this.makeSparks(panel, event.clientX, event.clientY);
       this.refreshSharpness(panel);`,
-  )
-  .replace(
-    "  private refreshSharpness(panel: HTMLElement): void {",
-    `  private makeSparks(
+    )
+    .replace(
+      "  private refreshSharpness(panel: HTMLElement): void {",
+      `  private makeSparks(
     panel: HTMLElement,
     clientX: number,
     clientY: number,
@@ -172,11 +173,11 @@ v8Source = v8Source
   }
 
   private refreshSharpness(panel: HTMLElement): void {`,
-  )
-  .replace(
-    `    if (number) number.textContent = \`\${Math.round(value)}%\`;
+    )
+    .replace(
+      `    if (number) number.textContent = \`\${Math.round(value)}%\`;
     if (fill) {`,
-    `    if (number) number.textContent = \`\${Math.round(value)}%\`;
+      `    if (number) number.textContent = \`\${Math.round(value)}%\`;
     panel
       .querySelectorAll<HTMLElement>("[data-rust]")
       .forEach((segment, index) => {
@@ -185,15 +186,16 @@ v8Source = v8Source
         ).toString();
       });
     if (fill) {`,
-  )
-  .replace(
-    ".touch-weapon{right:112px;bottom:112px}.touch-throw{right:28px;bottom:112px}",
-    ".touch-weapon{right:112px;bottom:205px}.touch-throw{right:28px;bottom:205px}",
-  )
-  .replace(
-    ".large-knife b{position:absolute;left:25%;right:0;top:10%;height:80%;clip-path:polygon(0 0,100% 50%,0 100%);background:linear-gradient(#edf4f1,#6f7d7b 53%,#d5ddda)}",
-    ".large-knife b{position:absolute;left:25%;right:0;top:10%;height:80%;clip-path:polygon(0 0,100% 50%,0 100%);background:linear-gradient(#edf4f1,#6f7d7b 53%,#d5ddda);overflow:hidden}.rust-segments{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,1fr)}.rust-segments em{display:block;background:linear-gradient(90deg,#5a2d12,#9a5425 45%,#4a2410);border-right:1px solid #2b1308;opacity:1}.spark-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden}.sharpen-spark{position:absolute;width:5px;height:5px;border-radius:50%;background:#fff3a0;box-shadow:0 0 8px #ff9b22;animation:spark-flight .42s ease-out forwards}@keyframes spark-flight{to{transform:translate(var(--spark-x),var(--spark-y)) scale(.2);opacity:0}}",
-  );
+    )
+    .replace(
+      ".touch-weapon{right:112px;bottom:112px}.touch-throw{right:28px;bottom:112px}",
+      ".touch-weapon{right:112px;bottom:205px}.touch-throw{right:28px;bottom:205px}",
+    )
+    .replace(
+      ".large-knife b{position:absolute;left:25%;right:0;top:10%;height:80%;clip-path:polygon(0 0,100% 50%,0 100%);background:linear-gradient(#edf4f1,#6f7d7b 53%,#d5ddda)}",
+      ".large-knife b{position:absolute;left:25%;right:0;top:10%;height:80%;clip-path:polygon(0 0,100% 50%,0 100%);background:linear-gradient(#edf4f1,#6f7d7b 53%,#d5ddda);overflow:hidden}.rust-segments{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,1fr)}.rust-segments em{display:block;background:linear-gradient(90deg,#5a2d12,#9a5425 45%,#4a2410);border-right:1px solid #2b1308;opacity:1}.spark-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden}.sharpen-spark{position:absolute;width:5px;height:5px;border-radius:50%;background:#fff3a0;box-shadow:0 0 8px #ff9b22;animation:spark-flight .42s ease-out forwards}@keyframes spark-flight{to{transform:translate(var(--spark-x),var(--spark-y)) scale(.2);opacity:0}}",
+    );
+}
 
 await writeFile(v8Path, v8Source, "utf8");
 
