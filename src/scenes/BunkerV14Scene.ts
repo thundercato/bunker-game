@@ -27,7 +27,7 @@ export class BunkerV14Scene extends BunkerV13Scene {
     if (badge) badge.textContent = `BUNKER v${VERSION}`;
   }
 
-  private playerSprite(): Phaser.Physics.Arcade.Sprite | undefined {
+  private findPlayerSpriteV14(): Phaser.Physics.Arcade.Sprite | undefined {
     return this.children.list.find(
       (child): child is Phaser.Physics.Arcade.Sprite =>
         child instanceof Phaser.Physics.Arcade.Sprite &&
@@ -36,7 +36,7 @@ export class BunkerV14Scene extends BunkerV13Scene {
   }
 
   private frameRoomWithTrueBounds(): void {
-    const player = this.playerSprite();
+    const player = this.findPlayerSpriteV14();
     if (!player) return;
     const room = [LIVING_ROOM, TRAINING_ROOM].find((candidate) =>
       candidate.contains(player.x, player.y),
