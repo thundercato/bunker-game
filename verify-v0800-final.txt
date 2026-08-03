@@ -1,0 +1,1 @@
+final v0.8.00 release verification
