@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0.3 - 2026-08-03
+
+- Added tactile Makarov PM cleaning at the weapon workstation.
+- Added oil can, brush, cleaning rod and paper tools.
+- Added a sixteen-section brown grime layer that is removed only where the player rubs.
+- Added tool selection, oil-first cleaning behaviour and cleaning particles.
+- Added a persistent Makarov condition gauge starting at 20%.
+- Added the Makarov to the workstation weapon list when carried or armed.
+
 ## 0.1.0.2 - 2026-08-03
 
 - Added a Makarov PM pistol to bunker storage.
