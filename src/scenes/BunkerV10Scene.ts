@@ -145,7 +145,9 @@ export class BunkerV10Scene extends BunkerV9Scene {
       const pistolButton = document.createElement("button");
       pistolButton.className = "weapon-card makarov-card";
       pistolButton.innerHTML = `<span class="makarov-silhouette">▰</span><strong>MAKAROV PM</strong><small>CONDITION ${Math.round(this.condition())}%</small>`;
-      pistolButton.addEventListener("click", () => this.openMakarovMaintenance());
+      pistolButton.addEventListener("click", () =>
+        this.openMakarovMaintenance(),
+      );
       list.append(pistolButton);
     }
 
@@ -186,17 +188,28 @@ export class BunkerV10Scene extends BunkerV9Scene {
       )}%</strong><div><i></i></div></div>
       <button class="workstation-back">BACK</button>`;
 
-    for (const button of panel.querySelectorAll<HTMLButtonElement>("[data-tool]")) {
+    for (const button of panel.querySelectorAll<HTMLButtonElement>(
+      "[data-tool]",
+    )) {
       button.addEventListener("click", () => {
         const tool = button.dataset.tool as CleaningTool;
         this.selectedTool = tool;
         if (tool === "oil") {
           this.oilApplied = true;
-          this.showCleaningMessage(panel, "Oil applied. Work it into the brown areas.");
+          this.showCleaningMessage(
+            panel,
+            "Oil applied. Work it into the brown areas.",
+          );
         } else if (!this.oilApplied) {
-          this.showCleaningMessage(panel, "Apply oil before scrubbing the mechanism.");
+          this.showCleaningMessage(
+            panel,
+            "Apply oil before scrubbing the mechanism.",
+          );
         } else {
-          this.showCleaningMessage(panel, `${button.textContent ?? tool} selected. Rub the dirty metal.`);
+          this.showCleaningMessage(
+            panel,
+            `${button.textContent ?? tool} selected. Rub the dirty metal.`,
+          );
         }
         this.refreshToolButtons(panel);
       });
@@ -276,8 +289,13 @@ export class BunkerV10Scene extends BunkerV9Scene {
   }
 
   private refreshToolButtons(panel: HTMLElement): void {
-    for (const button of panel.querySelectorAll<HTMLButtonElement>("[data-tool]")) {
-      button.classList.toggle("is-selected", button.dataset.tool === this.selectedTool);
+    for (const button of panel.querySelectorAll<HTMLButtonElement>(
+      "[data-tool]",
+    )) {
+      button.classList.toggle(
+        "is-selected",
+        button.dataset.tool === this.selectedTool,
+      );
     }
   }
 
@@ -285,17 +303,23 @@ export class BunkerV10Scene extends BunkerV9Scene {
     panel
       .querySelectorAll<HTMLElement>("[data-gun-segment]")
       .forEach((segment, index) => {
-        segment.style.opacity = (1 - (this.gunCleanliness[index] ?? 0)).toString();
+        segment.style.opacity = (
+          1 - (this.gunCleanliness[index] ?? 0)
+        ).toString();
       });
     const condition = this.condition();
-    const number = panel.querySelector<HTMLElement>(".condition-readout strong");
+    const number = panel.querySelector<HTMLElement>(
+      ".condition-readout strong",
+    );
     const fill = panel.querySelector<HTMLElement>(".condition-readout div i");
     if (number) number.textContent = `${Math.round(condition)}%`;
     if (fill) fill.style.width = `${condition}%`;
   }
 
   private showCleaningMessage(panel: HTMLElement, message: string): void {
-    const instruction = panel.querySelector<HTMLElement>(".cleaning-instruction");
+    const instruction = panel.querySelector<HTMLElement>(
+      ".cleaning-instruction",
+    );
     if (instruction) instruction.textContent = message;
   }
 
