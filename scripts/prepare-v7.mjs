@@ -34,6 +34,11 @@ v8Source = v8Source
   .replace(
     "private controls!: HTMLElement;",
     "private v8Controls!: HTMLElement;",
+  )
+  .replaceAll("this.installStyles", "this.installV8Styles")
+  .replace(
+    "private installStyles(): void",
+    "private installV8Styles(): void",
   );
 await writeFile(v8Path, v8Source, "utf8");
 
