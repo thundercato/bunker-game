@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0.4 - 2026-08-03
+
+- Rebuilt storage, backpack and item inspection screens as fixed landscape layouts.
+- Removed scrolling and overscroll from all inventory and inspection overlays.
+- Fitted the full 6 × 3 storage grid into one screen with a permanent right-side back control.
+- Moved the 3 × 4 backpack grid left to reserve a right-side action area.
+- Reworked item inspection with smaller artwork and information on the left and a vertical action list on the right.
+- Added responsive scaling for narrower tablet and phone aspect ratios.
+
 ## 0.1.0.3 - 2026-08-03
 
 - Added tactile Makarov PM cleaning at the weapon workstation.
