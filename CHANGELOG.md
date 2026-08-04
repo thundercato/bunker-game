@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.0.0.1 - 2026-08-04
+
+- Replaced stale copied storage arrays with an authoritative `InventoryStore`.
+- Rebuilt the cabinet directly from live inventory state after every item mutation.
+- Removed the duplicate TAKE listener and delayed stale redraw that caused partial cabinet contents and weapon inspection lock-ups.
+- Returned base items and firearms to the cabinet view after taking them without losing the remaining item list.
+- Added regression tests for repeated inventory rebuilds and canonical mutation notifications.
+- Added a single visible release version source and reset development numbering to the four-part sequence.
+- Added a versioned service worker, automatic old-cache deletion and network-first loading for navigation, manifest and version metadata.
+- Added startup, foreground and focus update checks with a New Version Available reload notice.
+- Added a landscape PWA manifest and a tiny bottom-right title-screen version string.
+
 ## 0.1.0.12 - 2026-08-04
 
 - Added a persistent refillable water flask with proportional drinking and retained contents.
