@@ -20,7 +20,7 @@ describe("consumable catalogue", () => {
   });
 
   it("keeps the flask as a full-thirst liquid container", () => {
-    expect(CONSUMABLES.flask?.kind).toBe("liquid-container");
-    expect(CONSUMABLES.flask?.hydrationRestored).toBe(100);
+    expect(CONSUMABLES.flask.kind).toBe("liquid-container");
+    expect(CONSUMABLES.flask.hydrationRestored).toBe(100);
   });
 });
