@@ -10,6 +10,8 @@ const VERSION = "0.1.0.9";
 const ROOM_CAMERA_DEBUG = false;
 const FOLLOW_ZOOM = 1.4;
 
+const roomCameraDebugEnabled = (): boolean => ROOM_CAMERA_DEBUG;
+
 const ROOMS = [
   {
     name: "LIVING QUARTERS",
@@ -124,7 +126,7 @@ export class BunkerV15Scene extends BunkerV14Scene {
   }
 
   private createDebugDisplay(): void {
-    if (!ROOM_CAMERA_DEBUG) return;
+    if (!roomCameraDebugEnabled()) return;
     this.debugGraphics = this.add.graphics().setDepth(1000);
     this.debugText = this.add
       .text(8, 8, "", {
@@ -142,10 +144,12 @@ export class BunkerV15Scene extends BunkerV14Scene {
     player: Phaser.Physics.Arcade.Sprite,
     room?: RoomDefinition,
   ): void {
-    if (!ROOM_CAMERA_DEBUG || !this.debugGraphics || !this.debugText) return;
+    if (!roomCameraDebugEnabled()) return;
+    const graphics = this.debugGraphics;
+    const text = this.debugText;
+    if (!graphics || !text) return;
 
     const camera = this.cameras.main;
-    const graphics = this.debugGraphics;
     graphics.clear();
 
     if (room) {
@@ -169,7 +173,7 @@ export class BunkerV15Scene extends BunkerV14Scene {
     const cameraResult: RoomCameraResult | undefined = room
       ? calculateRoomCamera(room.bounds, this.fullViewport)
       : undefined;
-    this.debugText.setText([
+    text.setText([
       `MODE: ${room ? "STATIC ROOM" : "FOLLOW"}`,
       `CAMERA scroll: ${camera.scrollX.toFixed(2)}, ${camera.scrollY.toFixed(2)}`,
       `CAMERA viewport: ${camera.x.toFixed(2)}, ${camera.y.toFixed(2)}, ${camera.width.toFixed(2)} × ${camera.height.toFixed(2)}`,
