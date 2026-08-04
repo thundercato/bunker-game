@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0.9 - 2026-08-04
+
+- Replaced all inherited room-camera adjustments with one mathematical room-framing system.
+- Added `calculateRoomCamera(roomBounds, cameraViewport)` as the single source of truth.
+- Framed rooms solely from their world rectangles and Phaser camera viewport dimensions.
+- Added aspect-correct camera viewports so rooms are never cropped and no world outside a framed room is shown.
+- Kept small rooms at native scale and centred them within the available viewport.
+- Restored the original follow camera automatically when leaving a room.
+- Recalculate static room framing after Phaser scale resize and device rotation.
+- Added an optional debug overlay for room bounds, camera viewport, camera centre, player position and coordinate readouts.
+- Added automated tests for small-room centring, large-room scaling and aspect-ratio letterboxing.
+
 ## 0.1.0.8 - 2026-08-03
 
 - Restored smooth player-follow camera behaviour immediately after leaving a framed room.
