@@ -20,27 +20,33 @@ const v9Path = new URL("../src/scenes/BunkerV9Scene.ts", import.meta.url);
 let v9 = await readFile(v9Path, "utf8");
 v9 = replaceRequired(
   v9,
+  'import Phaser from "phaser";',
+  'import Phaser from "phaser";\nimport { InventoryStore } from "@/inventory/InventoryStore";',
+  "inventory store import",
+);
+v9 = replaceRequired(
+  v9,
   "  private fireHeld = false;",
-  "  private fireHeld = false;\n  private canonicalStorageItems: BaseItem[] = [];",
-  "canonical storage field",
+  "  private fireHeld = false;\n  private readonly storageInventory = new InventoryStore<BaseItem>((item) => item.id);",
+  "inventory store field",
 );
 v9 = replaceRequired(
   v9,
   "    const items = (\n      event as CustomEvent<{ items: BaseItem[] }>\n    ).detail.items.map((item) => ({ ...item }));",
-  "    const items = (event as CustomEvent<{ items: BaseItem[] }>).detail.items;\n    this.canonicalStorageItems = items;",
+  "    const items = (event as CustomEvent<{ items: BaseItem[] }>).detail.items;\n    this.storageInventory.replace(items);",
   "storage event capture",
 );
 v9 = replaceRequired(
   v9,
   "  private openStorage(baseItems: BaseItem[]): void {\n    this.setUiOpen(true);",
-  "  private openStorage(baseItems?: BaseItem[]): void {\n    if (baseItems) this.canonicalStorageItems = baseItems;\n    const currentItems = this.canonicalStorageItems;\n    this.setUiOpen(true);",
+  "  private openStorage(baseItems?: BaseItem[]): void {\n    if (baseItems) this.storageInventory.replace(baseItems);\n    const currentItems = this.storageInventory.values();\n    this.setUiOpen(true);",
   "storage renderer signature",
 );
 v9 = replaceRequired(v9, "...baseItems.filter((item) => !item.taken),", "...currentItems.filter((item) => !item.taken),", "storage live collection");
 v9 = replaceRequired(
   v9,
   "          this.runtimeV9().backpack.set(item.id, item);\n          this.openBackpack();",
-  "          this.runtimeV9().backpack.set(item.id, item);\n          this.openStorage();",
+  "          this.runtimeV9().backpack.set(item.id, item);\n          this.storageInventory.upsert(item);\n          this.openStorage();",
   "base item take destination",
 );
 v9 = replaceRequired(
