@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0.10 - 2026-08-04
+
+- Returned players to the storage grid after taking an item instead of opening the backpack.
+- Added equipped sidearm and knife slots to the backpack with click-to-unequip behaviour.
+- Added four magazine pouches and left-shoulder tactical reload from the first non-empty pouch.
+- Added persistent Makarov health of 200 and magazine health of 100, each losing one point per shot.
+- Removed empty ammunition stacks from visible inventory and restored them only when rounds are added.
+- Rebuilt weapon maintenance around spray, brushing and sharpening with a visible selected-tool display.
+- Added spray mist, treated metal colouring and brushing restricted to sprayed areas.
+- Limited knife brushing to 80 percent and required the sharpening stone for the final 20 percent.
+- Added spray-and-brush maintenance for Makarov magazines.
+- Added horizontal and vertical moving kill-house targets with line-of-fire hit detection, one-second red hit markers and increasing speed after each hit.
+
 ## 0.1.0.9 - 2026-08-04
 
 - Replaced all inherited room-camera adjustments with one mathematical room-framing system.
