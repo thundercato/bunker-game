@@ -6,11 +6,9 @@ import {
 } from "@/camera/RoomCamera";
 import { BunkerV14Scene } from "./BunkerV14Scene";
 
-const VERSION = "0.1.0.9";
+const VERSION = "0.1.0.11";
 const ROOM_CAMERA_DEBUG = false;
 const FOLLOW_ZOOM = 1.4;
-
-const roomCameraDebugEnabled = (): boolean => ROOM_CAMERA_DEBUG;
 
 const ROOMS = [
   {
@@ -27,14 +25,14 @@ type RoomDefinition = (typeof ROOMS)[number];
 
 export class BunkerV15Scene extends BunkerV14Scene {
   private activeRoom?: RoomDefinition;
-  private fullViewport!: CameraViewport;
+  private cameraViewport!: CameraViewport;
   private debugGraphics?: Phaser.GameObjects.Graphics;
   private debugText?: Phaser.GameObjects.Text;
 
   public override create(): void {
     super.create();
     this.updateVersionLabel();
-    this.captureFullViewport();
+    this.captureCameraViewport();
     this.createDebugDisplay();
 
     this.scale.on(Phaser.Scale.Events.RESIZE, this.handleResize, this);
@@ -45,7 +43,7 @@ export class BunkerV15Scene extends BunkerV14Scene {
 
   public override update(time: number, delta: number): void {
     super.update(time, delta);
-    this.updateRoomCameraFromSingleSource();
+    this.updateRoomCamera();
   }
 
   private updateVersionLabel(): void {
@@ -53,20 +51,21 @@ export class BunkerV15Scene extends BunkerV14Scene {
     if (badge) badge.textContent = `BUNKER v${VERSION}`;
   }
 
-  private captureFullViewport(): void {
+  /** Captures the actual Phaser camera viewport, never CSS/window dimensions. */
+  private captureCameraViewport(): void {
     const camera = this.cameras.main;
-    camera.setViewport(0, 0, this.scale.width, this.scale.height);
-    this.fullViewport = {
-      x: 0,
-      y: 0,
+    camera.setViewport(0, 0, this.scale.gameSize.width, this.scale.gameSize.height);
+    this.cameraViewport = {
+      x: camera.x,
+      y: camera.y,
       width: camera.width,
       height: camera.height,
     };
   }
 
   private readonly handleResize = (): void => {
-    this.captureFullViewport();
-    if (this.activeRoom) this.applyStaticRoomCamera(this.activeRoom);
+    this.captureCameraViewport();
+    if (this.activeRoom) this.frameRoom(this.activeRoom);
   };
 
   private findPlayer(): Phaser.Physics.Arcade.Sprite | undefined {
@@ -77,7 +76,7 @@ export class BunkerV15Scene extends BunkerV14Scene {
     );
   }
 
-  private updateRoomCameraFromSingleSource(): void {
+  private updateRoomCamera(): void {
     const player = this.findPlayer();
     if (!player) return;
 
@@ -86,19 +85,25 @@ export class BunkerV15Scene extends BunkerV14Scene {
     );
 
     if (room) {
-      this.applyStaticRoomCamera(room);
-    } else {
+      if (room !== this.activeRoom) this.frameRoom(room);
+    } else if (this.activeRoom) {
       this.restoreFollowCamera(player);
     }
 
     this.updateDebugDisplay(player, room);
   }
 
-  private applyStaticRoomCamera(room: RoomDefinition): void {
+  /**
+   * The only room-framing entry point. Player position is deliberately absent
+   * from the calculation. The result depends solely on the room rectangle and
+   * the current Phaser camera viewport.
+   */
+  private frameRoom(room: RoomDefinition): void {
     const camera = this.cameras.main;
-    const result = calculateRoomCamera(room.bounds, this.fullViewport);
+    const result = calculateRoomCamera(room.bounds, this.cameraViewport);
 
     camera.stopFollow();
+    camera.roundPixels = false;
     camera.setViewport(
       result.viewport.x,
       result.viewport.y,
@@ -111,22 +116,21 @@ export class BunkerV15Scene extends BunkerV14Scene {
   }
 
   private restoreFollowCamera(player: Phaser.Physics.Arcade.Sprite): void {
-    if (!this.activeRoom) return;
-
     const camera = this.cameras.main;
     camera.setViewport(
-      this.fullViewport.x,
-      this.fullViewport.y,
-      this.fullViewport.width,
-      this.fullViewport.height,
+      this.cameraViewport.x,
+      this.cameraViewport.y,
+      this.cameraViewport.width,
+      this.cameraViewport.height,
     );
     camera.setZoom(FOLLOW_ZOOM);
+    camera.roundPixels = true;
     camera.startFollow(player, true, 0.08, 0.08);
     this.activeRoom = undefined;
   }
 
   private createDebugDisplay(): void {
-    if (!roomCameraDebugEnabled()) return;
+    if (!ROOM_CAMERA_DEBUG) return;
     this.debugGraphics = this.add.graphics().setDepth(1000);
     this.debugText = this.add
       .text(8, 8, "", {
@@ -144,7 +148,7 @@ export class BunkerV15Scene extends BunkerV14Scene {
     player: Phaser.Physics.Arcade.Sprite,
     room?: RoomDefinition,
   ): void {
-    if (!roomCameraDebugEnabled()) return;
+    if (!ROOM_CAMERA_DEBUG) return;
     const graphics = this.debugGraphics;
     const text = this.debugText;
     if (!graphics || !text) return;
@@ -158,33 +162,28 @@ export class BunkerV15Scene extends BunkerV14Scene {
     }
 
     graphics.lineStyle(3 / camera.zoom, 0x3b82f6, 1);
-    graphics.strokeRect(
-      camera.worldView.x,
-      camera.worldView.y,
-      camera.worldView.width,
-      camera.worldView.height,
-    );
-
+    graphics.strokeRectShape(camera.worldView);
     graphics.fillStyle(0xff3333, 1);
     graphics.fillCircle(camera.midPoint.x, camera.midPoint.y, 5 / camera.zoom);
     graphics.fillStyle(0xffe600, 1);
     graphics.fillCircle(player.x, player.y, 6 / camera.zoom);
 
-    const cameraResult: RoomCameraResult | undefined = room
-      ? calculateRoomCamera(room.bounds, this.fullViewport)
+    const result: RoomCameraResult | undefined = room
+      ? calculateRoomCamera(room.bounds, this.cameraViewport)
       : undefined;
+
     text.setText([
       `MODE: ${room ? "STATIC ROOM" : "FOLLOW"}`,
-      `CAMERA scroll: ${camera.scrollX.toFixed(2)}, ${camera.scrollY.toFixed(2)}`,
       `CAMERA viewport: ${camera.x.toFixed(2)}, ${camera.y.toFixed(2)}, ${camera.width.toFixed(2)} × ${camera.height.toFixed(2)}`,
+      `CAMERA scroll: ${camera.scrollX.toFixed(2)}, ${camera.scrollY.toFixed(2)}`,
       `CAMERA world: ${camera.worldView.x.toFixed(2)}, ${camera.worldView.y.toFixed(2)}, ${camera.worldView.width.toFixed(2)} × ${camera.worldView.height.toFixed(2)}`,
       `CAMERA centre: ${camera.midPoint.x.toFixed(2)}, ${camera.midPoint.y.toFixed(2)}`,
       `PLAYER: ${player.x.toFixed(2)}, ${player.y.toFixed(2)}`,
       room
         ? `ROOM ${room.name}: ${room.bounds.x}, ${room.bounds.y}, ${room.bounds.width} × ${room.bounds.height}`
         : "ROOM: none",
-      cameraResult
-        ? `CALCULATED zoom ${cameraResult.zoom.toFixed(4)} viewport ${cameraResult.viewport.x.toFixed(2)}, ${cameraResult.viewport.y.toFixed(2)}, ${cameraResult.viewport.width.toFixed(2)} × ${cameraResult.viewport.height.toFixed(2)}`
+      result
+        ? `CALCULATED: scroll ${result.scrollX.toFixed(2)}, ${result.scrollY.toFixed(2)} · zoom ${result.zoom.toFixed(6)}`
         : "CALCULATED: follow camera",
     ]);
   }
