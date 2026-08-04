@@ -42,11 +42,13 @@ if (!v9.includes("storageInventory = new InventoryStore")) {
     "    const items = (event as CustomEvent<{ items: BaseItem[] }>).detail.items;\n    this.storageInventory.replace(items);",
     "storage event capture",
   );
-  v9 = replaceRequired(
-    v9,
-    "  private openStorage(baseItems: BaseItem[]): void {\n    this.setUiOpen(true);",
+  const rendererPattern = / {2}private openStorage\(\s*baseItems: BaseItem\[\],?\s*\): void \{\s*this\.setUiOpen\(true\);/;
+  if (!rendererPattern.test(v9)) {
+    throw new Error("prepare-v18: missing storage renderer signature");
+  }
+  v9 = v9.replace(
+    rendererPattern,
     "  private openStorage(baseItems?: BaseItem[]): void {\n    if (baseItems) this.storageInventory.replace(baseItems);\n    const currentItems = this.storageInventory.values();\n    this.setUiOpen(true);",
-    "storage renderer signature",
   );
   v9 = replaceRequired(
     v9,
