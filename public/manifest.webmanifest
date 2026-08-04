@@ -1,0 +1,12 @@
+{
+  "name": "Bunker Game",
+  "short_name": "Bunker",
+  "description": "A tactile underground survival game.",
+  "version": "0.0.0.1",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#05090d",
+  "theme_color": "#08111f"
+}
