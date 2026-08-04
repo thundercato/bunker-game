@@ -172,8 +172,8 @@ if (!v17.includes("drinkPackaged(definition")) {
 
 if (!v17.includes("runtime.thirst + hydrationDelta")) {
   v17 = v17.replace(
-    "    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored);\n    await this.animateConsumption(\"eat\", restored, (progress) => {\n      runtime.hunger = Math.min(100, runtime.hunger + restored * progress);\n      runtime.emitState();\n    });",
-    "    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored);\n    const hydrationDelta = Math.max(\n      -runtime.thirst,\n      Math.min(100 - runtime.thirst, definition.hydrationRestored),\n    );\n    await this.animateConsumption(\"eat\", restored, (progress) => {\n      runtime.hunger = Math.min(100, runtime.hunger + restored * progress);\n      runtime.thirst = Math.max(\n        0,\n        Math.min(100, runtime.thirst + hydrationDelta * progress),\n      );\n      runtime.emitState();\n    });",
+    '    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored);\n    await this.animateConsumption("eat", restored, (progress) => {\n      runtime.hunger = Math.min(100, runtime.hunger + restored * progress);\n      runtime.emitState();\n    });',
+    '    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored);\n    const hydrationDelta = Math.max(\n      -runtime.thirst,\n      Math.min(100 - runtime.thirst, definition.hydrationRestored),\n    );\n    await this.animateConsumption("eat", restored, (progress) => {\n      runtime.hunger = Math.min(100, runtime.hunger + restored * progress);\n      runtime.thirst = Math.max(\n        0,\n        Math.min(100, runtime.thirst + hydrationDelta * progress),\n      );\n      runtime.emitState();\n    });',
   );
 }
 

@@ -15,7 +15,8 @@ describe("consumable catalogue", () => {
       expect(item.calories).toBeGreaterThanOrEqual(0);
 
       if (item.kind === "food") expect(item.hungerRestored).toBeGreaterThan(0);
-      if (item.kind === "drink") expect(item.hydrationRestored).toBeGreaterThan(0);
+      if (item.kind === "drink")
+        expect(item.hydrationRestored).toBeGreaterThan(0);
     }
   });
 
