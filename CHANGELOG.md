@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0.12 - 2026-08-04
+
+- Added a persistent refillable water flask with proportional drinking and retained contents.
+- Added a tactile bunker faucet with a two-second fill interaction, water stream, particles and sound.
+- Added data-driven food definitions for future cooking, spoilage, nutrition and scavenging systems.
+- Added smooth eating and drinking animations, sounds and survival-meter pulses.
+- Added reusable consumable and liquid-container state stored through local persistence.
+- Added several food items to bunker storage with inspection details, weight, calories and hydration fields.
+- Added a reload touchscreen button beside the backpack control.
+- Repositioned touch action controls to prevent Use, Back, Weapon and Throw overlap.
+- Fixed storage state becoming temporarily empty after taking items.
+- Fixed firearm inspection becoming unresponsive after returning to storage.
+
 ## 0.1.0.11 - 2026-08-04
 
 - Reworked room framing so every transition uses one deterministic mathematical path.
