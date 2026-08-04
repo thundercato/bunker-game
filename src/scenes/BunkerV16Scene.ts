@@ -55,7 +55,12 @@ type TargetState = {
 };
 
 export class BunkerV16Scene extends BunkerV15Scene {
-  private readonly magazinePouches: Array<string | null> = [null, null, null, null];
+  private readonly magazinePouches: Array<string | null> = [
+    null,
+    null,
+    null,
+    null,
+  ];
   private readonly magazineHealth = new Map<string, number>();
   private readonly maintenance = new Map<string, MaintenanceState>();
   private cachedStorageItems: BaseItem[] = [];
@@ -76,7 +81,11 @@ export class BunkerV16Scene extends BunkerV15Scene {
     this.observeInterface();
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      window.removeEventListener("bunker-storage-open", this.cacheStorage, true);
+      window.removeEventListener(
+        "bunker-storage-open",
+        this.cacheStorage,
+        true,
+      );
       window.removeEventListener("bunker-gunshot", this.handleShotWear);
       document.removeEventListener("click", this.handleDocumentClick, true);
       this.observer?.disconnect();
@@ -108,9 +117,14 @@ export class BunkerV16Scene extends BunkerV15Scene {
     const target = event.target as HTMLButtonElement | null;
     if (!target) return;
     const label = target.textContent?.trim() ?? "";
-    const panel = target.closest<HTMLElement>(".firearm-item-panel, .item-panel");
+    const panel = target.closest<HTMLElement>(
+      ".firearm-item-panel, .item-panel",
+    );
     if (label === "TAKE" && panel) {
-      window.setTimeout(() => this.runtime().openStorage(this.cachedStorageItems), 0);
+      window.setTimeout(
+        () => this.runtime().openStorage(this.cachedStorageItems),
+        0,
+      );
     }
     if (target.closest(".backpack-button")) {
       window.setTimeout(() => this.decorateBackpack(), 0);
@@ -275,7 +289,11 @@ export class BunkerV16Scene extends BunkerV15Scene {
   private removeEmptyAmmoItems(): void {
     for (const item of this.runtime().firearmItems.values()) {
       if (item.kind === "ammo" && item.rounds <= 0) item.location = "hidden";
-      if (item.kind === "ammo" && item.rounds > 0 && item.location === "hidden") {
+      if (
+        item.kind === "ammo" &&
+        item.rounds > 0 &&
+        item.location === "hidden"
+      ) {
         item.location = "backpack";
       }
     }
@@ -290,20 +308,30 @@ export class BunkerV16Scene extends BunkerV15Scene {
       const button = document.createElement("button");
       button.className = "weapon-card v16-mag-maintenance";
       button.innerHTML = `<span class="magazine-maintenance-icon">▥</span><strong>${magazine.name}</strong><small>HEALTH ${this.magazineHealth.get(magazine.id) ?? 100}%</small>`;
-      button.addEventListener("click", () => this.openMaintenance(magazine.id, "magazine"));
+      button.addEventListener("click", () =>
+        this.openMaintenance(magazine.id, "magazine"),
+      );
       list.append(button);
     }
 
-    const knife = list.querySelector<HTMLElement>(".knife-silhouette")?.closest("button");
+    const knife = list
+      .querySelector<HTMLElement>(".knife-silhouette")
+      ?.closest("button");
     if (knife) {
       const replacement = knife.cloneNode(true) as HTMLButtonElement;
-      replacement.addEventListener("click", () => this.openMaintenance("knife", "knife"));
+      replacement.addEventListener("click", () =>
+        this.openMaintenance("knife", "knife"),
+      );
       knife.replaceWith(replacement);
     }
-    const pistol = list.querySelector<HTMLElement>(".makarov-silhouette")?.closest("button");
+    const pistol = list
+      .querySelector<HTMLElement>(".makarov-silhouette")
+      ?.closest("button");
     if (pistol) {
       const replacement = pistol.cloneNode(true) as HTMLButtonElement;
-      replacement.addEventListener("click", () => this.openMaintenance("makarov", "gun"));
+      replacement.addEventListener("click", () =>
+        this.openMaintenance("makarov", "gun"),
+      );
       pistol.replaceWith(replacement);
     }
   }
@@ -320,7 +348,10 @@ export class BunkerV16Scene extends BunkerV15Scene {
     return state;
   }
 
-  private openMaintenance(id: string, kind: "gun" | "knife" | "magazine"): void {
+  private openMaintenance(
+    id: string,
+    kind: "gun" | "knife" | "magazine",
+  ): void {
     const overlay = document.querySelector<HTMLElement>(".game-overlay");
     if (!overlay) return;
     let selectedTool: Tool = "spray";
@@ -348,52 +379,79 @@ export class BunkerV16Scene extends BunkerV15Scene {
     if (!surface || !toolDisplay) return;
 
     const refresh = (): void => {
-      panel.querySelectorAll<HTMLElement>("[data-segment]").forEach((segment, index) => {
-        const clean = state.cleaned[index] ?? 0;
-        const sprayed = state.sprayed[index] ?? false;
-        segment.style.setProperty("--clean", clean.toString());
-        segment.classList.toggle("is-sprayed", sprayed);
-      });
-      const average = state.cleaned.reduce((sum, value) => sum + value, 0) / state.cleaned.length;
+      panel
+        .querySelectorAll<HTMLElement>("[data-segment]")
+        .forEach((segment, index) => {
+          const clean = state.cleaned[index] ?? 0;
+          const sprayed = state.sprayed[index] ?? false;
+          segment.style.setProperty("--clean", clean.toString());
+          segment.classList.toggle("is-sprayed", sprayed);
+        });
+      const average =
+        state.cleaned.reduce((sum, value) => sum + value, 0) /
+        state.cleaned.length;
       const percentage = Math.round(average * 100);
-      const value = panel.querySelector<HTMLElement>(".maintenance-meter strong");
+      const value = panel.querySelector<HTMLElement>(
+        ".maintenance-meter strong",
+      );
       const fill = panel.querySelector<HTMLElement>(".maintenance-meter div i");
       if (value) value.textContent = `${percentage}%`;
       if (fill) fill.style.width = `${percentage}%`;
     };
 
-    panel.querySelectorAll<HTMLButtonElement>("[data-tool]").forEach((button) => {
-      button.addEventListener("click", () => {
-        selectedTool = button.dataset.tool as Tool;
-        toolDisplay.dataset.selectedTool = selectedTool;
-        toolDisplay.textContent =
-          selectedTool === "spray"
-            ? "SPRAY CAN"
-            : selectedTool === "brush"
-              ? "TOOTHBRUSH"
-              : "SHARPENING STONE";
-        panel.querySelectorAll("[data-tool]").forEach((candidate) =>
-          candidate.classList.toggle("is-selected", candidate === button),
-        );
+    panel
+      .querySelectorAll<HTMLButtonElement>("[data-tool]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          selectedTool = button.dataset.tool as Tool;
+          toolDisplay.dataset.selectedTool = selectedTool;
+          toolDisplay.textContent =
+            selectedTool === "spray"
+              ? "SPRAY CAN"
+              : selectedTool === "brush"
+                ? "TOOTHBRUSH"
+                : "SHARPENING STONE";
+          panel
+            .querySelectorAll("[data-tool]")
+            .forEach((candidate) =>
+              candidate.classList.toggle("is-selected", candidate === button),
+            );
+        });
       });
-    });
 
     const applyAt = (event: PointerEvent, distance: number): void => {
       const rect = surface.getBoundingClientRect();
-      const x = Phaser.Math.Clamp((event.clientX - rect.left) / rect.width, 0, 0.999);
+      const x = Phaser.Math.Clamp(
+        (event.clientX - rect.left) / rect.width,
+        0,
+        0.999,
+      );
       const index = Math.floor(x * MAINTENANCE_SEGMENTS);
       if (selectedTool === "spray") {
         state.sprayed[index] = true;
         this.makeMaintenanceEffect(panel, event.clientX, event.clientY, "mist");
       } else if (selectedTool === "brush" && state.sprayed[index]) {
         const limit = kind === "knife" ? 0.8 : 1;
-        state.cleaned[index] = Math.min(limit, (state.cleaned[index] ?? 0) + distance / 520);
-        this.makeMaintenanceEffect(panel, event.clientX, event.clientY, "spark");
+        state.cleaned[index] = Math.min(
+          limit,
+          (state.cleaned[index] ?? 0) + distance / 520,
+        );
+        this.makeMaintenanceEffect(
+          panel,
+          event.clientX,
+          event.clientY,
+          "spark",
+        );
       } else if (selectedTool === "stone" && kind === "knife") {
         const current = state.cleaned[index] ?? 0;
         if (current >= 0.8) {
           state.cleaned[index] = Math.min(1, current + distance / 700);
-          this.makeMaintenanceEffect(panel, event.clientX, event.clientY, "spark");
+          this.makeMaintenanceEffect(
+            panel,
+            event.clientX,
+            event.clientY,
+            "spark",
+          );
         }
       }
       refresh();
@@ -407,7 +465,10 @@ export class BunkerV16Scene extends BunkerV15Scene {
     });
     surface.addEventListener("pointermove", (event) => {
       if (!surface.hasPointerCapture(event.pointerId) || !lastPoint) return;
-      const distance = Math.hypot(event.clientX - lastPoint.x, event.clientY - lastPoint.y);
+      const distance = Math.hypot(
+        event.clientX - lastPoint.x,
+        event.clientY - lastPoint.y,
+      );
       lastPoint = { x: event.clientX, y: event.clientY };
       if (distance >= 2) applyAt(event, distance);
     });
@@ -416,9 +477,9 @@ export class BunkerV16Scene extends BunkerV15Scene {
     };
     surface.addEventListener("pointerup", release);
     surface.addEventListener("pointercancel", release);
-    panel.querySelector(".workstation-back")?.addEventListener("click", () =>
-      this.runtime().openV10WeaponList(),
-    );
+    panel
+      .querySelector(".workstation-back")
+      ?.addEventListener("click", () => this.runtime().openV10WeaponList());
     overlay.replaceChildren(panel);
     refresh();
   }
@@ -438,8 +499,14 @@ export class BunkerV16Scene extends BunkerV15Scene {
       particle.className = `maintenance-particle ${type}`;
       particle.style.left = `${clientX - rect.left}px`;
       particle.style.top = `${clientY - rect.top}px`;
-      particle.style.setProperty("--dx", `${(Math.random() - 0.5) * (type === "mist" ? 90 : 50)}px`);
-      particle.style.setProperty("--dy", `${(Math.random() - 0.5) * (type === "mist" ? 70 : 35)}px`);
+      particle.style.setProperty(
+        "--dx",
+        `${(Math.random() - 0.5) * (type === "mist" ? 90 : 50)}px`,
+      );
+      particle.style.setProperty(
+        "--dy",
+        `${(Math.random() - 0.5) * (type === "mist" ? 70 : 35)}px`,
+      );
       layer.append(particle);
       window.setTimeout(() => particle.remove(), type === "mist" ? 520 : 330);
     }
@@ -455,8 +522,24 @@ export class BunkerV16Scene extends BunkerV15Scene {
       .setStrokeStyle(4, 0x3d2414)
       .setDepth(30);
     this.targets = [
-      { body: horizontal, axis: "x", min: 1320, max: 1740, speed: 80, direction: 1, paused: false },
-      { body: vertical, axis: "y", min: 180, max: 500, speed: 75, direction: 1, paused: false },
+      {
+        body: horizontal,
+        axis: "x",
+        min: 1320,
+        max: 1740,
+        speed: 80,
+        direction: 1,
+        paused: false,
+      },
+      {
+        body: vertical,
+        axis: "y",
+        min: 180,
+        max: 500,
+        speed: 75,
+        direction: 1,
+        paused: false,
+      },
     ];
   }
 
@@ -481,7 +564,8 @@ export class BunkerV16Scene extends BunkerV15Scene {
   private resolveTargetHit(): void {
     const player = this.children.list.find(
       (child): child is Phaser.Physics.Arcade.Sprite =>
-        child instanceof Phaser.Physics.Arcade.Sprite && child.texture.key.startsWith("survivor-"),
+        child instanceof Phaser.Physics.Arcade.Sprite &&
+        child.texture.key.startsWith("survivor-"),
     );
     if (!player) return;
     const texture = player.texture.key;
@@ -496,10 +580,29 @@ export class BunkerV16Scene extends BunkerV15Scene {
     const target = this.targets.find((candidate) => {
       if (candidate.paused) return false;
       const bounds = candidate.body.getBounds();
-      if (direction === "right") return bounds.left >= player.x && player.y >= bounds.top && player.y <= bounds.bottom;
-      if (direction === "left") return bounds.right <= player.x && player.y >= bounds.top && player.y <= bounds.bottom;
-      if (direction === "up") return bounds.bottom <= player.y && player.x >= bounds.left && player.x <= bounds.right;
-      return bounds.top >= player.y && player.x >= bounds.left && player.x <= bounds.right;
+      if (direction === "right")
+        return (
+          bounds.left >= player.x &&
+          player.y >= bounds.top &&
+          player.y <= bounds.bottom
+        );
+      if (direction === "left")
+        return (
+          bounds.right <= player.x &&
+          player.y >= bounds.top &&
+          player.y <= bounds.bottom
+        );
+      if (direction === "up")
+        return (
+          bounds.bottom <= player.y &&
+          player.x >= bounds.left &&
+          player.x <= bounds.right
+        );
+      return (
+        bounds.top >= player.y &&
+        player.x >= bounds.left &&
+        player.x <= bounds.right
+      );
     });
     if (!target) return;
 

@@ -23,6 +23,9 @@ sceneSource = sceneSource
   .replaceAll("this.updateVersionLabel()", "this.updateVersionLabelV16()")
   .replace("private installStyles(): void", "private installStylesV16(): void")
   .replaceAll("this.installStyles()", "this.installStylesV16()")
-  .replace("private toast(message: string): void", "private toastV16(message: string): void")
+  .replace(
+    "private toast(message: string): void",
+    "private toastV16(message: string): void",
+  )
   .replaceAll("this.toast(", "this.toastV16(");
 await writeFile(scenePath, sceneSource, "utf8");
