@@ -1,11 +1,10 @@
 import { describe, expect, it } from "vitest";
-import Phaser from "phaser";
 import { calculateRoomCamera } from "@/camera/RoomCamera";
 
 describe("calculateRoomCamera", () => {
   it("centres a smaller room without zooming above 1:1", () => {
     const result = calculateRoomCamera(
-      new Phaser.Geom.Rectangle(64, 96, 576, 448),
+      { x: 64, y: 96, width: 576, height: 448 },
       { x: 0, y: 0, width: 1280, height: 720 },
     );
 
@@ -22,7 +21,7 @@ describe("calculateRoomCamera", () => {
 
   it("scales a larger room uniformly so its entire rectangle fits", () => {
     const result = calculateRoomCamera(
-      new Phaser.Geom.Rectangle(100, 200, 1600, 900),
+      { x: 100, y: 200, width: 1600, height: 900 },
       { x: 0, y: 0, width: 1280, height: 720 },
     );
 
@@ -34,7 +33,7 @@ describe("calculateRoomCamera", () => {
 
   it("letterboxes aspect-ratio differences instead of cropping or showing outside", () => {
     const result = calculateRoomCamera(
-      new Phaser.Geom.Rectangle(0, 0, 1000, 1000),
+      { x: 0, y: 0, width: 1000, height: 1000 },
       { x: 0, y: 0, width: 1280, height: 720 },
     );
 
