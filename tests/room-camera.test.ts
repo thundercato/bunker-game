@@ -10,7 +10,12 @@ describe("calculateRoomCamera", () => {
     );
 
     expect(result.zoom).toBe(1);
-    expect(result.viewport).toEqual({ x: 352, y: 136, width: 576, height: 448 });
+    expect(result.viewport).toEqual({
+      x: 352,
+      y: 136,
+      width: 576,
+      height: 448,
+    });
     expect(result.scrollX).toBe(64);
     expect(result.scrollY).toBe(96);
   });
