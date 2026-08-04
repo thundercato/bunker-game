@@ -4,7 +4,9 @@ function replaceMethod(source, starts, ends, replacement, label) {
   const startToken = starts.find((token) => source.includes(token));
   if (!startToken) throw new Error(`prepare-v20 missing ${label} start`);
   const start = source.indexOf(startToken);
-  const endToken = ends.find((token) => source.indexOf(token, start + startToken.length) >= 0);
+  const endToken = ends.find(
+    (token) => source.indexOf(token, start + startToken.length) >= 0,
+  );
   if (!endToken) throw new Error(`prepare-v20 missing ${label} end`);
   const end = source.indexOf(endToken, start + startToken.length);
   return `${source.slice(0, start)}${replacement}${source.slice(end)}`;
@@ -16,7 +18,7 @@ if (!v9.includes("carriedEntries = [")) {
   v9 = replaceMethod(
     v9,
     ["  private openV9Backpack(): void {", "  private openBackpack(): void {"],
-    ["  private openV9BaseItem(", "  private openBaseItem("],
+    ["  private openBaseItem(", "  private openV9BaseItem("],
     `  private openV9Backpack(): void {
     this.setV9UiOpen(true);
     const panel = document.createElement("div");
@@ -31,7 +33,11 @@ if (!v9.includes("carriedEntries = [")) {
         item,
       })),
       ...Array.from(this.firearmItems.values())
-        .filter((item) => item.location === "backpack" && (item.kind !== "ammo" || item.rounds > 0))
+        .filter(
+          (item) =>
+            item.location === "backpack" &&
+            (item.kind !== "ammo" || item.rounds > 0),
+        )
         .map((item) => ({ type: "firearm" as const, item })),
     ];
 
@@ -44,17 +50,21 @@ if (!v9.includes("carriedEntries = [")) {
         const item = entry.item;
         cell.classList.add("has-item");
         cell.innerHTML = \`\${this.baseGlyph(item.id)}<span>\${item.name}</span>\`;
-        cell.addEventListener("click", () => this.openV9BaseItem(item));
+        cell.addEventListener("click", () => this.openBaseItem(item));
       } else if (entry?.type === "firearm") {
         const item = entry.item;
         cell.classList.add("has-item");
         cell.innerHTML = \`\${this.firearmGlyph(item)}<span>\${this.shortName(item)}</span>\`;
-        cell.addEventListener("click", () => this.openV9FirearmItem(item, "backpack"));
+        cell.addEventListener("click", () =>
+          this.openFirearmItem(item, "backpack"),
+        );
       }
       grid.append(cell);
     }
-    panel.querySelector(".overlay-back")?.addEventListener("click", this.closeV9Ui);
-    this.overlay.replaceChildren(panel);
+    panel
+      .querySelector(".overlay-back")
+      ?.addEventListener("click", this.closeV9Ui);
+    this.v9Overlay.replaceChildren(panel);
   }
 
 `,
@@ -109,7 +119,7 @@ if (!v17.includes("usedSlots = new Set")) {
   );
   v17 = v17.replace(
     "    for (const [definition, slot] of definitions) {\n      if (occupied.has(definition.id)) continue;",
-    "    for (const [definition, preferredSlot] of definitions) {\n      if (occupied.has(definition.id)) continue;\n      const slot = usedSlots.has(preferredSlot)\n        ? Array.from({ length: 18 }, (_, candidate) => candidate).find(\n            (candidate) => !usedSlots.has(candidate) && ![7, 8, 9, 10, 11, 12].includes(candidate),\n          )\n        : preferredSlot;\n      if (slot === undefined) continue;",
+    "    for (const [definition, preferredSlot] of definitions) {\n      if (occupied.has(definition.id)) continue;\n      const slot = usedSlots.has(preferredSlot)\n        ? Array.from({ length: 18 }, (_, candidate) => candidate).find(\n            (candidate) =>\n              !usedSlots.has(candidate) &&\n              ![7, 8, 9, 10, 11, 12].includes(candidate),\n          )\n        : preferredSlot;\n      if (slot === undefined) continue;",
   );
   v17 = v17.replace(
     "      detail.items.push(this.toBaseItem(definition, slot, false));",
@@ -117,24 +127,26 @@ if (!v17.includes("usedSlots = new Set")) {
   );
 }
 
-if (!v17.includes('definition.kind === "drink" ? "DRINK"')) {
-  v17 = v17.replace(
-    '    button.textContent = definition.kind === "food" ? "EAT" : "DRINK";',
-    '    button.textContent = definition.kind === "food" ? "EAT" : "DRINK";',
-  );
+if (!v17.includes("drinkPackaged(definition")) {
   v17 = v17.replace(
     '      if (definition.kind === "food") void this.eat(definition);\n      else void this.drinkFlask();',
     '      if (definition.kind === "food") void this.eat(definition);\n      else if (definition.kind === "drink") void this.drinkPackaged(definition);\n      else void this.drinkFlask();',
   );
-  const drinkMethod = `  private async drinkPackaged(definition: ConsumableDefinition): Promise<void> {
+  const drinkMethod = `  private async drinkPackaged(
+    definition: ConsumableDefinition,
+  ): Promise<void> {
     const runtime = this.runtimeV17();
     if (runtime.thirst >= 100) {
-      this.toast("Not thirsty.");
+      const toast = (this as unknown as { toast: (message: string) => void }).toast;
+      toast.call(this, "Not thirsty.");
       return;
     }
     const state = this.consumables.get(definition.id);
     if (state.quantity <= 0) return;
-    const hydration = Math.min(100 - runtime.thirst, definition.hydrationRestored);
+    const hydration = Math.min(
+      100 - runtime.thirst,
+      definition.hydrationRestored,
+    );
     const hunger = Math.min(100 - runtime.hunger, definition.hungerRestored);
     await this.animateConsumption("drink", hydration, (progress) => {
       runtime.thirst = Math.min(100, runtime.thirst + hydration * progress);
@@ -153,14 +165,15 @@ if (!v17.includes('definition.kind === "drink" ? "DRINK"')) {
 
 `;
   const marker = "  private async animateConsumption(";
-  if (!v17.includes(marker)) throw new Error("prepare-v20 missing consumption marker");
+  if (!v17.includes(marker))
+    throw new Error("prepare-v20 missing consumption marker");
   v17 = v17.replace(marker, `${drinkMethod}${marker}`);
 }
 
 if (!v17.includes("runtime.thirst + hydrationDelta")) {
   v17 = v17.replace(
     "    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored);\n    await this.animateConsumption(\"eat\", restored, (progress) => {\n      runtime.hunger = Math.min(100, runtime.hunger + restored * progress);\n      runtime.emitState();\n    });",
-    "    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored);\n    const hydrationDelta = Math.max(-runtime.thirst, Math.min(100 - runtime.thirst, definition.hydrationRestored));\n    await this.animateConsumption(\"eat\", restored, (progress) => {\n      runtime.hunger = Math.min(100, runtime.hunger + restored * progress);\n      runtime.thirst = Math.max(0, Math.min(100, runtime.thirst + hydrationDelta * progress));\n      runtime.emitState();\n    });",
+    "    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored);\n    const hydrationDelta = Math.max(\n      -runtime.thirst,\n      Math.min(100 - runtime.thirst, definition.hydrationRestored),\n    );\n    await this.animateConsumption(\"eat\", restored, (progress) => {\n      runtime.hunger = Math.min(100, runtime.hunger + restored * progress);\n      runtime.thirst = Math.max(\n        0,\n        Math.min(100, runtime.thirst + hydrationDelta * progress),\n      );\n      runtime.emitState();\n    });",
   );
 }
 
