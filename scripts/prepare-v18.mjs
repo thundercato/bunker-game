@@ -45,7 +45,8 @@ if (!v9.includes("storageInventory = new InventoryStore")) {
     "storage event capture",
   );
 
-  const rendererPattern = / {2}private openV9Storage\(\s*baseItems: BaseItem\[\],?\s*\): void \{\s*this\.setV9UiOpen\(true\);/;
+  const rendererPattern =
+    / {2}private openV9Storage\(\s*baseItems: BaseItem\[\],?\s*\): void \{\s*this\.setV9UiOpen\(true\);/;
   if (!rendererPattern.test(v9)) {
     throw new Error("prepare-v18: missing storage renderer signature");
   }
@@ -68,8 +69,8 @@ if (!v9.includes("storageInventory = new InventoryStore")) {
   v9 = v9.replaceAll("this.openV9Storage([])", "this.openV9Storage()");
   v9 = replaceRequired(
     v9,
-    "          item.location = \"backpack\";\n          this.openV9Backpack();",
-    "          item.location = \"backpack\";\n          this.openV9Storage();",
+    '          item.location = "backpack";\n          this.openV9Backpack();',
+    '          item.location = "backpack";\n          this.openV9Storage();',
     "firearm take destination",
   );
   await writeFile(v9Path, v9, "utf8");

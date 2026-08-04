@@ -1,6 +1,11 @@
 const VERSION = "0.0.0.1";
 const CACHE_NAME = `bunker-v${VERSION}`;
-const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./version.json"];
+const SHELL = [
+  "./",
+  "./index.html",
+  "./manifest.webmanifest",
+  "./version.json",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL)));
@@ -11,7 +16,15 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((names) => Promise.all(names.filter((name) => name.startsWith("bunker-v") && name !== CACHE_NAME).map((name) => caches.delete(name))))
+      .then((names) =>
+        Promise.all(
+          names
+            .filter(
+              (name) => name.startsWith("bunker-v") && name !== CACHE_NAME,
+            )
+            .map((name) => caches.delete(name)),
+        ),
+      )
       .then(() => self.clients.claim()),
   );
 });
@@ -36,10 +49,16 @@ self.addEventListener("fetch", (event) => {
       fetch(event.request, { cache: "no-store" })
         .then((response) => {
           const copy = response.clone();
-          void caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          void caches
+            .open(CACHE_NAME)
+            .then((cache) => cache.put(event.request, copy));
           return response;
         })
-        .catch(() => caches.match(event.request).then((cached) => cached ?? Response.error())),
+        .catch(() =>
+          caches
+            .match(event.request)
+            .then((cached) => cached ?? Response.error()),
+        ),
     );
     return;
   }
@@ -50,7 +69,9 @@ self.addEventListener("fetch", (event) => {
       return fetch(event.request).then((response) => {
         if (response.ok) {
           const copy = response.clone();
-          void caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          void caches
+            .open(CACHE_NAME)
+            .then((cache) => cache.put(event.request, copy));
         }
         return response;
       });

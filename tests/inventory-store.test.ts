@@ -21,10 +21,16 @@ describe("InventoryStore", () => {
       selected.location = "backpack";
       store.upsert(selected);
 
-      const rendered = store.values().filter((item) => item.location === "storage");
-      const reopened = store.values().filter((item) => item.location === "storage");
+      const rendered = store
+        .values()
+        .filter((item) => item.location === "storage");
+      const reopened = store
+        .values()
+        .filter((item) => item.location === "storage");
       expect(rendered).toEqual(reopened);
-      expect(new Set(rendered.map((item) => item.id)).size).toBe(rendered.length);
+      expect(new Set(rendered.map((item) => item.id)).size).toBe(
+        rendered.length,
+      );
       expect(rendered.some((item) => item.id === selectedId)).toBe(false);
 
       selected.location = "storage";
