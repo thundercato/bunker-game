@@ -7,6 +7,7 @@ const replaceRequired = (source, from, to, label) => {
 
 const mainPath = new URL("../src/main.ts", import.meta.url);
 let main = await readFile(mainPath, "utf8");
+if (main.includes("BunkerV18Scene")) process.exit(0);
 main = replaceRequired(
   main,
   'import { BunkerV17Scene } from "@/scenes/BunkerV17Scene";',
