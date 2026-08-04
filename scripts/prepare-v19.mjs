@@ -10,7 +10,7 @@ let first = await readFile(firstPath, "utf8");
 if (!first.includes("v16Decorated")) {
   first = replacePattern(
     first,
-    /    if \(\s*!panel \|\|\s*!actions \|\|\s*actions\.querySelector\("\.v16-action"\)\s*\)\s*return;\s*\n\s*const runtime = this\.runtime\(\);/,
+    /\s{4}if \(\s*!panel \|\|\s*!actions \|\|\s*actions\.querySelector\("\.v16-action"\)\s*\)\s*return;\s*\n\s*const runtime = this\.runtime\(\);/,
     '    if (!panel || !actions || panel.dataset.v16Decorated === "true") return;\n    panel.dataset.v16Decorated = "true";\n\n    const runtime = this.runtime();',
     "first panel guard",
   );
@@ -22,13 +22,13 @@ let second = await readFile(secondPath, "utf8");
 if (!second.includes("consumableDecorated")) {
   second = replacePattern(
     second,
-    /      !actions \|\|\s*actions\.querySelector\("\.consume-action"\)/,
+    /\s{6}!actions \|\|\s*actions\.querySelector\("\.consume-action"\)/,
     '      !actions ||\n      panel.dataset.consumableDecorated === "true"',
     "second panel guard",
   );
   second = replacePattern(
     second,
-    /    if \(!definition\) return;\s*\n\s*const state = this\.consumables\.get\(definition\.id\);/,
+    /\s{4}if \(!definition\) return;\s*\n\s*const state = this\.consumables\.get\(definition\.id\);/,
     '    if (!definition) return;\n    panel.dataset.consumableDecorated = "true";\n\n    const state = this.consumables.get(definition.id);',
     "second panel marker",
   );
