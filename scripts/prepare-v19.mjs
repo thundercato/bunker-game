@@ -22,7 +22,8 @@ if (!first.includes("v16Decorated")) {
         'actions.querySelector(".v16-action")',
         'panel.dataset.v16Decorated === "true"',
       );
-      if (guarded === method) throw new Error("prepare-v19 missing first guard");
+      if (guarded === method)
+        throw new Error("prepare-v19 missing first guard");
       const returnIndex = guarded.indexOf("return;");
       if (returnIndex < 0) throw new Error("prepare-v19 missing first return");
       const insertAt = returnIndex + "return;".length;
@@ -45,12 +46,14 @@ if (!second.includes("consumableDecorated")) {
         'actions.querySelector(".consume-action")',
         'panel.dataset.consumableDecorated === "true"',
       );
-      if (guarded === method) throw new Error("prepare-v19 missing second guard");
+      if (guarded === method)
+        throw new Error("prepare-v19 missing second guard");
       const marked = guarded.replace(
         "    if (!definition) return;",
         '    if (!definition) return;\n    panel.dataset.consumableDecorated = "true";',
       );
-      if (marked === guarded) throw new Error("prepare-v19 missing second marker");
+      if (marked === guarded)
+        throw new Error("prepare-v19 missing second marker");
       return marked;
     },
     "second decorator method",
