@@ -56,7 +56,12 @@ export class BunkerV15Scene extends BunkerV14Scene {
   /** Captures the actual Phaser camera viewport, never CSS/window dimensions. */
   private captureCameraViewport(): void {
     const camera = this.cameras.main;
-    camera.setViewport(0, 0, this.scale.gameSize.width, this.scale.gameSize.height);
+    camera.setViewport(
+      0,
+      0,
+      this.scale.gameSize.width,
+      this.scale.gameSize.height,
+    );
     this.cameraViewport = {
       x: camera.x,
       y: camera.y,
