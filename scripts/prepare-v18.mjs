@@ -42,13 +42,13 @@ if (!v9.includes("storageInventory = new InventoryStore")) {
     "    const items = (event as CustomEvent<{ items: BaseItem[] }>).detail.items;\n    this.storageInventory.replace(items);",
     "storage event capture",
   );
-  const rendererPattern = / {2}private openStorage\(\s*baseItems: BaseItem\[\],?\s*\): void \{\s*this\.setUiOpen\(true\);/;
+  const rendererPattern = / {2}private openV9Storage\(\s*baseItems: BaseItem\[\],?\s*\): void \{\s*this\.setV9UiOpen\(true\);/;
   if (!rendererPattern.test(v9)) {
     throw new Error("prepare-v18: missing storage renderer signature");
   }
   v9 = v9.replace(
     rendererPattern,
-    "  private openStorage(baseItems?: BaseItem[]): void {\n    if (baseItems) this.storageInventory.replace(baseItems);\n    const currentItems = this.storageInventory.values();\n    this.setUiOpen(true);",
+    "  private openV9Storage(baseItems?: BaseItem[]): void {\n    if (baseItems) this.storageInventory.replace(baseItems);\n    const currentItems = this.storageInventory.values();\n    this.setV9UiOpen(true);",
   );
   v9 = replaceRequired(
     v9,
@@ -58,26 +58,26 @@ if (!v9.includes("storageInventory = new InventoryStore")) {
   );
   v9 = replaceRequired(
     v9,
-    "          this.runtimeV9().backpack.set(item.id, item);\n          this.openBackpack();",
-    "          this.runtimeV9().backpack.set(item.id, item);\n          this.storageInventory.upsert(item);\n          this.openStorage();",
+    "          this.runtimeV9().backpack.set(item.id, item);\n          this.openV9Backpack();",
+    "          this.runtimeV9().backpack.set(item.id, item);\n          this.storageInventory.upsert(item);\n          this.openV9Storage();",
     "base item take destination",
   );
   v9 = replaceRequired(
     v9,
-    "        item.taken ? this.openBackpack() : this.openStorage([]),",
-    "        item.taken ? this.openBackpack() : this.openStorage(),",
+    "        item.taken ? this.openV9Backpack() : this.openV9Storage([]),",
+    "        item.taken ? this.openV9Backpack() : this.openV9Storage(),",
     "base item back destination",
   );
   v9 = replaceRequired(
     v9,
-    "          item.location = \"backpack\";\n          this.openBackpack();",
-    "          item.location = \"backpack\";\n          this.openStorage();",
+    "          item.location = \"backpack\";\n          this.openV9Backpack();",
+    "          item.location = \"backpack\";\n          this.openV9Storage();",
     "firearm take destination",
   );
   v9 = replaceRequired(
     v9,
-    "        origin === \"storage\" ? this.openStorage([]) : this.openBackpack(),",
-    "        origin === \"storage\" ? this.openStorage() : this.openBackpack(),",
+    "        origin === \"storage\"\n          ? this.openV9Storage([])\n          : this.openV9Backpack(),",
+    "        origin === \"storage\"\n          ? this.openV9Storage()\n          : this.openV9Backpack(),",
     "firearm back destination",
   );
   await writeFile(v9Path, v9, "utf8");
@@ -98,6 +98,10 @@ if (v16.includes("cachedStorageItems")) {
   v16 = v16.replace(
     /\n {2}private readonly cacheStorage = \(event: Event\): void => \{[\s\S]*?\n {2}\};\n/,
     "\n",
+  );
+  v16 = v16.replace(
+    /\n {4}const label = target\.textContent\?\.trim\(\) \?\? "";\n {4}const panel = target\.closest<HTMLElement>\([\s\S]*?\n {4}\);/,
+    "",
   );
   v16 = v16.replace(
     /\n {4}if \(label === "TAKE" && panel\) \{[\s\S]*?\n {4}\}/,
