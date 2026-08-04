@@ -13,7 +13,12 @@ main = replaceRequired(
   'import { BunkerV18Scene } from "@/scenes/BunkerV18Scene";',
   "current scene import",
 );
-main = replaceRequired(main, "scene: [BunkerV17Scene]", "scene: [BunkerV18Scene]", "scene registration");
+main = replaceRequired(
+  main,
+  "scene: [BunkerV17Scene]",
+  "scene: [BunkerV18Scene]",
+  "scene registration",
+);
 await writeFile(mainPath, main, "utf8");
 
 const v9Path = new URL("../src/scenes/BunkerV9Scene.ts", import.meta.url);
@@ -42,7 +47,12 @@ v9 = replaceRequired(
   "  private openStorage(baseItems?: BaseItem[]): void {\n    if (baseItems) this.storageInventory.replace(baseItems);\n    const currentItems = this.storageInventory.values();\n    this.setUiOpen(true);",
   "storage renderer signature",
 );
-v9 = replaceRequired(v9, "...baseItems.filter((item) => !item.taken),", "...currentItems.filter((item) => !item.taken),", "storage live collection");
+v9 = replaceRequired(
+  v9,
+  "...baseItems.filter((item) => !item.taken),",
+  "...currentItems.filter((item) => !item.taken),",
+  "storage live collection",
+);
 v9 = replaceRequired(
   v9,
   "          this.runtimeV9().backpack.set(item.id, item);\n          this.openBackpack();",
@@ -72,8 +82,20 @@ await writeFile(v9Path, v9, "utf8");
 const v16Path = new URL("../src/scenes/BunkerV16Scene.ts", import.meta.url);
 let v16 = await readFile(v16Path, "utf8");
 v16 = v16.replace("  private cachedStorageItems: BaseItem[] = [];\n", "");
-v16 = v16.replace('    window.addEventListener("bunker-storage-open", this.cacheStorage, true);\n', "");
-v16 = v16.replace('      window.removeEventListener(\n        "bunker-storage-open",\n        this.cacheStorage,\n        true,\n      );\n', "");
-v16 = v16.replace(/\n  private readonly cacheStorage = \(event: Event\): void => \{[\s\S]*?\n  \};\n/, "\n");
-v16 = v16.replace(/\n    if \(label === "TAKE" && panel\) \{[\s\S]*?\n    \}/, "");
+v16 = v16.replace(
+  '    window.addEventListener("bunker-storage-open", this.cacheStorage, true);\n',
+  "",
+);
+v16 = v16.replace(
+  '      window.removeEventListener(\n        "bunker-storage-open",\n        this.cacheStorage,\n        true,\n      );\n',
+  "",
+);
+v16 = v16.replace(
+  /\n {2}private readonly cacheStorage = \(event: Event\): void => \{[\s\S]*?\n {2}\};\n/,
+  "\n",
+);
+v16 = v16.replace(
+  /\n {4}if \(label === "TAKE" && panel\) \{[\s\S]*?\n {4}\}/,
+  "",
+);
 await writeFile(v16Path, v16, "utf8");
