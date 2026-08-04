@@ -2,12 +2,9 @@ import Phaser from "phaser";
 import { BunkerV13Scene } from "./BunkerV13Scene";
 
 const VERSION = "0.1.0.8";
-const LIVING_ROOM = new Phaser.Geom.Rectangle(32, 64, 640, 512);
-const TRAINING_ROOM = new Phaser.Geom.Rectangle(1184, 64, 704, 544);
 
 export class BunkerV14Scene extends BunkerV13Scene {
   private hapticSwitch?: HTMLInputElement;
-  private framedRoomActive = false;
 
   public override create(): void {
     super.create();
@@ -19,50 +16,9 @@ export class BunkerV14Scene extends BunkerV13Scene {
     });
   }
 
-  public override update(time: number, delta: number): void {
-    super.update(time, delta);
-    this.updateRoomCamera();
-  }
-
   private updateVersionLabelsV14(): void {
     const badge = document.querySelector<HTMLElement>(".start-version");
     if (badge) badge.textContent = `BUNKER v${VERSION}`;
-  }
-
-  private findPlayerSpriteV14(): Phaser.Physics.Arcade.Sprite | undefined {
-    return this.children.list.find(
-      (child): child is Phaser.Physics.Arcade.Sprite =>
-        child instanceof Phaser.Physics.Arcade.Sprite &&
-        child.texture.key.startsWith("survivor-"),
-    );
-  }
-
-  private updateRoomCamera(): void {
-    const player = this.findPlayerSpriteV14();
-    if (!player) return;
-
-    const room = [LIVING_ROOM, TRAINING_ROOM].find((candidate) =>
-      candidate.contains(player.x, player.y),
-    );
-    const camera = this.cameras.main;
-
-    if (!room) {
-      if (this.framedRoomActive) {
-        camera.setZoom(1.4);
-        camera.startFollow(player, true, 0.08, 0.08);
-        this.framedRoomActive = false;
-      }
-      return;
-    }
-
-    this.framedRoomActive = true;
-    camera.stopFollow();
-
-    // Fit the complete room vertically. Widescreen devices show additional
-    // world at the sides rather than losing the room's ceiling or floor.
-    const zoom = camera.height / room.height;
-    camera.setZoom(zoom);
-    camera.setScroll(room.centerX - camera.width / (2 * zoom), room.y);
   }
 
   private pinTouchControls(): void {
