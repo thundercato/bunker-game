@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.0.0.3 - 2026-08-04
+
+- Rebuilt backpack rendering from one ordered carried-item list so storage slot numbers can no longer hide magazines, ammunition or the Makarov behind other items.
+- Ensured taking the pistol, either magazine or ammunition returns to the live storage view and leaves the taken item available in the backpack.
+- Allocated consumables into genuinely free cabinet slots instead of allowing food and drink to collide with firearm or base-item slots.
+- Expanded the data-driven food catalogue with ration crackers, tinned peaches, tinned soup and edible beef jerky.
+- Added cans of cola and orange pop with direct thirst restoration and one-use inventory consumption.
+- Applied each food item's hydration value while eating, including dry-food thirst penalties and hydrating-food bonuses.
+- Added strict catalogue tests covering food values, drink values, weights, stack sizes and flask capacity.
+
+## 0.0.0.2 - 2026-08-04
+
+- Fixed infinite MutationObserver decoration loops that froze the Makarov and water-flask inspection panels.
+- Made firearm and consumable panel decoration idempotent so each panel is enhanced only once.
+- Rotated PWA cache and deployed version metadata to v0.0.0.2.
+
 ## 0.0.0.1 - 2026-08-04
 
 - Replaced stale copied storage arrays with an authoritative `InventoryStore`.
