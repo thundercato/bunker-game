@@ -43,19 +43,37 @@ export class BunkerV17Scene extends BunkerV16Scene {
   private waterSound?: AudioContext;
 
   public override create(): void {
-    window.addEventListener("bunker-storage-open", this.injectConsumables, true);
-    window.addEventListener("bunker-take-item", this.captureTakenConsumable, true);
+    window.addEventListener(
+      "bunker-storage-open",
+      this.injectConsumables,
+      true,
+    );
+    window.addEventListener(
+      "bunker-take-item",
+      this.captureTakenConsumable,
+      true,
+    );
     super.create();
     this.updateVersion();
     this.createFaucet();
     this.createReloadButton();
     this.installSurvivalStyles();
     this.observePanels();
-    this.keyboardInteract = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+    this.keyboardInteract = this.input.keyboard?.addKey(
+      Phaser.Input.Keyboard.KeyCodes.E,
+    );
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      window.removeEventListener("bunker-storage-open", this.injectConsumables, true);
-      window.removeEventListener("bunker-take-item", this.captureTakenConsumable, true);
+      window.removeEventListener(
+        "bunker-storage-open",
+        this.injectConsumables,
+        true,
+      );
+      window.removeEventListener(
+        "bunker-take-item",
+        this.captureTakenConsumable,
+        true,
+      );
       this.observer?.disconnect();
       document.querySelector(".reload-button")?.remove();
       document.querySelector("#bunker-v17-styles")?.remove();
@@ -74,15 +92,17 @@ export class BunkerV17Scene extends BunkerV16Scene {
       return;
     }
 
-    const near = Phaser.Math.Distance.Between(
-      player.x,
-      player.y,
-      FAUCET_POSITION.x,
-      FAUCET_POSITION.y,
-    ) <= FAUCET_RANGE;
+    const near =
+      Phaser.Math.Distance.Between(
+        player.x,
+        player.y,
+        FAUCET_POSITION.x,
+        FAUCET_POSITION.y,
+      ) <= FAUCET_RANGE;
     this.faucetPrompt.setVisible(near && !this.runtimeV17().uiOpen);
 
-    const gamepadPressed = navigator.getGamepads()[0]?.buttons[2]?.pressed ?? false;
+    const gamepadPressed =
+      navigator.getGamepads()[0]?.buttons[2]?.pressed ?? false;
     const keyboardPressed = this.keyboardInteract?.isDown ?? false;
     const pressed = gamepadPressed || keyboardPressed;
     if (near && pressed && !this.interactHeld) void this.fillFlask();
@@ -164,7 +184,9 @@ export class BunkerV17Scene extends BunkerV16Scene {
   }
 
   private definitionById(id: string): ConsumableDefinition | undefined {
-    return Object.values(CONSUMABLES).find((definition) => definition.id === id);
+    return Object.values(CONSUMABLES).find(
+      (definition) => definition.id === id,
+    );
   }
 
   private observePanels(): void {
@@ -178,8 +200,16 @@ export class BunkerV17Scene extends BunkerV16Scene {
     const panel = document.querySelector<HTMLElement>(".firearm-item-panel");
     const title = panel?.querySelector("h2")?.textContent?.trim();
     const actions = panel?.querySelector<HTMLElement>(".item-actions");
-    if (!panel || !title || !actions || actions.querySelector(".consume-action")) return;
-    const definition = Object.values(CONSUMABLES).find((item) => item.name === title);
+    if (
+      !panel ||
+      !title ||
+      !actions ||
+      actions.querySelector(".consume-action")
+    )
+      return;
+    const definition = Object.values(CONSUMABLES).find(
+      (item) => item.name === title,
+    );
     if (!definition) return;
 
     const state = this.consumables.get(definition.id);
@@ -260,7 +290,13 @@ export class BunkerV17Scene extends BunkerV16Scene {
     if (!player) return;
     const startAngle = player.angle;
     const prop = this.add
-      .rectangle(player.x + 13, player.y - 16, type === "drink" ? 7 : 11, type === "drink" ? 16 : 7, type === "drink" ? 0xa9b7b8 : 0x9a6b32)
+      .rectangle(
+        player.x + 13,
+        player.y - 16,
+        type === "drink" ? 7 : 11,
+        type === "drink" ? 16 : 7,
+        type === "drink" ? 0xa9b7b8 : 0x9a6b32,
+      )
       .setDepth(player.depth + 1);
     player.setAngle(type === "drink" ? -5 : 3);
     this.playConsumptionSound(type);
@@ -276,7 +312,10 @@ export class BunkerV17Scene extends BunkerV16Scene {
           const current = tween.getValue() ?? 0;
           update(current - previous);
           previous = current;
-          prop.setPosition(player.x + 13, player.y - 16 - Math.sin(current * Math.PI) * 7);
+          prop.setPosition(
+            player.x + 13,
+            player.y - 16 - Math.sin(current * Math.PI) * 7,
+          );
         },
         onComplete: () => resolve(),
       });
@@ -287,15 +326,29 @@ export class BunkerV17Scene extends BunkerV16Scene {
   }
 
   private createFaucet(): void {
-    const pipe = this.add.rectangle(0, 0, 22, 42, 0x59666a).setStrokeStyle(2, 0x1c2529);
-    const spout = this.add.rectangle(17, 7, 31, 9, 0x77868a).setStrokeStyle(2, 0x1c2529);
-    const handle = this.add.rectangle(0, -25, 35, 7, 0x8a3430).setStrokeStyle(2, 0x321514);
-    this.faucet = this.add.container(FAUCET_POSITION.x, FAUCET_POSITION.y, [pipe, spout, handle]).setDepth(18);
+    const pipe = this.add
+      .rectangle(0, 0, 22, 42, 0x59666a)
+      .setStrokeStyle(2, 0x1c2529);
+    const spout = this.add
+      .rectangle(17, 7, 31, 9, 0x77868a)
+      .setStrokeStyle(2, 0x1c2529);
+    const handle = this.add
+      .rectangle(0, -25, 35, 7, 0x8a3430)
+      .setStrokeStyle(2, 0x321514);
+    this.faucet = this.add
+      .container(FAUCET_POSITION.x, FAUCET_POSITION.y, [pipe, spout, handle])
+      .setDepth(18);
     this.faucet.setSize(65, 74).setInteractive({ useHandCursor: true });
     this.faucet.on("pointerdown", () => {
       const player = this.findPlayer();
       if (!player) return;
-      const near = Phaser.Math.Distance.Between(player.x, player.y, FAUCET_POSITION.x, FAUCET_POSITION.y) <= FAUCET_RANGE;
+      const near =
+        Phaser.Math.Distance.Between(
+          player.x,
+          player.y,
+          FAUCET_POSITION.x,
+          FAUCET_POSITION.y,
+        ) <= FAUCET_RANGE;
       if (near) void this.fillFlask();
     });
     this.faucetPrompt = this.add
@@ -324,8 +377,27 @@ export class BunkerV17Scene extends BunkerV16Scene {
     }
 
     this.filling = true;
-    const stream = this.add.rectangle(FAUCET_POSITION.x + 31, FAUCET_POSITION.y + 28, 4, 0, 0x8ddcff, 0.8).setOrigin(0.5, 0).setDepth(22);
-    const flask = this.add.rectangle(FAUCET_POSITION.x + 31, FAUCET_POSITION.y + 65, 14, 24, 0x879597).setStrokeStyle(2, 0x222b2e).setDepth(23);
+    const stream = this.add
+      .rectangle(
+        FAUCET_POSITION.x + 31,
+        FAUCET_POSITION.y + 28,
+        4,
+        0,
+        0x8ddcff,
+        0.8,
+      )
+      .setOrigin(0.5, 0)
+      .setDepth(22);
+    const flask = this.add
+      .rectangle(
+        FAUCET_POSITION.x + 31,
+        FAUCET_POSITION.y + 65,
+        14,
+        24,
+        0x879597,
+      )
+      .setStrokeStyle(2, 0x222b2e)
+      .setDepth(23);
     this.startWaterSound();
     this.tweens.add({ targets: stream, displayHeight: 35, duration: 220 });
 
@@ -333,12 +405,29 @@ export class BunkerV17Scene extends BunkerV16Scene {
       delay: 80,
       loop: true,
       callback: () => {
-        const drop = this.add.circle(FAUCET_POSITION.x + 31 + Phaser.Math.Between(-5, 5), FAUCET_POSITION.y + 58, 2, 0xa8e9ff, 0.8).setDepth(24);
-        this.tweens.add({ targets: drop, x: drop.x + Phaser.Math.Between(-12, 12), y: drop.y + 12, alpha: 0, duration: 260, onComplete: () => drop.destroy() });
+        const drop = this.add
+          .circle(
+            FAUCET_POSITION.x + 31 + Phaser.Math.Between(-5, 5),
+            FAUCET_POSITION.y + 58,
+            2,
+            0xa8e9ff,
+            0.8,
+          )
+          .setDepth(24);
+        this.tweens.add({
+          targets: drop,
+          x: drop.x + Phaser.Math.Between(-12, 12),
+          y: drop.y + 12,
+          alpha: 0,
+          duration: 260,
+          onComplete: () => drop.destroy(),
+        });
       },
     });
 
-    await new Promise<void>((resolve) => this.time.delayedCall(FILL_DURATION_MS, resolve));
+    await new Promise<void>((resolve) =>
+      this.time.delayedCall(FILL_DURATION_MS, resolve),
+    );
     particles.remove(false);
     this.stopWaterSound();
     stream.destroy();
@@ -367,18 +456,23 @@ export class BunkerV17Scene extends BunkerV16Scene {
   private findPlayer(): Phaser.Physics.Arcade.Sprite | undefined {
     return this.children.list.find(
       (child): child is Phaser.Physics.Arcade.Sprite =>
-        child instanceof Phaser.Physics.Arcade.Sprite && child.texture.key.startsWith("survivor-"),
+        child instanceof Phaser.Physics.Arcade.Sprite &&
+        child.texture.key.startsWith("survivor-"),
     );
   }
 
   private pulseNeed(need: "hunger" | "thirst"): void {
-    const row = document.querySelector<HTMLElement>(`.survival-hud .${need}-fill`)?.closest(".status-row");
+    const row = document
+      .querySelector<HTMLElement>(`.survival-hud .${need}-fill`)
+      ?.closest(".status-row");
     row?.classList.add("need-pulse");
     window.setTimeout(() => row?.classList.remove("need-pulse"), 650);
   }
 
   private toast(message: string): void {
-    window.dispatchEvent(new CustomEvent("bunker-toast", { detail: { message } }));
+    window.dispatchEvent(
+      new CustomEvent("bunker-toast", { detail: { message } }),
+    );
     const toast = document.createElement("div");
     toast.className = "inventory-toast survival-toast";
     toast.textContent = message;
@@ -391,7 +485,10 @@ export class BunkerV17Scene extends BunkerV16Scene {
     const oscillator = context.createOscillator();
     const gain = context.createGain();
     oscillator.type = type === "drink" ? "sine" : "square";
-    oscillator.frequency.setValueAtTime(type === "drink" ? 180 : 95, context.currentTime);
+    oscillator.frequency.setValueAtTime(
+      type === "drink" ? 180 : 95,
+      context.currentTime,
+    );
     gain.gain.setValueAtTime(0.035, context.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 0.8);
     oscillator.connect(gain).connect(context.destination);
@@ -422,11 +519,14 @@ export class BunkerV17Scene extends BunkerV16Scene {
     gain.gain.value = 0.018;
     oscillator.connect(gain).connect(this.waterSound.destination);
     oscillator.start();
-    (this.waterSound as AudioContext & { bunkerOscillator?: OscillatorNode }).bunkerOscillator = oscillator;
+    (
+      this.waterSound as AudioContext & { bunkerOscillator?: OscillatorNode }
+    ).bunkerOscillator = oscillator;
   }
 
   private stopWaterSound(): void {
-    const context = this.waterSound as (AudioContext & { bunkerOscillator?: OscillatorNode }) | undefined;
+    const context = this.waterSound as
+      (AudioContext & { bunkerOscillator?: OscillatorNode }) | undefined;
     context?.bunkerOscillator?.stop();
     void context?.close();
     this.waterSound = undefined;

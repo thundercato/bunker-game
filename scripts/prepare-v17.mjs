@@ -32,5 +32,8 @@ sceneSource = sceneSource
   .replaceAll("this.findPlayer()", "this.findPlayerV17()")
   .replace("private findPlayer():", "private findPlayerV17():")
   .replaceAll("this.toast(", "this.toastV17(")
-  .replace("private toast(message: string):", "private toastV17(message: string):");
+  .replace(
+    "private toast(message: string):",
+    "private toastV17(message: string):",
+  );
 await writeFile(scenePath, sceneSource, "utf8");

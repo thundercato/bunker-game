@@ -1,4 +1,12 @@
-export type LiquidKind = "clean-water" | "dirty-water" | "coffee" | "tea" | "soup" | "fuel" | "alcohol" | "medicine";
+export type LiquidKind =
+  | "clean-water"
+  | "dirty-water"
+  | "coffee"
+  | "tea"
+  | "soup"
+  | "fuel"
+  | "alcohol"
+  | "medicine";
 
 export type ConsumableDefinition = {
   id: string;
@@ -135,7 +143,10 @@ export class ConsumableStore {
     return true;
   }
 
-  public setFlaskFill(fillPercent: number, liquid: LiquidKind = "clean-water"): void {
+  public setFlaskFill(
+    fillPercent: number,
+    liquid: LiquidKind = "clean-water",
+  ): void {
     const state = this.get("flask");
     this.set("flask", {
       ...state,
@@ -165,13 +176,17 @@ export class ConsumableStore {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return;
       const parsed = JSON.parse(raw) as Record<string, ConsumableState>;
-      for (const [id, state] of Object.entries(parsed)) this.state.set(id, state);
+      for (const [id, state] of Object.entries(parsed))
+        this.state.set(id, state);
     } catch {
       localStorage.removeItem(STORAGE_KEY);
     }
   }
 
   private save(): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(Object.fromEntries(this.state)));
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(Object.fromEntries(this.state)),
+    );
   }
 }
