@@ -7,19 +7,21 @@ const replaceRequired = (source, from, to, label) => {
 
 const mainPath = new URL("../src/main.ts", import.meta.url);
 let main = await readFile(mainPath, "utf8");
-main = replaceRequired(
-  main,
-  'import { BunkerV17Scene } from "@/scenes/BunkerV17Scene";',
-  'import { BunkerV18Scene } from "@/scenes/BunkerV18Scene";',
-  "current scene import",
-);
-main = replaceRequired(
-  main,
-  "scene: [BunkerV17Scene]",
-  "scene: [BunkerV18Scene]",
-  "scene registration",
-);
-await writeFile(mainPath, main, "utf8");
+if (!main.includes("BunkerV18Scene")) {
+  main = replaceRequired(
+    main,
+    'import { BunkerV17Scene } from "@/scenes/BunkerV17Scene";',
+    'import { BunkerV18Scene } from "@/scenes/BunkerV18Scene";',
+    "current scene import",
+  );
+  main = replaceRequired(
+    main,
+    "scene: [BunkerV17Scene]",
+    "scene: [BunkerV18Scene]",
+    "scene registration",
+  );
+  await writeFile(mainPath, main, "utf8");
+}
 
 const v9Path = new URL("../src/scenes/BunkerV9Scene.ts", import.meta.url);
 let v9 = await readFile(v9Path, "utf8");
@@ -42,6 +44,7 @@ if (!v9.includes("storageInventory = new InventoryStore")) {
     "    const items = (event as CustomEvent<{ items: BaseItem[] }>).detail.items;\n    this.storageInventory.replace(items);",
     "storage event capture",
   );
+
   const rendererPattern = / {2}private openV9Storage\(\s*baseItems: BaseItem\[\],?\s*\): void \{\s*this\.setV9UiOpen\(true\);/;
   if (!rendererPattern.test(v9)) {
     throw new Error("prepare-v18: missing storage renderer signature");
@@ -62,23 +65,12 @@ if (!v9.includes("storageInventory = new InventoryStore")) {
     "          this.runtimeV9().backpack.set(item.id, item);\n          this.storageInventory.upsert(item);\n          this.openV9Storage();",
     "base item take destination",
   );
-  v9 = replaceRequired(
-    v9,
-    "        item.taken ? this.openV9Backpack() : this.openV9Storage([]),",
-    "        item.taken ? this.openV9Backpack() : this.openV9Storage(),",
-    "base item back destination",
-  );
+  v9 = v9.replaceAll("this.openV9Storage([])", "this.openV9Storage()");
   v9 = replaceRequired(
     v9,
     "          item.location = \"backpack\";\n          this.openV9Backpack();",
     "          item.location = \"backpack\";\n          this.openV9Storage();",
     "firearm take destination",
-  );
-  v9 = replaceRequired(
-    v9,
-    "        origin === \"storage\"\n          ? this.openV9Storage([])\n          : this.openV9Backpack(),",
-    "        origin === \"storage\"\n          ? this.openV9Storage()\n          : this.openV9Backpack(),",
-    "firearm back destination",
   );
   await writeFile(v9Path, v9, "utf8");
 }
