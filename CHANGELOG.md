@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0.11 - 2026-08-04
+
+- Reworked room framing so every transition uses one deterministic mathematical path.
+- Removed per-frame static-camera recalculation and all player influence after room entry.
+- Captured the available viewport from Phaser camera dimensions rather than browser or CSS dimensions.
+- Recalculated room framing after Phaser resize and device rotation events.
+- Disabled pixel rounding while rooms are static so fractional zoom cannot crop room edges.
+- Restored the full Phaser viewport, pixel rounding and smooth follow camera immediately after room exit.
+- Retained the optional green, blue, red and yellow camera diagnostic overlay.
+
 ## 0.1.0.10 - 2026-08-04
 
 - Returned players to the storage grid after taking an item instead of opening the backpack.
