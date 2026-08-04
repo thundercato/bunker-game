@@ -14,7 +14,7 @@ export class UpdateManager {
       updateViaCache: "none",
     });
     await this.check();
-    window.addEventListener("focus", this.check);
+    window.addEventListener("focus", this.triggerCheck);
     document.addEventListener("visibilitychange", this.onVisibility);
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (this.reloading) window.location.reload();
@@ -22,16 +22,20 @@ export class UpdateManager {
   }
 
   public destroy(): void {
-    window.removeEventListener("focus", this.check);
+    window.removeEventListener("focus", this.triggerCheck);
     document.removeEventListener("visibilitychange", this.onVisibility);
     this.notification?.remove();
   }
 
-  private readonly onVisibility = (): void => {
-    if (!document.hidden) void this.check();
+  private readonly triggerCheck = (): void => {
+    void this.check();
   };
 
-  private readonly check = async (): Promise<void> => {
+  private readonly onVisibility = (): void => {
+    if (!document.hidden) this.triggerCheck();
+  };
+
+  private async check(): Promise<void> {
     await this.registration?.update();
     const response = await fetch(`${VERSION_URL}?t=${Date.now()}`, {
       cache: "no-store",
@@ -41,7 +45,7 @@ export class UpdateManager {
     if (deployed.version && deployed.version !== GAME_VERSION) {
       this.showUpdate(deployed.version);
     }
-  };
+  }
 
   private showUpdate(version: string): void {
     if (this.notification) return;
