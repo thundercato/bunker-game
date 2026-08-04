@@ -1,11 +1,11 @@
-import type Phaser from "phaser";
-
-export type CameraViewport = {
+export type RectangleBounds = {
   x: number;
   y: number;
   width: number;
   height: number;
 };
+
+export type CameraViewport = RectangleBounds;
 
 export type RoomCameraResult = {
   viewport: CameraViewport;
@@ -23,7 +23,7 @@ export type RoomCameraResult = {
  * Larger rooms are uniformly scaled down until their complete rectangle fits.
  */
 export function calculateRoomCamera(
-  roomBounds: Phaser.Geom.Rectangle,
+  roomBounds: RectangleBounds,
   cameraViewport: CameraViewport,
 ): RoomCameraResult {
   if (roomBounds.width <= 0 || roomBounds.height <= 0) {
