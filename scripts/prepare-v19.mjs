@@ -23,12 +23,10 @@ if (!first.includes("v16Decorated")) {
         'panel.dataset.v16Decorated === "true"',
       );
       if (guarded === method) throw new Error("prepare-v19 missing first guard");
-      const marked = guarded.replace(
-        "      return;",
-        '      return;\n    panel.dataset.v16Decorated = "true";',
-      );
-      if (marked === guarded) throw new Error("prepare-v19 missing first marker");
-      return marked;
+      const returnIndex = guarded.indexOf("return;");
+      if (returnIndex < 0) throw new Error("prepare-v19 missing first return");
+      const insertAt = returnIndex + "return;".length;
+      return `${guarded.slice(0, insertAt)}\n    panel.dataset.v16Decorated = "true";${guarded.slice(insertAt)}`;
     },
     "first decorator method",
   );
