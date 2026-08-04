@@ -24,8 +24,8 @@ if (!first.includes("v16Decorated")) {
       );
       if (guarded === method) throw new Error("prepare-v19 missing first guard");
       const marked = guarded.replace(
-        "    const runtime = this.runtime();",
-        '    panel.dataset.v16Decorated = "true";\n\n    const runtime = this.runtime();',
+        "      return;",
+        '      return;\n    panel.dataset.v16Decorated = "true";',
       );
       if (marked === guarded) throw new Error("prepare-v19 missing first marker");
       return marked;
