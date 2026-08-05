@@ -38,7 +38,8 @@ if (!source.includes("public consumeServing")) {
   }
 
 `;
-  if (!source.includes(marker)) throw new Error("prepare-v21 missing flask marker");
+  if (!source.includes(marker))
+    throw new Error("prepare-v21 missing flask marker");
   source = source.replace(marker, `${method}${marker}`);
 }
 await writeFile(path, source, "utf8");

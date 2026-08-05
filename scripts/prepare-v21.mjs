@@ -4,7 +4,9 @@ function replaceMethod(source, starts, ends, replacement, label) {
   const startToken = starts.find((token) => source.includes(token));
   if (!startToken) throw new Error(`prepare-v21 missing ${label} start`);
   const start = source.indexOf(startToken);
-  const endToken = ends.find((token) => source.indexOf(token, start + startToken.length) >= 0);
+  const endToken = ends.find(
+    (token) => source.indexOf(token, start + startToken.length) >= 0,
+  );
   if (!endToken) throw new Error(`prepare-v21 missing ${label} end`);
   const end = source.indexOf(endToken, start + startToken.length);
   return `${source.slice(0, start)}${replacement}${source.slice(end)}`;
@@ -62,7 +64,8 @@ v9 = replaceMethod(
 
 if (!v9.includes("public switchV9Weapon")) {
   const marker = "  private loadMagazine(";
-  if (!v9.includes(marker)) throw new Error("prepare-v21 missing magazine marker");
+  if (!v9.includes(marker))
+    throw new Error("prepare-v21 missing magazine marker");
   const method = `  public switchV9Weapon(): void {
     if (this.runtimeV9().uiOpen) return;
     const runtime = this.runtimeV9();
@@ -138,29 +141,54 @@ if (!v17.includes("private createWeaponSwitchButton")) {
   }
 
 `;
-  if (!v17.includes(marker)) throw new Error("prepare-v21 missing player marker");
+  if (!v17.includes(marker))
+    throw new Error("prepare-v21 missing player marker");
   v17 = v17.replace(marker, `${method}${marker}`);
 }
 v17 = v17.replace(
-  "      !actions ||\n      panel.dataset.consumableDecorated === \"true\"",
-  "      !actions ||\n      panel.dataset.consumableDecorated === \"true\"",
+  '      !actions ||\n      panel.dataset.consumableDecorated === "true"',
+  '      !actions ||\n      panel.dataset.consumableDecorated === "true"',
 );
-v17 = v17.replace("    const inBackpack = this.runtimeV17().backpack.has(definition.id);\n    if (!inBackpack) return;", "    const inBackpack = this.runtimeV17().backpack.has(definition.id);");
+v17 = v17.replace(
+  "    const inBackpack = this.runtimeV17().backpack.has(definition.id);\n    if (!inBackpack) return;",
+  "    const inBackpack = this.runtimeV17().backpack.has(definition.id);",
+);
 v17 = v17.replace(
   '      if (definition.kind === "food") void this.eat(definition);\n      else if (definition.kind === "drink") void this.drinkPackaged(definition);\n      else void this.drinkFlask();',
   '      if (definition.kind === "food") void this.eat(definition, inBackpack);\n      else if (definition.kind === "drink") void this.drinkPackaged(definition, inBackpack);\n      else void this.drinkFlask(inBackpack);',
 );
-v17 = v17.replace("  private async drinkFlask(): Promise<void> {", "  private async drinkFlask(inBackpack = true): Promise<void> {");
-v17 = v17.replace("    runtime.openBackpack();\n  }\n\n  private async eat", "    if (inBackpack) runtime.openBackpack();\n    else document.querySelector<HTMLButtonElement>(\".item-back\")?.click();\n  }\n\n  private async eat");
-v17 = v17.replace("  private async eat(definition: ConsumableDefinition): Promise<void> {", "  private async eat(definition: ConsumableDefinition, inBackpack = true): Promise<void> {");
+v17 = v17.replace(
+  "  private async drinkFlask(): Promise<void> {",
+  "  private async drinkFlask(inBackpack = true): Promise<void> {",
+);
+v17 = v17.replace(
+  "    runtime.openBackpack();\n  }\n\n  private async eat",
+  '    if (inBackpack) runtime.openBackpack();\n    else document.querySelector<HTMLButtonElement>(".item-back")?.click();\n  }\n\n  private async eat',
+);
+v17 = v17.replace(
+  "  private async eat(definition: ConsumableDefinition): Promise<void> {",
+  "  private async eat(definition: ConsumableDefinition, inBackpack = true): Promise<void> {",
+);
 v17 = v17.replace(
   "    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored);",
   "    const servings = definition.servingsPerItem ?? 1;\n    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored / servings);",
 );
-v17 = v17.replace("    this.consumables.consumeOne(definition.id);", "    this.consumables.consumeServing(definition.id, definition.servingsPerItem ?? 1);");
-v17 = v17.replace("    runtime.openBackpack();\n  }\n\n  private async animateConsumption", "    if (inBackpack) runtime.openBackpack();\n    else document.querySelector<HTMLButtonElement>(\".item-back\")?.click();\n  }\n\n  private async animateConsumption");
-v17 = v17.replace("  private async drinkPackaged(\n    definition: ConsumableDefinition,\n  ): Promise<void> {", "  private async drinkPackaged(\n    definition: ConsumableDefinition,\n    inBackpack = true,\n  ): Promise<void> {");
-v17 = v17.replace("    runtime.openBackpack();\n  }\n\n  private async animateConsumption", "    if (inBackpack) runtime.openBackpack();\n    else document.querySelector<HTMLButtonElement>(\".item-back\")?.click();\n  }\n\n  private async animateConsumption");
+v17 = v17.replace(
+  "    this.consumables.consumeOne(definition.id);",
+  "    this.consumables.consumeServing(definition.id, definition.servingsPerItem ?? 1);",
+);
+v17 = v17.replace(
+  "    runtime.openBackpack();\n  }\n\n  private async animateConsumption",
+  '    if (inBackpack) runtime.openBackpack();\n    else document.querySelector<HTMLButtonElement>(".item-back")?.click();\n  }\n\n  private async animateConsumption',
+);
+v17 = v17.replace(
+  "  private async drinkPackaged(\n    definition: ConsumableDefinition,\n  ): Promise<void> {",
+  "  private async drinkPackaged(\n    definition: ConsumableDefinition,\n    inBackpack = true,\n  ): Promise<void> {",
+);
+v17 = v17.replace(
+  "    runtime.openBackpack();\n  }\n\n  private async animateConsumption",
+  '    if (inBackpack) runtime.openBackpack();\n    else document.querySelector<HTMLButtonElement>(".item-back")?.click();\n  }\n\n  private async animateConsumption',
+);
 v17 = v17.replace(
   ".reload-button{position:absolute;",
   ".weapon-switch-button{position:absolute;left:max(160px,calc(env(safe-area-inset-left) + 152px));top:max(12px,env(safe-area-inset-top));z-index:90;width:64px;height:42px;border:2px solid #8b806d;border-radius:8px;background:#2b241b;color:#f3e7cd;font:800 11px monospace;touch-action:manipulation}.game-overlay.is-open~.weapon-switch-button,.weapon-switch-button.is-hidden{display:none}.reload-button{position:absolute;",
