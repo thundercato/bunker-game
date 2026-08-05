@@ -2,7 +2,7 @@
   "name": "Bunker Game",
   "short_name": "Bunker",
   "description": "A tactile underground survival game.",
-  "version": "0.0.0.3",
+  "version": "0.0.0.4",
   "start_url": "./?source=pwa",
   "scope": "./",
   "display": "standalone",
