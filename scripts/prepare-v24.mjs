@@ -14,7 +14,7 @@ if (!scene.includes("TUNNEL_TRANSITION_V24")) {
       "    if (\n      usePressed &&\n      !this.useHeld &&\n      !this.runtimeV19().uiOpen &&\n      !this.tunnelTransitioning\n    ) {",
     )
     .replace(
-      /  private enterTunnels\(\): void \{[\s\S]*?\n  \}\n\n  private generateTunnel\(\): void \{/,
+      /\s{2}private enterTunnels\(\): void \{[\s\S]*?\n\s{2}\}\n\n\s{2}private generateTunnel\(\): void \{/,
       `  private enterTunnels(): void {
     const player = this.player;
     if (!player || this.tunnelTransitioning) return;
