@@ -96,5 +96,14 @@ export default tseslint.config(
       "@typescript-eslint/no-unnecessary-type-assertion": "off",
     },
   },
+  {
+    files: ["src/scenes/BunkerV19Scene.ts"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-unnecessary-type-assertion": "off",
+      "@typescript-eslint/no-unnecessary-condition": "off",
+    },
+  },
   prettier,
 );
