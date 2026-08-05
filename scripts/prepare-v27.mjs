@@ -2,6 +2,9 @@ import { readFile, writeFile } from "node:fs/promises";
 
 const scenePath = new URL("../src/scenes/BunkerV19Scene.ts", import.meta.url);
 let scene = await readFile(scenePath, "utf8");
+const alreadyHasLootRooms = scene.includes(
+  "const deadEnds: Array<{ x: number; y: number }>",
+);
 
 scene = scene
   .replace(
@@ -51,15 +54,19 @@ scene = scene
   .replace(
     "    const enemyCount = Phaser.Math.Between(10, 16);",
     "    const enemyCount = Phaser.Math.Between(28, 42);",
-  )
-  .replace(
-    "    const root = this.add.container(0, 0).setDepth(1);",
-    "    const deadEnds: Array<{ x: number; y: number }> = [];\n    for (let dy = 1; dy < ROWS - 1; dy += 1) {\n      for (let dx = 1; dx < COLS - 1; dx += 1) {\n        if (grid[dy]![dx]) continue;\n        const exits = [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([ox, oy]) => !grid[dy + oy]![dx + ox]).length;\n        if (exits === 1 && !(dx === 1 && dy === 1)) deadEnds.push({ x: dx, y: dy });\n      }\n    }\n    for (const room of deadEnds) {\n      for (let ry = -1; ry <= 1; ry += 1) {\n        for (let rx = -1; rx <= 1; rx += 1) {\n          const gx = Phaser.Math.Clamp(room.x + rx, 1, COLS - 2);\n          const gy = Phaser.Math.Clamp(room.y + ry, 1, ROWS - 2);\n          grid[gy]![gx] = false;\n        }\n      }\n    }\n\n    const root = this.add.container(0, 0).setDepth(1);",
-  )
-  .replace(
-    "    root.add([this.exitMarker, this.exitPrompt]);",
-    "    root.add([this.exitMarker, this.exitPrompt]);\n\n    for (const room of deadEnds) {\n      const roomX = this.tunnelOrigin.x + room.x * CELL + CELL / 2;\n      const roomY = this.tunnelOrigin.y + room.y * CELL + CELL / 2;\n      const door = this.add.rectangle(roomX, roomY, 34, 10, 0x4b3d30).setStrokeStyle(2, 0x8d7358).setDepth(8);\n      const cabinet = this.add.rectangle(roomX, roomY - 24, 30, 24, Math.random() < 0.2 ? 0x73827b : 0x4a4037).setStrokeStyle(2, 0x1a1714).setDepth(8);\n      root.add([door, cabinet]);\n    }",
   );
+
+if (!alreadyHasLootRooms) {
+  scene = scene
+    .replace(
+      "    const root = this.add.container(0, 0).setDepth(1);",
+      "    const deadEnds: Array<{ x: number; y: number }> = [];\n    for (let dy = 1; dy < ROWS - 1; dy += 1) {\n      for (let dx = 1; dx < COLS - 1; dx += 1) {\n        if (grid[dy]![dx]) continue;\n        const exits = [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([ox, oy]) => !grid[dy + oy]![dx + ox]).length;\n        if (exits === 1 && !(dx === 1 && dy === 1)) deadEnds.push({ x: dx, y: dy });\n      }\n    }\n    for (const room of deadEnds) {\n      for (let ry = -1; ry <= 1; ry += 1) {\n        for (let rx = -1; rx <= 1; rx += 1) {\n          const gx = Phaser.Math.Clamp(room.x + rx, 1, COLS - 2);\n          const gy = Phaser.Math.Clamp(room.y + ry, 1, ROWS - 2);\n          grid[gy]![gx] = false;\n        }\n      }\n    }\n\n    const root = this.add.container(0, 0).setDepth(1);",
+    )
+    .replace(
+      "    root.add([this.exitMarker, this.exitPrompt]);",
+      "    root.add([this.exitMarker, this.exitPrompt]);\n\n    for (const room of deadEnds) {\n      const roomX = this.tunnelOrigin.x + room.x * CELL + CELL / 2;\n      const roomY = this.tunnelOrigin.y + room.y * CELL + CELL / 2;\n      const door = this.add.rectangle(roomX, roomY, 34, 10, 0x4b3d30).setStrokeStyle(2, 0x8d7358).setDepth(8);\n      const cabinet = this.add.rectangle(roomX, roomY - 24, 30, 24, Math.random() < 0.2 ? 0x73827b : 0x4a4037).setStrokeStyle(2, 0x1a1714).setDepth(8);\n      root.add([door, cabinet]);\n    }",
+    );
+}
 
 if (!scene.includes("const COLS = 49;")) {
   throw new Error("prepare-v27: tunnel size upgrade was not applied");
