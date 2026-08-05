@@ -62,11 +62,13 @@ export class BunkerV19Scene extends BunkerV18Scene {
 
     const gamepad = navigator.getGamepads()[0];
     const usePressed =
-      (this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.E).isDown ?? false) ||
+      (this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.E).isDown ??
+        false) ||
       (gamepad?.buttons[2]?.pressed ?? false);
     if (usePressed && !this.useHeld && !this.runtimeV19().uiOpen) {
       if (this.inTunnels && this.nearExit(player)) this.completeDemo();
-      else if (!this.inTunnels && this.nearEntrance(player)) this.enterTunnels();
+      else if (!this.inTunnels && this.nearEntrance(player))
+        this.enterTunnels();
     }
     this.useHeld = usePressed;
 
@@ -123,22 +125,26 @@ export class BunkerV19Scene extends BunkerV18Scene {
   }
 
   private nearEntrance(player: Phaser.Physics.Arcade.Sprite): boolean {
-    return Phaser.Math.Distance.Between(
-      player.x,
-      player.y,
-      this.entranceDoor.x,
-      this.entranceDoor.y,
-    ) <= DOOR_RANGE;
+    return (
+      Phaser.Math.Distance.Between(
+        player.x,
+        player.y,
+        this.entranceDoor.x,
+        this.entranceDoor.y,
+      ) <= DOOR_RANGE
+    );
   }
 
   private nearExit(player: Phaser.Physics.Arcade.Sprite): boolean {
     if (!this.exitMarker) return false;
-    return Phaser.Math.Distance.Between(
-      player.x,
-      player.y,
-      this.exitMarker.x,
-      this.exitMarker.y,
-    ) <= EXIT_RANGE;
+    return (
+      Phaser.Math.Distance.Between(
+        player.x,
+        player.y,
+        this.exitMarker.x,
+        this.exitMarker.y,
+      ) <= EXIT_RANGE
+    );
   }
 
   private enterTunnels(): void {
@@ -149,7 +155,10 @@ export class BunkerV19Scene extends BunkerV18Scene {
     const world = this.physics.world.bounds;
     this.tunnelOrigin.set(world.right + 640, world.top + 320);
     this.generateTunnel();
-    player.setPosition(this.tunnelOrigin.x + CELL * 1.5, this.tunnelOrigin.y + CELL * 1.5);
+    player.setPosition(
+      this.tunnelOrigin.x + CELL * 1.5,
+      this.tunnelOrigin.y + CELL * 1.5,
+    );
     (player.body as Phaser.Physics.Arcade.Body).setVelocity(0, 0);
     this.cameras.main.startFollow(player, true, 0.12, 0.12);
     this.cameras.main.setZoom(1);
@@ -157,7 +166,10 @@ export class BunkerV19Scene extends BunkerV18Scene {
   }
 
   private generateTunnel(): void {
-    const grid = Array.from({ length: ROWS }, () => Array(COLS).fill(true) as boolean[]);
+    const grid = Array.from(
+      { length: ROWS },
+      () => Array(COLS).fill(true) as boolean[],
+    );
     const stack: Array<[number, number]> = [[1, 1]];
     grid[1]![1] = false;
     const directions: Array<[number, number]> = [
@@ -170,7 +182,10 @@ export class BunkerV19Scene extends BunkerV18Scene {
       const [cx, cy] = stack[stack.length - 1]!;
       const choices = directions
         .map(([dx, dy]) => [cx + dx, cy + dy, dx, dy] as const)
-        .filter(([nx, ny]) => nx > 0 && ny > 0 && nx < COLS - 1 && ny < ROWS - 1 && grid[ny]![nx]);
+        .filter(
+          ([nx, ny]) =>
+            nx > 0 && ny > 0 && nx < COLS - 1 && ny < ROWS - 1 && grid[ny]![nx],
+        );
       if (choices.length === 0) {
         stack.pop();
         continue;
@@ -206,7 +221,11 @@ export class BunkerV19Scene extends BunkerV18Scene {
         }
       }
     }
-    if (this.player) this.tunnelCollider = this.physics.add.collider(this.player, this.tunnelWalls);
+    if (this.player)
+      this.tunnelCollider = this.physics.add.collider(
+        this.player,
+        this.tunnelWalls,
+      );
 
     const exitCell = this.farthestOpenCell(grid, 1, 1);
     const exitX = this.tunnelOrigin.x + exitCell.x * CELL + CELL / 2;
@@ -234,24 +253,49 @@ export class BunkerV19Scene extends BunkerV18Scene {
     const openCells: Array<{ x: number; y: number }> = [];
     for (let y = 1; y < ROWS - 1; y += 1)
       for (let x = 1; x < COLS - 1; x += 1)
-        if (!grid[y]![x] && (x !== 1 || y !== 1) && (x !== exitCell.x || y !== exitCell.y)) openCells.push({ x, y });
+        if (
+          !grid[y]![x] &&
+          (x !== 1 || y !== 1) &&
+          (x !== exitCell.x || y !== exitCell.y)
+        )
+          openCells.push({ x, y });
     Phaser.Utils.Array.Shuffle(openCells);
     const enemyCount = Phaser.Math.Between(10, 16);
-    for (const cell of openCells.slice(0, enemyCount)) this.spawnEnemy(cell.x, cell.y);
+    for (const cell of openCells.slice(0, enemyCount))
+      this.spawnEnemy(cell.x, cell.y);
   }
 
-  private farthestOpenCell(grid: boolean[][], sx: number, sy: number): { x: number; y: number } {
-    const queue: Array<{ x: number; y: number; distance: number }> = [{ x: sx, y: sy, distance: 0 }];
+  private farthestOpenCell(
+    grid: boolean[][],
+    sx: number,
+    sy: number,
+  ): { x: number; y: number } {
+    const queue: Array<{ x: number; y: number; distance: number }> = [
+      { x: sx, y: sy, distance: 0 },
+    ];
     const seen = new Set([`${sx},${sy}`]);
     let farthest = queue[0]!;
     while (queue.length > 0) {
       const current = queue.shift()!;
       if (current.distance > farthest.distance) farthest = current;
-      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+      for (const [dx, dy] of [
+        [1, 0],
+        [-1, 0],
+        [0, 1],
+        [0, -1],
+      ] as const) {
         const nx = current.x + dx;
         const ny = current.y + dy;
         const key = `${nx},${ny}`;
-        if (nx < 0 || ny < 0 || nx >= COLS || ny >= ROWS || grid[ny]![nx] || seen.has(key)) continue;
+        if (
+          nx < 0 ||
+          ny < 0 ||
+          nx >= COLS ||
+          ny >= ROWS ||
+          grid[ny]![nx] ||
+          seen.has(key)
+        )
+          continue;
         seen.add(key);
         queue.push({ x: nx, y: ny, distance: current.distance + 1 });
       }
@@ -267,10 +311,22 @@ export class BunkerV19Scene extends BunkerV18Scene {
     if (!this.textures.exists(key)) {
       const graphics = this.make.graphics({ x: 0, y: 0, add: false });
       graphics.fillStyle(kind === "spider" ? 0x17110f : 0x6f6258, 1);
-      graphics.fillEllipse(16, 16, kind === "spider" ? 18 : 25, kind === "spider" ? 13 : 12);
+      graphics.fillEllipse(
+        16,
+        16,
+        kind === "spider" ? 18 : 25,
+        kind === "spider" ? 13 : 12,
+      );
       if (kind === "spider") {
         graphics.lineStyle(2, 0x2b211d, 1);
-        for (const side of [-1, 1]) for (const offset of [-6, -2, 2, 6]) graphics.lineBetween(16 + side * 6, 16 + offset, 16 + side * 14, 16 + offset * 1.6);
+        for (const side of [-1, 1])
+          for (const offset of [-6, -2, 2, 6])
+            graphics.lineBetween(
+              16 + side * 6,
+              16 + offset,
+              16 + side * 14,
+              16 + offset * 1.6,
+            );
       } else {
         graphics.fillTriangle(4, 13, 10, 8, 11, 16);
         graphics.lineStyle(2, 0x9a8271, 1).lineBetween(28, 17, 35, 13);
@@ -292,7 +348,10 @@ export class BunkerV19Scene extends BunkerV18Scene {
         enemy.nextTurnAt = time + Phaser.Math.Between(550, 1450);
         const angle = Phaser.Math.FloatBetween(0, Math.PI * 2);
         const speed = enemy.kind === "rat" ? 42 : 30;
-        enemy.sprite.setVelocity(Math.cos(angle) * speed, Math.sin(angle) * speed);
+        enemy.sprite.setVelocity(
+          Math.cos(angle) * speed,
+          Math.sin(angle) * speed,
+        );
       }
     }
   }
@@ -305,7 +364,10 @@ export class BunkerV19Scene extends BunkerV18Scene {
     let bestDistance = Number.POSITIVE_INFINITY;
     for (const enemy of this.enemies) {
       if (!enemy.sprite.active) continue;
-      const offset = new Phaser.Math.Vector2(enemy.sprite.x - origin.x, enemy.sprite.y - origin.y);
+      const offset = new Phaser.Math.Vector2(
+        enemy.sprite.x - origin.x,
+        enemy.sprite.y - origin.y,
+      );
       const forward = offset.dot(direction);
       if (forward <= 0 || forward > 700) continue;
       const lateral = Math.abs(offset.x * direction.y - offset.y * direction.x);
@@ -329,9 +391,14 @@ export class BunkerV19Scene extends BunkerV18Scene {
       .filter((enemy) => enemy.sprite.active)
       .map((enemy) => ({
         enemy,
-        offset: new Phaser.Math.Vector2(enemy.sprite.x - origin.x, enemy.sprite.y - origin.y),
+        offset: new Phaser.Math.Vector2(
+          enemy.sprite.x - origin.x,
+          enemy.sprite.y - origin.y,
+        ),
       }))
-      .filter(({ offset }) => offset.length() <= 58 && offset.dot(direction) > 0)
+      .filter(
+        ({ offset }) => offset.length() <= 58 && offset.dot(direction) > 0,
+      )
       .sort((a, b) => a.offset.lengthSq() - b.offset.lengthSq())[0]?.enemy;
     if (target) this.damageEnemy(target, 1);
   }
@@ -386,7 +453,9 @@ export class BunkerV19Scene extends BunkerV18Scene {
   }
 
   private toast(message: string): void {
-    window.dispatchEvent(new CustomEvent("bunker-toast", { detail: { message } }));
+    window.dispatchEvent(
+      new CustomEvent("bunker-toast", { detail: { message } }),
+    );
     const toast = document.createElement("div");
     toast.className = "inventory-toast survival-toast";
     toast.textContent = message;
