@@ -36,7 +36,7 @@ if (!scene.includes("TUNNEL_SURVIVAL_V25")) {
       const tunnelWidth = COLS * CELL;`,
     )
     .replace(
-      /  private leaveTunnels\(\): void \{[\s\S]*?\n  \}\n\n  private destroyTunnel\(\): void \{/,
+      /{2}private leaveTunnels\(\): void \{[\s\S]*?\n{2}\}\n\n{2}private destroyTunnel\(\): void \{/,
       `  private leaveTunnels(): void {
     const player = this.player;
     if (!player || this.tunnelTransitioning) return;
