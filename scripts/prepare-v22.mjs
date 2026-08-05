@@ -18,6 +18,8 @@ tunnel = tunnel
   .replace("private player?:", "private tunnelPlayer?:")
   .replaceAll("this.findPlayer()", "this.findTunnelPlayer()")
   .replace("private findPlayer():", "private findTunnelPlayer():")
+  .replaceAll("this.toast(", "this.tunnelToast(")
+  .replace("private toast(message:", "private tunnelToast(message:")
   .replace("{ x: 0, y: 0, add: false }", "{ x: 0, y: 0 }")
   .replace(
     "  private updateEnemies(time: number, _delta: number): void {",
