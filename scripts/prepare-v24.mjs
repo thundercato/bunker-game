@@ -16,7 +16,7 @@ if (!scene.includes("TUNNEL_TRANSITION_V24")) {
     .replace(
       /\s{2}private enterTunnels\(\): void \{[\s\S]*?\n\s{2}\}\n\n\s{2}private generateTunnel\(\): void \{/,
       `  private enterTunnels(): void {
-    const player = this.player;
+    const player = this.tunnelPlayer;
     if (!player || this.tunnelTransitioning) return;
 
     this.tunnelTransitioning = true;
@@ -64,7 +64,7 @@ if (!scene.includes("TUNNEL_TRANSITION_V24")) {
       camera.fadeIn(500, 0, 0, 0);
       camera.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, () => {
         this.tunnelTransitioning = false;
-        this.toast("THE HATCH CLANGS SHUT BEHIND YOU");
+        this.tunnelToast("THE HATCH CLANGS SHUT BEHIND YOU");
       });
     });
   }
