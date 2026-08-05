@@ -13,6 +13,8 @@ scene = scene
   .replaceAll("this.runtime()", "this.runtimeV28()")
   .replaceAll("private findPlayer()", "private findTunnelPlayer()")
   .replaceAll("this.findPlayer()", "this.findTunnelPlayer()")
+  .replaceAll("private toast(message: string)", "private toastV28(message: string)")
+  .replaceAll("this.toast(", "this.toastV28(")
   .replaceAll(
     "this.make.graphics({ x: 0, y: 0, add: false })",
     "this.make.graphics({ x: 0, y: 0 })",
