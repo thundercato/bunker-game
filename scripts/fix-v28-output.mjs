@@ -11,6 +11,8 @@ scene = scene
   .replaceAll("this.player", "this.tunnelPlayer")
   .replaceAll("private runtime(): Runtime", "private runtimeV28(): Runtime")
   .replaceAll("this.runtime()", "this.runtimeV28()")
+  .replaceAll("private findPlayer()", "private findTunnelPlayer()")
+  .replaceAll("this.findPlayer()", "this.findTunnelPlayer()")
   .replaceAll(
     "this.make.graphics({ x: 0, y: 0, add: false })",
     "this.make.graphics({ x: 0, y: 0 })",
