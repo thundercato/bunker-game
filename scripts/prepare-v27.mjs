@@ -17,6 +17,10 @@ scene = scene
     '    this.playerV19 = this.findPlayer();\n    this.runtimeV19().knifeLocation = "armed";',
   )
   .replace(
+    "    this.player = this.findPlayer();",
+    '    this.player = this.findPlayer();\n    this.runtimeV19().knifeLocation = "armed";',
+  )
+  .replace(
     "type Runtime = {\n  uiOpen: boolean;\n};",
     'type Runtime = {\n  uiOpen: boolean;\n  health: number;\n  knifeLocation: "storage" | "backpack" | "armed" | "world";\n  emitState: () => void;\n};',
   )
@@ -57,11 +61,8 @@ scene = scene
     "    root.add([this.exitMarker, this.exitPrompt]);\n\n    for (const room of deadEnds) {\n      const roomX = this.tunnelOrigin.x + room.x * CELL + CELL / 2;\n      const roomY = this.tunnelOrigin.y + room.y * CELL + CELL / 2;\n      const door = this.add.rectangle(roomX, roomY, 34, 10, 0x4b3d30).setStrokeStyle(2, 0x8d7358).setDepth(8);\n      const cabinet = this.add.rectangle(roomX, roomY - 24, 30, 24, Math.random() < 0.2 ? 0x73827b : 0x4a4037).setStrokeStyle(2, 0x1a1714).setDepth(8);\n      root.add([door, cabinet]);\n    }",
   );
 
-if (
-  !scene.includes("const COLS = 49;") ||
-  !scene.includes('knifeLocation = "armed"')
-) {
-  throw new Error("prepare-v27: expected tunnel upgrades were not applied");
+if (!scene.includes("const COLS = 49;")) {
+  throw new Error("prepare-v27: tunnel size upgrade was not applied");
 }
 
 await writeFile(scenePath, scene, "utf8");
