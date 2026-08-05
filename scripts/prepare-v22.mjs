@@ -9,3 +9,13 @@ main = main
   )
   .replace(/scene: \[BunkerV\d+Scene\]/, "scene: [BunkerV19Scene]");
 await writeFile(mainPath, main, "utf8");
+
+const tunnelPath = new URL("../src/scenes/BunkerV19Scene.ts", import.meta.url);
+let tunnel = await readFile(tunnelPath, "utf8");
+tunnel = tunnel
+  .replace("const WALL = 18;\n", "")
+  .replace(
+    "  private updateEnemies(time: number, _delta: number): void {",
+    "  private updateEnemies(time: number, delta: number): void {\n    void delta;",
+  );
+await writeFile(tunnelPath, tunnel, "utf8");
