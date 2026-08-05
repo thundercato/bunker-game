@@ -16,6 +16,8 @@ tunnel = tunnel
   .replace("const WALL = 18;\n", "")
   .replaceAll("this.player", "this.tunnelPlayer")
   .replace("private player?:", "private tunnelPlayer?:")
+  .replaceAll("this.findPlayer()", "this.findTunnelPlayer()")
+  .replace("private findPlayer():", "private findTunnelPlayer():")
   .replace("{ x: 0, y: 0, add: false }", "{ x: 0, y: 0 }")
   .replace(
     "  private updateEnemies(time: number, _delta: number): void {",
