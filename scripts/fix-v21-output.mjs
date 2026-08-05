@@ -7,8 +7,13 @@ await writeFile(v9Path, v9, "utf8");
 
 const v17Path = new URL("../src/scenes/BunkerV17Scene.ts", import.meta.url);
 let v17 = await readFile(v17Path, "utf8");
-v17 = v17.replace(
-  "  private async drinkPackaged(\n    definition: ConsumableDefinition,\n    inBackpack = true,\n  ): Promise<void> {\n    const runtime = this.runtimeV17();",
-  "  private async drinkPackaged(\n    definition: ConsumableDefinition,\n    inBackpack = true,\n  ): Promise<void> {\n    void inBackpack;\n    const runtime = this.runtimeV17();",
-);
+v17 = v17
+  .replaceAll(
+    "inBackpack = true,\n  ): Promise<void> {\n    const runtime = this.runtimeV17();",
+    "inBackpack = true,\n  ): Promise<void> {\n    void inBackpack;\n    const runtime = this.runtimeV17();",
+  )
+  .replaceAll(
+    "inBackpack = true): Promise<void> {\n    const runtime = this.runtimeV17();",
+    "inBackpack = true): Promise<void> {\n    void inBackpack;\n    const runtime = this.runtimeV17();",
+  );
 await writeFile(v17Path, v17, "utf8");
