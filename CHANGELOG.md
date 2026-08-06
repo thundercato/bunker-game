@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.0.0.12 - 2026-08-06
+
+- Unified the procedural labyrinth entrance and exit at the southern boundary and extended the playable grid, collision, camera and lighting bounds to the doorway.
+- Added deterministic validation for the entrance, spawn, connectivity and exactly four edge exploration doors.
+- Added one north, east, south and west exploration door, each terminating a reachable corridor and linked to a stable room ID.
+- Replaced corridor-side placeholder drops with fade-driven transitions into persistent self-contained exploration rooms.
+- Added deterministic room layouts, reusable bunker furniture textures, persistent chest lock state and a one-in-ten unlocked rule.
+- Preserved the live labyrinth scene, enemies and room state while visiting side rooms, returning the player to the same doorway.
+- Restored feathered player-centred labyrinth visibility and added a room radius four times larger without darkening DOM controls.
+- Added static room camera fitting, room collision, resize and PWA focus lighting restoration, transition guards and held-input clearing.
+- Added generation tests covering 100 seeds, deterministic doors and rooms, connectivity, furniture clearance and visibility configuration.
+
 ## 0.0.0.3 - 2026-08-04
 
 - Rebuilt backpack rendering from one ordered carried-item list so storage slot numbers can no longer hide magazines, ammunition or the Makarov behind other items.
@@ -27,111 +39,3 @@
 - Added a versioned service worker, automatic old-cache deletion and network-first loading for navigation, manifest and version metadata.
 - Added startup, foreground and focus update checks with a New Version Available reload notice.
 - Added a landscape PWA manifest and a tiny bottom-right title-screen version string.
-
-## 0.1.0.12 - 2026-08-04
-
-- Added a persistent refillable water flask with proportional drinking and retained contents.
-- Added a tactile bunker faucet with a two-second fill interaction, water stream, particles and sound.
-- Added data-driven food definitions for future cooking, spoilage, nutrition and scavenging systems.
-- Added smooth eating and drinking animations, sounds and survival-meter pulses.
-- Added reusable consumable and liquid-container state stored through local persistence.
-- Added several food items to bunker storage with inspection details, weight, calories and hydration fields.
-- Added a reload touchscreen button beside the backpack control.
-- Repositioned touch action controls to prevent Use, Back, Weapon and Throw overlap.
-- Fixed storage state becoming temporarily empty after taking items.
-- Fixed firearm inspection becoming unresponsive after returning to storage.
-
-## 0.1.0.11 - 2026-08-04
-
-- Reworked room framing so every transition uses one deterministic mathematical path.
-- Removed per-frame static-camera recalculation and all player influence after room entry.
-- Captured the available viewport from Phaser camera dimensions rather than browser or CSS dimensions.
-- Recalculated room framing after Phaser resize and device rotation events.
-- Disabled pixel rounding while rooms are static so fractional zoom cannot crop room edges.
-- Restored the full Phaser viewport, pixel rounding and smooth follow camera immediately after room exit.
-- Retained the optional green, blue, red and yellow camera diagnostic overlay.
-
-## 0.1.0.10 - 2026-08-04
-
-- Returned players to the storage grid after taking an item instead of opening the backpack.
-- Added equipped sidearm and knife slots to the backpack with click-to-unequip behaviour.
-- Added four magazine pouches and left-shoulder tactical reload from the first non-empty pouch.
-- Added persistent Makarov health of 200 and magazine health of 100, each losing one point per shot.
-- Removed empty ammunition stacks from visible inventory and restored them only when rounds are added.
-- Rebuilt weapon maintenance around spray, brushing and sharpening with a visible selected-tool display.
-- Added spray mist, treated metal colouring and brushing restricted to sprayed areas.
-- Limited knife brushing to 80 percent and required the sharpening stone for the final 20 percent.
-- Added spray-and-brush maintenance for Makarov magazines.
-- Added horizontal and vertical moving kill-house targets with line-of-fire hit detection, one-second red hit markers and increasing speed after each hit.
-
-## 0.1.0.9 - 2026-08-04
-
-- Replaced all inherited room-camera adjustments with one mathematical room-framing system.
-- Added `calculateRoomCamera(roomBounds, cameraViewport)` as the single source of truth.
-- Framed rooms solely from their world rectangles and Phaser camera viewport dimensions.
-- Added aspect-correct camera viewports so rooms are never cropped and no world outside a framed room is shown.
-- Kept small rooms at native scale and centred them within the available viewport.
-- Restored the original follow camera automatically when leaving a room.
-- Recalculate static room framing after Phaser scale resize and device rotation.
-- Added an optional debug overlay for room bounds, camera viewport, camera centre, player position and coordinate readouts.
-- Added automated tests for small-room centring, large-room scaling and aspect-ratio letterboxing.
-
-## 0.1.0.8 - 2026-08-03
-
-- Restored smooth player-follow camera behaviour immediately after leaving a framed room.
-- Reworked framed-room camera fitting to show the full ceiling and floor from exact vertical bounds.
-- Prevented the iOS haptic bridge from changing the positioning context of the touchscreen action cluster.
-- Re-anchored Use, Back, Weapon and Throw controls to the lower-right safe area.
-
-## 0.1.0.7 - 2026-08-03
-
-- Replaced unsupported iPhone vibration calls for touchscreen firing with a native Safari switch-control haptic bridge.
-- Kept vibration and controller-rumble fallbacks for browsers and hardware that expose those APIs.
-- Expanded framed-room bounds by one tile around the rendered room geometry.
-- Recalculated room framing from both viewport width and height to prevent top-edge clipping.
-
-## 0.1.0.6 - 2026-08-03
-
-- Added supported-device vibration feedback when the Makarov fires.
-- Removed the on-screen BANG message from successful gunshots.
-- Added a brief directional white muzzle flash beside the player sprite.
-- Framed widescreen rooms from their exact top edge to exact bottom edge.
-- Made framed-room zoom derive from room height, zooming out horizontally where necessary.
-
-## 0.1.0.5 - 2026-08-03
-
-- Corrected overlay sizing to use the game viewport rather than the browser viewport.
-- Moved item inspection panels upward so their lower information and controls remain visible.
-- Tightened item artwork, information and action layouts without introducing scrolling.
-- Reframed the living quarters and training room against their actual room bounds.
-- Removed the clipped room top and excessive black strip below framed rooms.
-
-## 0.1.0.4 - 2026-08-03
-
-- Rebuilt storage, backpack and item inspection screens as fixed landscape layouts.
-- Removed scrolling and overscroll from all inventory and inspection overlays.
-- Fitted the full 6 × 3 storage grid into one screen with a permanent right-side back control.
-- Moved the 3 × 4 backpack grid left to reserve a right-side action area.
-- Reworked item inspection with smaller artwork and information on the left and a vertical action list on the right.
-- Added responsive scaling for narrower tablet and phone aspect ratios.
-
-## 0.1.0.3 - 2026-08-03
-
-- Added tactile Makarov PM cleaning at the weapon workstation.
-- Added oil can, brush, cleaning rod and paper tools.
-- Added a sixteen-section brown grime layer that is removed only where the player rubs.
-- Added tool selection, oil-first cleaning behaviour and cleaning particles.
-- Added a persistent Makarov condition gauge starting at 20%.
-- Added the Makarov to the workstation weapon list when carried or armed.
-
-## 0.1.0.2 - 2026-08-03
-
-- Added a Makarov PM pistol to bunker storage.
-- Added two eight-round Makarov magazines with persistent individual round counts.
-- Added separate 9×18mm ammunition boxes and loose-round packets.
-- Added backpack actions for loading and unloading magazines.
-- Added ammunition packet merging and single-round removal.
-- Added pistol magazine insertion and removal.
-- Added slide racking, chambered-round handling, unloading and firing.
-- Added touchscreen and gamepad firing through the existing weapon control.
-- Reset the visible and package version to 0.1.0.2.
