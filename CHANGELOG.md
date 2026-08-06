@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.0.13 - 2026-08-06
+
+- Fixed the labyrinth darkness mask so its visibility circle uses the player’s true screen position while the camera scrolls.
+- Prevented a held interaction button from instantly returning the player to the bunker after entering the labyrinth or changing rooms.
+- Moved the bunker-side labyrinth entrance beside the player’s valid starting floor position rather than beyond the southern wall.
+- Started new games beside the labyrinth entrance with the utility knife already armed.
+- Rotated the PWA cache and published version metadata for v0.0.0.13.
+
 ## 0.0.0.12 - 2026-08-06
 
 - Unified the procedural labyrinth entrance and exit at the southern boundary and extended the playable grid, collision, camera and lighting bounds to the doorway.
