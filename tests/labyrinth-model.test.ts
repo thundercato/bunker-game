@@ -52,9 +52,10 @@ describe("labyrinth model", () => {
     expect(second).toEqual(first);
     const chest = first.furniture.find((item) => item.kind === "chest");
     if (chest) {
-      const reconstructed = generateExplorationRoom("room-a", 88).furniture.find(
-        (item) => item.kind === "chest",
-      );
+      const reconstructed = generateExplorationRoom(
+        "room-a",
+        88,
+      ).furniture.find((item) => item.kind === "chest");
       expect(reconstructed?.locked).toBe(chest.locked);
     }
   });
@@ -63,9 +64,9 @@ describe("labyrinth model", () => {
     for (let seed = 1; seed <= 100; seed += 1) {
       const room = generateExplorationRoom(`room-${seed}`, seed);
       const spawn = `${Math.floor(room.width / 2)},${room.height - 2}`;
-      expect(room.furniture.map((item) => `${item.tile.x},${item.tile.y}`)).not.toContain(
-        spawn,
-      );
+      expect(
+        room.furniture.map((item) => `${item.tile.x},${item.tile.y}`),
+      ).not.toContain(spawn);
       expect(room.furniture.length).toBeGreaterThanOrEqual(2);
     }
   });

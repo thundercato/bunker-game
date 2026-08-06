@@ -68,7 +68,10 @@ const neighbours = (point: TilePoint): TilePoint[] => [
   { x: point.x, y: point.y - 1 },
 ];
 
-export function isWalkable(state: LabyrinthRunState, point: TilePoint): boolean {
+export function isWalkable(
+  state: LabyrinthRunState,
+  point: TilePoint,
+): boolean {
   return (
     point.x >= 0 &&
     point.y >= 0 &&
@@ -160,7 +163,9 @@ export function generateLabyrinth(seed: number): LabyrinthRunState {
     const choices = directions.filter(({ x, y }) => {
       const nx = current.x + x;
       const ny = current.y + y;
-      return nx > 0 && ny > 0 && nx < width - 1 && ny < height - 1 && walls[ny]![nx];
+      return (
+        nx > 0 && ny > 0 && nx < width - 1 && ny < height - 1 && walls[ny]![nx]
+      );
     });
     if (choices.length === 0) {
       stack.pop();
@@ -216,14 +221,30 @@ export function generateLabyrinth(seed: number): LabyrinthRunState {
     carve(door.tile.x, door.tile.y);
     carve(door.approach.x, door.approach.y);
     if (side === "north" || side === "south") {
-      for (let y = Math.min(door.approach.y, spawn.y); y <= Math.max(door.approach.y, spawn.y); y += 1)
+      for (
+        let y = Math.min(door.approach.y, spawn.y);
+        y <= Math.max(door.approach.y, spawn.y);
+        y += 1
+      )
         carve(door.approach.x, y);
-      for (let x = Math.min(door.approach.x, spawn.x); x <= Math.max(door.approach.x, spawn.x); x += 1)
+      for (
+        let x = Math.min(door.approach.x, spawn.x);
+        x <= Math.max(door.approach.x, spawn.x);
+        x += 1
+      )
         carve(x, spawn.y);
     } else {
-      for (let x = Math.min(door.approach.x, spawn.x); x <= Math.max(door.approach.x, spawn.x); x += 1)
+      for (
+        let x = Math.min(door.approach.x, spawn.x);
+        x <= Math.max(door.approach.x, spawn.x);
+        x += 1
+      )
         carve(x, door.approach.y);
-      for (let y = Math.min(door.approach.y, spawn.y); y <= Math.max(door.approach.y, spawn.y); y += 1)
+      for (
+        let y = Math.min(door.approach.y, spawn.y);
+        y <= Math.max(door.approach.y, spawn.y);
+        y += 1
+      )
         carve(spawn.x, y);
     }
   }
@@ -235,21 +256,38 @@ export function generateLabyrinth(seed: number): LabyrinthRunState {
       generateExplorationRoom(door.roomId, seed * 31 + index + 1),
     ]),
   );
-  return { seed, width, height, walls, entrance, spawn, explorationDoors, roomStates };
+  return {
+    seed,
+    width,
+    height,
+    walls,
+    entrance,
+    spawn,
+    explorationDoors,
+    roomStates,
+  };
 }
 
 export function validateLabyrinth(state: LabyrinthRunState): string[] {
   const errors: string[] = [];
-  if (state.explorationDoors.length !== 4) errors.push("expected four exploration doors");
-  if (!isWalkable(state, state.entrance)) errors.push("entrance outside walkable grid");
+  if (state.explorationDoors.length !== 4)
+    errors.push("expected four exploration doors");
+  if (!isWalkable(state, state.entrance))
+    errors.push("entrance outside walkable grid");
   if (!isWalkable(state, state.spawn)) errors.push("spawn is not walkable");
-  if (!reachable(state, state.spawn, state.entrance)) errors.push("entrance is unreachable");
+  if (!reachable(state, state.spawn, state.entrance))
+    errors.push("entrance is unreachable");
   for (const door of state.explorationDoors) {
     if (!isWalkable(state, door.tile)) errors.push(`${door.id} outside map`);
-    if (!isWalkable(state, door.approach)) errors.push(`${door.id} approach blocked`);
-    if (!reachable(state, state.spawn, door.approach)) errors.push(`${door.id} unreachable`);
-    const continuations = neighbours(door.tile).filter((point) => isWalkable(state, point));
-    if (continuations.length !== 1) errors.push(`${door.id} does not terminate corridor`);
+    if (!isWalkable(state, door.approach))
+      errors.push(`${door.id} approach blocked`);
+    if (!reachable(state, state.spawn, door.approach))
+      errors.push(`${door.id} unreachable`);
+    const continuations = neighbours(door.tile).filter((point) =>
+      isWalkable(state, point),
+    );
+    if (continuations.length !== 1)
+      errors.push(`${door.id} does not terminate corridor`);
   }
   return errors;
 }

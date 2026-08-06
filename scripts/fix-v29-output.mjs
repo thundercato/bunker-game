@@ -6,13 +6,7 @@ let scene = await readFile(scenePath, "utf8");
 scene = scene
   .replaceAll("activeRoom", "activeExplorationRoom")
   .replaceAll("makePrompt", "makeV29Prompt")
-  .replace(
-    '  private activeDoor?: ExplorationDoor;\n',
-    "",
-  )
-  .replace(
-    "    this.activeDoor = door;\n",
-    "",
-  );
+  .replace("  private activeDoor?: ExplorationDoor;\n", "")
+  .replace("    this.activeDoor = door;\n", "");
 
 await writeFile(scenePath, scene, "utf8");

@@ -91,13 +91,17 @@ export class BunkerV29Scene extends BunkerV18Scene {
 
     const gamepad = navigator.getGamepads()[0];
     const usePressed =
-      (this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.E).isDown ?? false) ||
+      (this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.E).isDown ??
+        false) ||
       (gamepad?.buttons[2]?.pressed ?? false);
     if (usePressed && !this.useHeld && !this.runtimeV29().uiOpen) {
       if (this.inRoom && this.near(this.roomExitDoor)) void this.exitRoom();
-      else if (this.inLabyrinth && this.near(this.entranceDoor)) void this.leaveLabyrinth();
+      else if (this.inLabyrinth && this.near(this.entranceDoor))
+        void this.leaveLabyrinth();
       else if (this.inLabyrinth) {
-        const door = this.explorationDoors.find(({ sprite }) => this.near(sprite));
+        const door = this.explorationDoors.find(({ sprite }) =>
+          this.near(sprite),
+        );
         if (door) void this.enterRoom(door.state);
       } else if (this.near(this.entranceDoor)) void this.enterLabyrinth();
     }
@@ -125,7 +129,8 @@ export class BunkerV29Scene extends BunkerV18Scene {
   private findTunnelPlayer(): Phaser.Physics.Arcade.Sprite | undefined {
     return this.children.list.find(
       (child): child is Phaser.Physics.Arcade.Sprite =>
-        child instanceof Phaser.Physics.Arcade.Sprite && child.texture.key.startsWith("survivor-"),
+        child instanceof Phaser.Physics.Arcade.Sprite &&
+        child.texture.key.startsWith("survivor-"),
     );
   }
 
@@ -143,12 +148,18 @@ export class BunkerV29Scene extends BunkerV18Scene {
     fill: number,
     stroke: number,
   ): Phaser.GameObjects.Container {
-    const frame = this.add.rectangle(0, 0, 58, 18, fill).setStrokeStyle(3, stroke);
+    const frame = this.add
+      .rectangle(0, 0, 58, 18, fill)
+      .setStrokeStyle(3, stroke);
     const handle = this.add.circle(18, 0, 3, 0xc6ad79);
     return this.add.container(x, y, [frame, handle]).setDepth(24);
   }
 
-  private makePrompt(x: number, y: number, text: string): Phaser.GameObjects.Text {
+  private makePrompt(
+    x: number,
+    y: number,
+    text: string,
+  ): Phaser.GameObjects.Text {
     return this.add
       .text(x, y, text, {
         fontFamily: "monospace",
@@ -165,7 +176,10 @@ export class BunkerV29Scene extends BunkerV18Scene {
   private near(object?: Phaser.GameObjects.Components.Transform): boolean {
     const player = this.tunnelPlayer;
     if (!player || !object) return false;
-    return Phaser.Math.Distance.Between(player.x, player.y, object.x, object.y) <= INTERACT_RANGE;
+    return (
+      Phaser.Math.Distance.Between(player.x, player.y, object.x, object.y) <=
+      INTERACT_RANGE
+    );
   }
 
   private async enterLabyrinth(): Promise<void> {
@@ -223,19 +237,32 @@ export class BunkerV29Scene extends BunkerV18Scene {
       }
     }
     if (this.tunnelPlayer)
-      this.labyrinthCollider = this.physics.add.collider(this.tunnelPlayer, this.labyrinthWalls);
+      this.labyrinthCollider = this.physics.add.collider(
+        this.tunnelPlayer,
+        this.labyrinthWalls,
+      );
 
-    const entranceX = this.labyrinthOrigin.x + state.entrance.x * CELL + CELL / 2;
-    const entranceY = this.labyrinthOrigin.y + state.entrance.y * CELL + CELL / 2;
+    const entranceX =
+      this.labyrinthOrigin.x + state.entrance.x * CELL + CELL / 2;
+    const entranceY =
+      this.labyrinthOrigin.y + state.entrance.y * CELL + CELL / 2;
     this.entranceDoor = this.makeDoor(entranceX, entranceY, 0x39535c, 0xa7c5cf);
-    this.entrancePrompt = this.makePrompt(entranceX, entranceY - 38, "USE · RETURN TO BUNKER");
+    this.entrancePrompt = this.makePrompt(
+      entranceX,
+      entranceY - 38,
+      "USE · RETURN TO BUNKER",
+    );
     root.add([this.entranceDoor, this.entrancePrompt]);
 
     this.explorationDoors = state.explorationDoors.map((door, index) => {
       const x = this.labyrinthOrigin.x + door.tile.x * CELL + CELL / 2;
       const y = this.labyrinthOrigin.y + door.tile.y * CELL + CELL / 2;
       const sprite = this.makeDoor(x, y, 0x4b3930, 0x8d7358);
-      const prompt = this.makePrompt(x, y - 38, `USE · ENTER ROOM ${index + 1}`);
+      const prompt = this.makePrompt(
+        x,
+        y - 38,
+        `USE · ENTER ROOM ${index + 1}`,
+      );
       root.add([sprite, prompt]);
       return { state: door, sprite, prompt };
     });
@@ -243,7 +270,10 @@ export class BunkerV29Scene extends BunkerV18Scene {
     const open: Array<{ x: number; y: number }> = [];
     for (let y = 1; y < state.height - 1; y += 1)
       for (let x = 1; x < state.width - 1; x += 1)
-        if (!state.walls[y]![x] && Phaser.Math.Distance.Between(x, y, state.spawn.x, state.spawn.y) > 6)
+        if (
+          !state.walls[y]![x] &&
+          Phaser.Math.Distance.Between(x, y, state.spawn.x, state.spawn.y) > 6
+        )
           open.push({ x, y });
     Phaser.Utils.Array.Shuffle(open);
     for (const tile of open.slice(0, 34)) this.spawnEnemy(tile.x, tile.y);
@@ -253,8 +283,18 @@ export class BunkerV29Scene extends BunkerV18Scene {
     if (!this.labyrinth || !this.tunnelPlayer) return;
     const width = this.labyrinth.width * CELL;
     const height = this.labyrinth.height * CELL;
-    this.physics.world.setBounds(this.labyrinthOrigin.x, this.labyrinthOrigin.y, width, height);
-    this.cameras.main.setBounds(this.labyrinthOrigin.x, this.labyrinthOrigin.y, width, height);
+    this.physics.world.setBounds(
+      this.labyrinthOrigin.x,
+      this.labyrinthOrigin.y,
+      width,
+      height,
+    );
+    this.cameras.main.setBounds(
+      this.labyrinthOrigin.x,
+      this.labyrinthOrigin.y,
+      width,
+      height,
+    );
     this.cameras.main.startFollow(this.tunnelPlayer, false, 1, 1);
     this.cameras.main.setZoom(1);
   }
@@ -270,8 +310,18 @@ export class BunkerV29Scene extends BunkerV18Scene {
     this.destroyLighting();
     const bounds = this.originalWorldBounds;
     if (bounds) {
-      this.physics.world.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
-      this.cameras.main.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
+      this.physics.world.setBounds(
+        bounds.x,
+        bounds.y,
+        bounds.width,
+        bounds.height,
+      );
+      this.cameras.main.setBounds(
+        bounds.x,
+        bounds.y,
+        bounds.width,
+        bounds.height,
+      );
       this.tunnelPlayer.setPosition(bounds.centerX, bounds.bottom - 150);
     }
     this.cameras.main.startFollow(this.tunnelPlayer, true, 0.12, 0.12);
@@ -293,7 +343,8 @@ export class BunkerV29Scene extends BunkerV18Scene {
     this.inLabyrinth = false;
     this.inRoom = true;
     this.labyrinthRoot?.setVisible(false);
-    for (const enemy of this.enemies) enemy.sprite.setActive(false).setVisible(false);
+    for (const enemy of this.enemies)
+      enemy.sprite.setActive(false).setVisible(false);
     this.activeRoom = this.labyrinth.roomStates[door.roomId];
     this.activeRoom.visited = true;
     this.buildRoom(this.activeRoom);
@@ -314,22 +365,34 @@ export class BunkerV29Scene extends BunkerV18Scene {
       for (let x = 0; x < room.width; x += 1) {
         const wx = x0 + x * CELL + CELL / 2;
         const wy = y0 + y * CELL + CELL / 2;
-        const isDoor = y === room.height - 1 && x === Math.floor(room.width / 2);
-        const wall = x === 0 || y === 0 || x === room.width - 1 || y === room.height - 1;
+        const isDoor =
+          y === room.height - 1 && x === Math.floor(room.width / 2);
+        const wall =
+          x === 0 || y === 0 || x === room.width - 1 || y === room.height - 1;
         if (wall && !isDoor) {
-          const block = this.add.rectangle(wx, wy, CELL, CELL, 0x303235).setStrokeStyle(1, 0x50545a);
+          const block = this.add
+            .rectangle(wx, wy, CELL, CELL, 0x303235)
+            .setStrokeStyle(1, 0x50545a);
           this.physics.add.existing(block, true);
           this.roomWalls.add(block);
           root.add(block);
         } else {
-          root.add(this.add.rectangle(wx, wy, CELL, CELL, 0x17181a).setStrokeStyle(1, 0x232529));
+          root.add(
+            this.add
+              .rectangle(wx, wy, CELL, CELL, 0x17181a)
+              .setStrokeStyle(1, 0x232529),
+          );
         }
       }
     }
     const doorX = x0 + Math.floor(room.width / 2) * CELL + CELL / 2;
     const doorY = y0 + (room.height - 1) * CELL + CELL / 2;
     this.roomExitDoor = this.makeDoor(doorX, doorY, 0x4b3930, 0x8d7358);
-    this.roomExitPrompt = this.makePrompt(doorX, doorY - 38, "USE · RETURN TO LABYRINTH");
+    this.roomExitPrompt = this.makePrompt(
+      doorX,
+      doorY - 38,
+      "USE · RETURN TO LABYRINTH",
+    );
     root.add([this.roomExitDoor, this.roomExitPrompt]);
 
     this.ensureFurnitureTextures();
@@ -349,7 +412,10 @@ export class BunkerV29Scene extends BunkerV18Scene {
     }
 
     if (this.tunnelPlayer) {
-      this.roomCollider = this.physics.add.collider(this.tunnelPlayer, this.roomWalls);
+      this.roomCollider = this.physics.add.collider(
+        this.tunnelPlayer,
+        this.roomWalls,
+      );
       this.tunnelPlayer.setPosition(doorX, doorY - CELL * 1.4);
       this.tunnelPlayer.setVelocity(0, 0);
     }
@@ -376,7 +442,8 @@ export class BunkerV29Scene extends BunkerV18Scene {
     this.inRoom = false;
     this.inLabyrinth = true;
     this.labyrinthRoot?.setVisible(true);
-    for (const enemy of this.enemies) enemy.sprite.setActive(true).setVisible(true);
+    for (const enemy of this.enemies)
+      enemy.sprite.setActive(true).setVisible(true);
     this.tunnelPlayer.setPosition(this.returnPosition.x, this.returnPosition.y);
     this.tunnelPlayer.setVelocity(0, 0);
     this.configureLabyrinthCamera();
@@ -386,14 +453,19 @@ export class BunkerV29Scene extends BunkerV18Scene {
   }
 
   private ensureFurnitureTextures(): void {
-    const make = (kind: FurnitureKind, colour: number, accent: number): void => {
+    const make = (
+      kind: FurnitureKind,
+      colour: number,
+      accent: number,
+    ): void => {
       const key = `room-${kind}`;
       if (this.textures.exists(key)) return;
       const g = this.make.graphics({ x: 0, y: 0 });
       g.fillStyle(colour).fillRoundedRect(2, 5, 44, 34, 4);
       g.lineStyle(2, accent).strokeRoundedRect(2, 5, 44, 34, 4);
       g.fillStyle(accent, 0.65).fillRect(7, 10, 34, 4);
-      if (kind === "drawers") for (let y = 17; y < 35; y += 7) g.fillRect(8, y, 32, 2);
+      if (kind === "drawers")
+        for (let y = 17; y < 35; y += 7) g.fillRect(8, y, 32, 2);
       if (kind === "cupboard") g.fillRect(23, 9, 2, 26);
       if (kind === "chest") g.fillStyle(0x9c7a3d).fillCircle(24, 25, 3);
       g.generateTexture(key, 48, 44);
@@ -420,12 +492,20 @@ export class BunkerV29Scene extends BunkerV18Scene {
   private updateLighting(): void {
     if (!this.lighting || !this.lightingBrush || !this.tunnelPlayer) return;
     const camera = this.cameras.main;
-    if (this.lighting.width !== camera.width || this.lighting.height !== camera.height)
+    if (
+      this.lighting.width !== camera.width ||
+      this.lighting.height !== camera.height
+    )
       this.initialiseLighting();
-    const point = camera.getWorldPoint(this.tunnelPlayer.x, this.tunnelPlayer.y);
+    const point = camera.getWorldPoint(
+      this.tunnelPlayer.x,
+      this.tunnelPlayer.y,
+    );
     const screenX = (point.x - camera.worldView.x) * camera.zoom;
     const screenY = (point.y - camera.worldView.y) * camera.zoom;
-    const radius = (this.inRoom ? ROOM_VISIBILITY_RADIUS : LABYRINTH_VISIBILITY_RADIUS) * camera.zoom;
+    const radius =
+      (this.inRoom ? ROOM_VISIBILITY_RADIUS : LABYRINTH_VISIBILITY_RADIUS) *
+      camera.zoom;
     this.lighting.clear();
     this.lighting.fill(0x000000, 0.94);
     this.lightingBrush.clear();
@@ -456,7 +536,12 @@ export class BunkerV29Scene extends BunkerV18Scene {
     const texture = `v29-${kind}`;
     if (!this.textures.exists(texture)) {
       const g = this.make.graphics({ x: 0, y: 0 });
-      g.fillStyle(kind === "spider" ? 0x18100f : 0x6f6258).fillEllipse(16, 16, kind === "spider" ? 18 : 25, 13);
+      g.fillStyle(kind === "spider" ? 0x18100f : 0x6f6258).fillEllipse(
+        16,
+        16,
+        kind === "spider" ? 18 : 25,
+        13,
+      );
       g.generateTexture(texture, 32, 32);
       g.destroy();
     }
@@ -465,8 +550,13 @@ export class BunkerV29Scene extends BunkerV18Scene {
       this.labyrinthOrigin.y + tileY * CELL + CELL / 2,
       texture,
     );
-    if (this.labyrinthWalls) this.physics.add.collider(sprite, this.labyrinthWalls);
-    this.enemies.push({ sprite, health: kind === "spider" ? 1 : 2, nextTurnAt: 0 });
+    if (this.labyrinthWalls)
+      this.physics.add.collider(sprite, this.labyrinthWalls);
+    this.enemies.push({
+      sprite,
+      health: kind === "spider" ? 1 : 2,
+      nextTurnAt: 0,
+    });
   }
 
   private updateEnemies(time: number, _delta: number): void {
@@ -479,13 +569,31 @@ export class BunkerV29Scene extends BunkerV18Scene {
         const angle = Phaser.Math.FloatBetween(0, Math.PI * 2);
         enemy.sprite.setVelocity(Math.cos(angle) * 34, Math.sin(angle) * 34);
       }
-      if (time >= this.damageLockedUntil && Phaser.Math.Distance.Between(player.x, player.y, enemy.sprite.x, enemy.sprite.y) < 30) {
+      if (
+        time >= this.damageLockedUntil &&
+        Phaser.Math.Distance.Between(
+          player.x,
+          player.y,
+          enemy.sprite.x,
+          enemy.sprite.y,
+        ) < 30
+      ) {
         this.damageLockedUntil = time + 900;
         const runtime = this.runtimeV29();
         runtime.health = Math.max(0, runtime.health - ENEMY_DAMAGE);
         runtime.emitState();
         player.setTintFill(0xffffff);
-        this.tweens.add({ targets: player, alpha: 0.2, yoyo: true, repeat: 5, duration: 70, onComplete: () => { player.alpha = 1; player.clearTint(); } });
+        this.tweens.add({
+          targets: player,
+          alpha: 0.2,
+          yoyo: true,
+          repeat: 5,
+          duration: 70,
+          onComplete: () => {
+            player.alpha = 1;
+            player.clearTint();
+          },
+        });
         if (runtime.health <= 0) this.showDeath();
       }
     }
@@ -495,12 +603,44 @@ export class BunkerV29Scene extends BunkerV18Scene {
     if (!this.inLabyrinth || !this.tunnelPlayer) return;
     const target = this.enemies
       .filter(({ sprite }) => sprite.active)
-      .sort((a, b) => Phaser.Math.Distance.Between(this.tunnelPlayer!.x, this.tunnelPlayer!.y, a.sprite.x, a.sprite.y) - Phaser.Math.Distance.Between(this.tunnelPlayer!.x, this.tunnelPlayer!.y, b.sprite.x, b.sprite.y))[0];
-    if (target && Phaser.Math.Distance.Between(this.tunnelPlayer.x, this.tunnelPlayer.y, target.sprite.x, target.sprite.y) < 520) this.damageEnemy(target, 99);
+      .sort(
+        (a, b) =>
+          Phaser.Math.Distance.Between(
+            this.tunnelPlayer!.x,
+            this.tunnelPlayer!.y,
+            a.sprite.x,
+            a.sprite.y,
+          ) -
+          Phaser.Math.Distance.Between(
+            this.tunnelPlayer!.x,
+            this.tunnelPlayer!.y,
+            b.sprite.x,
+            b.sprite.y,
+          ),
+      )[0];
+    if (
+      target &&
+      Phaser.Math.Distance.Between(
+        this.tunnelPlayer.x,
+        this.tunnelPlayer.y,
+        target.sprite.x,
+        target.sprite.y,
+      ) < 520
+    )
+      this.damageEnemy(target, 99);
   };
   private readonly onTouchAttack = (): void => {
     if (!this.inLabyrinth || !this.tunnelPlayer) return;
-    const target = this.enemies.find(({ sprite }) => sprite.active && Phaser.Math.Distance.Between(this.tunnelPlayer!.x, this.tunnelPlayer!.y, sprite.x, sprite.y) < 62);
+    const target = this.enemies.find(
+      ({ sprite }) =>
+        sprite.active &&
+        Phaser.Math.Distance.Between(
+          this.tunnelPlayer!.x,
+          this.tunnelPlayer!.y,
+          sprite.x,
+          sprite.y,
+        ) < 62,
+    );
     if (target) this.damageEnemy(target, 1);
   };
   private damageEnemy(enemy: EnemyV29, damage: number): void {
@@ -514,7 +654,9 @@ export class BunkerV29Scene extends BunkerV18Scene {
     if (!overlay) return;
     overlay.classList.add("is-open");
     overlay.innerHTML = `<div class="message-panel"><h2>YOU DIED</h2><button>RESTART</button></div>`;
-    overlay.querySelector("button")?.addEventListener("click", () => window.location.reload());
+    overlay
+      .querySelector("button")
+      ?.addEventListener("click", () => window.location.reload());
   }
 
   private clearInput(): void {
@@ -523,19 +665,27 @@ export class BunkerV29Scene extends BunkerV18Scene {
   }
   private fadeOut(): Promise<void> {
     return new Promise((resolve) => {
-      this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, resolve);
+      this.cameras.main.once(
+        Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
+        resolve,
+      );
       this.cameras.main.fadeOut(FADE_MS, 0, 0, 0);
     });
   }
   private fadeIn(): Promise<void> {
     return new Promise((resolve) => {
-      this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, resolve);
+      this.cameras.main.once(
+        Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE,
+        resolve,
+      );
       this.cameras.main.fadeIn(FADE_MS, 0, 0, 0);
     });
   }
 
   private toastV29(message: string): void {
-    window.dispatchEvent(new CustomEvent("bunker-toast", { detail: { message } }));
+    window.dispatchEvent(
+      new CustomEvent("bunker-toast", { detail: { message } }),
+    );
   }
 
   private destroyRoomVisuals(): void {
