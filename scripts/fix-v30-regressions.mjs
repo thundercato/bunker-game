@@ -1,3 +1,4 @@
+// Applies the v0.0.0.13 maze-entry regression fixes idempotently.
 import { readFile, writeFile } from "node:fs/promises";
 
 const scenePath = new URL("../src/scenes/BunkerV29Scene.ts", import.meta.url);
