@@ -1,23 +1,14 @@
 # Bunker Game
 
-A modular browser game built with Phaser 3, TypeScript and Vite for long-term AI-assisted development.
+A modular browser survival game built with Phaser 3, TypeScript and Vite for long-term AI-assisted development.
 
-## Current release: v0.0.01
+## Current release: v0.0.0.13
 
-The first release is a joypad diagnostic. It uses the browser Gamepad API to show:
-
-- connected controller name and mapping
-- live analogue-axis values
-- every reported button and analogue trigger value
-- a clear input-detected status
-
-No gameplay has been added yet.
+The current development build includes the bunker, procedural labyrinth exploration, persistent side rooms, survival needs, inventory, firearms, knife combat and touch, keyboard and gamepad controls.
 
 ## Play
 
-Open the GitHub Pages build on the phone, connect the controller, then press a button. iPhone browsers may not expose a connected controller until the first button press.
-
-Expected address:
+Open the GitHub Pages build in a landscape browser or install it to the iPhone or iPad Home Screen:
 
 `https://thundercato.github.io/bunker-game/`
 
@@ -32,7 +23,11 @@ Every push to `main` validates and deploys the latest build automatically.
 
 ## Architecture
 
-- `src/input`: browser input boundary and immutable controller snapshots
-- `src/scenes`: thin Phaser lifecycle and presentation adapters
+- `src/input`: keyboard, gamepad and touchscreen input
+- `src/scenes`: Phaser world, room and gameplay scenes
+- `src/labyrinth`: deterministic procedural generation and validation
+- `src/inventory`: persistent inventory state
+- `src/systems`: survival and consumable systems
+- `src/camera`: reusable room camera calculations
+- `src/pwa`: update and cache management
 - `src/core`: typed cross-module infrastructure
-- future gameplay, UI, audio, save and rendering systems remain independent modules
