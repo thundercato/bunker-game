@@ -20,7 +20,7 @@ if (!source.includes("private initialiseV30StartState(): void")) {
     const x = player?.x ?? bounds.centerX;
     const y = player ? player.y + 58 : bounds.bottom - 150;
     this.entranceDoor = this.makeDoor(x, y, 0x43545b, 0xa8bcc4);
-    this.entrancePrompt = this.makePrompt(x, y - 38, "USE · ENTER LABYRINTH");
+    this.entrancePrompt = this.makeV29Prompt(x, y - 38, "USE · ENTER LABYRINTH");
     if (player) {
       player.setPosition(x, y - 54);
       player.setVelocity(0, 0);
