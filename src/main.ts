@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { setVirtualKey } from "@/input/TouchInputBridge";
-import { BunkerV6Scene } from "@/scenes/BunkerV6Scene";
+import { BunkerV29Scene } from "@/scenes/BunkerV29Scene";
 import { SurvivalController } from "@/systems/SurvivalController";
 import "@/style.css";
 import "@/sleep.css";
@@ -14,7 +14,7 @@ const game = new Phaser.Game({
   width: 1280,
   height: 720,
   backgroundColor: "#05090d",
-  scene: [BunkerV6Scene],
+  scene: [BunkerV29Scene],
   physics: {
     default: "arcade",
     arcade: { gravity: { x: 0, y: 0 }, debug: false },

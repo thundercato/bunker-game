@@ -29,12 +29,13 @@ type Runtime = {
   backpack: Map<string, BaseItem>;
   openBackpack: () => void;
   reloadFromPouch: () => void;
+  switchV9Weapon: () => void;
 };
 
 export class BunkerV17Scene extends BunkerV16Scene {
   private readonly consumables = new ConsumableStore();
   private readonly carried = new Set<string>();
-  private observer?: MutationObserver;
+  private survivalObserver?: MutationObserver;
   private faucet!: Phaser.GameObjects.Container;
   private faucetPrompt!: Phaser.GameObjects.Text;
   private filling = false;
@@ -57,6 +58,7 @@ export class BunkerV17Scene extends BunkerV16Scene {
     this.updateVersion();
     this.createFaucet();
     this.createReloadButton();
+    this.createWeaponSwitchButton();
     this.installSurvivalStyles();
     this.observePanels();
     this.keyboardInteract = this.input.keyboard?.addKey(
@@ -74,8 +76,9 @@ export class BunkerV17Scene extends BunkerV16Scene {
         this.captureTakenConsumable,
         true,
       );
-      this.observer?.disconnect();
+      this.survivalObserver?.disconnect();
       document.querySelector(".reload-button")?.remove();
+      document.querySelector(".weapon-switch-button")?.remove();
       document.querySelector("#bunker-v17-styles")?.remove();
       void this.waterSound?.close();
     });
@@ -83,7 +86,7 @@ export class BunkerV17Scene extends BunkerV16Scene {
 
   public override update(time: number, delta: number): void {
     super.update(time, delta);
-    const player = this.findPlayer();
+    const player = this.findPlayerV17();
     if (!player) return;
 
     if (this.filling) {
@@ -121,12 +124,22 @@ export class BunkerV17Scene extends BunkerV16Scene {
   private readonly injectConsumables = (event: Event): void => {
     const detail = (event as CustomEvent<{ items: BaseItem[] }>).detail;
     const occupied = new Set(detail.items.map((item) => item.id));
+    const usedSlots = new Set(detail.items.map((item) => item.slot));
     const definitions = this.storageDefinitions();
-    for (const [definition, slot] of definitions) {
+    for (const [definition, preferredSlot] of definitions) {
       if (occupied.has(definition.id)) continue;
+      const slot = usedSlots.has(preferredSlot)
+        ? Array.from({ length: 18 }, (_, candidate) => candidate).find(
+            (candidate) =>
+              !usedSlots.has(candidate) &&
+              ![7, 8, 9, 10, 11, 12].includes(candidate),
+          )
+        : preferredSlot;
+      if (slot === undefined) continue;
       const state = this.consumables.get(definition.id);
       if (state.quantity <= 0 || this.carried.has(definition.id)) continue;
       detail.items.push(this.toBaseItem(definition, slot, false));
+      usedSlots.add(slot);
     }
   };
 
@@ -138,22 +151,28 @@ export class BunkerV17Scene extends BunkerV16Scene {
   };
 
   private storageDefinitions(): Array<[ConsumableDefinition, number]> {
-    const foods = [
+    const definitions = [
+      CONSUMABLES.flask,
+      CONSUMABLES.cola,
+      CONSUMABLES.orangePop,
       CONSUMABLES.beans,
       CONSUMABLES.energyBar,
       CONSUMABLES.crisps,
       CONSUMABLES.chocolate,
       CONSUMABLES.apple,
       CONSUMABLES.ration,
+      CONSUMABLES.crackers,
+      CONSUMABLES.peaches,
+      CONSUMABLES.soup,
+      CONSUMABLES.jerkyFood,
     ];
-    const shuffled = [...foods].sort((a, b) => a.id.localeCompare(b.id));
-    return [
-      [CONSUMABLES.flask, 2],
-      [shuffled[0]!, 3],
-      [shuffled[1]!, 4],
-      [shuffled[2]!, 5],
-      [shuffled[3]!, 6],
-    ];
+    const reserved = new Set([7, 8, 9, 10, 11, 12]);
+    const slots = Array.from({ length: 18 }, (_, slot) => slot).filter(
+      (slot) => !reserved.has(slot),
+    );
+    return definitions
+      .slice(0, slots.length)
+      .map((definition, index) => [definition, slots[index]!]);
   }
 
   private toBaseItem(
@@ -192,8 +211,10 @@ export class BunkerV17Scene extends BunkerV16Scene {
   private observePanels(): void {
     const overlay = document.querySelector<HTMLElement>(".game-overlay");
     if (!overlay) return;
-    this.observer = new MutationObserver(() => this.decorateConsumablePanel());
-    this.observer.observe(overlay, { childList: true, subtree: true });
+    this.survivalObserver = new MutationObserver(() =>
+      this.decorateConsumablePanel(),
+    );
+    this.survivalObserver.observe(overlay, { childList: true, subtree: true });
   }
 
   private decorateConsumablePanel(): void {
@@ -204,13 +225,14 @@ export class BunkerV17Scene extends BunkerV16Scene {
       !panel ||
       !title ||
       !actions ||
-      actions.querySelector(".consume-action")
+      panel.dataset.consumableDecorated === "true"
     )
       return;
     const definition = Object.values(CONSUMABLES).find(
       (item) => item.name === title,
     );
     if (!definition) return;
+    panel.dataset.consumableDecorated = "true";
 
     const state = this.consumables.get(definition.id);
     const info = panel.querySelector<HTMLElement>(".item-info");
@@ -222,27 +244,29 @@ export class BunkerV17Scene extends BunkerV16Scene {
     }
 
     const inBackpack = this.runtimeV17().backpack.has(definition.id);
-    if (!inBackpack) return;
     const button = document.createElement("button");
     button.className = "consume-action";
     button.textContent = definition.kind === "food" ? "EAT" : "DRINK";
     button.addEventListener("click", () => {
-      if (definition.kind === "food") void this.eat(definition);
-      else void this.drinkFlask();
+      if (definition.kind === "food") void this.eat(definition, inBackpack);
+      else if (definition.kind === "drink")
+        void this.drinkPackaged(definition, inBackpack);
+      else void this.drinkFlask(inBackpack);
     });
     actions.prepend(button);
   }
 
-  private async drinkFlask(): Promise<void> {
+  private async drinkFlask(inBackpack = true): Promise<void> {
+    void inBackpack;
     const runtime = this.runtimeV17();
     const state = this.consumables.get("flask");
     const fill = state.fillPercent ?? 0;
     if (runtime.thirst >= 100) {
-      this.toast("Not thirsty.");
+      this.toastV17("Not thirsty.");
       return;
     }
     if (fill <= 0) {
-      this.toast("The flask is empty.");
+      this.toastV17("The flask is empty.");
       return;
     }
 
@@ -254,23 +278,43 @@ export class BunkerV17Scene extends BunkerV16Scene {
     this.consumables.setFlaskFill(fill - used);
     this.pulseNeed("thirst");
     this.playInventoryTick();
-    runtime.openBackpack();
+    if (inBackpack) runtime.openBackpack();
+    else document.querySelector<HTMLButtonElement>(".item-back")?.click();
   }
 
-  private async eat(definition: ConsumableDefinition): Promise<void> {
+  private async eat(
+    definition: ConsumableDefinition,
+    inBackpack = true,
+  ): Promise<void> {
+    void inBackpack;
     const runtime = this.runtimeV17();
     if (runtime.hunger >= 100) {
-      this.toast("Not hungry.");
+      this.toastV17("Not hungry.");
       return;
     }
     const state = this.consumables.get(definition.id);
     if (state.quantity <= 0) return;
-    const restored = Math.min(100 - runtime.hunger, definition.hungerRestored);
+    const servings = definition.servingsPerItem ?? 1;
+    const restored = Math.min(
+      100 - runtime.hunger,
+      definition.hungerRestored / servings,
+    );
+    const hydrationDelta = Math.max(
+      -runtime.thirst,
+      Math.min(100 - runtime.thirst, definition.hydrationRestored),
+    );
     await this.animateConsumption("eat", restored, (progress) => {
       runtime.hunger = Math.min(100, runtime.hunger + restored * progress);
+      runtime.thirst = Math.max(
+        0,
+        Math.min(100, runtime.thirst + hydrationDelta * progress),
+      );
       runtime.emitState();
     });
-    this.consumables.consumeOne(definition.id);
+    this.consumables.consumeServing(
+      definition.id,
+      definition.servingsPerItem ?? 1,
+    );
     const remaining = this.consumables.get(definition.id).quantity;
     if (remaining <= 0) {
       runtime.backpack.delete(definition.id);
@@ -281,12 +325,47 @@ export class BunkerV17Scene extends BunkerV16Scene {
     runtime.openBackpack();
   }
 
+  private async drinkPackaged(
+    definition: ConsumableDefinition,
+    inBackpack = true,
+  ): Promise<void> {
+    void inBackpack;
+    const runtime = this.runtimeV17();
+    if (runtime.thirst >= 100) {
+      const toast = (this as unknown as { toast: (message: string) => void })
+        .toast;
+      toast.call(this, "Not thirsty.");
+      return;
+    }
+    const state = this.consumables.get(definition.id);
+    if (state.quantity <= 0) return;
+    const hydration = Math.min(
+      100 - runtime.thirst,
+      definition.hydrationRestored,
+    );
+    const hunger = Math.min(100 - runtime.hunger, definition.hungerRestored);
+    await this.animateConsumption("drink", hydration, (progress) => {
+      runtime.thirst = Math.min(100, runtime.thirst + hydration * progress);
+      runtime.hunger = Math.min(100, runtime.hunger + hunger * progress);
+      runtime.emitState();
+    });
+    this.consumables.consumeOne(definition.id);
+    if (this.consumables.get(definition.id).quantity <= 0) {
+      runtime.backpack.delete(definition.id);
+      this.carried.delete(definition.id);
+    }
+    this.pulseNeed("thirst");
+    this.playInventoryTick();
+    if (inBackpack) runtime.openBackpack();
+    else document.querySelector<HTMLButtonElement>(".item-back")?.click();
+  }
+
   private async animateConsumption(
     type: "drink" | "eat",
     amount: number,
     update: (progressDelta: number) => void,
   ): Promise<void> {
-    const player = this.findPlayer();
+    const player = this.findPlayerV17();
     if (!player) return;
     const startAngle = player.angle;
     const prop = this.add
@@ -340,7 +419,7 @@ export class BunkerV17Scene extends BunkerV16Scene {
       .setDepth(18);
     this.faucet.setSize(65, 74).setInteractive({ useHandCursor: true });
     this.faucet.on("pointerdown", () => {
-      const player = this.findPlayer();
+      const player = this.findPlayerV17();
       if (!player) return;
       const near =
         Phaser.Math.Distance.Between(
@@ -368,11 +447,11 @@ export class BunkerV17Scene extends BunkerV16Scene {
     const runtime = this.runtimeV17();
     if (runtime.uiOpen || this.filling) return;
     if (!runtime.backpack.has("flask")) {
-      this.toast("You need the water flask.");
+      this.toastV17("You need the water flask.");
       return;
     }
     if ((this.consumables.get("flask").fillPercent ?? 0) >= 100) {
-      this.toast("Already full.");
+      this.toastV17("Already full.");
       return;
     }
 
@@ -434,7 +513,7 @@ export class BunkerV17Scene extends BunkerV16Scene {
     flask.destroy();
     this.consumables.setFlaskFill(100);
     this.playInventoryTick();
-    this.toast("Flask filled with clean water.");
+    this.toastV17("Flask filled with clean water.");
     this.filling = false;
   }
 
@@ -453,7 +532,21 @@ export class BunkerV17Scene extends BunkerV16Scene {
     parent.append(button);
   }
 
-  private findPlayer(): Phaser.Physics.Arcade.Sprite | undefined {
+  private createWeaponSwitchButton(): void {
+    const parent = document.querySelector<HTMLElement>("#app");
+    if (!parent || parent.querySelector(".weapon-switch-button")) return;
+    const button = document.createElement("button");
+    button.className = "weapon-switch-button";
+    button.textContent = "SWAP";
+    button.setAttribute("aria-label", "Switch equipped weapon");
+    button.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      this.runtimeV17().switchV9Weapon();
+    });
+    parent.append(button);
+  }
+
+  private findPlayerV17(): Phaser.Physics.Arcade.Sprite | undefined {
     return this.children.list.find(
       (child): child is Phaser.Physics.Arcade.Sprite =>
         child instanceof Phaser.Physics.Arcade.Sprite &&
@@ -469,7 +562,7 @@ export class BunkerV17Scene extends BunkerV16Scene {
     window.setTimeout(() => row?.classList.remove("need-pulse"), 650);
   }
 
-  private toast(message: string): void {
+  private toastV17(message: string): void {
     window.dispatchEvent(
       new CustomEvent("bunker-toast", { detail: { message } }),
     );
@@ -537,7 +630,7 @@ export class BunkerV17Scene extends BunkerV16Scene {
     const style = document.createElement("style");
     style.id = "bunker-v17-styles";
     style.textContent = `
-      .reload-button{position:absolute;left:max(82px,calc(env(safe-area-inset-left) + 74px));top:max(12px,env(safe-area-inset-top));z-index:90;width:72px;height:42px;border:2px solid #74877b;border-radius:8px;background:#16221c;color:#d8efdf;font:800 11px monospace;touch-action:manipulation}.game-overlay.is-open~.reload-button,.reload-button.is-hidden{display:none}.touch-actions{right:max(18px,env(safe-area-inset-right))!important;bottom:max(18px,env(safe-area-inset-bottom))!important;display:grid!important;grid-template-columns:repeat(2,72px)!important;grid-template-rows:repeat(2,58px)!important;gap:10px!important}.touch-actions .touch-use{grid-column:1;grid-row:2}.touch-actions .touch-back{grid-column:2;grid-row:2}.touch-actions .touch-run{grid-column:1;grid-row:1}.touch-actions .touch-attack{grid-column:2;grid-row:1;position:static!important;transform:none!important}.touch-actions .touch-throw{grid-column:2;grid-row:1;position:static!important;transform:translateY(-68px)!important}.liquid-readout{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:10px;border:1px solid #587268;background:#101a16;color:#dcebe4;font-family:monospace}.liquid-readout small{grid-column:1/3;color:#81c9e7}.consume-action{border-color:#85b892!important;background:#23402d!important}.need-pulse{animation:need-pulse .65s ease-out}.survival-toast{z-index:500!important}@keyframes need-pulse{0%{filter:brightness(1)}35%{filter:brightness(1.9);transform:scale(1.04)}100%{filter:brightness(1);transform:scale(1)}}
+      .weapon-switch-button{position:absolute;left:max(160px,calc(env(safe-area-inset-left) + 152px));top:max(12px,env(safe-area-inset-top));z-index:90;width:64px;height:42px;border:2px solid #8b806d;border-radius:8px;background:#2b241b;color:#f3e7cd;font:800 11px monospace;touch-action:manipulation}.game-overlay.is-open~.weapon-switch-button,.weapon-switch-button.is-hidden{display:none}.reload-button{position:absolute;left:max(82px,calc(env(safe-area-inset-left) + 74px));top:max(12px,env(safe-area-inset-top));z-index:90;width:72px;height:42px;border:2px solid #74877b;border-radius:8px;background:#16221c;color:#d8efdf;font:800 11px monospace;touch-action:manipulation}.game-overlay.is-open~.reload-button,.reload-button.is-hidden{display:none}.touch-actions{right:max(18px,env(safe-area-inset-right))!important;bottom:max(18px,env(safe-area-inset-bottom))!important;display:grid!important;grid-template-columns:repeat(2,72px)!important;grid-template-rows:repeat(2,58px)!important;gap:10px!important}.touch-actions .touch-use{grid-column:1;grid-row:2}.touch-actions .touch-back{grid-column:2;grid-row:2}.touch-actions .touch-run{grid-column:1;grid-row:1}.touch-actions .touch-attack{grid-column:2;grid-row:1;position:static!important;transform:none!important}.touch-actions .touch-throw{grid-column:2;grid-row:1;position:static!important;transform:translateY(-68px)!important}.liquid-readout{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:10px;border:1px solid #587268;background:#101a16;color:#dcebe4;font-family:monospace}.liquid-readout small{grid-column:1/3;color:#81c9e7}.consume-action{border-color:#85b892!important;background:#23402d!important}.need-pulse{animation:need-pulse .65s ease-out}.survival-toast{z-index:500!important}@keyframes need-pulse{0%{filter:brightness(1)}35%{filter:brightness(1.9);transform:scale(1.04)}100%{filter:brightness(1);transform:scale(1)}}
     `;
     document.head.append(style);
   }

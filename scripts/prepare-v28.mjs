@@ -327,7 +327,7 @@ export class BunkerV19Scene extends BunkerV18Scene {
     panel.innerHTML="<h2>SEARCHING</h2><p>"+item.label+"</p><div class='search-progress'><i></i></div>";
     overlay.replaceChildren(panel);
     const bar=panel.querySelector<HTMLElement>(".search-progress i");
-    if(bar){bar.style.transitionDuration=item.duration+"ms";requestAnimationFrame(()=>{bar.style.width="100%";});}
+    if(bar){bar.style.transitionDuration=String(item.duration)+"ms";requestAnimationFrame(()=>{bar.style.width="100%";});}
     this.time.delayedCall(item.duration,()=>{
       item.searched=true; this.searching=false; this.runtime().uiOpen=false;
       overlay.classList.remove("is-open"); overlay.replaceChildren();
@@ -344,8 +344,8 @@ export class BunkerV19Scene extends BunkerV18Scene {
 
   private farthestOpenCell(grid:boolean[][],sx:number,sy:number):{x:number;y:number} {
     const queue:Array<{x:number;y:number;distance:number}>=[{x:sx,y:sy,distance:0}];
-    const seen=new Set([sx+","+sy]); let farthest=queue[0]!;
-    while(queue.length){const current=queue.shift()!;if(current.distance>farthest.distance)farthest=current;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]] as const){const nx=current.x+dx,ny=current.y+dy,key=nx+","+ny;if(nx<0||ny<0||nx>=COLS||ny>=ROWS||grid[ny]![nx]||seen.has(key))continue;seen.add(key);queue.push({x:nx,y:ny,distance:current.distance+1});}}
+    const seen=new Set([[sx,sy].join(",")]); let farthest=queue[0]!;
+    while(queue.length){const current=queue.shift()!;if(current.distance>farthest.distance)farthest=current;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]] as const){const nx=current.x+dx,ny=current.y+dy,key=[nx,ny].join(",");if(nx<0||ny<0||nx>=COLS||ny>=ROWS||grid[ny]![nx]||seen.has(key))continue;seen.add(key);queue.push({x:nx,y:ny,distance:current.distance+1});}}
     return{x:farthest.x,y:farthest.y};
   }
 
@@ -376,7 +376,7 @@ export class BunkerV19Scene extends BunkerV18Scene {
     const runtime=this.runtime(); runtime.health=Phaser.Math.Clamp(runtime.health-ENEMY_DAMAGE,0,100); runtime.emitState();
     player.setTintFill(0xffffff); this.time.delayedCall(90,()=>player.clearTint()); this.time.delayedCall(180,()=>player.setAlpha(0.25)); this.time.delayedCall(270,()=>player.setAlpha(1));
     const away=new Phaser.Math.Vector2(player.x-hit.sprite.x,player.y-hit.sprite.y).normalize().scale(100);hit.sprite.setVelocity(-away.x,-away.y);
-    this.toast(hit.kind.toUpperCase()+" ATTACK · -"+ENEMY_DAMAGE+" HEALTH");
+    this.toast(hit.kind.toUpperCase()+" ATTACK · -"+String(ENEMY_DAMAGE)+" HEALTH");
     if(runtime.health<=0)this.showDeath();
   }
 

@@ -37,11 +37,10 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
   private overlay!: HTMLElement;
   private controls!: HTMLElement;
   private knifeLocation: KnifeLocation = "storage";
-  private knifeSharpness = 50;
+  private knifeSharpness = 15;
   private knifeSprite: Phaser.Physics.Arcade.Sprite | undefined;
   private throwStart = new Phaser.Math.Vector2();
   private knifeFlying = false;
-  private knifeStuck = false;
   private attackHeld = false;
   private throwHeld = false;
   private readonly backpack = new Map<ItemId, InventoryItem>();
@@ -323,7 +322,7 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
 
   private handleInteractionV7 = (): void => {
     const runtime = this.runtime();
-    const gamepad = this.gamepad();
+    const gamepad = this.currentGamepad();
     const pressed =
       runtime.keys.E.isDown ||
       runtime.keys.SPACE.isDown ||
@@ -358,7 +357,7 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
       this.throwHeld = false;
       return;
     }
-    const gamepad = this.gamepad();
+    const gamepad = this.currentGamepad();
     const attack = gamepad?.buttons[0]?.pressed ?? false;
     const throwing = gamepad?.buttons[3]?.pressed ?? false;
     if (attack && !this.attackHeld) this.stab();
@@ -413,7 +412,6 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     this.knifeSprite = knife;
     this.throwStart.set(knife.x, knife.y);
     this.knifeFlying = flying;
-    this.knifeStuck = false;
     if (flying)
       body.setVelocity(vector.x * KNIFE_SPEED, vector.y * KNIFE_SPEED);
     else body.setVelocity(0, 0);
@@ -440,7 +438,6 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     body.setVelocity(0, 0);
     body.setImmovable(true);
     this.knifeFlying = false;
-    this.knifeStuck = true;
     this.knifeSharpness = Math.max(0, this.knifeSharpness - 3);
   }
 
@@ -449,7 +446,6 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     const body = this.knifeSprite.body as Phaser.Physics.Arcade.Body;
     body.setVelocity(0, 0);
     this.knifeFlying = false;
-    this.knifeStuck = false;
     this.knifeSharpness = Math.max(0, this.knifeSharpness - 3);
   }
 
@@ -473,7 +469,6 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     this.knifeSprite?.destroy();
     this.knifeSprite = undefined;
     this.knifeFlying = false;
-    this.knifeStuck = false;
   }
 
   private directionVector(): Phaser.Math.Vector2 {
@@ -484,7 +479,7 @@ export class BunkerV6Scene extends BaseBunkerV6Scene {
     return new Phaser.Math.Vector2(1, 0);
   }
 
-  private gamepad(): Gamepad | null {
+  private currentGamepad(): Gamepad | null {
     return (
       Array.from(navigator.getGamepads()).find(
         (pad): pad is Gamepad => pad !== null,

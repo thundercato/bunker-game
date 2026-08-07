@@ -21,6 +21,7 @@ export type ConsumableDefinition = {
   stackSize: number;
   spoilable: boolean;
   calories: number;
+  servingsPerItem?: number;
 };
 
 export type ConsumableState = {
@@ -77,6 +78,7 @@ export const CONSUMABLES: Record<string, ConsumableDefinition> = {
     stackSize: 4,
     spoilable: false,
     calories: 330,
+    servingsPerItem: 2,
   },
   energyBar: {
     id: "energy-bar",
@@ -113,6 +115,7 @@ export const CONSUMABLES: Record<string, ConsumableDefinition> = {
     stackSize: 5,
     spoilable: false,
     calories: 520,
+    servingsPerItem: 4,
   },
   apple: {
     id: "apple",
@@ -125,6 +128,7 @@ export const CONSUMABLES: Record<string, ConsumableDefinition> = {
     stackSize: 4,
     spoilable: true,
     calories: 95,
+    servingsPerItem: 2,
   },
   ration: {
     id: "ration-pack",
@@ -137,6 +141,7 @@ export const CONSUMABLES: Record<string, ConsumableDefinition> = {
     stackSize: 2,
     spoilable: false,
     calories: 1200,
+    servingsPerItem: 4,
   },
   crackers: {
     id: "crackers",
@@ -149,6 +154,7 @@ export const CONSUMABLES: Record<string, ConsumableDefinition> = {
     stackSize: 5,
     spoilable: false,
     calories: 210,
+    servingsPerItem: 2,
   },
   peaches: {
     id: "tinned-peaches",
@@ -161,6 +167,7 @@ export const CONSUMABLES: Record<string, ConsumableDefinition> = {
     stackSize: 3,
     spoilable: false,
     calories: 260,
+    servingsPerItem: 2,
   },
   soup: {
     id: "tinned-soup",
@@ -173,6 +180,7 @@ export const CONSUMABLES: Record<string, ConsumableDefinition> = {
     stackSize: 3,
     spoilable: false,
     calories: 310,
+    servingsPerItem: 2,
   },
   jerkyFood: {
     id: "food-jerky",
@@ -185,6 +193,7 @@ export const CONSUMABLES: Record<string, ConsumableDefinition> = {
     stackSize: 5,
     spoilable: false,
     calories: 230,
+    servingsPerItem: 3,
   },
 };
 
@@ -213,6 +222,15 @@ export class ConsumableStore {
     const state = this.get(id);
     if (state.quantity <= 0) return false;
     state.quantity -= 1;
+    this.set(id, state);
+    return true;
+  }
+
+  public consumeServing(id: string, servingsPerItem = 1): boolean {
+    const state = this.get(id);
+    if (state.quantity <= 0) return false;
+    const portion = 1 / Math.max(1, servingsPerItem);
+    state.quantity = Math.max(0, Number((state.quantity - portion).toFixed(4)));
     this.set(id, state);
     return true;
   }

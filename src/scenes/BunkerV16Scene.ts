@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { BunkerV15Scene } from "./BunkerV15Scene";
 
-const VERSION = "0.1.0.10";
+const VERSION = "0.1.0.11";
 const MAGAZINE_CAPACITY = 8;
 const MAINTENANCE_SEGMENTS = 20;
 
@@ -63,29 +63,22 @@ export class BunkerV16Scene extends BunkerV15Scene {
   ];
   private readonly magazineHealth = new Map<string, number>();
   private readonly maintenance = new Map<string, MaintenanceState>();
-  private cachedStorageItems: BaseItem[] = [];
   private gunHealth = 200;
   private reloadHeld = false;
   private observer?: MutationObserver;
   private targets: TargetState[] = [];
 
   public override create(): void {
-    window.addEventListener("bunker-storage-open", this.cacheStorage, true);
     window.addEventListener("bunker-gunshot", this.handleShotWear);
     document.addEventListener("click", this.handleDocumentClick, true);
     super.create();
-    this.updateVersionLabel();
+    this.updateVersionLabelV16();
     this.seedMagazineHealth();
     this.createKillHouseTargets();
-    this.installStyles();
+    this.installStylesV16();
     this.observeInterface();
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      window.removeEventListener(
-        "bunker-storage-open",
-        this.cacheStorage,
-        true,
-      );
       window.removeEventListener("bunker-gunshot", this.handleShotWear);
       document.removeEventListener("click", this.handleDocumentClick, true);
       this.observer?.disconnect();
@@ -99,33 +92,18 @@ export class BunkerV16Scene extends BunkerV15Scene {
     this.removeEmptyAmmoItems();
   }
 
-  private runtime(): Runtime {
+  private runtimeV16(): Runtime {
     return this as unknown as Runtime;
   }
 
-  private updateVersionLabel(): void {
+  private updateVersionLabelV16(): void {
     const badge = document.querySelector<HTMLElement>(".start-version");
     if (badge) badge.textContent = `BUNKER v${VERSION}`;
   }
 
-  private readonly cacheStorage = (event: Event): void => {
-    const detail = (event as CustomEvent<{ items: BaseItem[] }>).detail;
-    this.cachedStorageItems = detail.items.map((item) => ({ ...item }));
-  };
-
   private readonly handleDocumentClick = (event: Event): void => {
     const target = event.target as HTMLButtonElement | null;
     if (!target) return;
-    const label = target.textContent?.trim() ?? "";
-    const panel = target.closest<HTMLElement>(
-      ".firearm-item-panel, .item-panel",
-    );
-    if (label === "TAKE" && panel) {
-      window.setTimeout(
-        () => this.runtime().openStorage(this.cachedStorageItems),
-        0,
-      );
-    }
     if (target.closest(".backpack-button")) {
       window.setTimeout(() => this.decorateBackpack(), 0);
     }
@@ -145,7 +123,7 @@ export class BunkerV16Scene extends BunkerV15Scene {
   private decorateBackpack(): void {
     const panel = document.querySelector<HTMLElement>(".backpack-panel");
     if (!panel || panel.querySelector(".equipment-column")) return;
-    const runtime = this.runtime();
+    const runtime = this.runtimeV16();
     const equipment = document.createElement("aside");
     equipment.className = "equipment-column";
     equipment.innerHTML = `
@@ -192,9 +170,10 @@ export class BunkerV16Scene extends BunkerV15Scene {
     const panel = document.querySelector<HTMLElement>(".firearm-item-panel");
     const title = panel?.querySelector("h2")?.textContent ?? "";
     const actions = panel?.querySelector<HTMLElement>(".item-actions");
-    if (!panel || !actions || actions.querySelector(".v16-action")) return;
+    if (!panel || !actions || panel.dataset.v16Decorated === "true") return;
+    panel.dataset.v16Decorated = "true";
 
-    const runtime = this.runtime();
+    const runtime = this.runtimeV16();
     const magazine = Array.from(runtime.firearmItems.values()).find(
       (item) => item.kind === "magazine" && item.name === title,
     );
@@ -239,7 +218,7 @@ export class BunkerV16Scene extends BunkerV15Scene {
   }
 
   private reloadFromPouch(): void {
-    const runtime = this.runtime();
+    const runtime = this.runtimeV16();
     if (!runtime.pistolArmed || runtime.uiOpen) return;
     const pouchIndex = this.magazinePouches.findIndex((id) => {
       const magazine = id ? runtime.firearmItems.get(id) : undefined;
@@ -266,17 +245,17 @@ export class BunkerV16Scene extends BunkerV15Scene {
       replacement.rounds -= 1;
       runtime.chamberedRound = true;
     }
-    this.toast(`RELOADED · ${replacement.rounds}/${MAGAZINE_CAPACITY}`);
+    this.toastV16(`RELOADED · ${replacement.rounds}/${MAGAZINE_CAPACITY}`);
   }
 
   private seedMagazineHealth(): void {
-    for (const item of this.runtime().firearmItems.values()) {
+    for (const item of this.runtimeV16().firearmItems.values()) {
       if (item.kind === "magazine") this.magazineHealth.set(item.id, 100);
     }
   }
 
   private readonly handleShotWear = (): void => {
-    const runtime = this.runtime();
+    const runtime = this.runtimeV16();
     this.gunHealth = Math.max(0, this.gunHealth - 1);
     const id = runtime.insertedMagazine;
     if (id) {
@@ -287,7 +266,7 @@ export class BunkerV16Scene extends BunkerV15Scene {
   };
 
   private removeEmptyAmmoItems(): void {
-    for (const item of this.runtime().firearmItems.values()) {
+    for (const item of this.runtimeV16().firearmItems.values()) {
       if (item.kind === "ammo" && item.rounds <= 0) item.location = "hidden";
       if (
         item.kind === "ammo" &&
@@ -302,7 +281,7 @@ export class BunkerV16Scene extends BunkerV15Scene {
   private decorateWeaponList(): void {
     const list = document.querySelector<HTMLElement>(".weapon-list");
     if (!list || list.querySelector(".v16-mag-maintenance")) return;
-    for (const magazine of this.runtime().firearmItems.values()) {
+    for (const magazine of this.runtimeV16().firearmItems.values()) {
       if (magazine.kind !== "magazine") continue;
       if (magazine.location === "storage") continue;
       const button = document.createElement("button");
@@ -479,7 +458,7 @@ export class BunkerV16Scene extends BunkerV15Scene {
     surface.addEventListener("pointercancel", release);
     panel
       .querySelector(".workstation-back")
-      ?.addEventListener("click", () => this.runtime().openV10WeaponList());
+      ?.addEventListener("click", () => this.runtimeV16().openV10WeaponList());
     overlay.replaceChildren(panel);
     refresh();
   }
@@ -623,7 +602,7 @@ export class BunkerV16Scene extends BunkerV15Scene {
     });
   }
 
-  private toast(message: string): void {
+  private toastV16(message: string): void {
     const toast = document.createElement("div");
     toast.className = "inventory-toast";
     toast.textContent = message;
@@ -631,7 +610,7 @@ export class BunkerV16Scene extends BunkerV15Scene {
     window.setTimeout(() => toast.remove(), 1600);
   }
 
-  private installStyles(): void {
+  private installStylesV16(): void {
     if (document.querySelector("#bunker-v16-styles")) return;
     const style = document.createElement("style");
     style.id = "bunker-v16-styles";

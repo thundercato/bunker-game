@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { InventoryStore } from "@/inventory/InventoryStore";
 import { BunkerV8Scene } from "./BunkerV8Scene";
 
 const VERSION = "0.1.0.2";
@@ -109,28 +110,31 @@ export class BunkerV9Scene extends BunkerV8Scene {
     ],
   ]);
 
-  private overlay!: HTMLElement;
-  private controls!: HTMLElement;
-  private backpackButton!: HTMLElement;
+  private v9Overlay!: HTMLElement;
+  private v9Controls!: HTMLElement;
+  private v9BackpackButton!: HTMLElement;
   private insertedMagazine: FirearmItemId | null = null;
   private chamberedRound = false;
   private pistolArmed = false;
   private fireHeld = false;
+  private readonly storageInventory = new InventoryStore<BaseItem>(
+    (item) => item.id,
+  );
 
   public override create(): void {
-    window.addEventListener("bunker-storage-open", this.captureStorage, true);
+    window.addEventListener("bunker-storage-open", this.captureV9Storage, true);
     document.addEventListener("click", this.captureBackpackClick, true);
     window.addEventListener("bunker-touch-attack", this.captureTouchFire, true);
     super.create();
-    this.overlay = this.requireElement(".game-overlay");
-    this.controls = this.requireElement(".touch-controls");
-    this.backpackButton = this.requireElement(".backpack-button");
-    this.updateVersionLabels();
+    this.v9Overlay = this.requireV9Element(".game-overlay");
+    this.v9Controls = this.requireV9Element(".touch-controls");
+    this.v9BackpackButton = this.requireV9Element(".backpack-button");
+    this.updateV9VersionLabels();
     this.installFirearmStyles();
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       window.removeEventListener(
         "bunker-storage-open",
-        this.captureStorage,
+        this.captureV9Storage,
         true,
       );
       document.removeEventListener("click", this.captureBackpackClick, true);
@@ -152,25 +156,24 @@ export class BunkerV9Scene extends BunkerV8Scene {
   private runtimeV9(): BaseRuntime {
     return this as unknown as BaseRuntime;
   }
-  private requireElement(selector: string): HTMLElement {
+  private requireV9Element(selector: string): HTMLElement {
     const element = document.querySelector<HTMLElement>(selector);
     if (!element) throw new Error(`Missing element: ${selector}`);
     return element;
   }
 
-  private updateVersionLabels(): void {
+  private updateV9VersionLabels(): void {
     const badge = document.querySelector<HTMLElement>(".start-version");
     if (badge) badge.textContent = `BUNKER v${VERSION}`;
   }
 
-  private readonly captureStorage = (event: Event): void => {
+  private readonly captureV9Storage = (event: Event): void => {
     event.stopImmediatePropagation();
-    const items = (
-      event as CustomEvent<{ items: BaseItem[] }>
-    ).detail.items.map((item) => ({ ...item }));
+    const items = (event as CustomEvent<{ items: BaseItem[] }>).detail.items;
+    this.storageInventory.replace(items);
     const runtime = this.runtimeV9();
     if (runtime.knifeLocation === "storage") items.push({ ...runtime.knife });
-    this.openStorage(items);
+    this.openV9Storage(items);
   };
 
   private readonly captureBackpackClick = (event: Event): void => {
@@ -178,7 +181,7 @@ export class BunkerV9Scene extends BunkerV8Scene {
     if (!target?.closest(".backpack-button")) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    if (!this.runtimeV9().uiOpen) this.openBackpack();
+    if (!this.runtimeV9().uiOpen) this.openV9Backpack();
   };
 
   private readonly captureTouchFire = (event: Event): void => {
@@ -187,28 +190,30 @@ export class BunkerV9Scene extends BunkerV8Scene {
     this.firePistol();
   };
 
-  private setUiOpen(open: boolean): void {
+  private setV9UiOpen(open: boolean): void {
     this.runtimeV9().uiOpen = open;
-    this.controls.classList.toggle("is-hidden", open);
-    this.backpackButton.classList.toggle("is-hidden", open);
-    this.overlay.classList.toggle("is-open", open);
-    if (!open) this.overlay.replaceChildren();
+    this.v9Controls.classList.toggle("is-hidden", open);
+    this.v9BackpackButton.classList.toggle("is-hidden", open);
+    this.v9Overlay.classList.toggle("is-open", open);
+    if (!open) this.v9Overlay.replaceChildren();
   }
 
-  private closeUi = (): void => {
-    this.setUiOpen(false);
+  private closeV9Ui = (): void => {
+    this.setV9UiOpen(false);
     window.dispatchEvent(new Event("bunker-storage-close"));
   };
 
-  private openStorage(baseItems: BaseItem[]): void {
-    this.setUiOpen(true);
+  private openV9Storage(baseItems?: BaseItem[]): void {
+    if (baseItems) this.storageInventory.replace(baseItems);
+    const currentItems = this.storageInventory.values();
+    this.setV9UiOpen(true);
     const panel = document.createElement("div");
     panel.className = "storage-panel firearm-inventory";
     panel.innerHTML = `<header><h2>STORAGE TRUNK</h2><p>6 × 3 storage grid</p></header><div class="storage-grid"></div><button class="overlay-back">BACK</button>`;
     const grid = panel.querySelector<HTMLElement>(".storage-grid");
     if (!grid) throw new Error("Storage grid missing");
     const available = [
-      ...baseItems.filter((item) => !item.taken),
+      ...currentItems.filter((item) => !item.taken),
       ...Array.from(this.firearmItems.values()).filter(
         (item) => item.location === "storage",
       ),
@@ -227,7 +232,7 @@ export class BunkerV9Scene extends BunkerV8Scene {
       if (base) {
         cell.classList.add("has-item");
         cell.innerHTML = `${this.baseGlyph(base.id)}<span>${base.name}</span>`;
-        cell.addEventListener("click", () => this.openBaseItem(base));
+        cell.addEventListener("click", () => this.openV9BaseItem(base));
       } else if (firearm) {
         cell.classList.add("has-item");
         cell.innerHTML = `${this.firearmGlyph(firearm)}<span>${this.shortName(firearm)}</span>`;
@@ -239,70 +244,108 @@ export class BunkerV9Scene extends BunkerV8Scene {
     }
     panel
       .querySelector(".overlay-back")
-      ?.addEventListener("click", this.closeUi);
-    this.overlay.replaceChildren(panel);
+      ?.addEventListener("click", this.closeV9Ui);
+    this.v9Overlay.replaceChildren(panel);
   }
 
-  private openBackpack(): void {
-    this.setUiOpen(true);
+  private openV9Backpack(): void {
+    this.setV9UiOpen(true);
     const panel = document.createElement("div");
     panel.className = "backpack-panel firearm-inventory";
     panel.innerHTML = `<header><h2>BACKPACK</h2><p>3 × 4 carried inventory</p></header><div class="backpack-grid storage-grid"></div><button class="overlay-back">BACK</button>`;
     const grid = panel.querySelector<HTMLElement>(".backpack-grid");
     if (!grid) throw new Error("Backpack grid missing");
-    const baseItems = Array.from(this.runtimeV9().backpack.values());
-    const firearmItems = Array.from(this.firearmItems.values()).filter(
-      (item) => item.location === "backpack",
-    );
+
+    const carriedEntries = [
+      ...Array.from(this.runtimeV9().backpack.values()).map((item) => ({
+        type: "base" as const,
+        item,
+      })),
+      ...Array.from(this.firearmItems.values())
+        .filter(
+          (item) =>
+            item.location === "backpack" &&
+            (item.kind !== "ammo" || item.rounds > 0),
+        )
+        .map((item) => ({ type: "firearm" as const, item })),
+    ];
+
     for (let slot = 0; slot < 12; slot += 1) {
       const cell = document.createElement("button");
       cell.className = "storage-cell";
-      const base = baseItems.find((item) => item.slot === slot);
-      const firearm = firearmItems.find((item) => item.slot - 7 === slot);
-      const item = base ?? firearm;
-      cell.disabled = !item;
-      if (base) {
+      const entry = carriedEntries[slot];
+      cell.disabled = !entry;
+      if (entry?.type === "base") {
+        const item = entry.item;
         cell.classList.add("has-item");
-        cell.innerHTML = `${this.baseGlyph(base.id)}<span>${base.name}</span>`;
-        cell.addEventListener("click", () => this.openBaseItem(base));
-      } else if (firearm) {
+        cell.innerHTML = `${this.baseGlyph(item.id)}<span>${item.name}</span>`;
+        cell.addEventListener("click", () => this.openV9BaseItem(item));
+      } else if (entry?.type === "firearm") {
+        const item = entry.item;
         cell.classList.add("has-item");
-        cell.innerHTML = `${this.firearmGlyph(firearm)}<span>${this.shortName(firearm)}</span>`;
+        cell.innerHTML = `${this.firearmGlyph(item)}<span>${this.shortName(item)}</span>`;
         cell.addEventListener("click", () =>
-          this.openFirearmItem(firearm, "backpack"),
+          this.openFirearmItem(item, "backpack"),
         );
       }
       grid.append(cell);
     }
     panel
       .querySelector(".overlay-back")
-      ?.addEventListener("click", this.closeUi);
-    this.overlay.replaceChildren(panel);
+      ?.addEventListener("click", this.closeV9Ui);
+    this.v9Overlay.replaceChildren(panel);
   }
 
-  private openBaseItem(item: BaseItem): void {
+  private openV9BaseItem(item: BaseItem): void {
     const panel = document.createElement("div");
     panel.className = "item-panel firearm-item-panel";
     panel.innerHTML = `<header><h2>${item.name}</h2><p>${item.description}</p></header><div class="firearm-art">${this.baseGlyph(item.id)}</div><div class="item-info"><p>${item.details}</p><ul>${item.stats.map((stat) => `<li>${stat}</li>`).join("")}</ul></div><div class="item-actions"></div>`;
     const actions = panel.querySelector<HTMLElement>(".item-actions");
     if (!actions) throw new Error("Actions missing");
-    if (!item.taken)
+    const runtime = this.runtimeV9();
+    const isKnife = item.id === "knife";
+    const inStorage = !item.taken;
+
+    if (inStorage) {
       actions.append(
         this.button("TAKE", () => {
           window.dispatchEvent(
             new CustomEvent("bunker-take-item", { detail: { id: item.id } }),
           );
           item.taken = true;
-          this.runtimeV9().backpack.set(item.id, item);
-          this.openBackpack();
+          runtime.backpack.set(item.id, item);
+          this.openV9Storage();
         }),
       );
+      if (isKnife)
+        actions.append(
+          this.button("ARM", () => {
+            item.taken = true;
+            runtime.backpack.set(item.id, item);
+            runtime.knifeLocation = "armed";
+            this.pistolArmed = false;
+            this.closeV9Ui();
+            this.toast("KNIFE ARMED · A / WEAPON TO STAB · Y / THROW");
+          }),
+        );
+    } else if (isKnife) {
+      const armed = runtime.knifeLocation === "armed";
+      actions.append(
+        this.button(armed ? "UNARM" : "ARM", () => {
+          runtime.knifeLocation = armed ? "backpack" : "armed";
+          if (!armed) this.pistolArmed = false;
+          this.openV9Backpack();
+          this.toast(armed ? "KNIFE RETURNED TO BACKPACK" : "KNIFE ARMED");
+        }),
+      );
+    }
+
     actions.append(
       this.button("BACK", () =>
-        item.taken ? this.openBackpack() : this.openStorage([]),
+        inStorage ? this.openV9Storage() : this.openV9Backpack(),
       ),
     );
-    this.overlay.replaceChildren(panel);
+    this.v9Overlay.replaceChildren(panel);
   }
 
   private openFirearmItem(
@@ -318,20 +361,33 @@ export class BunkerV9Scene extends BunkerV8Scene {
       .join("")}</ul></div><div class="item-actions"></div>`;
     const actions = panel.querySelector<HTMLElement>(".item-actions");
     if (!actions) throw new Error("Actions missing");
-    if (origin === "storage")
+    if (origin === "storage") {
       actions.append(
         this.button("TAKE", () => {
           item.location = "backpack";
-          this.openBackpack();
+          this.openV9Storage();
         }),
       );
-    else this.addBackpackActions(item, actions);
+      if (item.kind === "pistol")
+        actions.append(
+          this.button("ARM", () => {
+            item.location = "backpack";
+            this.pistolArmed = true;
+            this.runtimeV9().knifeLocation =
+              this.runtimeV9().knifeLocation === "armed"
+                ? "backpack"
+                : this.runtimeV9().knifeLocation;
+            this.closeV9Ui();
+            this.toast("MAKAROV ARMED");
+          }),
+        );
+    } else this.addBackpackActions(item, actions);
     actions.append(
       this.button("BACK", () =>
-        origin === "storage" ? this.openStorage([]) : this.openBackpack(),
+        origin === "storage" ? this.openV9Storage() : this.openV9Backpack(),
       ),
     );
-    this.overlay.replaceChildren(panel);
+    this.v9Overlay.replaceChildren(panel);
   }
 
   private addBackpackActions(item: FirearmItem, actions: HTMLElement): void {
@@ -419,20 +475,52 @@ export class BunkerV9Scene extends BunkerV8Scene {
       );
       actions.append(
         this.button(
-          this.pistolArmed ? "ARMED" : "ARM",
+          this.pistolArmed ? "UNARM" : "ARM",
           () => {
-            this.pistolArmed = true;
-            this.runtimeV9().knifeLocation =
-              this.runtimeV9().knifeLocation === "armed"
-                ? "backpack"
-                : this.runtimeV9().knifeLocation;
-            this.closeUi();
-            this.toast("MAKAROV ARMED · A / WEAPON TO FIRE");
+            this.pistolArmed = !this.pistolArmed;
+            if (this.pistolArmed)
+              this.runtimeV9().knifeLocation =
+                this.runtimeV9().knifeLocation === "armed"
+                  ? "backpack"
+                  : this.runtimeV9().knifeLocation;
+            this.openV9Backpack();
+            this.toast(
+              this.pistolArmed
+                ? "MAKAROV ARMED · A / WEAPON TO FIRE"
+                : "MAKAROV RETURNED TO BACKPACK",
+            );
           },
           this.pistolArmed,
         ),
       );
     }
+  }
+
+  public switchV9Weapon(): void {
+    if (this.runtimeV9().uiOpen) return;
+    const runtime = this.runtimeV9();
+    const hasKnife =
+      runtime.backpack.has("knife") || runtime.knifeLocation === "armed";
+    const pistol = this.firearmItems.get("makarov");
+    const hasPistol = pistol?.location === "backpack" || this.pistolArmed;
+    if (this.pistolArmed && hasKnife) {
+      this.pistolArmed = false;
+      runtime.knifeLocation = "armed";
+      this.toast("KNIFE READY");
+    } else if (runtime.knifeLocation === "armed" && hasPistol) {
+      runtime.knifeLocation = "backpack";
+      this.pistolArmed = true;
+      this.toast("MAKAROV READY");
+    } else if (hasPistol) {
+      this.pistolArmed = true;
+      runtime.knifeLocation =
+        runtime.knifeLocation === "armed" ? "backpack" : runtime.knifeLocation;
+      this.toast("MAKAROV READY");
+    } else if (hasKnife) {
+      runtime.knifeLocation = "armed";
+      this.pistolArmed = false;
+      this.toast("KNIFE READY");
+    } else this.toast("NO WEAPON AVAILABLE");
   }
 
   private loadMagazine(magazine: FirearmItem): number {

@@ -125,7 +125,7 @@ v17 = v17.replace(
   '      document.querySelector(".reload-button")?.remove();\n      document.querySelector(".weapon-switch-button")?.remove();',
 );
 if (!v17.includes("private createWeaponSwitchButton")) {
-  const marker = "  private findPlayer():";
+  const marker = "  private findPlayer";
   const method = `  private createWeaponSwitchButton(): void {
     const parent = document.querySelector<HTMLElement>("#app");
     if (!parent || parent.querySelector(".weapon-switch-button")) return;

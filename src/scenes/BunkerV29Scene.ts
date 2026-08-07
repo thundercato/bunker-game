@@ -50,8 +50,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
   private enemies: EnemyV29[] = [];
   private inLabyrinth = false;
   private inRoom = false;
-  private activeRoom?: ExplorationRoomState;
-  private activeDoor?: ExplorationDoor;
+  private activeExplorationRoom?: ExplorationRoomState;
   private returnPosition = new Phaser.Math.Vector2();
   private useHeld = false;
   private transitionLocked = false;
@@ -71,6 +70,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
       this.physics.world.bounds.height,
     );
     this.createBunkerEntrance();
+    this.initialiseV30StartState();
     window.addEventListener("bunker-gunshot", this.onGunshot);
     window.addEventListener("bunker-touch-attack", this.onTouchAttack);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.destroyV29());
@@ -136,10 +136,25 @@ export class BunkerV29Scene extends BunkerV18Scene {
 
   private createBunkerEntrance(): void {
     const bounds = this.physics.world.bounds;
-    const x = bounds.centerX;
-    const y = bounds.bottom - 90;
+    const player = this.tunnelPlayer;
+    const x = player?.x ?? bounds.centerX;
+    const y = player ? player.y + 58 : bounds.bottom - 150;
     this.entranceDoor = this.makeDoor(x, y, 0x43545b, 0xa8bcc4);
-    this.entrancePrompt = this.makePrompt(x, y - 38, "USE · ENTER LABYRINTH");
+    this.entrancePrompt = this.makeV29Prompt(
+      x,
+      y - 38,
+      "USE · ENTER LABYRINTH",
+    );
+    if (player) {
+      player.setPosition(x, y - 54);
+      player.setVelocity(0, 0);
+    }
+  }
+
+  private initialiseV30StartState(): void {
+    const runtime = this.runtimeV29();
+    runtime.knifeLocation = "armed";
+    runtime.emitState();
   }
 
   private makeDoor(
@@ -155,7 +170,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
     return this.add.container(x, y, [frame, handle]).setDepth(24);
   }
 
-  private makePrompt(
+  private makeV29Prompt(
     x: number,
     y: number,
     text: string,
@@ -203,6 +218,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
     this.configureLabyrinthCamera();
     this.initialiseLighting();
     await this.fadeIn();
+    this.useHeld = true;
     this.transitionLocked = false;
   }
 
@@ -247,7 +263,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
     const entranceY =
       this.labyrinthOrigin.y + state.entrance.y * CELL + CELL / 2;
     this.entranceDoor = this.makeDoor(entranceX, entranceY, 0x39535c, 0xa7c5cf);
-    this.entrancePrompt = this.makePrompt(
+    this.entrancePrompt = this.makeV29Prompt(
       entranceX,
       entranceY - 38,
       "USE · RETURN TO BUNKER",
@@ -258,7 +274,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
       const x = this.labyrinthOrigin.x + door.tile.x * CELL + CELL / 2;
       const y = this.labyrinthOrigin.y + door.tile.y * CELL + CELL / 2;
       const sprite = this.makeDoor(x, y, 0x4b3930, 0x8d7358);
-      const prompt = this.makePrompt(
+      const prompt = this.makeV29Prompt(
         x,
         y - 38,
         `USE · ENTER ROOM ${index + 1}`,
@@ -326,6 +342,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
     }
     this.cameras.main.startFollow(this.tunnelPlayer, true, 0.12, 0.12);
     await this.fadeIn();
+    this.useHeld = true;
     this.transitionLocked = false;
   }
 
@@ -337,7 +354,6 @@ export class BunkerV29Scene extends BunkerV18Scene {
       this.labyrinthOrigin.x + door.approach.x * CELL + CELL / 2,
       this.labyrinthOrigin.y + door.approach.y * CELL + CELL / 2,
     );
-    this.activeDoor = door;
     this.labyrinth.currentDoorId = door.id;
     await this.fadeOut();
     this.inLabyrinth = false;
@@ -345,10 +361,11 @@ export class BunkerV29Scene extends BunkerV18Scene {
     this.labyrinthRoot?.setVisible(false);
     for (const enemy of this.enemies)
       enemy.sprite.setActive(false).setVisible(false);
-    this.activeRoom = this.labyrinth.roomStates[door.roomId];
-    this.activeRoom.visited = true;
-    this.buildRoom(this.activeRoom);
+    this.activeExplorationRoom = this.labyrinth.roomStates[door.roomId];
+    this.activeExplorationRoom.visited = true;
+    this.buildRoom(this.activeExplorationRoom);
     await this.fadeIn();
+    this.useHeld = true;
     this.transitionLocked = false;
   }
 
@@ -388,7 +405,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
     const doorX = x0 + Math.floor(room.width / 2) * CELL + CELL / 2;
     const doorY = y0 + (room.height - 1) * CELL + CELL / 2;
     this.roomExitDoor = this.makeDoor(doorX, doorY, 0x4b3930, 0x8d7358);
-    this.roomExitPrompt = this.makePrompt(
+    this.roomExitPrompt = this.makeV29Prompt(
       doorX,
       doorY - 38,
       "USE · RETURN TO LABYRINTH",
@@ -449,6 +466,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
     this.configureLabyrinthCamera();
     this.initialiseLighting();
     await this.fadeIn();
+    this.useHeld = true;
     this.transitionLocked = false;
   }
 
@@ -497,12 +515,8 @@ export class BunkerV29Scene extends BunkerV18Scene {
       this.lighting.height !== camera.height
     )
       this.initialiseLighting();
-    const point = camera.getWorldPoint(
-      this.tunnelPlayer.x,
-      this.tunnelPlayer.y,
-    );
-    const screenX = (point.x - camera.worldView.x) * camera.zoom;
-    const screenY = (point.y - camera.worldView.y) * camera.zoom;
+    const screenX = (this.tunnelPlayer.x - camera.worldView.x) * camera.zoom;
+    const screenY = (this.tunnelPlayer.y - camera.worldView.y) * camera.zoom;
     const radius =
       (this.inRoom ? ROOM_VISIBILITY_RADIUS : LABYRINTH_VISIBILITY_RADIUS) *
       camera.zoom;

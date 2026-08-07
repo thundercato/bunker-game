@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { BunkerV6Scene as BaseBunkerV7Scene } from "./BunkerV7Scene";
 
-const VERSION = "0.8.00";
+const VERSION = "0.8.10";
 
 type ItemId = "cigarettes" | "jerky" | "knife";
 type InventoryItem = {
@@ -26,24 +26,25 @@ type V8Runtime = {
 };
 
 export class BunkerV8Scene extends BaseBunkerV7Scene {
-  private overlay!: HTMLElement;
-  private controls!: HTMLElement;
-  private backpackButton!: HTMLElement;
+  private v8Overlay!: HTMLElement;
+  private v8Controls!: HTMLElement;
+  private workstationBackpackButton!: HTMLElement;
   private attackButton!: HTMLButtonElement;
   private throwButton!: HTMLButtonElement;
   private lastRubPoint: { x: number; y: number } | null = null;
   private rubDistance = 0;
+  private readonly bladePolish = Array.from({ length: 12 }, () => 0);
 
   public override create(): void {
     super.create();
-    this.overlay = this.requireElement(".game-overlay");
-    this.controls = this.requireElement(".touch-controls");
-    this.backpackButton = this.requireElement(".backpack-button");
+    this.v8Overlay = this.requireV8Element(".game-overlay");
+    this.v8Controls = this.requireV8Element(".touch-controls");
+    this.workstationBackpackButton = this.requireV8Element(".backpack-button");
     this.configureFeetCollision();
     this.configureStartScreen();
     this.configureDigitalHud();
     this.makeWeaponButtons();
-    this.installStyles();
+    this.installV8Styles();
 
     window.addEventListener("bunker-message", this.captureWorkstation, true);
     window.addEventListener("bunker-touch-attack", this.attack);
@@ -61,11 +62,24 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
     });
   }
 
+  public override update(time: number, delta: number): void {
+    super.update(time, delta);
+    this.correctLivingRoomCamera();
+  }
+
+  private correctLivingRoomCamera(): void {
+    const player = this.runtimeV8().player;
+    if (player.x < 64 || player.x > 640 || player.y < 96 || player.y > 544)
+      return;
+    const camera = this.cameras.main;
+    camera.scrollY = Phaser.Math.Linear(camera.scrollY, 48, 0.18);
+  }
+
   private runtimeV8(): V8Runtime {
     return this as unknown as V8Runtime;
   }
 
-  private requireElement(selector: string): HTMLElement {
+  private requireV8Element(selector: string): HTMLElement {
     const element = document.querySelector<HTMLElement>(selector);
     if (!element) throw new Error(`Missing element: ${selector}`);
     return element;
@@ -86,7 +100,7 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
   }
 
   private configureDigitalHud(): void {
-    const hud = this.requireElement(".survival-hud");
+    const hud = this.requireV8Element(".survival-hud");
     hud.classList.add("digital-segment-hud");
     for (const row of hud.querySelectorAll<HTMLElement>(".status-row")) {
       const track = row.querySelector<HTMLElement>("i");
@@ -114,17 +128,18 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
         stamina: number;
       }>
     ).detail;
-    const values = new Map([
-      [".health-fill", detail.health],
-      [".hunger-fill", detail.hunger],
-      [".thirst-fill", detail.thirst],
-      [".stamina-fill", detail.stamina],
-    ]);
-    for (const [selector, value] of values) {
-      const oldFill = document.querySelector<HTMLElement>(selector);
-      const track = oldFill?.parentElement;
-      const row = track?.parentElement;
-      if (!row || !track) continue;
+    const values = [
+      detail.health,
+      detail.hunger,
+      detail.thirst,
+      detail.stamina,
+    ];
+    const rows = Array.from(
+      document.querySelectorAll<HTMLElement>(".survival-hud .status-row"),
+    );
+    values.forEach((value, rowIndex) => {
+      const track = rows[rowIndex]?.querySelector<HTMLElement>("i");
+      if (!track) return;
       const segments = Array.from(
         track.querySelectorAll<HTMLElement>(".lcd-segment"),
       );
@@ -133,11 +148,11 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
         const level = Math.round(portion * 5);
         segment.dataset.level = level.toString();
       });
-    }
+    });
   };
 
   private makeWeaponButtons(): void {
-    const actions = this.requireElement(".touch-actions");
+    const actions = this.requireV8Element(".touch-actions");
     this.attackButton = this.makeTouchButton("WEAPON", "touch-weapon");
     this.throwButton = this.makeTouchButton("THROW", "touch-throw");
     this.attackButton.addEventListener("pointerdown", (event) => {
@@ -179,11 +194,11 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
 
   private setWorkstationOpen(open: boolean): void {
     this.runtimeV8().uiOpen = open;
-    this.controls.classList.toggle("is-hidden", open);
-    this.backpackButton.classList.toggle("is-hidden", open);
-    this.overlay.classList.toggle("is-open", open);
-    this.overlay.classList.toggle("workstation-overlay", open);
-    if (!open) this.overlay.replaceChildren();
+    this.v8Controls.classList.toggle("is-hidden", open);
+    this.workstationBackpackButton.classList.toggle("is-hidden", open);
+    this.v8Overlay.classList.toggle("is-open", open);
+    this.v8Overlay.classList.toggle("workstation-overlay", open);
+    if (!open) this.v8Overlay.replaceChildren();
   }
 
   private closeWorkstation = (): void => this.setWorkstationOpen(false);
@@ -206,7 +221,7 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
     panel
       .querySelector(".workstation-back")
       ?.addEventListener("click", this.closeWorkstation);
-    this.overlay.replaceChildren(panel);
+    this.v8Overlay.replaceChildren(panel);
   }
 
   private openWeaponList(): void {
@@ -230,7 +245,7 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
     panel
       .querySelector(".workstation-back")
       ?.addEventListener("click", () => this.openWorkstation());
-    this.overlay.replaceChildren(panel);
+    this.v8Overlay.replaceChildren(panel);
   }
 
   private openKnifeMaintenance(): void {
@@ -241,7 +256,7 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
     panel.innerHTML = `
       <h2>SHARPEN BLADE</h2>
       <p>Rub repeatedly along the blade with your finger.</p>
-      <div class="sharpen-zone"><div class="large-knife"><i></i><b></b></div><div class="stone"></div></div>
+      <div class="sharpen-zone"><div class="large-knife"><i></i><b><span class="rust-segments">${this.bladePolish.map((_, index) => `<em data-rust="${index}"></em>`).join("")}</span></b></div><div class="stone"></div><div class="spark-layer"></div></div>
       <div class="sharpness-readout"><span>SHARPNESS</span><strong>${Math.round(runtime.knifeSharpness)}%</strong><div><i></i></div></div>
       <button class="workstation-back">BACK</button>`;
     const zone = panel.querySelector<HTMLElement>(".sharpen-zone");
@@ -260,12 +275,36 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
       );
       this.lastRubPoint = { x: event.clientX, y: event.clientY };
       if (distance < 2) return;
-      this.rubDistance += distance;
-      runtime.knifeSharpness = Phaser.Math.Clamp(
-        runtime.knifeSharpness + distance / 45,
+      const blade = panel.querySelector<HTMLElement>(".large-knife b");
+      if (!blade) return;
+      const bladeRect = blade.getBoundingClientRect();
+      if (
+        event.clientX < bladeRect.left ||
+        event.clientX > bladeRect.right ||
+        event.clientY < bladeRect.top ||
+        event.clientY > bladeRect.bottom
+      )
+        return;
+      const normalisedX = Phaser.Math.Clamp(
+        (event.clientX - bladeRect.left) / bladeRect.width,
         0,
-        100,
+        0.999,
       );
+      const segmentIndex = Math.floor(normalisedX * this.bladePolish.length);
+      const currentPolish = this.bladePolish[segmentIndex] ?? 1;
+      if (currentPolish >= 1) return;
+
+      this.rubDistance += distance;
+      this.bladePolish[segmentIndex] = Phaser.Math.Clamp(
+        currentPolish + distance / 1275,
+        0,
+        1,
+      );
+      const averagePolish =
+        this.bladePolish.reduce((total, polish) => total + polish, 0) /
+        this.bladePolish.length;
+      runtime.knifeSharpness = 15 + averagePolish * 85;
+      this.makeSparks(panel, event.clientX, event.clientY);
       this.refreshSharpness(panel);
     });
     const release = (): void => {
@@ -276,8 +315,28 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
     panel
       .querySelector(".workstation-back")
       ?.addEventListener("click", () => this.openWeaponList());
-    this.overlay.replaceChildren(panel);
+    this.v8Overlay.replaceChildren(panel);
     this.refreshSharpness(panel);
+  }
+
+  private makeSparks(
+    panel: HTMLElement,
+    clientX: number,
+    clientY: number,
+  ): void {
+    const layer = panel.querySelector<HTMLElement>(".spark-layer");
+    if (!layer) return;
+    const rect = layer.getBoundingClientRect();
+    for (let index = 0; index < 4; index += 1) {
+      const spark = document.createElement("i");
+      spark.className = "sharpen-spark";
+      spark.style.left = `${clientX - rect.left}px`;
+      spark.style.top = `${clientY - rect.top}px`;
+      spark.style.setProperty("--spark-x", `${(Math.random() - 0.5) * 70}px`);
+      spark.style.setProperty("--spark-y", `${-20 - Math.random() * 55}px`);
+      layer.append(spark);
+      window.setTimeout(() => spark.remove(), 420);
+    }
   }
 
   private refreshSharpness(panel: HTMLElement): void {
@@ -287,17 +346,22 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
     );
     const fill = panel.querySelector<HTMLElement>(".sharpness-readout div i");
     if (number) number.textContent = `${Math.round(value)}%`;
+    panel
+      .querySelectorAll<HTMLElement>("[data-rust]")
+      .forEach((segment, index) => {
+        segment.style.opacity = (1 - (this.bladePolish[index] ?? 0)).toString();
+      });
     if (fill) {
       fill.style.width = `${value}%`;
       fill.style.setProperty("--sharpness", value.toString());
     }
   }
 
-  private installStyles(): void {
+  private installV8Styles(): void {
     const style = document.createElement("style");
     style.textContent = `
       .touch-weapon,.touch-throw{position:absolute;width:76px;height:54px;font-size:12px;border-radius:16px}
-      .touch-weapon{right:112px;bottom:112px}.touch-throw{right:28px;bottom:112px}
+      .touch-weapon{right:112px;bottom:205px}.touch-throw{right:28px;bottom:205px}
       .digital-segment-hud .status-row i{display:grid!important;grid-template-columns:repeat(10,1fr);gap:3px;background:#07100d!important;padding:3px;height:14px}
       .digital-segment-hud .status-row i>*.lcd-segment{display:block!important;width:auto!important;height:100%;background:currentColor;opacity:.06;box-shadow:none}
       .digital-segment-hud .status-row:nth-of-type(2){color:#ff5349}.digital-segment-hud .status-row:nth-of-type(3){color:#ffd34e}.digital-segment-hud .status-row:nth-of-type(4){color:#4cbcff}.digital-segment-hud .status-row:nth-of-type(5){color:#74f08d}
@@ -319,7 +383,7 @@ export class BunkerV8Scene extends BaseBunkerV7Scene {
       .weapon-list{display:flex;justify-content:center;margin-top:8%}.weapon-card{width:260px;height:260px;background:#141c1b;border:3px solid #607a69;color:#e8efe9}.knife-silhouette{display:block;font-size:100px}.weapon-card strong,.weapon-card small{display:block;margin-top:12px}
       .empty-weapons{margin-top:15%;padding:20px;background:#080d0ccc}
       .knife-maintenance>p{font-size:16px}.sharpen-zone{position:absolute;left:18%;right:18%;top:20%;bottom:27%;pointer-events:auto;touch-action:none;background:radial-gradient(ellipse,#3d3328,#13100e 70%);border:4px solid #46534d}
-      .large-knife{position:absolute;left:17%;right:13%;top:38%;height:22%;transform:rotate(-8deg)}.large-knife i{position:absolute;left:0;width:28%;height:100%;background:#2d2118;border:5px solid #100c09;border-radius:15px}.large-knife b{position:absolute;left:25%;right:0;top:10%;height:80%;clip-path:polygon(0 0,100% 50%,0 100%);background:linear-gradient(#edf4f1,#6f7d7b 53%,#d5ddda)}
+      .large-knife{position:absolute;left:17%;right:13%;top:38%;height:22%;transform:rotate(-8deg)}.large-knife i{position:absolute;left:0;width:28%;height:100%;background:#2d2118;border:5px solid #100c09;border-radius:15px}.large-knife b{position:absolute;left:25%;right:0;top:10%;height:80%;clip-path:polygon(0 0,100% 50%,0 100%);background:linear-gradient(#edf4f1,#6f7d7b 53%,#d5ddda);overflow:hidden}.rust-segments{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,1fr)}.rust-segments em{display:block;background:linear-gradient(90deg,#5a2d12,#9a5425 45%,#4a2410);border-right:1px solid #2b1308;opacity:1}.spark-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden}.sharpen-spark{position:absolute;width:5px;height:5px;border-radius:50%;background:#fff3a0;box-shadow:0 0 8px #ff9b22;animation:spark-flight .42s ease-out forwards}@keyframes spark-flight{to{transform:translate(var(--spark-x),var(--spark-y)) scale(.2);opacity:0}}
       .stone{position:absolute;left:34%;right:20%;bottom:14%;height:12%;background:#665c4d;border:4px solid #2c2822;transform:rotate(-8deg)}
       .sharpness-readout{position:absolute;left:25%;right:25%;bottom:15%;display:grid;grid-template-columns:auto 80px;gap:8px;text-align:left}.sharpness-readout div{grid-column:1/3;height:22px;background:#24100d;border:3px solid #68716b}.sharpness-readout div i{display:block;height:100%;width:0;background:hsl(calc(var(--sharpness)*1.2),85%,48%);box-shadow:0 0 10px currentColor}
     `;
