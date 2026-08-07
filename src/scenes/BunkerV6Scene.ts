@@ -136,6 +136,7 @@ export class BunkerV6Scene extends Phaser.Scene {
     camera.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT).setZoom(1.4);
     camera.startFollow(this.player, true, 0.08, 0.08);
     camera.roundPixels = true;
+    this.gate.setScale(1 / camera.zoom);
 
     window.addEventListener("bunker-storage-close", this.onStorageClose);
     window.addEventListener(

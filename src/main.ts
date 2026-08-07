@@ -5,7 +5,6 @@ import { SurvivalController } from "@/systems/SurvivalController";
 import "@/style.css";
 import "@/sleep.css";
 
-const VERSION = "0.6.00";
 const parent = document.querySelector<HTMLElement>("#app");
 if (!parent) throw new Error("Missing #app element.");
 
@@ -25,11 +24,6 @@ const game = new Phaser.Game({
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
 });
 const survival = new SurvivalController(game);
-
-const versionBadge = document.createElement("div");
-versionBadge.className = "start-version";
-versionBadge.textContent = `BUNKER v${VERSION}`;
-parent.append(versionBadge);
 
 const hud = document.createElement("aside");
 hud.className = "survival-hud";
@@ -320,7 +314,6 @@ window.addEventListener("bunker-message", ((
 ) => renderMessage(event.detail.title, event.detail.text)) as EventListener);
 
 const enterGame = (): void => {
-  versionBadge.remove();
   controls.classList.add("is-active");
 };
 parent.addEventListener("pointerdown", enterGame, { once: true });

@@ -2,7 +2,7 @@
 
 A modular browser survival game built with Phaser 3, TypeScript and Vite for long-term AI-assisted development.
 
-## Current release: v0.0.0.13
+## Current release: v0.0.0.14
 
 The current development build includes the bunker, procedural labyrinth exploration, persistent side rooms, survival needs, inventory, firearms, knife combat and touch, keyboard and gamepad controls.
 
