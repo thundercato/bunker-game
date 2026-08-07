@@ -11,13 +11,21 @@ describe("corridorBeamDistanceCells", () => {
   ];
 
   it("throws light along the facing corridor until its terminating wall", () => {
-    expect(corridorBeamDistanceCells(walls, { x: 3, y: 1 }, "left")).toBe(3.25);
-    expect(corridorBeamDistanceCells(walls, { x: 3, y: 1 }, "right")).toBe(3.25);
+    expect(
+      corridorBeamDistanceCells(walls, { x: 3, y: 1 }, "left"),
+    ).toBe(3.25);
+    expect(
+      corridorBeamDistanceCells(walls, { x: 3, y: 1 }, "right"),
+    ).toBe(3.25);
   });
 
   it("changes the traced corridor when the player changes facing", () => {
-    expect(corridorBeamDistanceCells(walls, { x: 3, y: 1 }, "down")).toBe(3.25);
-    expect(corridorBeamDistanceCells(walls, { x: 3, y: 3 }, "up")).toBe(3.25);
+    expect(
+      corridorBeamDistanceCells(walls, { x: 3, y: 1 }, "down"),
+    ).toBe(3.25);
+    expect(
+      corridorBeamDistanceCells(walls, { x: 3, y: 3 }, "up"),
+    ).toBe(3.25);
   });
 
   it("caps long straight corridors without leaking beyond the requested range", () => {
