@@ -1,7 +1,11 @@
 import Phaser from "phaser";
 import { BunkerV18Scene } from "./BunkerV18Scene";
 import {
-  LABYRINTH_VISIBILITY_RADIUS,
+  LABYRINTH_AMBIENT_RADIUS,
+  corridorBeamDistanceCells,
+  type LightFacing,
+} from "@/labyrinth/LabyrinthLighting";
+import {
   ROOM_VISIBILITY_RADIUS,
   generateLabyrinth,
   type ExplorationDoor,
@@ -13,6 +17,7 @@ import {
 
 type RuntimeV29 = {
   uiOpen: boolean;
+  direction: LightFacing;
   health: number;
   emitState: () => void;
   knifeLocation: "storage" | "backpack" | "armed" | "world";
@@ -502,7 +507,8 @@ export class BunkerV29Scene extends BunkerV18Scene {
       .renderTexture(0, 0, camera.width, camera.height)
       .setScrollFactor(0)
       .setDepth(900)
-      .setOrigin(0);
+      .setOrigin(0)
+      .setScale(1 / camera.zoom);
     this.lightingBrush = this.make.graphics({ x: 0, y: 0 });
     this.updateLighting();
   }
@@ -510,26 +516,106 @@ export class BunkerV29Scene extends BunkerV18Scene {
   private updateLighting(): void {
     if (!this.lighting || !this.lightingBrush || !this.tunnelPlayer) return;
     const camera = this.cameras.main;
+    const expectedScale = 1 / camera.zoom;
     if (
       this.lighting.width !== camera.width ||
-      this.lighting.height !== camera.height
-    )
+      this.lighting.height !== camera.height ||
+      Math.abs(this.lighting.scaleX - expectedScale) > 0.001
+    ) {
       this.initialiseLighting();
+      return;
+    }
+
+    // worldView is already in world coordinates. Convert the player directly
+    // into camera pixels; getWorldPoint performs the opposite conversion.
     const screenX = (this.tunnelPlayer.x - camera.worldView.x) * camera.zoom;
     const screenY = (this.tunnelPlayer.y - camera.worldView.y) * camera.zoom;
-    const radius =
-      (this.inRoom ? ROOM_VISIBILITY_RADIUS : LABYRINTH_VISIBILITY_RADIUS) *
-      camera.zoom;
+
     this.lighting.clear();
-    this.lighting.fill(0x000000, 0.94);
+    this.lighting.fill(0x000000, 0.97);
     this.lightingBrush.clear();
-    for (let index = 8; index >= 1; index -= 1) {
-      const alpha = 0.11 + (8 - index) * 0.015;
-      this.lightingBrush.fillStyle(0xffffff, alpha);
-      this.lightingBrush.fillCircle(screenX, screenY, (radius * index) / 8);
+
+    if (this.inRoom) {
+      const radius = ROOM_VISIBILITY_RADIUS * camera.zoom;
+      for (let layer = 12; layer >= 1; layer -= 1) {
+        const fraction = layer / 12;
+        const alpha = 0.1 + (1 - fraction) * 0.22;
+        this.lightingBrush.fillStyle(0xffffff, alpha);
+        this.lightingBrush.fillCircle(screenX, screenY, radius * fraction);
+      }
+      this.lightingBrush.fillStyle(0xffffff, 0.72);
+      this.lightingBrush.fillCircle(screenX, screenY, radius * 0.2);
+    } else if (this.labyrinth) {
+      const radius = LABYRINTH_AMBIENT_RADIUS * camera.zoom;
+
+      // The local pool makes the shape of the current junction readable.
+      for (let layer = 12; layer >= 1; layer -= 1) {
+        const fraction = layer / 12;
+        const alpha = 0.08 + (1 - fraction) * 0.18;
+        this.lightingBrush.fillStyle(0xffffff, alpha);
+        this.lightingBrush.fillCircle(screenX, screenY, radius * fraction);
+      }
+      this.lightingBrush.fillStyle(0xffffff, 0.72);
+      this.lightingBrush.fillCircle(screenX, screenY, radius * 0.24);
+
+      // Throw the torch only down the corridor the survivor is facing. The
+      // maze grid stops the beam at its first wall, preventing corner leaks.
+      const tile = {
+        x: Phaser.Math.Clamp(
+          Math.floor((this.tunnelPlayer.x - this.labyrinthOrigin.x) / CELL),
+          0,
+          this.labyrinth.width - 1,
+        ),
+        y: Phaser.Math.Clamp(
+          Math.floor((this.tunnelPlayer.y - this.labyrinthOrigin.y) / CELL),
+          0,
+          this.labyrinth.height - 1,
+        ),
+      };
+      const facing = this.runtimeV29().direction;
+      const beamCells = corridorBeamDistanceCells(
+        this.labyrinth.walls,
+        tile,
+        facing,
+      );
+      const beamLength = beamCells * CELL * camera.zoom;
+      const direction =
+        facing === "left"
+          ? { x: -1, y: 0 }
+          : facing === "right"
+            ? { x: 1, y: 0 }
+            : facing === "up"
+              ? { x: 0, y: -1 }
+              : { x: 0, y: 1 };
+      const slices = Math.max(1, Math.ceil(beamCells * 3));
+      const sliceLength = beamLength / slices + 1;
+
+      for (let slice = 0; slice < slices; slice += 1) {
+        const progress = (slice + 0.5) / slices;
+        const distance = (slice + 0.5) * (beamLength / slices);
+        const brightness = Phaser.Math.Linear(1, 0.5, progress);
+        const cx = screenX + direction.x * distance;
+        const cy = screenY + direction.y * distance;
+        const horizontal = direction.x !== 0;
+        const drawSlice = (width: number, alpha: number): void => {
+          const cross = width * camera.zoom;
+          this.lightingBrush!.fillStyle(0xffffff, alpha * brightness);
+          this.lightingBrush!.fillRoundedRect(
+            cx - (horizontal ? sliceLength / 2 : cross / 2),
+            cy - (horizontal ? cross / 2 : sliceLength / 2),
+            horizontal ? sliceLength : cross,
+            horizontal ? cross : sliceLength,
+            Math.min(7, cross / 4),
+          );
+        };
+        drawSlice(64, 0.18);
+        drawSlice(50, 0.38);
+        drawSlice(34, 0.7);
+      }
     }
-    this.lightingBrush.setBlendMode(Phaser.BlendModes.ERASE);
-    this.lighting.draw(this.lightingBrush);
+
+    // Explicit erase is reliable across Canvas/WebGL and honours brush alpha.
+    this.lighting.erase(this.lightingBrush);
   }
 
   private suspendLighting(): void {
