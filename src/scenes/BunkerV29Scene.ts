@@ -8,6 +8,7 @@ import {
 import {
   ROOM_VISIBILITY_RADIUS,
   generateLabyrinth,
+  isWalkable,
   type ExplorationDoor,
   type ExplorationRoomState,
   type FurnitureKind,
@@ -57,6 +58,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
   private inRoom = false;
   private activeExplorationRoom?: ExplorationRoomState;
   private returnPosition = new Phaser.Math.Vector2();
+  private lastWalkableLabyrinthPosition?: Phaser.Math.Vector2;
   private useHeld = false;
   private transitionLocked = false;
   private damageLockedUntil = 0;
@@ -89,6 +91,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
     const player = this.tunnelPlayer ?? this.findTunnelPlayer();
     if (!player) return;
     this.tunnelPlayer = player;
+    if (this.inLabyrinth) this.enforceLabyrinthWalkability();
     if (this.transitionLocked) {
       player.setVelocity(0, 0);
       return;
@@ -125,6 +128,10 @@ export class BunkerV29Scene extends BunkerV18Scene {
 
     if (this.inLabyrinth) this.updateEnemies(time, delta);
     if (this.inLabyrinth || this.inRoom) this.updateLighting();
+  }
+
+  protected override allowBunkerRoomCamera(): boolean {
+    return !this.inLabyrinth && !this.inRoom;
   }
 
   private runtimeV29(): RuntimeV29 {
@@ -220,6 +227,10 @@ export class BunkerV29Scene extends BunkerV18Scene {
       this.labyrinthOrigin.y + state.spawn.y * CELL + CELL / 2,
     );
     this.tunnelPlayer.setVelocity(0, 0);
+    this.lastWalkableLabyrinthPosition = new Phaser.Math.Vector2(
+      this.tunnelPlayer.x,
+      this.tunnelPlayer.y,
+    );
     this.configureLabyrinthCamera();
     this.initialiseLighting();
     await this.fadeIn();
@@ -298,6 +309,36 @@ export class BunkerV29Scene extends BunkerV18Scene {
           open.push({ x, y });
     Phaser.Utils.Array.Shuffle(open);
     for (const tile of open.slice(0, 34)) this.spawnEnemy(tile.x, tile.y);
+  }
+
+  private enforceLabyrinthWalkability(): void {
+    if (!this.labyrinth || !this.tunnelPlayer) return;
+    const tile = {
+      x: Math.floor((this.tunnelPlayer.x - this.labyrinthOrigin.x) / CELL),
+      y: Math.floor((this.tunnelPlayer.y - this.labyrinthOrigin.y) / CELL),
+    };
+    if (isWalkable(this.labyrinth, tile)) {
+      if (this.lastWalkableLabyrinthPosition) {
+        this.lastWalkableLabyrinthPosition.set(
+          this.tunnelPlayer.x,
+          this.tunnelPlayer.y,
+        );
+      } else {
+        this.lastWalkableLabyrinthPosition = new Phaser.Math.Vector2(
+          this.tunnelPlayer.x,
+          this.tunnelPlayer.y,
+        );
+      }
+      return;
+    }
+
+    if (this.lastWalkableLabyrinthPosition) {
+      this.tunnelPlayer.setPosition(
+        this.lastWalkableLabyrinthPosition.x,
+        this.lastWalkableLabyrinthPosition.y,
+      );
+      this.tunnelPlayer.setVelocity(0, 0);
+    }
   }
 
   private configureLabyrinthCamera(): void {
@@ -468,6 +509,10 @@ export class BunkerV29Scene extends BunkerV18Scene {
       enemy.sprite.setActive(true).setVisible(true);
     this.tunnelPlayer.setPosition(this.returnPosition.x, this.returnPosition.y);
     this.tunnelPlayer.setVelocity(0, 0);
+    this.lastWalkableLabyrinthPosition = new Phaser.Math.Vector2(
+      this.tunnelPlayer.x,
+      this.tunnelPlayer.y,
+    );
     this.configureLabyrinthCamera();
     this.initialiseLighting();
     await this.fadeIn();
@@ -507,8 +552,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
       .renderTexture(0, 0, camera.width, camera.height)
       .setScrollFactor(0)
       .setDepth(900)
-      .setOrigin(0)
-      .setScale(1 / camera.zoom);
+      .setOrigin(0);
     this.lightingBrush = this.make.graphics({ x: 0, y: 0 });
     this.updateLighting();
   }
@@ -516,11 +560,9 @@ export class BunkerV29Scene extends BunkerV18Scene {
   private updateLighting(): void {
     if (!this.lighting || !this.lightingBrush || !this.tunnelPlayer) return;
     const camera = this.cameras.main;
-    const expectedScale = 1 / camera.zoom;
     if (
       this.lighting.width !== camera.width ||
-      this.lighting.height !== camera.height ||
-      Math.abs(this.lighting.scaleX - expectedScale) > 0.001
+      this.lighting.height !== camera.height
     ) {
       this.initialiseLighting();
       return;
@@ -809,6 +851,7 @@ export class BunkerV29Scene extends BunkerV18Scene {
     this.labyrinthWalls = undefined;
     this.labyrinthRoot = undefined;
     this.explorationDoors = [];
+    this.lastWalkableLabyrinthPosition = undefined;
   }
   private destroyV29(): void {
     window.removeEventListener("bunker-gunshot", this.onGunshot);
