@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.0.15 - 2026-08-07
+
+- Rebuilt labyrinth visibility around an explicit render-texture erase pipeline for reliable iOS/WebGL darkness masking.
+- Added a soft player-centred light pool sized to reveal the immediate shape of junctions without exposing the wider maze.
+- Added a facing-dependent torch beam that traces the labyrinth grid to the first wall and fades with distance.
+- Corrected world-to-screen lighting coordinates and compensated the overlay for camera zoom.
+- Added regression tests for corridor direction, wall stopping and maximum torch range.
+- Rotated the PWA cache and aligned release metadata for v0.0.0.15.
+
 ## 0.0.0.14 - 2026-08-07
 
 - Removed the redundant bordered start-screen version badge while preserving the small bottom-right release number.
