@@ -21,7 +21,7 @@ if (!source.includes("direction: LightFacing;")) {
 }
 
 const lightingPattern =
-  /  private initialiseLighting\(\): void \{[\s\S]*?\n  private suspendLighting\(\): void \{/;
+  / {2}private initialiseLighting\(\): void \{[\s\S]*?\n {2}private suspendLighting\(\): void \{/;
 
 const lightingReplacement = `  private initialiseLighting(): void {
     this.destroyLighting();
