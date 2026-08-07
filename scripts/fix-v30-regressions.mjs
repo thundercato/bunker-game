@@ -13,7 +13,7 @@ if (!source.includes("this.initialiseV30StartState();")) {
 
 if (!source.includes("private initialiseV30StartState(): void")) {
   const entrancePattern =
-    / {2}private createBunkerEntrance\(\): void \{[\s\S]*?\n  \}\n\n  private makeDoor/;
+    / {2}private createBunkerEntrance\(\): void \{[\s\S]*?\n {2}\}\n\n {2}private makeDoor/;
   const entranceReplacement = `  private createBunkerEntrance(): void {
     const bounds = this.physics.world.bounds;
     const player = this.tunnelPlayer;
