@@ -1,4 +1,4 @@
-const VERSION = "0.0.0.15";
+const VERSION = "0.0.0.16";
 const CACHE_NAME = `bunker-v${VERSION}`;
 const SHELL = [
   "./",

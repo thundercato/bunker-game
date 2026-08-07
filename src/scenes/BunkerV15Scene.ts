@@ -45,7 +45,15 @@ export class BunkerV15Scene extends BunkerV14Scene {
 
   public override update(time: number, delta: number): void {
     super.update(time, delta);
-    this.updateRoomCamera();
+    if (this.allowBunkerRoomCamera()) this.updateRoomCamera();
+  }
+
+  /**
+   * Later exploration scenes can take exclusive ownership of the camera
+   * without an inherited bunker-room controller changing zoom or follow mode.
+   */
+  protected allowBunkerRoomCamera(): boolean {
+    return true;
   }
 
   private updateVersionLabel(): void {
