@@ -13,7 +13,7 @@ if (!source.includes("this.initialiseV30StartState();")) {
 
 if (!source.includes("private initialiseV30StartState(): void")) {
   const entrancePattern =
-    /  private createBunkerEntrance\(\): void \{[\s\S]*?\n  \}\n\n  private makeDoor/;
+    / {2}private createBunkerEntrance\(\): void \{[\s\S]*?\n  \}\n\n  private makeDoor/;
   const entranceReplacement = `  private createBunkerEntrance(): void {
     const bounds = this.physics.world.bounds;
     const player = this.tunnelPlayer;
@@ -47,7 +47,7 @@ source = source.replaceAll(
 
 if (!source.includes("this.tunnelPlayer.x - camera.worldView.x")) {
   const lightingPattern =
-    /    const point = camera\.getWorldPoint\([\s\S]*?    const screenY = \(point\.y - camera\.worldView\.y\) \* camera\.zoom;\n/;
+    / {4}const point = camera\.getWorldPoint\([\s\S]*? {4}const screenY = \(point\.y - camera\.worldView\.y\) \* camera\.zoom;\n/;
   const lightingReplacement = `    const screenX =
       (this.tunnelPlayer.x - camera.worldView.x) * camera.zoom;
     const screenY =
