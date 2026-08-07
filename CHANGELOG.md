@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.0.16 - 2026-08-07
+
+- Fixed the labyrinth camera regression where the inherited bunker room camera could change maze zoom/follow state after entry.
+- Fixed the darkness mask so its screen-space texture covers the full Phaser viewport instead of being shrunk by an extra inverse-zoom scale.
+- Kept player/light coordinates in the same camera space so the visibility pool stays centred on the survivor.
+- Added a walkability safety guard so the player cannot cross into solid maze tiles even if an Arcade collision step is missed.
+- Preserved the directional, wall-limited torch and soft local visibility introduced in v0.0.0.15.
+- Rotated the PWA cache and release metadata for v0.0.0.16.
+
 ## 0.0.0.15 - 2026-08-07
 
 - Rebuilt labyrinth visibility around an explicit render-texture erase pipeline for reliable iOS/WebGL darkness masking.
