@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.0.14 - 2026-08-07
+
+- Removed the redundant bordered start-screen version badge while preserving the small bottom-right release number.
+- Corrected the camera-zoom compensation for the TAP TO ENTER gate so it stays centred and fully visible in landscape.
+- Retained and republished the v0.0.0.13 labyrinth visibility and starter-knife regression fixes in the new cache generation.
+- Rotated the PWA cache and published version metadata for v0.0.0.14.
+
 ## 0.0.0.13 - 2026-08-06
 
 - Fixed the labyrinth darkness mask so its visibility circle uses the player’s true screen position while the camera scrolls.

@@ -13,14 +13,14 @@ if (!source.includes("this.initialiseV30StartState();")) {
 
 if (!source.includes("private initialiseV30StartState(): void")) {
   const entrancePattern =
-    /  private createBunkerEntrance\(\): void \{[\s\S]*?\n  \}\n\n  private makeDoor/;
+    / {2}private createBunkerEntrance\(\): void \{[\s\S]*?\n {2}\}\n\n {2}private makeDoor/;
   const entranceReplacement = `  private createBunkerEntrance(): void {
     const bounds = this.physics.world.bounds;
     const player = this.tunnelPlayer;
     const x = player?.x ?? bounds.centerX;
     const y = player ? player.y + 58 : bounds.bottom - 150;
     this.entranceDoor = this.makeDoor(x, y, 0x43545b, 0xa8bcc4);
-    this.entrancePrompt = this.makePrompt(x, y - 38, "USE · ENTER LABYRINTH");
+    this.entrancePrompt = this.makeV29Prompt(x, y - 38, "USE · ENTER LABYRINTH");
     if (player) {
       player.setPosition(x, y - 54);
       player.setVelocity(0, 0);
@@ -47,7 +47,7 @@ source = source.replaceAll(
 
 if (!source.includes("this.tunnelPlayer.x - camera.worldView.x")) {
   const lightingPattern =
-    /    const point = camera\.getWorldPoint\([\s\S]*?    const screenY = \(point\.y - camera\.worldView\.y\) \* camera\.zoom;\n/;
+    / {4}const point = camera\.getWorldPoint\([\s\S]*? {4}const screenY = \(point\.y - camera\.worldView\.y\) \* camera\.zoom;\n/;
   const lightingReplacement = `    const screenX =
       (this.tunnelPlayer.x - camera.worldView.x) * camera.zoom;
     const screenY =
