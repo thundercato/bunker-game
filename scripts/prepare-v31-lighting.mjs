@@ -4,6 +4,8 @@ import { readFile, writeFile } from "node:fs/promises";
 const scenePath = new URL("../src/scenes/BunkerV29Scene.ts", import.meta.url);
 let source = await readFile(scenePath, "utf8");
 
+source = source.replace("  LABYRINTH_VISIBILITY_RADIUS,\\n", "");
+
 const lightingImport =
   'import { LABYRINTH_AMBIENT_RADIUS, corridorBeamDistanceCells, type LightFacing } from "@/labyrinth/LabyrinthLighting";\n';
 if (!source.includes('from "@/labyrinth/LabyrinthLighting"')) {
