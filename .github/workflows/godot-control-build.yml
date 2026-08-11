@@ -4,9 +4,6 @@ on:
   push:
     branches: [agent/godot-control-build, main]
     paths: ["godot/**", ".github/workflows/godot-control-build.yml"]
-  pull_request:
-    branches: [main]
-    paths: ["godot/**", ".github/workflows/godot-control-build.yml"]
   workflow_dispatch:
 
 permissions:
@@ -20,6 +17,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Import and export Godot web build
         working-directory: godot
+        env:
+          HOME: /root
         run: |
           godot --headless --editor --quit
           godot --headless --export-release Web ../godot-build/index.html
