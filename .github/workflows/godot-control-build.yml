@@ -1,0 +1,28 @@
+name: Godot control build
+
+on:
+  push:
+    branches: [agent/godot-control-build, main]
+    paths: ["godot/**", ".github/workflows/godot-control-build.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:4.3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import and export Godot web build
+        working-directory: godot
+        run: |
+          godot --headless --editor --quit
+          godot --headless --export-release Web ../godot-build/index.html
+      - run: printf '%s\n' '{"version":"0.0.0.1","engine":"Godot 4.3"}' > godot-build/control-build.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: godot-control-build
+          path: godot-build
+          if-no-files-found: error
