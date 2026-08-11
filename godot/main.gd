@@ -1,6 +1,6 @@
 extends Node2D
 
-const VERSION := "0.0.0.1" # Migration control slice
+const VERSION := "0.0.0.2"
 const SPEED := 250.0
 const RADIUS := 16.0
 var player := Vector2(640, 380)
@@ -10,8 +10,6 @@ var touch_id := -1
 var maze := false
 var walls: Array[Rect2] = []
 var camera: Camera2D
-var light: PointLight2D
-var torch: PointLight2D
 var status: Label
 var button: Button
 
@@ -19,39 +17,8 @@ func _ready() -> void:
 	camera = Camera2D.new()
 	add_child(camera)
 	camera.make_current()
-	var shade := CanvasModulate.new()
-	shade.color = Color(0.055, 0.065, 0.08)
-	add_child(shade)
-	light = PointLight2D.new()
-	light.texture = _radial(256)
-	light.texture_scale = 1.35
-	light.energy = 1.45
-	add_child(light)
-	torch = PointLight2D.new()
-	torch.texture = _cone(512, 220)
-	torch.energy = 1.65
-	add_child(torch)
 	_build_ui()
 	_set_mode(false)
-
-func _radial(size: int) -> ImageTexture:
-	var image := Image.create(size, size, false, Image.FORMAT_RGBA8)
-	var centre := Vector2(size, size) / 2.0
-	for y in size:
-		for x in size:
-			var alpha := pow(clamp(1.0 - Vector2(x, y).distance_to(centre) / (size / 2.0), 0.0, 1.0), 2.0)
-			image.set_pixel(x, y, Color(1, 1, 1, alpha))
-	return ImageTexture.create_from_image(image)
-
-func _cone(width: int, height: int) -> ImageTexture:
-	var image := Image.create(width, height, false, Image.FORMAT_RGBA8)
-	for y in height:
-		for x in width:
-			var depth := float(x) / width
-			var spread := height * (0.1 + depth * 0.42)
-			var edge: float = clampf(1.0 - absf(y - height / 2.0) / spread, 0.0, 1.0)
-			image.set_pixel(x, y, Color(1, 1, 1, edge * pow(1.0 - depth, 0.55)))
-	return ImageTexture.create_from_image(image)
 
 func _build_ui() -> void:
 	var layer := CanvasLayer.new()
@@ -75,6 +42,11 @@ func _build_ui() -> void:
 	hint.text = "DRAG LEFT SIDE TO MOVE"
 	hint.position = Vector2(22, 675)
 	layer.add_child(hint)
+	var health := Label.new()
+	health.text = "● GODOT RENDER ACTIVE"
+	health.position = Vector2(1025, 22)
+	health.add_theme_color_override("font_color", Color("78e08f"))
+	layer.add_child(health)
 
 func _set_mode(value: bool) -> void:
 	maze = value
@@ -94,7 +66,8 @@ func _set_mode(value: bool) -> void:
 
 func _physics_process(delta: float) -> void:
 	var move := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	if touch_move.length() > move.length(): move = touch_move
+	if touch_move.length() > move.length():
+		move = touch_move
 	if move.length() > 0.05:
 		move = move.limit_length(1.0)
 		facing = move.normalized()
@@ -102,25 +75,40 @@ func _physics_process(delta: float) -> void:
 		_move(Vector2(0, move.y * SPEED * delta))
 	if maze:
 		camera.position = Vector2(clamp(player.x,640.0,960.0),clamp(player.y,360.0,740.0))
-	light.position = player
-	torch.position = player
-	torch.rotation = facing.angle()
 	queue_redraw()
 
 func _move(amount: Vector2) -> void:
 	var next := player + amount
 	var body := Rect2(next - Vector2.ONE * RADIUS, Vector2.ONE * RADIUS * 2.0)
 	for wall in walls:
-		if body.intersects(wall): return
+		if body.intersects(wall):
+			return
 	player = next
 
 func _draw() -> void:
-	draw_rect(Rect2(0,0,1600,1100), Color("11191b"))
+	draw_rect(Rect2(0,0,1600,1100), Color("152226"))
+	draw_rect(Rect2(45,45,1510,1010), Color("1d3035"))
 	for wall in walls:
-		draw_rect(wall, Color("536167"))
-		draw_rect(wall.grow(-5), Color("354248"))
-	draw_circle(player, 23, Color("b3d7d8"))
+		draw_rect(wall, Color("819197"))
+		draw_rect(wall.grow(-5), Color("46575d"))
+	if maze:
+		_draw_torch()
+	else:
+		draw_circle(player, 150, Color(0.25, 0.52, 0.50, 0.11))
+	draw_circle(player, 24, Color("c5e7e8"))
 	draw_circle(player + facing * 12, 5, Color("071114"))
+
+func _draw_torch() -> void:
+	draw_circle(player, 118, Color(0.50, 0.72, 0.62, 0.16))
+	var side := facing.orthogonal()
+	var tip := player + facing * 420.0
+	var cone := PackedVector2Array([
+		player + side * 28.0,
+		tip + side * 145.0,
+		tip - side * 145.0,
+		player - side * 28.0
+	])
+	draw_colored_polygon(cone, Color(0.63, 0.78, 0.62, 0.17))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
