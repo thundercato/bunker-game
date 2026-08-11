@@ -27,7 +27,7 @@ jobs:
         env:
           HOME: /root
         run: |
-          godot --headless --editor --quit
+          mkdir -p ../godot-build\n          godot --headless --editor --quit
           godot --headless --export-release Web ../godot-build/index.html
       - run: printf '%s\n' '{"version":"0.0.0.1","engine":"Godot 4.3"}' > godot-build/control-build.json
       - uses: actions/upload-artifact@v4
