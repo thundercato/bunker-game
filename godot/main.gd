@@ -1,6 +1,6 @@
 extends Node2D
 
-const VERSION := "0.0.0.1"
+const VERSION := "0.0.0.1" # Migration control slice
 const SPEED := 250.0
 const RADIUS := 16.0
 var player := Vector2(640, 380)

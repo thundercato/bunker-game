@@ -2,12 +2,25 @@ name: Godot control build
 
 on:
   push:
-    branches: [agent/godot-control-build, main]
-    paths: ["godot/**", ".github/workflows/godot-control-build.yml"]
+    branches: [main]
+    paths:
+      - "godot/**"
+      - ".github/workflows/godot-control-build.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "godot/**"
+      - ".github/workflows/godot-control-build.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   export:
@@ -20,6 +33,7 @@ jobs:
         env:
           HOME: /root
         run: |
+          mkdir -p ../godot-build
           godot --headless --editor --quit
           godot --headless --export-release Web ../godot-build/index.html
       - run: printf '%s\n' '{"version":"0.0.0.1","engine":"Godot 4.3"}' > godot-build/control-build.json
@@ -28,3 +42,30 @@ jobs:
           name: godot-control-build
           path: godot-build
           if-no-files-found: error
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: export
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/download-artifact@v4
+        with:
+          name: godot-control-build
+          path: dist/godot-control
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy combined Phaser and Godot build
+        id: deployment
+        uses: actions/deploy-pages@v4
