@@ -4,7 +4,7 @@ on:
   push:
     branches: [agent/godot-control-build, main]
     paths: ["godot/**", ".github/workflows/godot-control-build.yml"]
-  pull_request:\n    branches: [main]\n    paths: ["godot/**", ".github/workflows/godot-control-build.yml"]\n  workflow_dispatch:
+  pull_request:\n    branches: [main]\n    paths:\n      - "godot/**"\n      - ".github/workflows/godot-control-build.yml"\n  workflow_dispatch:
 
 permissions:
   contents: read
