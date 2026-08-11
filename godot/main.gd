@@ -49,7 +49,7 @@ func _cone(width: int, height: int) -> ImageTexture:
 		for x in width:
 			var depth := float(x) / width
 			var spread := height * (0.1 + depth * 0.42)
-			var edge := clamp(1.0 - abs(y - height / 2.0) / spread, 0.0, 1.0)
+			var edge: float = clampf(1.0 - absf(y - height / 2.0) / spread, 0.0, 1.0)
 			image.set_pixel(x, y, Color(1, 1, 1, edge * pow(1.0 - depth, 0.55)))
 	return ImageTexture.create_from_image(image)
 
@@ -132,4 +132,3 @@ func _unhandled_input(event: InputEvent) -> void:
 			touch_move = Vector2.ZERO
 	elif event is InputEventScreenDrag and event.index == touch_id:
 		touch_move = (event.position - Vector2(110,610)).limit_length(75) / 75.0
-
