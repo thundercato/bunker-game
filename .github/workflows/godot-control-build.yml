@@ -4,6 +4,9 @@ on:
   push:
     branches: [agent/godot-control-build, main]
     paths: ["godot/**", ".github/workflows/godot-control-build.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["godot/**", ".github/workflows/godot-control-build.yml"]
   workflow_dispatch:
 
 permissions:
