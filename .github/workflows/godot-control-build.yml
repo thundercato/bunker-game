@@ -1,4 +1,4 @@
-name: Godot control build
+name: Godot release build
 
 on:
   push:
@@ -36,10 +36,11 @@ jobs:
           mkdir -p ../godot-build
           godot --headless --editor --quit
           godot --headless --export-release Web ../godot-build/index.html
-      - run: printf '%s\n' '{"version":"0.0.0.2","engine":"Godot 4.3"}' > godot-build/control-build.json
+      - name: Record exported release
+        run: printf '%s\n' '{"version":"0.0.0.3","engine":"Godot 4.3","status":"full-migration"}' > godot-build/build.json
       - uses: actions/upload-artifact@v4
         with:
-          name: godot-control-build
+          name: godot-release-build
           path: godot-build
           if-no-files-found: error
 
@@ -58,14 +59,19 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run validate
+      - name: Preserve the Phaser release as a fallback
+        run: |
+          mv dist phaser-legacy
+          mkdir -p dist/phaser-legacy
+          cp -R phaser-legacy/. dist/phaser-legacy/
       - uses: actions/download-artifact@v4
         with:
-          name: godot-control-build
-          path: dist/godot-control
+          name: godot-release-build
+          path: dist
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
-      - name: Deploy combined Phaser and Godot build
+      - name: Deploy Godot release with Phaser fallback
         id: deployment
         uses: actions/deploy-pages@v4

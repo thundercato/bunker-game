@@ -1,0 +1,6 @@
+Bunker Game Godot 0.0.0.3
+
+Complete Phaser-to-Godot migration with feature parity for the current bunker, survival, inventory, physical weapons, maintenance, combat, procedural labyrinth, exploration rooms, persistence and multi-input PWA experience.
+
+Production: https://thundercato.github.io/bunker-game/
+Legacy fallback: https://thundercato.github.io/bunker-game/phaser-legacy/

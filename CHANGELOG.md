@@ -1,5 +1,17 @@
 # Changelog
 
+## Godot 0.0.0.3 - 2026-08-11
+
+- Rebuilt the complete current game as a modular Godot 4.3 project and promoted it to the main PWA address.
+- Recreated the bunker layout, static framed-room camera, corridor follow camera, feet-centred collision, survival HUD, clock, stamina and start flow.
+- Migrated the storage trunk, backpack, food, drinks, flask, faucet, sleep, consumable quantities and durable local save state.
+- Migrated the utility knife, sharpness, stabbing, throwing and retrieval, plus the Makarov, magazines, individual rounds, chamber, pouches, reloading, firing and equipment switching.
+- Added tactile drag-based knife, pistol and magazine maintenance and moving kill-house targets.
+- Migrated procedural labyrinth generation, the shared entrance/exit, four edge doors, follow camera, wall collision, Safari-safe darkness and wall-limited facing torch.
+- Migrated rats, spiders, damage, death, combat, persistent exploration rooms, furniture, locked chests and deterministic room loot.
+- Added responsive touch controls alongside keyboard and gamepad mappings and kept modals isolated from gameplay input.
+- Preserved Phaser `0.0.0.16` at `/phaser-legacy/` as a fallback while the Godot PWA now occupies the normal address.
+
 ## 0.0.0.16 - 2026-08-07
 
 - Fixed the labyrinth camera regression where the inherited bunker room camera could change maze zoom/follow state after entry.
