@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://dp8t1jjv5big"
+path="res://.godot/imported/bunker_pixel.fnt-4c0e3fd7d8ff4a6dc2e286f2bb7adf54.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/bunker_pixel.fnt"
+dest_files=["res://.godot/imported/bunker_pixel.fnt-4c0e3fd7d8ff4a6dc2e286f2bb7adf54.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

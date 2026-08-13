@@ -1,5 +1,17 @@
 # Changelog
 
+## Godot 0.0.0.4 - 2026-08-13
+
+- Rebuilt the Godot presentation around a restricted concrete, military-green, rust and amber pixel-art palette derived from the retained Phaser bunker.
+- Added deterministic game-ready atlases for bunker and maze tiles, four-direction player animation, rats, spiders, furniture, weapons, persistent item states and restrained effects.
+- Restored the original bunker identity with a readable bunk, storage trunk, weapon bench, faucet, maze hatch, industrial lighting, worn floors, cracked concrete, vents, pipes and sparse clutter.
+- Replaced geometric maze and exploration-room placeholders with cleanly joining floor, wall, edge, door and furniture art while preserving the existing collision and persistent room state.
+- Added weapon-aware player presentation, grounded feet animation, muzzle flash, impact and pick-up feedback without changing the feet-centred collision model.
+- Reworked the HUD, touch controls, modals, inventory, storage and maintenance interfaces with a bundled bitmap font, distressed panels, state-aware item icons, safe responsive placement and input blocking.
+- Preserved the Safari-safe darkness overlay while adding pixel-feathered light, a wall-limited local cross-corridor mask, directional torch containment and stable camera/light updates.
+- Added a generated pixel-art start backdrop, stepped scene fades, nearest-neighbour filtering, pixel snapping and a documented 320x180 logical art grid rendered at 4x.
+- Preserved the Phaser 0.0.0.16 gameplay and source at `/phaser-legacy/`.
+
 ## Godot 0.0.0.3 - 2026-08-11
 
 - Rebuilt the complete current game as a modular Godot 4.3 project and promoted it to the main PWA address.

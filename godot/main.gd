@@ -1,6 +1,6 @@
 extends Node2D
 
-const VERSION := "0.0.0.3"
+const VERSION := "0.0.0.4"
 const TILE := 32.0
 const MAZE_TILE := 48.0
 const WALK_SPEED := 96.0
@@ -20,6 +20,12 @@ const PROPS := [
 	Rect2(6 * TILE, 7 * TILE, 64, 32), Rect2(15 * TILE, 13 * TILE, 32, 32),
 	Rect2(44 * TILE, 6 * TILE, 32, 32), Rect2(53 * TILE, 14 * TILE, 32, 32),
 	Rect2(29 * TILE, 25 * TILE, 64, 32),
+]
+const BUNKER_FURNITURE_COLLIDERS := [
+	Rect2(160, 228, 128, 102),
+	Rect2(174, 430, 100, 66),
+	Rect2(438, 225, 148, 68),
+	Rect2(535, 157, 50, 52),
 ]
 
 var state: BunkerGameState
@@ -53,14 +59,26 @@ var maintenance_tool := "brush"
 var maintenance_touch := false
 var maintenance_last := Vector2.ZERO
 var maintenance_distance := 0.0
+var animation_time := 0.0
+var player_walk_time := 0.0
+var player_is_moving := false
+var muzzle_flash_clock := 0.0
+var muzzle_flash_position := Vector2.ZERO
+var impact_clock := 0.0
+var impact_position := Vector2.ZERO
+var pickup_clock := 0.0
+var pickup_position := Vector2.ZERO
 
 var camera: Camera2D
 var ui_layer: CanvasLayer
-var lighting_layer: CanvasLayer
-var lighting_rect: ColorRect
-var lighting_material: ShaderMaterial
+var pixel_assets: BunkerPixelAssets
+var world_renderer: BunkerPixelWorldRenderer
+var lighting_controller: BunkerLightingController
+var scene_transition: BunkerSceneTransition
 var joystick: BunkerTouchJoystick
 var hud: Control
+var hud_chrome: BunkerPixelHud
+var start_backdrop: TextureRect
 var time_label: Label
 var area_label: Label
 var prompt_label: Label
@@ -75,70 +93,83 @@ var modal: ColorRect
 var modal_panel: PanelContainer
 var modal_vbox: VBoxContainer
 var fade_rect: ColorRect
+var version_label: Label
+var action_buttons: Dictionary = {}
 
 func _ready() -> void:
 	state = BunkerGameState.new()
 	inventory = BunkerInventory.new(state)
+	pixel_assets = BunkerPixelAssets.new()
+	world_renderer = BunkerPixelWorldRenderer.new(pixel_assets)
+	lighting_controller = BunkerLightingController.new()
+	scene_transition = BunkerSceneTransition.new()
 	player = state.player_position
 	mode = state.current_mode
 	_build_camera()
 	_build_ui()
 	_build_targets()
 	_restore_world()
+	get_viewport().size_changed.connect(_layout_ui)
 	queue_redraw()
 
 func _build_camera() -> void:
 	camera = Camera2D.new()
 	camera.position = Vector2(352, 320)
 	camera.position_smoothing_enabled = true
-	camera.position_smoothing_speed = 8.0
+	camera.position_smoothing_speed = 9.0
 	add_child(camera)
 	camera.make_current()
 
 func _build_ui() -> void:
-	lighting_layer = CanvasLayer.new()
-	lighting_layer.layer = 5
-	add_child(lighting_layer)
-	lighting_rect = ColorRect.new()
-	lighting_rect.position = Vector2.ZERO
-	lighting_rect.size = Vector2(1280, 720)
-	lighting_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	lighting_material = ShaderMaterial.new()
-	lighting_material.shader = load("res://ui/lighting.gdshader")
-	lighting_rect.material = lighting_material
-	lighting_layer.add_child(lighting_rect)
+	lighting_controller.attach(self)
 
 	ui_layer = CanvasLayer.new()
 	ui_layer.layer = 10
 	add_child(ui_layer)
+	start_backdrop = TextureRect.new()
+	start_backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	start_backdrop.texture = preload("res://assets/backgrounds/start_bunker.png")
+	start_backdrop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	start_backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	start_backdrop.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	start_backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	ui_layer.add_child(start_backdrop)
 	hud = Control.new()
 	hud.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.theme = BunkerPixelTheme.create()
 	ui_layer.add_child(hud)
+	hud_chrome = BunkerPixelHud.new()
+	hud_chrome.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	hud.add_child(hud_chrome)
 
-	area_label = _label(Vector2(20, 18), Vector2(330, 32), 16, Color("72dc89"))
-	time_label = _label(Vector2(1110, 18), Vector2(145, 36), 20, Color("96f0a4"))
+	area_label = _label(Vector2(24, 20), Vector2(260, 32), 16, Color("72dc89"))
+	time_label = _label(Vector2(1110, 20), Vector2(145, 32), 18, Color("96f0a4"))
 	time_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	weapon_label = _label(Vector2(470, 18), Vector2(340, 30), 14, Color("e5d49d"))
+	weapon_label = _label(Vector2(470, 20), Vector2(340, 26), 14, Color("e5d49d"))
 	weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	prompt_label = _label(Vector2(430, 624), Vector2(420, 42), 16, Color("f6e6ae"))
+	prompt_label = _label(Vector2(430, 626), Vector2(420, 38), 15, Color("f6e6ae"))
 	prompt_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	prompt_label.visible = false
-	toast_label = _label(Vector2(390, 96), Vector2(500, 44), 15, Color("dfffe5"))
+	toast_label = _label(Vector2(390, 78), Vector2(500, 42), 15, Color("dfffe5"))
 	toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	toast_label.visible = false
 
-	health_bar = _bar(Vector2(20, 58), "HEALTH")
-	hunger_bar = _bar(Vector2(20, 86), "HUNGER")
-	thirst_bar = _bar(Vector2(20, 114), "THIRST")
-	stamina_bar = _bar(Vector2(20, 142), "STAMINA")
+	health_bar = _bar(Vector2(40, 58), "HEALTH")
+	hunger_bar = _bar(Vector2(40, 86), "HUNGER")
+	thirst_bar = _bar(Vector2(40, 114), "THIRST")
+	stamina_bar = _bar(Vector2(40, 142), "STAMINA")
+	BunkerPixelTheme.apply_bar_colour(health_bar, Color("a74436"))
+	BunkerPixelTheme.apply_bar_colour(hunger_bar, Color("d1a14e"))
+	BunkerPixelTheme.apply_bar_colour(thirst_bar, Color("4c8191"))
+	BunkerPixelTheme.apply_bar_colour(stamina_bar, Color("6fc77b"))
 
 	controls = Control.new()
 	controls.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	controls.theme = hud.theme
 	ui_layer.add_child(controls)
 	joystick = BunkerTouchJoystick.new()
-	joystick.position = Vector2.ZERO
-	joystick.size = Vector2(1280, 720)
+	joystick.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	controls.add_child(joystick)
 	_add_action_button("USE", Vector2(1138, 555), Vector2(116, 58), _use)
 	_add_action_button("ATTACK", Vector2(1008, 620), Vector2(116, 58), _attack)
@@ -151,9 +182,10 @@ func _build_ui() -> void:
 	_add_action_button("BACKPACK", Vector2(548, 660), Vector2(184, 48), _open_backpack)
 
 	modal = ColorRect.new()
-	modal.color = Color(0.0, 0.015, 0.02, 0.93)
-	modal.position = Vector2.ZERO
-	modal.size = Vector2(1280, 720)
+	modal.color = Color(0.0, 0.015, 0.02, 0.82)
+	modal.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	modal.theme = hud.theme
+	modal.mouse_filter = Control.MOUSE_FILTER_STOP
 	modal.visible = false
 	ui_layer.add_child(modal)
 	modal_panel = PanelContainer.new()
@@ -172,14 +204,15 @@ func _build_ui() -> void:
 
 	fade_rect = ColorRect.new()
 	fade_rect.color = Color.BLACK
-	fade_rect.position = Vector2.ZERO
-	fade_rect.size = Vector2(1280, 720)
+	fade_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	fade_rect.modulate.a = 0.0
 	ui_layer.add_child(fade_rect)
 
-	var version := _label(Vector2(1190, 698), Vector2(82, 16), 10, Color("84978c"))
-	version.text = "v%s" % VERSION
+	version_label = _label(Vector2(1180, 696), Vector2(90, 18), 10, Color("84978c"))
+	version_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	version_label.text = "v%s" % VERSION
+	_layout_ui()
 	_update_hud()
 	_show_start()
 
@@ -193,7 +226,7 @@ func _label(position: Vector2, size: Vector2, font_size: int, colour: Color) -> 
 	return label
 
 func _bar(position: Vector2, title: String) -> ProgressBar:
-	var label := _label(position, Vector2(82, 20), 11, Color("c8d3ce"))
+	var label := _label(position, Vector2(80, 20), 11, Color("c8d3ce"))
 	label.text = title
 	var bar := ProgressBar.new()
 	bar.position = position + Vector2(78, 1)
@@ -207,23 +240,62 @@ func _bar(position: Vector2, title: String) -> ProgressBar:
 func _add_action_button(text: String, position: Vector2, size: Vector2, action: Callable) -> Button:
 	var button := Button.new()
 	button.text = text
+	button.name = text.to_pascal_case()
 	button.position = position
 	button.size = size
 	button.add_theme_font_size_override("font_size", 13)
+	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	if action.is_valid():
 		button.pressed.connect(action)
 	controls.add_child(button)
+	action_buttons[text] = button
 	return button
 
 func _show_start() -> void:
-	_open_modal("BUNKER", "GODOT SURVIVAL BUILD\n\nv%s\n\nAll current systems migrated. Saves persist on this device." % VERSION)
+	_open_modal("BUNKER", "PIXEL SURVIVAL BUILD\n\nv%s\n\nTHE LIGHTS ARE FAILING. THE LABYRINTH IS WAITING.\n\nSaves persist on this device." % VERSION)
 	_add_modal_button("TAP TO ENTER", _begin_game)
 	controls.visible = false
 
 func _begin_game() -> void:
 	entered = true
+	start_backdrop.visible = false
 	_close_modal()
 	_show_toast("BUNKER ONLINE")
+
+func _layout_ui() -> void:
+	if not is_instance_valid(hud):
+		return
+	var viewport_size := get_viewport_rect().size
+	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		viewport_size = Vector2(1280, 720)
+	area_label.position = Vector2(42, 20)
+	time_label.position = Vector2(viewport_size.x - 188, 20)
+	weapon_label.position = Vector2(viewport_size.x * 0.5 - 170, 20)
+	prompt_label.position = Vector2(viewport_size.x * 0.5 - 210, viewport_size.y - 92)
+	toast_label.position = Vector2(viewport_size.x * 0.5 - 250, 78)
+	version_label.position = Vector2(viewport_size.x - 124, viewport_size.y - 22)
+
+	var button_width := 116.0
+	var right := viewport_size.x - button_width - 44.0
+	var left := right - button_width - 14.0
+	var bottom := viewport_size.y - 36.0
+	var placements := {
+		"SWITCH": Vector2(left, bottom - 184),
+		"RUN": Vector2(right, bottom - 184),
+		"RELOAD": Vector2(left, bottom - 122),
+		"USE": Vector2(right, bottom - 122),
+		"ATTACK": Vector2(left, bottom - 58),
+		"THROW": Vector2(right, bottom - 58),
+	}
+	for id in placements:
+		if action_buttons.has(id):
+			action_buttons[id].position = placements[id].round()
+	if action_buttons.has("BACKPACK"):
+		action_buttons["BACKPACK"].position = Vector2(viewport_size.x * 0.5 - 92, viewport_size.y - 56).round()
+
+	var panel_size := Vector2(minf(780.0, viewport_size.x - 80.0), minf(612.0, viewport_size.y - 64.0))
+	modal_panel.size = panel_size
+	modal_panel.position = ((viewport_size - panel_size) / 2.0).round()
 
 func _restore_world() -> void:
 	if mode == "maze" or mode == "room":
@@ -243,7 +315,11 @@ func _restore_world() -> void:
 func _physics_process(delta: float) -> void:
 	if not entered:
 		return
+	animation_time += delta
 	damage_lock = maxf(0.0, damage_lock - delta)
+	muzzle_flash_clock = maxf(0.0, muzzle_flash_clock - delta)
+	impact_clock = maxf(0.0, impact_clock - delta)
+	pickup_clock = maxf(0.0, pickup_clock - delta)
 	toast_clock = maxf(0.0, toast_clock - delta)
 	if toast_clock <= 0.0:
 		toast_label.visible = false
@@ -254,11 +330,15 @@ func _physics_process(delta: float) -> void:
 	var running := (Input.is_action_pressed("run") or running_touch) and state.stamina > 0.0 and move.length() > 0.05
 	if transition_locked or ui_open or filling > 0.0:
 		move = Vector2.ZERO
+	var previous_player := player
 	if move.length() > 0.05:
 		move = move.limit_length(1.0)
 		facing = _cardinal(move)
 		_try_move(Vector2(move.x * (RUN_SPEED if running else WALK_SPEED) * delta, 0))
 		_try_move(Vector2(0, move.y * (RUN_SPEED if running else WALK_SPEED) * delta))
+	player_is_moving = player.distance_squared_to(previous_player) > 0.01
+	if player_is_moving:
+		player_walk_time += delta * (1.45 if running else 1.0)
 
 	state.advance(delta, running, ui_open)
 	clock_accumulator += delta
@@ -346,6 +426,9 @@ func _bunker_walkable(position: Vector2) -> bool:
 	for prop in PROPS:
 		if prop.grow(PLAYER_RADIUS).has_point(position):
 			return false
+	for furniture_collider in BUNKER_FURNITURE_COLLIDERS:
+		if furniture_collider.grow(PLAYER_RADIUS).has_point(position):
+			return false
 	return true
 
 func _room_walkable(position: Vector2) -> bool:
@@ -383,39 +466,42 @@ func _is_bunker_wall(tile_x: int, tile_y: int) -> bool:
 func _update_camera(immediate: bool) -> void:
 	var target_position := player
 	var target_zoom := 1.4
+	var viewport_size := get_viewport_rect().size
+	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		viewport_size = Vector2(1280, 720)
 	if mode == "bunker":
 		for zone in ZONES:
 			if zone.rect.has_point(player) and bool(zone.framed):
 				target_position = zone.rect.get_center()
-				target_zoom = minf((1280.0 - 70.0) / zone.rect.size.x, (720.0 - 70.0) / zone.rect.size.y)
+				target_zoom = minf((viewport_size.x - 90.0) / zone.rect.size.x, (viewport_size.y - 76.0) / zone.rect.size.y)
 				break
 	elif mode == "room" and not active_room.is_empty():
 		var size := Vector2(int(active_room.width), int(active_room.height)) * MAZE_TILE
 		target_position = ROOM_ORIGIN + size / 2.0
-		target_zoom = clampf(minf(1280.0 / (size.x + 72.0), 720.0 / (size.y + 72.0)), 0.72, 1.35)
+		target_zoom = clampf(minf(viewport_size.x / (size.x + 72.0), viewport_size.y / (size.y + 72.0)), 0.72, 1.35)
 	else:
 		target_zoom = 1.0
 	if immediate:
-		camera.position = target_position
+		camera.position = target_position.snapped(Vector2.ONE * 0.25)
 		camera.zoom = Vector2.ONE * target_zoom
 	else:
-		camera.position = camera.position.lerp(target_position, 0.12)
-		camera.zoom = camera.zoom.lerp(Vector2.ONE * target_zoom, 0.12)
+		camera.position = camera.position.lerp(target_position, 0.12).snapped(Vector2.ONE * 0.25)
+		camera.zoom = camera.zoom.lerp(Vector2.ONE * target_zoom, 0.12).snapped(Vector2.ONE * 0.001)
 
 func _update_lighting() -> void:
-	lighting_rect.visible = mode in ["maze", "room"] and entered
-	if not lighting_rect.visible:
-		return
-	var screen := (player - camera.position) * camera.zoom.x + Vector2(640, 360)
-	lighting_material.set_shader_parameter("player_uv", screen / Vector2(1280, 720))
-	lighting_material.set_shader_parameter("facing", facing)
-	lighting_material.set_shader_parameter("room_mode", mode == "room")
-	lighting_material.set_shader_parameter("ambient_radius", 0.72 if mode == "room" else 0.18)
-	var beam := 0.0
-	if mode == "maze":
-		var tile := Vector2i(floori((player.x - MAZE_ORIGIN.x) / MAZE_TILE), floori((player.y - MAZE_ORIGIN.y) / MAZE_TILE))
-		beam = maze_generator.beam_cells(maze, tile, Vector2i(facing), 12) * MAZE_TILE * camera.zoom.x / 720.0
-	lighting_material.set_shader_parameter("beam_length", maxf(0.08, beam))
+	lighting_controller.update(
+		mode,
+		entered,
+		player,
+		camera,
+		facing,
+		maze,
+		maze_generator,
+		MAZE_ORIGIN,
+		MAZE_TILE,
+		animation_time,
+		get_viewport_rect().size
+	)
 
 func _use() -> void:
 	if ui_open or transition_locked or not entered:
@@ -549,9 +635,7 @@ func _exit_room() -> void:
 	_store_world_state()
 
 func _fade(out: bool) -> void:
-	var tween := create_tween()
-	tween.tween_property(fade_rect, "modulate:a", 1.0 if out else 0.0, 0.42)
-	await tween.finished
+	await scene_transition.fade(self, fade_rect, out)
 
 func _maze_world(tile: Vector2i) -> Vector2:
 	return MAZE_ORIGIN + Vector2(tile) * MAZE_TILE + Vector2.ONE * MAZE_TILE / 2.0
@@ -625,6 +709,8 @@ func _update_enemies(delta: float) -> void:
 			enemy.turn = 0.0
 		if damage_lock <= 0.0 and player.distance_to(enemy.position) < 30.0:
 			damage_lock = 0.9
+			impact_clock = 0.22
+			impact_position = player + Vector2(0, -12)
 			state.health = maxf(0.0, state.health - 12.0)
 			_show_toast("%s ATTACK - HEALTH %d" % [str(enemy.kind).to_upper(), int(state.health)])
 			if state.health <= 0.0:
@@ -645,6 +731,8 @@ func _attack() -> void:
 		if not target.is_empty():
 			target.health = int(target.health) - 1
 			if target.health <= 0: target.alive = false
+			impact_clock = 0.18
+			impact_position = target.position
 			_show_toast("KNIFE HIT")
 		else:
 			_show_toast("KNIFE SWING")
@@ -682,6 +770,8 @@ func _update_knife(delta: float) -> void:
 		if not target.is_empty():
 			target.health = int(target.health) - 1
 			if target.health <= 0: target.alive = false
+			impact_clock = 0.18
+			impact_position = target.position
 			knife_flying = false
 
 func _retrieve_knife() -> void:
@@ -690,6 +780,8 @@ func _retrieve_knife() -> void:
 	state.knife_world_position = Vector2.ZERO
 	knife_flying = false
 	state.save()
+	pickup_clock = 0.32
+	pickup_position = player + Vector2(0, -16)
 	_show_toast("KNIFE RETRIEVED")
 
 func _fire_pistol() -> void:
@@ -697,10 +789,14 @@ func _fire_pistol() -> void:
 	_show_toast(result.message)
 	if not result.fired:
 		return
+	muzzle_flash_clock = 0.12
+	muzzle_flash_position = player + facing * 30.0 + Vector2(0, -13)
 	if mode == "maze":
 		var target := _nearest_enemy(520.0, true)
 		if not target.is_empty():
 			target.alive = false
+			impact_clock = 0.18
+			impact_position = target.position
 	elif mode == "bunker":
 		_resolve_target_hit()
 
@@ -750,6 +846,8 @@ func _resolve_target_hit() -> void:
 	for target in targets:
 		if target.alive and player.distance_to(target.position) < 620 and (target.position - player).normalized().dot(facing) > 0.83:
 			target.alive = false
+			impact_clock = 0.18
+			impact_position = target.position
 			_show_toast("TARGET DOWN")
 			return
 
@@ -767,6 +865,7 @@ func _open_storage() -> void:
 		button.text = "EMPTY" if item == null else _short_item(item)
 		button.disabled = item == null
 		if item != null:
+			_style_item_button(button, item)
 			button.pressed.connect(_open_item.bind(str(item.id), "storage"))
 		grid.add_child(button)
 	_add_modal_button("BACK", _close_modal)
@@ -791,6 +890,7 @@ func _open_backpack() -> void:
 		button.text = "EMPTY" if item == null else _short_item(item)
 		button.disabled = item == null
 		if item != null:
+			_style_item_button(button, item)
 			button.pressed.connect(_open_item.bind(str(item.id), "backpack"))
 		grid.add_child(button)
 	_add_modal_button("BACK", _close_modal)
@@ -803,13 +903,28 @@ func _short_item(item: Dictionary) -> String:
 		return "WATER FLASK\n%d%%" % int(item.get("fill", 0))
 	return str(item.name)
 
+func _style_item_button(button: Button, item: Dictionary) -> void:
+	button.icon = pixel_assets.item_icon(str(item.id), item)
+	button.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	button.expand_icon = false
+	button.add_theme_constant_override("icon_max_width", 32)
+	button.add_theme_font_size_override("font_size", 11)
+
 func _open_item(id: String, source: String) -> void:
 	if not state.inventory.has(id):
 		return
 	var item: Dictionary = state.inventory[id]
 	_open_modal(str(item.name), inventory.describe(item))
+	var preview := TextureRect.new()
+	preview.texture = pixel_assets.item_icon(id, item)
+	preview.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	preview.custom_minimum_size = Vector2(80, 80)
+	preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	modal_vbox.add_child(preview)
 	if source == "storage":
-		_add_modal_button("TAKE", func() -> void: _show_toast(inventory.take(id)); _open_storage())
+		_add_modal_button("TAKE", _take_item.bind(id))
 	if source == "backpack":
 		if item.kind == "knife":
 			_add_modal_button("ARM", func() -> void: _show_toast(inventory.arm(id)); _close_modal())
@@ -825,6 +940,12 @@ func _open_item(id: String, source: String) -> void:
 		elif item.kind in ["food", "liquid"]:
 			_add_modal_button("EAT" if item.kind == "food" else "DRINK", func() -> void: _show_toast(inventory.consume(id)); _open_backpack())
 	_add_modal_button("BACK", _open_storage if source == "storage" else _open_backpack)
+
+func _take_item(id: String) -> void:
+	_show_toast(inventory.take(id))
+	pickup_clock = 0.32
+	pickup_position = player + Vector2(0, -18)
+	_open_storage()
 
 func _load_first_magazine() -> void:
 	var magazines := inventory.items_at("backpack").filter(func(item: Dictionary) -> bool: return item.kind == "magazine")
@@ -875,6 +996,15 @@ func _open_maintenance(id: String) -> void:
 	pad.mouse_filter = Control.MOUSE_FILTER_STOP
 	pad.gui_input.connect(_maintenance_input)
 	modal_vbox.add_child(pad)
+	var equipment := TextureRect.new()
+	equipment.texture = pixel_assets.item_icon(id, state.inventory[id])
+	equipment.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	equipment.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	equipment.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	equipment.position = Vector2(240, 54)
+	equipment.size = Vector2(160, 150)
+	equipment.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pad.add_child(equipment)
 	var instruction := Label.new()
 	instruction.text = "DRAG BACK AND FORTH ACROSS THE EQUIPMENT"
 	instruction.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -919,6 +1049,8 @@ func _open_modal(title: String, body: String) -> void:
 	ui_open = true
 	modal.visible = true
 	controls.visible = false
+	running_touch = false
+	joystick.release()
 	for child in modal_vbox.get_children():
 		child.queue_free()
 	var heading := Label.new()
@@ -986,119 +1118,22 @@ func _store_world_state() -> void:
 
 func _draw() -> void:
 	if mode == "bunker":
-		_draw_bunker()
+		world_renderer.draw_bunker(self, ZONES, TILE, _is_bunker_wall, PROPS, targets, animation_time)
 	elif mode == "maze":
-		_draw_maze()
+		world_renderer.draw_maze(self, maze, MAZE_ORIGIN, MAZE_TILE, enemies, animation_time)
 	else:
-		_draw_room()
-	_draw_player()
+		world_renderer.draw_room(self, active_room, ROOM_ORIGIN, MAZE_TILE, animation_time)
+	var player_frame := int(player_walk_time * 8.0) % 4 if player_is_moving else 0
+	var equipped := "pistol" if state.pistol_armed else ("knife" if state.knife_location == "armed" else "")
+	world_renderer.draw_player(self, player, facing, player_frame, equipped, damage_lock > 0.62)
 	if state.knife_location == "world":
-		_draw_knife(state.knife_world_position)
-
-func _draw_bunker() -> void:
-	draw_rect(Rect2(0, 0, 1920, 1088), Color("070c0f"))
-	for tile_y in 34:
-		for tile_x in 60:
-			var point := Vector2(tile_x * TILE + 1, tile_y * TILE + 1)
-			var in_zone := false
-			for zone in ZONES:
-				if zone.rect.has_point(point): in_zone = true
-			if not in_zone: continue
-			var rect := Rect2(tile_x * TILE, tile_y * TILE, TILE, TILE)
-			if _is_bunker_wall(tile_x, tile_y):
-				draw_rect(rect, Color("1b272d"))
-				draw_line(rect.position + Vector2(0, 22), rect.position + Vector2(32, 22), Color("617078"), 2)
-			else:
-				var floor_colour := Color("293034") if tile_x < 20 or tile_x >= 38 else Color("202a30")
-				draw_rect(rect, floor_colour)
-				draw_rect(rect.grow(-2), Color(floor_colour, 0.75), false, 1)
-	for prop in PROPS:
-		draw_rect(prop, Color("5b4128"))
-		draw_rect(prop.grow(-4), Color("946f43"), false, 3)
-	_draw_furniture()
-	for target in targets:
-		if target.alive:
-			draw_rect(Rect2(target.position - Vector2(13, 28), Vector2(26, 56)), Color("76523a"))
-			draw_circle(target.position - Vector2(0, 23), 10, Color("b0875e"))
-
-func _draw_furniture() -> void:
-	draw_rect(Rect2(7 * TILE - 80, 9 * TILE - 40, 160, 80), Color("324a36"))
-	draw_rect(Rect2(16 * TILE - 80, 8 * TILE - 32, 160, 64), Color("594027"))
-	draw_rect(Rect2(7 * TILE - 64, 14 * TILE - 24, 128, 48), Color("304833"))
-	draw_rect(Rect2(534, 146, 52, 60), Color("263f46"))
-	draw_line(Vector2(560, 150), Vector2(560, 176), Color("99bcc2"), 5)
-	draw_rect(Rect2(323, 431, 58, 18), Color("43545b"))
-	draw_circle(Vector2(369, 440), 3, Color("c6ad79"))
-
-func _draw_maze() -> void:
-	draw_rect(Rect2(MAZE_ORIGIN, Vector2(int(maze.width), int(maze.height)) * MAZE_TILE), Color("091012"))
-	for y in int(maze.height):
-		for x in int(maze.width):
-			var rect := Rect2(MAZE_ORIGIN + Vector2(x, y) * MAZE_TILE, Vector2.ONE * MAZE_TILE)
-			if maze.walls[y][x]:
-				draw_rect(rect, Color("20282b"))
-				draw_rect(rect.grow(-5), Color("384348"), false, 2)
-			else:
-				draw_rect(rect, Color("101719") if (x * 17 + y * 31 + int(maze.seed)) % 7 else Color("172326"))
-	_draw_door(_maze_world(maze.entrance), Color("39535c"))
-	for door in maze.doors:
-		_draw_door(_maze_world(door.tile), Color("4b3930"))
-	for enemy in enemies:
-		if enemy.alive:
-			if enemy.kind == "spider":
-				draw_circle(enemy.position, 10, Color("2c1714"))
-				for angle in 8: draw_line(enemy.position, enemy.position + Vector2.from_angle(angle * TAU / 8.0) * 16, Color("5c3930"), 2)
-			else:
-				draw_ellipse(enemy.position, Vector2(14, 8), Color("75695f"))
-
-func _draw_room() -> void:
-	if active_room.is_empty(): return
-	var width := int(active_room.width)
-	var height := int(active_room.height)
-	for y in height:
-		for x in width:
-			var rect := Rect2(ROOM_ORIGIN + Vector2(x, y) * MAZE_TILE, Vector2.ONE * MAZE_TILE)
-			var is_exit := y == height - 1 and x == width / 2
-			if (x == 0 or y == 0 or x == width - 1 or y == height - 1) and not is_exit:
-				draw_rect(rect, Color("303235"))
-				draw_rect(rect.grow(-4), Color("50545a"), false, 2)
-			else:
-				draw_rect(rect, Color("17181a"))
-	_draw_door(_room_exit_position(), Color("4b3930"))
-	for furniture in active_room.furniture:
-		var position := ROOM_ORIGIN + Vector2(furniture.tile) * MAZE_TILE + Vector2.ONE * MAZE_TILE / 2.0
-		var colour := Color("58483d")
-		match furniture.kind:
-			"drawers": colour = Color("4d443d")
-			"cupboard": colour = Color("3d4a46")
-			"chest": colour = Color("4b3b2d")
-		draw_rect(Rect2(position - Vector2(20, 16), Vector2(40, 32)), colour)
-		draw_rect(Rect2(position - Vector2(20, 16), Vector2(40, 32)), Color("8b7562"), false, 2)
-		if furniture.kind == "chest": draw_circle(position, 3, Color("c69a4a"))
-
-func _draw_door(position: Vector2, colour: Color) -> void:
-	draw_rect(Rect2(position - Vector2(29, 9), Vector2(58, 18)), colour)
-	draw_rect(Rect2(position - Vector2(29, 9), Vector2(58, 18)), Color("a7c5cf"), false, 2)
-	draw_circle(position + Vector2(18, 0), 3, Color("c6ad79"))
-
-func _draw_player() -> void:
-	draw_ellipse(player + Vector2(0, 12), Vector2(13, 5), Color(0, 0, 0, 0.4))
-	draw_circle(player - Vector2(0, 12), 7, Color("2b3135"))
-	draw_rect(Rect2(player - Vector2(9, 5), Vector2(18, 22)), Color("45664c"))
-	draw_rect(Rect2(player - Vector2(7, -16), Vector2(5, 11)), Color("20262a"))
-	draw_rect(Rect2(player + Vector2(2, 5), Vector2(5, 11)), Color("20262a"))
-	draw_circle(player + facing * 13.0, 3.5, Color("d8c79e"))
-
-func _draw_knife(position: Vector2) -> void:
-	draw_line(position - facing * 12, position + facing * 12, Color("d2d8d5"), 5)
-	draw_line(position - facing * 16, position - facing * 8, Color("6e482d"), 6)
-
-func draw_ellipse(centre: Vector2, radius: Vector2, colour: Color) -> void:
-	var points := PackedVector2Array()
-	for index in 24:
-		var angle := index * TAU / 24.0
-		points.append(centre + Vector2(cos(angle) * radius.x, sin(angle) * radius.y))
-	draw_colored_polygon(points, colour)
+		world_renderer.draw_world_item(self, state.knife_world_position, "knife", state.inventory.knife, knife_velocity.normalized() if knife_flying else facing)
+	if muzzle_flash_clock > 0.0:
+		world_renderer.draw_effect(self, muzzle_flash_position, 0, 1.0 - muzzle_flash_clock / 0.12)
+	if impact_clock > 0.0:
+		world_renderer.draw_effect(self, impact_position, 1, 1.0 - impact_clock / 0.22)
+	if pickup_clock > 0.0:
+		world_renderer.draw_effect(self, pickup_position, 2, 1.0 - pickup_clock / 0.32)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
