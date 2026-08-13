@@ -35,9 +35,10 @@ jobs:
         run: |
           mkdir -p ../godot-build
           godot --headless --editor --quit
+          godot --headless --script res://tests/headless_smoke.gd
           godot --headless --export-release Web ../godot-build/index.html
       - name: Record exported release
-        run: printf '%s\n' '{"version":"0.0.0.3","engine":"Godot 4.3","status":"full-migration"}' > godot-build/build.json
+        run: printf '%s\n' '{"version":"0.0.0.4","engine":"Godot 4.3","status":"pixel-art-overhaul"}' > godot-build/build.json
       - uses: actions/upload-artifact@v4
         with:
           name: godot-release-build

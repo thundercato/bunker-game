@@ -1,0 +1,5 @@
+Bunker Game Godot 0.0.0.4
+
+Cohesive pixel-art visual overhaul: original-inspired bunker and labyrinth art, animated armed survivor, state-aware items, atmospheric HUD and menus, wall-contained Safari-safe torch lighting, responsive touch presentation and restrained combat/transition effects.
+
+Phaser 0.0.0.16 remains available at /phaser-legacy/.

@@ -2,9 +2,9 @@
 
 A modular browser survival game rebuilt in Godot 4 for landscape iPhone, iPad, keyboard and gamepad play. The previous Phaser implementation remains available as a fallback.
 
-## Current release: Godot v0.0.0.3
+## Current release: Godot v0.0.0.4
 
-The current development build includes the complete bunker, hybrid room camera, procedural labyrinth exploration, persistent side rooms, survival needs, inventory, physical firearm and knife state, maintenance, food, water, sleep, combat and touch, keyboard and gamepad controls.
+The current development build adds a cohesive, crisp pixel-art presentation to the complete bunker, hybrid room camera, procedural labyrinth exploration, persistent side rooms, survival needs, inventory, physical firearm and knife state, maintenance, food, water, sleep, combat and touch, keyboard and gamepad controls.
 
 ## Play
 
@@ -27,10 +27,12 @@ Every gameplay push to `main` validates the Phaser fallback, exports Godot and d
 
 ## Godot architecture
 
-- `godot/main.gd`: game coordinator, rendering, world interactions and UI
+- `godot/main.gd`: game coordinator and world interactions
 - `godot/systems`: save state and physical inventory/weapon rules
 - `godot/world`: deterministic maze and room generation
-- `godot/ui`: touch joystick and Safari-safe lighting shader
+- `godot/visual`: pixel atlas access and world/entity presentation
+- `godot/ui`: pixel HUD/theme, touch controls, transitions and Safari-safe lighting
+- `godot/assets`: generated game-ready pixel atlases, bitmap font and start presentation
 
 ## Preserved Phaser architecture
 
