@@ -1,0 +1,292 @@
+{
+  "ammo": {
+    "asset": "ammo_box",
+    "parts": null,
+    "worldSize": 0.22
+  },
+  "rifle_ammo": {
+    "asset": "ammo_box",
+    "parts": null,
+    "worldSize": 0.25
+  },
+  "magazine": {
+    "asset": "service_pistol",
+    "parts": [
+      "service_pistol_magazine_loaded"
+    ],
+    "worldSize": 0.13
+  },
+  "gun": {
+    "asset": "service_pistol",
+    "parts": [
+      "service_pistol_pistol_a",
+      "service_pistol_slide_a",
+      "service_pistol_hammer_a",
+      "service_pistol_trigger_a"
+    ],
+    "worldSize": 0.25
+  },
+  "knife": {
+    "asset": "fish_knife",
+    "parts": null,
+    "worldSize": 0.29
+  },
+  "torch": {
+    "asset": "vintage_flashlight",
+    "parts": null,
+    "worldSize": 0.28
+  },
+  "signal_torch": {
+    "asset": "signal_flashlight",
+    "parts": [
+      "signal_flashlight$",
+      "signal_flashlight_clip$",
+      "signal_flashlight_switch$"
+    ],
+    "worldSize": 0.22
+  },
+  "food": {
+    "asset": "long_life_food",
+    "parts": [
+      "long_life_food_beans$"
+    ],
+    "worldSize": 0.14
+  },
+  "tuna": {
+    "asset": "long_life_food",
+    "parts": [
+      "long_life_food_sardines$"
+    ],
+    "worldSize": 0.13
+  },
+  "water": {
+    "asset": "plastic_thermos",
+    "parts": null,
+    "worldSize": 0.25
+  },
+  "med": {
+    "asset": "medical_tape",
+    "parts": null,
+    "worldSize": 0.07
+  },
+  "medkit": {
+    "asset": "medical_box",
+    "parts": null,
+    "worldSize": 0.28
+  },
+  "case": {
+    "asset": "medical_box",
+    "parts": null,
+    "worldSize": 0.4
+  },
+  "oil": {
+    "asset": "small_oil_can_01",
+    "parts": null,
+    "worldSize": 0.2
+  },
+  "junk": {
+    "asset": "binder_notebook",
+    "parts": null,
+    "worldSize": 0.21
+  },
+  "ledger": {
+    "asset": "binder_notebook",
+    "parts": null,
+    "worldSize": 0.24
+  },
+  "north_map": {
+    "asset": "binder_notebook",
+    "parts": null,
+    "worldSize": 0.22
+  },
+  "orders": {
+    "asset": "binder_notebook",
+    "parts": null,
+    "worldSize": 0.24
+  },
+  "sewer_map": {
+    "asset": "binder_notebook",
+    "parts": null,
+    "worldSize": 0.22
+  },
+  "recorder": {
+    "asset": "portable_cassette_player",
+    "parts": null,
+    "worldSize": 0.18
+  },
+  "radio_parts": {
+    "asset": "portable_cassette_player",
+    "parts": null,
+    "worldSize": 0.15
+  },
+  "receiver": {
+    "asset": "vintage_radio_transceiver",
+    "parts": null,
+    "worldSize": 0.3
+  },
+  "lighter": {
+    "asset": "vintage_lighter",
+    "parts": null,
+    "worldSize": 0.07
+  },
+  "boots": {
+    "asset": "rubber_boots",
+    "parts": null,
+    "worldSize": 0.36
+  },
+  "rifle": {
+    "asset": "bolt_action_rifle_7_62",
+    "parts": [
+      "bolt_action_rifle_7_62$",
+      "bolt_action_rifle_7_62_wrap$",
+      "bolt_action_rifle_7_62_bolt_a$",
+      "bolt_action_rifle_7_62_bolt_b$",
+      "bolt_action_rifle_7_62_trigger$"
+    ],
+    "worldSize": 0.92
+  },
+  "battery": {
+    "shape": "battery",
+    "worldSize": 0.09
+  },
+  "probes": {
+    "shape": "probes",
+    "worldSize": 0.13
+  },
+  "biscuits": {
+    "shape": "ration",
+    "worldSize": 0.17
+  },
+  "energy": {
+    "shape": "can",
+    "worldSize": 0.15
+  },
+  "cloth": {
+    "shape": "cloth",
+    "worldSize": 0.17
+  },
+  "wire": {
+    "shape": "wire",
+    "worldSize": 0.14
+  },
+  "watch": {
+    "shape": "watch",
+    "worldSize": 0.12
+  },
+  "film": {
+    "shape": "film",
+    "worldSize": 0.07
+  },
+  "cave_log": {
+    "shape": "film",
+    "worldSize": 0.08
+  },
+  "screws": {
+    "shape": "screws",
+    "worldSize": 0.12
+  },
+  "mug": {
+    "shape": "mug",
+    "worldSize": 0.13
+  },
+  "cap": {
+    "shape": "cap",
+    "worldSize": 0.22
+  },
+  "helmet": {
+    "shape": "helmet",
+    "worldSize": 0.28
+  },
+  "coat": {
+    "shape": "coat",
+    "worldSize": 0.38
+  },
+  "jacket": {
+    "shape": "jacket",
+    "worldSize": 0.34
+  },
+  "trousers": {
+    "shape": "trousers",
+    "worldSize": 0.35
+  },
+  "trainers": {
+    "shape": "trainers",
+    "worldSize": 0.3
+  },
+  "shard": {
+    "shape": "shard",
+    "worldSize": 0.14
+  },
+  "bead": {
+    "shape": "bead",
+    "worldSize": 0.07
+  },
+  "stormglass": {
+    "shape": "stormglass",
+    "worldSize": 0.12
+  },
+  "knot": {
+    "shape": "knot",
+    "worldSize": 0.1
+  },
+  "sample": {
+    "shape": "sample",
+    "worldSize": 0.17
+  },
+  "postbag": {
+    "shape": "satchel",
+    "worldSize": 0.32
+  },
+  "relay": {
+    "shape": "relay",
+    "worldSize": 0.17
+  },
+  "fuse": {
+    "shape": "fuse",
+    "worldSize": 0.12
+  },
+  "carbine": {
+    "shape": "carbine",
+    "worldSize": 0.64
+  },
+  "carbine_mag": {
+    "shape": "magazine",
+    "worldSize": 0.18
+  },
+  "rifle_mag": {
+    "shape": "rifleMagazine",
+    "worldSize": 0.12
+  },
+  "detector": {
+    "shape": "detector",
+    "worldSize": 0.18
+  },
+  "poster_signal": {
+    "shape": "poster_signal",
+    "worldSize": 0.35
+  },
+  "poster_orbit": {
+    "shape": "poster_orbit",
+    "worldSize": 0.35
+  },
+  "poster_return": {
+    "shape": "poster_return",
+    "worldSize": 0.35
+  },
+  "rug": {
+    "shape": "rug",
+    "worldSize": 0.35
+  },
+  "lamp_blue": {
+    "shape": "lamp",
+    "worldSize": 0.24
+  },
+  "bunker_key": {
+    "shape": "keycard",
+    "worldSize": 0.09
+  },
+  "beacon_core": {
+    "shape": "beacon",
+    "worldSize": 0.23
+  }
+}

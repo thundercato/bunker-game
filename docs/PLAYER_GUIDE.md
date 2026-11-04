@@ -1,43 +1,36 @@
-# Dead Air player guide
+# Fieldcraft v10 player guide
 
-## Getting equipped
+## Start
 
-You start in your room in Relay 07. Use the floor routes: amber for maintenance, green for the quartermaster, red for the canteen and blue for the range exit. Your personal cabinet holds items between expeditions. The bed restores you and can advance to dawn.
+Open the GitHub Pages address in Safari, use landscape, tap **Load the game**, then **Enter with sound**. On the first visit the local asset set must download. The game retains the calmer refuge music from v9.
 
-At maintenance, take the PM from the workbench and search the supply locker for the detector, knives, torch, batteries and water. Insert the correct magazine, rack the slide and disengage safety. The weapon panel shows magazine, chamber and condition separately. Clean the selected gun at the bench by rubbing over its image, or by using the brush button. Cleaning costs credits; dirty weapons can jam.
+## Inspect loot and equipment
 
-## Assignments
+A small **3D** badge appears on inventory thumbnails. Tap the picture in your backpack, a searched container, the trader or your storage. Drag the model to rotate, pinch or use +/− to zoom, and use Reset view to return to the default angle. Back returns to the same list/tab/page. Inspecting never changes your inventory or credits.
 
-First signal is accepted initially. Recover its recorder from Survey hut 03 and bring it to the task radio. Two radio assignments follow; speak to the bar/canteen/trader for side jobs as they unlock. Each dossier shows its owner, reward, reconnaissance image and actual destination map.
+Pause → **Item catalogue** shows all 61 entries, with category filtering and pages. It is a viewing catalogue, not a cheat or shop.
 
-Accept a job near the contact offering it. Deliver it back to that contact, not automatically to any radio. Completed jobs disappear from the live board and are recorded in Completed operations with timestamps and played duration. A new radio offer produces a nearby beep and a red task light.
+## Map and current assignment
 
-## Time, enemies and exploration
+The ordinary **Map** button keeps the live movement overlay. Tap **Atlas**, or **Full map** on the overlay, to open the paused full-screen map. No native browser fullscreen is required.
 
-Time runs even when you stand still. The refuge uses real-time minutes. Outside it, five real minutes is one game hour. Menus and switching away from the game pause the simulation. Do not assume looking at a creature stops it.
+- Drag with one finger to pan. Pinch with two fingers, use the +/− buttons, or use a mouse wheel to zoom.
+- **Fit region** restores the full current area. **Centre on me** switches to your actual area and position.
+- **Objective** centres the selected active mission. **Open mission dossier** opens its briefing.
+- Select another active mission in the sidebar or tap its marker to track it.
+- Once the required object count is recovered, the destination becomes the correct radio/NPC contact inside the base. Underground jobs mark the relevant entrance, not an impossible surface shortcut.
+- The map shows straight-line distance, not a calculated safe route. Hidden anomalies remain hidden.
 
-Mist creatures use facing, proximity, noise and visibility. Walls and windows block sight, while an opened doorway can expose you. Your torch makes you easier to notice. Riflemen move, crouch and shoot. Skitters commit to a leap; moving sideways can make them overshoot. AI navigation remains a prototype and may behave simply around complex obstacles.
+Tap **Mission** on the HUD or tap the objective title to open the pinned assignment. A mission dossier has **View target on map**. Keyboard shortcuts: **J** for the current dossier and **G** for the atlas.
 
-The river has a road bridge and a railway bridge. The western mountains cannot be crossed. The southern bog slows you and pulls your viewpoint down; back out to firm ground rather than pressing deeper. The garrison is dangerous. Its rear breach and drainage route offer alternatives to the front entrance, not guaranteed safe passages.
+Controller users can select the labelled map/inspector buttons using the existing menu navigation and A. Touch drag/pinch is not required to use zoom or rotation.
 
-## Hidden hazards
+## Existing campaign
 
-Anomalies are not signposted or pre-marked on your map. Use the detector to sense interference, then throw a probe. A reacting field becomes visible until you return to the base, and its artefact can then be found. The visible field still causes damage. A probe is a warning tool, not an immunity power.
+V9 saves at this same site continue under the same campaign key. Export periodically through Pause → Saves & offline. Imports from v6–v8 remain supported; saves on an older temporary host must be exported there first.
 
-## Equipment controls
+## Offline and updates
 
-The secondary/safety action is contextual: gun safety, knife grip, or torch mode. The ordinary torch offers high, low and off. A recovered signal torch adds coloured beams. Gun and torch occupy separate hand choices; there is no simultaneous gun-plus-torch assumption.
+Wait until Saves & offline reports that all files are ready. The complete local runtime is roughly 59 MB before transport compression. The first visit after an update can take longer than later visits. Reload normally if you still see the older title; do not clear browser storage unless you have exported your campaign.
 
-Fire with a knife slashes; aim plus fire throws it. Recover thrown knives from where they land when reachable. Bullet marks disappear after thirty seconds. Optional firing feedback uses only haptic APIs exposed by the browser; use the controller Vibration tab to test both phone and controller.
-
-## Sound and comfort
-
-The base background track is deliberately less eerie than the field. Radio music is separate and becomes louder near the physical receiver. Use the receiver's power control or the Base & radio volume settings. Tune to another radio track with the station button.
-
-Brightness, field of view, rendering quality, vegetation, shadows, steady lights, reduced motion and separate sound volumes are available in settings. Use the performance overlay for feedback; headless test FPS is not a target for your actual device.
-
-## Saving
-
-Export your campaign from Saves & offline. To move from the old temporary site, export there, then import into this GitHub-hosted build. The site cannot automatically read another origin's storage. Imported old completion times are marked as legacy rather than fabricated.
-
-Allow the full offline download to finish before disconnecting. Browser cache is not a permanent backup. Keep an exported save before clearing website data or reinstalling a Home Screen shortcut.
+The item thumbnails, model inspector, atlas and Python runtime are all local assets. A native iOS gamepad or rumble capability cannot be forced by JavaScript if the browser does not expose it. Use Controller Clinic and export its real report when diagnosing a device.

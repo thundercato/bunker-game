@@ -9,11 +9,11 @@ permissions:
   contents: read
 concurrency:
   group: field-signal-pages-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,20 +22,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Python gameplay and save tests
+      - name: Python gameplay, save and asset-coverage tests
         run: python3 -m unittest discover -s site/tests -p 'test_*.py' -v
-      - name: JavaScript and audio unit tests
+      - name: JavaScript, audio and atlas unit tests
         run: |
           for file in site/*.js; do node --check "$file"; done
           node site/tests/test_client.mjs
+          node site/tests/test_atlas.mjs
       - name: Build and validate runtime assets
         run: python3 tools/build.py
       - name: Install browser test runner
+        timeout-minutes: 5
+        env:
+          PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT: '60000'
         run: |
-          npm install --no-save --package-lock=false playwright@1.56.1
-          npx playwright install --with-deps chromium
-      - name: Browser smoke test under project URL path
+          npm install --no-save --package-lock=false --fetch-timeout=60000 playwright@1.56.1
+          npx playwright install chromium
+          node -e "require('playwright').chromium.launch({headless:true,args:['--no-sandbox']}).then(b=>b.close()).catch(e=>{console.error(e);process.exit(1)})"
+      - name: Browser engine, controller and offline regression checks
         run: node tests/ci_smoke.cjs
+      - name: Fieldcraft inventory, inspector, map and navigation checks
+        run: node tests/fieldcraft_browser.cjs
       - name: Preserve verification output
         if: always()
         uses: actions/upload-artifact@v4
@@ -62,3 +69,33 @@ jobs:
       - name: Publish tested build
         id: deployment
         uses: actions/deploy-pages@v4
+  verify-public-release:
+    if: github.event_name != 'pull_request'
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install public-site browser verifier
+        timeout-minutes: 5
+        env:
+          PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT: '60000'
+        run: |
+          npm install --no-save --package-lock=false --fetch-timeout=60000 playwright@1.56.1
+          npx playwright install chromium
+      - name: Test actual published site, existing saves and offline use
+        env:
+          GAME_URL: https://thundercato.github.io/bunker-game/
+        run: node tests/live_release.cjs
+      - name: Preserve public-site verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: field-signal-public-release
+          path: test-results/public-release.json
+          if-no-files-found: ignore

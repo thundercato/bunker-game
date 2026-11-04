@@ -1,0 +1,19 @@
+PASS Initial fit centres region
+PASS Projection is exactly reversible
+PASS Zoom preserves point under cursor
+PASS Zoom has safe upper and lower limits
+PASS Invalid zoom requests ignored
+PASS Drag translates camera in world units
+PASS Resize does not reset chosen objective
+PASS Fit resets zoom and region centre
+PASS Panning cannot lose the region indefinitely
+PASS Scale bar matches displayed metres
+PASS Current mission respects active state
+PASS Destination uses exact mission coordinates
+PASS Recovered item targets correct base contact
+PASS Unfinished NPC job points to source only after recovery
+PASS Completed missions never remain navigable objectives
+PASS Fallback only selects another active mission
+PASS Explicit dossier objective overrides pinned one
+PASS No active missions yields no invented marker
+18 atlas unit tests passed

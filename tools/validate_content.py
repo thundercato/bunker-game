@@ -26,3 +26,16 @@ for c in w['containers']:
  for item in c.get('guaranteed',{}):
   if item not in catalogue:raise ValueError('Missing guaranteed item '+item)
 print(f'Content valid: {len(missions)} missions, {len(w["containers"])} containers, {len(w["enemies"])} enemies')
+
+visuals=json.loads((root/'assets/v10/item-visuals.json').read_text())
+thumbs=json.loads((root/'assets/v10/thumbnails/manifest.json').read_text())
+if set(visuals)!=set(catalogue):raise ValueError('Item model registry does not cover catalogue exactly')
+if set(thumbs)!=set(catalogue):raise ValueError('Thumbnail registry does not cover catalogue exactly')
+for key in catalogue:
+ p=root/thumbs[key]
+ if not p.is_file() or p.stat().st_size<100:raise ValueError('Missing model thumbnail '+key)
+for row in json.loads((root/'assets/v10/model-manifest.json').read_text()):
+ if row.get('licence')!='CC0-1.0' or not row.get('authors'):raise ValueError('Uncredited new model')
+ p=root/row['path']
+ if p.read_bytes()[:4]!=b'glTF':raise ValueError('Invalid GLB '+row['id'])
+print(f'Fieldcraft visuals valid: {len(visuals)} items and {len(thumbs)} previews')
