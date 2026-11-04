@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import {deadzone,defaultMapping} from '../input.js';
+import {spliceLoop,envelopeValue} from '../audio.js';
+let count=0;const check=(name,fn)=>{fn();count++;console.log('PASS',name)};
+check('neutral stick zero',()=>assert.deepEqual(deadzone(.08,-.08,.17),[0,0]));
+check('full stick one',()=>assert.deepEqual(deadzone(1,0,.17),[1,0]));
+check('diagonal normalised',()=>assert.ok(Math.abs(Math.hypot(...deadzone(1,1)) -1)<1e-9));
+check('undefined axes safe',()=>assert.deepEqual(deadzone(undefined,undefined),[0,0]));
+check('standard wired/BT mapping',()=>assert.equal(defaultMapping.fire,7));
+check('standard menu mapping',()=>assert.equal(defaultMapping.pause,9));
+check('crossfade start',()=>assert.equal(envelopeValue({from:1,to:0,start:0,end:3},0),1));
+check('crossfade midpoint both half',()=>{assert.equal(envelopeValue({from:1,to:0,start:0,end:3},1.5),.5);assert.equal(envelopeValue({from:0,to:1,start:0,end:3},1.5),.5)});
+check('crossfade complete',()=>assert.equal(envelopeValue({from:1,to:0,start:0,end:3},3),0));
+check('interrupt preserves envelope value',()=>assert.ok(Math.abs(envelopeValue({from:.5,to:1,start:1.5,end:4.5},2.25)-.625)<1e-12));
+const makeBuffer=(channels,length,sampleRate)=>{const arrays=Array.from({length:channels},()=>new Float32Array(length));return{numberOfChannels:channels,length,sampleRate,getChannelData:i=>arrays[i]}};
+const ctx={createBuffer:makeBuffer};let input=makeBuffer(2,10000,1000);for(let c=0;c<2;c++){let a=input.getChannelData(c);for(let i=0;i<a.length;i++)a[i]=Math.sin(i*.017+c)*.4+(i/10000)*.03}
+let out=spliceLoop(input,ctx,1.4);
+check('loop shortened by overlap only',()=>assert.equal(out.length,8600));
+check('same number of channels',()=>assert.equal(out.numberOfChannels,2));
+check('sample-continuous join',()=>{for(let c=0;c<2;c++){let a=input.getChannelData(c),b=out.getChannelData(c);assert.equal(b[b.length-1],a[1399]);assert.equal(b[0],a[1400]);}});
+check('no non-finite audio',()=>assert.ok([...out.getChannelData(0)].every(Number.isFinite)));
+check('tiny clips not damaged',()=>{const a=makeBuffer(1,4,1000);assert.equal(spliceLoop(a,ctx),a)});
+console.log(count,'client unit tests passed');

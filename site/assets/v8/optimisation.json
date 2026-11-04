@@ -1,0 +1,154 @@
+[
+  {
+    "id": "book_encyclopedia_set_01",
+    "selected": [
+      "book_encyclopedia_set_01_book01",
+      "book_encyclopedia_set_01_book02",
+      "book_encyclopedia_set_01_book03",
+      "book_encyclopedia_set_01_book04"
+    ],
+    "source_geometry_bytes": 2547932,
+    "runtime_bytes": 604168,
+    "meshes": 4
+  },
+  {
+    "id": "desk_lamp_arm_01",
+    "selected": null,
+    "source_geometry_bytes": 736804,
+    "runtime_bytes": 823524,
+    "meshes": 1
+  },
+  {
+    "id": "metal_jug",
+    "selected": null,
+    "source_geometry_bytes": 144496,
+    "runtime_bytes": 191552,
+    "meshes": 1
+  },
+  {
+    "id": "modular_electric_cables",
+    "selected": [
+      "cable_double_alt_long"
+    ],
+    "source_geometry_bytes": 1563316,
+    "runtime_bytes": 235000,
+    "meshes": 1
+  },
+  {
+    "id": "painted_wooden_cabinet_02",
+    "selected": null,
+    "source_geometry_bytes": 39332,
+    "runtime_bytes": 101996,
+    "meshes": 3
+  },
+  {
+    "id": "propane_tank",
+    "selected": null,
+    "source_geometry_bytes": 174180,
+    "runtime_bytes": 239852,
+    "meshes": 1
+  },
+  {
+    "id": "vintage_radio_transceiver",
+    "selected": null,
+    "source_geometry_bytes": 1740024,
+    "runtime_bytes": 1939608,
+    "meshes": 14
+  },
+  {
+    "id": "can_rusted",
+    "selected": null,
+    "source_geometry_bytes": 97440,
+    "runtime_bytes": 171244,
+    "meshes": 1
+  },
+  {
+    "id": "industrial_wall_lamp",
+    "selected": null,
+    "source_geometry_bytes": 141492,
+    "runtime_bytes": 267992,
+    "meshes": 1
+  },
+  {
+    "id": "metal_toolbox",
+    "selected": null,
+    "source_geometry_bytes": 468892,
+    "runtime_bytes": 541148,
+    "meshes": 6
+  },
+  {
+    "id": "modular_industrial_pipes_01",
+    "selected": [
+      "modular_industrial_pipes_01_pipe02"
+    ],
+    "source_geometry_bytes": 515160,
+    "runtime_bytes": 183944,
+    "meshes": 1
+  },
+  {
+    "id": "painted_wooden_chair_01",
+    "selected": null,
+    "source_geometry_bytes": 37112,
+    "runtime_bytes": 107928,
+    "meshes": 1
+  },
+  {
+    "id": "russian_food_cans_01",
+    "selected": null,
+    "source_geometry_bytes": 32144,
+    "runtime_bytes": 93900,
+    "meshes": 3
+  },
+  {
+    "id": "wooden_bookshelf_worn",
+    "selected": null,
+    "source_geometry_bytes": 267964,
+    "runtime_bytes": 351732,
+    "meshes": 1
+  },
+  {
+    "id": "cardboard_box_01",
+    "selected": null,
+    "source_geometry_bytes": 381936,
+    "runtime_bytes": 446340,
+    "meshes": 1
+  },
+  {
+    "id": "metal_jerrycan",
+    "selected": null,
+    "source_geometry_bytes": 484676,
+    "runtime_bytes": 564556,
+    "meshes": 1
+  },
+  {
+    "id": "modular_airduct_rectangular_01",
+    "selected": [
+      "modular_airduct_rectangular_01_tripple_01",
+      "modular_airduct_rectangular_01_vent_01"
+    ],
+    "source_geometry_bytes": 1795116,
+    "runtime_bytes": 275228,
+    "meshes": 2
+  },
+  {
+    "id": "old_military_crate",
+    "selected": null,
+    "source_geometry_bytes": 329004,
+    "runtime_bytes": 399528,
+    "meshes": 5
+  },
+  {
+    "id": "power_box_01",
+    "selected": null,
+    "source_geometry_bytes": 782096,
+    "runtime_bytes": 848684,
+    "meshes": 2
+  },
+  {
+    "id": "vintage_oil_lamp",
+    "selected": null,
+    "source_geometry_bytes": 186096,
+    "runtime_bytes": 289420,
+    "meshes": 3
+  }
+]

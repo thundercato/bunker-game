@@ -1,0 +1,1640 @@
+{
+  "cupboard": {
+    "ammo": {
+      "chance": 6,
+      "min": 2,
+      "max": 6
+    },
+    "magazine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "gun": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "knife": {
+      "chance": 5,
+      "min": 1,
+      "max": 1
+    },
+    "torch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "battery": {
+      "chance": 9,
+      "min": 1,
+      "max": 1
+    },
+    "probes": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "food": {
+      "chance": 32,
+      "min": 1,
+      "max": 2
+    },
+    "biscuits": {
+      "chance": 28,
+      "min": 1,
+      "max": 2
+    },
+    "water": {
+      "chance": 23,
+      "min": 1,
+      "max": 2
+    },
+    "energy": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "med": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "medkit": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cloth": {
+      "chance": 14,
+      "min": 1,
+      "max": 1
+    },
+    "oil": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "junk": {
+      "chance": 14,
+      "min": 1,
+      "max": 1
+    },
+    "wire": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "watch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "film": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "radio_parts": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "screws": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "mug": {
+      "chance": 20,
+      "min": 1,
+      "max": 1
+    },
+    "lighter": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "cap": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "helmet": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "coat": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "jacket": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trousers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trainers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "boots": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "shard": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "bead": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "detector": {
+      "chance": 0.5,
+      "min": 1,
+      "max": 1
+    },
+    "tuna": {
+      "chance": 12,
+      "min": 1,
+      "max": 1
+    },
+    "carbine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "carbine_mag": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    }
+  },
+  "drawers": {
+    "ammo": {
+      "chance": 16,
+      "min": 2,
+      "max": 8
+    },
+    "magazine": {
+      "chance": 4,
+      "min": 1,
+      "max": 1
+    },
+    "gun": {
+      "chance": 0.4,
+      "min": 1,
+      "max": 1
+    },
+    "knife": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    },
+    "torch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "battery": {
+      "chance": 12,
+      "min": 1,
+      "max": 1
+    },
+    "probes": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "food": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "biscuits": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "water": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "energy": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "med": {
+      "chance": 7,
+      "min": 1,
+      "max": 1
+    },
+    "medkit": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cloth": {
+      "chance": 9,
+      "min": 1,
+      "max": 1
+    },
+    "oil": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "junk": {
+      "chance": 30,
+      "min": 1,
+      "max": 1
+    },
+    "wire": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "watch": {
+      "chance": 6,
+      "min": 1,
+      "max": 1
+    },
+    "film": {
+      "chance": 9,
+      "min": 1,
+      "max": 1
+    },
+    "radio_parts": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "screws": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "mug": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "lighter": {
+      "chance": 11,
+      "min": 1,
+      "max": 1
+    },
+    "cap": {
+      "chance": 6,
+      "min": 1,
+      "max": 1
+    },
+    "helmet": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "coat": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "jacket": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trousers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trainers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "boots": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "shard": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "bead": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "detector": {
+      "chance": 0.5,
+      "min": 1,
+      "max": 1
+    },
+    "tuna": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    },
+    "carbine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "carbine_mag": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    }
+  },
+  "medical": {
+    "ammo": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "magazine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "gun": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "knife": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "torch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "battery": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "probes": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "food": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "biscuits": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "water": {
+      "chance": 14,
+      "min": 1,
+      "max": 1
+    },
+    "energy": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "med": {
+      "chance": 52,
+      "min": 1,
+      "max": 2
+    },
+    "medkit": {
+      "chance": 12,
+      "min": 1,
+      "max": 1
+    },
+    "cloth": {
+      "chance": 17,
+      "min": 1,
+      "max": 1
+    },
+    "oil": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "junk": {
+      "chance": 10,
+      "min": 1,
+      "max": 1
+    },
+    "wire": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "watch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "film": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "radio_parts": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "screws": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "mug": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "lighter": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cap": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "helmet": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "coat": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "jacket": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trousers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trainers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "boots": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "shard": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "bead": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "detector": {
+      "chance": 0.5,
+      "min": 1,
+      "max": 1
+    },
+    "tuna": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    },
+    "carbine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "carbine_mag": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    }
+  },
+  "workshop": {
+    "ammo": {
+      "chance": 10,
+      "min": 4,
+      "max": 10
+    },
+    "magazine": {
+      "chance": 5,
+      "min": 1,
+      "max": 1
+    },
+    "gun": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "knife": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "torch": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "battery": {
+      "chance": 20,
+      "min": 1,
+      "max": 1
+    },
+    "probes": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "food": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "biscuits": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "water": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "energy": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "med": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "medkit": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cloth": {
+      "chance": 25,
+      "min": 1,
+      "max": 1
+    },
+    "oil": {
+      "chance": 23,
+      "min": 1,
+      "max": 1
+    },
+    "junk": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "wire": {
+      "chance": 38,
+      "min": 1,
+      "max": 2
+    },
+    "watch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "film": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "radio_parts": {
+      "chance": 10,
+      "min": 1,
+      "max": 1
+    },
+    "screws": {
+      "chance": 35,
+      "min": 1,
+      "max": 2
+    },
+    "mug": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "lighter": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cap": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "helmet": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "coat": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "jacket": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trousers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trainers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "boots": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "shard": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "bead": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "detector": {
+      "chance": 0.5,
+      "min": 1,
+      "max": 1
+    },
+    "tuna": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    },
+    "carbine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "carbine_mag": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    }
+  },
+  "locker": {
+    "ammo": {
+      "chance": 15,
+      "min": 4,
+      "max": 12
+    },
+    "magazine": {
+      "chance": 10,
+      "min": 1,
+      "max": 1
+    },
+    "gun": {
+      "chance": 1.5,
+      "min": 1,
+      "max": 1
+    },
+    "knife": {
+      "chance": 12,
+      "min": 1,
+      "max": 1
+    },
+    "torch": {
+      "chance": 9,
+      "min": 1,
+      "max": 1
+    },
+    "battery": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "probes": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "food": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "biscuits": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "water": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "energy": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "med": {
+      "chance": 10,
+      "min": 1,
+      "max": 1
+    },
+    "medkit": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cloth": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "oil": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "junk": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "wire": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "watch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "film": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "radio_parts": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "screws": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "mug": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "lighter": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cap": {
+      "chance": 18,
+      "min": 1,
+      "max": 1
+    },
+    "helmet": {
+      "chance": 5,
+      "min": 1,
+      "max": 1
+    },
+    "coat": {
+      "chance": 13,
+      "min": 1,
+      "max": 1
+    },
+    "jacket": {
+      "chance": 18,
+      "min": 1,
+      "max": 1
+    },
+    "trousers": {
+      "chance": 17,
+      "min": 1,
+      "max": 1
+    },
+    "trainers": {
+      "chance": 12,
+      "min": 1,
+      "max": 1
+    },
+    "boots": {
+      "chance": 10,
+      "min": 1,
+      "max": 1
+    },
+    "shard": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "bead": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "detector": {
+      "chance": 0.5,
+      "min": 1,
+      "max": 1
+    },
+    "tuna": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    },
+    "carbine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "carbine_mag": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    }
+  },
+  "crate": {
+    "ammo": {
+      "chance": 40,
+      "min": 4,
+      "max": 16
+    },
+    "magazine": {
+      "chance": 16,
+      "min": 1,
+      "max": 1
+    },
+    "gun": {
+      "chance": 1,
+      "min": 1,
+      "max": 1
+    },
+    "knife": {
+      "chance": 10,
+      "min": 1,
+      "max": 1
+    },
+    "torch": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "battery": {
+      "chance": 14,
+      "min": 1,
+      "max": 1
+    },
+    "probes": {
+      "chance": 20,
+      "min": 2,
+      "max": 5
+    },
+    "food": {
+      "chance": 22,
+      "min": 1,
+      "max": 2
+    },
+    "biscuits": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "water": {
+      "chance": 15,
+      "min": 1,
+      "max": 1
+    },
+    "energy": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "med": {
+      "chance": 20,
+      "min": 1,
+      "max": 2
+    },
+    "medkit": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cloth": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "oil": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "junk": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "wire": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "watch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "film": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "radio_parts": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "screws": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "mug": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "lighter": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cap": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "helmet": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "coat": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "jacket": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trousers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trainers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "boots": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "shard": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "bead": {
+      "chance": 1,
+      "min": 1,
+      "max": 1
+    },
+    "detector": {
+      "chance": 0.5,
+      "min": 1,
+      "max": 1
+    },
+    "tuna": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    },
+    "carbine": {
+      "chance": 0.5,
+      "min": 1,
+      "max": 1
+    },
+    "carbine_mag": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    }
+  },
+  "loose": {
+    "ammo": {
+      "chance": 10,
+      "min": 2,
+      "max": 5
+    },
+    "magazine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "gun": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "knife": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    },
+    "torch": {
+      "chance": 2,
+      "min": 1,
+      "max": 1
+    },
+    "battery": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "probes": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "food": {
+      "chance": 9,
+      "min": 1,
+      "max": 1
+    },
+    "biscuits": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "water": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "energy": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "med": {
+      "chance": 5,
+      "min": 1,
+      "max": 1
+    },
+    "medkit": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cloth": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "oil": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "junk": {
+      "chance": 14,
+      "min": 1,
+      "max": 1
+    },
+    "wire": {
+      "chance": 6,
+      "min": 1,
+      "max": 1
+    },
+    "watch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "film": {
+      "chance": 4,
+      "min": 1,
+      "max": 1
+    },
+    "radio_parts": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "screws": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "mug": {
+      "chance": 12,
+      "min": 1,
+      "max": 1
+    },
+    "lighter": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cap": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "helmet": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "coat": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "jacket": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trousers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trainers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "boots": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "shard": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "bead": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "detector": {
+      "chance": 0.5,
+      "min": 1,
+      "max": 1
+    },
+    "tuna": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    },
+    "carbine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "carbine_mag": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    }
+  },
+  "chest": {
+    "ammo": {
+      "chance": 85,
+      "min": 16,
+      "max": 40
+    },
+    "magazine": {
+      "chance": 16,
+      "min": 1,
+      "max": 1
+    },
+    "gun": {
+      "chance": 1,
+      "min": 1,
+      "max": 1
+    },
+    "knife": {
+      "chance": 10,
+      "min": 1,
+      "max": 1
+    },
+    "torch": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "battery": {
+      "chance": 14,
+      "min": 1,
+      "max": 1
+    },
+    "probes": {
+      "chance": 20,
+      "min": 2,
+      "max": 5
+    },
+    "food": {
+      "chance": 22,
+      "min": 1,
+      "max": 2
+    },
+    "biscuits": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "water": {
+      "chance": 15,
+      "min": 1,
+      "max": 1
+    },
+    "energy": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "med": {
+      "chance": 20,
+      "min": 1,
+      "max": 2
+    },
+    "medkit": {
+      "chance": 45,
+      "min": 1,
+      "max": 1
+    },
+    "cloth": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "oil": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "junk": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "wire": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "watch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "film": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "radio_parts": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "screws": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "mug": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "lighter": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cap": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "helmet": {
+      "chance": 25,
+      "min": 1,
+      "max": 1
+    },
+    "coat": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "jacket": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trousers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trainers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "boots": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "shard": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "bead": {
+      "chance": 1,
+      "min": 1,
+      "max": 1
+    },
+    "detector": {
+      "chance": 0.5,
+      "min": 1,
+      "max": 1
+    },
+    "tuna": {
+      "chance": 3,
+      "min": 1,
+      "max": 1
+    },
+    "carbine": {
+      "chance": 18,
+      "min": 1,
+      "max": 1
+    },
+    "carbine_mag": {
+      "chance": 60,
+      "min": 1,
+      "max": 2
+    }
+  },
+  "vehicle": {
+    "ammo": {
+      "chance": 10,
+      "min": 1,
+      "max": 1
+    },
+    "magazine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "gun": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "knife": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "torch": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "battery": {
+      "chance": 22,
+      "min": 1,
+      "max": 1
+    },
+    "probes": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "food": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "biscuits": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "water": {
+      "chance": 25,
+      "min": 1,
+      "max": 1
+    },
+    "energy": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "med": {
+      "chance": 12,
+      "min": 1,
+      "max": 1
+    },
+    "medkit": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cloth": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "oil": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "junk": {
+      "chance": 35,
+      "min": 1,
+      "max": 1
+    },
+    "wire": {
+      "chance": 12,
+      "min": 1,
+      "max": 1
+    },
+    "watch": {
+      "chance": 8,
+      "min": 1,
+      "max": 1
+    },
+    "film": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "radio_parts": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "screws": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "mug": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "lighter": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "cap": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "helmet": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "coat": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "jacket": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trousers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "trainers": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "boots": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "shard": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "bead": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "detector": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "tuna": {
+      "chance": 16,
+      "min": 1,
+      "max": 1
+    },
+    "carbine": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    },
+    "carbine_mag": {
+      "chance": 0,
+      "min": 1,
+      "max": 1
+    }
+  }
+}

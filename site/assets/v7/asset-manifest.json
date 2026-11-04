@@ -1,0 +1,264 @@
+[
+  {
+    "id": "power_box_01",
+    "name": "Power Box 01",
+    "authors": {
+      "Rico Cilliers": "Modeling & Texturing",
+      "Yann Kervran": "Rigging"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/power_box_01",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/power_box_01/power_box_01_1k.gltf",
+    "triangles": 21272,
+    "meshes": 2,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "vintage_radio_transceiver",
+    "name": "Vintage Radio Transceiver",
+    "authors": {
+      "Mateusz Sadek": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/vintage_radio_transceiver",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/vintage_radio_transceiver/vintage_radio_transceiver_1k.gltf",
+    "triangles": 42350,
+    "meshes": 14,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "old_military_crate",
+    "name": "Old Military Crate",
+    "authors": {
+      "Jack Mava": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/old_military_crate",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/old_military_crate/old_military_crate_1k.gltf",
+    "triangles": 10476,
+    "meshes": 5,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "metal_toolbox",
+    "name": "Metal Toolbox",
+    "authors": {
+      "Mateusz Sadek": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/metal_toolbox",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/metal_toolbox/metal_toolbox_1k.gltf",
+    "triangles": 14228,
+    "meshes": 6,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "desk_lamp_arm_01",
+    "name": "Desk Lamp Arm 01",
+    "authors": {
+      "Yann Kervran": "Rigging",
+      "Kuutti Siitonen": "Modeling & texturing"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/desk_lamp_arm_01",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/desk_lamp_arm_01/desk_lamp_arm_01_1k.gltf",
+    "triangles": 24102,
+    "meshes": 1,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "industrial_wall_lamp",
+    "name": "Industrial Wall Lamp",
+    "authors": {
+      "Kuutti Siitonen": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/industrial_wall_lamp",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/industrial_wall_lamp/industrial_wall_lamp_1k.gltf",
+    "triangles": 4446,
+    "meshes": 1,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "modular_airduct_rectangular_01",
+    "name": "Modular Airduct Rectangular 01",
+    "authors": {
+      "James Ray Cock": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/modular_airduct_rectangular_01",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/modular_airduct_rectangular_01/modular_airduct_rectangular_01_1k.gltf",
+    "triangles": 45090,
+    "meshes": 18,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "modular_industrial_pipes_01",
+    "name": "Modular Industrial Pipes 01",
+    "authors": {
+      "Jorge Camacho": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/modular_industrial_pipes_01",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/modular_industrial_pipes_01/modular_industrial_pipes_01_1k.gltf",
+    "triangles": 12340,
+    "meshes": 8,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "modular_electric_cables",
+    "name": "Modular Electric Cables",
+    "authors": {
+      "Kuutti Siitonen": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/modular_electric_cables",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/modular_electric_cables/modular_electric_cables_1k.gltf",
+    "triangles": 42078,
+    "meshes": 49,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "book_encyclopedia_set_01",
+    "name": "Book Encyclopedia Set 01",
+    "authors": {
+      "John Malcolm": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/book_encyclopedia_set_01",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/book_encyclopedia_set_01/book_encyclopedia_set_01_1k.gltf",
+    "triangles": 67306,
+    "meshes": 20,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "metal_jug",
+    "name": "Metal Jug",
+    "authors": {
+      "Anzor Lezhava": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/metal_jug",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/metal_jug/metal_jug_1k.gltf",
+    "triangles": 6040,
+    "meshes": 1,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "wooden_bookshelf_worn",
+    "name": "Wooden Bookshelf Worn",
+    "authors": {
+      "Ulan Cabanilla": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/wooden_bookshelf_worn",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_bookshelf_worn/wooden_bookshelf_worn_1k.gltf",
+    "triangles": 10106,
+    "meshes": 1,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "cardboard_box_01",
+    "name": "Cardboard Box 01",
+    "authors": {
+      "Rahul Chaudhary": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/cardboard_box_01",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/cardboard_box_01/cardboard_box_01_1k.gltf",
+    "triangles": 16952,
+    "meshes": 1,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "vintage_oil_lamp",
+    "name": "Vintage Oil Lamp",
+    "authors": {
+      "Monsta3D": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/vintage_oil_lamp",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/vintage_oil_lamp/vintage_oil_lamp_1k.gltf",
+    "triangles": 7208,
+    "meshes": 3,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "painted_wooden_chair_01",
+    "name": "Painted Wooden Chair 01",
+    "authors": {
+      "Kuutti Siitonen": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/painted_wooden_chair_01",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/painted_wooden_chair_01/painted_wooden_chair_01_1k.gltf",
+    "triangles": 724,
+    "meshes": 1,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "russian_food_cans_01",
+    "name": "Russian Food Cans 01",
+    "authors": {
+      "Kosan Aziz": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/russian_food_cans_01",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/russian_food_cans_01/russian_food_cans_01_1k.gltf",
+    "triangles": 1348,
+    "meshes": 3,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "metal_jerrycan",
+    "name": "Metal Jerrycan",
+    "authors": {
+      "Sean Buckley": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/metal_jerrycan",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/metal_jerrycan/metal_jerrycan_1k.gltf",
+    "triangles": 20022,
+    "meshes": 1,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "can_rusted",
+    "name": "Can Rusted",
+    "authors": {
+      "Rahul Chaudhary": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/can_rusted",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/can_rusted/can_rusted_1k.gltf",
+    "triangles": 3520,
+    "meshes": 1,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "propane_tank",
+    "name": "Propane Tank",
+    "authors": {
+      "Slinc": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/propane_tank",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/propane_tank/propane_tank_1k.gltf",
+    "triangles": 5238,
+    "meshes": 1,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  },
+  {
+    "id": "painted_wooden_cabinet_02",
+    "name": "Painted Wooden Cabinet 02",
+    "authors": {
+      "Kirill Sannikov": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/painted_wooden_cabinet_02",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/painted_wooden_cabinet_02/painted_wooden_cabinet_02_1k.gltf",
+    "triangles": 966,
+    "meshes": 3,
+    "modifications": "Textures resized to 384px JPEG; inactive animations omitted; selected modules and scene instancing. Packed locally into GLB banks; rendered templates reuse geometry and textures."
+  }
+]

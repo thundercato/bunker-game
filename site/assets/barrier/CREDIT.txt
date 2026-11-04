@@ -1,0 +1,1 @@
+Concrete Road Barrier by Amal Kumar, Poly Haven. CC0. https://polyhaven.com/a/concrete_road_barrier . Obtained via https://github.com/rawprogress/fable-cities/tree/main/public/assets/shared/models/concrete_road_barrier . Mobile derivative: vertex clustering to 45mm position bins with UV chart splitting; resized textures to 512px. No warranty or affiliation.

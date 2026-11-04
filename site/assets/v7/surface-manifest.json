@@ -1,0 +1,80 @@
+[
+  {
+    "id": "worn_plaster_wall",
+    "role": "wall",
+    "files": {
+      "colour": "wall-colour.jpg",
+      "normal": "wall-normal.jpg"
+    },
+    "source": "https://polyhaven.com/a/worn_plaster_wall",
+    "licence": "CC0-1.0",
+    "authors": {
+      "Dimitrios Savva": "All"
+    }
+  },
+  {
+    "id": "concrete_floor_damaged_01",
+    "role": "floor",
+    "files": {
+      "colour": "floor-colour.jpg",
+      "normal": "floor-normal.jpg"
+    },
+    "source": "https://polyhaven.com/a/concrete_floor_damaged_01",
+    "licence": "CC0-1.0",
+    "authors": {
+      "Rob Tuytel": "All"
+    }
+  },
+  {
+    "id": "forest_floor",
+    "role": "ground",
+    "files": {
+      "colour": "ground-colour.jpg",
+      "normal": "ground-normal.jpg"
+    },
+    "source": "https://polyhaven.com/a/forest_floor",
+    "licence": "CC0-1.0",
+    "authors": {
+      "eye-candy.xyz": "All"
+    }
+  },
+  {
+    "id": "green_metal_rust",
+    "role": "metal",
+    "files": {
+      "colour": "metal-colour.jpg",
+      "normal": "metal-normal.jpg"
+    },
+    "source": "https://polyhaven.com/a/green_metal_rust",
+    "licence": "CC0-1.0",
+    "authors": {
+      "Rob Tuytel": "All"
+    }
+  },
+  {
+    "id": "rusty_corrugated_iron",
+    "role": "roof",
+    "files": {
+      "colour": "roof-colour.jpg",
+      "normal": "roof-normal.jpg"
+    },
+    "source": "https://polyhaven.com/a/rusty_corrugated_iron",
+    "licence": "CC0-1.0",
+    "authors": {
+      "Charlotte Baglioni": "All"
+    }
+  },
+  {
+    "id": "plaster_brick_01",
+    "role": "brick",
+    "files": {
+      "colour": "brick-colour.jpg",
+      "normal": "brick-normal.jpg"
+    },
+    "source": "https://polyhaven.com/a/plaster_brick_01",
+    "licence": "CC0-1.0",
+    "authors": {
+      "Rob Tuytel": "All"
+    }
+  }
+]
