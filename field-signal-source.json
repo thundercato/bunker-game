@@ -1,5 +1,5 @@
 {
-  "label": "Stillwater v8 recovered baseline, before v9 changes",
-  "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3LFbMmm7xkQiq2NzFlDVHV19jYK/580c80cb-238f-4354-b63e-ea9d79feccce.zip",
-  "sha256": "0d28d390914b5562ce4f868da7638eca9dbdfedf296e66beaf4ee61d4c975496"
+  "label": "Dead Air v9.0.0 release candidate: 67 Python tests, 15 JS units, 22 gameplay scenarios and 15 project-path browser checks passed",
+  "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3LFbMmm7xkQiq2NzFlDVHV19jYK/4214b235-3877-4a77-adf5-ad2f3b71a9af.zip",
+  "sha256": "edc9d45049243e098703d433596258f443a385431f192e6ae73cc97252301148"
 }
