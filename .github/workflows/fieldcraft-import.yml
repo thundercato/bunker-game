@@ -1,0 +1,65 @@
+name: Import Fieldcraft v10 checkpoint
+on:
+  push:
+    branches: [field-signal-v10]
+    paths: [field-signal-v10-source.json, .github/workflows/fieldcraft-import.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: fieldcraft-v10-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify and stage source checkpoint
+        run: |
+          python3 - <<'PY'
+          import hashlib, io, json, pathlib, shutil, stat, urllib.request, zipfile
+          root=pathlib.Path.cwd()
+          pointer=root/'field-signal-v10-source.json'
+          if not pointer.exists():
+              print('Waiting for verified v10 source pointer.')
+              raise SystemExit(0)
+          spec=json.loads(pointer.read_text())
+          if not spec['url'].startswith('https://d2ol7oe51mr4n9.cloudfront.net/'):
+              raise ValueError('Unapproved source host')
+          data=urllib.request.urlopen(spec['url'],timeout=120).read()
+          if hashlib.sha256(data).hexdigest()!=spec['sha256']:
+              raise ValueError('Checkpoint SHA-256 mismatch')
+          stage=pathlib.Path('/tmp/fieldcraft-checkpoint')
+          if stage.exists(): shutil.rmtree(stage)
+          stage.mkdir()
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              if sum(e.file_size for e in archive.infolist())>350_000_000:
+                  raise ValueError('Checkpoint exceeds limit')
+              for e in archive.infolist():
+                  p=pathlib.PurePosixPath(e.filename)
+                  if p.is_absolute() or '..' in p.parts or not p.parts or p.parts[0] in ('.git','.github') or stat.S_ISLNK(e.external_attr>>16):
+                      raise ValueError('Unsafe archive entry')
+              archive.extractall(stage)
+          for needed in ('site/index.html','site/world-v10.js','site/item-models.js','site/atlas.js','site/engine.py','site/precache.json','README.md','tools/build.py'):
+              if not (stage/needed).is_file(): raise ValueError('Incomplete v10 checkpoint: '+needed)
+          for child in root.iterdir():
+              if child.name in ('.git','.github','field-signal-v10-source.json'): continue
+              if child.is_dir(): shutil.rmtree(child)
+              else: child.unlink()
+          for child in stage.iterdir():
+              if child.name=='field-signal-v10-source.json': continue
+              if child.is_dir(): shutil.copytree(child,root/child.name)
+              else: shutil.copy2(child,root/child.name)
+          print('Installed verified checkpoint:',spec['label'])
+          PY
+      - name: Commit verified development checkpoint
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat: checkpoint Fieldcraft v10 models, inspection and atlas'
+            git push origin HEAD:field-signal-v10
+          fi
