@@ -1,8 +1,10 @@
 # Field Signal roadmap
 
-## Release 9.0: Dead Air
+## Released 9.0.0: Dead Air
 
-The release candidate implements the recovered v8 foundation, permanent repository/build pipeline, a calmer base score, mission dossiers and archives, NPC jobs, continuous time, an expanded river-crossing region, garrison/sewer routes, vault transitions, hidden anomalies, riflemen, combat feedback, optional haptics and improved physical equipment.
+Published on 4 November 2026 at https://thundercato.github.io/bunker-game/ . The deployed game source is commit `6e468785f730946b23d4d8093b692e48c15f9739`. See RELEASE_9.0.md for the final verification record.
+
+The release implements the recovered v8 foundation, permanent repository/build pipeline, a calmer base score, mission dossiers and archives, NPC jobs, continuous time, an expanded river-crossing region, garrison/sewer routes, vault transitions, hidden anomalies, riflemen, combat feedback, optional haptics and improved physical equipment.
 
 ### Verification gates
 
@@ -11,11 +13,11 @@ The release candidate implements the recovered v8 foundation, permanent reposito
 - [x] Validate Python clock ratios, progression, ammunition, save migration and core survival rules.
 - [x] Exercise real browser gameplay, vault movement, bridges, sewer branch and mission flows.
 - [x] Capture all fifteen destination photographs and wire them to mission dossiers.
-- [ ] Pass the automated repository CI pipeline for the final main commit.
-- [ ] Verify the actual GitHub Pages deployment and offline loading.
+- [x] Pass the automated repository CI pipeline for the deployed source commit.
+- [x] Verify the actual GitHub Pages deployment and offline loading.
 - [ ] Obtain physical iPhone/iPad/controller playtest feedback.
 
-The first two unchecked release gates are updated after deployment. Hardware playtesting remains an honest post-release task, not a reason to mislabel simulated tests.
+Hardware playtesting remains an honest post-release task, not a reason to mislabel simulated tests. Documentation-only commits do not change the already verified game runtime.
 
 ## Next priorities
 
