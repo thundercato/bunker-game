@@ -69,3 +69,33 @@ jobs:
       - name: Publish tested build
         id: deployment
         uses: actions/deploy-pages@v4
+  verify-public-release:
+    if: github.event_name != 'pull_request'
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install public-site browser verifier
+        timeout-minutes: 5
+        env:
+          PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT: '60000'
+        run: |
+          npm install --no-save --package-lock=false --fetch-timeout=60000 playwright@1.56.1
+          npx playwright install chromium
+      - name: Test actual published site, existing saves and offline use
+        env:
+          GAME_URL: https://thundercato.github.io/bunker-game/
+        run: node tests/live_release.cjs
+      - name: Preserve public-site verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: field-signal-public-release
+          path: test-results/public-release.json
+          if-no-files-found: ignore
