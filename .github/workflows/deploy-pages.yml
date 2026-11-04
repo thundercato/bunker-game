@@ -1,0 +1,64 @@
+name: Field Signal · verify and publish
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: field-signal-pages-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Python gameplay and save tests
+        run: python3 -m unittest discover -s site/tests -p 'test_*.py' -v
+      - name: JavaScript and audio unit tests
+        run: |
+          for file in site/*.js; do node --check "$file"; done
+          node site/tests/test_client.mjs
+      - name: Build and validate runtime assets
+        run: python3 tools/build.py
+      - name: Install browser test runner
+        run: |
+          npm install --no-save --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Browser smoke test under project URL path
+        run: node tests/ci_smoke.cjs
+      - name: Preserve verification output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: field-signal-verification
+          path: test-results/
+          if-no-files-found: ignore
+      - name: Package GitHub Pages site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish tested build
+        id: deployment
+        uses: actions/deploy-pages@v4
