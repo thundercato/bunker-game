@@ -1,0 +1,31 @@
+[
+  {
+    "name": "WebKit starts v10 and all imported assets",
+    "pass": true
+  },
+  {
+    "name": "WebKit controller input moves real camera",
+    "pass": true
+  },
+  {
+    "name": "WebKit backpack model previews load",
+    "pass": true
+  },
+  {
+    "name": "WebKit live inspector renders and zooms",
+    "pass": true
+  },
+  {
+    "name": "WebKit map centres objective and zooms",
+    "pass": true
+  },
+  {
+    "name": "WebKit map opens current mission",
+    "pass": true
+  },
+  {
+    "name": "No WebKit runtime exceptions",
+    "pass": true,
+    "detail": []
+  }
+]

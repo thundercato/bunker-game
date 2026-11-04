@@ -1,0 +1,389 @@
+[
+  {
+    "id": "painted_wooden_table",
+    "name": "Painted Wooden Table",
+    "authors": {
+      "Kirill Sannikov": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/painted_wooden_table",
+    "triangles": 600,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/painted_wooden_table.glb",
+    "bytes": 88788,
+    "runtimeTriangles": 600,
+    "selectedModules": null
+  },
+  {
+    "id": "painted_wooden_cabinet",
+    "name": "Painted Wooden Cabinet",
+    "authors": {
+      "Kirill Sannikov": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/painted_wooden_cabinet",
+    "triangles": 2227,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/painted_wooden_cabinet.glb",
+    "bytes": 165896,
+    "runtimeTriangles": 2227,
+    "selectedModules": null
+  },
+  {
+    "id": "vintage_wooden_drawer_01",
+    "name": "Vintage Wooden Drawer 01",
+    "authors": {
+      "James Ray Cock": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/vintage_wooden_drawer_01",
+    "triangles": 5184,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/vintage_wooden_drawer_01.glb",
+    "bytes": 291268,
+    "runtimeTriangles": 5184,
+    "selectedModules": null
+  },
+  {
+    "id": "old_bed_frame",
+    "name": "Old Bed Frame",
+    "authors": {
+      "Luca B": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/old_bed_frame",
+    "triangles": 49990,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/old_bed_frame.glb",
+    "bytes": 1949372,
+    "runtimeTriangles": 49990,
+    "selectedModules": null
+  },
+  {
+    "id": "painted_wooden_nightstand",
+    "name": "Painted Wooden Nightstand",
+    "authors": {
+      "Kirill Sannikov": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/painted_wooden_nightstand",
+    "triangles": 470,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/painted_wooden_nightstand.glb",
+    "bytes": 102536,
+    "runtimeTriangles": 470,
+    "selectedModules": null
+  },
+  {
+    "id": "wooden_picnic_table",
+    "name": "Wooden Picnic Table",
+    "authors": {
+      "Ulan Cabanilla": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/wooden_picnic_table",
+    "triangles": 10210,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/wooden_picnic_table.glb",
+    "bytes": 406408,
+    "runtimeTriangles": 10210,
+    "selectedModules": null
+  },
+  {
+    "id": "medical_box",
+    "name": "Medical Box",
+    "authors": {
+      "Ulan Cabanilla": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/medical_box",
+    "triangles": 3718,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/medical_box.glb",
+    "bytes": 217920,
+    "runtimeTriangles": 3718,
+    "selectedModules": null
+  },
+  {
+    "id": "medical_tape",
+    "name": "Medical Tape",
+    "authors": {
+      "Miroslav Turura": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/medical_tape",
+    "triangles": 1408,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/medical_tape.glb",
+    "bytes": 74900,
+    "runtimeTriangles": 1408,
+    "selectedModules": null
+  },
+  {
+    "id": "binder_notebook",
+    "name": "Binder Notebook",
+    "authors": {
+      "DaDrood": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/binder_notebook",
+    "triangles": 18077,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/binder_notebook.glb",
+    "bytes": 319068,
+    "runtimeTriangles": 9056,
+    "selectedModules": [
+      "binder_notebook_closed"
+    ]
+  },
+  {
+    "id": "plastic_thermos",
+    "name": "Plastic Thermos",
+    "authors": {
+      "PierreB3D": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/plastic_thermos",
+    "triangles": 5514,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/plastic_thermos.glb",
+    "bytes": 220868,
+    "runtimeTriangles": 5514,
+    "selectedModules": null
+  },
+  {
+    "id": "vintage_lighter",
+    "name": "Vintage Lighter",
+    "authors": {
+      "Slinc": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/vintage_lighter",
+    "triangles": 3366,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/vintage_lighter.glb",
+    "bytes": 227540,
+    "runtimeTriangles": 3366,
+    "selectedModules": null
+  },
+  {
+    "id": "rubber_boots",
+    "name": "Rubber Boots",
+    "authors": {
+      "L": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/rubber_boots",
+    "triangles": 56128,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/rubber_boots.glb",
+    "bytes": 728744,
+    "runtimeTriangles": 56128,
+    "selectedModules": null
+  },
+  {
+    "id": "ammo_box",
+    "name": "Ammo Box",
+    "authors": {
+      "DanKit": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/ammo_box",
+    "triangles": 4382,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/ammo_box.glb",
+    "bytes": 208556,
+    "runtimeTriangles": 4382,
+    "selectedModules": null
+  },
+  {
+    "id": "oil_tin",
+    "name": "Oil Tin",
+    "authors": {
+      "Niklas": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/oil_tin",
+    "triangles": 2834,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/oil_tin.glb",
+    "bytes": 149908,
+    "runtimeTriangles": 2834,
+    "selectedModules": null
+  },
+  {
+    "id": "portable_cassette_player",
+    "name": "Portable Cassette Player",
+    "authors": {
+      "Mateusz Sadek": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/portable_cassette_player",
+    "triangles": 13307,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/portable_cassette_player.glb",
+    "bytes": 649480,
+    "runtimeTriangles": 13307,
+    "selectedModules": null
+  },
+  {
+    "id": "long_life_food",
+    "name": "Long Life Food",
+    "authors": {
+      "Mia Pecina Zorko": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/long_life_food",
+    "triangles": 4712,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/long_life_food.glb",
+    "bytes": 244688,
+    "runtimeTriangles": 4712,
+    "selectedModules": null
+  },
+  {
+    "id": "wooden_crate_01",
+    "name": "Wooden Crate 01",
+    "authors": {
+      "James Ray Cock": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/wooden_crate_01",
+    "triangles": 6576,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/wooden_crate_01.glb",
+    "bytes": 271280,
+    "runtimeTriangles": 6576,
+    "selectedModules": null
+  },
+  {
+    "id": "worn_metal_rack",
+    "name": "Worn Metal Rack",
+    "authors": {
+      "Luca B": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/worn_metal_rack",
+    "triangles": 6372,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/worn_metal_rack.glb",
+    "bytes": 337228,
+    "runtimeTriangles": 6372,
+    "selectedModules": null
+  },
+  {
+    "id": "modular_factory_facade",
+    "name": "Modular Factory Facade",
+    "authors": {
+      "James Ray Cock": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/modular_factory_facade",
+    "triangles": 175014,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/modular_factory_facade.glb",
+    "bytes": 575316,
+    "runtimeTriangles": 3250,
+    "selectedModules": [
+      "window_centered_medium_03",
+      "window_centered_small_01",
+      "door_centered_large_01",
+      "cornice02_standard_standard_01",
+      "wall_standard_standard_01",
+      "wall_pier_standard_01"
+    ]
+  },
+  {
+    "id": "modular_wooden_pier",
+    "name": "Modular Wooden Pier",
+    "authors": {
+      "Rico Cilliers": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/modular_wooden_pier",
+    "triangles": 84780,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/modular_wooden_pier.glb",
+    "bytes": 430624,
+    "runtimeTriangles": 7972,
+    "selectedModules": [
+      "modular_wooden_pier_planks",
+      "modular_wooden_pier_poles"
+    ]
+  },
+  {
+    "id": "rollershutter_window_01",
+    "name": "Rollershutter Window 01",
+    "authors": {
+      "MP": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/rollershutter_window_01",
+    "triangles": 1104,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/rollershutter_window_01.glb",
+    "bytes": 142772,
+    "runtimeTriangles": 1104,
+    "selectedModules": null
+  },
+  {
+    "id": "wooden_ladder",
+    "name": "Wooden Ladder",
+    "authors": {
+      "Miroslav Turura": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/wooden_ladder",
+    "triangles": 8492,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/wooden_ladder.glb",
+    "bytes": 365212,
+    "runtimeTriangles": 8492,
+    "selectedModules": null
+  },
+  {
+    "id": "metal_trash_can",
+    "name": "Metal Trash Can",
+    "authors": {
+      "GurJas Studios": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/metal_trash_can",
+    "triangles": 13960,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/metal_trash_can.glb",
+    "bytes": 586716,
+    "runtimeTriangles": 13960,
+    "selectedModules": null
+  },
+  {
+    "id": "small_oil_can_01",
+    "name": "Small Oil Can 01",
+    "authors": {
+      "Raven van de Werken": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/small_oil_can_01",
+    "triangles": 16746,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/small_oil_can_01.glb",
+    "bytes": 540464,
+    "runtimeTriangles": 16746,
+    "selectedModules": null
+  },
+  {
+    "id": "plastic_crate_01",
+    "name": "Plastic Crate 01",
+    "authors": {
+      "PierreB3D": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/plastic_crate_01",
+    "triangles": 18320,
+    "modifications": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used.",
+    "path": "assets/v10/models/plastic_crate_01.glb",
+    "bytes": 895240,
+    "runtimeTriangles": 18320,
+    "selectedModules": null
+  }
+]

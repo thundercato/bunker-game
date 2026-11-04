@@ -22,3 +22,8 @@ Recovered and preserved as the migration baseline: controller preflight/Clinic, 
 ## 7.0 and earlier
 
 The playable game's history before GitHub migration is described in the preserved asset-credit and source records. The retired Godot/Phaser Bunker Game is a separate project, not an earlier Field Signal version.
+
+
+## 10.0.0 · Fieldcraft
+
+Added 25 imported CC0 model families, 61 item previews/inspection models, shared inspector, item catalogue, full-screen interactive atlas and current-mission shortcuts. Replaced 53 tables, 131 searchable furniture visuals and 14 bed frames; added imported cladding, frames, cornices and outdoor props. Retained the v9 save schema/storage and calm refuge soundtrack. Added pure map tests, item coverage validation, real gesture tests and additional browser regression checks.
