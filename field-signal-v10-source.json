@@ -1,0 +1,9 @@
+{
+  "label": "Fieldcraft v10.0.0 release candidate: 51 imported model families, 61 item visuals, interactive inspection and zoomable field atlas",
+  "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3LFbMmm7xkQiq2NzFlDVHV19jYK/ad4ba18c-c028-41b6-b622-04033972f699.zip",
+  "sha256": "01cc1220ffb113910191b329b77beaf8ffe08b44f32e21ebb83df96fe0ae797d",
+  "base_commit": "09e4849642c6ad2f28aef9e5324e10549705da6a",
+  "version": "10.0.0",
+  "save_schema": 9,
+  "local_verification": {"python":77,"javascript":33,"browser_scenarios":35,"offline_regression":15,"webkit":7}
+}
