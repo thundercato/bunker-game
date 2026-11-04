@@ -1,0 +1,29 @@
+COLD COAST SOUND CREDITS
+
+Footsteps: Fantozzi, submitted by qubodup. CC0 1.0.
+https://opengameart.org/content/fantozzis-footsteps-grasssand-stone
+Eight recordings from the grass/sand and stone collection. Downloads obtained through the public fps-asset-kit mirror when the original 7z archive could not be extracted. Filtered, level-normalised, faded and converted to mono MP3.
+
+Ghost vocalisations: qubodup. CC0 1.0.
+https://opengameart.org/content/ghost-monster-voice-moaning-growling
+Selected clips trimmed, filtered, level-normalised and faded.
+
+Human voice fragments: Brandon Song (wolfwoot), Male Adventurer RPG. CC0 1.0.
+https://opengameart.org/content/voice-clip-pack-male-adventurer-rpg
+Greeting/yes/no clips pitch-lowered, filtered and echoed. These are atmospheric prerecorded fragments, not generated or reactive dialogue.
+
+Gunshot source: kurt, Gunshots, listed as CC0 1.0 by the contributor.
+https://opengameart.org/content/gunshots
+Two isolated shots cut from 22 Pistol.wav, filtered, faded and level-normalised. This is sound design, not an authentic recording of a PM pistol.
+
+Glass scattering and knife whoosh: original procedural sound design for Field Signal.
+
+The existing First Light ambient music, drone and synthetic running-water bed are retained unchanged. There are no Into the Radius or STALKER soundtrack recordings.
+
+CC0: https://creativecommons.org/publicdomain/zero/1.0/
+
+BELOW THE PINES v6 ADDITIONS (verified 4 November 2026)
+Rain: Ylmir, Rain (loopable), CC0. https://opengameart.org/content/rain-loopable . One OGG recording was trimmed to 30 seconds, filtered, loudness-normalised and converted to MP3. Non-destructive cross-splicing repairs the loop at playback.
+Skitter calls: qubodup, Insect or alien scream, CC0. https://opengameart.org/content/insect-or-alien-scream . Short pitch-shifted, filtered, normalised extracts from insectoralien.flac. Played positionally with distance attenuation.
+Wind and thunder: original seeded procedural sound synthesis. Source retained in tools/finish_v6_audio.py. No third-party samples.
+NPC lines: Web Speech API using a voice installed on the player's device. Spoken lines are original text. Voices can be disabled; speech availability and voice quality depend on the device. No downloaded actor recording is redistributed.

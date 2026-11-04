@@ -1,0 +1,68 @@
+[
+  {
+    "id": "service_pistol",
+    "name": "Service Pistol",
+    "authors": {
+      "Mateusz Sadek": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/service_pistol",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/service_pistol/service_pistol_1k.gltf",
+    "modifications": "Resized texture maps to 384 or 512 pixels; selected modules for in-game held and loot models."
+  },
+  {
+    "id": "signal_flashlight",
+    "name": "Signal Flashlight",
+    "authors": {
+      "Ji\u0159\u00ed Pt\u00e1\u010dek": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/signal_flashlight",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/signal_flashlight/signal_flashlight_1k.gltf",
+    "modifications": "Resized texture maps to 384 or 512 pixels; selected modules for in-game held and loot models."
+  },
+  {
+    "id": "vintage_flashlight",
+    "name": "Vintage Flashlight",
+    "authors": {
+      "Omar M. El-Safy": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/vintage_flashlight",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/vintage_flashlight/vintage_flashlight_1k.gltf",
+    "modifications": "Resized texture maps to 384 or 512 pixels; selected modules for in-game held and loot models."
+  },
+  {
+    "id": "boombox",
+    "name": "Boombox",
+    "authors": {
+      "Thomas Paul Mouilleron": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/boombox",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/boombox/boombox_1k.gltf",
+    "modifications": "Resized texture maps to 384 or 512 pixels; selected modules for in-game held and loot models."
+  },
+  {
+    "id": "bolt_action_rifle_7_62",
+    "name": "Bolt Action Rifle 7.62",
+    "authors": {
+      "Mateusz Sadek": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/bolt_action_rifle_7_62",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/bolt_action_rifle_7_62/bolt_action_rifle_7_62_1k.gltf",
+    "modifications": "Resized texture maps to 384 or 512 pixels; selected modules for in-game held and loot models."
+  },
+  {
+    "id": "fish_knife",
+    "name": "Fish Knife",
+    "authors": {
+      "Mateusz Sadek": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/fish_knife",
+    "download": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/fish_knife/fish_knife_1k.gltf",
+    "modifications": "Resized texture maps to 384 or 512 pixels; selected modules for in-game held and loot models."
+  }
+]

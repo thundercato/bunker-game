@@ -1,0 +1,50 @@
+test_actions_do_not_double_count_time (__main__.DeadAir.test_actions_do_not_double_count_time) ... ok
+test_anomalies_begin_hidden (__main__.DeadAir.test_anomalies_begin_hidden) ... ok
+test_base_clock_one_minute_per_minute (__main__.DeadAir.test_base_clock_one_minute_per_minute) ... ok
+test_base_return_resets_field_visibility (__main__.DeadAir.test_base_return_resets_field_visibility) ... ok
+test_closed_door_blocks_visibility (__main__.DeadAir.test_closed_door_blocks_visibility) ... ok
+test_completed_mission_cannot_pay_twice (__main__.DeadAir.test_completed_mission_cannot_pay_twice) ... ok
+test_completion_logs_time_and_duration (__main__.DeadAir.test_completion_logs_time_and_duration) ... ok
+test_detector_does_not_draw_anomaly (__main__.DeadAir.test_detector_does_not_draw_anomaly) ... ok
+test_enemy_fov_matters (__main__.DeadAir.test_enemy_fov_matters) ... ok
+test_field_clock_one_hour_per_five_minutes (__main__.DeadAir.test_field_clock_one_hour_per_five_minutes) ... ok
+test_first_completion_does_not_unlock_everything (__main__.DeadAir.test_first_completion_does_not_unlock_everything) ... ok
+test_first_completion_offers_two_radio_jobs (__main__.DeadAir.test_first_completion_offers_two_radio_jobs) ... ok
+test_idle_enemy_approaches (__main__.DeadAir.test_idle_enemy_approaches) ... ok
+test_idle_tick_advances_elapsed (__main__.DeadAir.test_idle_tick_advances_elapsed) ... ok
+test_initial_only_first_assignment (__main__.DeadAir.test_initial_only_first_assignment) ... ok
+test_knife_grip_without_gun (__main__.DeadAir.test_knife_grip_without_gun) ... ok
+test_legacy_campaign_migrates (__main__.DeadAir.test_legacy_campaign_migrates) ... ok
+test_military_rear_gap_real (__main__.DeadAir.test_military_rear_gap_real) ... ok
+test_mission_owner_required (__main__.DeadAir.test_mission_owner_required) ... ok
+test_new_schema (__main__.DeadAir.test_new_schema) ... ok
+test_no_invented_old_completion_times (__main__.DeadAir.test_no_invented_old_completion_times) ... ok
+test_npc_can_accept_near_owner (__main__.DeadAir.test_npc_can_accept_near_owner) ... ok
+test_open_door_allows_visibility (__main__.DeadAir.test_open_door_allows_visibility) ... ok
+test_plain_save_roundtrip (__main__.DeadAir.test_plain_save_roundtrip) ... ok
+test_probe_no_immunity_in_centre (__main__.DeadAir.test_probe_no_immunity_in_centre) ... ok
+test_probe_reveals_only_its_throw_path (__main__.DeadAir.test_probe_reveals_only_its_throw_path) ... ok
+test_pure_state_query_does_not_advance_clock (__main__.DeadAir.test_pure_state_query_does_not_advance_clock) ... ok
+test_radio_acknowledgement (__main__.DeadAir.test_radio_acknowledgement) ... ok
+test_remote_accept_refused (__main__.DeadAir.test_remote_accept_refused) ... ok
+test_revealed_field_persists_after_wait (__main__.DeadAir.test_revealed_field_persists_after_wait) ... ok
+test_rifle_ammo_is_separate (__main__.DeadAir.test_rifle_ammo_is_separate) ... ok
+test_rifle_loaded_and_valid (__main__.DeadAir.test_rifle_loaded_and_valid) ... ok
+test_rifleman_enters_movement_cycle (__main__.DeadAir.test_rifleman_enters_movement_cycle) ... ok
+test_river_requires_bridge (__main__.DeadAir.test_river_requires_bridge) ... ok
+test_running_and_crouching_reduce_hit_chance (__main__.DeadAir.test_running_and_crouching_reduce_hit_chance) ... ok
+test_sewer_route_portals (__main__.DeadAir.test_sewer_route_portals) ... ok
+test_shooter_max_chance_is_half (__main__.DeadAir.test_shooter_max_chance_is_half) ... ok
+test_signal_torch_colours (__main__.DeadAir.test_signal_torch_colours) ... ok
+test_swamp_has_hard_limit (__main__.DeadAir.test_swamp_has_hard_limit) ... ok
+test_swamp_sink_and_recovery (__main__.DeadAir.test_swamp_sink_and_recovery) ... ok
+test_torch_cycles_off (__main__.DeadAir.test_torch_cycles_off) ... ok
+test_torch_increases_indoor_detection (__main__.DeadAir.test_torch_increases_indoor_detection) ... ok
+test_tuna_count_required (__main__.DeadAir.test_tuna_count_required) ... ok
+test_tuna_side_quest_consumes_exactly_three (__main__.DeadAir.test_tuna_side_quest_consumes_exactly_three) ... ok
+test_window_blocks_visibility (__main__.DeadAir.test_window_blocks_visibility) ... ok
+
+----------------------------------------------------------------------
+Ran 45 tests in 1.822s
+
+OK

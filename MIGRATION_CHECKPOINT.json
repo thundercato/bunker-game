@@ -1,6 +1,7 @@
 {
-  "phase": "verified-v8-recovery",
-  "old_bunker_commit": "18f1c52cf406f348052fe1399b0078c07a3e55a9",
-  "source": "recovered hosted workspace",
-  "version": 8
+  "phase": "dead-air-v9-release-candidate",
+  "version": "9.0.0",
+  "previous_game_archive": "archive/retired-bunker-before-field-signal",
+  "source": "recovered v8 plus completed v9 workspace",
+  "runtime_file_count": 95
 }

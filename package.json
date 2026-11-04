@@ -1,0 +1,11 @@
+{
+  "name": "field-signal",
+  "version": "9.0.0",
+  "private": true,
+  "description": "Field Signal: Dead Air, Python and Three.js browser survival",
+  "scripts": {
+    "test:browser": "node tests/ci_smoke.cjs",
+    "build": "python3 tools/build.py",
+    "serve": "python3 -m http.server 8000 --directory site"
+  }
+}

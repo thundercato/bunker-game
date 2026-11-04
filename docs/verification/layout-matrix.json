@@ -1,0 +1,162 @@
+[
+  {
+    "k": "missions",
+    "tab": null,
+    "size": {
+      "width": 1024,
+      "height": 768
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "radio",
+    "tab": null,
+    "size": {
+      "width": 1024,
+      "height": 768
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "archive",
+    "tab": null,
+    "size": {
+      "width": 1024,
+      "height": 768
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "jobs",
+    "tab": "bar",
+    "size": {
+      "width": 1024,
+      "height": 768
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "controls",
+    "tab": "haptics",
+    "size": {
+      "width": 1024,
+      "height": 768
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "audio",
+    "tab": "base",
+    "size": {
+      "width": 1024,
+      "height": 768
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "comfort",
+    "tab": "display",
+    "size": {
+      "width": 1024,
+      "height": 768
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "saves",
+    "tab": null,
+    "size": {
+      "width": 1024,
+      "height": 768
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "missions",
+    "tab": null,
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "radio",
+    "tab": null,
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "archive",
+    "tab": null,
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "jobs",
+    "tab": "bar",
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "controls",
+    "tab": "haptics",
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "audio",
+    "tab": "base",
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "comfort",
+    "tab": "display",
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "overflow": false,
+    "clipped": []
+  },
+  {
+    "k": "saves",
+    "tab": null,
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "overflow": false,
+    "clipped": []
+  }
+]

@@ -1,0 +1,30 @@
+FIELD SIGNAL: FIRST LIGHT / ASSET PROVENANCE
+
+Scene geometry for the trees, refuge, hut, handheld props, firearm and Watcher is original. The two roadside barriers use a reduced CC0 scan, credited below. No assets from Into the Radius or STALKER are included.
+
+CC0 surface textures, resized to 512 pixels:
+- Bark001 by ambientCG, downloaded through the EZ-Tree public texture mirror.
+  Original: https://ambientcg.com/view?id=Bark001
+  Mirror: https://github.com/dgreenheck/ez-tree/tree/main/src/app/public/textures/bark/Bark001_1K-JPG
+  Mirror attribution: https://github.com/dgreenheck/ez-tree/blob/main/src/app/public/textures/LICENSE.md
+- Ground054 and Concrete034 by ambientCG, downloaded through the Fable Cities public asset mirror.
+  Originals: https://ambientcg.com/view?id=Ground054 and https://ambientcg.com/view?id=Concrete034
+  Mirror: https://github.com/rawprogress/fable-cities/tree/main/public/assets/shared
+  Attribution: https://github.com/rawprogress/fable-cities/blob/main/public/assets/CREDITS.md
+  Licence: https://docs.ambientcg.com/license/ (Creative Commons CC0 1.0).
+
+The wood and rust materials are original procedural artwork. The fern cutout, start artwork, backpack icon and application icons are reused from the user's own Field Signal v3 project.
+
+The 24 bundled MP3 source files are unchanged from Field Signal v3 recovery. Original procedural music and sound design, without third-party audio samples. Audio loop boundaries are repaired non-destructively after decoding. The stream is synthesised, not a field recording.
+
+Three.js r170: MIT, https://github.com/mrdoob/three.js/blob/r170/LICENSE
+Pyodide 0.27.7: MPL-2.0; its bundled Python and dependency notices apply.
+
+Additional assets:
+- Pine needle cutout: EZ-Tree demo, Daniel Greenheck, MIT. Full licence in textures/EZ-TREE-LICENSE.txt. https://github.com/dgreenheck/ez-tree/tree/main/src/app/public/textures/leaves . Resized to 512px and converted to WebP.
+- Concrete Road Barrier: Amal Kumar / Poly Haven, CC0. https://polyhaven.com/a/concrete_road_barrier . Mobile geometry reduced from 60,928 to 5,249 triangles with UV-aware vertex clustering. Textures resized to 512px. Full attribution in barrier/CREDIT.txt.
+
+BELOW THE PINES v6:
+Seated trader/canteen/bar characters: Kenney Animated Characters 3 (1.1), CC0. Included source FBX and textures, independently rigged and posed. Licence is assets/v6/KENNEY-LICENSE.txt. https://kenney.nl/support and https://kenney.nl/assets/animated-characters-survivors . These are stylised models, not scanned people.
+New terrain, grass, interiors, caves, cars, stairs, lighting, skitters and fictional film prints are original authored geometry/artwork. No commercial movie-poster artwork has been copied.
+Updated sound credits are in AUDIO_CREDITS.txt; references to 24 original audio files above describe the inherited soundtrack, not the full v6 sound collection.

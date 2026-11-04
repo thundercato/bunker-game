@@ -1,0 +1,9 @@
+{
+  "name": "Field Signal: Dead Air",
+  "version": "9.0.0",
+  "build": "dead-air-9.0.0-20261104",
+  "baseScore": "Relay Lanterns",
+  "saveSchema": 9,
+  "builtAt": "2026-11-04",
+  "sourceRepository": "thundercato/bunker-game"
+}

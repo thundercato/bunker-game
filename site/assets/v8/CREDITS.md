@@ -1,0 +1,1 @@
+Concrete Wall 008 by Charlotte Baglioni (photography) and Dario Barresi (processing), Poly Haven, CC0 1.0. https://polyhaven.com/a/concrete_wall_008 . Colour resized to 768px and normal to 512px, then re-tiled and tinted in game. https://polyhaven.com/license .

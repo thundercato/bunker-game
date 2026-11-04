@@ -344,7 +344,7 @@ def dispatch(state,a):
    if e and e['health']>0 and dist(p,(e['x'],e['z']))<=reach and clear_line(s,(p['x'],p['z']),(e['x'],e['z'])):
     e['health']=max(0,e['health']-(55 if thrown else 35));e['mode']='chase';e['memory']=10;e['target']=[p['x'],p['z']]
    if thrown:
-    pos=a.get('land',{});x=float(num(pos.get('x',p['x']),-1000,200,'knife landing'));z=float(num(pos.get('z',p['z']),-500,100,'knife landing'))
+    pos=a.get('land',{});x=float(num(pos.get('x',p['x']),-2000,600,'knife landing'));z=float(num(pos.get('z',p['z']),-900,250,'knife landing'))
     if math.hypot(x-p['x'],z-p['z'])>17:raise ValueError('Knife landing out of range.')
     s['bag']['knife']-=1;s['stats']['knives']+=1
     if land(x,z):drop(s,'knife',1,x,z)
@@ -486,25 +486,25 @@ def validate_save(s):
  if not isinstance(s['loose'],dict) or not len(s['loose'])<=3000:raise ValueError('Invalid loose loot.')
  for id,it in s['loose'].items():
   if not isinstance(id,str) or len(id)>80 or not isinstance(it,dict) or it.get('kind')not in CAT or type(it.get('count'))is not int or not 1<=it['count']<=10000:raise ValueError('Invalid loose item.')
-  if not land(num(it.get('x'),-1000,200,'item position'),num(it.get('z'),-500,100,'item position')):raise ValueError('Unreachable loose item.')
+  if not land(num(it.get('x'),-2000,600,'item position'),num(it.get('z'),-900,250,'item position')):raise ValueError('Unreachable loose item.')
   num(it.get('y'),-8,15,'item height')
   if not isinstance(it.get('name'),str) or len(it['name'])>100:raise ValueError('Invalid item name.')
  if not isinstance(s['taken'],list) or len(set(s['taken']))!=len(s['taken']) or any(k not in s['loose'] for k in s['taken']):raise ValueError('Invalid collected loot.')
  if not isinstance(s['bottles'],list) or len(s['bottles'])!=9 or any(type(v)is not bool for v in s['bottles']):raise ValueError('Invalid range.')
  if not isinstance(s['enemies'],list) or len(s['enemies'])!=len(DATA['enemies']):raise ValueError('Invalid enemies.')
  for e,ref in zip(s['enemies'],DATA['enemies']):
-  if e.get('id')!=ref['id'] or e.get('kind')!=ref['kind'] or e.get('mode')not in ['patrol','investigate','chase','search','windup','leap','recover']:raise ValueError('Invalid creature.')
+  if e.get('id')!=ref['id'] or e.get('kind')!=ref['kind'] or e.get('mode')not in ['patrol','investigate','chase','search','windup','leap','recover','relocate','crouchfire','closefire']:raise ValueError('Invalid creature.')
   for k in ['x','z','yaw','phase']:num(e.get(k),-10000,10000,k)
   for k in ['health','cooldown','memory']:num(e.get(k),0,1000,k)
   if not land(e['x'],e['z']):raise ValueError('Invalid creature position.')
   for k in ['home','target']:
-   if not isinstance(e[k],list) or len(e[k])!=2 or any(not finite(v) or abs(v)>1000 for v in e[k]):raise ValueError('Invalid creature target.')
+   if not isinstance(e[k],list) or len(e[k])!=2 or any(not finite(v) or abs(v)>2000 for v in e[k]):raise ValueError('Invalid creature target.')
  for k in ['anomalyUntil','stats']:
   if not isinstance(s[k],dict) or set(s[k])!=set(base[k]) or any(not finite(v) or v<0 for v in s[k].values()):raise ValueError('Invalid '+k)
  c=s['corpse']
  if c is not None:
   if not isinstance(c,dict) or set(c)!={'x','z','bag','y'}:raise ValueError('Invalid lost pack.')
-  bag(c['bag']);num(c['x'],-1000,200,'pack position');num(c['z'],-500,100,'pack position')
+  bag(c['bag']);num(c['x'],-2000,600,'pack position');num(c['z'],-900,250,'pack position')
   if not land(c['x'],c['z']):raise ValueError('Lost pack is outside the area.')
  s=copy.deepcopy(s);s['events']=[];return s
 
@@ -815,6 +815,388 @@ def migrate_refit_save(saved):
  for key in DOORS:saved['doors'].setdefault(key,False)
  return saved
 
+# DEAD AIR v9: continuous simulation, contact-owned contracts and occluded enemies.
+_V8_NEW=new_game;_V8_DISPATCH=dispatch;_V8_VALIDATE=validate_save;_V8_ADD=add_item;_V8_WEIGHT=weight;_V8_DIE=die;_V8_TERRAIN=terrain_height;_V8_SURFACE=surface_height
+APP='FieldSignalDeadAir';VERSION=9
+WEAPONS['rifle']={'name':'R7 patrol rifle','capacity':5,'damage':82,'wear':.32,'range':120}
+ENEMY_TYPES['rifleman']={'health':95,'speed':4.6,'vision':48,'fov':.35,'hearing':25,'damage':19,'reach':65,'delay':1.0}
+for q in DATA.get('partitions',[]):
+ x,z,w=q['x'],q['z'],q['w'];WALLS.extend(tuple(v)for v in q['segments']);DOORS[q['id']]=(x,z)
+# Fortified perimeter: front gate plus a deliberate, smaller rear breach.
+f=DATA['military'];mx=(f['minX']+f['maxX'])/2;mz=(f['minZ']+f['maxZ'])/2
+FORT_WALLS=[(f['minX'],mz,.5,f['maxZ']-f['minZ']),(f['maxX'],mz,.5,f['maxZ']-f['minZ'])]
+for z,gap,gapw in [(f['maxZ'],f['gateX'],7.),(f['minZ'],f['gapX'],f['gapWidth'])]:
+ for left,right in [(f['minX'],gap-gapw/2),(gap+gapw/2,f['maxX'])]:FORT_WALLS.append(((left+right)/2,z,right-left,.5))
+WALLS.extend(FORT_WALLS);VISION_WALLS[:]=WALLS[:]
+# Initial above-ground rectangle is a shell replaced by a stairwell in v9.
+WALLS[:]=[r for r in WALLS if not(abs(r[0])<=6.1 and -.3<=r[1]<=14.3)]
+VISION_WALLS[:]=WALLS[:]
+
+def building_at(x,z):return next((b['id']for b in BUILDINGS if abs(x-b['x'])<b['w']/2-.15 and abs(z-b['z'])<b['d']/2-.15),None)
+def boundary_passable(x,z):
+ r=DATA['river'];p=DATA['pier'];b=DATA['bounds']
+ if not (b['minX']<=x<=b['maxX'] and b['minZ']<=z<=DATA['swamp']['limit']):return False
+ return x<r['west'] or x>r['east'] or any(abs(z-q['z'])<q['halfWidth']for q in r['bridges'])or(p['minX']<=x<=p['maxX']and p['minZ']<=z<=p['maxZ'])
+def land(x,z):
+ zone=zone_at(x,z)
+ if zone=='base':
+  return(abs(x+500)<2.95 and -7.8<z<53.8)or any(abs(x-(-500+b['side']*3))<.56 and abs(z-b['doorZ'])<1.08 for b in DATA['rooms'])or any(abs(x-b['x'])<b['w']/2-.05 and abs(z-b['z'])<b['d']/2-.05 for b in DATA['rooms'])
+ if zone=='cave':return 0<z<64 and abs(x+800)<(3.2 if z<21 else 18)
+ if zone=='bunker':return 0<z<38 and abs(x+650)<(2.5 if z<16 else 13)
+ if zone=='sewer':return(0<z<114 and abs(x+1100)<2.65)or(38<z<54 and abs(x+1100)<7)or(67.5<z<72.5 and -1101<x<-1084)
+ return boundary_passable(x,z)
+def terrain_height(x,z):
+ if zone_at(x,z)!='field':return 0.
+ if 66<=x<=132:return -1.
+ if z>=58:return 0.
+ if x<66:return _V8_TERRAIN(x,z)
+ f=smooth((x-132)/14)
+ for b in BUILDINGS:f=min(f,smooth(max(abs(x-b['x'])-b['w']/2-2,abs(z-b['z'])-b['d']/2-2)/8))
+ for route in DATA['roads']:
+  for a,b in zip(route,route[1:]):f=min(f,smooth((segment_distance(x,z,a,b)-4)/7))
+ if 178<x<297 and -609<z<-475:f=0
+ for q in [(154,-348),(210,-422)]:f=min(f,smooth((math.hypot(x-q[0],z-q[1])-5)/7))
+ return max(0,(2.4+1.3*math.sin(x*.038)*math.cos(z*.025)+.45*math.sin(x*.19+z*.17))*f)
+def surface_height(x,z,last_y=0):
+ zone=zone_at(x,z)
+ if zone=='base':return 2.6*clamp(-z/7)if z<0 else 2.6*clamp((z-46)/7)if z>46 else 0.
+ if zone=='sewer':return -4.2*clamp((z-3)/12)
+ if zone in ['cave','bunker']:return _V8_SURFACE(x,z,last_y)
+ if abs(x)<1.8 and 0<z<8:return -3*clamp(z/7)
+ if abs(x)<1.8 and 9<z<14:return -3*clamp((14-z)/7)
+ r=DATA['river']
+ if r['west']-7<x<r['east']+7:
+  for br in r['bridges']:
+   if abs(z-br['z'])<br['halfWidth']+1:return .45*min(smooth((x-(r['west']-7))/7),smooth(((r['east']+7)-x)/7))
+ for b in BUILDINGS:
+  if b.get('floors')==2 and abs(x-b['x'])<b['w']/2-.15 and abs(z-b['z'])<b['d']/2-.15:
+   front=b['z']+b['d']/2-1;back=b['z']-b['d']/2+1
+   if b['x']+b['w']/2-2.6<x<b['x']+b['w']/2-.35 and back-.15<z<front+.3:return 3.2*clamp((front-z)/(front-back))
+   return 3.2 if last_y>1.75 else 0.
+ return terrain_height(x,z)
+
+def new_enemy(spec):
+ e=copy.deepcopy(spec);e.update(health=ENEMY_TYPES[e['kind']]['health'],mode='patrol',cooldown=0.,memory=0.,target=[e['x'],e['z']],home=[e['x'],e['z']],phase=0.,y=surface_height(e['x'],e['z']),windup=0.,leapTime=0.,leapFrom=[e['x'],e['z']],leapTo=[e['x'],e['z']],leapHit=False,cycle=0.,runTime=0.,lastSeen=-100.,follow=None,roam=0.)
+ return e
+
+def mission_available(s,m):return all(s['missions'].get(k)=='done'for k in m.get('requires',[]))
+def refresh_missions(s):
+ offered=[]
+ for m in DATA['missions']:
+  if s['missions'].get(m['id'])=='locked'and mission_available(s,m):
+   s['missions'][m['id']]='available';s['missionLog'].setdefault(m['id'],{})['offeredAt']=s['clock'];offered.append(m)
+ radio=[m for m in offered if m.get('source','radio')=='radio']
+ if radio:note(s,str(len(radio))+' new transmission'+('s'if len(radio)!=1 else'')+' waiting at Relay 07.','mission_beep',newMission=True)
+ return offered
+
+def radio_unread(s):return [m['id']for m in DATA['missions']if m.get('source','radio')=='radio'and s['missions'].get(m['id'])in['active','available']and m['id']not in s['readOffers']]
+
+def new_game(profiles=None):
+ s=_V8_NEW(profiles);s['app']=APP;s['version']=VERSION
+ s['weapons']['rifle']={'owned':False,'inserted':None,'chamber':0,'safe':True,'jammed':False,'condition':92.};bind_weapon(s)
+ s.update(playSeconds=0.,missionLog={'signal':{'offeredAt':s['clock'],'acceptedAt':s['clock'],'acceptedPlay':0}},readOffers=[],revealed=[],knifeGrip='forward',torchType='torch',torchMode='high',swampDepth=0.,lastShot=-10.,lastKnife=-10.,lastBuilding=None,expeditions=0)
+ s['enemies']=[new_enemy(e)for e in DATA['enemies']]
+ # Ordinary contents keep their probabilities; fixed campaign objects remain guaranteed.
+ return s
+
+def add_item(s,k,n):
+ if k=='rifle':
+  if weight(s)+CAT[k]['weight']*n>30:raise ValueError('That exceeds your pack limit.')
+  if not s['weapons']['rifle']['owned']:s['weapons']['rifle']['owned']=True;n-=1
+  s['bag'][k]+=n;s['stats']['found']+=n+1;return
+ if k=='rifle_mag':
+  if len(s['magazines'])+n>30 or weight(s)+.2*n>30:raise ValueError('No room for more magazines.')
+  for _ in range(n):s['magazines'].append({'id':'m'+str(s['nextMag']),'rounds':0,'condition':100,'family':'rifle'});s['nextMag']+=1
+  s['stats']['found']+=n;return
+ _V8_ADD(s,k,n)
+
+def ammo_kind(weapon):return 'rifle_ammo'if weapon=='rifle'else'ammo'
+def weight(s):return round(_V8_WEIGHT(s)+((3.4-.75)if s.get('activeWeapon')=='rifle'and s['weapon']['owned']else(3.4-.75)if s.get('activeWeapon')!='rifle'and s.get('weapons',{}).get('rifle',{}).get('owned')else 0),3)
+
+def clear_line(s,a,b):
+ if zone_at(*a)!=zone_at(*b):return False
+ if zone_at(*a)=='field':
+  ba,bb=building_at(*a),building_at(*b)
+  if ba!=bb:
+   # Full walls, including windows, block sight. Only an actual open doorway can bridge rooms.
+   for bid in [ba,bb]:
+    if not bid:continue
+    spec=next(q for q in BUILDINGS if q['id']==bid);door=(spec['x'],spec['z']+spec['d']/2)
+    if not s['doors'].get(bid)or not crosses(a,b,(door[0],door[1],2.15,.45)):return False
+ if any(crosses(a,b,r)for r in WALLS):return False
+ return not any(not s['doors'].get(id,False)and crosses(a,b,(x,z,2.1,.18))for id,(x,z)in DOORS.items()if id not in['exit','rear'])
+
+def walkable(s,x,z,r=.22):
+ if not land(x,z):return False
+ if any(abs(x-cx)<w/2+r and abs(z-cz)<d/2+r for cx,cz,w,d in WALLS):return False
+ return not any(not s['doors'].get(id,False)and abs(x-cx)<1.05+r and abs(z-cz)<.12+r for id,(cx,cz)in DOORS.items()if id not in['exit','rear'])
+
+def enemy_step(s,e,target,seconds,speed):
+ dx=target[0]-e['x'];dz=target[1]-e['z'];d=math.hypot(dx,dz)
+ if d<.1:return
+ e['yaw']=-math.atan2(dx,-dz);step=min(d,seconds*speed);steps=max(1,int(step/.2)+1)
+ for _ in range(steps):
+  nx=e['x']+dx/max(.001,d)*step/steps;nz=e['z']+dz/max(.001,d)*step/steps
+  if walkable(s,nx,e['z'],.22):e['x']=nx
+  if walkable(s,e['x'],nz,.22):e['z']=nz
+ e['y']=surface_height(e['x'],e['z'],e.get('y',0))
+
+def sees_player(s,e,crouch=False,sight=None):
+ p=s['player'];t=ENEMY_TYPES[e['kind']]
+ if refuge(p)or e.get('zone','field')!=zone_at(p['x'],p['z']):return False
+ d=dist(p,(e['x'],e['z']));dy=abs((p.get('y')or 0)-(e.get('y')or 0))
+ if dy>2.3 or not clear_line(s,(e['x'],e['z']),(p['x'],p['z'])):return False
+ if isinstance(sight,dict)and sight.get(e['id'])is False:return False
+ dot=(-math.sin(e['yaw'])*(p['x']-e['x'])-math.cos(e['yaw'])*(p['z']-e['z']))/max(.001,d)
+ lit=s['hand']=='torch'and s['torchOn']and s['battery']>0;night=(s['clock']/60)%24<6 or (s['clock']/60)%24>=19;dark=indoors(p)or night
+ factor=(1.32 if lit else .36 if dark else 1)*(.66 if crouch else 1)*({'fog':.5,'storm':.7,'rain':.88}.get(s['weather']['mode'],1)if zone_at(p['x'],p['z'])=='field'else 1)
+ return d<t['vision']*factor and(dot>t['fov']or d<1.5 or lit and d<5)
+
+def shooter_chance(distance,crouch=False,sprint=False):return min(.5,max(.04,.5-(max(0,distance-6)/56)*.46))*(.72 if crouch else 1)*(.68 if sprint else 1)
+def enemy_fire(s,e,d,crouch,sprint):
+ hit=rng(s)<shooter_chance(d,crouch,sprint);protect=min(.35,sum(CAT.get(k,{}).get('protection',0)for k in s['gear'].values()))
+ if hit:s['health']=max(0,s['health']-19*(1-protect))
+ e['cooldown']=.78 if d<7 else 2.2
+ note(s,'A rifle echo fires.'+(' You are hit.'if hit else''),'enemy_rifle','danger'if hit else'info',enemyShot={'id':e['id'],'hit':hit,'from':[e['x'],e['y']+(1.0 if e['mode']=='crouchfire'else 1.5),e['z']],'to':[s['player']['x'],s['player'].get('y',0)+1.2,s['player']['z']]})
+
+def advance(s,seconds,move=False,sprint=False,crouch=False,sight=None,noise=0):
+ if s.get('_freezeActionClock'):
+  if noise>15:
+   for e in s['enemies']:
+    if e['health']>0 and e.get('zone','field')==s['zone']and dist(s['player'],(e['x'],e['z']))<35:e['memory']=12;e['target']=[s['player']['x'],s['player']['z']];e['mode']='investigate'
+  return
+ if seconds<=0:return
+ seconds=min(float(seconds),2.0);p=s['player'];zone=zone_at(p['x'],p['z']);rate=1/60 if zone=='base'else 1/5
+ s['clock']+=seconds*rate;s['elapsed']+=seconds;s['playSeconds']+=seconds
+ s['food']=max(0,s['food']-seconds*rate*.075);s['thirst']=max(0,s['thirst']-seconds*rate*(.16 if sprint else .12));s['stamina']=max(0,min(100,s['stamina']+seconds*(-9 if move and sprint else 5)))
+ if s['food']<15 or s['thirst']<18:s['stamina']=min(55,s['stamina'])
+ if s['thirst']==0:s['health']=max(0,s['health']-seconds*.18)
+ if s['hand']=='torch'and s['torchOn']:s['battery']=max(0,s['battery']-seconds*({'low':.025,'red':.022,'green':.022}.get(s['torchMode'],.06)))
+ depth=clamp((p['z']-DATA['swamp']['start'])/40)if zone=='field'else 0.;s['swampDepth']+=max(-seconds*.55,min(seconds*.08,depth-s['swampDepth']))
+ factor={'rain':.88,'fog':.5,'storm':.7}.get(s['weather']['mode'],1)
+ currentBuilding=building_at(p['x'],p['z'])if zone=='field'else zone
+ for e in s['enemies']:
+  if e['health']<=0 or e.get('zone','field')!=zone:continue
+  d=dist(p,(e['x'],e['z']));e['cooldown']=max(0,e['cooldown']-seconds);e['memory']=max(0,e['memory']-seconds);e['cycle']=max(0,e.get('cycle',0)-seconds);e['y']=surface_height(e['x'],e['z'],e.get('y',0))
+  if d>120 or zone=='base':continue
+  sees=sees_player(s,e,crouch,sight);e['sees']=sees
+  if sees:
+   if e['memory']<=0 and indoors(p)and s['hand']=='torch'and s['torchOn']:note(s,'A shape shrieks from the darkness.','ghost_alert','danger',enemy=e['id'])
+   e['memory']=15;e['lastSeen']=s['elapsed'];e['target']=[p['x'],p['z']]
+  elif currentBuilding!=s.get('lastBuilding')and currentBuilding and s['elapsed']-e.get('lastSeen',-100)<2.5:e['follow']=currentBuilding;e['memory']=12
+  elif noise>8 and d<noise*1.2:e['memory']=10;e['target']=[p['x'],p['z']]
+  # A spider commits its leap target. Sidestepping never retargets the leap.
+  if e['kind']=='skitter':
+   if e['mode']=='windup':
+    e['windup']-=seconds
+    if e['windup']<=0:e['mode']='leap';e['leapTime']=0
+   elif e['mode']=='leap':
+    ox,oz=e['x'],e['z'];e['leapTime']+=seconds;u=clamp(e['leapTime']/.9);fx,fz=e['leapFrom'];tx,tz=e['leapTo'];nx=fx+(tx-fx)*u;nz=fz+(tz-fz)*u;steps=max(1,int(math.hypot(nx-ox,nz-oz)/.18)+1)
+    for i in range(1,steps+1):
+     x=ox+(nx-ox)*i/steps;z=oz+(nz-oz)*i/steps
+     if not walkable(s,x,z,.16):u=1;break
+     e['x'],e['z']=x,z
+     if not e['leapHit']and dist(p,(x,z))<.8:e['leapHit']=True;s['health']-=30;note(s,'The skitter hits you.','danger','danger')
+    e['y']=surface_height(e['x'],e['z'])+math.sin(u*math.pi)*1.0
+    if u>=1:e['mode']='recover';e['cooldown']=2.1
+   elif e['mode']=='recover':
+    if e['cooldown']<=0:e['mode']='patrol'
+   elif sees and d<=5.2 and e['cooldown']<=0:
+    e['mode']='windup';e['windup']=.65;e['leapFrom']=[e['x'],e['z']];dx=p['x']-e['x'];dz=p['z']-e['z'];reach=min(10,d+4);e['leapTo']=[e['x']+dx/max(d,.01)*reach,e['z']+dz/max(d,.01)*reach];e['leapHit']=False;note(s,'A skitter coils to leap.','skitter','warning')
+   elif e['memory']>0:e['mode']='chase';enemy_step(s,e,e['target'],seconds,2.7)
+   continue
+  if e['kind']=='rifleman'and sees:
+   if d<7:
+    e['mode']='closefire';e['yaw']=-math.atan2(p['x']-e['x'],-(p['z']-e['z']))
+    if e['cooldown']<=0:enemy_fire(s,e,d,crouch,sprint)
+   elif e['mode']=='relocate'and e['runTime']>0:
+    e['runTime']-=seconds;enemy_step(s,e,e['runTo'],seconds,4.6)
+    if e['runTime']<=0:e['mode']='crouchfire';e['cycle']=.7
+   elif e['mode']=='crouchfire':
+    e['yaw']=-math.atan2(p['x']-e['x'],-(p['z']-e['z']))
+    if e['cycle']<=0 and e['cooldown']<=0:enemy_fire(s,e,d,crouch,sprint);e['mode']='recover';e['cycle']=.4
+   elif e['cycle']<=0:
+    angle=math.atan2(p['z']-e['z'],p['x']-e['x'])+(1 if rng(s)<.5 else-1)*1.2;reach=8+rng(s)*6;e['runTo']=[e['x']+math.cos(angle)*reach,e['z']+math.sin(angle)*reach];e['runTime']=3+rng(s);e['mode']='relocate'
+   continue
+  if e['memory']>0:
+   e['mode']='chase'if sees else'search';target=e['target']
+   bid=e.get('follow')or(currentBuilding if sees else None)
+   if bid and bid not in ['base','cave','bunker','sewer']and building_at(e['x'],e['z'])!=bid:
+    b=next((b for b in BUILDINGS if b['id']==bid),None)
+    if b and s['doors'].get(bid):target=[b['x'],b['z']+b['d']/2+(1.3 if e['z']>b['z']+b['d']/2+.3 else-1.2)]
+   if sees or e['memory']>0:enemy_step(s,e,target,seconds,ENEMY_TYPES[e['kind']]['speed'])
+   if sees and d<ENEMY_TYPES[e['kind']]['reach']and e['cooldown']<=0:
+    e['cooldown']=ENEMY_TYPES[e['kind']]['delay'];s['health']-=ENEMY_TYPES[e['kind']]['damage'];note(s,'The '+e['kind']+' strikes.','danger','danger',enemy=e['id'])
+  else:
+   e['follow']=None;e['mode']='patrol';e['roam']=e.get('roam',0)-seconds
+   if e['roam']<=0:
+    e['roam']=4+rng(s)*7;angle=rng(s)*math.tau;distance=1.5+rng(s)*3;e['target']=[e['home'][0]+math.cos(angle)*distance,e['home'][1]+math.sin(angle)*distance]
+   if e['roam']>2:enemy_step(s,e,e['target'],seconds,ENEMY_TYPES[e['kind']]['speed']*.28)
+ s['lastBuilding']=currentBuilding
+ if zone=='field':
+  for a in DATA['anomalies']:
+   d=dist(p,(a['x'],a['z']))
+   # The probe reveals the field, not immunity. An artefact sits in a narrow safe pocket.
+   pocket=math.hypot(p['x']-(a['x']+a['radius']*.6),p['z']-a['z'])<1.1
+   if d<a['radius']*.48 and not pocket:s['health']-=seconds*18
+ if s['weather']['override']=='auto'and s['elapsed']>=s['weather']['nextAt']:
+  w=s['weather'];w['count']+=1;w['mode']=['clear','rain','fog','storm'][w['count']%4];w['nextAt']=s['elapsed']+210+rng(s)*180;note(s,{'clear':'The sky clears.','rain':'Rain arrives from the river.','fog':'Mist gathers between the trees.','storm':'A storm gathers.'}[w['mode']])
+ if s['health']<=0:die(s)
+
+def die(s):
+ _V8_DIE(s);s['revealed']=[];s['scanned']=[];s['swampDepth']=0.;s['lastBuilding']='base'
+ for e in s['enemies']:e.setdefault('cycle',0.);e.setdefault('roam',0.);e.setdefault('follow',None)
+
+def dispatch(state,a):
+ s=copy.deepcopy(state);bind_weapon(s);s['events']=[];op=a.get('type')if isinstance(a,dict)else None
+ try:
+  p=s['player'];w=s['weapon'];zone=zone_at(p['x'],p['z'])
+  if op=='tick':
+   dt=float(num(a.get('dt',0),0,1.0,'time step'));q=a.get('player',p);vals={k:float(num(q.get(k,p[k]),-2000,2000,'position'))for k in p}
+   if zone_at(vals['x'],vals['z'])!=zone:raise ValueError('Use the passage to change areas.')
+   if not land(vals['x'],vals['z']):raise ValueError('The boundary cannot be crossed here.')
+   floor=surface_height(vals['x'],vals['z'],p.get('y',0))
+   if abs(vals.get('y',floor)-floor)>1.3:raise ValueError('Keep your feet on the terrain.')
+   moved=math.hypot(vals['x']-p['x'],vals['z']-p['z'])
+   if moved>7:raise ValueError('Movement was interrupted. Try again.')
+   s['player']=vals;s['stats']['metres']+=moved
+   advance(s,dt,moved>.001,bool(a.get('sprint')),bool(a.get('crouch')),a.get('sight'),9 if a.get('sprint')and moved>.01 else 0)
+   return _finish(s)
+  if op=='read_missions':
+   source=a.get('source','radio');station=DATA['missionSources'].get(source,{}).get('station')
+   if not station:raise ValueError('Unknown contact.')
+   near(s,STATIONS[station],4.5)
+   for m in DATA['missions']:
+    if m.get('source','radio')==source and s['missions'][m['id']]in['active','available']and m['id']not in s['readOffers']:s['readOffers'].append(m['id'])
+   return _finish(s)
+  if op in ['accept','pin','deliver']:
+   id=a.get('id');m=MISSIONS.get(id)
+   if not m:raise ValueError('Unknown contract.')
+   if op=='accept':
+    if s['missions'][id]!='available':raise ValueError('This contract is not currently offered.')
+    near(s,STATIONS[DATA['missionSources'][m.get('source','radio')]['station']],4.5)
+    s['missions'][id]='active';s['pinned']=id;s['missionLog'].setdefault(id,{}).update(acceptedAt=s['clock'],acceptedPlay=s['playSeconds']);note(s,'Accepted: '+m['title']+'.','claim')
+   elif op=='pin':
+    if s['missions'][id]not in['active','available']:raise ValueError('That mission is not on your board.')
+    s['pinned']=id
+   else:
+    if s['missions'][id]!='active':raise ValueError('Accept the contract first.')
+    near(s,STATIONS[DATA['missionSources'][m.get('source','radio')]['station']],4.5);count=m.get('count',1)
+    if s['bag'][m['item']]<count:raise ValueError('You have not recovered everything yet.')
+    s['bag'][m['item']]-=count;s['missions'][id]='done';s['credits']+=m['reward'];log=s['missionLog'].setdefault(id,{});log.update(completedAt=s['clock'],completedPlay=s['playSeconds'],reward=m['reward']);note(s,'Contract complete: '+m['title']+'. +'+str(m['reward'])+' credits.','claim','success');refresh_missions(s);s['pinned']=next((k for k,v in s['missions'].items()if v=='active'),next((k for k,v in s['missions'].items()if v=='available'),'signal'))
+   return _finish(s)
+  if op=='scan':
+   if s['bag']['detector']<1:raise ValueError('Carry the detector from your supply locker.')
+   nearfields=[v for v in DATA['anomalies']if zone=='field'and dist(p,(v['x'],v['z']))<v['radius']+14]
+   for v in nearfields:
+    id='artefact_'+v['id']
+    if id not in s['scanned']:s['scanned'].append(id)
+   s['stats']['scans']+=1;note(s,'Interference nearby. Throw a probe to expose the field.'if nearfields else'No nearby interference.','detector');return _finish(s)
+  if op=='probe':
+   if s['bag']['probes']<1:raise ValueError('No probes left.')
+   s['bag']['probes']-=1;point=a.get('land')or{};x=num(point.get('x',p['x']-math.sin(p['yaw'])*12),-2000,1000,'probe');z=num(point.get('z',p['z']-math.cos(p['yaw'])*12),-1000,500,'probe')
+   if math.hypot(x-p['x'],z-p['z'])>19:raise ValueError('Probe throw too far.')
+   found=[]
+   if zone=='field':
+    for v in DATA['anomalies']:
+     if segment_distance(v['x'],v['z'],[p['x'],p['z']],[x,z])<v['radius']and dist(p,(v['x'],v['z']))<v['radius']+17:
+      if v['id']not in s['revealed']:s['revealed'].append(v['id'])
+      s['anomalyUntil'][v['id']]=1e10;found.append(v['id'])
+   note(s,'The probe exposes a hazardous field. It remains visible until you return to base.'if found else'The probe lands without a reaction.','probe',probeLand=[x,z]);return _finish(s)
+  if op=='safe':
+   if s['hand']=='knife':s['knifeGrip']='reverse'if s['knifeGrip']=='forward'else'forward';note(s,'Knife grip: '+s['knifeGrip']+'.','safety');return _finish(s)
+   if s['hand']=='torch':
+    modes=['high','red','green','off']if s['torchType']=='signal_torch'else['high','low','off'];s['torchMode']=modes[(modes.index(s['torchMode'])+1)%len(modes)]if s['torchMode']in modes else'high';s['torchOn']=s['torchMode']!='off';note(s,'Torch: '+s['torchMode']+'.','safety');return _finish(s)
+  if op=='torch_toggle':s['torchOn']=not s['torchOn'];s['torchMode']='high'if s['torchOn']else'off';return _finish(s)
+  if op=='use'and a.get('kind')=='signal_torch':
+   if s['bag']['signal_torch']<1:raise ValueError('Find the signal torch first.')
+   s['torchType']='signal_torch';s['hand']='torch';s['torchMode']='high';s['torchOn']=True;return _finish(s)
+  if op=='use'and a.get('kind')=='torch':s['torchType']='torch';s['torchMode']='high';s['torchOn']=True
+  if op=='equip'and a.get('hand')=='torch'and s['bag']['torch']<1 and s['bag']['signal_torch']>0:s['torchType']='signal_torch';s['hand']='torch';return _finish(s)
+  if op=='use'and a.get('kind')=='rifle':return dispatch(s,{'type':'weapon_select','weapon':'rifle'})
+  if op=='fill':
+   m=next((m for m in s['magazines']if m['id']==a.get('id')),None)
+   if not m:raise ValueError('Magazine not found.')
+   if any(ww['inserted']==m['id']for ww in s['weapons'].values()):raise ValueError('Eject it before filling.')
+   ammo=ammo_kind(m.get('family','pm'));n=min(mag_capacity(m)-m['rounds'],s['bag'][ammo])
+   if n<=0:raise ValueError('Magazine full or no compatible loose ammunition.')
+   m['rounds']+=n;s['bag'][ammo]-=n;note(s,'Loaded '+str(n)+' rounds.','insert');return _finish(s)
+  if op in ['rack','clear']and s['activeWeapon']=='rifle':
+   if not w['owned']:raise ValueError('Find that rifle first.')
+   if op=='clear':w['jammed']=False
+   elif w['jammed']:raise ValueError('Clear the stoppage first.')
+   if w['chamber']:s['bag']['rifle_ammo']+=1;w['chamber']=0
+   if op=='rack':
+    m=mag(s)
+    if m and m['rounds']>0:m['rounds']-=1;w['chamber']=1
+   note(s,'Rifle action cycled.','chamber');return _finish(s)
+  if op=='fire'and s['elapsed']-s['lastShot']<(.7 if s['activeWeapon']=='rifle'else.20):raise ValueError('Weapon settling.')
+  if op=='knife'and s['elapsed']-s['lastKnife']<.45:raise ValueError('Finish the swing first.')
+  if op=='pickup':
+   it=s['loose'].get(a.get('id'))
+   if it and a['id'].startswith('artefact_'):
+    field=a['id'][9:]
+    if field not in s['revealed']:raise ValueError('Throw a probe to reveal the field first.')
+    if a['id']not in s['scanned']:s['scanned'].append(a['id'])
+  s['_freezeActionClock']=True;beforeHealth={e['id']:e['health']for e in s['enemies']};result=_V8_DISPATCH(s,a);result.pop('_freezeActionClock',None)
+  ok=not any(e.get('level')=='warning'for e in result['events'])
+  if op=='door'and ok:
+   for event in result['events']:
+    if event.get('sound')=='door':event['sound']='door_open_real'if result['doors'].get(a.get('id'))else'door_close_real'
+  if op=='fire'and any(e.get('fired')for e in result['events']):result['lastShot']=result['elapsed']
+  if op=='knife'and ok:result['lastKnife']=result['elapsed'];result['events'].append({'text':'','knifeSwing':not bool(a.get('throw')),'sound':None,'level':'info'})
+  if op in ['fire','knife']:
+   for e in result['enemies']:
+    if e['health']<beforeHealth.get(e['id'],e['health']):result['events'].append({'text':'','hitFlash':e['id'],'sound':None,'level':'info'})
+  if op=='portal'and ok:
+   if result['zone']=='base':result['revealed']=[];result['scanned']=[];result['anomalyUntil']={id:0 for id in result['anomalyUntil']};result['swampDepth']=0.;result['expeditions']+=1
+   result['lastBuilding']=None
+  return result
+ except(ValueError,TypeError,KeyError,OverflowError)as e:
+  s=copy.deepcopy(state);s['events']=[];note(s,str(e),level='warning');return _finish(s)
+
+def migrate_dead_air(saved):
+ if not isinstance(saved,dict)or saved.get('app')not in['FieldSignalBelowPines',APP]or saved.get('version')not in[6,9]:raise ValueError('Choose a v6, v7, v8 or Dead Air campaign.')
+ s=copy.deepcopy(saved);fresh=new_game();old=s.get('version')!=9
+ if old:
+  for key,val in fresh.items():s.setdefault(key,copy.deepcopy(val))
+  for bagname in ['bag','stash']:
+   if not isinstance(s.get(bagname),dict):raise ValueError('Invalid inventory.')
+   for key in CAT:s[bagname].setdefault(key,0)
+  if s.get('corpse'):
+   for key in CAT:s['corpse']['bag'].setdefault(key,0)
+  for key in DOORS:s['doors'].setdefault(key,False)
+  for key in WEAPONS:s['weapons'].setdefault(key,copy.deepcopy(fresh['weapons'][key]))
+  for key in MISSIONS:s['missions'].setdefault(key,'locked')
+  for profile,entries in DATA['profiles'].items():
+   s['rules'].setdefault(profile,copy.deepcopy(entries))
+   for key,v in entries.items():s['rules'][profile].setdefault(key,copy.deepcopy(v))
+  oldEnemies={e['id']:e for e in s['enemies']};s['enemies']=[]
+  for spec in DATA['enemies']:
+   e=new_enemy(spec);e.update(oldEnemies.get(spec['id'],{}));s['enemies'].append(e)
+  for k,it in fresh['loose'].items():s['loose'].setdefault(k,copy.deepcopy(it))
+  for a in DATA['anomalies']:s['anomalyUntil'].setdefault(a['id'],0)
+  s['missionLog']={}
+  for id,status in s['missions'].items():
+   s['missionLog'][id]={'migrated':True,'offeredAt':None,'acceptedAt':None,'acceptedPlay':None}
+   if status=='done':s['missionLog'][id]['completedAt']=None;s['missionLog'][id]['completedPlay']=None
+   if status=='available'and not mission_available(s,MISSIONS[id]):s['missions'][id]='locked'
+  s['clock']=max(0,s['clock']);s['events']=[];refresh_missions(s);s['events']=[]
+ s['app']=APP;s['version']=VERSION;bind_weapon(s);return s
+
+def validate_save(s):
+ s=_V8_VALIDATE(s)
+ for k in ['playSeconds','missionLog','readOffers','revealed','knifeGrip','torchType','torchMode','swampDepth','lastShot','lastKnife','lastBuilding','expeditions']:
+  if k not in s:raise ValueError('Incomplete Dead Air save: '+k)
+ num(s['playSeconds'],0,1e12,'play time');num(s['swampDepth'],0,1,'swamp depth')
+ if s['knifeGrip']not in['forward','reverse']or s['torchMode']not in['high','low','red','green','off']or s['torchType']not in['torch','signal_torch']:raise ValueError('Invalid held equipment state.')
+ if any(k not in MISSIONS for k in s['readOffers'])or any(k not in s['anomalyUntil']for k in s['revealed']):raise ValueError('Invalid discoveries.')
+ for id,log in s['missionLog'].items():
+  if id not in MISSIONS or not isinstance(log,dict):raise ValueError('Invalid completion record.')
+  for key in ['offeredAt','acceptedAt','acceptedPlay','completedAt','completedPlay']:
+   if key in log and log[key]is not None:num(log[key],0,1e12,'mission timestamp')
+ return s
+
 
 _state=None
 
@@ -822,8 +1204,8 @@ def api(raw):
  global _state
  a=json.loads(raw)
  if not isinstance(a,dict):raise ValueError('Invalid request.')
- if a.get('type')=='init':_state=validate_save(migrate_refit_save(a['saved'])) if a.get('saved') else new_game()
- elif a.get('type')=='import':_state=validate_save(migrate_refit_save(a.get('saved')))
+ if a.get('type')=='init':_state=validate_save(migrate_dead_air(a['saved'])) if a.get('saved') else new_game()
+ elif a.get('type')=='import':_state=validate_save(migrate_dead_air(a.get('saved')))
  elif a.get('type')=='reset':_state=new_game(validated_rules(a['profiles']) if a.get('profiles') else None)
  else:_state=dispatch(_state or new_game(),a)
  return json.dumps({'state':_state,'weight':weight(_state),'loot':_state['loose']},allow_nan=False,separators=(',',':'))

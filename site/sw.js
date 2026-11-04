@@ -1,7 +1,7 @@
 /* Cache only public game assets from this origin. Saves stay in localStorage. */
-const CACHE='field-signal-stillwater-v8.0.3';let job=null;
+const CACHE='field-signal-dead-air-v9.0.0';let job=null;
 self.addEventListener('install',e=>{self.skipWaiting()});
-self.addEventListener('activate',e=>e.waitUntil((async()=>{for(const k of await caches.keys())if(k.startsWith('field-signal-stillwater-')&&k!==CACHE)await caches.delete(k);await self.clients.claim();})()));
+self.addEventListener('activate',e=>e.waitUntil((async()=>{for(const k of await caches.keys())if(k.startsWith('field-signal-dead-air-')&&k!==CACHE)await caches.delete(k);await self.clients.claim();})()));
 async function broadcast(msg){for(const c of await self.clients.matchAll({includeUncontrolled:true}))c.postMessage(msg)}
 async function cacheAll(){if(job)return job;job=(async()=>{try{const c=await caches.open(CACHE),manifestURL=new URL('./precache.json',self.registration.scope);let response;try{response=await fetch(manifestURL,{cache:'no-store'});if(!response.ok)throw Error('Manifest unavailable');await c.put(manifestURL,response.clone());}catch{response=await c.match(manifestURL);}if(!response||!response.ok)throw Error('Manifest unavailable');const paths=await response.json();let done=0;for(const path of paths){const u=new URL(path,self.registration.scope);if(!(await c.match(u))){let r=await fetch(u);if(!r.ok)throw Error(path+' '+r.status);await c.put(u,r);}done++;await broadcast({type:'cache-progress',done,total:paths.length});}await broadcast({type:'cache-ready'});}catch(e){await broadcast({type:'cache-error',error:String(e)});}finally{job=null;}})();return job;}
 self.addEventListener('message',e=>{if(e.data?.type==='cache-all')e.waitUntil(cacheAll())});

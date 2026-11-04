@@ -1,0 +1,271 @@
+[
+  {
+    "test": "Dead Air Python and licensed equipment boot",
+    "pass": true,
+    "detail": {
+      "calls": 41,
+      "triangles": 69096,
+      "trees": 5860,
+      "scannedBarriers": true,
+      "textures": 42,
+      "buildings": 37,
+      "containers": 139,
+      "creatures": 35,
+      "zone": "base",
+      "terrainChunks": 330,
+      "foliageSectors": 544,
+      "lightSources": 161,
+      "activeLights": 4,
+      "npcs": 3,
+      "build": "Dead Air 9.0",
+      "licensedModelFamilies": 26,
+      "importedInstances": 116,
+      "assetErrors": [],
+      "drains": {
+        "channels": 2,
+        "length": 45.6,
+        "bars": 870,
+        "depth": 0.36,
+        "physicalVoid": true
+      },
+      "radioPosition": {
+        "x": -486,
+        "y": 1.35,
+        "z": 14
+      },
+      "placements": {
+        "placed": 115,
+        "unsupported": [],
+        "wallSegments": 26,
+        "duplicateGhostsRemoved": 6
+      },
+      "antialias": true,
+      "depthRange": [
+        0.09,
+        68
+      ],
+      "performance": {
+        "fps": 15,
+        "ms": 65.56206278593376,
+        "draws": 41,
+        "triangles": 69096
+      },
+      "equipmentModels": true,
+      "missionCount": 15,
+      "worldBounds": {
+        "minX": -240,
+        "maxX": 360,
+        "minZ": -700,
+        "maxZ": 150
+      },
+      "impactCount": 0,
+      "hiddenAnomalies": true
+    }
+  },
+  {
+    "test": "Base time advances while stationary",
+    "pass": true,
+    "detail": {
+      "clock": 900.025835,
+      "after": 900.0463900000001
+    }
+  },
+  {
+    "test": "Mission menu pauses simulation",
+    "pass": true
+  },
+  {
+    "test": "Only first assignment shown at start",
+    "pass": true
+  },
+  {
+    "test": "First completion produces exactly two radio offers",
+    "pass": true
+  },
+  {
+    "test": "Completed job removed from live board",
+    "pass": true
+  },
+  {
+    "test": "Archive preserves first completion timestamp",
+    "pass": true
+  },
+  {
+    "test": "Vera offers her own side job",
+    "pass": true
+  },
+  {
+    "test": "Side quest acceptance via dialogue works",
+    "pass": true
+  },
+  {
+    "test": "Imported PM still physically targetable",
+    "pass": true,
+    "detail": "pistol"
+  },
+  {
+    "test": "Real shot creates temporary impact mark",
+    "pass": true
+  },
+  {
+    "test": "Expired impact geometry is removed",
+    "pass": true
+  },
+  {
+    "test": "Refuge vault selectable",
+    "pass": true,
+    "detail": "leave_base"
+  },
+  {
+    "test": "Physical upstairs walk transitions outside",
+    "pass": true,
+    "detail": {
+      "x": 0,
+      "z": -3.3,
+      "yaw": 0,
+      "pitch": 0,
+      "y": 0
+    }
+  },
+  {
+    "test": "Physical downstairs walk returns to refuge",
+    "pass": true
+  },
+  {
+    "test": "Field time moves near twelve times real rate",
+    "pass": true,
+    "detail": {
+      "clock": 903.6682550000004,
+      "after": 903.8815750000005
+    }
+  },
+  {
+    "test": "Anomaly invisible before probe",
+    "pass": true
+  },
+  {
+    "test": "Probe physically reveals field",
+    "pass": true
+  },
+  {
+    "test": "Both bridges, sewer branch and rear breach are walkable",
+    "pass": true,
+    "detail": {
+      "road": [
+        {
+          "goal": [
+            142,
+            -280
+          ],
+          "end": {
+            "x": 141.99999999999568,
+            "z": -280,
+            "y": 0
+          },
+          "ok": true
+        }
+      ],
+      "rail": [
+        {
+          "goal": [
+            142,
+            -465
+          ],
+          "end": {
+            "x": 141.99999999999568,
+            "z": -465,
+            "y": 0
+          },
+          "ok": true
+        }
+      ],
+      "sewer": [
+        {
+          "goal": [
+            -1100,
+            30
+          ],
+          "end": {
+            "x": -1100,
+            "z": 30,
+            "y": -4.2
+          },
+          "ok": true
+        },
+        {
+          "goal": [
+            -1100,
+            49
+          ],
+          "end": {
+            "x": -1100,
+            "z": 49,
+            "y": -4.2
+          },
+          "ok": true
+        },
+        {
+          "goal": [
+            -1100,
+            70
+          ],
+          "end": {
+            "x": -1100,
+            "z": 69.99999999999987,
+            "y": -4.2
+          },
+          "ok": true
+        },
+        {
+          "goal": [
+            -1087,
+            70
+          ],
+          "end": {
+            "x": -1087.0000000000118,
+            "z": 70,
+            "y": -4.2
+          },
+          "ok": true
+        }
+      ],
+      "breach": [
+        {
+          "goal": [
+            202,
+            -598
+          ],
+          "end": {
+            "x": 202,
+            "z": -598,
+            "y": 0
+          },
+          "ok": true
+        }
+      ]
+    }
+  },
+  {
+    "test": "New recordings and three radio tunes decode",
+    "pass": true,
+    "detail": {
+      "search_real": 0.9705895691609977,
+      "door_open_real": 0.4520408163265306,
+      "door_close_real": 0.8588888888888889,
+      "vault_open": 1.3347392290249434,
+      "vault_close": 0.5374603174603174,
+      "radio_folk": 216.72,
+      "radio_second": 118,
+      "radio_third": 68.08512471655328
+    }
+  },
+  {
+    "test": "Unsupported rumble has truthful diagnostic",
+    "pass": true
+  },
+  {
+    "test": "No browser runtime errors",
+    "pass": true,
+    "detail": []
+  }
+]

@@ -6,3 +6,7 @@ node_modules/
 .env
 *.local
 .DS_Store
+test-results/
+site/research-v9/
+site/assets/audio/
+unpacked-assets/

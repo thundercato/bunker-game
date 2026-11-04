@@ -1,0 +1,130 @@
+[
+  {
+    "name": "Controller preflight precedes engine",
+    "pass": true
+  },
+  {
+    "name": "Python v9 and all licensed asset families start",
+    "pass": true,
+    "detail": {
+      "calls": 41,
+      "triangles": 69096,
+      "trees": 5860,
+      "scannedBarriers": true,
+      "textures": 42,
+      "buildings": 37,
+      "containers": 139,
+      "creatures": 35,
+      "zone": "base",
+      "terrainChunks": 330,
+      "foliageSectors": 544,
+      "lightSources": 161,
+      "activeLights": 4,
+      "npcs": 3,
+      "build": "Dead Air 9.0",
+      "licensedModelFamilies": 26,
+      "importedInstances": 116,
+      "assetErrors": [],
+      "drains": {
+        "channels": 2,
+        "length": 45.6,
+        "bars": 870,
+        "depth": 0.36,
+        "physicalVoid": true
+      },
+      "radioPosition": {
+        "x": -486,
+        "y": 1.35,
+        "z": 14
+      },
+      "placements": {
+        "placed": 115,
+        "unsupported": [],
+        "wallSegments": 26,
+        "duplicateGhostsRemoved": 6
+      },
+      "antialias": true,
+      "depthRange": [
+        0.09,
+        68
+      ],
+      "performance": {
+        "fps": 18,
+        "ms": 55.532252832617736,
+        "draws": 41,
+        "triangles": 69096
+      },
+      "equipmentModels": true,
+      "missionCount": 15,
+      "worldBounds": {
+        "minX": -240,
+        "maxX": 360,
+        "minZ": -700,
+        "maxZ": 150
+      },
+      "impactCount": 0,
+      "hiddenAnomalies": true
+    }
+  },
+  {
+    "name": "One visual hitbox per enemy",
+    "pass": true
+  },
+  {
+    "name": "Base clock advances while stationary",
+    "pass": true,
+    "detail": {
+      "before": 900.015,
+      "after": 900.04861
+    }
+  },
+  {
+    "name": "First contract dossier has correct recon image",
+    "pass": true
+  },
+  {
+    "name": "Menus pause time",
+    "pass": true
+  },
+  {
+    "name": "Sparse controller index drives camera",
+    "pass": true
+  },
+  {
+    "name": "Controller input and disconnect handled",
+    "pass": true
+  },
+  {
+    "name": "Calmer refuge soundtrack decodes",
+    "pass": true,
+    "detail": {
+      "duration": 128
+    }
+  },
+  {
+    "name": "Old credits and ammunition survive import",
+    "pass": true
+  },
+  {
+    "name": "Complete runtime cached under project path",
+    "pass": true
+  },
+  {
+    "name": "Offline boot restores Python campaign",
+    "pass": true
+  },
+  {
+    "name": "Controller Clinic works offline without game renderer",
+    "pass": true
+  },
+  {
+    "name": "No missing runtime assets",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "No browser exceptions",
+    "pass": true,
+    "detail": []
+  }
+]

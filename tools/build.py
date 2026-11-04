@@ -1,6 +1,7 @@
 from pathlib import Path
-import json, shutil, hashlib
+import json, shutil, hashlib, subprocess, sys
 root=Path(__file__).resolve().parents[1]
+subprocess.run([sys.executable,str(root/'tools/validate_content.py')],check=True)
 source=root/'site'; target=root/'dist'
 if target.exists(): shutil.rmtree(target)
 target.mkdir()
