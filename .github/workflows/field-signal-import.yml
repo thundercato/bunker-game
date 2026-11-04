@@ -1,0 +1,71 @@
+name: Import verified Field Signal checkpoint
+on:
+  push:
+    branches: [field-signal-v9]
+    paths: [field-signal-source.json, .github/workflows/field-signal-import.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: field-signal-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download and verify checkpoint
+        run: |
+          python3 - <<'PY'
+          import hashlib, io, json, pathlib, shutil, stat, urllib.request, zipfile
+          root=pathlib.Path.cwd()
+          pointer=root/'field-signal-source.json'
+          if not pointer.exists():
+              print('No checkpoint pointer yet; importer is ready.')
+              raise SystemExit(0)
+          spec=json.loads(pointer.read_text())
+          url=spec['url']
+          if not url.startswith('https://d2ol7oe51mr4n9.cloudfront.net/'):
+              raise ValueError('Unapproved checkpoint host')
+          data=urllib.request.urlopen(url,timeout=120).read()
+          if hashlib.sha256(data).hexdigest()!=spec['sha256']:
+              raise ValueError('Checkpoint SHA-256 mismatch')
+          staging=pathlib.Path('/tmp/field-signal-checkpoint')
+          if staging.exists(): shutil.rmtree(staging)
+          staging.mkdir()
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              if sum(x.file_size for x in archive.infolist())>350_000_000:
+                  raise ValueError('Checkpoint exceeds size limit')
+              for entry in archive.infolist():
+                  path=pathlib.PurePosixPath(entry.filename)
+                  if path.is_absolute() or '..' in path.parts or not path.parts:
+                      raise ValueError('Unsafe archive path')
+                  if path.parts[0] in ('.git','.github'):
+                      raise ValueError('Checkpoint must not replace repository control files')
+                  if stat.S_ISLNK(entry.external_attr>>16):
+                      raise ValueError('Symlinks are not allowed')
+              archive.extractall(staging)
+          for needed in ('site/index.html','site/engine.py','site/precache.json','README.md','tools/build.py'):
+              if not (staging/needed).is_file(): raise ValueError('Missing required file: '+needed)
+          # Preserve control workflows and the exact source-pointer audit record.
+          for child in root.iterdir():
+              if child.name in ('.git','.github','field-signal-source.json'): continue
+              if child.is_dir(): shutil.rmtree(child)
+              else: child.unlink()
+          for child in staging.iterdir():
+              target=root/child.name
+              if child.is_dir(): shutil.copytree(child,target)
+              else: shutil.copy2(child,target)
+          print('Verified checkpoint installed:',spec['label'])
+          PY
+      - name: Commit recovered source
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: preserve verified Field Signal source checkpoint'
+            git push origin HEAD:field-signal-v9
+          fi
