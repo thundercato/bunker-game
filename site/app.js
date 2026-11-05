@@ -1,7 +1,7 @@
 import{ItemStudio}from'./item-studio.js';
 import{FieldAtlas}from'./atlas.js';
 import{activeMission as activeMission10,objective as missionObjective10}from'./atlas-core.js';
-import {World,DATA} from './world-v10.js';
+import {World,DATA} from './world-v11.js';
 import {Simulation} from './bridge.js';
 import {Soundscape} from './audio-v9.js';
 import {Input,defaultMapping} from './input-v8.js';
@@ -214,8 +214,8 @@ window.addEventListener('resize',()=>{world?.resize();if(panel?.kind==='map')dra
 document.addEventListener('visibilitychange',()=>{if(document.hidden){save();input.clear();if(started)openPanel('pause');sound.suspend()}else sound.resume()});window.addEventListener('pagehide',save);
 $('#world').addEventListener('webglcontextlost',e=>{e.preventDefault();fatal=true;save();openPanel('pause');toast('Graphics interrupted. Your progress is saved. Reload to resume.','warning')});
 (async()=>{try{world=new World($('#world'),settings.quality);world.reducedMotion=settings.reducedMotion;world.flashEnabled=settings.flashes;sim=new Simulation();let saved=null;try{saved=JSON.parse(localStorage.getItem(SAVE)||'null')}catch{}let r;try{r=await sim.call({type:'init',saved})}catch(e){if(saved){$('#boot').textContent='This saved campaign could not load. '+e.message;const b=document.createElement('button');b.textContent='Keep a snapshot and start again';b.onclick=async()=>{try{localStorage.setItem(SAVE+'-unreadable',JSON.stringify(saved))}catch{}finishBoot(await sim.call({type:'reset'}))};$('.start-actions').appendChild(b);return}throw e}finishBoot(r)}catch(e){$('#boot').textContent='Cannot start: '+e.message+'. WebGL 2 and WebAssembly are required.';console.error(e)}})();
-async function finishBoot(r){apply(r,true);configure();$('#boot').textContent='Installing licensed 3D details…';await world.v10Ready;studio10=new ItemStudio(world.models10);ready=true;$('#boot').textContent='Ready · Fieldcraft v10 · Models + Atlas + Python';$('#begin').disabled=false;$('#silent').disabled=false;if(state.stats.metres>1||state.taken.length)$('#begin').textContent='Continue with sound';setupOffline();requestAnimationFrame(animate)}
-window.FieldSignal3D={build:'Fieldcraft 10.0',getAtlas:()=>atlas10,getStudio:()=>studio10,openAtlas:showAtlas10,inspectItem:showInspect10,getState:()=>structuredClone(state),getPlayer:()=>({...player}),getWorld:()=>world,getSound:()=>sound,getInput:()=>input,getInfo:()=>world?.info(),getReady:()=>ready,act,openPanel,closePanel};
+async function finishBoot(r){apply(r,true);configure();$('#boot').textContent='Installing licensed 3D details…';await world.v11Ready;studio10=new ItemStudio(world.models10);ready=true;$('#boot').textContent='Ready · Overgrowth v11 · Forest + Settlements + Atlas';$('#begin').disabled=false;$('#silent').disabled=false;if(state.stats.metres>1||state.taken.length)$('#begin').textContent='Continue with sound';setupOffline();requestAnimationFrame(animate)}
+window.FieldSignal3D={build:'Overgrowth 11.0',getAtlas:()=>atlas10,getStudio:()=>studio10,openAtlas:showAtlas10,inspectItem:showInspect10,getState:()=>structuredClone(state),getPlayer:()=>({...player}),getWorld:()=>world,getSound:()=>sound,getInput:()=>input,getInfo:()=>world?.info(),getReady:()=>ready,act,openPanel,closePanel};
 
 function weaponName(){return state.activeWeapon==='rifle'?'R7 patrol rifle':state.activeWeapon==='carbine'?'M12 patrol carbine':'PM service pistol'}
 function magCapacity(m){return m?.family==='rifle'?5:m?.family==='carbine'?12:8}

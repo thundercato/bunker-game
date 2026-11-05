@@ -13,7 +13,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -38,11 +38,12 @@ jobs:
         run: |
           npm install --no-save --package-lock=false --fetch-timeout=60000 playwright@1.56.1
           npx playwright install chromium
-          node -e "require('playwright').chromium.launch({headless:true,args:['--no-sandbox']}).then(b=>b.close()).catch(e=>{console.error(e);process.exit(1)})"
       - name: Browser engine, controller and offline regression checks
         run: node tests/ci_smoke.cjs
-      - name: Fieldcraft inventory, inspector, map and navigation checks
+      - name: Inventory, inspector, map and navigation checks
         run: node tests/fieldcraft_browser.cjs
+      - name: Overgrowth environment, all doorways, stairs and vehicle search
+        run: node tests/overgrowth_browser.cjs
       - name: Preserve verification output
         if: always()
         uses: actions/upload-artifact@v4

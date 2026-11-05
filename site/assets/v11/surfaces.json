@@ -1,0 +1,73 @@
+[
+  {
+    "id": "old_planks_02",
+    "role": "wood",
+    "files": {
+      "colour": "assets/v11/surfaces/wood-colour.jpg",
+      "normal": "assets/v11/surfaces/wood-normal.jpg",
+      "rough": "assets/v11/surfaces/wood-rough.jpg"
+    },
+    "licence": "CC0-1.0",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "source": "https://polyhaven.com/a/old_planks_02"
+  },
+  {
+    "id": "damaged_plaster",
+    "role": "plaster",
+    "files": {
+      "colour": "assets/v11/surfaces/plaster-colour.jpg",
+      "normal": "assets/v11/surfaces/plaster-normal.jpg",
+      "rough": "assets/v11/surfaces/plaster-rough.jpg"
+    },
+    "licence": "CC0-1.0",
+    "authors": {
+      "Amal Kumar": "All"
+    },
+    "source": "https://polyhaven.com/a/damaged_plaster"
+  },
+  {
+    "id": "brick_wall_001",
+    "role": "brick",
+    "files": {
+      "colour": "assets/v11/surfaces/brick-colour.jpg",
+      "normal": "assets/v11/surfaces/brick-normal.jpg",
+      "rough": "assets/v11/surfaces/brick-rough.jpg"
+    },
+    "licence": "CC0-1.0",
+    "authors": {
+      "Rob Tuytel": "Processing",
+      "Dimitrios Savva": "Photography"
+    },
+    "source": "https://polyhaven.com/a/brick_wall_001"
+  },
+  {
+    "id": "grey_roof_tiles",
+    "role": "roof",
+    "files": {
+      "colour": "assets/v11/surfaces/roof-colour.jpg",
+      "normal": "assets/v11/surfaces/roof-normal.jpg",
+      "rough": "assets/v11/surfaces/roof-rough.jpg"
+    },
+    "licence": "CC0-1.0",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "source": "https://polyhaven.com/a/grey_roof_tiles"
+  },
+  {
+    "id": "rusty_corrugated_iron",
+    "role": "rust",
+    "files": {
+      "colour": "assets/v11/surfaces/rust-colour.jpg",
+      "normal": "assets/v11/surfaces/rust-normal.jpg",
+      "rough": "assets/v11/surfaces/rust-rough.jpg"
+    },
+    "licence": "CC0-1.0",
+    "authors": {
+      "Charlotte Baglioni": "All"
+    },
+    "source": "https://polyhaven.com/a/rusty_corrugated_iron"
+  }
+]

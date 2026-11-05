@@ -25,6 +25,6 @@ class Fieldcraft(unittest.TestCase):
   self.assertFalse(any(p.suffix.lower()in['.ttf','.otf','.woff','.woff2']for p in ROOT.rglob('*')))
  def test_existing_progress_roundtrips(self):
   s=E.new_game();s['credits']=1537;s['missions']['signal']='done';q=E.validate_save(E.migrate_dead_air(json.loads(json.dumps(s))));self.assertEqual(q['credits'],1537);self.assertEqual(q['missions']['signal'],'done')
- def test_build_version_is_ten_but_save_is_nine(self):
-  release=json.loads((ROOT/'release.json').read_text());self.assertEqual(release['version'],'10.0.0');self.assertEqual(release['saveSchema'],9)
+ def test_build_version_is_eleven_but_save_is_nine(self):
+  release=json.loads((ROOT/'release.json').read_text());self.assertEqual(release['version'],'11.0.0');self.assertEqual(release['saveSchema'],9)
 if __name__=='__main__':unittest.main()
