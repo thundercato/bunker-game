@@ -1,0 +1,61 @@
+name: Import World Editor checkpoint
+on:
+  push:
+    branches: [field-signal-world-editor]
+    paths: [field-signal-editor-source.json, .github/workflows/editor-import.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: field-signal-editor-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify and install reviewed editor source
+        run: |
+          python3 - <<'PY'
+          import hashlib, io, json, pathlib, shutil, stat, subprocess, urllib.request, zipfile
+          root=pathlib.Path.cwd()
+          pointer=root/'field-signal-editor-source.json'
+          if not pointer.exists():
+              print('Waiting for verified editor checkpoint.')
+              raise SystemExit(0)
+          spec=json.loads(pointer.read_text())
+          if not spec['url'].startswith('https://d2ol7oe51mr4n9.cloudfront.net/'):
+              raise ValueError('Unapproved source host')
+          subprocess.run(['git','merge-base','--is-ancestor',spec['baseCommit'],'HEAD'],check=True)
+          data=urllib.request.urlopen(spec['url'],timeout=120).read()
+          if hashlib.sha256(data).hexdigest()!=spec['sha256']:
+              raise ValueError('Source checksum mismatch')
+          stage=pathlib.Path('/tmp/world-editor-checkpoint')
+          if stage.exists():shutil.rmtree(stage)
+          stage.mkdir()
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              if sum(e.file_size for e in archive.infolist())>350_000_000:raise ValueError('Archive exceeds limit')
+              for e in archive.infolist():
+                  p=pathlib.PurePosixPath(e.filename)
+                  if p.is_absolute() or '..' in p.parts or not p.parts or p.parts[0] in ('.git','.github') or stat.S_ISLNK(e.external_attr>>16):
+                      raise ValueError('Unsafe archive entry')
+              archive.extractall(stage)
+          for needed in ('site/editor/index.html','site/editor/editor.js','site/layout-core.js','site/world-layout.js','site/editor/release.json','tests/editor_browser.cjs','docs/WORLD_EDITOR.md'):
+              if not (stage/needed).is_file():raise ValueError('Incomplete editor checkpoint: '+needed)
+          for child in stage.iterdir():
+              if child.name.startswith('field-signal-') and child.suffix=='.json':continue
+              if child.is_dir():shutil.copytree(child,root/child.name,dirs_exist_ok=True)
+              else:shutil.copy2(child,root/child.name)
+          print('Verified editor source installed:',spec['label'])
+          PY
+      - name: Commit editor checkpoint
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat: desktop World Editor with shared layout geometry and isolated game preview'
+            git push origin HEAD:field-signal-world-editor
+          fi
