@@ -1,0 +1,9 @@
+{
+  "name": "Field Signal World Editor",
+  "version": "1.0.0",
+  "gameBase": "Overgrowth 11.0.0",
+  "schema": "field-signal-layout/1",
+  "buildings": 37,
+  "propModels": 31,
+  "builtAt": "2026-11-05"
+}

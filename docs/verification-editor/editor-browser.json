@@ -1,0 +1,130 @@
+[
+  {
+    "name": "Editor loads actual game template and models",
+    "pass": true
+  },
+  {
+    "name": "All 37 exterior buildings available",
+    "pass": true
+  },
+  {
+    "name": "Hierarchy selects real object",
+    "pass": true
+  },
+  {
+    "name": "Inspector position updates layout and model",
+    "pass": true
+  },
+  {
+    "name": "Undo restores previous placement",
+    "pass": true
+  },
+  {
+    "name": "Redo restores edited placement",
+    "pass": true
+  },
+  {
+    "name": "Protected mission cupboard cannot be deleted",
+    "pass": true
+  },
+  {
+    "name": "Orthographic plan and cutaway work",
+    "pass": true
+  },
+  {
+    "name": "Library contains real model thumbnails",
+    "pass": true
+  },
+  {
+    "name": "Place a licensed furniture model",
+    "pass": true
+  },
+  {
+    "name": "Locked object detaches transform gizmo",
+    "pass": true
+  },
+  {
+    "name": "Duplicate preserves model and makes a new ID",
+    "pass": true
+  },
+  {
+    "name": "Delete decorative object works",
+    "pass": true
+  },
+  {
+    "name": "Draft stored independently of campaign",
+    "pass": true
+  },
+  {
+    "name": "Export is valid portable layout JSON",
+    "pass": true
+  },
+  {
+    "name": "Stair transform rebuilds linked floor opening",
+    "pass": true
+  },
+  {
+    "name": "Collision preview enabled",
+    "pass": true
+  },
+  {
+    "name": "Switching buildings restores local draft",
+    "pass": true
+  },
+  {
+    "name": "Actual keyboard walking enters building",
+    "pass": true
+  },
+  {
+    "name": "Escape leaves walk mode",
+    "pass": true
+  },
+  {
+    "name": "Invalid import is non-destructive",
+    "pass": true
+  },
+  {
+    "name": "Exported layout reimports",
+    "pass": true
+  },
+  {
+    "name": "Actual Python/WebGL game loads edited scene",
+    "pass": true
+  },
+  {
+    "name": "Real preview starts at exported marker",
+    "pass": true
+  },
+  {
+    "name": "Production save untouched by preview startup",
+    "pass": true
+  },
+  {
+    "name": "Edited container visible at exact exported coordinates",
+    "pass": true
+  },
+  {
+    "name": "Game door interaction and movement use edited geometry",
+    "pass": true
+  },
+  {
+    "name": "Python searches relocated mission container",
+    "pass": true
+  },
+  {
+    "name": "Normal save still unchanged after preview interactions",
+    "pass": true
+  },
+  {
+    "name": "Normal settings and journal remain unchanged",
+    "pass": true
+  },
+  {
+    "name": "No editor/preview JS errors or missing assets",
+    "pass": true,
+    "detail": {
+      "errors": [],
+      "missing": []
+    }
+  }
+]

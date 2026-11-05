@@ -23,6 +23,7 @@ ENEMY_TYPES = {
  'wraith': {'health':115,'speed':2.0,'vision':31,'fov':-.10,'hearing':25,'damage':12,'reach':15,'delay':3.2}}
 WALLS=[]
 for b in [{'id':'base','x':0,'z':7,'w':12,'d':14}]+BUILDINGS:
+ if b.get('editorScene'):continue
  x,z,w,d=b['x'],b['z'],b['w'],b['d']
  WALLS += [(x-w/2,z,.25,d),(x+w/2,z,.25,d)]
  for zz in [z-d/2,z+d/2]:
@@ -34,6 +35,7 @@ for b in [{'id':'base','x':0,'z':7,'w':12,'d':14}]+BUILDINGS:
 # remain full-height in the top-down walking test, so nobody climbs through them.
 VISION_WALLS=[]
 for b in [{'id':'base','x':0,'z':7,'w':12,'d':14}]+BUILDINGS:
+ if b.get('editorScene'):continue
  x,z,w,d=b['x'],b['z'],b['w'],b['d']
  if b['id']=='base':VISION_WALLS.extend([(x-w/2,z,.25,d),(x+w/2,z,.25,d)])
  else:
@@ -124,7 +126,10 @@ def new_game(profiles=None):
  for i,slot in enumerate(DATA['looseSlots']):
   rolled=roll(s,'loose')
   for j,(k,n) in enumerate(rolled.items()):
-   loose('loose_'+str(i)+'_'+k,k,n,slot['x']+(j%3-1)*.24,slot['z']+(j//3)*.19,slot['y'])
+   dx=(j%3-1)*.24;dz=(j//3)*.19
+   if slot.get('editorSurface'):
+    surface=slot['editorSurface'];dx=max(-surface['width']*.38,min(surface['width']*.38,dx));dz=max(-surface['depth']*.38,min(surface['depth']*.38,dz));a=surface['yaw'];dx,dz=dx*math.cos(a)+dz*math.sin(a),-dx*math.sin(a)+dz*math.cos(a)
+   loose('loose_'+str(i)+'_'+k,k,n,slot['x']+dx,slot['z']+dz,slot['y'])
  for i,a in enumerate(DATA['anomalies']):loose('artefact_'+a['id'],'shard' if i else 'bead',1,a['x']+.8,a['z'],.12)
  return s
 
@@ -821,6 +826,7 @@ APP='FieldSignalDeadAir';VERSION=9
 WEAPONS['rifle']={'name':'R7 patrol rifle','capacity':5,'damage':82,'wear':.32,'range':120}
 ENEMY_TYPES['rifleman']={'health':95,'speed':4.6,'vision':48,'fov':.35,'hearing':25,'damage':19,'reach':65,'delay':1.0}
 for q in DATA.get('partitions',[]):
+ if q.get('editorScene'):continue
  x,z,w=q['x'],q['z'],q['w'];WALLS.extend(tuple(v)for v in q['segments']);DOORS[q['id']]=(x,z)
 # Fortified perimeter: front gate plus a deliberate, smaller rear breach.
 f=DATA['military'];mx=(f['minX']+f['maxX'])/2;mz=(f['minZ']+f['maxZ'])/2
@@ -1196,6 +1202,75 @@ def validate_save(s):
   for key in ['offeredAt','acceptedAt','acceptedPlay','completedAt','completedPlay']:
    if key in log and log[key]is not None:num(log[key],0,1e12,'mission timestamp')
  return s
+
+
+
+# Optional editor preview is supplied as validated data by the same-origin UI.
+# No ordinary campaign geometry is changed without an explicit preview URL.
+_EDITOR_DOC=DATA.get('editorLayout')
+_EDITOR_SURFACE=surface_height
+_EDITOR_NEW=new_game
+_EDITOR_CLEAR=clear_line
+_EDITOR_WALKABLE=walkable
+
+def _editor_local(o,x,z):
+ a=o.get('yaw',0);dx=x-o['position'][0];dz=z-o['position'][2]
+ return dx*math.cos(a)-dz*math.sin(a),dx*math.sin(a)+dz*math.cos(a)
+
+def _editor_inside(x,z,margin=.35):
+ return bool(_EDITOR_DOC and abs(x-_EDITOR_DOC['origin'][0])<_EDITOR_DOC['bounds'][0]/2+margin and abs(z-_EDITOR_DOC['origin'][2])<_EDITOR_DOC['bounds'][1]/2+margin)
+
+def surface_height(x,z,last_y=0):
+ if not _editor_inside(x,z):return _EDITOR_SURFACE(x,z,last_y)
+ x-=_EDITOR_DOC['origin'][0];z-=_EDITOR_DOC['origin'][2]
+ for o in _EDITOR_DOC['objects']:
+  if o['type']!='stairs':continue
+  lx,lz=_editor_local(o,x,z);w,h,d=o['size']
+  if abs(lx)<=w/2-.06 and -d/2-.1<=lz<=d/2+.25:
+   y=o['position'][1]+clamp((d/2-lz)/d)*h
+   if abs(last_y-y)<.65 or last_y>=o['position'][1]and lz>d/2-.25:return y
+ floor=0.
+ for o in DATA.get('editorFloors',[]):
+  lx,lz=_editor_local(o,x,z)
+  if o['position'][1]<=last_y+.45:
+   for p in o['pieces']:
+    if abs(lx-p['position'][0])<=p['size'][0]/2 and abs(lz-p['position'][2])<=p['size'][2]/2:floor=max(floor,o['position'][1])
+ return floor
+
+def _editor_collides(s,x,z,y=0):
+ if not _EDITOR_DOC:return False
+ x-=_EDITOR_DOC['origin'][0];z-=_EDITOR_DOC['origin'][2]
+ for c in DATA.get('editorColliders',[]):
+  if c.get('doorId')and s['doors'].get(c['doorId'],True):continue
+  if y>=c['y']+c['h']-.035 or y+1.65<=c['y']+.02:continue
+  lx,lz=_editor_local({'position':[c['x'],c['y'],c['z']],'yaw':c['yaw']},x,z)
+  if abs(lx)<c['w']/2+.22 and abs(lz)<c['d']/2+.22:return True
+ return False
+
+def walkable(s,x,z,r=.22):
+ if _editor_inside(x,z,.6):return land(x,z)and not _editor_collides(s,x,z,surface_height(x,z))
+ return _EDITOR_WALKABLE(s,x,z,r)
+
+def clear_line(s,a,b):
+ if not _EDITOR_DOC or not(_editor_inside(*a,1)or _editor_inside(*b,1)):return _EDITOR_CLEAR(s,a,b)
+ n=max(1,int(math.hypot(a[0]-b[0],a[1]-b[1])/.15))
+ for i in range(n+1):
+  t=i/n;x=a[0]+(b[0]-a[0])*t;z=a[1]+(b[1]-a[1])*t
+  if _editor_inside(x,z,.3)and _editor_collides(s,x,z):return False
+ return zone_at(*a)==zone_at(*b)
+
+def new_game(profiles=None):
+ s=_EDITOR_NEW(profiles)
+ if _EDITOR_DOC:
+  o=next(o for o in _EDITOR_DOC['objects']if o['type']=='spawn');x=_EDITOR_DOC['origin'][0]+o['position'][0];z=_EDITOR_DOC['origin'][2]+o['position'][2]
+  s['player']={'x':x,'z':z,'y':o['position'][1],'yaw':o['yaw'],'pitch':0.};s['zone']='field'
+  # Safe isolated layout preview; real campaign remains a different storage key.
+  for e in s['enemies']:e['health']=0
+ return s
+
+if _EDITOR_DOC:
+ for o in _EDITOR_DOC['objects']:
+  if o['type']=='doorway'and o.get('doorId'):DOORS[o['doorId']]=(_EDITOR_DOC['origin'][0]+o['position'][0],_EDITOR_DOC['origin'][2]+o['position'][2])
 
 
 _state=None

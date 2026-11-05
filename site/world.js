@@ -1,6 +1,7 @@
 import * as T from './vendor/three.js';
 import {BaseWorld} from './world-core.js';
-export const DATA=await (await fetch('./world.json')).json();
+import {applyEditorPreview} from './layout-preview.js';
+export const DATA=await applyEditorPreview(await (await fetch('./world.json')).json());
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));let seed=604921;
 function r(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;}
 function merge(parts){const pos=[],nor=[],uv=[];for(let g of parts){if(g.index)g=g.toNonIndexed();pos.push(...g.attributes.position.array);if(g.attributes.normal)nor.push(...g.attributes.normal.array);if(g.attributes.uv)uv.push(...g.attributes.uv.array);}let g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(pos,3));if(nor.length===pos.length)g.setAttribute('normal',new T.Float32BufferAttribute(nor,3));else g.computeVertexNormals();if(uv.length===pos.length/3*2)g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.computeBoundingSphere();return g;}

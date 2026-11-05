@@ -1,0 +1,43 @@
+[
+  {
+    "name": "webkit editor starts actual models",
+    "pass": true
+  },
+  {
+    "name": "Mouse drag of translation arrow changes saved position",
+    "pass": true,
+    "detail": {
+      "initial": 3.5,
+      "after": 4.75
+    }
+  },
+  {
+    "name": "Mac Command-Z undoes actual gizmo edit",
+    "pass": true
+  },
+  {
+    "name": "Mac Command-Shift-Z redoes it",
+    "pass": true
+  },
+  {
+    "name": "Rotation ring limited to persisted upright yaw",
+    "pass": true
+  },
+  {
+    "name": "Wall snapping moves geometry and interaction together",
+    "pass": true
+  },
+  {
+    "name": "Display filters retain editable data",
+    "pass": true
+  },
+  {
+    "name": "Reload restores persistent draft",
+    "pass": true
+  },
+  {
+    "name": "No webkit editor exceptions",
+    "pass": true,
+    "detail": []
+  }
+]

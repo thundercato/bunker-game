@@ -1,12 +1,12 @@
 import{ItemStudio}from'./item-studio.js';
 import{FieldAtlas}from'./atlas.js';
 import{activeMission as activeMission10,objective as missionObjective10}from'./atlas-core.js';
-import {World,DATA} from './world-v11.js';
+import {World,DATA} from './world-layout.js';
 import {Simulation} from './bridge.js';
 import {Soundscape} from './audio-v9.js';
 import {Input,defaultMapping} from './input-v8.js';
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const CAT=DATA.catalogue, SAVE='field-signal-dead-air-v9',OPTIONS='field-signal-dead-air-options';
+const CAT=DATA.catalogue, SAVE=DATA.editorPreviewId?'field-signal-editor-game:'+DATA.editorPreviewId:'field-signal-dead-air-v9',OPTIONS=DATA.editorPreviewId?'field-signal-editor-options:'+DATA.editorPreviewId:'field-signal-dead-air-options';
 const defaults={music:.42,effects:.5,footsteps:.20,voices:.48,drone:.4,water:.4,droneOn:true,crossfade:true,on:true,sensitivity:1,deadzone:.17,invert:false,quality:'balanced',touch:'auto',reducedMotion:false,captions:true,weather:.38,npcVoice:true,flashes:false,fixtures:.22,radioVolume:.5,radioOn:true,exposure:1.08,fov:74,shadows:true,vegetation:true,showStats:false,quietLights:false,haptics:true,navMark:null,mapping:{...defaultMapping}};
 let settings={...defaults};try{const s=JSON.parse(localStorage.getItem(OPTIONS)||'{}');settings={...defaults,...s,mapping:{...defaultMapping,...s.mapping}}}catch{}
 let world,sim,state,weight=0,player={x:-510,z:39,y:0,yaw:-Math.PI/2,pitch:0},ready=false,started=false,fatal=false,actionBusy=false,tickBusy=false,queue=Promise.resolve(),motionTime=0,lastFrame=0,lastHud=0,lastTick=0,lastSave=0,lastVoice=0,lastDetector=0,footMetres=0,stepIndex=0;
@@ -213,7 +213,7 @@ function animate(now){requestAnimationFrame(animate);const raw=Math.max(0,(now-l
 window.addEventListener('resize',()=>{world?.resize();if(panel?.kind==='map')drawMap($('#field-map'));if(panel?.kind==='clean')drawClean();if(overlay)drawMap($('#live-map'),true)});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){save();input.clear();if(started)openPanel('pause');sound.suspend()}else sound.resume()});window.addEventListener('pagehide',save);
 $('#world').addEventListener('webglcontextlost',e=>{e.preventDefault();fatal=true;save();openPanel('pause');toast('Graphics interrupted. Your progress is saved. Reload to resume.','warning')});
-(async()=>{try{world=new World($('#world'),settings.quality);world.reducedMotion=settings.reducedMotion;world.flashEnabled=settings.flashes;sim=new Simulation();let saved=null;try{saved=JSON.parse(localStorage.getItem(SAVE)||'null')}catch{}let r;try{r=await sim.call({type:'init',saved})}catch(e){if(saved){$('#boot').textContent='This saved campaign could not load. '+e.message;const b=document.createElement('button');b.textContent='Keep a snapshot and start again';b.onclick=async()=>{try{localStorage.setItem(SAVE+'-unreadable',JSON.stringify(saved))}catch{}finishBoot(await sim.call({type:'reset'}))};$('.start-actions').appendChild(b);return}throw e}finishBoot(r)}catch(e){$('#boot').textContent='Cannot start: '+e.message+'. WebGL 2 and WebAssembly are required.';console.error(e)}})();
+(async()=>{try{world=new World($('#world'),settings.quality);world.reducedMotion=settings.reducedMotion;world.flashEnabled=settings.flashes;sim=new Simulation(DATA.editorLayout?DATA:null);let saved=null;try{saved=JSON.parse(localStorage.getItem(SAVE)||'null')}catch{}let r;try{r=await sim.call({type:'init',saved})}catch(e){if(saved){$('#boot').textContent='This saved campaign could not load. '+e.message;const b=document.createElement('button');b.textContent='Keep a snapshot and start again';b.onclick=async()=>{try{localStorage.setItem(SAVE+'-unreadable',JSON.stringify(saved))}catch{}finishBoot(await sim.call({type:'reset'}))};$('.start-actions').appendChild(b);return}throw e}finishBoot(r)}catch(e){$('#boot').textContent='Cannot start: '+e.message+'. WebGL 2 and WebAssembly are required.';console.error(e)}})();
 async function finishBoot(r){apply(r,true);configure();$('#boot').textContent='Installing licensed 3D details…';await world.v11Ready;studio10=new ItemStudio(world.models10);ready=true;$('#boot').textContent='Ready · Overgrowth v11 · Forest + Settlements + Atlas';$('#begin').disabled=false;$('#silent').disabled=false;if(state.stats.metres>1||state.taken.length)$('#begin').textContent='Continue with sound';setupOffline();requestAnimationFrame(animate)}
 window.FieldSignal3D={build:'Overgrowth 11.0',getAtlas:()=>atlas10,getStudio:()=>studio10,openAtlas:showAtlas10,inspectItem:showInspect10,getState:()=>structuredClone(state),getPlayer:()=>({...player}),getWorld:()=>world,getSound:()=>sound,getInput:()=>input,getInfo:()=>world?.info(),getReady:()=>ready,act,openPanel,closePanel};
 
@@ -363,3 +363,5 @@ const atlasButton10=document.createElement('button');atlasButton10.id='open-atla
 const mapExpand10=document.createElement('button');mapExpand10.id='expand-live-map';mapExpand10.textContent='⤢ Full map';mapExpand10.onclick=()=>showAtlas10();$('#map-overlay').appendChild(mapExpand10);
 $('#objective').setAttribute('role','button');$('#objective').tabIndex=0;$('#objective').onclick=()=>showMission10();$('#objective').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showMission10()}};
 document.addEventListener('keydown',e=>{if(!started||panel||e.repeat||['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName))return;if(e.code==='KeyJ'){e.preventDefault();showMission10()}if(e.code==='KeyG'){e.preventDefault();showAtlas10()}});
+
+if(DATA.editorLayout){const banner=document.createElement('div');banner.id='editor-preview-banner';banner.innerHTML='<strong>LAYOUT PREVIEW</strong> · Separate test campaign. Normal save untouched. <a href="editor/">Return to editor</a>';document.body.appendChild(banner);}
