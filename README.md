@@ -2,7 +2,7 @@
 
 [Open the desktop editor](https://thundercato.github.io/bunker-game/editor/) · [Editor guide](docs/WORLD_EDITOR.md) · [Editor roadmap](docs/EDITOR_ROADMAP.md)
 
-Edit building layouts visually with real models, shared collision, stair openings, undo, portable JSON files and a separate game-preview campaign. Changes are local until explicitly reviewed and published.
+Edit building layouts visually with real models, shared collision, stair openings, undo, portable JSON files and a separate game-preview campaign. Changes are local until explicitly reviewed and published. Start with [Survey hut 03](https://thundercato.github.io/bunker-game/editor/) and export JSON backups. The underground refuge and terrain are outside editor v1.
 
 # Field Signal: Overgrowth v11
 

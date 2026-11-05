@@ -17,4 +17,6 @@ check('Stairs reach the upper floor with no ceiling collision',()=>{const d=seed
 check('Floor separation prevents passing through ceiling',()=>{const d=seedLayout(world,'forester');assert.ok(blocked(d,-2,0,2));assert.ok(!blocked(d,-2,0,3.2))});
 check('Low headroom or missing landing produces warning',()=>{const d=seedLayout(world,'forester');d.objects.find(o=>o.type==='stairs').size[1]=4;assert.ok(validateSpatial(d).some(q=>q.level==='error'))});
 check('Unsupported object is flagged without rejecting creative draft',()=>{const d=seedLayout(world,'hut');const o=d.objects.find(o=>o.binding?.type==='loose');o.position[1]=2;assert.ok(validateSpatial(d).some(q=>q.id===o.id))});
+check('Zero intensity remains off',()=>{const d=seedLayout(world,'hut');d.objects.find(o=>o.type==='light').intensity=0;assert.equal(validateLayout(d,{world}).objects.find(o=>o.type==='light').intensity,0)});
+check('Binding cannot be transplanted onto structural geometry',()=>{const d=seedLayout(world,'hut');d.objects.find(o=>o.binding?.id==='hut_c1').type='wall';assert.throws(()=>validateLayout(d,{world}),/interactions must stay on a prop/)});
 console.log(count+' layout unit tests passed');

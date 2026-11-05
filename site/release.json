@@ -5,5 +5,10 @@
   "baseScore": "Relay Lanterns",
   "saveSchema": 9,
   "builtAt": "2026-11-05",
-  "sourceRepository": "thundercato/bunker-game"
+  "sourceRepository": "thundercato/bunker-game",
+  "worldEditor": {
+    "version": "1.0.0",
+    "path": "editor/",
+    "previewCampaignIsolated": true
+  }
 }

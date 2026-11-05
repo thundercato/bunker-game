@@ -34,7 +34,9 @@ Valid edits autosave as a local draft for each building. Save draft is an explic
 
 Browser storage is not a permanent backup. Export before clearing website data, moving to another computer or resetting a draft.
 
-**Test in game is not publishing.** It opens a separate preview URL, starts a fresh test campaign at the layout's start marker and uses separate saved-game storage. Enemies are disabled for layout inspection. Your normal Overgrowth campaign is not loaded or overwritten. You can walk, operate existing doors and search the moved containers using the real Python rules.
+**The preview button checks the installed game runtime first.** It updates an older offline worker so that a stale game cannot accidentally ignore the preview flag. If updating fails, editing/export still works; reconnect and reload before testing. No campaign data is cleared.
+
+**Test in game is not publishing.** It opens a separate preview URL, starts a fresh test campaign at the layout's start marker and uses separate saved-game, settings and journal storage. Enemies are disabled for layout inspection. Your normal Overgrowth campaign is not loaded or overwritten. You can walk, operate existing doors and search the moved containers using the real Python rules.
 
 The preview link depends on data in the same browser. It is not a portable share link. Share the exported JSON instead. Send approved JSON files back to this development conversation for integration, review and a tested GitHub publication. There is no GitHub token in the editor and no automatic remote write.
 

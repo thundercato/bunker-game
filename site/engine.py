@@ -126,7 +126,10 @@ def new_game(profiles=None):
  for i,slot in enumerate(DATA['looseSlots']):
   rolled=roll(s,'loose')
   for j,(k,n) in enumerate(rolled.items()):
-   loose('loose_'+str(i)+'_'+k,k,n,slot['x']+(j%3-1)*.24,slot['z']+(j//3)*.19,slot['y'])
+   dx=(j%3-1)*.24;dz=(j//3)*.19
+   if slot.get('editorSurface'):
+    surface=slot['editorSurface'];dx=max(-surface['width']*.38,min(surface['width']*.38,dx));dz=max(-surface['depth']*.38,min(surface['depth']*.38,dz));a=surface['yaw'];dx,dz=dx*math.cos(a)+dz*math.sin(a),-dx*math.sin(a)+dz*math.cos(a)
+   loose('loose_'+str(i)+'_'+k,k,n,slot['x']+dx,slot['z']+dz,slot['y'])
  for i,a in enumerate(DATA['anomalies']):loose('artefact_'+a['id'],'shard' if i else 'bead',1,a['x']+.8,a['z'],.12)
  return s
 

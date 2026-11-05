@@ -6,7 +6,7 @@ import {Simulation} from './bridge.js';
 import {Soundscape} from './audio-v9.js';
 import {Input,defaultMapping} from './input-v8.js';
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const CAT=DATA.catalogue, SAVE=DATA.editorPreviewId?'field-signal-editor-game:'+DATA.editorPreviewId:'field-signal-dead-air-v9',OPTIONS='field-signal-dead-air-options';
+const CAT=DATA.catalogue, SAVE=DATA.editorPreviewId?'field-signal-editor-game:'+DATA.editorPreviewId:'field-signal-dead-air-v9',OPTIONS=DATA.editorPreviewId?'field-signal-editor-options:'+DATA.editorPreviewId:'field-signal-dead-air-options';
 const defaults={music:.42,effects:.5,footsteps:.20,voices:.48,drone:.4,water:.4,droneOn:true,crossfade:true,on:true,sensitivity:1,deadzone:.17,invert:false,quality:'balanced',touch:'auto',reducedMotion:false,captions:true,weather:.38,npcVoice:true,flashes:false,fixtures:.22,radioVolume:.5,radioOn:true,exposure:1.08,fov:74,shadows:true,vegetation:true,showStats:false,quietLights:false,haptics:true,navMark:null,mapping:{...defaultMapping}};
 let settings={...defaults};try{const s=JSON.parse(localStorage.getItem(OPTIONS)||'{}');settings={...defaults,...s,mapping:{...defaultMapping,...s.mapping}}}catch{}
 let world,sim,state,weight=0,player={x:-510,z:39,y:0,yaw:-Math.PI/2,pitch:0},ready=false,started=false,fatal=false,actionBusy=false,tickBusy=false,queue=Promise.resolve(),motionTime=0,lastFrame=0,lastHud=0,lastTick=0,lastSave=0,lastVoice=0,lastDetector=0,footMetres=0,stepIndex=0;
