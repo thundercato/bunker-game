@@ -29,6 +29,7 @@ jobs:
           for file in site/*.js; do node --check "$file"; done
           node site/tests/test_client.mjs
           node site/tests/test_atlas.mjs
+          node site/tests/test_layout.mjs
       - name: Build and validate runtime assets
         run: python3 tools/build.py
       - name: Install browser test runner
@@ -44,6 +45,9 @@ jobs:
         run: node tests/fieldcraft_browser.cjs
       - name: Overgrowth environment, all doorways, stairs and vehicle search
         run: node tests/overgrowth_browser.cjs
+      - name: World editor browser and game-preview checks
+        timeout-minutes: 7
+        run: node tests/editor_browser.cjs
       - name: Preserve verification output
         if: always()
         uses: actions/upload-artifact@v4

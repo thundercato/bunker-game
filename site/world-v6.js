@@ -37,9 +37,9 @@ export class World extends CoastWorld{
  portal(id){const p=DATA.portals[id],y=surfaceHeight(p.x,p.z),isField=p.from==='field',g=new T.Group();g.position.set(p.x,y,p.z);g.userData.zone=p.from;this.scene.add(g);const door=this.box(2.1,2.65,.15,0,1.325,0,this.mat.metal,g);this.box(.25,.07,.08,.72,1.25,.13,this.mat.brass,g);let sign=this.label((isField?'ENTER / ':'EXIT / ')+(p.to==='base'?'RELAY 07':p.to==='cave'?'CAVE':p.to==='bunker'?'STORES':'COAST'),1.85,.3);sign.position.set(0,2.08,.1);g.add(sign);this.addInteract(g,'portal',id,p.name,[p.x,y+1.3,p.z]);return g}
  buildHut(){
   const buildings=DATA.buildings,containers=DATA.containers;
-  DATA.buildings=buildings.filter(b=>b.floors!==2);DATA.containers=containers.filter(c=>c.zone==='field'&&c.building!=='car'&&!buildings.some(b=>b.id===c.building&&b.floors===2));super.buildHut();DATA.buildings=buildings;DATA.containers=containers;
-  for(const b of buildings.filter(b=>b.floors===2))this.multilevel(b);
-  for(const c of containers.filter(c=>c.zone==='field'&&c.building!=='car'&&buildings.some(b=>b.id===c.building&&b.floors===2)))this.container(c);
+  DATA.buildings=buildings.filter(b=>!b.editorScene&&b.floors!==2);DATA.containers=containers.filter(c=>!c.editorScene&&c.zone==='field'&&c.building!=='car'&&!buildings.some(b=>b.id===c.building&&b.floors===2));super.buildHut();DATA.buildings=buildings;DATA.containers=containers;
+  for(const b of buildings.filter(b=>!b.editorScene&&b.floors===2))this.multilevel(b);
+  for(const c of containers.filter(c=>!c.editorScene&&c.zone==='field'&&c.building!=='car'&&buildings.some(b=>b.id===c.building&&b.floors===2)))this.container(c);
   this.portal('enter_bunker');
   // Cave mouth: a real opening framed by irregular rock, with a passage transition.
   const cx=-123,cz=-285;for(let i=0;i<9;i++){let a=Math.PI*i/8;const rock=new T.Mesh(new T.DodecahedronGeometry(1,0),this.mat.rock);rock.position.set(cx+Math.cos(a)*3.6,Math.sin(a)*3.9-.3,cz-1);rock.scale.set(1.9,1.7,2);rock.rotation.set(rnd(),rnd(),rnd());this.scene.add(rock)}
