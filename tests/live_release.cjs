@@ -10,13 +10,13 @@ try{
  const context=await browser.newContext({viewport:{width:844,height:500}}),page=await context.newPage();
  page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)missing.push([r.status(),r.url()])});
  let release=null;
- for(let i=0;i<30;i++){try{const r=await page.request.get(BASE+'release.json?verify='+Date.now(),{timeout:20000});if(r.ok()){const j=await r.json();if(j.version==='10.0.0'){release=j;break;}}}catch{}await page.waitForTimeout(5000)}
- check('Actual public release is Fieldcraft 10.0.0',!!release,release);
+ for(let i=0;i<30;i++){try{const r=await page.request.get(BASE+'release.json?verify='+Date.now(),{timeout:20000});if(r.ok()){const j=await r.json();if(j.version==='11.0.0'){release=j;break;}}}catch{}await page.waitForTimeout(5000)}
+ check('Actual public release is Overgrowth 11.0.0',!!release,release);
  await page.addInitScript(fixture=>{if(!localStorage.getItem('fieldcraft-release-test-seeded')){localStorage.setItem('field-signal-dead-air-v9',JSON.stringify(fixture));localStorage.setItem('fieldcraft-release-test-seeded','yes')}},fixture);
  await page.goto(BASE,{waitUntil:'domcontentloaded'});await page.locator('#load-world').click();await page.locator('#silent:enabled').waitFor({timeout:240000});await page.locator('#silent').click();
  await page.evaluate(()=>{const w=FieldSignal3D.getWorld();w.setQuality('low');w.renderSettings.shadows=false;w.renderer.shadowMap.enabled=false;w.renderer.setPixelRatio(.4);w.resize()});
  const info=await page.evaluate(()=>FieldSignal3D.getInfo());
- check('Public Python and all 51 imported model families load',info.build==='Fieldcraft 10.0'&&info.licensedModelFamilies===51&&info.fieldcraftErrors.length===0&&info.assetErrors.length===0);
+ check('Public Python and all 58 imported model families load',info.build==='Overgrowth 11.0'&&info.licensedModelFamilies===58&&info.fieldcraftErrors.length===0&&info.assetErrors.length===0);
  const state=await page.evaluate(()=>FieldSignal3D.getState());check('Existing compatible v9 storage continues automatically',state.credits===1267&&state.bag.wire===3&&state.version===9);
  await page.evaluate(()=>FieldSignal3D.openPanel('pack'));await page.waitForFunction(()=>[...document.querySelectorAll('.item-thumb img')].every(i=>i.complete&&i.naturalWidth>0));
  check('Published backpack shows model images',await page.locator('.item-thumb img').count()>0);
@@ -25,9 +25,9 @@ try{
  await page.locator('#close-panel').click();await page.locator('#close-panel').click();await page.locator('#open-atlas10').click();await page.locator('[data-atlas="target"]').click();await page.locator('[data-atlas="in"]').click();
  check('Published atlas centres the objective and zooms',await page.evaluate(()=>FieldSignal3D.getAtlas().selected==='signal'&&FieldSignal3D.getAtlas().camera.zoom===9));
  await page.locator('[data-atlas="briefing"]').click();check('Atlas opens the correct current dossier',await page.locator('.file-copy h3').innerText()==='First signal');
- await page.evaluate(()=>FieldSignal3D.openPanel('saves'));await page.waitForFunction(()=>document.querySelector('#offline-status')?.textContent.includes('ready offline'),null,{timeout:240000});check('Published v10 runtime is fully cached',true);
+ await page.evaluate(()=>FieldSignal3D.openPanel('saves'));await page.waitForFunction(()=>document.querySelector('#offline-status')?.textContent.includes('ready offline'),null,{timeout:240000});check('Published v11 runtime is fully cached',true);
  const before=await page.evaluate(()=>({credits:FieldSignal3D.getState().credits,bag:FieldSignal3D.getState().bag}));await context.setOffline(true);await page.reload({waitUntil:'domcontentloaded'});await page.locator('#load-world').click();await page.locator('#silent:enabled').waitFor({timeout:240000});await page.locator('#silent').click();
- const after=await page.evaluate(()=>({credits:FieldSignal3D.getState().credits,bag:FieldSignal3D.getState().bag}));check('Public build restarts offline with unchanged inventory',JSON.stringify(before)===JSON.stringify(after)&&await page.evaluate(()=>FieldSignal3D.getInfo().licensedModelFamilies===51));
+ const after=await page.evaluate(()=>({credits:FieldSignal3D.getState().credits,bag:FieldSignal3D.getState().bag}));check('Public build restarts offline with unchanged inventory',JSON.stringify(before)===JSON.stringify(after)&&await page.evaluate(()=>FieldSignal3D.getInfo().licensedModelFamilies===58));
  await page.evaluate(()=>FieldSignal3D.inspectItem('medkit'));await page.waitForFunction(()=>document.querySelector('#inspect-stage canvas'));check('Model inspection works offline',true);
  await page.evaluate(()=>FieldSignal3D.openAtlas(true));await page.waitForFunction(()=>FieldSignal3D.getAtlas()?.zone==='field');check('Objective map works offline',true);
  await page.goto(BASE+'controller.html',{waitUntil:'domcontentloaded'});await page.locator('#wake').click();check('Controller Clinic remains available offline',await page.evaluate(()=>!!window.FieldPad&&!window.FieldSignal3D));

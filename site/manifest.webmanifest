@@ -1,6 +1,6 @@
 {
-  "name": "Field Signal: Fieldcraft",
-  "short_name": "Fieldcraft",
+  "name": "Field Signal: Overgrowth",
+  "short_name": "Overgrowth",
   "description": "Physical loot, model inspection and a zoomable field atlas.",
   "start_url": "./",
   "scope": "./",

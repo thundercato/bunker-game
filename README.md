@@ -1,33 +1,41 @@
-# Field Signal: Fieldcraft v10
+# Field Signal: Overgrowth v11
 
-A landscape browser survival game for iPhone, iPad, keyboard and controller. Python gameplay rules run locally through Pyodide; Three.js renders the first-person world. No PC server or account is needed to play.
+A landscape first-person survival game for iPhone, iPad, keyboard and controller. Python gameplay rules run locally through Pyodide; Three.js renders the world. The repository is the persistent source of truth.
 
 ## Play
 
 **https://thundercato.github.io/bunker-game/**
 
-Open in Safari, use landscape, choose **Load the game**, then **Enter with sound**. The opening screen should say **Fieldcraft v10**. Controller Clinic is at **https://thundercato.github.io/bunker-game/controller.html**.
+Open in Safari in landscape. The preflight title should say **Overgrowth v11**. Choose **Load the game**, then **Enter with sound**. Controller Clinic remains at `controller.html` on the same site.
 
-This repository is the source of truth. Its former Bunker Game project remains on `archive/retired-bunker-before-field-signal`; Field Signal now occupies `main`.
+## V11: the environmental pass
 
-## New in Fieldcraft
+The playable world is retained, but its most visible exterior elements are rebuilt:
 
-- 25 additional CC0 model families, bringing the loaded imported collection to 51 families. Real replacements cover 53 tables, 131 searchable furniture units, 14 bed frames and 126 architectural details, plus exterior dressing. Existing collision shells, mission targets and loot rules are retained.
-- All 61 catalogue items have a rendered model image in backpack, loot, storage and trading lists. Tap an image to rotate and zoom its model without consuming, equipping, dropping or buying it.
-- A read-only Equipment catalogue lets you inspect items by category. It does not grant items or bypass progression.
-- A full-screen **Atlas** with touch drag/pinch, zoom buttons, wheel zoom, region selection, a scale bar, player centring and objective centring. It uses an ordinary page panel, not native browser fullscreen.
-- A persistent **Mission** shortcut, clickable objective title and **View target on map** from the dossier. After recovery, the objective points back to the correct contact, not the original loot location.
-- Optimised static thumbnails: inventory grids do not create WebGL contexts per slot. One shared additional renderer is created only when inspecting an object.
+- Two fuller, irregular game-ready pine variants with detailed branches and bark. Nearby trees use real meshes. More distant trees use pre-rendered representations of those same meshes, rather than applying the enormous source geometry to thousands of trees. Visibility and detail are bounded by the quality preset.
+- All eight searchable vehicles now use damaged SUV or covered-car models. Their original loot IDs and collision footprints remain. An invisible interaction volume makes broken windows and missing panels usable rather than forcing the player to hit a tiny remaining triangle.
+- All 37 buildings have a roof/exterior pass: pitched roofs, the hangar’s arched roof, window modules, entrance canopies, chimneys and weathered materials. Existing interiors, entrances and stairs remain in their original locations.
+- Scanned mossy rocks, stumps, deadwood and ferns supplement the forest floor. These are drawn in bounded nearby batches rather than all at once.
+- Nine new model definitions replace two of the earlier stretched exterior-kit usages. The loaded library contains 58 families, including the two baked procedural pine variants. It is not 58 newly downloaded scans.
+- Five surface sets provide colour, normal and roughness maps for timber, cracked plaster, masonry, tiles and corrugated metal.
 
-## What is retained
+The pines were baked using MIT-licensed EZ-Tree. Poly Haven supplies the CC0 scanned environment pieces and materials. The damaged SUV is a CC BY 4.0 model by Rashad Ibrahimli and has explicit attribution. See `site/V11_CREDITS.md` and `site/assets/v11/models.json` for exact origins and changes.
 
-The v9 region has 37 buildings, 139 searchable containers including vehicles, 35 creatures and 15 progressive radio/NPC assignments. It includes classified dossiers and completion history; continuous 1× base and 12× field time; hidden probe-revealed anomaly fields; riflemen, mist creatures and skitters; bridges, caves, underground stores, a garrison and sewer routes; vault transitions; weather; weapon maintenance; magazines and chambering; knives and torches; survival needs, personal storage and configurable loot probabilities.
+Buildings are a combination of imported facade modules, textured roof geometry and preserved authored collision/interior shells. They are not sealed exterior scans being described as walkable houses. Some gameplay and interior props remain authored geometry.
 
-The calmer **Relay Lanterns** refuge score remains. Field music, spatial ambience and the separately controlled radio are preserved.
+## Your campaign and features are retained
 
-## Saves
+The build remains a browser game. Campaign schema **9** and localStorage key **field-signal-dead-air-v9** are unchanged. V9/v10 saves at this same address continue automatically. Import/export remains available for older supported campaigns. Export before clearing website data.
 
-V10 deliberately retains the version-9 campaign schema and the same `field-signal-dead-air-v9` localStorage key. An existing v9 save at this same GitHub Pages address should continue automatically. V6–v8 exports can still be imported using the tested migration. Older temporary-site saves require manual export/import because browser storage is origin-specific. Keep an exported backup before changing browser/site data.
+The game still has 15 progressive radio/NPC missions, 61 inspectable item types, 139 search containers, 35 enemies, a zoomable full-screen Atlas, mission shortcuts, the calmer **Relay Lanterns** refuge score, radio stations, continuous time, weather, hidden anomalies, weapon handling, cleaning, personal storage and an underground refuge.
+
+Atlas: drag or pinch, use the zoom buttons, **Centre on me**, or **Objective**. The **Mission** shortcut opens the pinned dossier. Item images open a read-only rotate/zoom model viewer.
+
+## Performance and offline use
+
+Choose **Pause → Display, comfort & diagnostics** for Battery saver, Balanced or Sharper. Sharper raises the nearby detailed-tree budget; it does not load a completely different campaign. The first load after updating is larger than later cached loads. Wait for Saves & offline to report that all runtime files are ready.
+
+No physical iPhone/iPad performance or controller compatibility is claimed from software-rendered browser tests. Keep a campaign export and report any particular trouble spot with its map location and quality setting.
 
 ## Development
 
@@ -35,8 +43,6 @@ V10 deliberately retains the version-9 campaign schema and the same `field-signa
 python3 tools/build.py
 python3 -m http.server 8000 --directory dist
 ```
-
-Open `http://localhost:8000` for a local desktop check. For mobile installation, service workers and controller testing, use the HTTPS deployment. Runtime assets are local to the site; there are no expiring model or audio dependencies.
 
 ```sh
 python3 -m unittest discover -s site/tests -p 'test_*.py' -v
@@ -46,23 +52,11 @@ npm install --no-save --package-lock=false playwright@1.56.1
 npx playwright install chromium
 node tests/ci_smoke.cjs
 node tests/fieldcraft_browser.cjs
+node tests/overgrowth_browser.cjs
 ```
 
-The GitHub workflow runs these checks before publishing main. Browser tests mount the build under `/bunker-game/`, not only at a server root. The separate WebKit test is available in `tests/webkit_fieldcraft.cjs` when that browser is installed.
+The GitHub workflow repeats verification before deploying main and then tests the actual public site. `site/world-v11.js` contains the environmental layer; the deterministic Python rules are unchanged. `site/assets/v11` contains runtime models, distant tree images, materials and provenance. Raw huge masters, test-browser installations, fonts and unrelated downloaded scenes are excluded.
 
-## Main code
+## What comes next
 
-- `site/engine.py`, `site/world.json`: Python survival, inventory, missions and world data.
-- `site/world-v10.js`: imported furniture and architectural details layered onto the existing tested world.
-- `site/item-models.js`, `site/item-studio.js`: complete item visual registry and one reusable inspection renderer.
-- `site/atlas-core.js`, `site/atlas.js`: testable map maths, mission destinations and map gestures.
-- `site/app.js`, `site/fieldcraft.css`: user interface and controls.
-- `site/controller-core.js`, `site/controller.html`: independent raw-input diagnostics.
-- `site/assets/v10`: local GLBs, provenance and actual model-rendered thumbnails.
-- `tools/build.py`, `.github/workflows/deploy-pages.yml`: validation and deployment.
-
-## Credits and limits
-
-**Powered by Poly Haven.** Imported assets are individually credited in `site/V10_CREDITS.md` and the versioned manifests. Some familiar equipment labels use representative models rather than exact replicas. Of the 61 item visuals, 25 definitions use imported meshes and 36 use original authored geometry. Buildings retain authored structural shells with imported cladding and details. This is not a claim that every object or entire building is an externally sourced scan.
-
-Physical iPhone/iPad/controller performance still needs user playtesting. Automated browser tests, including Linux WebKit, are not a substitute for testing a specific iOS accessory. See `docs/ROADMAP.md`, `docs/PLAYER_GUIDE.md` and `docs/TEST_REPORT_V10.md`.
+See `docs/ROADMAP.md`. A native-app evaluation is explicitly deferred until after this web release has device feedback. It must preserve the game’s progress and be judged with a representative forest, house, creature and inventory scene, rather than choosing a platform solely because its wrapper is native.

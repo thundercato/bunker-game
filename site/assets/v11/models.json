@@ -1,0 +1,136 @@
+[
+  {
+    "id": "covered_car",
+    "path": "assets/v11/models/covered_car.glb",
+    "name": "Covered Car",
+    "authors": {
+      "MP": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/covered_car",
+    "sourceTriangles": 12592,
+    "bytes": 573408,
+    "modifications": "Selected modules; resized textures; mobile detail tiers.",
+    "sha256": "8021250cce44443a3d76aebff6bb45093e6112bf572f611ae4ec9d6b3385cbb7",
+    "runtimeBytes": 573408
+  },
+  {
+    "id": "urban_facade",
+    "path": "assets/v11/models/modular_urban_apartments_facade.glb",
+    "name": "Modular Urban Apartments Facade",
+    "authors": {
+      "James Ray Cock": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/modular_urban_apartments_facade",
+    "sourceTriangles": 270045,
+    "bytes": 8881908,
+    "modifications": "Selected modules; resized textures; mobile detail tiers.",
+    "sha256": "08be20655e8dbe5f7883f10f8385ebe9215f609890eaccc7e3a619848cf0b10e",
+    "runtimeBytes": 614332
+  },
+  {
+    "id": "moss_rocks",
+    "path": "assets/v11/models/rock_moss_set_01-mobile.glb",
+    "name": "Rock Moss Set 01",
+    "authors": {
+      "Kless Gyzen": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/rock_moss_set_01",
+    "sourceTriangles": 63127,
+    "bytes": 359252,
+    "modifications": "Selected modules; resized textures; mobile detail tiers.",
+    "sha256": "bcd5dfd9d3f9218fd04300e8d7c883a1bd94508656e5dc24d93ae0f62ccdc024",
+    "runtimeBytes": 359252
+  },
+  {
+    "id": "tree_stump",
+    "path": "assets/v11/models/tree_stump_01-mobile.glb",
+    "name": "Tree Stump 01",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/tree_stump_01",
+    "sourceTriangles": 41046,
+    "bytes": 450184,
+    "modifications": "Selected modules; resized textures; mobile detail tiers.",
+    "sha256": "2b79eac9c70c6c1d34ee0f52c5eaa39e874ed03ec2694ec834603c93aa51c1a8",
+    "runtimeBytes": 450184
+  },
+  {
+    "id": "deadwood",
+    "path": "assets/v11/models/dead_tree_trunk_02-mobile.glb",
+    "name": "Dead Tree Trunk 02",
+    "authors": {
+      "Jenelle van Heerden": "Photography",
+      "Rico Cilliers": "processing"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/dead_tree_trunk_02",
+    "sourceTriangles": 83128,
+    "bytes": 475184,
+    "modifications": "Selected modules; resized textures; mobile detail tiers.",
+    "sha256": "0f932c2253d45c1395ce6b57fbf8106a67909a40bb13b957a46966b25c8839fb",
+    "runtimeBytes": 475184
+  },
+  {
+    "id": "fern",
+    "path": "assets/v11/models/fern_02.glb",
+    "name": "Fern 02",
+    "authors": {
+      "Rob Tuytel": "scanning",
+      "Rico Cilliers": "modeling"
+    },
+    "licence": "CC0-1.0",
+    "source": "https://polyhaven.com/a/fern_02",
+    "sourceTriangles": 6232,
+    "bytes": 280756,
+    "modifications": "Selected modules; resized textures; mobile detail tiers.",
+    "sha256": "597eea16edd7dd19a676fe1f6b11fc573365284736349acbd9bdd27b5d4d761e",
+    "runtimeBytes": 152992
+  },
+  {
+    "id": "pine_01",
+    "path": "assets/v11/models/pine-01.glb",
+    "name": "Overgrowth pine variation 1",
+    "authors": {
+      "Daniel Greenheck": "EZ-Tree generator and materials",
+      "Field Signal": "Seeded configuration and mobile packing"
+    },
+    "licence": "MIT",
+    "source": "https://github.com/dgreenheck/ez-tree",
+    "modifications": "Baked EZ-Tree 1.1.0 Pine Medium configurations; scaled to 14 metres, reduced geometry, local textures and pre-rendered distant views. Not a photogrammetry scan.",
+    "sha256": "25720d28a6881ddc2d5a9acfcb28e5a7c0a88c1e0e13f9a7005f2edc0f24c309",
+    "runtimeBytes": 811280
+  },
+  {
+    "id": "pine_02",
+    "path": "assets/v11/models/pine-02.glb",
+    "name": "Overgrowth pine variation 2",
+    "authors": {
+      "Daniel Greenheck": "EZ-Tree generator and materials",
+      "Field Signal": "Seeded configuration and mobile packing"
+    },
+    "licence": "MIT",
+    "source": "https://github.com/dgreenheck/ez-tree",
+    "modifications": "Baked EZ-Tree 1.1.0 Pine Medium configurations; scaled to 14 metres, reduced geometry, local textures and pre-rendered distant views. Not a photogrammetry scan.",
+    "sha256": "a071f27786ae760679070899dbb4dc8ce2491df50e2b250d78a3427c5454eae9",
+    "runtimeBytes": 884316
+  },
+  {
+    "id": "crashed_suv",
+    "path": "assets/v11/models/crashed-suv.glb",
+    "name": "Crashed Abandoned Car (Game Ready)",
+    "authors": {
+      "Rashad Ibrahimli": "Original model and textures"
+    },
+    "licence": "CC-BY-4.0",
+    "source": "https://sketchfab.com/3d-models/crashed-abandoned-car-game-ready-66ef51a84c9843dda53bf0b4b9020011",
+    "mirror": "https://github.com/RohanVashisht1234/threejs-zombieshooter-game/blob/main/public/map.glb",
+    "modifications": "Extracted only credited Object_12001 wreck from the public redistribution, decompressed geometry, removed all unrelated scene assets; rescaled and recoloured in game.",
+    "sha256": "451d6b01a1638a4f31172312af4363e8f04d0c95e8ad4bc0dd147584ae4cb04c",
+    "runtimeBytes": 595952
+  }
+]

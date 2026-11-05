@@ -1,3 +1,11 @@
+# Overgrowth v11
+
+Environmental rebuild: fuller conifers and distance tiers, imported damaged/covered vehicles, 37 roof/exterior passes, scanned undergrowth, preserved doorways/stairs/search IDs and compatible saves.
+
+# Overgrowth v11
+
+Environmental rebuild: fuller conifers and distance tiers, imported damaged/covered vehicles, 37 roof/exterior passes, scanned undergrowth, preserved doorways/stairs/search IDs and compatible saves.
+
 # Changelog
 
 ## 9.0.0 · Dead Air

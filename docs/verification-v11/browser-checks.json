@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Controller preflight precedes engine",
+    "pass": true
+  },
+  {
+    "name": "Python rules and all 58 model families start",
+    "pass": true,
+    "detail": {
+      "calls": 45,
+      "triangles": 90946,
+      "trees": 5860,
+      "scannedBarriers": true,
+      "textures": 54,
+      "buildings": 37,
+      "containers": 139,
+      "creatures": 35,
+      "zone": "base",
+      "terrainChunks": 330,
+      "foliageSectors": 544,
+      "lightSources": 161,
+      "activeLights": 4,
+      "npcs": 3,
+      "build": "Overgrowth 11.0",
+      "licensedModelFamilies": 58,
+      "importedInstances": 203,
+      "assetErrors": [],
+      "drains": {
+        "channels": 2,
+        "length": 45.6,
+        "bars": 870,
+        "depth": 0.36,
+        "physicalVoid": true
+      },
+      "radioPosition": {
+        "x": -486,
+        "y": 1.35,
+        "z": 14
+      },
+      "placements": {
+        "placed": 115,
+        "unsupported": [],
+        "wallSegments": 26,
+        "duplicateGhostsRemoved": 6
+      },
+      "antialias": true,
+      "depthRange": [
+        0.09,
+        68
+      ],
+      "performance": {
+        "fps": 25,
+        "ms": 40.11559860983981,
+        "draws": 45,
+        "triangles": 90946
+      },
+      "equipmentModels": true,
+      "missionCount": 15,
+      "worldBounds": {
+        "minX": -240,
+        "maxX": 360,
+        "minZ": -700,
+        "maxZ": 150
+      },
+      "impactCount": 0,
+      "hiddenAnomalies": true,
+      "fieldcraft": {
+        "tables": 53,
+        "containers": 131,
+        "beds": 14,
+        "buildingDetails": 5,
+        "decorations": 15,
+        "looseItems": 32
+      },
+      "itemVisuals": {
+        "catalogue": 61,
+        "ready": 61,
+        "imported": 25,
+        "authored": 36,
+        "errors": []
+      },
+      "fieldcraftErrors": [],
+      "overgrowth": {
+        "vehicles": 8,
+        "buildings": 37,
+        "facadeModules": 162,
+        "roofs": 37,
+        "rocks": 309,
+        "stumps": 64,
+        "deadwood": 37,
+        "ferns": 1443
+      },
+      "overgrowthReady": true,
+      "forestLOD": {
+        "near": 0,
+        "far": 0,
+        "sourceTrees": 5860,
+        "updates": 0
+      },
+      "overgrowthErrors": []
+    }
+  },
+  {
+    "name": "One visual hitbox per enemy",
+    "pass": true
+  },
+  {
+    "name": "Base clock advances while stationary",
+    "pass": true,
+    "detail": {
+      "before": 900.0311116666667,
+      "after": 900.04722
+    }
+  },
+  {
+    "name": "First contract dossier has correct recon image",
+    "pass": true
+  },
+  {
+    "name": "Menus pause time",
+    "pass": true
+  },
+  {
+    "name": "Sparse controller index drives camera",
+    "pass": true
+  },
+  {
+    "name": "Controller input and disconnect handled",
+    "pass": true
+  },
+  {
+    "name": "Calmer refuge soundtrack decodes",
+    "pass": true,
+    "detail": {
+      "duration": 128
+    }
+  },
+  {
+    "name": "Old credits and ammunition survive import",
+    "pass": true
+  },
+  {
+    "name": "Complete runtime cached under project path",
+    "pass": true
+  },
+  {
+    "name": "Offline boot restores Python campaign",
+    "pass": true
+  },
+  {
+    "name": "Controller Clinic works offline without game renderer",
+    "pass": true
+  },
+  {
+    "name": "No missing runtime assets",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "No browser exceptions",
+    "pass": true,
+    "detail": []
+  }
+]

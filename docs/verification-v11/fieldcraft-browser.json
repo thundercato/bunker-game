@@ -1,0 +1,384 @@
+[
+  {
+    "name": "v11 starts all 58 imported model families",
+    "pass": true,
+    "detail": {
+      "tables": 53,
+      "containers": 131,
+      "beds": 14,
+      "buildingDetails": 5,
+      "decorations": 15,
+      "looseItems": 32
+    }
+  },
+  {
+    "name": "61 catalogue items have valid 3D templates",
+    "pass": true,
+    "detail": {
+      "catalogue": 61,
+      "ready": 61,
+      "imported": 25,
+      "authored": 36,
+      "errors": []
+    }
+  },
+  {
+    "name": "53 tables and 131 searchable containers replaced",
+    "pass": true
+  },
+  {
+    "name": "Backpack shows actual model thumbnails",
+    "pass": true
+  },
+  {
+    "name": "Backpack thumbnails need no new WebGL context",
+    "pass": true
+  },
+  {
+    "name": "Thumbnail opens a live 3D inspector",
+    "pass": true
+  },
+  {
+    "name": "Inspector drag rotates model",
+    "pass": true
+  },
+  {
+    "name": "Inspector button zoom changes camera",
+    "pass": true
+  },
+  {
+    "name": "Inspector reset restores orientation",
+    "pass": true
+  },
+  {
+    "name": "Inspector returns to previous backpack",
+    "pass": true
+  },
+  {
+    "name": "Inspection leaves inventory and money untouched",
+    "pass": true
+  },
+  {
+    "name": "Read-only catalogue gallery shows 12 item previews",
+    "pass": true
+  },
+  {
+    "name": "Catalogue category filter works",
+    "pass": true
+  },
+  {
+    "name": "Viewer reuses one graphics context",
+    "pass": true
+  },
+  {
+    "name": "Atlas opens without browser fullscreen",
+    "pass": true
+  },
+  {
+    "name": "Objective button changes to target region",
+    "pass": true,
+    "detail": {
+      "zone": "field",
+      "zoom": 6,
+      "centre": [
+        17.5,
+        -33.9
+      ],
+      "selected": "signal",
+      "markers": 1
+    }
+  },
+  {
+    "name": "Map zoom-in button works",
+    "pass": true
+  },
+  {
+    "name": "Map zoom-out button works",
+    "pass": true
+  },
+  {
+    "name": "Map drag pans geography",
+    "pass": true
+  },
+  {
+    "name": "Two-finger pinch genuinely zooms canvas",
+    "pass": true
+  },
+  {
+    "name": "Centre on player returns to base map",
+    "pass": true
+  },
+  {
+    "name": "Fit region restores full extent",
+    "pass": true
+  },
+  {
+    "name": "Full atlas pauses simulation",
+    "pass": true
+  },
+  {
+    "name": "Atlas opens correct mission dossier",
+    "pass": true
+  },
+  {
+    "name": "Mission dossier opens its objective on map",
+    "pass": true
+  },
+  {
+    "name": "HUD mission shortcut opens pinned briefing",
+    "pass": true
+  },
+  {
+    "name": "New physical table does not hide starting PM",
+    "pass": true,
+    "detail": "pistol"
+  },
+  {
+    "name": "PM collection still succeeds",
+    "pass": true
+  },
+  {
+    "name": "Imported supply cabinet remains searchable",
+    "pass": true
+  },
+  {
+    "name": "Loot results use the same model images",
+    "pass": true
+  },
+  {
+    "name": "Recovered mission redirects to correct return contact",
+    "pass": true,
+    "detail": {
+      "zone": "base",
+      "zoom": 2,
+      "centre": [
+        -500,
+        44
+      ],
+      "selected": "signal",
+      "markers": 1
+    }
+  },
+  {
+    "name": "All five refuge doorways remain traversable",
+    "pass": true,
+    "detail": [
+      {
+        "room": "trader",
+        "pass": true
+      },
+      {
+        "room": "bar",
+        "pass": true
+      },
+      {
+        "room": "canteen",
+        "pass": true
+      },
+      {
+        "room": "workshop",
+        "pass": true
+      },
+      {
+        "room": "bedroom",
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "New panels fit tablet and landscape phone without scrolling",
+    "pass": true,
+    "detail": [
+      {
+        "size": {
+          "width": 1024,
+          "height": 768
+        },
+        "k": "pack",
+        "tab": "supplies",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 1024,
+          "height": 768
+        },
+        "k": "pack",
+        "tab": "tools",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 1024,
+          "height": 768
+        },
+        "k": "pack",
+        "tab": "mags",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 1024,
+          "height": 768
+        },
+        "k": "loot",
+        "tab": "base_locker",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 1024,
+          "height": 768
+        },
+        "k": "catalogue",
+        "tab": "all",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 1024,
+          "height": 768
+        },
+        "k": "map",
+        "tab": "objective",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 1024,
+          "height": 768
+        },
+        "k": "inspect",
+        "tab": "gun",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 1024,
+          "height": 768
+        },
+        "k": "missions",
+        "tab": null,
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 1024,
+          "height": 768
+        },
+        "k": "pause",
+        "tab": null,
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 844,
+          "height": 390
+        },
+        "k": "pack",
+        "tab": "supplies",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 844,
+          "height": 390
+        },
+        "k": "pack",
+        "tab": "tools",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 844,
+          "height": 390
+        },
+        "k": "pack",
+        "tab": "mags",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 844,
+          "height": 390
+        },
+        "k": "loot",
+        "tab": "base_locker",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 844,
+          "height": 390
+        },
+        "k": "catalogue",
+        "tab": "all",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 844,
+          "height": 390
+        },
+        "k": "map",
+        "tab": "objective",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 844,
+          "height": 390
+        },
+        "k": "inspect",
+        "tab": "gun",
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 844,
+          "height": 390
+        },
+        "k": "missions",
+        "tab": null,
+        "overflow": false,
+        "clipped": []
+      },
+      {
+        "size": {
+          "width": 844,
+          "height": 390
+        },
+        "k": "pause",
+        "tab": null,
+        "overflow": false,
+        "clipped": []
+      }
+    ]
+  },
+  {
+    "name": "No runtime JS errors",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "No missing model, image or runtime requests",
+    "pass": true,
+    "detail": []
+  }
+]

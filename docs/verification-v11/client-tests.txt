@@ -1,0 +1,16 @@
+PASS neutral stick zero
+PASS full stick one
+PASS diagonal normalised
+PASS undefined axes safe
+PASS standard wired/BT mapping
+PASS standard menu mapping
+PASS crossfade start
+PASS crossfade midpoint both half
+PASS crossfade complete
+PASS interrupt preserves envelope value
+PASS loop shortened by overlap only
+PASS same number of channels
+PASS sample-continuous join
+PASS no non-finite audio
+PASS tiny clips not damaged
+15 client unit tests passed
