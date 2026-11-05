@@ -1,10 +1,6 @@
 {
-  "label": "Field Signal World Editor v1: verified desktop editing and isolated game preview",
-  "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3LFbMmm7xkQiq2NzFlDVHV19jYK/97ca7251-98b0-409f-830c-614b66f5908a.zip",
-  "sha256": "4ef18bb52958e03cd187377b4245b0cd616aff9b9bee8f8dc8859da3c2a7dc90",
-  "baseCommit": "c51067724ac6082dece0fe627d5b9c1a04de1827",
-  "format": "incremental-source-checkpoint",
-  "editorVersion": "1.0.0",
-  "files": 74,
-  "bytes": 539159
+  "label": "Field Signal World Editor v1; v11-compatible desktop browser editor",
+  "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3LFbMmm7xkQiq2NzFlDVHV19jYK/41a09b37-9130-4555-86c9-2c6640f0e121.zip",
+  "sha256": "e8cb7bf21783c2cb1efb55407989b968a2ae3f1a1d28747d28ab07211a5e233b",
+  "schema": "field-signal-layout/1"
 }
