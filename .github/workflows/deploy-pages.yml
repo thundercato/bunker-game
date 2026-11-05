@@ -13,7 +13,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,13 +22,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Python gameplay, save and asset-coverage tests
+      - name: Python gameplay, save and editor integration tests
         run: python3 -m unittest discover -s site/tests -p 'test_*.py' -v
-      - name: JavaScript, audio and atlas unit tests
+      - name: JavaScript, audio, atlas and shared-layout unit tests
         run: |
-          for file in site/*.js; do node --check "$file"; done
+          for file in site/*.js site/editor/*.js; do node --check "$file"; done
           node site/tests/test_client.mjs
           node site/tests/test_atlas.mjs
+          node site/tests/test_layout.mjs
       - name: Build and validate runtime assets
         run: python3 tools/build.py
       - name: Install browser test runner
@@ -42,8 +43,12 @@ jobs:
         run: node tests/ci_smoke.cjs
       - name: Inventory, inspector, map and navigation checks
         run: node tests/fieldcraft_browser.cjs
-      - name: Overgrowth environment, all doorways, stairs and vehicle search
+      - name: Overgrowth environment, doorways, stairs and vehicle search
         run: node tests/overgrowth_browser.cjs
+      - name: Editor actual mouse gizmo, keyboard and reload checks
+        run: node tests/editor_controls.cjs
+      - name: Editor import, export, collision and real-game preview checks
+        run: node tests/editor_browser.cjs
       - name: Preserve verification output
         if: always()
         uses: actions/upload-artifact@v4
@@ -74,7 +79,7 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
@@ -89,14 +94,20 @@ jobs:
         run: |
           npm install --no-save --package-lock=false --fetch-timeout=60000 playwright@1.56.1
           npx playwright install chromium
-      - name: Test actual published site, existing saves and offline use
+      - name: Test actual published game and offline use
         env:
           GAME_URL: https://thundercato.github.io/bunker-game/
         run: node tests/live_release.cjs
+      - name: Test actual published editor and isolated preview
+        env:
+          GAME_URL: https://thundercato.github.io/bunker-game/
+        run: node tests/editor_browser.cjs
       - name: Preserve public-site verification
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: field-signal-public-release
-          path: test-results/public-release.json
+          path: |
+            test-results/public-release.json
+            test-results/editor-browser.json
           if-no-files-found: ignore
