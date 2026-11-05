@@ -1,5 +1,5 @@
 /* Public, same-origin runtime assets only. Campaigns remain in localStorage. */
-const CACHE='field-signal-overgrowth-v11.0.0';let job=null;
+const CACHE='field-signal-overgrowth-v11-editor1';let job=null;
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
 async function broadcast(msg){for(const c of await self.clients.matchAll({includeUncontrolled:true}))c.postMessage(msg)}

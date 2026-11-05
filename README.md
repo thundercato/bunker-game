@@ -1,3 +1,9 @@
+## World Editor
+
+[Open the desktop editor](https://thundercato.github.io/bunker-game/editor/) · [Editor guide](docs/WORLD_EDITOR.md) · [Editor roadmap](docs/EDITOR_ROADMAP.md)
+
+Edit building layouts visually with real models, shared collision, stair openings, undo, portable JSON files and a separate game-preview campaign. Changes are local until explicitly reviewed and published.
+
 # Field Signal: Overgrowth v11
 
 A landscape first-person survival game for iPhone, iPad, keyboard and controller. Python gameplay rules run locally through Pyodide; Three.js renders the world. The repository is the persistent source of truth.

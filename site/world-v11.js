@@ -52,7 +52,7 @@ export class World extends FieldcraftWorld {
  async rebuildBuildings11(){
   for(const r of this.buildingParts11){if(r.role==='roof'||r.role==='gable'){r.m.parent?.remove(r.m);this.occluders=this.occluders.filter(o=>o!==r.m);}else{const wood=['hut','pier'].includes(r.b.kind);r.m.material=this.naturalMaterials[wood?'wood':r.b.kind==='industrial'?'brick':'plaster'];this.texturedUV11(r.m,wood?2.3:2.8);r.m.receiveShadow=true;}}
   const cornerMat=new T.MeshStandardMaterial({color:'#535f59',roughness:.92}),glass=new T.MeshStandardMaterial({color:'#405454',roughness:.43,metalness:.18});
-  for(const b of DATA.buildings){const g=this.exteriorGroup11(b),h=b.floors===2?6.4:3.08,wood=['hut','pier'].includes(b.kind),industrial=b.kind==='industrial';const mat=this.naturalMaterials[wood?'wood':industrial?'brick':'plaster'];
+  for(const b of DATA.buildings.filter(b=>!b.editorScene)){const g=this.exteriorGroup11(b),h=b.floors===2?6.4:3.08,wood=['hut','pier'].includes(b.kind),industrial=b.kind==='industrial';const mat=this.naturalMaterials[wood?'wood':industrial?'brick':'plaster'];
    const oldWalls=this.buildingParts11.filter(r=>r.b.id===b.id&&r.role==='wall').map(r=>r.m);this.occluders=this.occluders.filter(o=>!oldWalls.includes(o));for(const m of oldWalls){m.parent?.remove(m);g.add(m);}
    const roofMat=this.naturalMaterials[industrial||wood?'rust':'roof'];const rise=industrial?Math.min(2.8,b.w*.12):Math.min(2.8,b.w*.22),overhang=.48,w=b.w/2+overhang,d=b.d/2+overhang;
    if(b.id==='hangar'){

@@ -1,4 +1,5 @@
 import {DATA} from './world.js';
+import {surfaceAt} from './layout-core.js';
 export const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 export const smooth=x=>{x=clamp(x);return x*x*(3-2*x)};
 export function zoneAt(x,z){for(const [id,q]of Object.entries(DATA.zones))if(x>q.minX-1&&x<q.maxX+1&&z>q.minZ-1&&z<q.maxZ+1)return id;return 'field'}
@@ -21,6 +22,8 @@ export function terrainHeight(x,z){
  let f=smooth((x-132)/14);for(const b of DATA.buildings)f=Math.min(f,smooth(Math.max(Math.abs(x-b.x)-b.w/2-2,Math.abs(z-b.z)-b.d/2-2)/8));for(const route of DATA.roads)for(let i=1;i<route.length;i++)f=Math.min(f,smooth((segmentDistance(x,z,route[i-1],route[i])-4)/7));if(x>178&&x<297&&z>-609&&z<-475)f=0;for(const [xx,zz]of [[154,-348],[210,-422]])f=Math.min(f,smooth((Math.hypot(x-xx,z-zz)-5)/7));return Math.max(0,(2.4+1.3*Math.sin(x*.038)*Math.cos(z*.025)+.45*Math.sin(x*.19+z*.17))*f);
 }
 export function surfaceHeight(x,z,lastY=0){
+ if(DATA.editorLayout){const d=DATA.editorLayout,lx=x-d.origin[0],lz=z-d.origin[2];if(Math.abs(lx)<d.bounds[0]/2+.35&&Math.abs(lz)<d.bounds[1]/2+.35)return surfaceAt(d,lx,lz,lastY);}
+
  const zone=zoneAt(x,z);if(zone==='base')return z<0?2.6*clamp(-z/7):z>46?2.6*clamp((z-46)/7):0;
  if(zone==='cave')return -5*clamp((z-7)/15);if(zone==='bunker'||zone==='sewer')return -4.2*clamp((z-3)/12);
  if(Math.abs(x)<1.8&&z>0&&z<8)return -3*clamp(z/7);if(Math.abs(x)<1.8&&z>9&&z<14)return -3*clamp((14-z)/7);
