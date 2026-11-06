@@ -135,3 +135,28 @@ Branch pushed in meaningful checkpoints. No merge, live publication, game versio
 bump, save migration, asset/licence replacement or deployment. Standard packaging
 is deliberately gated on Track A review. See `EDITOR_V2_TESTING.md` for local review
 and `EDITOR_V2_INTEGRATION_REQUESTS.md` for the exact next integration work.
+
+## Continuation execution plan (current)
+
+Continuation baseline `de5d758`; remote main remains `be64a7f`, PR82 unchanged.
+Runtime successor PR83 is open at `edffe7b118961406a6516ac079f706375a725ab8`,
+stacked on unmerged PR81 `476441ee2def32752031c20124c6bbdc2077a14c`.
+No other task's private/uncommitted work is assumed. The user explicitly authorises
+narrow additive packaging/cache/bootstrap/CI changes for this continuation.
+
+1. Reproduce IR-01 with the canonical build; close it with explicit shipped files,
+   import-closure validation, packaged-only browser suites, old-worker upgrade and
+   all-workspace offline tests; obtain normal CI results.
+2. Connect world and focused building edits through the existing canonical world
+   envelope and compiler, shared history/drafts, in-world authored cutaways and
+   portable envelope round trips. Test the optional runtime adapter in an isolated
+   combination with a pinned unmerged runtime revision; do not merge that PR.
+3. Add actual surface snapping, rigid decorative assemblies/templates, overlap
+   selection/isolation, useful binding diagnostics and deterministic spaced brushes.
+4. Reassess runtime contracts for further ready work, run meaningful journeys,
+   preserve screenshots/logs, commit/push checkpoints and update PR82.
+
+Capability checkpoint at start: anchored tools/proposals work; shipping packaging,
+connected views and integrated moved-building previews are not yet accepted.
+Refuge source references exist, but current runtime has no reviewed editable
+local-scene/station-transform or APR/mission/weighted-loot component adapter.
