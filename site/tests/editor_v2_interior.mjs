@@ -29,6 +29,41 @@ test('overlap chooser returns real stable authored IDs and proximity is view-onl
 test('diagnostics reveal unsupported footprint, stair headroom, and suggested fixes',()=>{const d=scene();d.objects[3].position=[4,1,0];d.objects.push(object('stairs','stairs',[-3,0,0],[2,3.2,5]),object('low-roof','roof',[-3,2.5,0],[3,.2,7]));const issues=interiorDiagnostics(d,{reachability:false});assert.ok(issues.some(i=>i.id==='box'&&/supporting/.test(i.message)&&/Surface snap/.test(i.fix)));assert.ok(issues.some(i=>i.id==='stairs'&&/headroom/.test(i.message)&&/ceiling/.test(i.fix)));assert.ok(issues.every(i=>d.objects.some(o=>o.id===i.id)));});
 test('bounded reachability warns on cap without asserting inaccessible targets',()=>{const d=scene();d.objects[3].binding={type:'container',id:'hut_c1'};const issues=interiorDiagnostics(d,{limit:3});assert.ok(issues.some(i=>/3-point limit/.test(i.message)));assert.ok(!issues.some(i=>/No sampled walking approach/.test(i.message)));});
 test('sealed actual collision prevents sampled container approach',()=>{const d=scene();d.objects=d.objects.filter(o=>!['table','box'].includes(o.id));d.bounds=[6,6];d.objects[1].position=[-2,0,0];d.objects.push(object('enclosed','prop',[1,0,0],[.4,.4,.4],{binding:{type:'container',id:'hut_c1'}}),object('partition','wall',[0,0,0],[12,3,.2],{yaw:Math.PI/2}),object('back','wall',[-3,0,0],[12,3,.2],{yaw:Math.PI/2}),object('north','wall',[0,0,-3],[12,3,.2]),object('south','wall',[0,0,3],[12,3,.2]));const issues=interiorDiagnostics(d);assert.ok(issues.some(i=>i.id==='enclosed'&&/No sampled walking approach/.test(i.message)),JSON.stringify(issues));});
+function anchoredApproachScene(){
+ return validateLayout({format:'field-signal-layout',version:1,buildingId:'hut',name:'Bound approach',origin:[9,0,-17],bounds:[8,8],objects:[
+  object('ground','floor',[0,0,0],[8,.16,8]),object('spawn','spawn',[-3,0,0],[.35,1.7,.35],{solid:false}),
+  object('deep-container','prop',[1.5,0,0],[6,1,4],{yaw:-Math.PI/2,binding:{type:'container',id:'hut_c1',floor:0}}),
+  object('west','wall',[-4,0,0],[8,3,.2],{yaw:Math.PI/2}),object('east','wall',[4,0,0],[8,3,.2],{yaw:Math.PI/2}),
+  object('north','wall',[0,0,-4],[8,3,.2]),object('south','wall',[0,0,4],[8,3,.2]),
+ ]},{strictBindings:false});
+}
+const noApproach=(issues,id)=>issues.some(i=>i.id===id&&/No sampled walking approach/.test(i.message));
+test('sampled approach uses the rotated canonical front anchor rather than a solid container centre',()=>{
+ const d=anchoredApproachScene(),container=d.objects.find(o=>o.id==='deep-container');
+ assert.ok(noApproach(interiorDiagnostics(d),container.id),'The centre is too deep inside its collider to approach');
+ container.binding.anchor=[0,.5,2];const raw=JSON.stringify(d);
+ assert.ok(!noApproach(interiorDiagnostics(d),container.id),'The shared +Z front anchor rotates onto the reachable west face');
+ assert.equal(JSON.stringify(d),raw,'Diagnosis must not rewrite IDs, bindings or local coordinates');
+ assert.deepEqual(interiorDiagnostics(JSON.parse(raw)),interiorDiagnostics(d));
+});
+test('an anchor on the obstructed reverse face retains an actionable bounded warning',()=>{
+ const d=anchoredApproachScene(),container=d.objects.find(o=>o.id==='deep-container');container.binding.anchor=[0,.5,-2];
+ const before=clone(d),issues=interiorDiagnostics(d),warning=issues.find(i=>i.id===container.id&&/No sampled walking approach/.test(i.message));
+ assert.ok(warning,'The wall leaves no walking approach behind the container');
+ assert.match(warning.fix,/interaction anchor and support floor/);assert.match(warning.fix,/diagnostic; verify in game/);
+ assert.ok(!issues.some(i=>/point limit/.test(i.message)),'This fixture completes the bounded search');assert.deepEqual(d,before);
+});
+test('explicit ground support floor is honoured for a wall-mounted binding beneath a mezzanine',()=>{
+ const d=validateLayout({format:'field-signal-layout',version:1,buildingId:'hut',name:'Wall cupboard support',origin:[9,0,-17],bounds:[8,8],objects:[
+  object('ground','floor',[0,0,0],[8,.16,8]),object('mezzanine','floor',[0,1.8,0],[8,.16,8]),
+  object('spawn','spawn',[-3,0,0],[.35,1.7,.35],{solid:false}),
+  object('wall-cupboard','prop',[0,1.38,0],[.72,.85,.38],{binding:{type:'container',id:'hut_c1',floor:0,anchor:[0,.4675,.27]}}),
+ ]},{strictBindings:false}),before=clone(d),issues=interiorDiagnostics(d);
+ assert.ok(!noApproach(issues,'wall-cupboard'),'Explicit floor 0 must not be replaced by a higher surface inferred from the mounted body');
+ const support=issues.find(i=>i.id==='wall-cupboard'&&/supporting top face/.test(i.message));assert.match(support.fix,/intentionally wall-mounted/);assert.match(support.fix,/actual game preview/);
+ const inferred=clone(d);delete inferred.objects.find(o=>o.id==='wall-cupboard').binding.floor;
+ assert.ok(noApproach(interiorDiagnostics(inferred),'wall-cupboard'),'Without a declared floor, the shared surface fallback identifies the mezzanine');assert.deepEqual(d,before);
+});
 test('rotated wall endpoints meet once and preserve the opening binding',()=>{const d=scene();d.objects.push(object('wall-a','wall',[1,0,1],[3,3,.2],{yaw:.37}),object('door','doorway',[-1,0,0],[3,3,.2],{doorId:'hut',opening:{width:1.5,height:2.3,sill:0}}));const ref=clone(d.objects.at(-2));joinWallEndpoints(d,'door','wall-a',{orientation:'perpendicular',movingEnd:'negative',referenceEnd:'positive'});const door=d.objects.at(-1),a=worldPoint(ref,1.5,0),b=worldPoint(door,-1.5,0);a.forEach((n,i)=>close(n,b[i]));close(door.yaw,ref.yaw+Math.PI/2);assert.equal(door.doorId,'hut');assert.deepEqual(door.opening,{width:1.5,height:2.3,sill:0});assert.deepEqual(d.objects.at(-2),ref);const old=clone(d);assert.throws(()=>joinWallEndpoints(d,'table','door'),/two different walls/);assert.deepEqual(d,old);});
 test('real floor landings respect stair rise, shared holes, fresh IDs and bottom yaw',()=>{const d=scene();d.objects.push(object('stairs','stairs',[0,0,0],[2,3.2,5]));const id=addStairLanding(d,'stairs',{depth:1.2},()=> 'top-landing'),o=d.objects.find(o=>o.id===id);o.position.forEach((n,i)=>close(n,[0,3.2,-3.26][i]));assert.deepEqual(o.size,[2,.16,1.2]);close(collidersFor(d).find(c=>c.id===id).y+o.size[1],3.2);d.objects.find(o=>o.id==='stairs').yaw=.8;const old=clone(d);assert.throws(()=>addStairLanding(d,'stairs',{},()=> 'clipped'),/rotated stair opening clips/);assert.deepEqual(d,old);addStairLanding(d,'stairs',{end:'bottom'},()=> 'bottom-landing');const bottom=d.objects.at(-1);close(bottom.yaw,.8);const[x,z]=worldPoint(d.objects.find(o=>o.id==='stairs'),0,3.1);close(bottom.position[0],x);close(bottom.position[2],z);close(bottom.position[1],0);});
 

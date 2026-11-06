@@ -1,7 +1,7 @@
 // Editor operations over the existing layout document. Runtime collision/floor
 // queries remain in layout-core; templates expand into ordinary stable children.
 import {clone,localPoint,worldPoint,geometryPieces,collidersFor,validateLayout,MATERIALS,
-  validateSpatial,moveInLayout,surfaceAt} from '../../layout-core.js';
+  validateSpatial,moveInLayout,surfaceAt,bindingAnchor} from '../../layout-core.js';
 
 const finite=n=>typeof n==='number'&&Number.isFinite(n);
 const safeId=s=>typeof s==='string'&&/^[\w-]{1,80}$/.test(s);
@@ -159,7 +159,7 @@ export function interiorDiagnostics(doc,{reachability=true,limit=1200}={}) {
   const issues=[];
   for(const o of doc.objects.filter(o=>o.type==='prop')){
     const supported=supportCandidates(doc,o.id).some(s=>{const support=doc.objects.find(p=>p.id===s.id);return Math.abs(bottom(o)-s.height)<.04&&fitsSupport(doc,o,support);});
-    if(!supported)issues.push({id:o.id,level:'warning',message:o.name+' has no complete supporting top face.',fix:'Use Surface snap with a floor, table or shelf that holds the full footprint.'});
+    if(!supported)issues.push({id:o.id,level:'warning',message:o.name+' has no complete supporting top face.',fix:'Use Surface snap with a floor, table or shelf that holds the full footprint. For an intentionally wall-mounted prop, check its wall attachment and reach in the actual game preview.'});
   }
   for(const stairs of doc.objects.filter(o=>o.type==='stairs')){
     for(const t of [.2,.5,.8]){const[x,z]=worldPoint(stairs,0,stairs.size[2]*(.5-t)),y=stairs.position[1]+stairs.size[1]*t;const ceiling=collidersFor(doc,{doorsOpen:true}).find(c=>c.id!==stairs.id&&c.y>y+.05&&c.y<y+1.75&&Math.abs(localPoint({position:[c.x,c.y,c.z],yaw:c.yaw},x,z)[0])<c.w/2&&Math.abs(localPoint({position:[c.x,c.y,c.z],yaw:c.yaw},x,z)[1])<c.d/2);if(ceiling){issues.push({id:stairs.id,level:'warning',message:'Low stair headroom near '+Math.round(t*100)+'% of '+stairs.name+'.',fix:'Raise/remove the ceiling or adjust stair rise/run; the walk needs about 1.75 m clearance.'});break;}}
@@ -175,7 +175,7 @@ export function interiorDiagnostics(doc,{reachability=true,limit=1200}={}) {
     for(const[dx,dz]of[[step,0],[-step,0],[0,step],[0,-step]]){if(Math.abs(p.x+dx)>doc.bounds[0]/2+2||Math.abs(p.z+dz)>doc.bounds[1]/2+2)continue;const q=moveInLayout(doc,p,dx,dz,{doorsOpen:true}),key=pointKey(q);if(Math.hypot(q.x-p.x,q.z-p.z)>step*.85&&!enqueued.has(key)){enqueued.add(key);queue.push(q);}}
   }
   if(visited.length>=limit)issues.push({id:start.id,level:'warning',message:'Reachability sampling reached its '+limit+'-point limit.',fix:'Use a focused room or walk test; no unreachability conclusion was made.'});
-  else for(const o of doc.objects.filter(o=>o.binding)){const level=surfaceAt(doc,o.position[0],o.position[2],o.position[1]);if(!visited.some(p=>Math.abs(p.y-level)<.55&&Math.hypot(p.x-o.position[0],p.z-o.position[2])<1.45))issues.push({id:o.id,level:'warning',message:'No sampled walking approach reaches '+o.name+'.',fix:'Clear doorways/landings or move the container closer to a walkable surface. Sampling is a diagnostic; verify in game.'});}
+  else for(const o of doc.objects.filter(o=>o.binding)){const [x,,z]=bindingAnchor(o),level=o.binding.floor??surfaceAt(doc,x,z,o.position[1]);if(!visited.some(p=>Math.abs(p.y-level)<.55&&Math.hypot(p.x-x,p.z-z)<1.45))issues.push({id:o.id,level:'warning',message:'No sampled walking approach reaches '+o.name+'.',fix:'Check its interaction anchor and support floor, clear doorways/landings or move the container closer to a walkable surface. Sampling is a diagnostic; verify in game.'});}
   return issues;
 }
 export function interiorIssues(doc,options) {
