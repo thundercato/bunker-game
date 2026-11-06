@@ -44,6 +44,8 @@ export async function startEditorWorkspace(modulePath) {
   }
   await import(new URL(modulePath,document.baseURI).href);
   mountOfflinePreparation();
+  const {mountRecovery}=await import('./panels/recovery.js');
+  mountRecovery();
  }catch(error){
   const message='Editor could not start: '+error.message;
   const host=document.querySelector('#status,#save-state');if(host)host.textContent=message;
