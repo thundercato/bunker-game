@@ -6,7 +6,10 @@ art, device testing or a performance benchmark. All files are from local review
 of this branch, not a deployed site. See `../EDITOR_V2_PROGRESS.md` for exact
 commands/results, observed errors and remaining runtime dependencies.
 
-**Current integrated canonical evidence:** [accepted 11.1 source, 38 game-preview
+**Current 2.1.3 canonical evidence:** [strict 41 gameplay, real 5,000-instance history,
+four offline upgrades and all 23 browser executables](editor213/README.md).
+
+**Earlier 2.1.2 integrated evidence:** [accepted 11.1 source, 38 game-preview
 checks,595-resource offline upgrades, real uppercutaways and final reports](integrated/README.md).
 
 **Earlier continuation:** [canonical build, connected editing, offline, recovery and
@@ -30,5 +33,5 @@ lists. `resize-run1.json` and `resize-run2.json` preserve consecutive final runs
 `logs/` retains the original pure, browser, build and failed canonical startup
 record. That packaging failure was subsequently fixed and acceptance rerun using
 normal dist (see the continuation). `editor-runtime-files.txt` now enumerates the
-36 additive editor paths relative to accepted main `0aacdb4`; the original omission was 17 files.
+37 additive editor paths relative to accepted main `0aacdb4`; the original omission was 17 files.
 It is an audit list, not a replacement release/cache manifest.

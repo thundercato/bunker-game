@@ -20,16 +20,21 @@
     "editor/tools/world-authoring.js",
     "editor/tools/world-inspector.js"
   ],
-  "canonicalBuildFiles": 597,
-  "manifestResources": 595,
+  "canonicalBuildFiles": 598,
+  "manifestResources": 596,
   "addedPublicFiles": [
     {
       "path": "editor/connected-world.js",
       "dependencies": [
+        "editor/tools/interior-core.js",
         "editor/world-core.js",
         "layout-renderer.js",
         "world-document.js"
       ]
+    },
+    {
+      "path": "editor/history-codec.js",
+      "dependencies": []
     },
     {
       "path": "editor/loot.html",
@@ -134,6 +139,7 @@
     {
       "path": "editor/panels/recovery-core.js",
       "dependencies": [
+        "editor/history-codec.js",
         "editor/panels/loot-core.js",
         "editor/panels/missions-core.js",
         "editor/session.js",
@@ -184,6 +190,7 @@
     {
       "path": "editor/session.js",
       "dependencies": [
+        "editor/history-codec.js",
         "editor/source-adapter.js",
         "editor/tools/world-authoring.js",
         "layout-core.js",
@@ -265,22 +272,23 @@
       ]
     }
   ],
-  "status": "RESOLVED: canonical build/import closure and all13 packaged browser suites plus all3 prior-worker offline upgrades pass without overlay. Accepted bounded building adapter is bundled; final-head normal CI is the merge gate.",
+  "status": "Original17-file packaging failure resolved in canonical production build and green normal CI; current2.1.3 build includes lossless history explicitly, strict41-check gameplay suite and four offline upgrades pass. Final full CI gate remains.",
   "acceptance": [
-    "Canonical python3 tools/build.py:597 explicit public files /595 cached resources,36 editor additions over accepted main; no overlay.",
-    "All13 packaged browser suites pass, including38 actual-game checks forhut/Forester/station; zero final exceptions/missing resources.",
-    "World2,previouseditor2.1,released11.1 worker fixtures:7 checks each, all5 workspaces offline and595 resources cached via real UI; retained campaign/settings/both journals/structured book/preview namespaces/draft bytes.",
-    "173 Python tests pass with zero skips; all15 editor pure suites pass Node22, including16 asset/30 interior/9 source/16 recovery cases and599 resize assertions.",
-    "Packaging regression8 tests pass after final metadata build; generated roads reproducible and264 navigation audit checks pass."
+    "Canonical python3 tools/build.py:598 explicit public files /596 cache resources,37 editor additions over acceptedmain; no overlay.",
+    "All16 editor pure suites passed Node22 and173 Python tests passed with zero skips.",
+    "Current browser suites cover strict41 actual-game checks, history13 including real5000instance/30frame storage and unchanged normal/preview namespaces.",
+    "All4 prior-worker variants:7 checks each;596resources cached and all5 workspaces restart offline with retained save/draft bytes.",
+    "All23 local browser executables passed with zero final error/missing/failure arrays; final-head normalCI/artifact linked from PR82."
   ],
   "cacheReconciliation": {
     "originalCanonicalPrior": "field-signal-overgrowth-v11-world2.0.0",
     "priorReview": "field-signal-overgrowth-v11-editor2.1.0",
     "acceptedRuntimePrior": "field-signal-game-first-release-11-1",
-    "editorSuite": "field-signal-11.1-editor2.1.2",
-    "resolution": "Preserve accepted main resource traversal order and runtime fresh-entry gates, append explicit editor additions, use one matching cache in SW/runtime-ready/suite-bootstrap. Retire public caches only after complete cache-all; no storage clearing."
+    "editorSuite": "field-signal-11.1-editor2.1.3",
+    "resolution": "Preserve accepted main resource traversal order and runtime fresh-entry gates, append explicit editor additions, use one matching cache in SW/runtime-ready/suite-bootstrap. Retire public caches only after complete cache-all; no storage clearing.",
+    "priorReview212": "field-signal-11.1-editor2.1.2"
   },
-  "addedPublicFileCount": 36,
+  "addedPublicFileCount": 37,
   "priorReviewCache": "field-signal-overgrowth-v11-editor2.1.0",
   "optionalRuntimeDependencies": {
     "editor/preview-launcher.js": "world-preview.js is now bundled from accepted main; capability metadata validated against shipped source revision/digest"
@@ -288,7 +296,13 @@
   "developmentOverlayRequired": false,
   "additiveBaseCommit": "0aacdb48f1cdbef3480dc7f8812a8fd5604c5f5e",
   "acceptedRuntimeIntegrationCommit": "8cd2b24a7218c99bae383df1ef38c4a270842d18",
-  "finalMetadataCommit": "50562903e5a6179de8e1d3600cb77206a512aa5f",
   "finalDocumentationMain": "220fb45",
-  "ciResult": "See PR82 final-head checks and canonical-editor-dist artifact; not inferred from previous heads."
+  "ciResult": "Final-head normal CI and canonical-editor-dist are linked from PR82; earlier green packaging proof is historical, not a substitute for final-head checks.",
+  "currentEditorSource": "8567fc7f5d52ead7ac6037941b503bf3681ba56d",
+  "currentEditorVersion": "2.1.3-preview",
+  "firstGreenCanonicalCI": "https://github.com/thundercato/bunker-game/actions/runs/42285211842",
+  "firstGreenCheckpoint": "7bd5db1",
+  "historyFormatScope": "Optional lossless UI checkpoint metadata only; canonical document, game schema and legacy draft keys unchanged.",
+  "previousMetadataCountCommit": "5056290",
+  "lastPublicSourceCommit": "8567fc7"
 }

@@ -1,0 +1,21 @@
+{
+  "checks": [
+    "Real source missions and typed graphs load without validation errors",
+    "Source and item search filter actual mission identities",
+    "Real node drag Escape restores the complete proposal",
+    "Saving during a drag cannot persist a cancelled transient node pose",
+    "Delete during a drag cancels the gesture before the undoable edit",
+    "Real graph drag is one undo/redo step",
+    "Actual right-drag pan, wheel zoom and fit operate",
+    "Numeric reward proposal persists without changing world source",
+    "Storage failure protects unsaved edits until a successful save",
+    "Typed connection form rejects item-to-flow links",
+    "Connection deletion and undo repair the real graph",
+    "Stable target link and unsupported mechanics state actual integration limits",
+    "Real JSON download and file import round trip",
+    "Reload retains proposals and captures actual workspace",
+    "No browser exceptions or missing assets"
+  ],
+  "errors": [],
+  "missing": []
+}

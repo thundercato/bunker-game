@@ -1,0 +1,213 @@
+{
+  "platform": "Linux Chromium / SwiftShader",
+  "scope": "Actual localStorage and hidden-vegetation history; not dense-rendering or physical-device performance",
+  "checks": [
+    {
+      "name": "Real localStorage saves5000UUID instances, three interiors and all30 history states without quota failure",
+      "detail": {
+        "checkpointChars": 792185,
+        "utf16StorageEstimate": 3168256,
+        "hiddenVegetation": true
+      }
+    },
+    {
+      "name": "Checkpoint uses the lossless history encoding while canonical document and legacy mirrors remain exact"
+    },
+    {
+      "name": "Actual reload preserves SHA256 of the current document, every30 undo frame and all foliage IDs"
+    },
+    {
+      "name": "Real undo/redo buttons and keyboard restore growing strokes as complete transactions"
+    },
+    {
+      "name": "World/focused navigation and map reload retain full history, selection and hidden forest without reroll"
+    },
+    {
+      "name": "Normal campaign, settings, both journals and unrelated preview state remain byte-identical during dense history edits"
+    },
+    {
+      "name": "An actual older full-snapshot checkpoint loads200 instances and all28undo+2redo frames unchanged"
+    },
+    {
+      "name": "Explicit Save converts old snapshots losslessly and actual reload retains both history stacks"
+    },
+    {
+      "name": "Concurrent external legacy checkpoint is backed up byte-for-byte before Save retains active compressed history"
+    },
+    {
+      "name": "Invalid encoded splice preserves raw checkpoint, offers exact download and refuses an unsafe restore"
+    },
+    {
+      "name": "Explicit recovery Save retains corrupt bytes in backup, persists the valid mirror design and survives reload"
+    },
+    {
+      "name": "Both fresh profiles preserve every normal and unrelated preview sentinel without clearing storage"
+    },
+    {
+      "name": "Canonical production-subpath history journeys have no browser exceptions or failed asset/module requests"
+    }
+  ],
+  "measurements": {
+    "dense": {
+      "document": "6bec2b008418d84394b7996218ae19e402d04ce7c7af9cc0b86eef0d5fbea3e3",
+      "past": [
+        "c4882c86bd97802407a1b644dcf755bcc6ae0a05955ede40f204c327c43e984b",
+        "197ef7e128731d0328865ad7ed9e407090d7a0dc65a98e564d6272fb74dc2ecb",
+        "b3975c8682de8734ece233ddc7234d1662c8c5d35825b12c93a1472f4104228a",
+        "b07fb8322c9090d4f140d0208b256e1e672f296233d7ee2674ac38edc502ab61",
+        "d6c69add9f384983cef4e9a433b0aeed96d7c4471b68437fbb7c114cff7a9730",
+        "81e9b6b57fe3a61ff66264a45cdf9196629cfb8af57c52b1eba755d082dbe059",
+        "9c7bf7411dde069486ff8123f60747c95e24908ba6da83f356cad42e1c1235ae",
+        "eece07ee984a720bd848bcd7fdbb3602084e53a78f17d97355bb11839da610de",
+        "201090e8e641283b1b85f85bb386bae20efe599beb9289a93479ff78cb3ef786",
+        "71a26645c512abc913f9fe481d14f7e4624b9108b231991997a468e74c63f1e2",
+        "18d7da085eafc192683330cc9a620b15052f5f3cae74f3a1f55237a9ed19853e",
+        "501c9d97edcbb5380390ef653ddf7c72c8813767dbd968833e431c06bf972327",
+        "a31b88b7a93c7ca06a286d6b6fcc729d136ef23700e34ea6197516eef77b13b5",
+        "277be2af3f3c8d770992bc3f698c7aea6d5589d5104c8dbb1267e1648dd165f6",
+        "706201e13345f402dba1cb8b72de92860fc6f9b03cfd46b7db81efb4925e4f39",
+        "2defd8691beff1f6eba46efa05b2bc356f1d0ef9bcdbb5d51eb9256828a50526",
+        "329976e30b3a6901e5579465d9e8299c09449b737991cfc2f43a3d0626d29f4d",
+        "188147e11bdc0d043f8b5d5ca1962899552e95c1f32ae087dfc905ce383896cf",
+        "0e97b09c497900ef0f4ad455612a46f7b6de48b5361517e27720e0a2bfb08ad0",
+        "91cab58b0795239952919c8d630d36625da13e53b3a306df639057f06bf1cf2f",
+        "c0ea13870bbb20dfb4997afb4f16685f188141c42419874c71dd9ee2704c11cb",
+        "04073bf26b25f436bb6a86d5d7f2bccc96d7ed4b9bf07bda919659117701b289",
+        "7c3a1f851f4033dfeb3997727fde0eb543107235310fbb70a236939d58e4fb78",
+        "76e4f5c3a1b0c01b8672bc796f1fa3a3292b4463e6122e48b4551bd63102a2d9",
+        "f76251f28d444775bd768d57ed6844666cbdb42c4297e3a1af9fddddfc10677d",
+        "d2c8888a513de52c8a2e5610665efb58595d40e067b0237cb286979383ce583a",
+        "ba3ab803f40bf94dac3f55af6c906b5475e55439152b9efee0d2adb698691713",
+        "7733eff9329e2bfa464f05345e848b079d5d3b33e7fa8fd5ca249f03f0290332",
+        "4b52e0478662b5e14c30d302be1fa5d6ecc8d2bba73646dcc787e68c2e983067",
+        "5689e39c63a349f9627e8a5b46f31e986f3523e7201f3fc34f28b72379a8846d"
+      ],
+      "future": [],
+      "foliage": "1896e05ebdd4f49387bb95b321fd3a8f28feac17935bb13314754aede436104e",
+      "foliageIds": "a6947d23fbf60b6c2e61ccb83ba5fcddb45d38a2963ec37731fca93e845d812d",
+      "foliageCount": 5000,
+      "pastCounts": [
+        4700,
+        4710,
+        4720,
+        4730,
+        4740,
+        4750,
+        4760,
+        4770,
+        4780,
+        4790,
+        4800,
+        4810,
+        4820,
+        4830,
+        4840,
+        4850,
+        4860,
+        4870,
+        4880,
+        4890,
+        4900,
+        4910,
+        4920,
+        4930,
+        4940,
+        4950,
+        4960,
+        4970,
+        4980,
+        4990
+      ],
+      "interiors": [
+        {
+          "id": "hut",
+          "objects": 12
+        },
+        {
+          "id": "forester",
+          "objects": 52
+        },
+        {
+          "id": "station",
+          "objects": 19
+        }
+      ],
+      "vegetation": false,
+      "history": {
+        "undo": 30,
+        "redo": 0
+      },
+      "issues": [],
+      "checkpointChars": 792185,
+      "documentChars": 791302,
+      "checkpointFormat": "field-signal-editor-history/1",
+      "storedPast": 30,
+      "storedFuture": 0,
+      "checkpointExact": true,
+      "legacyExact": true,
+      "layoutMirrorsExact": true,
+      "fullSnapshotsAbsent": true,
+      "utf16StorageEstimate": 3168256
+    },
+    "legacy": {
+      "rawChars": 2469295,
+      "rawHash": "4c6d609ec623d25b001c2df3e3e0fc1fe85ba7b83d1f7700e5240b767659ecb7",
+      "document": "333ae939ee7feb98089154e34c7c25a032446965242a9e7d00c3cf1c28254b4e",
+      "past": [
+        "b7498f830683f7a568a06172cef47b29e0acb3d1babd2e16d00688c0016dcc9d",
+        "49a9ce555da7b2e3c994bcdec62140730f5398d22faac1f2692064f200b57efb",
+        "073d50b5e3a2d3d7dc610635252deefd74e061f3b9daa402c38939150da35806",
+        "132e1baea7de9690fe1e97ced3b77758a1f8efc3107051d9c8f693758dbc2b21",
+        "8db681637f430809c98462b77c06e285797981fc899a2fcc90625988dfcaf963",
+        "398d7db4a28447ba4e881d6227e347ca4d6159ddc6656ab9e11c7c998b38c415",
+        "3f260d123b3967bfd24063de0074c6a799872906aabaa5b52b614f02ab598a05",
+        "963a172446e29ec6ee3cce03bd935383b6b083dc6462038aa8b24dc21d442e8a",
+        "16554d546ffaa75c61c637a21b2eb965a5ccc4f80c4ad91c430fcb9cb9e7edc8",
+        "42133289650d3c23c3e915301c78fe492fc9164a8485c5b873eacc7dfc7bcebc",
+        "025a8abcb3587f2451205f66f7e23d37c703e4d7bfdf9cb6531ad2a6a5c0c5ca",
+        "82e4d5a0961f71a7c768668c3f64d4a263e6b41bb5705fe90c4d88e8ea706a0a",
+        "b70b25f16550d9597d42e06ecab9728d4c2e9a7eee50c8aa612ba3d79ed2d8bb",
+        "5034745b8491b4c3e0438ffa61817970e6fa9cae75405f9abb4fab8efe4d2240",
+        "1812f97e9c4c2f5c74c9fac4ec57bb5ddea2d02340d034bc7274d27c9a165149",
+        "193e9f568715864b64102e342fe655bbd3fc12d7a331f48206aeb11554b3d5a3",
+        "5fcc830d0970a302c24a3952d963dad247936578e31a7d1e9ac7b97f42d1cb15",
+        "d248ebf92794d93a75d3fd73d278ef5e22230b0d1d24d168f79faeec7eda5072",
+        "e7be5ed87cad656407d8c914bbcf3dbb1d9b67b473d80e920296c80ab1f4312d",
+        "e9f421b814f44d028cce154f03e4ad51bfcfea0472111e53eed6aec17ecb1c97",
+        "3129545d08c4321d6a97a2cfe9875b76ed8c31f58c2709943b89bcb58680cf38",
+        "e7db18e55c1baf6ec2c9b5c41b54ba3e9ec6d5af0101a3fe04b152203691a52b",
+        "66a0a5fcd4bc4c8bb62513b762914f39296249f8175f1a69ea8be021b1b92278",
+        "5c226294f3b2ccd6a415f55f1e171a8b3066c4fbb02fc19c81e3a336b141b8de",
+        "0461eadd16a433fdb5e87803e2ce7dbb6ba17af57e4f13d48e22ec2c5808a22a",
+        "92f2ec39b812c616bb3f3bf4659164dbcc62246fc92223fd37da2414fc95f041",
+        "66b6bd2e0703e30c4a7e23ed2b58a61a0122960df2aeb6ad2cdf8624da85d8b8",
+        "79b2ec054a470bdd20ce953d037907407f4e1622c330ff965fb6dcc61729c6f4"
+      ],
+      "future": [
+        "c7d6c69a80d1104abaa3096b9e169055d0281aed074fe8d885bc957c9ebbada8",
+        "363ffc1d0bc3b73ceb15b3a0d6f9a533d39367dca3cd2fb22bef9268639f3c76"
+      ],
+      "foliage": "e35c3042e072a1a625cff6bb9edf470156b6022d211862bf95506a33167e8d64",
+      "foliageIds": "577350619ae4b79a5b73229c637c1e8545b405865261f6ef8431c957eafcba36",
+      "interiors": [
+        {
+          "id": "hut",
+          "objects": 12
+        }
+      ]
+    },
+    "concurrent": {
+      "hash": "1b3c4b84bcf5e9f863fb0e680acd9aa4e7b924cea0e4b69ddcb870dc9f677430",
+      "chars": 239036,
+      "retained": [
+        {
+          "key": "field-signal-editor-world-session-v1:recovery:1793997066997-0-b6ee0e51-5b7d-4383-b08c-9236e3e80911",
+          "hash": "1b3c4b84bcf5e9f863fb0e680acd9aa4e7b924cea0e4b69ddcb870dc9f677430"
+        }
+      ]
+    }
+  },
+  "errors": [],
+  "missing": [],
+  "failed": []
+}

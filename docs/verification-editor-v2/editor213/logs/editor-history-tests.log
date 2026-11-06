@@ -1,0 +1,14 @@
+PASS empty stacks and empty JSON values round-trip without mutation
+PASS arbitrary Unicode edits preserve stack order, escapes and surrogate pairs
+PASS seeded property vectors retain insertion, deletion, nested arrays and unrelated replacements
+PASS identical frames use a zero-insert splice and thirty states per stack remain readable
+PASS malformed headers, stacks and unsafe splice indices are rejected
+PASS frame limits and non-JSON decoded data reject bounded expansion
+PASS session stores optional compressed history while legacy mirrors stay exact
+PASS legacy full snapshots load unchanged and rewrite without losing undo or redo
+PASS legacy thirty-plus-thirty histories move losslessly through sixty redo and undo states
+PASS invalid history or canonical history frames reject the entire checkpoint before adoption
+PASS quota failure retains stored keys, current design, all history and exact legacy drafts
+MEASURE simulated UTF-16 localStorage bytes: 3094770 with5000UUID foliage and30history states; not measured browser quota
+PASS five thousand UUID foliage plus thirty growing-stroke histories save within simulated5MiB
+12 editor history codec tests passed

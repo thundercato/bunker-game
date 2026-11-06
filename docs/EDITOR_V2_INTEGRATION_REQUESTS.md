@@ -14,7 +14,7 @@ historical detached compatibility evidence respectively.
 
 The user explicitly authorised this narrow ownership exception. `precache.json`
 explicitly includes the editor suite and accepted runtime resources; normal
-`tools/build.py` produces **597 explicit files / 595 cache resources**, without an
+`tools/build.py` produces **598 explicit files / 596 cache resources**, without an
 overlay. The original 17-file omission was reproduced before integration. The
 current enumeration and dependencies are in
 `verification-editor-v2/editor-runtime-files.txt` and `editor-package-report.json`.
@@ -23,7 +23,7 @@ bootstrap targets, HTML/CSS resources and literal data fetches; it rejects
 private/credential/test paths and escaping symlinks. Tests and build-only Shapely
 are excluded from the public bundle.
 
-Suite/bootstrap/SW expectations agree on `field-signal-11.1-editor2.1.2`. The merge
+Suite/bootstrap/SW expectations agree on `field-signal-11.1-editor2.1.3`. The merge
 retains accepted runtime startup helpers and network-fresh entry routes. Three
 prior-worker fixtures cover world2, the early editor2.1 review cache and the
 released 11.1 cache. Acceptance exercises upgrade before editor imports, all five
@@ -65,14 +65,14 @@ edits and hidden layers survive. **Nine pure integration checks passed**, includ
 old-draft preservation, source-byte/metadata rejection and explicit-save-only
 adoption. No new-building IDs or copied quest bindings are introduced.
 
-The earlier detached combination passed 38 actual-browser assertions for hut,
-forester and station. That result remains historical evidence pinned to `edffe7b`
-and recorded editor hashes. A fresh canonical three-building journey passed 38/38 after this merge, with
-zero exceptions or failed resources: actual 52-object Forester plus hut/station,
-physical stairs/upstairs, real doors/search, hut Atlas, exact return, JSON/reload and
-isolation. See the integrated evidence and final-head CI. This is independent of
-the older compatibility run. The preview applies one selected layout over its
-isolated base world, not all normal campaign/district enrichment.
+The earlier detached combination reported 38 checks, pinned to `edffe7b` and recorded
+editor hashes. Two async movement predicates in the earlier 38-check scripts did
+not poll; current movement acceptance is superseded by strict 41/41 on 2.1.3.
+Current checks require renderer and authoritative worker movement for all three
+entrances/stairs/upstairs, including a newly generated station landing reached
+continuously after an anchored floor resize. Zero final exceptions/failed resources.
+This adapter overlays one selected layout on its isolated base world, not all
+normal campaign/district enrichment. Final-head CI is linked from PR82.
 
 The accepted runtime extends stair sampling to 0.25 m past the top and handles the
 floor slab lip. Rotated floor openings still use conservative AABBs. Editor landing
@@ -185,3 +185,16 @@ They do not supply weighted-loot, graph, APR/sleep or complete editable-refuge
 contracts. Historical detached compatibility evidence remains pinned to `edffe7b`
 and its recorded editor hashes. Current canonical acceptance belongs to the merged
 checkpoint and is recorded separately in the progress/testing documents and CI.
+
+
+## Additional 2.1.3 acceptance
+
+`8567fc7` adds lossless UI-checkpoint history and a fourth prior-worker fixture for
+review 2.1.2. Canonical world documents, game schema, stable IDs and legacy keys are
+unchanged. All 16 pure editor suites and 173 Python tests pass; all 23 browser
+executables pass, including actual 5,000-instance/30-state persistence and four
+seven-check offline upgrades (596 resources). Strict 41 game checks supersede the
+earlier 38 movement waits, which used an async predicate that did not poll. New
+checks require rendered/worker motion and physically traverse a generated station
+landing after anchored floor resizing. Both end at world Y 4.7. Game/compiler files
+remain unchanged. See the current progress/evidence for final-head CI.

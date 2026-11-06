@@ -18,6 +18,22 @@ content is unchanged. This is a bounded building preview, not a whole-campaign t
 Whole-map terrain/path/water/district drafts and loot/mission proposals still do
 not execute. This editor PR has not been merged or published.
 
+## Strict 2.1.3 canonical result
+
+All 41 actual-game checks passed against frozen `8567fc7` production dist. Every
+entrance/stair/upstairs predicate now polls synchronously and requires both the
+renderer and authoritative worker. A real one-sided upper-floor resize and new
+concrete landing are exported/reloaded and physically traversed continuously from
+the stairs: both positions end local `[4.5,3.2,-4.11]`, world Y 4.7. Without that new
+piece the point has no upper floor. No gameplay source was changed.
+
+Two earlier async wait predicates returned a truthy promise rather than polling;
+the earlier 38-check movement acceptance is superseded by this strict result.
+The old logs remain historical evidence. Current captures/report/provenance are
+[editor 2.1.3 evidence](verification-editor-v2/editor213/README.md); final-head CI is
+linked from PR82. Lossless checkpoint history changes only editor persistence,
+not the canonical document passed to the game.
+
 ## Historical explicit compatibility artifact
 
 The remainder records the earlier, explicitly unmerged test artifact and its exact

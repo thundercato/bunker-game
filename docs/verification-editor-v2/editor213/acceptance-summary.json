@@ -1,0 +1,43 @@
+{
+  "sourceCommit": "8567fc7f5d52ead7ac6037941b503bf3681ba56d",
+  "version": "2.1.3-preview",
+  "canonicalBuild": "python3 tools/build.py; no overlay",
+  "manifestResources": 596,
+  "explicitPublicFiles": 598,
+  "editorBrowserSuites": {
+    "assets": 21,
+    "bindings": 8,
+    "connected": 10,
+    "environment": 8,
+    "hierarchy": 9,
+    "history": 13,
+    "interior": 13,
+    "loot": 10,
+    "missions": 15,
+    "preview-integrated": 41,
+    "recovery": 8,
+    "resize": 16,
+    "validation": 6,
+    "world": 16
+  },
+  "priorWorkers": {
+    "offline": 7,
+    "offline-editor21": 7,
+    "offline-release111": 7,
+    "offline-editor212": 7
+  },
+  "retained": {
+    "campaignEditor": 20,
+    "controls": 9,
+    "legacyEditorGamePreview": 31,
+    "worldV2": "aggregate PASS",
+    "movedWorldPreview": 15
+  },
+  "totalBrowserExecutables": 23,
+  "browserExceptions": [],
+  "missingResources": [],
+  "failedRequests": [],
+  "physicalDeviceTesting": false,
+  "editorPRMerged": false,
+  "editorPRPublished": false
+}

@@ -1,4 +1,5 @@
 editor/connected-world.js
+editor/history-codec.js
 editor/loot.html
 editor/missions.html
 editor/panels/assets-core.js

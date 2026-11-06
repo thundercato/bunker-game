@@ -39,12 +39,14 @@ files are not assumed visible.
   opening AABBs and arbitrary newly authored landing traversal remain limits to
   validate, not reasons to add a second editor collision implementation.
 
-The earlier detached three-building run passed 38 assertions at its recorded
-revision. Fresh merged canonical acceptance separately passed 38/38 with zero exceptions
-or failed resources, including actual 52-object Forester and both physical stair
-journeys. Consult current progress/integrated evidence and final-head CI. The
+The earlier detached/integrated scripts reported 38 checks at their recorded
+revisions. Two async movement predicates did not poll, so their movement acceptance
+is superseded by strict 41/41 on 2.1.3. Renderer and authoritative worker now cross
+all entrances/stairs/upstairs, including a newly authored station landing reached
+continuously after one-sided resizing. No runtime code change was needed. The
 selected-building loader overlays its isolated base world and skips normal
-campaign enrichment; other districts/homes and world drafts are outside that test.
+campaign enrichment; other district/world drafts remain outside that test.
+Current progress/evidence and final-head CI are authoritative.
 
 ## Released campaign content and its limits
 
@@ -85,9 +87,22 @@ integrated; those later shared mechanics remain separate work.
 
 ## Packaging reconciliation
 
-The canonical build contains **597 explicit files / 595 cache resources** using
-`field-signal-11.1-editor2.1.2`. The allow-list/import closure retains runtime and
+The canonical build contains **598 explicit files / 596 cache resources** using
+`field-signal-11.1-editor2.1.3`. The allow-list/import closure retains runtime and
 editor resources without shipping tests, private files or build-only dependencies.
 CI exercises world2, editor2.1 and released 11.1 prior-worker fixtures and all five
 workspaces. Exact fresh pass/failure results belong to the progress/testing record
 and current PR checks. This editor branch has not merged or deployed its suite.
+
+
+## Additional 2.1.3 acceptance
+
+`8567fc7` adds lossless UI-checkpoint history and a fourth prior-worker fixture for
+review 2.1.2. Canonical world documents, game schema, stable IDs and legacy keys are
+unchanged. All 16 pure editor suites and 173 Python tests pass; all 23 browser
+executables pass, including actual 5,000-instance/30-state persistence and four
+seven-check offline upgrades (596 resources). Strict 41 game checks supersede the
+earlier 38 movement waits, which used an async predicate that did not poll. New
+checks require rendered/worker motion and physically traverse a generated station
+landing after anchored floor resizing. Both end at world Y 4.7. Game/compiler files
+remain unchanged. See the current progress/evidence for final-head CI.

@@ -1,0 +1,8 @@
+PASS Recovery lists only editor backups and validates the concurrent real hut design
+PASS Corrupt backup remains download-only and downloads its exact original bytes
+PASS Explicit restore reloads the actual design, retains history and backup, and preserves campaign/settings/journal
+PASS Real recovery list and validator work in editor/world.html
+PASS Real recovery list and validator work in editor/loot.html
+PASS Real recovery list and validator work in editor/missions.html
+PASS Real recovery list and validator work in editor/validation.html
+PASS Packaged subpath recovery has no browser exceptions or missing resources

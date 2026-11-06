@@ -11,6 +11,59 @@ Final fetch observed main `220fb45`: publication/native documentation only, with
 no additional runtime changes. `6448145` preserves those accepted notes/instructions.
 The other task verified/published game 11.1; this editor suite is still unpublished.
 
+## Current 2.1.3 continuation checkpoint
+
+Code `8567fc7` follows green canonical checkpoint `7bd5db1`, verified by normal
+[CI 42285211842](https://github.com/thundercato/bunker-game/actions/runs/42285211842).
+The packaging blocker is genuinely resolved; that green artifact is historical
+2.1.2. Final 2.1.3 CI must pass on the final head, with its exact artifact linked
+from PR82. No PR merge/deployment has occurred.
+
+Two ready acceptance gaps were addressed while CI ran:
+
+- **Practical full-map storage:** thirty duplicated snapshots made a 1,000-instance
+  draft approximately 11.5 MiB. Lossless adjacent snapshot deltas now retain the
+  canonical document, legacy mirror bytes and complete history. A real Chromium
+  origin saved 5,000 UUID instances/three interiors/thirty frames; all hashes survive
+  actual reload/navigation/undo/redo. Thirteen browser checks passed, with zero exceptions or
+  failed requests and eight normal/preview namespaces byte-identical. UTF-16 key/value
+  accounting: 3,168,256 bytes; this is not a measured device quota. Legacy full history
+  still loads; accepted 60-state histories retain every transition as stacks move.
+- **Generated landing physics:** a real anchored upper-floor resize removes support
+  behind the stairs. The landing tool creates the only floor supporting that point;
+  actual continuous W traversal reaches it from the stair ascent, without restoring
+  onto it. Focused station 17/17 passed, rendered/worker world Y 4.7 matching. Full
+  strengthened 41/41 three-building regression also passes, including authoritative
+  movement for every entrance/stair/upstairs check.
+
+The landing check also caught a test defect: Playwright's async wait predicate was
+truthy before its promise resolved and did not poll. Both waits are synchronous
+now, with actual entrance coordinates and authoritative worker movement required.
+Earlier 38-check reports are retained, but their movement acceptance is superseded
+by the strict 41-check result. No gameplay source change was required.
+
+Current build: **598 explicit public files / 596 cache resources, 37 editor additions
+relative to accepted main**. Cache/bootstrap/runtime-ready agree on
+`field-signal-11.1-editor2.1.3`. A fourth exact prior-worker fixture covers review 2.1.2.
+Normal CI includes 16 editor pure suites and 14 packaged editor browser suites.
+Python 173 and all 16 pure suites on Node 22 pass, including 12 history cases with
+120 seeded vectors and 24 recovery cases. All 23 local browser executables pass;
+final-head CI remains the review gate. Evidence: `verification-editor-v2/editor213/`.
+
+Current local tally: **all 23 canonical browser executables passed**, zero final
+exceptions/missing resources/failed requests. Fourteen editor scripts: assets 21,
+bindings 8, connected 10, environment 8, hierarchy 9, history 13, interior 13, loot 10,
+missions 15, strict preview 41, recovery 8, resize 16, validation 6, world 16. Four prior-worker
+runs passed 7 checks each. Furnished-home 20, controls 9, legacy editor/game 31, world-v2
+aggregate and moved-preview 15 also passed. Source stayed frozen `8567fc7` throughout.
+
+The generated floor's final renderer/worker local position was `[4.5,3.2,-4.11]`,
+world Y 4.7, beyond both the retained floor rear edge -3.05 and stair support -3.75.
+Only the new landing provides support there; no restore occurs between ascent and
+arrival. New actual captures/results/hashes are in `verification-editor-v2/editor213/`.
+The earlier sections below remain an explicitly historical checkpoint record.
+
+
 ## Execution and capability checklist
 
 1. **Done:** reproduce and fix IR-01 with the canonical build, dependency guard,
@@ -18,22 +71,22 @@ The other task verified/published game 11.1; this editor suite is still unpublis
 2. **Done:** connected canonical authoring, practical interiors, deterministic
    environment tools, validation and recoverable drafts.
 3. **Done:** consume the accepted runtime adapter/campaign source/assets/districts;
-   canonical three-building 38/38, all three offline upgrades and retained-editor
+   strict three-building 41/41, all four offline upgrades and retained-editor
    regressions pass. Final-head CI completes the review gate.
 4. **Next dependent checkpoint:** reviewed refuge/component, UV/support/prefab,
    terrain/bridge/water and weighted-loot/graph contracts; see integration requests.
 
 | Area | Authored, saved and validated | Actual game preview | Published by this task |
 | --- | --- | --- | --- |
-| Canonical packaging | Original 17 missing files fixed. Current 597 explicit public files / 595 cache resources, 36 editor additions relative to accepted main. Imports, entry modules, data resources and private-path exclusions checked before browser startup | Existing 11.1 runtime preserved | No |
-| Connected buildings | One existing world-document envelope, legacy adoption, global durable history, selection/cameras, actual in-world cutaway, child-local edits and one parent transform; canonical JSON and recovery | Accepted main adapter now bundled/enabled for one selected existing-building layout over its isolated base world; other campaign/district content is outside that preview. Canonical 38/38 passed for hut, 52-object Forester and station, including both physical upper floors. Earlier pinned compatibility retained as history | No |
-| Interiors | Anchored resizing/local transforms/snapping retained; top-face snapping, alignment/rigid assemblies, safe templates/newIDs, wall joins, actual floor landings, overlap/room isolation and support/headroom/access diagnostics | Existing layout adapter retained, with accepted floor/binding/stair/roof fixes. New staircase arrangements still require real walkthrough | No |
+| Canonical packaging | Original 17 missing files fixed. Current 598 explicit public files / 596 cache resources, 37 editor additions relative to accepted main. Imports, entry modules, data resources and private-path exclusions checked before browser startup | Existing 11.1 runtime preserved | No |
+| Connected buildings | One existing world-document envelope, legacy adoption, global durable history, selection/cameras, actual in-world cutaway, child-local edits and one parent transform; canonical JSON and recovery | Accepted main adapter now bundled/enabled for one selected existing-building layout over its isolated base world; other campaign/district content is outside that preview. Strict 41/41 passed for hut, 52-object Forester and station, with both worker/rendered movement and a newly authored physical landing. Earlier 38/compatibility retained as history | No |
+| Interiors | Anchored resizing/local transforms/snapping retained; top-face snapping, alignment/rigid assemblies, safe templates/newIDs, wall joins, actual floor landings, overlap/room isolation and support/headroom/access diagnostics | Existing layout adapter retained, with accepted floor/binding/stair/roof fixes. A newly authored station landing is physically verified after an anchored floor resize; arbitrary arrangements/rotated openings still need a walkthrough | No |
 | Campaign/model library | Exact actual furnished scenes adopted only when no draft exists; complete shared registry; 214 real models/appearances, 107 reviewed decorative placements; semantic variants and authored-collision models inspected without invented bindings | Uses accepted runtime geometry. Existing container identities/loot stay attached | No |
 | Terrain/environment | Seeded spacing/scale/yaw/masks, candidate rejection, locked erase, stable instances, bounded in-stroke position/normal updates and incremental foliage meshes | Terrain/path/rail/water/foliage draft changes remain authoring-only | No |
 | Districts | Accepted 95 stable entities retained; field proxies, hierarchy/layer/hide and numeric canonical transforms; undo/export/reload | District draft transforms remain authoring-only | No |
 | Loot/missions | Real 143-container campaign source, grouped weighted proposals, seeded simulation, typed graphs and real source/target links | No accepted weighted generator or graph evaluator; existing game missions/loot preserved | No |
 | Refuge/components | Actual source rooms/services/radio/offers/storage/transitions inspected; read-only reference map and diagnostics | Editable local-scene/APR/surge/pod/save/sleep contracts absent | No |
-| Recovery/validation | All five workspaces offer exact backup download and validated restore; active unsaved work backed up first. Snapshot validation includes assets/references/interiors/water/regional counts and stale export prevention | Diagnostics do not approve publication or replace physical walkthrough | No |
+| Recovery/validation | Lossless history fixes ordinary forest quota failures; legacy history/recovery retained. All five workspaces offer exact backup download and validated restore; active unsaved work backed up first. Snapshot validation includes assets/references/interiors/water/regional counts and stale export prevention | Diagnostics do not approve publication or replace physical walkthrough | No |
 
 ## Recoverable implementation checkpoints
 
@@ -73,19 +126,19 @@ symlinks are excluded. `tools/editor_v2_review.py` delegates to the normal build
 No overlay is used by release tests or CI.
 
 After accepted main arrived, its 559 public resources were retained in their
-existing order, then 36 missing editor resources added. Current package: 597 explicit
-files / 595 cache resources. The shared worker, runtime-ready helper and suite gate
-agree on `field-signal-11.1-editor2.1.2`. Old public caches retire only after a full
+existing order, then 37 missing editor resources added. Current package: 598 explicit
+files / 596 cache resources. The shared worker, runtime-ready helper and suite gate
+agree on `field-signal-11.1-editor2.1.3`. Old public caches retire only after a full
 successful cache-all. No localStorage clearing, campaign/draft-key migration or
 runtime/asset replacement is used.
 
 **Prepare editor for offline** starts the actual cache action; **Recover editor
 backups** validates restore choices and offers exact rejected bytes for download.
-CI includes all editor suites, runtime/campaign/journal regressions and all three prior
+CI includes all editor suites, runtime/campaign/journal regressions and all four prior
 worker fixtures. A successful PR run retains `canonical-editor-dist`; deployment
 remains main-only. Final-head checks and the review artifact are linked from PR82.
 
-## Exact verification and evidence boundaries
+## Earlier 2.1.2 integrated verification (strict movement superseded)
 
 Final local canonical acceptance passed all 13 packaged editor browser suites and
 all three seven-check prior-worker upgrades. All retained editor regressions passed;
@@ -176,3 +229,10 @@ previews; it did not add the other producer interfaces.
 Continue the next accepted producer contract with editor consumption and identical
 seeded/runtime test vectors, rather than creating a second gameplay engine. PR82
 remains a draft; no merge or live publication is authorised by this task.
+
+
+Additional measured limits: the 5,000-instance storage journey deliberately hides
+foliage rendering. Dense-scene GPU budgets and physical-device tests remain. The
+12,000-instance UTF16 checkpoint+mirror estimate is 6.723 MiB, so some quotas can
+still fail; pending-mirror recovery and export guards retain the design/history.
+No backups/history/saves are deleted to fit a quota. See EDITOR_V2_CHECKPOINT_HISTORY.md.

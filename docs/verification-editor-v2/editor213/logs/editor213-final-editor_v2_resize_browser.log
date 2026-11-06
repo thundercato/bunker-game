@@ -1,0 +1,72 @@
+PASS 37 degree floor numeric anchored resize {
+  id: 'ground',
+  name: 'Ground floor',
+  type: 'floor',
+  position: [ 0.4492324744016022, 0, -0.33852095052302716 ],
+  size: [ 9.125, 0.16, 7 ],
+  yaw: 0.6457718232379019,
+  material: 'concrete',
+  solid: true,
+  locked: false
+}
+PASS Input undo and shortcut letters stay in field
+PASS Real rotated edge drag fixes opposite edge and creates one transaction {
+  before: {
+    id: 'ground',
+    name: 'Ground floor',
+    type: 'floor',
+    position: [ 0.4492324744016022, 0, -0.33852095052302716 ],
+    size: [ 9.125, 0.16, 7 ],
+    yaw: 0.6457718232379019,
+    material: 'concrete',
+    solid: true,
+    locked: false
+  },
+  after: {
+    id: 'ground',
+    name: 'Ground floor',
+    type: 'floor',
+    position: [ 1.2977827038268508, 0, -0.9779494126220785 ],
+    size: [ 11.25, 0.16, 7 ],
+    yaw: 0.6457718232379019,
+    material: 'concrete',
+    solid: true,
+    locked: false
+  }
+}
+PASS Resized geometry and canonical collision agree
+PASS Undo/redo restores both dimensions and position
+PASS Escape cancels resize without history or durable draft changes
+PASS blur cancels resize without history or durable draft changes
+PASS Real corner drag preserves opposite local corner and one history entry { before: [ 11.25, 0.16, 7 ], after: [ 13, 0.16, 8.75 ] }
+PASS Escape cancels existing mouse gizmo drag without committing undo
+PASS Invalid doorway resize is rejected with visible explanation
+PASS 63 degree wall numeric width and height retain anchor and collision agreement {
+  before: {
+    id: 'wall-west',
+    name: 'West wall',
+    type: 'wall',
+    position: [ -4, 0, 0 ],
+    size: [ 7, 3.2, 0.22 ],
+    yaw: 1.0995574287564276,
+    material: 'plaster',
+    solid: true,
+    locked: false
+  },
+  after: {
+    id: 'wall-west',
+    name: 'West wall',
+    type: 'wall',
+    position: [ -3.8581279688313916, 0, -0.27843953880886496 ],
+    size: [ 7.625, 3.575, 0.22 ],
+    yaw: 1.0995574287564276,
+    material: 'plaster',
+    solid: true,
+    locked: false
+  }
+}
+PASS Precise numeric offset follows rotated local X
+PASS Portable JSON export/import retains resized rotated pose
+PASS Browser reload restores draft without changing IDs
+PASS No browser exceptions
+PASS Asset request report { failures: [] }

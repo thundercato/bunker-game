@@ -1,4 +1,9 @@
-# Integrated canonical editor evidence
+# Historical 2.1.2 integrated evidence
+
+Current [2.1.3 evidence](../editor213/README.md) supersedes movement polling in
+this record: two async wait predicates did not poll, and the strict 41 result now
+requires rendered and worker movement. Packaging here genuinely passed normal CI
+42285211842; it is not the current release artifact.
 
 All 20 serial browser cases passed against the ordinary production package: 13 editor
 suites, 3 prior-worker upgrades, furnished-home 20, controls 9, existing editor/game 31

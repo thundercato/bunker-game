@@ -18,6 +18,13 @@ or publication is implied. See `EDITOR_V2_PROGRESS.md` for actual status/results
 
 ## Practical journeys
 
+Undo/redo now uses lossless internal snapshot deltas, keeping canonical/legacy
+draft data unchanged. The history test saves 5,000 UUID instances and thirty frames
+through actual localStorage; dense foliage is hidden for this storage test. It is
+not a dense-scene GPU benchmark. Maximum-density drafts and large existing backup
+libraries can still hit origin quota: retain originals and use portable export.
+
+
 1. Select a floor, enter 37° yaw, choose its numeric anchor, extend width and drag
    Resize edges/corner handles. Observe fixed opposite anchor, collision view,
    exact local offsets, Escape, undo/redo and layout export/reload. Y drags need 3D.
@@ -83,6 +90,7 @@ for f in tests/editor_v2_*_browser.cjs; do node "$f"; done
 node tests/editor_v2_offline.cjs
 EDITOR_PRIOR_WORKER=editor21 node tests/editor_v2_offline.cjs
 EDITOR_PRIOR_WORKER=release111 node tests/editor_v2_offline.cjs
+EDITOR_PRIOR_WORKER=editor212 node tests/editor_v2_offline.cjs
 node tests/editor_controls.cjs
 node tests/editor_browser.cjs
 node tests/world_v2_browser.cjs
@@ -101,8 +109,8 @@ is authoritative for the complete required suite.
 
 Run rendering suites sequentially. Every acceptance test serves canonical dist,
 not source. Missing imports/data files fail before browser startup. Upgrade fixtures
-include the published world2 worker, previous editor review worker and released
-11.1 worker; all five
+include the published world2 worker, earlier editor2.1 and editor2.1.2 review
+workers and released 11.1 worker; all five
 workspaces restart offline and preserve save/draft sentinels. Runtime previews have
 separate campaign/settings/journal namespaces. Linux Chromium/SwiftShader is not
 physical Mac/iPhone testing or a device benchmark.
