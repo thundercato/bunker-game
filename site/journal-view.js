@@ -43,10 +43,10 @@ export class FieldJournal {
   this.canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); this.useFallback('3D context unavailable · 2D reading'); }, opts);
   this.observer = new ResizeObserver(() => this.resize()); this.observer.observe(this.stage);
   this.motionQuery = globalThis.matchMedia?.('(prefers-reduced-motion: reduce)');
-  this.motionQuery?.addEventListener('change', () => { if (this.motionQuery.matches) this.useFallback('Reduced motion · 2D reading'); }, opts);
-  this.manual2D = false; this.setMode('2d'); this.renderPages();
+  this.motionQuery?.addEventListener('change', () => { if (this.motionQuery.matches) this.useFallback('Reduced motion · 2D reading'); else {this.setMode(this.mode);this.renderPages();} }, opts);
+  this.manual2D = false; this.modeReason = ''; this.setMode('2d'); this.renderPages();
   const token = this.generation;
-  if (!this.needsFallback()) this.initScene(token); else this.modeReason = valueOf(this.lowPower) ? 'Low power · 2D reading' : 'Reduced motion · 2D reading';
+  if (!this.needsFallback()) this.initScene(token);
   fetch('./assets/v9/briefings.json').then(r => r.ok ? r.json() : {}).then(photos => { this.photos = photos; if (this.node && token === this.generation) this.renderPages(); }).catch(() => {});
   this.stage.focus({preventScroll:true}); return this;
  }
@@ -54,7 +54,11 @@ export class FieldJournal {
  setMode(mode) {
   this.mode = mode; this.node?.classList.toggle('fj-3d', mode === '3d');
   const b = this.node?.querySelector('[data-journal="mode"]');
-  if (b) { b.textContent = mode === '3d' ? '2D reading' : '3D notebook'; b.setAttribute('aria-pressed', String(mode === '2d')); }
+  const forced = mode === '2d' && this.needsFallback(), battery = !!valueOf(this.lowPower);
+  if (this.modeReason === this.forcedReason) this.modeReason = '';
+  this.forcedReason = forced ? (battery ? 'Battery saver · 2D reading. Select Balanced or Sharper in Display & comfort for 3D.' : 'Reduced motion · 2D reading. Change Display & comfort or your device motion settings for 3D.') : '';
+  if (forced) this.modeReason = this.forcedReason;
+  if (b) { b.disabled = forced; b.textContent = forced ? (battery ? '2D · Battery saver' : '2D · Reduced motion') : mode === '3d' ? '2D reading' : '3D notebook'; b.setAttribute('aria-pressed', String(mode === '2d')); b.title = forced ? this.forcedReason : mode === '3d' ? 'Switch to flat paper for reading.' : 'Open the physical 3D notebook.'; }
  }
  useFallback(reason) {
   this.cancelTurn(); this.modeReason = reason; this.setMode('2d'); this.disposeScene(); this.renderPages();
@@ -137,7 +141,7 @@ export class FieldJournal {
  }
  paperHTML(page, number) {return `<div class="fj-paper-inner"><span class="fj-page-kicker">${esc(page.kind||JOURNAL_SECTIONS.find(s=>s[0]===this.section)?.[1]||'Field record')}</span><h3>${esc(page.heading)}</h3>${page.time!=null?`<time>${esc(stamp(page.time))}</time>`:''}<p class="fj-copy">${esc(page.body)}</p>${page.html||''}</div>${page.footer?`<div class="fj-paper-footer">${page.footer}</div>`:''}<span class="fj-page-number">${String(number).padStart(2,'0')}</span>`;}
  renderPages() {
-  if(!this.node)return; const spreads=this.spreads();this.page=Math.max(0,Math.min(this.page,spreads.length-1));this.currentSpread=spreads[this.page];
+  if(!this.node)return;this.setMode(this.mode); const spreads=this.spreads();this.page=Math.max(0,Math.min(this.page,spreads.length-1));this.currentSpread=spreads[this.page];
   const oldId=document.activeElement?.dataset?.journal,oldAction=document.activeElement?.dataset?.action;
   this.node.querySelector('.fj-left').innerHTML=this.paperHTML(this.currentSpread.left,this.page*2+1);this.node.querySelector('.fj-right').innerHTML=this.paperHTML(this.currentSpread.right,this.page*2+2);
   this.node.querySelectorAll('[data-section]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.section===this.section)));
