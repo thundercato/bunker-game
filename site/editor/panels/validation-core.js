@@ -10,8 +10,12 @@ export function reviewDigest(value) {
  let hash=2166136261;for(const c of JSON.stringify(value)){hash=Math.imul(hash^c.charCodeAt(0),16777619);}
  return (hash>>>0).toString(16).padStart(8,'0');
 }
-export function reviewWorld({source,sourceRevision,document,assets=null,loot=null,missions=null}) {
+export function reviewSnapshotIdentity({document,loot=null,missions=null,sourceRevision,recoveryIssues=[],recoveryIdentity=[]}) {
+ return reviewDigest({document,loot,missions,sourceRevision,recoveryIssues,recoveryIdentity});
+}
+export function reviewWorld({source,sourceRevision,document,assets=null,loot=null,missions=null,recoveryIssues=[],recoveryIdentity=[]}) {
  const issues=[],regions={},push=(level,scope,message,href=null,repair='')=>issues.push({level,scope,message,href,repair});
+ for(const message of recoveryIssues)push('error','Draft recovery',message,'editor/world.html','Review/recover the preserved original draft before accepting a fallback. Export your current design as a separate backup.');
  const context={source,sourceRevision,assets},assetIds=assets?new Set(assets.map(a=>a.id)):null;
  let checked;
  try{checked=validateWorldDocument(document,{...context,assets:assetIds});}
@@ -54,6 +58,6 @@ export function reviewWorld({source,sourceRevision,document,assets=null,loot=nul
   const proposal=validateMissions(missions,source);
   for(const m of proposal.missions)for(const q of missionIssues(m,source,proposal.missions))if(q.level!=='notice')push(q.level,'Mission '+m.id,q.message,'editor/missions.html?mission='+encodeURIComponent(m.id),'Review typed connections, prerequisites and policy fields. Graph execution is not installed in the game.');
  }catch(e){push('error','Mission proposal',e.message,'editor/missions.html','Recover or repair the proposal; actual game missions are unchanged.');}
- const digest=reviewDigest({document,loot,missions,sourceRevision});
+ const digest=reviewSnapshotIdentity({document,loot,missions,sourceRevision,recoveryIssues,recoveryIdentity});
  return {format:'field-signal-editor-validation-report/1',digest,sourceRevision,issues,regions,coverage:{interiors:checked?.interiors.length||0,buildings:source.buildings.length,unchecked:source.buildings.length-(checked?.interiors.length||0)},counts:{errors:issues.filter(i=>i.level==='error').length,warnings:issues.filter(i=>i.level==='warning').length},status:'Review only; no publication or runtime approval'};
 }

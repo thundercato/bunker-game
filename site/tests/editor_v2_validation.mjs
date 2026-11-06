@@ -10,4 +10,5 @@ const flooded=structuredClone(document);flooded.authoring.waterLevel=4;result=re
 const bad=structuredClone(document);bad.interiors[0].objects.find(o=>o.type==='prop').binding.id='missing';assert.ok(reviewWorld({...input,document:bad}).counts.errors>0);
 const dense=structuredClone(document);dense.authoring.foliage=Array.from({length:501},(_,i)=>({id:'plant-'+i,kind:'pine',x:0,z:-90,scale:1,yaw:0,offset:0,locked:false}));assert.ok(reviewWorld({...input,document:dense}).issues.some(q=>q.scope==='Performance / north'));
 assert.notEqual(reviewDigest({x:1}),reviewDigest({x:2}));assert.ok(reviewWorld({...input,loot:{format:'wrong'}}).issues.some(q=>q.scope==='Loot proposal'));assert.ok(reviewWorld({...input,missions:{format:'wrong'}}).issues.some(q=>q.scope==='Mission proposal'));
-console.log('PASS 10 cross-workspace validation checks: canonical references, water, region counts, proposals, digest and nonmutation');
+assert.ok(reviewWorld({...input,recoveryIssues:['Original world draft rejected'],recoveryIdentity:[['world','hash']]}).issues.some(q=>q.scope==='Draft recovery'&&q.level==='error'));
+console.log('PASS 11 cross-workspace validation checks: canonical references, water, region counts, proposals, digest and nonmutation');
