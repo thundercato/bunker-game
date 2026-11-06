@@ -13,7 +13,7 @@ const server=http.createServer((req,res)=>{
 });
 (async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
- let browser;const checks=[],errors=[],missing=[];
+ let browser;const checks=[],errors=[],missing=[],measurements=[];
  const pass=name=>{checks.push(name);console.log('PASS',name);};
  try{
   browser=await chromium.launch({headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
@@ -46,7 +46,8 @@ const server=http.createServer((req,res)=>{
   assert.equal(preview.seed,12345);assert.equal(preview.settings.radius,12);assert.deepEqual(await page.evaluate(()=>FieldWorldEditor.getDocument()),before);
   await page.screenshot({path:path.join(out,'environment-brush-preview.png')});
   pass('Real terrain hover previews deterministic candidates without changing authored data');
-  await page.mouse.click(xy.x,xy.y);
+  const renderBefore=await page.evaluate(()=>FieldWorldEditor.info().renderStats);
+  await page.mouse.down();const renderDuring=await page.evaluate(()=>FieldWorldEditor.info().renderStats);assert.equal(renderDuring.rebuilds,renderBefore.rebuilds);assert.equal(renderDuring.foliageCreated-renderBefore.foliageCreated,6);await page.mouse.up();
   const first=await page.evaluate(()=>FieldWorldEditor.getDocument());
   assert.equal(first.foliage.length-before.foliage.length,6);
   assert.deepEqual(first.foliage.slice(before.foliage.length).map(({id,...f})=>f),preview.accepted);
@@ -78,8 +79,19 @@ const server=http.createServer((req,res)=>{
   assert.deepEqual(await page.evaluate(()=>[localStorage.getItem('field-signal-dead-air-v9'),localStorage.getItem('field-signal-dead-air-options'),localStorage.getItem('field-signal-v8-journal')]),['ENVIRONMENT-CAMPAIGN-SENTINEL','{"music":0.23}','[]']);
   await page.screenshot({path:path.join(out,'environment-brush-reloaded.png')});
   pass('Export and reload preserve concrete stable IDs and transforms without a seed reroll or campaign writes');
+  await page.locator('#radius').focus();await page.keyboard.press('Home');for(let i=0;i<6;i++)await page.keyboard.press('ArrowRight');
+  await page.locator('#strength').focus();await page.keyboard.press('End');await page.locator('[data-tool="raise"]').click();
+  const terrainBefore=await page.evaluate(()=>({document:FieldWorldEditor.getDocument(),uuid:FieldWorldEditor.getTerrain().geometry.uuid,rebuilds:FieldWorldEditor.info().renderStats.rebuilds}));
+  await page.mouse.move(xy.x,xy.y);await page.mouse.down();
+  const terrainDuring=await page.evaluate(()=>({document:FieldWorldEditor.getDocument(),uuid:FieldWorldEditor.getTerrain().geometry.uuid,stats:FieldWorldEditor.info().renderStats}));
+  assert.notDeepEqual(terrainDuring.document.heights,terrainBefore.document.heights);assert.equal(terrainDuring.uuid,terrainBefore.uuid);assert.equal(terrainDuring.stats.rebuilds,terrainBefore.rebuilds);assert.ok(terrainDuring.stats.terrainUpdate.positionVertices<terrainDuring.stats.terrainUpdate.totalVertices/10);assert.ok(terrainDuring.stats.terrainUpdate.normalVertices<terrainDuring.stats.terrainUpdate.totalVertices/10);
+  measurements.push({sculptUpdate:terrainDuring.stats.terrainUpdate,replacedGeometryDuringDab:false});
+  await page.screenshot({path:path.join(out,'environment-terrain-local-update.png')});
+  await page.keyboard.press('Escape');await page.mouse.up();assert.deepEqual(await page.evaluate(()=>FieldWorldEditor.getDocument()),terrainBefore.document);
+  await page.mouse.click(xy.x,xy.y);const sculpted=await page.evaluate(()=>FieldWorldEditor.getDocument());assert.notDeepEqual(sculpted.heights,terrainBefore.document.heights);await page.keyboard.press('Control+z');assert.deepEqual(await page.evaluate(()=>FieldWorldEditor.getDocument()),terrainBefore.document);await page.keyboard.press('Control+Shift+z');assert.deepEqual(await page.evaluate(()=>FieldWorldEditor.getDocument()),sculpted);
+  pass('Actual sculpt updates local GPU buffers without rebuilding terrain and retains cancel/undo/redo');
   assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);pass('Packaged production subpath has no browser exceptions or missing resources');
  }finally{
-  fs.writeFileSync(path.join(out,'environment-browser.json'),JSON.stringify({checks,errors,missing},null,2));await browser?.close();await new Promise(resolve=>server.close(resolve));
+  fs.writeFileSync(path.join(out,'environment-browser.json'),JSON.stringify({checks,errors,missing,measurements},null,2));await browser?.close();await new Promise(resolve=>server.close(resolve));
  }
 })().catch(error=>{console.error(error.stack);process.exitCode=1;});
