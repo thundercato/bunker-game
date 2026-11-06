@@ -12,7 +12,7 @@ export function entityFor(doc,selection){
 }
 export function checkDocument(doc,source){
  const next=validate(doc,source),finite=n=>typeof n==='number'&&Number.isFinite(n);
- for(const f of next.foliage)if(![f.offset??0,f.yaw].every(finite)||typeof f.locked!=='boolean')throw Error('Invalid foliage transform or lock');
+ for(const f of next.foliage)if(![f.offset??0,f.yaw,...(f.y===undefined?[]:[f.y])].every(finite)||typeof f.locked!=='boolean')throw Error('Invalid foliage transform or lock');
  if(new Set(next.foliage.map(f=>f.id)).size!==next.foliage.length)throw Error('Duplicate foliage instance ID');
  for(const p of [...next.roads,next.rail])if(!finite(p.width)||p.width<.2||p.width>30)throw Error('Path width must be 0.2–30 m');
  return next;
