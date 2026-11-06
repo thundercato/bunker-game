@@ -22,8 +22,14 @@ export class FieldJournal {
   this.mode = '2d'; this.renderCount = 0; this.turnCount = 0; this.generation = 0; this.photos = {};
  }
  record(state = this.getState()) {
+  const pinChanged = this.lastPinned !== state?.pinned, visibleMission = this.currentSpread?.missionId;
+  this.lastPinned = state?.pinned;
   const changed = this.store.record(state, this.data);
-  if (changed && this.node && !this.turning) this.renderPages(); return changed;
+  if ((changed || pinChanged) && this.node && !this.turning) {
+   if (pinChanged && this.section === 'active' && visibleMission) {const page=this.spreads().findIndex(s=>s.missionId===visibleMission);if(page>=0)this.page=page;}
+   this.renderPages();
+  }
+  return changed;
  }
  mount(parent) {
   this.unmount(); this.parent = parent; this.previousFocus = document.activeElement; this.record();
@@ -132,7 +138,7 @@ export class FieldJournal {
   const archived=['done','completed','failed','abandoned'].includes(status), item=this.data.catalogue?.[m.item]?.name||m.item||'Mission objective';
   const photo=this.photos[m.id]; const photoHTML=photo&&/^assets\/[\w/.-]+\.(?:jpg|webp|png)$/.test(photo)?`<figure class="fj-recon"><img src="${esc(photo)}" alt="Reconnaissance view of ${esc(m.target||m.title)}"><figcaption>${esc(m.target||'Destination')}</figcaption></figure>`:'';
   const count=this.getState().bag?.[m.item]||0;
-  return{left:{heading:m.title,kind:`${archived?'Filed operation':'Active assignment'} · ${source}`,body:m.description||m.desc||'',html:photoHTML},right:{
+  return{missionId:m.id,left:{heading:m.title,kind:`${archived?'Filed operation':'Active assignment'} · ${source}`,body:m.description||m.desc||'',html:photoHTML},right:{
    heading:archived?(status==='done'?'Completed':status[0].toUpperCase()+status.slice(1)):(recovered?'Ready to return':'In progress'),
    kind:m.id===this.getState().pinned?'PINNED ASSIGNMENT':'FIELD ORDER',
    body:archived?`Filed ${stamp(completion)}. ${completion==null?'This older campaign did not record an exact completion time.':''}`:`${Math.min(count,m.count||1)} / ${m.count||1} × ${item}. ${recovered?'Deliver the required items to ':'Search '+(m.target||'the marked destination')+'. Then return to '}${source}.`,
@@ -205,13 +211,23 @@ export class FieldJournal {
  }
  key(e) {
   if(e.key==='Escape'){e.preventDefault();e.stopPropagation();this.cancelTurn();this.onClose?.();return;}
+  // The game maps Tab/Enter/Space globally. Handle their normal UI meanings here
+  // before they reach that input layer, including one activation in instant 2D.
+  if(e.key==='Tab'){e.preventDefault();e.stopPropagation();this.focusControl(e.shiftKey?-1:1);return;}
   if(e.target.matches('textarea,input,select'))return;
+  if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){
+   const control=e.target.closest?.('button');
+   e.preventDefault();e.stopPropagation();
+   if(!e.repeat){if(control&&this.node?.contains(control)){if(!control.disabled)control.click();}else this.handleAction('interact');}
+   return;
+  }
   if(['ArrowLeft','PageUp','ArrowRight','PageDown','ArrowUp','ArrowDown','Home','End'].includes(e.key)) {
    e.preventDefault();e.stopPropagation();if(['ArrowLeft','PageUp'].includes(e.key))this.turn(-1);if(['ArrowRight','PageDown'].includes(e.key))this.turn(1);
    if(e.key==='ArrowUp'||e.key==='ArrowDown')this.nextSection(e.key==='ArrowUp'?-1:1);
    if(e.key==='Home'){this.cancelTurn();this.page=0;this.renderPages();}if(e.key==='End'){this.cancelTurn();this.page=this.spreads().length-1;this.renderPages();}
   }
  }
+ focusControl(direction=1) {const controls=[...this.node.querySelectorAll('button:not(:disabled),textarea')].filter(b=>b.getClientRects().length),i=controls.indexOf(document.activeElement);if(controls.length)controls[i<0?(direction<0?controls.length-1:0):(i+direction+controls.length)%controls.length]?.focus({preventScroll:true});}
  nextSection(direction) {const i=JOURNAL_SECTIONS.findIndex(s=>s[0]===this.section);this.select(JOURNAL_SECTIONS[(i+direction+JOURNAL_SECTIONS.length)%JOURNAL_SECTIONS.length][0]);}
  handleAction(name) {
   if(!this.node)return false;
@@ -220,7 +236,7 @@ export class FieldJournal {
   if(name==='torch'||name==='rack'||name==='next'||name==='page-right'){this.turn(1);return true;}
   if(name==='detector'||name==='heal'){this.nextSection(name==='detector'?-1:1);return true;}
   if(name==='interact'){const focused=document.activeElement;if(this.node.contains(focused)&&focused.tagName==='BUTTON')focused.click();else this.node.querySelector('[data-journal="next"]:not(:disabled)')?.focus({preventScroll:true});return true;}
-  if(name==='magazine'){const controls=[...this.node.querySelectorAll('button:not(:disabled),textarea')].filter(b=>b.getClientRects().length),i=controls.indexOf(document.activeElement);controls[(i+1)%controls.length]?.focus({preventScroll:true});return true;}
+  if(name==='magazine'){this.focusControl(1);return true;}
   return true;
  }
  info() {return {...this.store.info(),mode:this.mode,model:this.scene?'layered covers, paper stacks, metal binder and flexible sheet':'accessible paper spread',fallback:this.mode!=='3d',sceneError:this.sceneError||null,section:this.section,page:this.page,turning:!!this.turning,turns:this.turnCount,renders:this.renderCount,drawCalls:this.renderer?.info.render.calls||0,triangles:this.renderer?.info.render.triangles||0};}
