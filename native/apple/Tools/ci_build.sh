@@ -14,8 +14,32 @@ python3 native/apple/Tools/generate_project.py
 xcodebuild -project "$project" -scheme "$scheme" -configuration Debug \
   -destination "$destination" -derivedDataPath "$output/DerivedData" \
   CODE_SIGNING_ALLOWED=NO build 2>&1 | tee "$output/build.log"
+# Retain the successful simulator compilation even if a later test fails.
+app="$output/DerivedData/Build/Products/Debug-$([ "$platform" = ipad ] && printf 'iphonesimulator' || printf 'appletvsimulator')/$scheme.app"
+ditto -c -k --sequesterRsrc --keepParent "$app" "$output/$scheme-unsigned-simulator.zip"
+python3 - "$app/Info.plist" "$bundle" "$scheme" <<'PYINFO'
+import json, pathlib, plistlib, sys
+path = pathlib.Path(sys.argv[1])
+with path.open('rb') as source:
+    info = plistlib.load(source)
+required = {'CFBundleIdentifier': sys.argv[2], 'CFBundleExecutable': sys.argv[3], 'CFBundlePackageType': 'APPL'}
+for key, expected in required.items():
+    if info.get(key) != expected:
+        raise SystemExit(f'Invalid simulator Info.plist {key}: {info.get(key)!r}; expected {expected!r}')
+for key in ('CFBundleName', 'CFBundleVersion', 'CFBundleShortVersionString'):
+    if not info.get(key):
+        raise SystemExit(f'Missing simulator Info.plist {key}')
+print('Validated simulator bundle metadata: ' + json.dumps({key: info[key] for key in required}, sort_keys=True))
+PYINFO
 udid="$(python3 native/apple/Tools/select_simulator.py "$platform")"
 printf '%s\n' "$udid" > "$output/simulator-udid.txt"
+# Keep prior local test evidence while allowing the documented command to rerun.
+python3 - "$output/Tests.xcresult" <<'PYRESULT'
+import pathlib, sys, time
+path = pathlib.Path(sys.argv[1])
+if path.exists():
+    path.rename(path.with_name('Tests-previous-' + str(time.time_ns()) + '.xcresult'))
+PYRESULT
 # xcodebuild boots its selected test device; no dependence on a named runner model.
 xcodebuild -project "$project" -scheme "$scheme" -configuration Debug \
   -destination "platform=$([ "$platform" = ipad ] && printf 'iOS Simulator' || printf 'tvOS Simulator'),id=$udid" \
@@ -23,12 +47,15 @@ xcodebuild -project "$project" -scheme "$scheme" -configuration Debug \
   -resultBundlePath "$output/Tests.xcresult" -parallel-testing-enabled NO \
   CODE_SIGNING_ALLOWED=NO test 2>&1 | tee "$output/tests.log"
 # A separate direct install/launch is evidence outside the XCUITest runner.
-app="$output/DerivedData/Build/Products/Debug-$([ "$platform" = ipad ] && printf 'iphonesimulator' || printf 'appletvsimulator')/$scheme.app"
 xcrun simctl bootstatus "$udid" -b
 xcrun simctl install "$udid" "$app"
 xcrun simctl launch --terminate-running-process "$udid" "$bundle" --uitesting 2>&1 | tee "$output/launch.log"
 # The XCTest attachment above waits for native.scene. Allow initial presentation here too.
 sleep 3
 xcrun simctl io "$udid" screenshot "$output/launched.png"
-# Copy the simulator bundle, not an IPA or an installable physical-device package.
-ditto -c -k --sequesterRsrc --keepParent "$app" "$output/$scheme-unsigned-simulator.zip"
+# A small actual-scene preview also travels in logs for cloud environments whose
+# artifact download redirects are unavailable. Full PNG/xcresult remain artifacts.
+sips -s format jpeg -s formatOptions 65 -Z 960 "$output/launched.png" --out "$output/launched-preview.jpg" >/dev/null
+printf '\nNATIVE_SCENE_PREVIEW_BASE64_BEGIN_%s\n' "$platform"
+base64 -b 76 -i "$output/launched-preview.jpg"
+printf '\nNATIVE_SCENE_PREVIEW_BASE64_END_%s\n' "$platform"

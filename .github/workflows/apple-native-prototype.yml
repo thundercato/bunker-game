@@ -65,6 +65,12 @@ jobs:
           node native/apple/Tools/convert_scene.mjs --check
           node native/apple/Tools/test_pipeline.mjs
           python3 native/apple/Tools/generate_project.py --check
+      - name: Run portable Swift Core tests independently of simulator installation
+        if: matrix.platform == 'ipad'
+        shell: bash
+        run: |
+          set -euo pipefail
+          swift test --package-path native/apple 2>&1 | tee native/apple/BuildResults/core-swiftpm.log
       - name: Compile, test and launch native simulator app
         run: bash native/apple/Tools/ci_build.sh '${{ matrix.platform }}'
       - name: Upload compiler logs, test results and unsigned simulator app
@@ -74,12 +80,14 @@ jobs:
           name: native-apple-${{ matrix.platform }}-${{ github.sha }}
           path: |
             native/apple/BuildResults/sdk-and-simulators.log
+            native/apple/BuildResults/core-swiftpm.log
             native/apple/BuildResults/${{ matrix.platform }}/build.log
             native/apple/BuildResults/${{ matrix.platform }}/tests.log
             native/apple/BuildResults/${{ matrix.platform }}/launch.log
             native/apple/BuildResults/${{ matrix.platform }}/simulator-udid.txt
             native/apple/BuildResults/${{ matrix.platform }}/Tests.xcresult
             native/apple/BuildResults/${{ matrix.platform }}/launched.png
+            native/apple/BuildResults/${{ matrix.platform }}/launched-preview.jpg
             native/apple/BuildResults/${{ matrix.platform }}/*-unsigned-simulator.zip
           retention-days: 14
           if-no-files-found: warn

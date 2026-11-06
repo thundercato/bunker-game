@@ -7,6 +7,7 @@ No package manager, Xcode wizard, account or signing material is required.
 import argparse
 import hashlib
 import json
+import plistlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -75,6 +76,11 @@ targets = []
 schemes = []
 common = dict(CLANG_ENABLE_MODULES='YES', SWIFT_VERSION='5.0', CODE_SIGNING_ALLOWED='NO',
               GENERATE_INFOPLIST_FILE='YES', SWIFT_EMIT_LOC_STRINGS='NO',
+              INFOPLIST_KEY_CFBundleIdentifier='$(PRODUCT_BUNDLE_IDENTIFIER)',
+              INFOPLIST_KEY_CFBundleExecutable='$(EXECUTABLE_NAME)',
+              INFOPLIST_KEY_CFBundleName='$(PRODUCT_NAME)',
+              INFOPLIST_KEY_CFBundleVersion='$(CURRENT_PROJECT_VERSION)',
+              INFOPLIST_KEY_CFBundleShortVersionString='$(MARKETING_VERSION)',
               MARKETING_VERSION='0.1.0', CURRENT_PROJECT_VERSION='1',
               ENABLE_USER_SCRIPT_SANDBOXING='YES', DEBUG_INFORMATION_FORMAT='dwarf',
               SWIFT_STRICT_CONCURRENCY='minimal')
@@ -98,6 +104,8 @@ for platform, sdk, deployment, family in [('iPad', 'iphoneos', 'IPHONEOS_DEPLOYM
         settings.update(SDKROOT=sdk, SUPPORTED_PLATFORMS='iphoneos iphonesimulator' if platform == 'iPad' else 'appletvos appletvsimulator',
                         TARGETED_DEVICE_FAMILY=family, PRODUCT_NAME='$(TARGET_NAME)', PRODUCT_BUNDLE_IDENTIFIER='org.fieldsignal.prototype.' + name.lower())
         settings[deployment] = '26.0'
+        settings['INFOPLIST_KEY_CFBundlePackageType'] = 'APPL' if index == 0 else 'BNDL'
+        settings['INFOPLIST_FILE'] = 'Configuration/App-Info.plist' if index == 0 else 'Configuration/Test-Info.plist'
         if index == 0:
             settings.update(INFOPLIST_KEY_CFBundleDisplayName='Field Signal',
                             INFOPLIST_KEY_UILaunchScreen_Generation='YES',
@@ -137,6 +145,25 @@ def encode(value, depth=0):
         return str(value)
     return json.dumps(value)
 
+
+# Supply required CFBundle keys explicitly. Xcode's product defaults are not a
+# substitute for a complete base plist in a generated project.
+base_info = {
+    'CFBundleDevelopmentRegion': '$(DEVELOPMENT_LANGUAGE)',
+    'CFBundleExecutable': '$(EXECUTABLE_NAME)',
+    'CFBundleIdentifier': '$(PRODUCT_BUNDLE_IDENTIFIER)',
+    'CFBundleInfoDictionaryVersion': '6.0',
+    'CFBundleName': '$(PRODUCT_NAME)',
+    'CFBundleVersion': '$(CURRENT_PROJECT_VERSION)',
+    'CFBundleShortVersionString': '$(MARKETING_VERSION)',
+}
+for kind, package_type in [('App', 'APPL'), ('Test', 'BNDL')]:
+    info = dict(base_info, CFBundlePackageType=package_type)
+    if kind == 'App':
+        info.update(CFBundleDisplayName='Field Signal', UILaunchScreen={},
+                    UIApplicationSceneManifest={'UIApplicationSupportsMultipleScenes': False},
+                    UISupportedInterfaceOrientations=['UIInterfaceOrientationLandscapeLeft', 'UIInterfaceOrientationLandscapeRight'])
+    write(ROOT / 'Configuration' / (kind + '-Info.plist'), plistlib.dumps(info, sort_keys=True).decode())
 
 payload = dict(archiveVersion=1, classes={}, objectVersion=56, objects=objects, rootObject=ref('Project'))
 write(PROJECT / 'project.pbxproj', '// !$*UTF8*$!\n' + encode(payload) + '\n')

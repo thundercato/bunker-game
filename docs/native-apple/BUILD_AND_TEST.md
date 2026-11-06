@@ -97,6 +97,10 @@ actual macOS version, developer directory, Xcode version, SDKs, simulator runtim
 and devices. iPad and TV jobs run independently; one target failure does not hide
 the other. PR updates share a branch concurrency group so superseded runs are cancelled.
 
+The generated base app/test plists contain required CFBundle keys explicitly.
+The build script validates the built app identifier, executable and package type
+before attempting simulator installation.
+
 Each platform's artifact retains:
 
 - `sdk-and-simulators.log`, `build.log`, `tests.log` and `launch.log`.
@@ -104,8 +108,15 @@ Each platform's artifact retains:
 - `simulator-udid.txt` and `launched.png` from the separate install/launch.
 - A ZIP of the unsigned **simulator** `.app` bundle.
 
+A small JPEG of the actual launched scene is also encoded between
+`NATIVE_SCENE_PREVIEW_BASE64_BEGIN_*` and `NATIVE_SCENE_PREVIEW_BASE64_END_*` markers
+in the job log. This allows visual review from a cloud worker when the normal
+artifact service's download redirects are unavailable. It is simulator output,
+not concept art. The full PNG and XCTest attachments remain in artifacts.
+
 Local script output is under `native/apple/BuildResults/{ipad,tv}` and is ignored
-by Git. Actions artifacts are retained for 14 days. Download them promptly if a
+by Git. Repeating the script preserves an existing `Tests.xcresult` under a
+`Tests-previous-*` name before writing the next result bundle. Actions artifacts are retained for 14 days. Download them promptly if a
 longer-lived external evidence copy is needed. Inspect a result bundle on a Mac
 with `open path/to/Tests.xcresult`.
 

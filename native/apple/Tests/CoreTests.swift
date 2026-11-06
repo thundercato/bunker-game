@@ -231,4 +231,27 @@ final class CoreTests: XCTestCase {
         XCTAssertNil(defaults.data(forKey: NativeSaveStore.key))
         XCTAssertEqual(NativeSaveStore.suiteName, "org.fieldsignal.native.prototype.v1")
     }
+
+    func testBackResumesLifecyclePauseBeforeClosingInventory() throws {
+        let session = try GameSession(scene: scene())
+        session.toggleInventory()
+        session.setPaused(true) // App backgrounding or controller loss.
+        let position = session.position
+        session.move(strafe: 0, forward: 1, deltaTime: 0.1)
+        XCTAssertEqual(session.position, position)
+
+        session.handleBack()
+        XCTAssertFalse(session.isPaused)
+        XCTAssertTrue(session.inventoryVisible, "Resuming returns to the pack that was open before suspension.")
+        session.move(strafe: 0, forward: 1, deltaTime: 0.1)
+        XCTAssertEqual(session.position, position, "The visible pack must still suppress movement.")
+
+        session.handleBack()
+        XCTAssertFalse(session.isPaused)
+        XCTAssertFalse(session.inventoryVisible)
+        session.move(strafe: 0, forward: 1, deltaTime: 0.1)
+        XCTAssertNotEqual(session.position, position)
+        session.handleBack()
+        XCTAssertTrue(session.isPaused)
+    }
 }

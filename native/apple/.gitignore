@@ -4,3 +4,7 @@ BuildResults/
 xcuserdata/
 .DS_Store
 __pycache__/
+.swiftpm/
+DerivedData/
+TestResults/
+*.xcresult/

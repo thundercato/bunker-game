@@ -66,3 +66,17 @@ errors). The fix uses `SCNView(frame: .zero)`, whose supported native backend is
 Metal, rather than an incorrectly inferred options key. Neither job passed at
 this checkpoint. Logs became accessible through `gh run view --log-failed` after
 the run completed; direct Azure artifact redirects initially returned 403.
+
+- `82c9bc4`: fixed the real SceneKit initializer error, added three Apple renderer
+  boundary tests and completed playable controls/Mac continuation documentation.
+- [Run 42304229866](https://github.com/thundercato/bunker-game/actions/runs/42304229866):
+  **both generic simulator builds succeeded**, with Xcode 26.6 and iOS/tvOS 26.5
+  SDKs. Both XCTest installations then failed with `IXErrorDomain 13`, “Missing
+  bundle ID”. This is a generated app metadata defect, not missing Apple SDK
+  support. No test or simulator launch passed in this run. The generator is being
+  corrected to emit complete bundle metadata, with pre-install validation.
+
+The official run-log archive endpoint (`gh api repos/thundercato/bunker-game/actions/runs/42304229866/logs`)
+provided the completed build/test logs even while `gh run view --log` was waiting
+for the overall run status. Direct artifact blob downloads still returned 403;
+logs and result links remain recorded instead of assuming a pass.

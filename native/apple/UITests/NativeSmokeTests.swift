@@ -27,6 +27,12 @@ final class NativeSmokeTests: XCTestCase {
         app.buttons["native.torch"].tap()
         app.buttons["native.inventory"].tap()
         XCTAssertTrue(app.buttons["native.inventory.close"].waitForExistence(timeout: 5))
+        // Exercise a real lifecycle pause above an already open inventory.
+        XCUIDevice.shared.press(.home)
+        app.activate()
+        XCTAssertTrue(app.buttons["native.resume"].waitForExistence(timeout: 10))
+        app.buttons["native.resume"].tap()
+        XCTAssertTrue(app.buttons["native.inventory.close"].waitForExistence(timeout: 5))
         app.buttons["native.inventory.close"].tap()
         app.buttons["native.pause"].tap()
         XCTAssertTrue(app.buttons["native.resume"].waitForExistence(timeout: 5))

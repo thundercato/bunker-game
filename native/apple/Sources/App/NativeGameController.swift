@@ -91,10 +91,7 @@ final class NativeGameController: NSObject, ObservableObject {
             edge("inventory", pad.buttonY.isPressed) { self.toggleInventory() }
             edge("torch", pad.buttonX.isPressed) { self.toggleTorch() }
             edge("interact", pad.buttonA.isPressed) { self.interact() }
-            edge("back", pad.buttonB.isPressed) {
-                if self.inventoryVisible { self.toggleInventory() }
-                else { self.setPaused(!self.paused) }
-            }
+            edge("back", pad.buttonB.isPressed) { self.handleBack() }
             #endif
         }
         let forward = deadzone(Double(gamepad?.leftThumbstick.yAxis.value ?? 0))
@@ -144,6 +141,14 @@ final class NativeGameController: NSObject, ObservableObject {
     }
     func setPaused(_ value: Bool) {
         game?.setPaused(value)
+        rememberHeldButtons()
+        touchMove = .zero
+        pendingLook = .zero
+        refresh()
+    }
+    func handleBack() {
+        guard !inactive else { return }
+        game?.handleBack()
         rememberHeldButtons()
         touchMove = .zero
         pendingLook = .zero

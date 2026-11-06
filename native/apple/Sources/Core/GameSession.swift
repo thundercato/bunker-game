@@ -52,6 +52,14 @@ public final class GameSession {
     public func toggleInventory() { inventoryVisible.toggle() }
     public func setPaused(_ value: Bool) { isPaused = value }
 
+    /// Back dismisses the topmost native layer. Lifecycle/controller-loss pause
+    /// can sit above an open pack; resuming must not strand that pack or move.
+    public func handleBack() {
+        if isPaused { isPaused = false }
+        else if inventoryVisible { inventoryVisible = false }
+        else { isPaused = true }
+    }
+
     public var nearestInteraction: SceneInteraction? {
         let eye = Vec3(position.x, position.y + eyeHeight, position.z)
         return scene.interactions.filter { target in

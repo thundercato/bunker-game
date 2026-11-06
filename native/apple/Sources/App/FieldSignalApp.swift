@@ -78,10 +78,7 @@ struct FieldSignalView: View {
         .foregroundStyle(accent)
         .preferredColorScheme(.dark)
         #if os(tvOS)
-        .onExitCommand {
-            if model.inventoryVisible { model.toggleInventory() }
-            else { model.setPaused(!model.paused) }
-        }
+        .onExitCommand { model.handleBack() }
         #endif
     }
 
