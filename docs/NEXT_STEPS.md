@@ -1,7 +1,7 @@
 # Field Signal: staged execution plan
 
-Publication checkpoint: the latest request explicitly authorises the hosted
-Field Signal 11.1.0 build and iPhone Home Screen installation. See
+Publication checkpoint: Field Signal 11.1.0 is hosted and verified; main run
+42277856101 passed verification, Pages deployment and public-site checks. See
 `EXECUTION_2026-11-06_PUBLICATION.md` for the release identifier, public link and
 verification path. Future game/editor work remains on feature branches.
 

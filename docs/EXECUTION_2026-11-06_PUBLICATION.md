@@ -1,5 +1,17 @@
 # Field Signal 11.1 publication, 6 November 2026
 
+**Published and verified:** https://thundercato.github.io/bunker-game/ .
+Main release source `0aacdb48f1cdbef3480dc7f8812a8fd5604c5f5e` passed verification,
+Pages deployment and all public-site checks in
+[run 42277856101](https://github.com/thundercato/bunker-game/actions/runs/42277856101).
+This includes the 17 live game/Home Screen/offline checks, actual editor play and
+the moved-building preview. The independent HTTPS browser capture also verified
+the exact new worker cache, approved scenes and real journal.
+
+[Public capture](verification/2026-11-06-publication/public-journal.jpg) ·
+[Served metadata and browser proof](verification/2026-11-06-publication/public-home-screen.json).
+The preparation notes below record the release process.
+
 The user's latest instruction is: “Make it playable via a link. Give me the link
 so I can add to my iPhone home page as a web app”. This authorises publishing the
 previously tested candidate, superseding the earlier approval-pending checkpoint.
