@@ -2,8 +2,10 @@ name: Field Signal · verify and publish
 on:
   push:
     branches: [main]
+    # The static game build does not include repository documentation.
+    paths-ignore: ["docs/**", "README.md", "AGENTS.md"]
   pull_request:
-    branches: [main]
+    branches: [main, feat/moved-building-preview]
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,6 +24,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install road compiler verification dependency
+        run: python3 -m pip install --disable-pip-version-check shapely==2.1.2
       - name: Python gameplay, save and editor integration tests
         run: python3 -m unittest discover -s site/tests -p 'test_*.py' -v
       - name: JavaScript, audio, atlas and shared-layout unit tests
@@ -32,9 +36,20 @@ jobs:
           node site/tests/test_layout.mjs
           node site/tests/test_world_v2.mjs
           node site/tests/test_world_document.mjs
+          node site/tests/test_world_preview.mjs
+          node site/tests/test_journal.mjs
+          node site/tests/test_search_props.mjs
+          node site/tests/test_districts.mjs
+          node site/tests/test_campaign_interiors.mjs
+          node site/tests/test_campaign.mjs
+          node site/tests/test_roofs.mjs
+          node site/tests/test_campaign_road_surfaces.mjs
           for file in site/tests/editor_v2_*.mjs; do node "$file"; done
       - name: Build and validate runtime assets
-        run: python3 tools/build.py
+        run: |
+          python3 tools/compile_campaign_road_surfaces.py --check
+          python3 tools/audit_world.py --check
+          python3 tools/build.py
       - name: Install browser test runner
         timeout-minutes: 5
         env:
@@ -55,11 +70,19 @@ jobs:
       - name: World v2 full-map editor browser checks
         timeout-minutes: 5
         run: node tests/world_v2_browser.cjs
+      - name: Moved building, real-game preview and old-worker upgrade
+        run: node tests/world_preview_browser.cjs
+      - name: Structured journal and candidate gameplay browser checks
+        run: |
+          node tests/journal_browser.cjs
+          node tests/campaign_browser.cjs
+          node tests/campaign_editor_browser.cjs
       - name: Packaged editor suite mouse, graph, model and persistence checks
         run: |
           for file in tests/editor_v2_*_browser.cjs; do node "$file"; done
           node tests/editor_v2_offline.cjs
           EDITOR_PRIOR_WORKER=editor21 node tests/editor_v2_offline.cjs
+          EDITOR_PRIOR_WORKER=release111 node tests/editor_v2_offline.cjs
       - name: Preserve canonical editor review build
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
@@ -74,6 +97,11 @@ jobs:
           name: field-signal-verification
           path: test-results/
           if-no-files-found: ignore
+      - name: Package reviewable offline-capable candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: field-signal-candidate-${{ github.sha }}
+          path: dist/
       - name: Package GitHub Pages site
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
@@ -120,6 +148,10 @@ jobs:
         env:
           GAME_URL: https://thundercato.github.io/bunker-game/
         run: node tests/editor_browser.cjs
+      - name: Test actual published moved-building play link
+        env:
+          GAME_URL: https://thundercato.github.io/bunker-game/
+        run: node tests/world_preview_browser.cjs
       - name: Preserve public-site verification
         if: always()
         uses: actions/upload-artifact@v4
@@ -128,4 +160,5 @@ jobs:
           path: |
             test-results/public-release.json
             test-results/editor-browser.json
+            test-results/world-preview-browser.json
           if-no-files-found: ignore

@@ -1,0 +1,199 @@
+{
+  "purpose": "Actual captured candidate output; original screenshot pixels and raw logs preserved.",
+  "runtimeCheckpoint": "f372ccb",
+  "browser": "Linux Chromium 141 / SwiftShader; no physical Apple-device testing",
+  "files": [
+    {
+      "file": "authored-home-browser.json",
+      "source": "test-results/campaign-editor/browser.json",
+      "bytes": 11465,
+      "sha256": "5ec3d466eee136f45be222143873a99efd4ef2c101227650861209d33b27adb9"
+    },
+    {
+      "file": "authored-home-browser.log",
+      "source": "test-results/campaign-editor-final.log",
+      "bytes": 6285,
+      "sha256": "e1d1b951940166c1e3973692e0a2a3e4d4a2c653afaea372218a3a1504d1d708"
+    },
+    {
+      "file": "campaign-browser.json",
+      "source": "test-results/campaign/browser.json",
+      "bytes": 3082,
+      "sha256": "0a6419704a4777cd841f64a4cab908f63c68e010d801d88e78f3c310180c4f17"
+    },
+    {
+      "file": "campaign-browser.log",
+      "source": "test-results/campaign-final.log",
+      "bytes": 2043,
+      "sha256": "e7f7802755f331bac543e8100af85685ac5e23df6f7a67782cd145d4855eba55"
+    },
+    {
+      "file": "crane-platform.jpg",
+      "source": "test-results/campaign/crane-platform.jpg",
+      "bytes": 74539,
+      "sha256": "956e6f47211c1a78b26809dedae17246f01e7d00ce8052ba44b8c7bc3671639a"
+    },
+    {
+      "file": "docks-crane.jpg",
+      "source": "test-results/candidate-performance/docks-crane.jpg",
+      "bytes": 46133,
+      "sha256": "d6ef6a83b592a6df5fefe7233939ef6df56bff6c0b24248d9da5e37a1044e6db"
+    },
+    {
+      "file": "forester-editor-upper.jpg",
+      "source": "test-results/campaign-editor/forester-editor-upper.jpg",
+      "bytes": 39711,
+      "sha256": "30dcf7bbc441569966d5954fe530db106d72c189c0de0ed0d0129d06438bd63d"
+    },
+    {
+      "file": "forester-kitchen.jpg",
+      "source": "test-results/campaign/forester-kitchen.jpg",
+      "bytes": 74360,
+      "sha256": "faa95f31c2f4c1045dfe9d40cb68a8b4c68de0bea7f0bd579e231a0cc500d47e"
+    },
+    {
+      "file": "forester-preview-interior.jpg",
+      "source": "test-results/campaign-editor/forester-preview-interior.jpg",
+      "bytes": 20672,
+      "sha256": "58db0edc2c6a0207b7b3823de7bf6e245657a9e32929fb6bdf4e3b0feee09ea5"
+    },
+    {
+      "file": "journal-3d-game.jpg",
+      "source": "test-results/campaign/journal-3d-game.jpg",
+      "bytes": 92063,
+      "sha256": "d73a814f25cd4110e825336bdd09ae7ba25fd7b19c991cda1ed506a27966e75f"
+    },
+    {
+      "file": "journal-browser.json",
+      "source": "test-results/journal/results.json",
+      "bytes": 4503,
+      "sha256": "708013ada11ba9476f95d07006225196f823f0802400f68ef626337cd468a32b"
+    },
+    {
+      "file": "journal-browser.log",
+      "source": "test-results/journal/latest-component.log",
+      "bytes": 2601,
+      "sha256": "ffc49067f8ceed72185c6b76f793bc238717041640544304cd085294cff9781b"
+    },
+    {
+      "file": "journal-completed-mission.jpg",
+      "source": "test-results/campaign/journal-completed-mission.jpg",
+      "bytes": 76321,
+      "sha256": "8de5b085ad525be5ba1f160783e97764d6df565a06610f9f3b43ee51334864e0"
+    },
+    {
+      "file": "journal-page-turn-game.jpg",
+      "source": "test-results/campaign/journal-page-turn-game.jpg",
+      "bytes": 68952,
+      "sha256": "1864b62b8ffa7dd7dd1fe9b21f96e21da60c5b62ef62069a1fd2282051aa243d"
+    },
+    {
+      "file": "journal-phone.jpg",
+      "source": "test-results/campaign/journal-phone.jpg",
+      "bytes": 57597,
+      "sha256": "101ffcd806183325372f261d4e1f2f8006bfe7d35acc0feea491f8a523413395"
+    },
+    {
+      "file": "moved-hut-browser.json",
+      "source": "test-results/world-preview-browser.json",
+      "bytes": 1987,
+      "sha256": "e77a7ea653cfce36c8cfe9eb94949b5107bf765bbbb6be0cee30d693b58d25dd"
+    },
+    {
+      "file": "moved-hut-browser.log",
+      "source": "test-results/world-preview-final.log",
+      "bytes": 838,
+      "sha256": "9f0d32a68c57daa9cb54c2dda53f88ff324f170d1d8289e07749115064f3fdd3"
+    },
+    {
+      "file": "node.log",
+      "source": "test-results/final-node.log",
+      "bytes": 25882,
+      "sha256": "0831914bdb365c8234c311902362d3f666c64806acd200e0c3b38fc44925b62a"
+    },
+    {
+      "file": "performance/after-material-sharing-before-road-fix.json",
+      "source": "test-results/candidate-performance/after-material-sharing-before-road-fix/candidate.json",
+      "bytes": 87710,
+      "sha256": "5abe5cb802801d5301479cf65454bb1250eda27a576dd5676fe2bf87f5881f1c"
+    },
+    {
+      "file": "performance/authored-cottage-kitchen.jpg",
+      "source": "test-results/candidate-performance/authored-cottage-kitchen.jpg",
+      "bytes": 53115,
+      "sha256": "d1a3f4d22c14c946e8b7975c80253713a6c6c3896e8a85ec0b079a0b88c6a5dd"
+    },
+    {
+      "file": "performance/before-material-sharing.json",
+      "source": "test-results/candidate-performance/before-material-sharing/candidate.json",
+      "bytes": 87890,
+      "sha256": "20a98b52676b3db544879a9191d8403e7138ca254043da0504695f30a577a220"
+    },
+    {
+      "file": "performance/candidate.json",
+      "source": "test-results/candidate-performance/candidate.json",
+      "bytes": 87757,
+      "sha256": "4bda0ed9e2697b68309da75042d58e14b798d5062eaa61bb32b7ecb92a108d09"
+    },
+    {
+      "file": "performance/docks-crane.jpg",
+      "source": "test-results/candidate-performance/docks-crane.jpg",
+      "bytes": 46133,
+      "sha256": "d6ef6a83b592a6df5fefe7233939ef6df56bff6c0b24248d9da5e37a1044e6db"
+    },
+    {
+      "file": "performance/refuge.jpg",
+      "source": "test-results/candidate-performance/refuge.jpg",
+      "bytes": 44210,
+      "sha256": "d39a372553251a6e79983a8ca7a77c86ca3534f4c25923d5dd0f94ea6a7643da"
+    },
+    {
+      "file": "performance/village-street.jpg",
+      "source": "test-results/candidate-performance/village-street.jpg",
+      "bytes": 48863,
+      "sha256": "c3eefc0bed7e724157438ff2053e22a0573ccb05cce1cb22a0289de7b396810b"
+    },
+    {
+      "file": "performance/woodland-crossing.jpg",
+      "source": "test-results/candidate-performance/woodland-crossing.jpg",
+      "bytes": 55714,
+      "sha256": "41a147e021ad5285b18e7bff3bc8e9c8ba159fe5f08369ddd9e860d1a0d07b89"
+    },
+    {
+      "file": "python.log",
+      "source": "test-results/final-python.log",
+      "bytes": 21062,
+      "sha256": "f9a82289d414713475124f4aa2ee7a0c3510311552eff1f91f5d670b78927161"
+    },
+    {
+      "file": "rail-crossing.jpg",
+      "source": "test-results/candidate-performance/woodland-crossing.jpg",
+      "bytes": 55714,
+      "sha256": "41a147e021ad5285b18e7bff3bc8e9c8ba159fe5f08369ddd9e860d1a0d07b89"
+    },
+    {
+      "file": "village-street.jpg",
+      "source": "test-results/candidate-performance/village-street.jpg",
+      "bytes": 48863,
+      "sha256": "c3eefc0bed7e724157438ff2053e22a0573ccb05cce1cb22a0289de7b396810b"
+    },
+    {
+      "file": "world-audit.log",
+      "source": "test-results/final-audit.log",
+      "bytes": 240,
+      "sha256": "70bc3412275abc34e7583d46245d80a1645a19abd0b4e4f90d967b1677fb00c8"
+    },
+    {
+      "file": "world-preview-atlas.jpg",
+      "source": "test-results/world-preview-atlas.jpg",
+      "bytes": 42831,
+      "sha256": "374756ed05fa1c59d995c607cb6396a0b9621050a66a5b3222623c79886e35f3"
+    },
+    {
+      "file": "world-preview-interior.jpg",
+      "source": "test-results/world-preview-interior.jpg",
+      "bytes": 52121,
+      "sha256": "eb278ccdace1e85a359a7ec9c30e8c2ebbb2755fa94f96925b4b32d534eb08f8"
+    }
+  ]
+}

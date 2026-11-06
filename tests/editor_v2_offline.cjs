@@ -3,8 +3,15 @@
 const {chromium}=require('playwright'),http=require('http'),fs=require('fs'),path=require('path'),assert=require('assert/strict');
 const root=path.resolve(__dirname,'..'),dist=path.join(root,'dist'),out=path.join(root,'test-results/editor-v2');
 const priorKind=process.env.EDITOR_PRIOR_WORKER||'world2';
-const prior=fs.readFileSync(path.join(__dirname,priorKind==='editor21'?'fixtures/editor-v21-prior-sw.js':'fixtures/editor-v2-prior-sw.js'));
-const CACHE='field-signal-overgrowth-v11-editor2.1.1',OLD=priorKind==='editor21'?'field-signal-overgrowth-v11-editor2.1.0':'field-signal-overgrowth-v11-world2.0.0';
+const priorWorkers={
+ world2:{fixture:'editor-v2-prior-sw.js',cache:'field-signal-overgrowth-v11-world2.0.0',report:'offline-browser.json'},
+ editor21:{fixture:'editor-v21-prior-sw.js',cache:'field-signal-overgrowth-v11-editor2.1.0',report:'offline-editor21-browser.json'},
+ release111:{fixture:'release-11-1-prior-sw.js',cache:'field-signal-game-first-release-11-1',report:'offline-release111-browser.json'}
+};
+const previous=priorWorkers[priorKind];
+assert.ok(previous,'Unsupported EDITOR_PRIOR_WORKER '+priorKind);
+const prior=fs.readFileSync(path.join(__dirname,'fixtures',previous.fixture));
+const CACHE='field-signal-11.1-editor2.1.2',OLD=previous.cache;
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.glb':'model/gltf-binary'};
 fs.mkdirSync(out,{recursive:true});
 let legacy=true;
@@ -57,5 +64,5 @@ const workspaces=[
   for(const workspace of workspaces){await page.goto(base+workspace.url);await page.waitForFunction(workspace.ready,null,{timeout:120000});await page.screenshot({path:path.join(out,`offline-${workspace.name}.png`)});}pass('Every workspace restarts offline, including never-cached directory navigation');
   assert.deepEqual(await page.evaluate(keys=>Object.fromEntries(keys.map(key=>[key,localStorage.getItem(key)])),Object.keys(retained)),retained);pass('Campaign, settings, journal and backward-compatible editor drafts remain byte-for-byte intact');
   assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);pass('No browser exceptions or missing packaged network resources');
- }finally{fs.writeFileSync(path.join(out,priorKind==='editor21'?'offline-editor21-browser.json':'offline-browser.json'),JSON.stringify({checks,errors,missing},null,2));await browser?.close();await new Promise(resolve=>host.close(resolve));}
+ }finally{fs.writeFileSync(path.join(out,previous.report),JSON.stringify({checks,errors,missing},null,2));await browser?.close();await new Promise(resolve=>host.close(resolve));}
 })().catch(error=>{console.error(error.stack);process.exitCode=1;});

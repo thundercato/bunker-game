@@ -1,0 +1,173 @@
+{
+  "results": [
+    {
+      "name": "3D initialisation succeeds",
+      "pass": true,
+      "detail": {
+        "format": "field-signal-journal/1",
+        "events": 5,
+        "notes": 0,
+        "discarded": 0,
+        "legacyAvailable": 0,
+        "legacyAdopted": false,
+        "persistent": true,
+        "error": "",
+        "mode": "3d",
+        "model": "layered covers, paper stacks, metal binder and flexible sheet",
+        "fallback": false,
+        "sceneError": null,
+        "section": "active",
+        "page": 0,
+        "turning": false,
+        "turns": 0,
+        "renders": 1,
+        "drawCalls": 13,
+        "triangles": 912
+      }
+    },
+    {
+      "name": "Real vendored Three notebook includes covers, paper and binder",
+      "pass": true,
+      "detail": {
+        "format": "field-signal-journal/1",
+        "events": 5,
+        "notes": 0,
+        "discarded": 0,
+        "legacyAvailable": 0,
+        "legacyAdopted": false,
+        "persistent": true,
+        "error": "",
+        "mode": "3d",
+        "model": "layered covers, paper stacks, metal binder and flexible sheet",
+        "fallback": false,
+        "sceneError": null,
+        "section": "active",
+        "page": 0,
+        "turning": false,
+        "turns": 0,
+        "renders": 1,
+        "drawCalls": 13,
+        "triangles": 912
+      }
+    },
+    {
+      "name": "Journal header stays in its component instead of inheriting fixed HUD positioning",
+      "pass": true
+    },
+    {
+      "name": "Mission text uses readable DOM and exact campaign data",
+      "pass": true
+    },
+    {
+      "name": "Atlas action preserves stable mission ID",
+      "pass": true
+    },
+    {
+      "name": "Balanced mode preserves an available manual 2D to 3D toggle",
+      "pass": true
+    },
+    {
+      "name": "Tab focuses the first available journal control before global game input",
+      "pass": true
+    },
+    {
+      "name": "Shift+Tab reaches the last journal control",
+      "pass": true
+    },
+    {
+      "name": "Enter turns exactly one instant 2D page despite global interact mapping",
+      "pass": true
+    },
+    {
+      "name": "Space activates a focused journal control once",
+      "pass": true
+    },
+    {
+      "name": "Page actually bends out of the notebook during turn",
+      "pass": true
+    },
+    {
+      "name": "Keyboard turn reaches next readable spread",
+      "pass": true
+    },
+    {
+      "name": "Idle journal does not run a render loop",
+      "pass": true
+    },
+    {
+      "name": "Controller right shoulder turns a page",
+      "pass": true
+    },
+    {
+      "name": "Controller left shoulder turns back",
+      "pass": true
+    },
+    {
+      "name": "Controller can focus journal controls",
+      "pass": true
+    },
+    {
+      "name": "Landscape journal stays inside viewport and keeps page controls visible",
+      "pass": true
+    },
+    {
+      "name": "Mission Atlas, pin and dossier buttons stay visible below scrollable paper",
+      "pass": true
+    },
+    {
+      "name": "A real vertical touch gesture scrolls paper without turning pages",
+      "pass": true
+    },
+    {
+      "name": "A real horizontal touch gesture turns a page instead of scrolling the document",
+      "pass": true
+    },
+    {
+      "name": "Escape immediately disposes an in-progress journal turn",
+      "pass": true
+    },
+    {
+      "name": "Low-power mode creates the 2D fallback without a WebGL renderer",
+      "pass": true
+    },
+    {
+      "name": "Battery saver describes and disables the unavailable 3D action",
+      "pass": true
+    },
+    {
+      "name": "Communications show the exact encountered written briefing",
+      "pass": true
+    },
+    {
+      "name": "Completed assignment remains in archive with real reward and time",
+      "pass": true
+    },
+    {
+      "name": "Player note is explicit, stored and navigable",
+      "pass": true
+    },
+    {
+      "name": "Explicit legacy adoption preserves original v9 storage",
+      "pass": true
+    },
+    {
+      "name": "Remount and reload do not duplicate journal records",
+      "pass": true
+    },
+    {
+      "name": "OS reduced motion selects fallback without WebGL",
+      "pass": true
+    },
+    {
+      "name": "Reduced motion describes and disables the unavailable 3D action",
+      "pass": true
+    },
+    {
+      "name": "No browser exceptions",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "device": "Linux Chromium / SwiftShader; component fixture, not physical Safari"
+}

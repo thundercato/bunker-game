@@ -8,12 +8,15 @@ export function entityFor(doc,selection){
  if(selection.kind==='building')return doc.buildings.find(x=>x.id===selection.id);
  if(selection.kind==='foliage')return doc.foliage.find(x=>x.id===selection.id);
  if(selection.kind==='water')return doc.water[selection.index];
+ if(selection.kind==='district')return doc.districts?.districts.flatMap(d=>d.objects).find(o=>o.id===selection.id);
  return [...doc.roads,doc.rail].find(x=>x.id===selection.id);
 }
 export function checkDocument(doc,source){
  const next=validate(doc,source),finite=n=>typeof n==='number'&&Number.isFinite(n);
  if(!['all','north','central','south'].includes(next.region))throw Error('Unknown editor region');
  if(!next.layers||['terrain','vegetation','buildings','roads','rail','water'].some(k=>typeof next.layers[k]!=='boolean'))throw Error('Invalid layer visibility');
+ if(next.layers.districts!==undefined&&typeof next.layers.districts!=='boolean')throw Error('Invalid district layer visibility');
+ for(const o of next.districts?.districts.flatMap(d=>d.objects)||[])if(!['x','y','z','yaw'].every(k=>finite(o.transform[k])))throw Error('Invalid district transform');
  for(const b of doc.buildings)if(b.offset!==undefined&&!finite(b.offset))throw Error('Invalid foundation offset');
  for(const f of doc.foliage)if(![f.offset===undefined?0:f.offset,f.yaw,...(f.y===undefined?[]:[f.y])].every(finite)||typeof f.locked!=='boolean')throw Error('Invalid foliage transform or lock');
  const safeId=id=>typeof id==='string'&&id.length<=80&&/^[\w-]+$/.test(id);
@@ -27,6 +30,12 @@ export function checkDocument(doc,source){
 }
 export function updateEntity(doc,selection,key,value){
  const o=entityFor(doc,selection);if(!o)throw Error('Selection no longer exists');
+ if(selection.kind==='district'){
+  if(!['x','y','z','yaw'].includes(key))throw Error('District overview edits support position and yaw only');
+  if(typeof value!=='number'||!Number.isFinite(value))throw Error('District transform must be a finite number');
+  o.transform[key]=key==='yaw'?value*Math.PI/180:value;
+  return doc;
+ }
  if(o.locked&&key!=='locked')throw Error('Unlock this object before editing its transform');
  if(selection.kind==='node'&&['x','z'].includes(key))o.points[selection.index][key==='x'?0:1]=value;
  else if(key==='yaw')o.yaw=value*Math.PI/180;
@@ -42,7 +51,7 @@ export function updateEntity(doc,selection,key,value){
  return doc;
 }
 export function moveEntity(doc,selection,x,z,step=0){
- const o=entityFor(doc,selection);if(!o||o.locked)return false;
+ const o=entityFor(doc,selection);if(!o||o.locked||selection.kind==='district')return false;
  x=snapValue(x,step);z=snapValue(z,step);
  if(selection.kind==='node')o.points[selection.index]=[x,z];
  else {o.x=Math.max(doc.bounds.minX,Math.min(doc.bounds.maxX,x));o.z=Math.max(doc.bounds.minZ,Math.min(doc.bounds.maxZ,z));}

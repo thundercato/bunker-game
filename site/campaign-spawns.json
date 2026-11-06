@@ -1,0 +1,12 @@
+{
+  "format": "field-signal-campaign-spawns/1",
+  "version": 1,
+  "adjustments": [
+    {
+      "id": "st4",
+      "from": [84, -151],
+      "to": [84, -149],
+      "reason": "Move the existing quayside patrol out of the newly authored cargo container and into the clear rear quay. Preserve identity, health, inventory and mission state."
+    }
+  ]
+}

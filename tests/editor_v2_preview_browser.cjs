@@ -1,6 +1,6 @@
-/* Canonical builds verify truthful capability gating. For the real unmerged
-   adapter journey, build tools/editor_v2_compatibility.py and explicitly set
-   EDITOR_COMPAT_DIST=/absolute/worktree/dist. Never substitutes for release CI. */
+/* Real canonical-dist connected authoring -> accepted runtime journey.
+   EDITOR_COMPAT_DIST remains an explicitly recorded compatibility-only override;
+   normal CI exercises its own packaged dist with the reviewed runtime adapter. */
 const {chromium}=require('playwright'),http=require('node:http'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),compat=process.env.EDITOR_COMPAT_DIST;
 const dist=path.resolve(compat||path.join(root,'dist')),out=path.join(root,'test-results/editor-v2');fs.mkdirSync(out,{recursive:true});
@@ -24,17 +24,8 @@ const server=http.createServer((req,res)=>{
   browser=await chromium.launch({headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
   const context=await browser.newContext({viewport:{width:1440,height:1000}});let page=await context.newPage();observe(page);
   await page.goto(base+'editor/');await page.waitForFunction(()=>window.FieldEditor?.ready(),null,{timeout:120000});
-  if(!compat){
-   check('Canonical main reports moved-world adapter unavailable',await page.evaluate(()=>FieldEditor.getSourceContext().worldPreview===false)&&await page.locator('#connected-preview').isDisabled());
-   await page.evaluate(()=>FieldEditor.testConnectedGame());
-   await page.waitForFunction(()=>document.querySelector('#toast').textContent.includes('unavailable in this runtime'));
-   check('Unavailable preview explains dependency without importing absent module',adapterRequests.length===0);
-   check('Blocked preview creates no isolated payload or game state',await page.evaluate(()=>!Object.keys(localStorage).some(k=>k.startsWith('field-signal-world-preview:')||k.startsWith('field-signal-editor-game:'))));
-   await page.screenshot({path:path.join(out,'preview-unavailable-canonical.png')});
-   checks.push({name:'Moved/rotated/raised game journey',status:'unsupported in canonical main; run explicit PR83 compatibility build',runtimeAdapter:false,published:false});
-  }else{
-   console.log('COMPATIBILITY ONLY runtime',report.runtimeRevision,'editor',report.editorRevision);
-   check('Explicit compatibility artifact enables adapter capability',await page.evaluate(()=>FieldEditor.getSourceContext().worldPreview===true)&&await page.locator('#connected-preview').isEnabled(),report.runtimeRevision);
+  if(compat)console.log('COMPATIBILITY ONLY runtime',report.runtimeRevision,'editor',report.editorRevision);
+  check(compat?'Explicit compatibility artifact enables adapter capability':'Canonical package enables the accepted moved-building adapter',await page.evaluate(()=>FieldEditor.getSourceContext().worldPreview===true)&&await page.locator('#connected-preview').isEnabled(),report?.runtimeRevision);
    await page.evaluate(()=>{
     localStorage.setItem('field-signal-dead-air-v9','PROTECTED-CAMPAIGN');
     localStorage.setItem('field-signal-dead-air-options','{"music":0.23}');
@@ -122,8 +113,7 @@ const server=http.createServer((req,res)=>{
     assert.deepEqual(await game.evaluate(()=>FieldWorldEditor.getWorldDocument()),doc);check(spec.id+' return recovers exact canonical authoring document',true);
     page=game;
    }
-  }
   check('No browser exceptions or failed asset/module requests',errors.length===0&&missing.length===0,{errors,missing});await context.close();
  }catch(error){checks.push({failure:error.stack});throw error;}
- finally{fs.writeFileSync(path.join(out,compat?'preview-compatibility-browser.json':'preview-canonical-browser.json'),JSON.stringify({kind:compat?'unmerged-runtime-compatibility-only':'canonical-dist',runtimeRevision:report?.runtimeRevision,checks,errors,missing},null,2));await browser?.close();await new Promise(resolve=>server.close(resolve));}
+ finally{fs.writeFileSync(path.join(out,compat?'preview-compatibility-browser.json':'preview-integrated-browser.json'),JSON.stringify({kind:compat?'unmerged-runtime-compatibility-only':'canonical-dist',runtimeRevision:report?.runtimeRevision,source:JSON.parse(fs.readFileSync(path.join(dist,'world-source.json'),'utf8')),editorRelease:JSON.parse(fs.readFileSync(path.join(dist,'editor/release.json'),'utf8')),checks,errors,missing},null,2));await browser?.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error.stack);process.exitCode=1;});

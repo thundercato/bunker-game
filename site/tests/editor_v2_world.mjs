@@ -21,3 +21,26 @@ assert.throws(()=>checkDocument({...d,layers:{...d.layers,terrain:'yes'}},source
 for(const value of ['',undefined,'<script>','x'.repeat(81)]){const bad=clone(d);bad.foliage[0].id=value;assert.throws(()=>checkDocument(bad,source),/foliage instance ID/);}
 for(const value of [undefined,'bad id','x'.repeat(81),d.rail.id]){const bad=clone(d);bad.roads[0].id=value;assert.throws(()=>checkDocument(bad,source),/path ID/);}
 console.log('PASS 37 editor world authoring constraints: grounding locks, bounds, snapping, paths, regions, JSON and detached invalid edits');
+
+const districts=JSON.parse(fs.readFileSync('site/districts.json'));
+const districtSourceBytes=JSON.stringify(districts);
+const campaignSource={...source,campaignDistricts:districts},districtDraft=initialWorld(campaignSource);
+districtDraft.layers.districts=true;
+const districtSelection={kind:'district',id:districts.districts[0].objects[0].id};
+const originalDistrict=clone(districts.districts[0].objects[0]),row=entityFor(districtDraft,districtSelection);
+assert.equal(row,districtDraft.districts.districts[0].objects[0]);
+updateEntity(districtDraft,districtSelection,'x',originalDistrict.transform.x+1.375);
+updateEntity(districtDraft,districtSelection,'yaw',37.5);
+assert.equal(row.transform.x,originalDistrict.transform.x+1.375);
+assert.equal(row.transform.yaw,37.5*Math.PI/180);
+assert.deepEqual({...row,transform:originalDistrict.transform},originalDistrict,'Transforms retain asset, colliders, source bindings and stable identity');
+assert.equal(Object.hasOwn(row,'x'),false,'A district must not gain a second flat transform');
+assert.equal(moveEntity(districtDraft,districtSelection,12,24,.25),false,'Overview districts only use numeric edits');
+assert.deepEqual(checkDocument(JSON.parse(JSON.stringify(districtDraft)),campaignSource),districtDraft);
+assert.equal(JSON.stringify(districts),districtSourceBytes,'Editor edits never mutate source district data');
+assert.throws(()=>updateEntity(districtDraft,districtSelection,'locked',true),/position and yaw only/);
+for(const value of [NaN,Infinity,null])assert.throws(()=>detachedEdit(districtDraft,campaignSource,d=>updateEntity(d,districtSelection,'z',value)),/finite/);
+const missing=clone(districtDraft);delete entityFor(missing,districtSelection).transform.yaw;
+assert.throws(()=>checkDocument(missing,campaignSource),/district transform/);
+assert.throws(()=>checkDocument({...districtDraft,layers:{...districtDraft.layers,districts:'yes'}},campaignSource),/district layer/);
+console.log('PASS district authoring integration: nested canonical transforms, degrees, retained identities/colliders, detached validation, source isolation and JSON');

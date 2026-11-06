@@ -1,6 +1,7 @@
 /* Editor persistence/history around the existing canonical world document.
    The checkpoint wrapper is UI metadata, never a second world/export schema. */
-import {clone, seedLayout, validateLayout} from '../layout-core.js';
+import {clone, validateLayout} from '../layout-core.js';
+import {initialEditorLayout} from './source-adapter.js';
 import {createWorldDocument, validateWorldDocument} from '../world-document.js';
 import {checkDocument} from './tools/world-authoring.js';
 
@@ -28,6 +29,10 @@ export class EditorSession {
   }
   checked(value) {
     const result = validateWorldDocument(value, this.context);
+    if (this.context.source.campaignDistricts) {
+      result.authoring.districts ??= clone(this.context.source.campaignDistricts);
+      if (result.authoring.layers) result.authoring.layers.districts ??= true;
+    }
     result.authoring = checkDocument(result.authoring, this.context.source);
     return result;
   }
@@ -79,7 +84,7 @@ export class EditorSession {
   getAuthoring() { return clone(this.document.authoring); }
   getLayout(id) { const layout = this.document.interiors.find(d => d.buildingId === id); return layout ? clone(layout) : null; }
   ensureLayout(id) {
-    if (!this.getLayout(id)) this.putLayout(validateLayout(seedLayout(this.context.source, id), {world: this.context.source, assets: this.context.assets}));
+    if (!this.getLayout(id)) this.putLayout(validateLayout(initialEditorLayout(this.context.source, id), {world: this.context.source, assets: this.context.assets}));
     return this.getLayout(id);
   }
   putLayout(layout) {

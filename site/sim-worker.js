@@ -7,6 +7,7 @@ self.onmessage=async({data})=>{
    const py=await loadPyodide({indexURL:'./vendor/pyodide/'});
    const response=await fetch('./engine.py'); if(!response.ok)throw Error('Python rules could not load.');
    py.globals.set('WORLD_JSON', data.worldOverride?JSON.stringify(data.worldOverride):await (await fetch('./world.json')).text());
+   if(data.worldOverride?.campaign){const module=await fetch('./campaign_rules.py');if(!module.ok)throw Error('Candidate geometry rules could not load.');py.FS.writeFile('campaign_rules.py',await module.text());}
    await py.runPythonAsync(await response.text()); api=py.globals.get('api'); ready=true;
   }
   const result=JSON.parse(api(JSON.stringify(data.action)));

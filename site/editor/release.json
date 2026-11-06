@@ -1,13 +1,13 @@
 {
   "name": "Field Signal World Editor",
-  "version": "2.1.1-preview",
-  "gameBase": "Overgrowth 11.0.0",
+  "version": "2.1.2-preview",
+  "gameBase": "Field Signal 11.1.0",
   "schema": "field-signal-layout/1",
   "buildings": 37,
   "propModels": 31,
   "builtAt": "2026-11-06",
   "worldMap": "editor/world.html",
-  "worldStatus": "draft authoring only, not runtime integration",
+  "worldStatus": "Connected existing-building isolated previews; terrain, road, water and other world drafts remain authoring-only",
   "packaging": "canonical manifest; editor suite offline-capable after cache completion",
   "worldDocumentSchema": "field-signal-world-document/1",
   "workspaces": [
@@ -17,5 +17,5 @@
     "editor/missions.html",
     "editor/validation.html"
   ],
-  "movedGamePreview": "requires separately reviewed runtime adapter; disabled in this canonical build"
+  "movedGamePreview": "Accepted runtime adapter; bounded existing-building isolated preview, not normal campaign publication"
 }

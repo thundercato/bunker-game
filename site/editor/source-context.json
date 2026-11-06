@@ -1,6 +1,6 @@
 {
   "sourceId": "overgrowth-v11",
   "sourceRevision": "6b4f9fb9401398a65eee576f40b2d80805ef6c76",
-  "worldPreview": false,
-  "status": "Reviewed world-document baseline metadata; this is not runtime-adapter or publication approval."
+  "worldPreview": true,
+  "status": "Accepted main runtime source and isolated single-building preview adapter. Terrain, roads, water, foliage and district edits remain authoring-only; this editor suite is not published."
 }

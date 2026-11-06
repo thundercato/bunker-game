@@ -1,11 +1,11 @@
 import {EditorSession} from '../session.js';
-import {assetCatalogue} from './assets-core.js';
+import {loadEditorSource} from '../source-adapter.js';
 import {recoveryEntries, validateRecovery, restoreRecovery} from './recovery-core.js';
 
 export function mountRecovery({getSession, host=document.querySelector('.left-foot') || document.querySelector('header'), reload=()=>location.reload()}={}) {
   let fallbackContext;
   async function session(){const active=await(getSession?.() || window.FieldEditor?.getSession?.() || window.FieldWorldEditor?.getSession?.());if(active)return active;
-    if(!fallbackContext)fallbackContext=Promise.all(['world.json','editor/source-context.json','assets/v7/asset-manifest.json','assets/v10/model-manifest.json','assets/v11/models.json'].map(async path=>{const response=await fetch(path);if(!response.ok)throw Error('Missing recovery source: '+path);return response.json();})).then(([source,metadata,...manifests])=>({source,sourceRevision:metadata.sourceRevision,assets:new Set(assetCatalogue(manifests).map(asset=>asset.id))})).catch(error=>{fallbackContext=null;throw error;});
+    if(!fallbackContext)fallbackContext=loadEditorSource().catch(error=>{fallbackContext=null;throw error;});
     return new EditorSession({...await fallbackContext,storage:localStorage}).load();
   }
   const button=document.createElement('button');button.id='editor-recovery';button.textContent='Recover editor backups';host.append(button);

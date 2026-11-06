@@ -1,5 +1,5 @@
-// Optional adapter consumer. This module never changes normal game state and does
-// not claim the unmerged runtime adapter is bundled in the main editor build.
+// Accepted single-building adapter consumer. This module never changes normal
+// game state; all launches use a fresh isolated preview identity.
 import {validateWorldDocument} from '../world-document.js';
 
 export async function launchWorldPreview({document: input, buildingId, context,

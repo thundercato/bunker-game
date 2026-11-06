@@ -1,19 +1,34 @@
 // Read-only view over the shared manifests. This is not a second asset registry.
 export function assetCatalogue(manifests, placements = []) {
   const merged = new Map();
-  for (const manifest of manifests) for (const row of manifest) {
+  for (const manifest of manifests) for (const input of Array.isArray(manifest) ? manifest : manifest.assets || manifest.props || []) {
+    // Read the accepted shared formats; no editor registry or guessed dimensions.
+    const row = manifest.format === 'field-signal-asset-registry/1' ? {...input,
+      runtimeTriangles: input.triangles, modifications: input.changes,
+      authors: Object.fromEntries((input.authors || []).map(name => [name, 'Model source'])),
+      reviewedPlacement: input.units === 'metres' && input.pivot === 'bottom-centre' && input.up === '+Y' &&
+        input.dimensions?.length === 3 && input.dimensions.every(n => Number.isFinite(n) && n >= .02 && n <= 65) &&
+        input.collision?.type === 'box' && input.collision.size?.length === 3 && input.collision.size.every((n,i) => n === input.dimensions[i]),
+    } : manifest.schema === 'field-signal-search-props' ? {...input,
+      semantic: true, thumbnail: input.editor?.thumbnail, tags: [...(input.rooms || []), input.mount, input.profile],
+      licence: input.provenance?.licence, source: input.provenance?.source,
+      authors: {[input.provenance?.author || 'Not recorded']: 'Geometry / model'},
+      modifications: input.provenance?.changes,
+    } : input;
     if (typeof row.id !== 'string' || !row.id) continue;
     merged.set(row.id, {...merged.get(row.id), ...row});
   }
   const sizes = new Map(placements.map(row => [row.id, row]));
   return [...merged.values()].map(row => {
-    const placement = sizes.get(row.id);
+    const placement = row.semantic ? undefined : sizes.get(row.id) || (row.reviewedPlacement ? {
+      id: row.id, name: row.name, size: [...row.dimensions], category: row.category,
+    } : undefined);
     return {...row, name: placement?.name || row.name || row.id,
-      category: placement?.category || 'Inspection only', placement,
+      category: placement?.category || row.category || 'Inspection only', placement,
       runtimeTriangles: row.runtimeTriangles ?? null,
       sourceTriangles: row.sourceTriangles ?? row.triangles ?? null,
       runtimeBytes: row.runtimeBytes ?? row.bytes ?? null,
-      thumbnail: placement ? `editor/thumbnails/${row.id}.webp` : null};
+      thumbnail: row.thumbnail || (placement ? `editor/thumbnails/${row.id}.webp` : null)};
   }).sort((a,b) => a.name.localeCompare(b.name));
 }
 export function filterAssets(rows, {query = '', category = '', licence = '', maxTriangles = 0, placeable = false} = {}) {
