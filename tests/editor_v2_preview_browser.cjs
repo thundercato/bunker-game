@@ -48,6 +48,28 @@ const server=http.createServer((req,res)=>{
    ]){
     await page.setViewportSize({width:1440,height:1000});
     await page.goto(base+'editor/?building='+spec.id);await page.waitForFunction(id=>window.FieldEditor?.ready()&&FieldEditor.getDocument().buildingId===id,spec.id,{timeout:120000});
+    let landingProof=null;
+    if(spec.id==='station'){
+     const originalUpper=await page.evaluate(()=>FieldEditor.getDocument().objects.find(o=>o.id==='upper'));
+     await page.locator('#hierarchy [data-id="upper"]').click();
+     await page.locator('#resize-anchor').selectOption('-1');
+     const depth=page.locator('[data-field="size"][data-axis="2"]');await depth.fill('7.4');await depth.press('Tab');
+     await page.waitForFunction(()=>!FieldEditor.info().updating&&FieldEditor.getDocument().objects.find(o=>o.id==='upper').size[2]===7.4);
+     const resizedUpper=await page.evaluate(()=>FieldEditor.getDocument().objects.find(o=>o.id==='upper'));
+     check('station one-sided upper-floor resize keeps its front edge fixed and removes the rear strip',Math.abs(resizedUpper.position[2]+resizedUpper.size[2]/2-originalUpper.position[2]-originalUpper.size[2]/2)<1e-8&&Math.abs(resizedUpper.position[2]-resizedUpper.size[2]/2+3.05)<1e-8&&resizedUpper.size[2]===7.4,{before:originalUpper,after:resizedUpper});
+     await page.locator('#hierarchy [data-id="stairs-main"]').click();
+     if(!await page.locator('#interior-tools').evaluate(node=>node.open))await page.locator('#interior-tools > summary').click();
+     const section=page.locator('#interior-tools details').filter({has:page.locator('summary',{hasText:'Wall joints / stair landings'})});
+     if(!await section.evaluate(node=>node.open))await section.locator('summary').first().click();
+     await page.locator('#interior-landing-end').selectOption('top');await page.locator('#interior-landing-depth').fill('0.65');
+     const beforeLanding=await page.evaluate(()=>FieldEditor.getDocument());
+     await page.locator('[data-interior="landing"]').click();await page.waitForFunction(count=>!FieldEditor.info().updating&&FieldEditor.getDocument().objects.length===count+1,beforeLanding.objects.length);
+     landingProof=await page.evaluate(async known=>{const {surfaceAt,blocked}=await import('./layout-core.js'),layout=FieldEditor.getDocument(),landing=layout.objects.find(o=>!known.includes(o.id)),without={...layout,objects:layout.objects.filter(o=>o.id!==landing.id)},[x,y,z]=landing.position;return {landing,without:surfaceAt(without,x,z,y),with:surfaceAt(layout,x,z,y),blocked:blocked(layout,x,z,y,{doorsOpen:true}),unique:new Set(layout.objects.map(o=>o.id)).size===layout.objects.length};},beforeLanding.objects.map(o=>o.id));
+     check('station adds a unique concrete landing that alone supports the removed upper-floor strip',landingProof.unique&&landingProof.landing.type==='floor'&&near(landingProof.landing.position[2],-3.985)&&landingProof.without===0&&landingProof.with===3.2&&!landingProof.blocked,landingProof);
+     await page.locator('#floor').selectOption('3.2');await page.locator('#cutaway').check();await page.locator('#top').click();await page.locator('#focus').click();
+     await page.screenshot({path:path.join(out,'preview-station-new-landing-editor.png')});
+     await page.locator('#floor').selectOption('all');await page.locator('#perspective').click();
+    }
     await page.locator('#hierarchy [data-id="container-'+spec.container+'"]').click();
     for(let i=0;i<3;i++){
      const field=page.locator('[data-field="position"][data-axis="'+i+'"]');
@@ -77,6 +99,9 @@ const server=http.createServer((req,res)=>{
     await game.setViewportSize({width:844,height:500});await game.bringToFront();await page.close();
     async function start(){await game.locator('#load-world').click();await game.locator('#silent:enabled').waitFor({timeout:240000});await game.locator('#silent').click();await game.evaluate(()=>{const w=FieldSignal3D.getWorld();w.setQuality('low');w.renderSettings.shadows=false;w.renderer.shadowMap.enabled=false;w.renderer.setPixelRatio(.3);w.resize();});}
     await start();
+    // Import once before polling. waitForFunction predicates stay synchronous
+    // so a pending Promise can never be mistaken for an arrived player.
+    await game.evaluate(async()=>{const {toLocal}=await import('./world-document.js');window.__fieldEditorTestLocal=p=>toLocal(FieldSignal3D.getInfo().editorPreview.transform,[p.x,p.y,p.z]);});
     const info=await game.evaluate(()=>FieldSignal3D.getInfo().editorPreview);
     check(spec.id+' actual runtime composes moved/rotated/raised parent exactly once',info.versioned&&near(info.transform.position[0],spec.pose[0])&&near(info.transform.position[1],spec.pose[1])&&near(info.transform.position[2],spec.pose[2])&&near(info.transform.yaw,spec.degrees*Math.PI/180),info);
     const geometry=await game.evaluate(async s=>{const {toWorld}=await import('./world-document.js'),world=FieldSignal3D.getWorld(),transform=world.data?.editorBuilding?.transform||FieldSignal3D.getInfo().editorPreview.transform,expected=toWorld(transform,s.position),mesh=world.containerMeshes[s.container].group;return {expected,actual:mesh.position.toArray(),spawn:FieldSignal3D.getPlayer()};},spec);
@@ -92,8 +117,9 @@ const server=http.createServer((req,res)=>{
     }
     await face(spec.id);await game.keyboard.press('KeyE');await game.waitForFunction(id=>FieldSignal3D.getState().doors[id],spec.id,{timeout:30000});
     await game.evaluate(yaw=>{const p=FieldSignal3D.getPlayer();FieldSignal3D.getInput().look(yaw-p.yaw,-p.pitch);},spec.degrees*Math.PI/180);
-    await game.keyboard.down('KeyW');try{await game.waitForFunction(async()=>{const {toLocal}=await import('./world-document.js'),p=FieldSignal3D.getPlayer(),i=FieldSignal3D.getInfo().editorPreview,b=FieldSignal3D.getWorld().layoutPreview.doc;return toLocal(i.transform,[p.x,p.y,p.z])[2]<b.bounds[1]/2-1.1;},null,{timeout:90000});}finally{await game.keyboard.up('KeyW');}
-    check(spec.id+' real Use opens door and keyboard crosses raised rotated entrance',near((await game.evaluate(()=>FieldSignal3D.getPlayer())).y,spec.pose[1]));
+    await game.keyboard.down('KeyW');try{await game.waitForFunction(()=>window.__fieldEditorTestLocal(FieldSignal3D.getPlayer())[2]<FieldSignal3D.getWorld().layoutPreview.doc.bounds[1]/2-1.1,null,{timeout:90000});}finally{await game.keyboard.up('KeyW');}
+    const entered=await game.evaluate(()=>({player:FieldSignal3D.getPlayer(),local:window.__fieldEditorTestLocal(FieldSignal3D.getPlayer()),depth:FieldSignal3D.getWorld().layoutPreview.doc.bounds[1]}));
+    check(spec.id+' real Use opens door and keyboard crosses raised rotated entrance',near(entered.player.y,spec.pose[1])&&entered.local[2]<entered.depth/2-1.1,entered);
     await game.screenshot({path:path.join(out,'preview-'+spec.id+'-door.png')});
     // Position through the supported save importer to isolate each physical
     // collision/reach test. Movement and Use after positioning are real input.
@@ -108,6 +134,16 @@ const server=http.createServer((req,res)=>{
      await restoreLocal([stairs.position[0],stairs.position[1],stairs.position[2]+stairs.size[2]/2-.05],stairs.yaw);
      await game.keyboard.down('KeyW');try{await game.waitForFunction(y=>FieldSignal3D.getPlayer().y>=y-.025,spec.pose[1]+stairs.position[1]+stairs.size[1],{timeout:90000});}finally{await game.keyboard.up('KeyW');}
      check(spec.id+' keyboard physically ascends transformed stairs to upper floor',near((await game.evaluate(()=>FieldSignal3D.getPlayer())).y,spec.pose[1]+3.2));
+     if(landingProof){
+      // Continue from the actual stair ascent. There is no restore or placement
+      // between the ramp and this newly authored physical landing.
+      await game.keyboard.down('KeyW');try{await game.waitForFunction(z=>window.__fieldEditorTestLocal(FieldSignal3D.getPlayer())[2]<=z+.025&&window.__fieldEditorTestLocal(FieldSignal3D.getState().player)[2]<=z+.025,landingProof.landing.position[2],{timeout:30000});}finally{await game.keyboard.up('KeyW');}
+      await game.waitForFunction(y=>Math.abs(FieldSignal3D.getState().player.y-y)<.025,spec.pose[1]+3.2,{timeout:10000});
+      const arrived=await game.evaluate(async id=>{const {toLocal}=await import('./world-document.js'),p=FieldSignal3D.getPlayer(),t=FieldSignal3D.getInfo().editorPreview.transform,layout=FieldSignal3D.getWorld().layoutPreview.doc;const worker=FieldSignal3D.getState().player;return {local:toLocal(t,[p.x,p.y,p.z]),workerLocal:toLocal(t,[worker.x,worker.y,worker.z]),player:p,worker,landing:layout.objects.find(o=>o.id===id)};},landingProof.landing.id);
+      check('station continuously walks from the stairs onto its new physical landing with matching worker height',near(arrived.player.y,spec.pose[1]+3.2)&&near(arrived.worker.y,spec.pose[1]+3.2)&&arrived.local[2]<-3.85&&arrived.workerLocal[2]<-3.85&&arrived.landing?.type==='floor',arrived);
+      await game.evaluate(yaw=>{const p=FieldSignal3D.getPlayer();FieldSignal3D.getInput().look(yaw+Math.PI-p.yaw,-.5-p.pitch);},spec.degrees*Math.PI/180);
+      await game.screenshot({path:path.join(out,'preview-station-new-landing-game.png')});
+     }
      await game.evaluate(yaw=>{const p=FieldSignal3D.getPlayer();FieldSignal3D.getInput().look(yaw+Math.PI-p.yaw,-.55-p.pitch);},spec.degrees*Math.PI/180);
      await game.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
      await game.screenshot({path:path.join(out,'preview-'+spec.id+'-stairs.png')});
