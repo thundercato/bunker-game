@@ -1,6 +1,6 @@
 /* Network-fresh entry for the editor suite. Only the public runtime cache changes;
    campaigns, legacy drafts and proposal keys are never removed or rewritten. */
-export const EXPECTED_EDITOR_CACHE='field-signal-overgrowth-v11-editor2.1.0';
+export const EXPECTED_EDITOR_CACHE='field-signal-overgrowth-v11-editor2.1.1';
 export async function editorRuntimeCurrent() {
  const worker=navigator.serviceWorker?.controller;
  if(!worker)return false;

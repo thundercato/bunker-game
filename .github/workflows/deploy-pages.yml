@@ -59,6 +59,7 @@ jobs:
         run: |
           for file in tests/editor_v2_*_browser.cjs; do node "$file"; done
           node tests/editor_v2_offline.cjs
+          EDITOR_PRIOR_WORKER=editor21 node tests/editor_v2_offline.cjs
       - name: Preserve canonical editor review build
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
