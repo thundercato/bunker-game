@@ -75,7 +75,7 @@ products = []
 targets = []
 schemes = []
 common = dict(CLANG_ENABLE_MODULES='YES', SWIFT_VERSION='5.0', CODE_SIGNING_ALLOWED='NO',
-              GENERATE_INFOPLIST_FILE='YES', SWIFT_EMIT_LOC_STRINGS='NO',
+              GENERATE_INFOPLIST_FILE='NO', SWIFT_EMIT_LOC_STRINGS='NO',
               INFOPLIST_KEY_CFBundleIdentifier='$(PRODUCT_BUNDLE_IDENTIFIER)',
               INFOPLIST_KEY_CFBundleExecutable='$(EXECUTABLE_NAME)',
               INFOPLIST_KEY_CFBundleName='$(PRODUCT_NAME)',

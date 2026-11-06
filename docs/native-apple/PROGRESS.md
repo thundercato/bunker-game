@@ -80,3 +80,15 @@ The official run-log archive endpoint (`gh api repos/thundercato/bunker-game/act
 provided the completed build/test logs even while `gh run view --log` was waiting
 for the overall run status. Direct artifact blob downloads still returned 403;
 logs and result links remain recorded instead of assuming a pass.
+
+- `cf2a24a`: explicit complete app/test plists, built-bundle validation, independent
+  macOS SwiftPM checks and pause/inventory lifecycle regression.
+- [Run 42305029792](https://github.com/thundercato/bunker-game/actions/runs/42305029792):
+  9 of 10 Core tests passed; the imported-route test had six cascading assertions
+  after an extra interaction correctly closed the inner door following collection.
+  The route test now checks the exhausted container and resumes walking, retaining
+  collision protection. TV compilation and initial bundle validation passed, but
+  XCTest installation still reported missing bundle ID. Next diagnostics separate
+  `build-for-testing` / `test-without-building`, validate every prepared app/test
+  plist and attempt direct CoreSimulator installation. No simulator test pass or
+  launch is claimed by this run.

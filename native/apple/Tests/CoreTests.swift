@@ -193,8 +193,12 @@ final class CoreTests: XCTestCase {
         XCTAssertNil(session.inventory["med"])
         session.interact()
         XCTAssertEqual(session.inventory["med"], 1)
-        session.interact()
-        XCTAssertEqual(session.inventory["med"], 1)
+        XCTAssertTrue(session.collected.contains("forester_c1"))
+        XCTAssertNotEqual(session.nearestInteraction?.id, "forester_c1",
+                          "A collected source container must no longer offer its supplies")
+        // The nearby open kitchen door becomes the next target after collection.
+        // A further use would correctly close that door, so resume walking here.
+        XCTAssertTrue(session.doorsOpen.contains("forester_inner"))
         walkTo(session, x: -30, z: -60.1)
         walkTo(session, x: -30, z: -56.0)
         walkTo(session, x: -26.5, z: -55.8)

@@ -82,6 +82,8 @@ jobs:
             native/apple/BuildResults/sdk-and-simulators.log
             native/apple/BuildResults/core-swiftpm.log
             native/apple/BuildResults/${{ matrix.platform }}/build.log
+            native/apple/BuildResults/${{ matrix.platform }}/build-for-testing.log
+            native/apple/BuildResults/${{ matrix.platform }}/install.log
             native/apple/BuildResults/${{ matrix.platform }}/tests.log
             native/apple/BuildResults/${{ matrix.platform }}/launch.log
             native/apple/BuildResults/${{ matrix.platform }}/simulator-udid.txt

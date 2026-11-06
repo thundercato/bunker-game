@@ -40,12 +40,35 @@ path = pathlib.Path(sys.argv[1])
 if path.exists():
     path.rename(path.with_name('Tests-previous-' + str(time.time_ns()) + '.xcresult'))
 PYRESULT
-# xcodebuild boots its selected test device; no dependence on a named runner model.
+simulator_destination="platform=$([ "$platform" = ipad ] && printf 'iOS Simulator' || printf 'tvOS Simulator'),id=$udid"
+# Separate test compilation from execution so the exact installable product
+# metadata can be checked after Xcode has prepared its hosted test bundles.
 xcodebuild -project "$project" -scheme "$scheme" -configuration Debug \
-  -destination "platform=$([ "$platform" = ipad ] && printf 'iOS Simulator' || printf 'tvOS Simulator'),id=$udid" \
-  -destination-timeout 120 -derivedDataPath "$output/DerivedData" \
-  -resultBundlePath "$output/Tests.xcresult" -parallel-testing-enabled NO \
-  CODE_SIGNING_ALLOWED=NO test 2>&1 | tee "$output/tests.log"
+  -destination "$simulator_destination" -derivedDataPath "$output/DerivedData" \
+  CODE_SIGNING_ALLOWED=NO build-for-testing 2>&1 | tee "$output/build-for-testing.log"
+python3 - "$app" <<'PYBUNDLES'
+import json, pathlib, plistlib, sys
+app = pathlib.Path(sys.argv[1])
+for path in sorted(app.parent.rglob('Info.plist')):
+    if path.parent.suffix not in ('.app', '.xctest'):
+        continue
+    with path.open('rb') as source:
+        info = plistlib.load(source)
+    print('Prepared test bundle ' + str(path) + ': ' + json.dumps(info, sort_keys=True))
+    for key in ('CFBundleIdentifier', 'CFBundleExecutable', 'CFBundlePackageType'):
+        if not isinstance(info.get(key), str) or not info[key] or '$(' in info[key]:
+            raise SystemExit(f'Invalid prepared test bundle metadata {path}: {key}={info.get(key)!r}')
+PYBUNDLES
+# A direct CoreSimulator install isolates packaging errors from XCTest startup.
+if ! xcrun simctl boot "$udid"; then
+  xcrun simctl bootstatus "$udid" -b
+fi
+xcrun simctl bootstatus "$udid" -b
+xcrun simctl install "$udid" "$app" 2>&1 | tee "$output/install.log"
+xcodebuild -project "$project" -scheme "$scheme" -configuration Debug \
+  -destination "$simulator_destination" -destination-timeout 120 \
+  -derivedDataPath "$output/DerivedData" -resultBundlePath "$output/Tests.xcresult" \
+  -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test-without-building 2>&1 | tee "$output/tests.log"
 # A separate direct install/launch is evidence outside the XCUITest runner.
 xcrun simctl bootstatus "$udid" -b
 xcrun simctl install "$udid" "$app"
