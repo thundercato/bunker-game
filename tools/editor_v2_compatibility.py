@@ -76,7 +76,9 @@ def build(revision, target):
     from validate_editor_package import validate
     validate(candidate, public_paths, target / 'dist')
     report = {'kind': 'unmerged-runtime-compatibility-only', 'runtimeRevision': sha,
-              'editorRevision': git('rev-parse', 'HEAD'), 'runtimeCache': cache,
+              'editorRevision': git('rev-parse', 'HEAD'),
+              'editorWorktreeChanges': git('status', '--short', '--', 'site/editor').splitlines(),
+              'runtimeCache': cache,
               'source': metadata, 'copiedEditorFiles': copied,
               'preservedCanonicalModules': ['layout-core.js', 'world-document.js', 'world-preview.js', *RUNTIME_EDITOR_MODULES],
               'narrowBuildChanges': ['explicit editor manifest union', 'trusted source-context capability',
