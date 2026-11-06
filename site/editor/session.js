@@ -24,7 +24,7 @@ export class EditorSession {
     this.storage = storage;
     this.document = createWorldDocument({source, sourceRevision});
     this.past = []; this.future = []; this.views = {}; this.mirrors = {};
-    this.rejected = new Map(); this.issues = []; this.pendingMirrors = {};
+    this.rejected = new Map(); this.issues = []; this.pendingMirrors = {}; this.checkpointFingerprint=null;
   }
   checked(value) {
     const result = validateWorldDocument(value, this.context);
@@ -38,7 +38,7 @@ export class EditorSession {
   load() {
     this.document = createWorldDocument({source:this.context.source,sourceRevision:this.context.sourceRevision});
     this.past=[];this.future=[];this.views={};this.mirrors={};this.pendingMirrors={};this.rejected=new Map();this.issues=[];
-    const checkpoint = this.read(SESSION_KEY);
+    const checkpoint = this.read(SESSION_KEY);this.checkpointFingerprint=fingerprint(checkpoint);
     if (checkpoint !== null) {
       try {
         const state = JSON.parse(checkpoint);
@@ -116,12 +116,14 @@ export class EditorSession {
   saveView() {
     // Navigation records camera/selection without replacing legacy draft bytes.
     // In particular, reload must not erase an externally changed/rejected draft.
-    if(this.rejected.has(SESSION_KEY))return false;
-    this.storage?.setItem(SESSION_KEY,JSON.stringify({version:1,document:this.document,past:this.past,future:this.future,views:this.views,mirrors:this.mirrors,pendingMirrors:this.pendingMirrors}));
+    if(this.rejected.has(SESSION_KEY)||fingerprint(this.read(SESSION_KEY))!==this.checkpointFingerprint)return false;
+    const raw=JSON.stringify({version:1,document:this.document,past:this.past,future:this.future,views:this.views,mirrors:this.mirrors,pendingMirrors:this.pendingMirrors});
+    this.storage?.setItem(SESSION_KEY,raw);this.checkpointFingerprint=fingerprint(raw);
     return true;
   }
   save() {
     if (!this.storage) throw Error('Browser storage is unavailable; export a backup.');
+    const external=this.read(SESSION_KEY);if(external!==null&&fingerprint(external)!==this.checkpointFingerprint)this.rejected.set(SESSION_KEY,external);
     // Back up rejected bytes before replacing any key. Quota failures keep the
     // original key and pending recovery entry, so the next attempt can recover.
     for (const [key, raw] of this.rejected) {
@@ -135,13 +137,13 @@ export class EditorSession {
     // for older builds and may be retried if browser storage rejects a write.
     const pendingMirrors=Object.fromEntries(legacy.map(([key])=>[key,fingerprint(this.read(key))]));
     const checkpoint={version:1,document:this.document,past:this.past,future:this.future,views:this.views,mirrors,pendingMirrors};
-    this.storage.setItem(SESSION_KEY, JSON.stringify(checkpoint));
+    const rawCheckpoint=JSON.stringify(checkpoint);this.storage.setItem(SESSION_KEY,rawCheckpoint);this.checkpointFingerprint=fingerprint(rawCheckpoint);
     this.mirrors = mirrors;this.pendingMirrors=pendingMirrors;
     for (const [key, raw] of legacy) this.storage.setItem(key, raw);
     // Seal the transaction only after every mirror write succeeded. A partial
     // write leaves known old hashes, which loading must never adopt over the
     // newer canonical checkpoint. No campaign/settings keys are involved.
-    checkpoint.pendingMirrors={};this.storage.setItem(SESSION_KEY,JSON.stringify(checkpoint));this.pendingMirrors={};
+    checkpoint.pendingMirrors={};const sealed=JSON.stringify(checkpoint);this.storage.setItem(SESSION_KEY,sealed);this.checkpointFingerprint=fingerprint(sealed);this.pendingMirrors={};
     return true;
   }
 }
