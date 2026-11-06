@@ -1,6 +1,6 @@
 /* Real Linux Chromium mouse/keyboard authoring checks. Not physical Apple testing. */
 const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),http=require('http'),assert=require('node:assert/strict');
-const root=path.resolve(__dirname,'..'),site=path.resolve(root,process.env.EDITOR_TEST_ROOT||'dist'),out=path.join(root,'test-results/editor-v2');fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(__dirname,'..'),site=path.join(root,'dist'),out=path.join(root,'test-results/editor-v2');fs.mkdirSync(out,{recursive:true});
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.glb':'model/gltf-binary'};
 const host=http.createServer((req,res)=>{const name=decodeURIComponent(new URL(req.url,'http://x').pathname).replace(/^\/bunker-game\//,''),file=path.resolve(site,name.endsWith('/')?name+'index.html':name);if(!file.startsWith(site+path.sep)||!fs.existsSync(file)){res.writeHead(404);res.end();return;}res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');fs.createReadStream(file).pipe(res);});
 const edge=o=>[o.position[0]-Math.cos(o.yaw)*o.size[0]/2,o.position[1]-o.size[1]/2,o.position[2]+Math.sin(o.yaw)*o.size[0]/2];

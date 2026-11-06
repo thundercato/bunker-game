@@ -6,7 +6,7 @@ class Overgrowth(unittest.TestCase):
  def test_all_new_models_have_source_and_licence(self):
   for m in self.models:self.assertTrue(m['source'].startswith('https://'));self.assertIn(m['licence'],['CC0-1.0','CC-BY-4.0','MIT']);self.assertTrue(m['authors'])
  def test_only_selected_sources_in_runtime(self):
-  paths=json.loads((ROOT/'precache.json').read_text());self.assertFalse(any(('preview' in p and p not in ('layout-preview.js',)) or 'buildonly' in p or 'map-source' in p for p in paths));self.assertFalse(any(p.endswith('.glb') and 'fir_tree_01.glb' in p for p in paths))
+  paths=json.loads((ROOT/'precache.json').read_text());self.assertFalse(any(('preview' in p and p not in ('layout-preview.js','editor/preview-launcher.js')) or 'buildonly' in p or 'map-source' in p for p in paths));self.assertFalse(any(p.endswith('.glb') and 'fir_tree_01.glb' in p for p in paths))
  def test_all_selected_models_valid(self):
   for m in self.models:
    raw=(ROOT/m['path']).read_bytes();magic,v,n=struct.unpack_from('<III',raw);self.assertEqual(magic,0x46546c67);self.assertEqual(v,2);self.assertEqual(n,len(raw))

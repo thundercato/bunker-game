@@ -26,12 +26,13 @@ jobs:
         run: python3 -m unittest discover -s site/tests -p 'test_*.py' -v
       - name: JavaScript, audio, atlas and shared-layout unit tests
         run: |
-          for file in site/*.js site/editor/*.js; do node --check "$file"; done
+          for file in site/*.js $(find site/editor -name '*.js' -type f); do node --check "$file"; done
           node site/tests/test_client.mjs
           node site/tests/test_atlas.mjs
           node site/tests/test_layout.mjs
           node site/tests/test_world_v2.mjs
           node site/tests/test_world_document.mjs
+          for file in site/tests/editor_v2_*.mjs; do node "$file"; done
       - name: Build and validate runtime assets
         run: python3 tools/build.py
       - name: Install browser test runner
@@ -54,6 +55,10 @@ jobs:
       - name: World v2 full-map editor browser checks
         timeout-minutes: 5
         run: node tests/world_v2_browser.cjs
+      - name: Packaged editor suite mouse, graph, model and persistence checks
+        run: |
+          for file in tests/editor_v2_*_browser.cjs; do node "$file"; done
+          node tests/editor_v2_offline.cjs
       - name: Preserve verification output
         if: always()
         uses: actions/upload-artifact@v4
@@ -62,12 +67,12 @@ jobs:
           path: test-results/
           if-no-files-found: ignore
       - name: Package GitHub Pages site
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: verify
     runs-on: ubuntu-latest
     permissions:
@@ -81,7 +86,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
   verify-public-release:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: deploy
     runs-on: ubuntu-latest
     timeout-minutes: 15

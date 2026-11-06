@@ -1,9 +1,11 @@
 const {chromium}=require('playwright');
-const {spawn}=require('child_process');
+const http=require('http');
 const fs=require('fs'),path=require('path'),assert=require('assert/strict');
-(async()=>{const server=spawn('python3',['-m','http.server','8195','--bind','127.0.0.1','--directory',path.resolve('site')]);let browser;const errors=[],missing=[];try{
+const dist=path.resolve('dist'),mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.png':'image/png'};
+const server=http.createServer((req,res)=>{const name=decodeURIComponent(new URL(req.url,'http://x').pathname).replace(/^\/bunker-game\//,''),file=path.resolve(dist,name.endsWith('/')?name+'index.html':name);if(!file.startsWith(dist+path.sep)||!fs.existsSync(file)){res.writeHead(404);res.end();return;}res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');fs.createReadStream(file).pipe(res);});
+(async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;const errors=[],missing=[];try{
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});const page=await browser.newPage({viewport:{width:1440,height:1000},acceptDownloads:true});page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)missing.push(r.url()+' '+r.status());});
- await page.goto('http://127.0.0.1:8195/editor/loot.html');await page.waitForFunction(()=>window.FieldLoot?.ready);
+ await page.goto(`http://127.0.0.1:${server.address().port}/bunker-game/editor/loot.html`);await page.waitForFunction(()=>window.FieldLoot?.ready);
  await page.evaluate(()=>{localStorage.setItem('field-signal-save','editor-loot-sentinel');localStorage.setItem('field-signal-editor-v1:hut','editor-layout-sentinel');});
  await page.locator('[data-container="hut_c2"]').click();await page.locator('#scope').selectOption('default');await page.locator('#suggest').click();
  assert(await page.locator('#minDraws').count());await page.locator('#minDraws').fill('1');await page.locator('#minDraws').press('Tab');await page.locator('#maxDraws').fill('2');await page.locator('#maxDraws').press('Tab');
@@ -21,4 +23,4 @@ const fs=require('fs'),path=require('path'),assert=require('assert/strict');
  await page.locator('[data-container="hut_c2"]').click();await page.locator('#simulate').click();await page.locator('#editor').evaluate(el=>el.scrollTop=0);fs.mkdirSync('test-results/editor-v2',{recursive:true});await page.screenshot({path:'test-results/editor-v2/loot-workspace.png',fullPage:true});fs.writeFileSync('test-results/editor-v2/loot-browser.json',JSON.stringify({errors,missing,samples:1000,legacyWeight:oldWeight,tests:['real numeric edits','default inheritance','container override','bulk preview','undo redo','seeded simulation','JSON import export','reload persistence','invalid import rejection','campaign/layout isolation'],platform:'Linux headless Chromium'},null,2));
  await page.evaluate(()=>localStorage.setItem('field-signal-editor-v2-loot-proposal','recovery-sentinel-invalid-json'));await page.reload();await page.waitForFunction(()=>window.FieldLoot?.ready);assert(await page.locator('#status').innerText().then(text=>text.includes('preserved')));assert.equal(await page.evaluate(()=>localStorage.getItem('field-signal-editor-v2-loot-proposal')),'recovery-sentinel-invalid-json');await page.locator('#suggest').click();assert(await page.evaluate(()=>Object.keys(localStorage).some(key=>key.startsWith('field-signal-editor-v2-loot-proposal:recovery:')&&localStorage.getItem(key)==='recovery-sentinel-invalid-json')));
  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);console.log('PASS editor weighted-loot browser interactions, persistence, export/import and isolation; no page errors or missing assets');
- }finally{await browser?.close();server.kill();}})().catch(e=>{console.error(e);process.exitCode=1;});
+ }finally{await browser?.close();await new Promise(r=>server.close(r));}})().catch(e=>{console.error(e);process.exitCode=1;});
