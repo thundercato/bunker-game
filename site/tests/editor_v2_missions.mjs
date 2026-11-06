@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {clone,createMissionProposals,validateProposal,missionIssues,targetReference,connect,NODE_TYPES} from '../editor/panels/missions-core.js';
+import {clone,createMissionProposals,validateProposal,missionIssues,targetReference,connect,NODE_TYPES,syncMissionCaptions} from '../editor/panels/missions-core.js';
 const world=JSON.parse(fs.readFileSync(new URL('../world.json',import.meta.url))),seed=createMissionProposals(world);
 let count=0;function test(name,fn){try{fn();count++;console.log('PASS '+name);}catch(e){console.error('FAIL '+name);throw e;}}
 const mission=()=>clone(seed.missions[0]),issues=(m,all=[m])=>missionIssues(m,world,all);
@@ -30,4 +30,5 @@ test('valid connection adds detached declarative data',()=>{const m=mission();m.
 test('proposal policy values are restricted and surge stays separate',()=>{const p=clone(seed);p.missions[0].rules.surge='death';assert.throws(()=>validateProposal(p,world),/surge/);p.missions[0].rules.surge='shared-contract-required';p.missions[0].rules.retry='instant-reset';assert.throws(()=>validateProposal(p,world),/retry/);});
 test('every graph explicitly declares game execution unavailable',()=>{for(const m of seed.missions)assert(issues(m,seed.missions).some(i=>/No runtime adapter/.test(i.message)));});
 test('all built-in node ports declare a supported type',()=>{for(const s of Object.values(NODE_TYPES))for(const p of [...Object.values(s.inputs),...Object.values(s.outputs)])assert(['flow','item'].includes(p.type));});
+test('generated graph captions follow values while custom captions survive',()=>{const m=mission(),before=clone(m);m.reward=777;m.count=2;syncMissionCaptions(m,before);assert.equal(m.graph.nodes.find(n=>n.id==='reward').label,'Reward 777');const old=clone(m);m.graph.nodes.find(n=>n.id==='reward').label='Custom entitlement';m.reward=888;syncMissionCaptions(m,old);assert.equal(m.graph.nodes.find(n=>n.id==='reward').label,'Custom entitlement');});
 console.log(`${count} editor mission proposal tests passed`);

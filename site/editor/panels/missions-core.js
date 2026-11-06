@@ -25,6 +25,11 @@ export function seedMissionGraph(mission){const objective=mission.container?'ret
  {id:'success',kind:'success',x:1110,y:120,label:'Complete once'},
  {id:'failure',kind:'failure',x:570,y:380,label:'Failure / abandonment proposal'}
  ],edges:[edge('offer','accept','objective'),edge('objective','complete','deliver'),edge('objective','item','deliver','item'),edge('deliver','complete','reward'),edge('reward','complete','success'),edge('objective','failed','failure'),edge('deliver','failed','failure')]};}
+// Keep untouched generated captions aligned with form values; preserve user captions.
+export function syncMissionCaptions(mission,before){
+ const oldNodes=seedMissionGraph(before).nodes,newNodes=seedMissionGraph(mission).nodes;
+ for(const n of mission.graph.nodes){const old=oldNodes.find(q=>q.id===n.id),next=newNodes.find(q=>q.id===n.id);if(old&&next&&n.label===old.label&&n.kind===old.kind){n.label=next.label;n.kind=next.kind;}}
+}
 export function createMissionProposals(world){return {format:FORMAT,version:VERSION,sourceVersion:world.version,missions:world.missions.map(m=>({id:m.id,title:m.title,description:m.description||'',source:m.source,item:m.item,count:m.count||1,container:m.container||null,reward:m.reward||0,requires:[...(m.requires||[])],prerequisiteMode:'all',classification:'unclassified',rules:{death:'unreviewed',retry:'unreviewed',abandon:'failure',surge:'shared-contract-required'},graph:seedMissionGraph(m)}))};}
 const fail=m=>{throw Error(m)};
 function safeString(v,name,max=200){if(typeof v!=='string'||v.length>max||/[\x00-\x08\x0b\x0c\x0e-\x1f]/.test(v))fail('Invalid '+name);return v;}
