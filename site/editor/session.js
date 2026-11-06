@@ -2,6 +2,7 @@
    The checkpoint wrapper is UI metadata, never a second world/export schema. */
 import {clone, validateLayout} from '../layout-core.js';
 import {initialEditorLayout} from './source-adapter.js';
+import {packHistory, unpackHistory} from './history-codec.js';
 import {createWorldDocument, validateWorldDocument} from '../world-document.js';
 import {checkDocument} from './tools/world-authoring.js';
 
@@ -48,7 +49,8 @@ export class EditorSession {
       try {
         const state = JSON.parse(checkpoint);
         if (state.version !== 1) throw Error('Unknown editor checkpoint version.');
-        const checked=this.checked(state.document),past=(state.past||[]).slice(-LIMIT).map(d=>this.checked(d)),future=(state.future||[]).slice(-LIMIT).map(d=>this.checked(d));
+        const decoded=state.history === undefined ? {past:(state.past||[]).slice(-LIMIT),future:(state.future||[]).slice(-LIMIT)} : unpackHistory(state.document,state.history);
+        const checked=this.checked(state.document),past=decoded.past.map(d=>this.checked(d)),future=decoded.future.map(d=>this.checked(d));
         this.document = checked;
         this.views = state.views && typeof state.views === 'object' && !Array.isArray(state.views) ? clone(state.views) : {};
         this.mirrors = state.mirrors && typeof state.mirrors === 'object' ? state.mirrors : {};
@@ -123,7 +125,7 @@ export class EditorSession {
     // Navigation records camera/selection without replacing legacy draft bytes.
     // In particular, reload must not erase an externally changed/rejected draft.
     if(this.rejected.has(SESSION_KEY)||fingerprint(this.read(SESSION_KEY))!==this.checkpointFingerprint)return false;
-    const raw=JSON.stringify({version:1,document:this.document,past:this.past,future:this.future,views:this.views,mirrors:this.mirrors,pendingMirrors:this.pendingMirrors});
+    const raw=JSON.stringify({version:1,document:this.document,history:packHistory(this.document,this.past,this.future),views:this.views,mirrors:this.mirrors,pendingMirrors:this.pendingMirrors});
     this.storage?.setItem(SESSION_KEY,raw);this.checkpointFingerprint=fingerprint(raw);
     return true;
   }
@@ -161,7 +163,7 @@ export class EditorSession {
     // The canonical checkpoint is committed first. Legacy mirrors are retained
     // for older builds and may be retried if browser storage rejects a write.
     const pendingMirrors=priorMirrors;
-    const checkpoint={version:1,document:this.document,past:this.past,future:this.future,views:this.views,mirrors,pendingMirrors};
+    const checkpoint={version:1,document:this.document,history:packHistory(this.document,this.past,this.future),views:this.views,mirrors,pendingMirrors};
     const rawCheckpoint=JSON.stringify(checkpoint);this.storage.setItem(SESSION_KEY,rawCheckpoint);this.checkpointFingerprint=fingerprint(rawCheckpoint);
     this.mirrors = mirrors;this.pendingMirrors=pendingMirrors;
     for (const [key, raw] of legacy) {this.storage.setItem(key, raw);this.observedMirrors[key]=fingerprint(raw);}
