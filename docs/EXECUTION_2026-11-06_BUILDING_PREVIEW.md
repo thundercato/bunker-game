@@ -93,5 +93,8 @@ repository's Pages workflow; deployment must match release build
 `overgrowth-11.0.0-building-preview-1-20261106`, not merely the older version string.
 The task's final response will give the play link only after public verification.
 
-Next: target-device review of this bounded preview, then another small editor/
-building slice. Full-map runtime terrain/roads/water and M2–M6 are not delivered.
+Concurrent game-first documentation through `0de93ec` was merged without removing
+its new requirements. See `MEGA_BUILD_PROGRESS.md`: next coding work is the actual
+world audit/flagship region and journal slices, not repeating the M1 adapter.
+Full-map terrain/roads/water and M2–M6 remain undelivered; target-device review is
+still needed. This bounded playable preview does not claim that overhaul is done.

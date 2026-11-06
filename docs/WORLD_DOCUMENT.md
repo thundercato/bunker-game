@@ -128,8 +128,7 @@ Atlas, v9 journal isolation, old-worker upgrade, offline restart, return to draf
 and a fresh-context shareable example. Python tests compare JS-generated floor and
 stair samples for moved/rotated/raised one- and two-storey interiors.
 
-Next: inspect the actual screenshots and target-device behaviour of this bounded
-preview, then decide the next building/editor slice. Broader terrain/roads/water,
-new buildings and M2–M6 systems remain unimplemented. Do not mark full-map runtime
-integration complete. Keep physical iPhone/Mac/controller checks separate from
-headless Linux browser verification.
+Next: follow the concurrently added game-first `MEGA_BUILD_README.md`, using this
+foundation for the flagship world/journal slices. Inspect real screenshots and
+target-device behaviour; broader terrain/roads/water and M2–M6 remain unimplemented.
+Keep physical iPhone/Mac/controller checks separate from headless Linux verification.

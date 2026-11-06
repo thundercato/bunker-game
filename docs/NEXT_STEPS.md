@@ -180,6 +180,7 @@ All seven local browser suites passed. Release PR:
 and the release build identifier are in `EXECUTION_2026-11-06_BUILDING_PREVIEW.md`.
 The PR/Pages checks record the eventual merge/deployment and public-link proof.
 
-**Next task:** validate this preview on target devices and review the real output;
-then choose the next bounded editor/building slice. Do not repeat this adapter or
-claim full-map terrain/road/water integration. M2–M6 remain future work.
+**Next task:** follow the concurrently added `MEGA_BUILD_README.md` game-first
+priority: world audit, flagship playable region and structured/3D journal slices,
+using the completed M1 foundation. See `MEGA_BUILD_PROGRESS.md`. Target-device
+review remains needed; do not repeat M0/M1 or claim full-map integration.
