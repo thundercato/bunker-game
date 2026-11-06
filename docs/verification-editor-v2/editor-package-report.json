@@ -1,0 +1,240 @@
+{
+  "baselineCommit": "de5d758",
+  "baselineBuildFiles": 273,
+  "baselineMissingEditorFiles": [
+    "editor/loot.html",
+    "editor/missions.html",
+    "editor/panels/assets-core.js",
+    "editor/panels/assets.css",
+    "editor/panels/assets.js",
+    "editor/panels/hierarchy-core.js",
+    "editor/panels/hierarchy.js",
+    "editor/panels/loot-core.js",
+    "editor/panels/loot.css",
+    "editor/panels/loot.js",
+    "editor/panels/missions-core.js",
+    "editor/panels/missions.css",
+    "editor/panels/missions.js",
+    "editor/tools/resize-core.js",
+    "editor/tools/resize-handles.js",
+    "editor/tools/world-authoring.js",
+    "editor/tools/world-inspector.js"
+  ],
+  "canonicalBuildFiles": 306,
+  "manifestResources": 304,
+  "addedPublicFiles": [
+    {
+      "path": "editor/connected-world.js",
+      "dependencies": [
+        "editor/world-core.js",
+        "layout-renderer.js",
+        "world-document.js"
+      ]
+    },
+    {
+      "path": "editor/loot.html",
+      "dependencies": [
+        "assets/ui/icon-192.png",
+        "editor/panels/loot.css",
+        "editor/panels/loot.js",
+        "editor/suite-bootstrap.js"
+      ]
+    },
+    {
+      "path": "editor/missions.html",
+      "dependencies": [
+        "assets/ui/icon-192.png",
+        "editor/panels/missions.css",
+        "editor/panels/missions.js",
+        "editor/suite-bootstrap.js"
+      ]
+    },
+    {
+      "path": "editor/panels/assets-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/assets.css",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/assets.js",
+      "dependencies": [
+        "editor/panels/assets-core.js",
+        "layout-renderer.js",
+        "vendor/OrbitControls.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/panels/bindings-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/bindings.js",
+      "dependencies": [
+        "editor/panels/bindings-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/environment-brush.js",
+      "dependencies": [
+        "editor/tools/environment-brush-core.js",
+        "editor/world-core.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/panels/hierarchy-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/hierarchy.js",
+      "dependencies": [
+        "editor/panels/hierarchy-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/interior-tools.js",
+      "dependencies": [
+        "layout-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/loot-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/loot.css",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/loot.js",
+      "dependencies": [
+        "editor/panels/loot-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/missions-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/missions.css",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/missions.js",
+      "dependencies": [
+        "editor/panels/missions-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/validation-core.js",
+      "dependencies": [
+        "editor/panels/loot-core.js",
+        "editor/panels/missions-core.js",
+        "editor/tools/interior-core.js",
+        "editor/tools/world-authoring.js",
+        "editor/world-core.js",
+        "layout-core.js",
+        "world-document.js"
+      ]
+    },
+    {
+      "path": "editor/panels/validation.css",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/validation.js",
+      "dependencies": [
+        "editor/panels/assets-core.js",
+        "editor/panels/loot-core.js",
+        "editor/panels/validation-core.js",
+        "editor/session.js"
+      ]
+    },
+    {
+      "path": "editor/preview-launcher.js",
+      "dependencies": [
+        "world-document.js"
+      ]
+    },
+    {
+      "path": "editor/session.js",
+      "dependencies": [
+        "editor/tools/world-authoring.js",
+        "layout-core.js",
+        "world-document.js"
+      ]
+    },
+    {
+      "path": "editor/source-context.json",
+      "dependencies": []
+    },
+    {
+      "path": "editor/suite-bootstrap.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/tools/environment-brush-core.js",
+      "dependencies": [
+        "editor/world-core.js",
+        "layout-core.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/tools/interior-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/tools/resize-core.js",
+      "dependencies": [
+        "layout-core.js"
+      ]
+    },
+    {
+      "path": "editor/tools/resize-handles.js",
+      "dependencies": [
+        "editor/tools/resize-core.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/tools/world-authoring.js",
+      "dependencies": [
+        "editor/world-core.js"
+      ]
+    },
+    {
+      "path": "editor/tools/world-inspector.js",
+      "dependencies": [
+        "editor/tools/world-authoring.js"
+      ]
+    },
+    {
+      "path": "editor/validation.html",
+      "dependencies": [
+        "assets/ui/icon-192.png",
+        "editor/panels/validation.css",
+        "editor/panels/validation.js",
+        "editor/suite-bootstrap.js"
+      ]
+    },
+    {
+      "path": "world-document.js",
+      "dependencies": []
+    }
+  ],
+  "status": "Canonical build passes explicit import closure. No overlay; tests and credential/private paths rejected. New runtime adapter world-preview.js remains absent and capability-gated, not approved or shipped.",
+  "acceptance": [
+    "tests/editor_v2_offline.cjs: 6 checks passed; production subpath, prior service worker upgrade, 5 workspaces online/offline, unchanged campaign/settings/journal/legacy drafts, no browser exceptions or missing network resources",
+    "site/tests/test_editor_package.py: 7 tests passed including omitted imports/workspaces/styles, missing built files, private/test files, credentials and symlink escape"
+  ],
+  "cacheReconciliation": {
+    "canonicalPrior": "field-signal-overgrowth-v11-world2.0.0",
+    "editorSuite": "field-signal-overgrowth-v11-editor2.1.0",
+    "unmergedPR83": "field-signal-game-first-candidate-1",
+    "resolution": "Unique editor cache; fresh suite and legacy runtime bootstraps; preserve PR83 candidate runtime changes separately. Existing public caches retire only after complete cache-all success. No localStorage clearing."
+  }
+}
