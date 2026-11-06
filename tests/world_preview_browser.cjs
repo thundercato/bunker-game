@@ -1,7 +1,7 @@
 /* Real moved/rotated/raised building, worker upgrade, isolated journal and offline reload. */
 const {chromium}=require('playwright');
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http');
-const {execFileSync}=require('node:child_process'),assert=require('node:assert/strict');
+const assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),dist=path.join(root,'dist'),out=path.join(root,'test-results');
 fs.mkdirSync(out,{recursive:true});
 const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.wasm':'application/wasm'};
@@ -23,7 +23,8 @@ const server=http.createServer((req,res)=>{
   const observe=page=>{page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)missing.push([r.status(),r.url()]);});};observe(p);
   await p.goto(base+'controller.html');
   if(!process.env.GAME_URL){
-   let serveOld=true;const old=execFileSync('git',['show','6b4f9fb:site/sw.js'],{cwd:root,encoding:'utf8'});
+   // Exact worker from 6b4f9fb, kept as a fixture for shallow CI checkouts.
+   let serveOld=true;const old=fs.readFileSync(path.join(root,'site/tests/fixtures/world2-service-worker.js'),'utf8');
    await p.route('**/sw.js',route=>serveOld?route.fulfill({contentType:'text/javascript',body:old}):route.continue());
    await p.evaluate(async()=>{await navigator.serviceWorker.register('sw.js',{scope:'./'});await navigator.serviceWorker.ready;});
    await p.waitForFunction(()=>navigator.serviceWorker.controller);
