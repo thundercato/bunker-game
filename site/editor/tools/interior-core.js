@@ -143,7 +143,7 @@ export function overlappingAt(doc,id) {
 }
 export function nearbyObjects(doc,id,radius=4) {
   const o=doc.objects.find(o=>o.id===id);if(!o||!finite(radius)||radius<=0||radius>30)throw Error('Choose an object and radius 0–30 m.');
-  return doc.objects.filter(p=>Math.hypot(p.position[0]-o.position[0],p.position[2]-o.position[2])<=radius&&Math.abs(bottom(p)-bottom(o))<2.9).map(p=>p.id);
+  return doc.objects.filter(p=>{const[x,z]=localPoint(p,o.position[0],o.position[2]),distance=Math.hypot(Math.max(0,Math.abs(x)-p.size[0]/2),Math.max(0,Math.abs(z)-p.size[2]/2));return distance<=radius&&(Math.abs(bottom(p)-bottom(o))<2.9||bottom(p)<=bottom(o)&&top(p)>=bottom(o));}).map(p=>p.id);
 }
 export function interiorDiagnostics(doc,{reachability=true,limit=1200}={}) {
   if(!Number.isInteger(limit)||limit<1||limit>5000)throw Error('Walking sample limit must be 1–5000.');
