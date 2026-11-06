@@ -2,6 +2,13 @@
 
 Prepared 6 November 2026. Implementation audit baseline: `d31f178a674ec16d730a7d13f59c7eb112eb24bc` on `main`. This handover records current code separately from the much larger approved roadmap. It does not release v12 or change game behaviour.
 
+Continuation update: M0 is reproduced and measured in
+[`EXECUTION_2026-11-06_M0.md`](EXECUTION_2026-11-06_M0.md). The first M1 slice is a
+tested pure world document/compiler, described in
+[`WORLD_DOCUMENT.md`](WORLD_DOCUMENT.md). It is not wired to the runtime yet.
+Continue with that document's isolated preview adapter checkpoint; the original
+v2 authoring-only boundary below still applies.
+
 ## What Adam is trying to build
 
 An atmospheric, gritty, Eastern European-inspired first-person survival/exploration game, initially playable on iPhone/iPad from a browser and Home Screen. Inspiration is mechanical and atmospheric, not permission to copy proprietary game assets. The base should feel like a refuge: retain the calmer Relay Lanterns music. The desktop browser editor is a first-class product, aimed at a Mac with a mouse/keyboard, with Windows compatibility desirable.
