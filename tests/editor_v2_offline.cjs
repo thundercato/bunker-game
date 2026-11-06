@@ -6,12 +6,13 @@ const priorKind=process.env.EDITOR_PRIOR_WORKER||'world2';
 const priorWorkers={
  world2:{fixture:'editor-v2-prior-sw.js',cache:'field-signal-overgrowth-v11-world2.0.0',report:'offline-browser.json'},
  editor21:{fixture:'editor-v21-prior-sw.js',cache:'field-signal-overgrowth-v11-editor2.1.0',report:'offline-editor21-browser.json'},
- release111:{fixture:'release-11-1-prior-sw.js',cache:'field-signal-game-first-release-11-1',report:'offline-release111-browser.json'}
+ release111:{fixture:'release-11-1-prior-sw.js',cache:'field-signal-game-first-release-11-1',report:'offline-release111-browser.json'},
+ editor212:{fixture:'editor-v212-prior-sw.js',cache:'field-signal-11.1-editor2.1.2',report:'offline-editor212-browser.json'}
 };
 const previous=priorWorkers[priorKind];
 assert.ok(previous,'Unsupported EDITOR_PRIOR_WORKER '+priorKind);
 const prior=fs.readFileSync(path.join(__dirname,'fixtures',previous.fixture));
-const CACHE='field-signal-11.1-editor2.1.2',OLD=previous.cache;
+const CACHE='field-signal-11.1-editor2.1.3',OLD=previous.cache;
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.glb':'model/gltf-binary'};
 fs.mkdirSync(out,{recursive:true});
 let legacy=true;

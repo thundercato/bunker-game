@@ -15,7 +15,8 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # Includes dense history recovery and four prior-worker browser journeys.
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -83,6 +84,7 @@ jobs:
           node tests/editor_v2_offline.cjs
           EDITOR_PRIOR_WORKER=editor21 node tests/editor_v2_offline.cjs
           EDITOR_PRIOR_WORKER=release111 node tests/editor_v2_offline.cjs
+          EDITOR_PRIOR_WORKER=editor212 node tests/editor_v2_offline.cjs
       - name: Preserve canonical editor review build
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
