@@ -81,6 +81,15 @@ def walkable(s,x,z,r=.22):
   if not s['doors'][id] and abs(x-cx)<1.05+r and abs(z-cz)<.12+r:return False
  return True
 
+def actor_walkable(s,actor,x,z,r=.22):
+ # Candidate/editor support heights depend on the moving actor's current floor.
+ # Query through a shallow view so enemy navigation never borrows the player's
+ # upstairs height or mutates the real player pose. Legacy terrain keeps its
+ # original path, including all existing collision and jump rules.
+ if not (DATA.get('campaign')or DATA.get('editorLayout')):return walkable(s,x,z,r)
+ query={**s,'player':{**s['player'],'x':actor['x'],'z':actor['z'],'y':actor.get('y',0)}}
+ return walkable(query,x,z,r)
+
 def crosses(a,b,rect):
  cx,cz,w,d=rect;lo=0.;hi=1.
  for av,dv,mn,mx in [(a[0],b[0]-a[0],cx-w/2,cx+w/2),(a[1],b[1]-a[1],cz-d/2,cz+d/2)]:
@@ -208,8 +217,8 @@ def advance(s,seconds,move=False,sprint=False,crouch=False,sight=None,noise=0):
    speed=t['speed']*(.45 if e['mode']=='patrol' else 1)
    if dd>stop:
     step=min(dd-stop,seconds*speed);nx=e['x']+vx/dd*step;nz=e['z']+vz/dd*step
-    if walkable(s,nx,e['z'],.25) and not refuge({'x':nx,'z':e['z']}):e['x']=nx
-    if walkable(s,e['x'],nz,.25) and not refuge({'x':e['x'],'z':nz}):e['z']=nz
+    if actor_walkable(s,e,nx,e['z'],.25) and not refuge({'x':nx,'z':e['z']}):e['x']=nx
+    if actor_walkable(s,e,e['x'],nz,.25) and not refuge({'x':e['x'],'z':nz}):e['z']=nz
   if sees and d<t['reach'] and e['cooldown']<=0:
    e['cooldown']=t['delay'];s['health']-=t['damage']*(1-protection)
    note(s,('A cold pulse tears through you.' if e['kind']=='wraith' else 'The '+e['kind']+' strikes. Retreat or fight.'),'danger','danger',enemy=e['id'])
@@ -650,7 +659,7 @@ def advance(s,seconds,move=False,sprint=False,crouch=False,sight=None,noise=0):
    blocked=False
    for i in range(1,steps+1):
     xx=oldx+(nx-oldx)*i/steps;zz=oldz+(nz-oldz)*i/steps
-    if not walkable(s,xx,zz,.16):blocked=True;break
+    if not actor_walkable(s,e,xx,zz,.16):blocked=True;break
     e['x']=xx;e['z']=zz
     if not e['leapHit']and dist(p,(xx,zz))<.8 and abs(p.get('y',0)-surface_height(xx,zz))<1.35:
      s['health']-=30;e['leapHit']=True;note(s,'The skitter slams into you. Sidestep its committed leap.','danger',level='danger')
@@ -665,8 +674,8 @@ def advance(s,seconds,move=False,sprint=False,crouch=False,sight=None,noise=0):
     note(s,'A skitter coils to leap. Move sideways.','skitter',level='warning',enemy=e['id'])
    elif d>1:
     step=min(seconds*2.7,d-.8);nx=e['x']+dx/d*step;nz=e['z']+dz/d*step
-    if walkable(s,nx,e['z'],.18):e['x']=nx
-    if walkable(s,e['x'],nz,.18):e['z']=nz
+    if actor_walkable(s,e,nx,e['z'],.18):e['x']=nx
+    if actor_walkable(s,e,e['x'],nz,.18):e['z']=nz
   else:e['mode']='patrol'
  if s['weather']['override']=='auto'and s['elapsed']>=s['weather']['nextAt']:
   w=s['weather'];w['count']+=1;w['mode']=['clear','rain','fog','storm'][w['count']%4];w['nextAt']=s['elapsed']+180+rng(s)*120;note(s,{'rain':'Rain moves in over the pines.','fog':'Mist thickens between the trees.','storm':'A storm gathers over the coast.','clear':'The weather lifts.'}[w['mode']])
@@ -951,8 +960,8 @@ def enemy_step(s,e,target,seconds,speed):
  e['yaw']=-math.atan2(dx,-dz);step=min(d,seconds*speed);steps=max(1,int(step/.2)+1)
  for _ in range(steps):
   nx=e['x']+dx/max(.001,d)*step/steps;nz=e['z']+dz/max(.001,d)*step/steps
-  if walkable(s,nx,e['z'],.22):e['x']=nx
-  if walkable(s,e['x'],nz,.22):e['z']=nz
+  if actor_walkable(s,e,nx,e['z'],.22):e['x']=nx
+  if actor_walkable(s,e,e['x'],nz,.22):e['z']=nz
  e['y']=surface_height(e['x'],e['z'],e.get('y',0))
 
 def sees_player(s,e,crouch=False,sight=None):
@@ -1008,7 +1017,7 @@ def advance(s,seconds,move=False,sprint=False,crouch=False,sight=None,noise=0):
     ox,oz=e['x'],e['z'];e['leapTime']+=seconds;u=clamp(e['leapTime']/.9);fx,fz=e['leapFrom'];tx,tz=e['leapTo'];nx=fx+(tx-fx)*u;nz=fz+(tz-fz)*u;steps=max(1,int(math.hypot(nx-ox,nz-oz)/.18)+1)
     for i in range(1,steps+1):
      x=ox+(nx-ox)*i/steps;z=oz+(nz-oz)*i/steps
-     if not walkable(s,x,z,.16):u=1;break
+     if not actor_walkable(s,e,x,z,.16):u=1;break
      e['x'],e['z']=x,z
      if not e['leapHit']and dist(p,(x,z))<.8:e['leapHit']=True;s['health']-=30;note(s,'The skitter hits you.','danger','danger')
     e['y']=surface_height(e['x'],e['z'])+math.sin(u*math.pi)*1.0

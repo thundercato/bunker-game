@@ -145,3 +145,11 @@ passes six focused tests, including rotated boxes, diagonals, tangency, zero-len
 and reversed lines, height/door filters, a missed thin obstacle and 300 seeded
 comparisons with the former sampler. The 13 integration tests in `test_campaign.py`
 also pass, covering the crane, legacy saves and full first-assignment expedition.
+
+The review also found enemy navigation borrowing the player's floor height.
+`engine.py` now uses an actor-local shallow collision query for enemy movement
+and committed leaps, while retaining the ordinary player and legacy-campaign
+query paths. Five focused actor tests cover ground-floor wardrobes with the
+player upstairs, upstairs beds with the player below, committed skitter leaps,
+state/jump isolation and legacy parity. Full Python discovery passes all 150
+tests in 31.154 s on this container after that change.
