@@ -1,0 +1,536 @@
+Node v22.23.4 · final candidate pure suites and runtime syntax
+
+$ --check site/app.js
+Exit code: 0
+
+$ --check site/asset-ids.js
+Exit code: 0
+
+$ --check site/asset-library.js
+Exit code: 0
+
+$ --check site/atlas-core.js
+Exit code: 0
+
+$ --check site/atlas.js
+Exit code: 0
+
+$ --check site/audio-v6.js
+Exit code: 0
+
+$ --check site/audio-v7.js
+Exit code: 0
+
+$ --check site/audio-v9.js
+Exit code: 0
+
+$ --check site/audio.js
+Exit code: 0
+
+$ --check site/bridge.js
+Exit code: 0
+
+$ --check site/campaign-core.js
+Exit code: 0
+
+$ --check site/campaign-interiors.js
+Exit code: 0
+
+$ --check site/campaign-loader.js
+Exit code: 0
+
+$ --check site/candidate-credits.js
+Exit code: 0
+
+$ --check site/controller-core.js
+Exit code: 0
+
+$ --check site/district-scene.js
+Exit code: 0
+
+$ --check site/editor/bootstrap.js
+Exit code: 0
+
+$ --check site/editor/editor.js
+Exit code: 0
+
+$ --check site/editor/runtime-bootstrap.js
+Exit code: 0
+
+$ --check site/editor/world-core.js
+Exit code: 0
+
+$ --check site/editor/world.js
+Exit code: 0
+
+$ --check site/haptics.js
+Exit code: 0
+
+$ --check site/input-v8.js
+Exit code: 0
+
+$ --check site/input.js
+Exit code: 0
+
+$ --check site/item-models.js
+Exit code: 0
+
+$ --check site/item-studio.js
+Exit code: 0
+
+$ --check site/journal-core.js
+Exit code: 0
+
+$ --check site/journal-view.js
+Exit code: 0
+
+$ --check site/launch-building.js
+Exit code: 0
+
+$ --check site/launch.js
+Exit code: 0
+
+$ --check site/layout-core.js
+Exit code: 0
+
+$ --check site/layout-preview.js
+Exit code: 0
+
+$ --check site/layout-renderer.js
+Exit code: 0
+
+$ --check site/preview-document.js
+Exit code: 0
+
+$ --check site/runtime-ready.js
+Exit code: 0
+
+$ --check site/search-props.js
+Exit code: 0
+
+$ --check site/sim-worker.js
+Exit code: 0
+
+$ --check site/sw.js
+Exit code: 0
+
+$ --check site/terrain.js
+Exit code: 0
+
+$ --check site/world-campaign.js
+Exit code: 0
+
+$ --check site/world-core.js
+Exit code: 0
+
+$ --check site/world-document.js
+Exit code: 0
+
+$ --check site/world-layout.js
+Exit code: 0
+
+$ --check site/world-preview.js
+Exit code: 0
+
+$ --check site/world-v10.js
+Exit code: 0
+
+$ --check site/world-v11.js
+Exit code: 0
+
+$ --check site/world-v6.js
+Exit code: 0
+
+$ --check site/world-v7.js
+Exit code: 0
+
+$ --check site/world-v8.js
+Exit code: 0
+
+$ --check site/world-v9.js
+Exit code: 0
+
+$ --check site/world.js
+Exit code: 0
+
+$ site/tests/test_atlas.mjs
+PASS Initial fit centres region
+PASS Projection is exactly reversible
+PASS Zoom preserves point under cursor
+PASS Zoom has safe upper and lower limits
+PASS Invalid zoom requests ignored
+PASS Drag translates camera in world units
+PASS Resize does not reset chosen objective
+PASS Fit resets zoom and region centre
+PASS Panning cannot lose the region indefinitely
+PASS Scale bar matches displayed metres
+PASS Current mission respects active state
+PASS Destination uses exact mission coordinates
+PASS Recovered item targets correct base contact
+PASS Unfinished NPC job points to source only after recovery
+PASS Completed missions never remain navigable objectives
+PASS Fallback only selects another active mission
+PASS Explicit dossier objective overrides pinned one
+PASS No active missions yields no invented marker
+18 atlas unit tests passed
+Exit code: 0
+
+$ site/tests/test_campaign.mjs
+PASS Original source and authored data stay unchanged and repeat compilation agrees
+PASS All existing IDs, guarantees, mission rewards and save content references survive
+PASS At least 50 meaningful searchable visual variants are actually placed
+PASS Field mission markers track containers while underground markers retain entrances
+PASS Pier deck is sampled at visible deck height instead of river bed
+PASS Crane has bidirectional routes, external waypoints and safe selectable landings
+PASS Deck rail collision blocks walking through barriers and prevents falling through gate
+PASS Malformed or duplicated world objects are rejected before mutation
+PASS Legacy layout preview source remains explicit and unmodified by candidate compiler
+9 campaign integration checks passed
+Exit code: 0
+
+$ site/tests/test_campaign_interiors.mjs
+PASS Factory is deterministic, validates v1 documents and leaves source unchanged
+PASS forester: stable source, doors, every container and physical loot surface
+PASS forester: registered visual dimensions, retained loot profiles and supported furniture
+PASS forester: no intersecting furniture volumes or unreachable floor overhang
+PASS forester: closed exterior has no ground or upper gaps; windows replace walls
+PASS forester: entrance and retained internal door actually control passage
+PASS forester: original search targets and dining loot have walking approaches
+PASS forester: walk both stair landings, upper rooms and full return route
+PASS v1: stable source, doors, every container and physical loot surface
+PASS v1: registered visual dimensions, retained loot profiles and supported furniture
+PASS v1: no intersecting furniture volumes or unreachable floor overhang
+PASS v1: closed exterior has no ground or upper gaps; windows replace walls
+PASS v1: entrance and retained internal door actually control passage
+PASS v1: original search targets and dining loot have walking approaches
+PASS v1: walk both stair landings, upper rooms and full return route
+PASS v2: stable source, doors, every container and physical loot surface
+PASS v2: registered visual dimensions, retained loot profiles and supported furniture
+PASS v2: no intersecting furniture volumes or unreachable floor overhang
+PASS v2: closed exterior has no ground or upper gaps; windows replace walls
+PASS v2: entrance and retained internal door actually control passage
+PASS v2: original search targets and dining loot have walking approaches
+PASS v2: walk both stair landings, upper rooms and full return route
+PASS Postmaster upstairs chest remains reachable with its saved ID
+PASS v3: stable source, doors, every container and physical loot surface
+PASS v3: registered visual dimensions, retained loot profiles and supported furniture
+PASS v3: no intersecting furniture volumes or unreachable floor overhang
+PASS v3: closed exterior has no ground or upper gaps; windows replace walls
+PASS v3: entrance and retained internal door actually control passage
+PASS v3: original search targets and dining loot have walking approaches
+PASS Grey gable bedroom and bathroom work on the original ground floor
+PASS Approach and headroom checks detect regressions instead of accepting unreachable furniture
+31 campaign interior tests passed
+Exit code: 0
+
+$ site/tests/test_campaign_road_surfaces.mjs
+PASS candidate road surfaces: 10 polygons, 287 triangles, source/generator fingerprints, actual Three.js triangulation, route paint and preview isolation
+Exit code: 0
+
+$ site/tests/test_client.mjs
+PASS neutral stick zero
+PASS full stick one
+PASS diagonal normalised
+PASS undefined axes safe
+PASS standard wired/BT mapping
+PASS standard menu mapping
+PASS crossfade start
+PASS crossfade midpoint both half
+PASS crossfade complete
+PASS interrupt preserves envelope value
+PASS loop shortened by overlap only
+PASS same number of channels
+PASS sample-continuous join
+PASS no non-finite audio
+PASS tiny clips not damaged
+15 client unit tests passed
+Exit code: 0
+
+$ site/tests/test_districts.mjs
+PASS district scene: 95 stable objects, safe source approaches, licensed assets, crane decks/routes, 146 merged meshes, zone/distance/vegetation culling
+Exit code: 0
+
+$ site/tests/test_journal.mjs
+PASS New journal key must be explicit and separate from v9
+PASS Record has a stable id, source, timestamp, category and bounded payload
+PASS Canonical event IDs ignore property insertion order
+PASS Repeated state delivery records one exact event
+PASS A later occurrence has a different stable timestamped identity
+PASS Engine supplied event IDs survive timing changes
+PASS Reload does not duplicate a previously delivered event
+PASS Routine gun manipulation and shots do not swamp the log
+PASS Empty events create no invented dialogue
+PASS Locked and unread offers never reveal their authored briefings
+PASS Only actual readOffers become written communications
+PASS Briefing imports preserve unknown hearing times instead of inventing them
+PASS Active and completed missions use real state with no locked offers
+PASS Completed archive retains exact completion time and reward
+PASS Legacy completions do not invent an exact completion time
+PASS Mission completion and raw completion notification produce one journal record
+PASS Mission history remains deduped after event retention trims it
+PASS Mission return destination follows required inventory count and source
+PASS Failed and abandoned records use only existing engine states
+PASS Only revealed anomalies are stored and remain known after returning
+PASS Known buildings come from a real lastBuilding state
+PASS Equipment reference includes encountered items, with unknown first-seen time
+PASS Storage remains bounded including dedup identities
+PASS v9 adoption is explicit, once only and non-destructive
+PASS v9 adoption skips a matching structured event without changing either original
+PASS v9 adoption matches the old floored minute against a fractional structured time
+PASS v9 adoption retains otherwise identical events in different minutes or zones
+PASS v9 adoption requires an actual recorded time to discard a semantic duplicate
+PASS A preview journal can only adopt its supplied preview legacy
+PASS Notes are bounded, trimmed, persistent and never treated as facts
+PASS Corrupt or future-format storage is preserved rather than overwritten
+PASS Write failure does not lose the in-memory event or throw
+PASS Persisted journal uses a versioned envelope
+PASS Clock labels preserve day and midnight without wall-clock invention
+PASS A flexible sheet stays hinged throughout a real half-turn
+PASS Reverse sheet turn mirrors the direction and keeps its paper height
+PASS Journal Tab and Shift+Tab retain normal focus movement before global game input
+PASS Journal Enter and Space activate a control once and stop mapped game input
+PASS A pin-only state change refreshes the journal and preserves the selected mission
+39 journal unit tests passed
+Exit code: 0
+
+$ site/tests/test_layout.mjs
+PASS Valid editable template: hut
+PASS Valid editable template: forester
+PASS Valid editable template: pump
+PASS Valid editable template: ranger
+PASS Valid editable template: crossing
+PASS Valid editable template: station
+PASS Valid editable template: freight
+PASS Valid editable template: coastguard
+PASS Valid editable template: boathouse
+PASS Valid editable template: v1
+PASS Valid editable template: v2
+PASS Valid editable template: v3
+PASS Valid editable template: v4
+PASS Valid editable template: v5
+PASS Valid editable template: v6
+PASS Valid editable template: clinic
+PASS Valid editable template: store
+PASS Valid editable template: ticket
+PASS Valid editable template: cafe
+PASS Valid editable template: arcade
+PASS Valid editable template: north
+PASS Valid editable template: lodge
+PASS Valid editable template: tower
+PASS Valid editable template: substation
+PASS Valid editable template: logging
+PASS Valid editable template: northstore
+PASS Valid editable template: barracks
+PASS Valid editable template: ferry
+PASS Valid editable template: mill
+PASS Valid editable template: east1
+PASS Valid editable template: east2
+PASS Valid editable template: mast
+PASS Valid editable template: hangar
+PASS Valid editable template: garrison
+PASS Valid editable template: command
+PASS Valid editable template: armoury
+PASS Valid editable template: yard
+PASS Protect mission containers from deletion
+PASS Reject unknown assets before loading a URL
+PASS Reject nonfinite coordinates
+PASS Reject duplicate object IDs
+PASS Reject a campaign file
+PASS World patch updates physical container and mission target
+PASS Table loot surface moves and rotates with table
+PASS Doors block when closed and open when selected
+PASS Moved wall moves collision boundary
+PASS Floor cutout follows staircase movement
+PASS Rotated stairs have a matching walkable slope
+PASS Stairs reach the upper floor with no ceiling collision
+PASS Floor separation prevents passing through ceiling
+PASS Low headroom or missing landing produces warning
+PASS Unsupported object is flagged without rejecting creative draft
+PASS Zero intensity remains off
+PASS Binding cannot be transplanted onto structural geometry
+54 layout unit tests passed
+Exit code: 0
+
+$ site/tests/test_roofs.mjs
+PASS Legacy documents round trip byte-for-byte without adding roof metadata
+PASS Optional numeric zero and pitched rise survive portable layout validation and export
+PASS Reject invalid roof rise -0.1
+PASS Reject invalid roof rise 6.01
+PASS Reject invalid roof rise NaN
+PASS Reject invalid roof rise Infinity
+PASS Reject invalid roof rise 2
+PASS Reject invalid roof rise null
+PASS Reject invalid roof rise true
+PASS Reject invalid roof rise [object Object]
+PASS Reject invalid roof rise 
+PASS Roof rise cannot be assigned to walls, furniture or a floor
+PASS Absent and zero rise keep the original flat slab pieces and renderer bounds
+PASS Pitched render pieces are finite, pure and within exact eave and ridge dimensions
+PASS Actual pitched meshes have two material batches, sound normals and exact closed dimensions
+PASS Minimum roof dimensions and a tiny positive rise retain finite nonempty geometry
+PASS Visual pitch leaves the sealed ceiling collision and existing floor sampling unchanged
+PASS Roof children follow their object and parent building transforms exactly once
+PASS World-document compile preserves optional pitch while keeping physical ceiling pieces
+PASS Every authored home retains its stable roof ID, two-metre pitch and 35 cm overhang
+PASS Existing hide-roof view hides the full pitched assembly
+21 roof geometry and compatibility tests passed.
+Exit code: 0
+
+$ site/tests/test_search_props.mjs
+PASS Catalogue has at least 50 meaningful variants across domestic, medical and industrial rooms
+PASS All 69 editor thumbnails are distinct local 192 by 160 WebP files below the total asset budget
+PASS Render, collision, independent opening and close round trip: search_wall_cupboard
+PASS Render, collision, independent opening and close round trip: search_double_wall_cupboard
+PASS Render, collision, independent opening and close round trip: search_glazed_wall_cabinet
+PASS Render, collision, independent opening and close round trip: search_corner_wall_cabinet
+PASS Render, collision, independent opening and close round trip: search_utility_cabinet
+PASS Render, collision, independent opening and close round trip: search_sideboard
+PASS Render, collision, independent opening and close round trip: search_bedside_drawers
+PASS Render, collision, independent opening and close round trip: search_chest_drawers
+PASS Render, collision, independent opening and close round trip: search_wide_dresser
+PASS Render, collision, independent opening and close round trip: search_apothecary_drawers
+PASS Render, collision, independent opening and close round trip: search_card_index
+PASS Render, collision, independent opening and close round trip: search_wardrobe_single
+PASS Render, collision, independent opening and close round trip: search_wardrobe_double
+PASS Render, collision, independent opening and close round trip: search_linen_press
+PASS Render, collision, independent opening and close round trip: search_broom_cupboard
+PASS Render, collision, independent opening and close round trip: search_writing_desk
+PASS Render, collision, independent opening and close round trip: search_pedestal_desk
+PASS Render, collision, independent opening and close round trip: search_office_desk
+PASS Render, collision, independent opening and close round trip: search_rolltop_desk
+PASS Render, collision, independent opening and close round trip: search_kitchen_base
+PASS Render, collision, independent opening and close round trip: search_kitchen_drawers
+PASS Render, collision, independent opening and close round trip: search_kitchen_pantry
+PASS Render, collision, independent opening and close round trip: search_sink_unit
+PASS Render, collision, independent opening and close round trip: search_double_sink
+PASS Render, collision, independent opening and close round trip: search_gas_cooker
+PASS Render, collision, independent opening and close round trip: search_electric_cooker
+PASS Render, collision, independent opening and close round trip: search_tall_fridge
+PASS Render, collision, independent opening and close round trip: search_under_counter_fridge
+PASS Render, collision, independent opening and close round trip: search_chest_freezer
+PASS Render, collision, independent opening and close round trip: search_microwave_cabinet
+PASS Render, collision, independent opening and close round trip: search_medicine_cabinet
+PASS Render, collision, independent opening and close round trip: search_mirror_cabinet
+PASS Render, collision, independent opening and close round trip: search_basin_vanity
+PASS Render, collision, independent opening and close round trip: search_linen_hamper
+PASS Render, collision, independent opening and close round trip: search_medical_trolley
+PASS Render, collision, independent opening and close round trip: search_locker_single
+PASS Render, collision, independent opening and close round trip: search_locker_double
+PASS Render, collision, independent opening and close round trip: search_locker_split
+PASS Render, collision, independent opening and close round trip: search_footlocker
+PASS Render, collision, independent opening and close round trip: search_arms_locker
+PASS Render, collision, independent opening and close round trip: search_floor_safe
+PASS Render, collision, independent opening and close round trip: search_wall_safe
+PASS Render, collision, independent opening and close round trip: search_cash_box
+PASS Render, collision, independent opening and close round trip: search_filing_two
+PASS Render, collision, independent opening and close round trip: search_filing_four
+PASS Render, collision, independent opening and close round trip: search_filing_lateral
+PASS Render, collision, independent opening and close round trip: search_document_sorter
+PASS Render, collision, independent opening and close round trip: search_map_drawers
+PASS Render, collision, independent opening and close round trip: search_tool_workbench
+PASS Render, collision, independent opening and close round trip: search_rolling_toolchest
+PASS Render, collision, independent opening and close round trip: search_wall_tool_cabinet
+PASS Render, collision, independent opening and close round trip: search_cantilever_toolbox
+PASS Render, collision, independent opening and close round trip: search_electrical_cabinet
+PASS Render, collision, independent opening and close round trip: search_parts_bins
+PASS Render, collision, independent opening and close round trip: search_slatted_crate
+PASS Render, collision, independent opening and close round trip: search_reinforced_crate
+PASS Render, collision, independent opening and close round trip: search_ammo_chest
+PASS Render, collision, independent opening and close round trip: search_travel_trunk
+PASS Render, collision, independent opening and close round trip: search_shipping_container
+PASS Render, collision, independent opening and close round trip: search_salvage_drum
+PASS Render, collision, independent opening and close round trip: search_water_barrel
+PASS Render, collision, independent opening and close round trip: search_suitcase
+PASS Render, collision, independent opening and close round trip: search_kitbag
+PASS Render, collision, independent opening and close round trip: search_cooler
+PASS Render, collision, independent opening and close round trip: search_archive_shelf
+PASS Render, collision, independent opening and close round trip: search_salvaged_cabinet
+PASS Render, collision, independent opening and close round trip: search_vintage_drawers
+PASS Render, collision, independent opening and close round trip: search_salvaged_crate
+PASS Render, collision, independent opening and close round trip: search_field_medical_case
+PASS Opening clamps invalid progress and is idempotent
+PASS Unknown IDs are rejected before any asset lookup
+PASS Duplicate IDs, non-finite coordinates, mismatched collision and unsupported sources fail validation
+PASS Per-slot custom materials are supported without contaminating default caches
+PASS Nested moving detail preserves smoky pane colours when batches are merged
+PASS Lidded containers have a solid front beneath their opening lid
+PASS Verified local licensed source, named movable parts and preserved source cache: search_salvaged_cabinet
+PASS Verified local licensed source, named movable parts and preserved source cache: search_vintage_drawers
+PASS Verified local licensed source, named movable parts and preserved source cache: search_salvaged_crate
+PASS Verified local licensed source, named movable parts and preserved source cache: search_field_medical_case
+PASS Unavailable licensed assets retain a working original opening with explicit provenance
+PASS Missing licensed parts produce a working fallback instead of animating a whole cabinet
+PASS Rendering does not mutate catalogue or introduce gameplay state
+84 searchable prop tests passed; 69 variants; composite maximum 5 meshes, 3228 triangles.
+Exit code: 0
+
+$ site/tests/test_world_document.mjs
+PASS v1 interiors and v2 authoring adopt and round-trip without migration
+PASS Unedited container and mission output agrees with the current v1 compiler
+PASS 90-degree moved and raised cupboard, door, furniture and mission agree
+PASS Inverse transform restores local positions across rotations and negative coordinates
+PASS Each compiled collider transforms once and keeps local dimensions and stable door ID
+PASS Closed/open door and crossing its threshold agree in the transformed local frame
+PASS Search distances are preserved and the old cupboard position is no longer its anchor
+PASS Loose loot surface dimensions, yaw and height follow its parent prop
+PASS Upstairs item and floor, stair cut-out and stair slope survive building rotation/raise
+PASS World floor cut-out retains the same hole after transforming floor and staircase
+PASS Auto foundation uses draft height; manual and locked heights remain explicit
+PASS Recompile is deterministic without accumulating transformations or mutating drafts/source
+PASS Legacy origins stay fixed; applying a placement cannot rewrite child coordinates
+PASS World collision samples agree with local collision at arbitrary building rotation
+PASS Only container-bound existing missions get targets; unrelated missions remain unchanged
+PASS All source templates preserve binding IDs when compiled: hut
+PASS All source templates preserve binding IDs when compiled: forester
+PASS All source templates preserve binding IDs when compiled: pump
+PASS All source templates preserve binding IDs when compiled: ranger
+PASS All source templates preserve binding IDs when compiled: crossing
+PASS All source templates preserve binding IDs when compiled: station
+PASS All source templates preserve binding IDs when compiled: freight
+PASS All source templates preserve binding IDs when compiled: coastguard
+PASS All source templates preserve binding IDs when compiled: boathouse
+PASS All source templates preserve binding IDs when compiled: v1
+PASS All source templates preserve binding IDs when compiled: v2
+PASS All source templates preserve binding IDs when compiled: v3
+PASS All source templates preserve binding IDs when compiled: v4
+PASS All source templates preserve binding IDs when compiled: v5
+PASS All source templates preserve binding IDs when compiled: v6
+PASS All source templates preserve binding IDs when compiled: clinic
+PASS All source templates preserve binding IDs when compiled: store
+PASS All source templates preserve binding IDs when compiled: ticket
+PASS All source templates preserve binding IDs when compiled: cafe
+PASS All source templates preserve binding IDs when compiled: arcade
+PASS All source templates preserve binding IDs when compiled: north
+PASS All source templates preserve binding IDs when compiled: lodge
+PASS All source templates preserve binding IDs when compiled: tower
+PASS All source templates preserve binding IDs when compiled: substation
+PASS All source templates preserve binding IDs when compiled: logging
+PASS All source templates preserve binding IDs when compiled: northstore
+PASS All source templates preserve binding IDs when compiled: barracks
+PASS All source templates preserve binding IDs when compiled: ferry
+PASS All source templates preserve binding IDs when compiled: mill
+PASS All source templates preserve binding IDs when compiled: east1
+PASS All source templates preserve binding IDs when compiled: east2
+PASS All source templates preserve binding IDs when compiled: mast
+PASS All source templates preserve binding IDs when compiled: hangar
+PASS All source templates preserve binding IDs when compiled: garrison
+PASS All source templates preserve binding IDs when compiled: command
+PASS All source templates preserve binding IDs when compiled: armoury
+PASS All source templates preserve binding IDs when compiled: yard
+PASS Reject unsupported versions, missing/stale source revisions and raw legacy drafts
+PASS Reject duplicate/missing interiors and unsupported new building instances
+PASS Reject invalid transforms before returning any compiled data
+PASS Reject protected binding deletion, foreign IDs and asset URL injection
+PASS Uncompiled terrain/roads/water remain in the authoring document, never a runtime override
+57 world document tests passed
+Exit code: 0
+
+$ site/tests/test_world_preview.mjs
+PASS world preview adapter: source isolation, moved targets, doors, raised floors, placement rejection and upstairs sampling
+Exit code: 0
+
+$ site/tests/test_world_v2.mjs
+PASS world v2 schema, brushes, scatter, buildings, warnings and invalid imports
+Exit code: 0
+
+Commands: 64; failures: 0

@@ -81,6 +81,15 @@ def walkable(s,x,z,r=.22):
   if not s['doors'][id] and abs(x-cx)<1.05+r and abs(z-cz)<.12+r:return False
  return True
 
+def actor_walkable(s,actor,x,z,r=.22):
+ # Candidate/editor support heights depend on the moving actor's current floor.
+ # Query through a shallow view so enemy navigation never borrows the player's
+ # upstairs height or mutates the real player pose. Legacy terrain keeps its
+ # original path, including all existing collision and jump rules.
+ if not (DATA.get('campaign')or DATA.get('editorLayout')):return walkable(s,x,z,r)
+ query={**s,'player':{**s['player'],'x':actor['x'],'z':actor['z'],'y':actor.get('y',0)}}
+ return walkable(query,x,z,r)
+
 def crosses(a,b,rect):
  cx,cz,w,d=rect;lo=0.;hi=1.
  for av,dv,mn,mx in [(a[0],b[0]-a[0],cx-w/2,cx+w/2),(a[1],b[1]-a[1],cz-d/2,cz+d/2)]:
@@ -208,8 +217,8 @@ def advance(s,seconds,move=False,sprint=False,crouch=False,sight=None,noise=0):
    speed=t['speed']*(.45 if e['mode']=='patrol' else 1)
    if dd>stop:
     step=min(dd-stop,seconds*speed);nx=e['x']+vx/dd*step;nz=e['z']+vz/dd*step
-    if walkable(s,nx,e['z'],.25) and not refuge({'x':nx,'z':e['z']}):e['x']=nx
-    if walkable(s,e['x'],nz,.25) and not refuge({'x':e['x'],'z':nz}):e['z']=nz
+    if actor_walkable(s,e,nx,e['z'],.25) and not refuge({'x':nx,'z':e['z']}):e['x']=nx
+    if actor_walkable(s,e,e['x'],nz,.25) and not refuge({'x':e['x'],'z':nz}):e['z']=nz
   if sees and d<t['reach'] and e['cooldown']<=0:
    e['cooldown']=t['delay'];s['health']-=t['damage']*(1-protection)
    note(s,('A cold pulse tears through you.' if e['kind']=='wraith' else 'The '+e['kind']+' strikes. Retreat or fight.'),'danger','danger',enemy=e['id'])
@@ -538,7 +547,9 @@ def terrain_height(x,z):
  for b in BUILDINGS:f=min(f,smooth(max(abs(x-b['x'])-b['w']/2-2,abs(z-b['z'])-b['d']/2-2)/9))
  for path in DATA['roads']:
   for a,b in zip(path,path[1:]):f=min(f,smooth((segment_distance(x,z,a,b)-4)/7))
- if DATA['rail']['minZ']-5<z<DATA['rail']['maxZ']+5:f=min(f,smooth((abs(x-DATA['rail']['x'])-4)/7))
+ if DATA.get('campaign'):
+  for a,b in zip(DATA['rail']['route'],DATA['rail']['route'][1:]):f=min(f,smooth((segment_distance(x,z,a,b)-4)/7))
+ elif DATA['rail']['minZ']-5<z<DATA['rail']['maxZ']+5:f=min(f,smooth((abs(x-DATA['rail']['x'])-4)/7))
  for a in DATA['anomalies']:f=min(f,smooth((math.hypot(x-a['x'],z-a['z'])-a['radius']-1)/7))
  for xx,zz in [(-123,-285),(35,-276)]:f=min(f,smooth((math.hypot(x-xx,z-zz)-5)/8))
  f=min(f,smooth((math.hypot(x+145,z+261)-16)/8))
@@ -648,7 +659,7 @@ def advance(s,seconds,move=False,sprint=False,crouch=False,sight=None,noise=0):
    blocked=False
    for i in range(1,steps+1):
     xx=oldx+(nx-oldx)*i/steps;zz=oldz+(nz-oldz)*i/steps
-    if not walkable(s,xx,zz,.16):blocked=True;break
+    if not actor_walkable(s,e,xx,zz,.16):blocked=True;break
     e['x']=xx;e['z']=zz
     if not e['leapHit']and dist(p,(xx,zz))<.8 and abs(p.get('y',0)-surface_height(xx,zz))<1.35:
      s['health']-=30;e['leapHit']=True;note(s,'The skitter slams into you. Sidestep its committed leap.','danger',level='danger')
@@ -663,8 +674,8 @@ def advance(s,seconds,move=False,sprint=False,crouch=False,sight=None,noise=0):
     note(s,'A skitter coils to leap. Move sideways.','skitter',level='warning',enemy=e['id'])
    elif d>1:
     step=min(seconds*2.7,d-.8);nx=e['x']+dx/d*step;nz=e['z']+dz/d*step
-    if walkable(s,nx,e['z'],.18):e['x']=nx
-    if walkable(s,e['x'],nz,.18):e['z']=nz
+    if actor_walkable(s,e,nx,e['z'],.18):e['x']=nx
+    if actor_walkable(s,e,e['x'],nz,.18):e['z']=nz
   else:e['mode']='patrol'
  if s['weather']['override']=='auto'and s['elapsed']>=s['weather']['nextAt']:
   w=s['weather'];w['count']+=1;w['mode']=['clear','rain','fog','storm'][w['count']%4];w['nextAt']=s['elapsed']+180+rng(s)*120;note(s,{'rain':'Rain moves in over the pines.','fog':'Mist thickens between the trees.','storm':'A storm gathers over the coast.','clear':'The weather lifts.'}[w['mode']])
@@ -864,6 +875,8 @@ def terrain_height(x,z):
  for b in BUILDINGS:f=min(f,smooth(max(abs(x-b['x'])-b['w']/2-2,abs(z-b['z'])-b['d']/2-2)/8))
  for route in DATA['roads']:
   for a,b in zip(route,route[1:]):f=min(f,smooth((segment_distance(x,z,a,b)-4)/7))
+ if DATA.get('campaign'):
+  for a,b in zip(DATA['rail']['route'],DATA['rail']['route'][1:]):f=min(f,smooth((segment_distance(x,z,a,b)-4)/7))
  if 178<x<297 and -609<z<-475:f=0
  for q in [(154,-348),(210,-422)]:f=min(f,smooth((math.hypot(x-q[0],z-q[1])-5)/7))
  return max(0,(2.4+1.3*math.sin(x*.038)*math.cos(z*.025)+.45*math.sin(x*.19+z*.17))*f)
@@ -947,8 +960,8 @@ def enemy_step(s,e,target,seconds,speed):
  e['yaw']=-math.atan2(dx,-dz);step=min(d,seconds*speed);steps=max(1,int(step/.2)+1)
  for _ in range(steps):
   nx=e['x']+dx/max(.001,d)*step/steps;nz=e['z']+dz/max(.001,d)*step/steps
-  if walkable(s,nx,e['z'],.22):e['x']=nx
-  if walkable(s,e['x'],nz,.22):e['z']=nz
+  if actor_walkable(s,e,nx,e['z'],.22):e['x']=nx
+  if actor_walkable(s,e,e['x'],nz,.22):e['z']=nz
  e['y']=surface_height(e['x'],e['z'],e.get('y',0))
 
 def sees_player(s,e,crouch=False,sight=None):
@@ -1004,7 +1017,7 @@ def advance(s,seconds,move=False,sprint=False,crouch=False,sight=None,noise=0):
     ox,oz=e['x'],e['z'];e['leapTime']+=seconds;u=clamp(e['leapTime']/.9);fx,fz=e['leapFrom'];tx,tz=e['leapTo'];nx=fx+(tx-fx)*u;nz=fz+(tz-fz)*u;steps=max(1,int(math.hypot(nx-ox,nz-oz)/.18)+1)
     for i in range(1,steps+1):
      x=ox+(nx-ox)*i/steps;z=oz+(nz-oz)*i/steps
-     if not walkable(s,x,z,.16):u=1;break
+     if not actor_walkable(s,e,x,z,.16):u=1;break
      e['x'],e['z']=x,z
      if not e['leapHit']and dist(p,(x,z))<.8:e['leapHit']=True;s['health']-=30;note(s,'The skitter hits you.','danger','danger')
     e['y']=surface_height(e['x'],e['z'])+math.sin(u*math.pi)*1.0
@@ -1244,7 +1257,7 @@ def surface_height(x,z,last_y=0):
  for o in _EDITOR_DOC['objects']:
   if o['type']!='stairs':continue
   lx,lz=_editor_local(o,x,z);w,h,d=o['size']
-  if abs(lx)<=w/2-.06 and -d/2-.1<=lz<=d/2+.25:
+  if abs(lx)<=w/2-.06 and -d/2-.25<=lz<=d/2+.25:
    y=o['position'][1]+clamp((d/2-lz)/d)*h
    if abs(last_y-y)<.65 or last_y>=o['position'][1]and lz>d/2-.25:return base_y+y
  floor=0.
@@ -1261,7 +1274,7 @@ def _editor_collides(s,x,z,y=0):
   x-=_EDITOR_DOC['origin'][0];z-=_EDITOR_DOC['origin'][2]
  for c in DATA.get('editorColliders',[]):
   if c.get('doorId')and s['doors'].get(c['doorId'],True):continue
-  if y>=c['y']+c['h']-.035 or y+1.65<=c['y']+.02:continue
+  if y>=c['y']+c['h']-(.15 if c.get('kind')=='floor' else .035) or y+1.65<=c['y']+.02:continue
   lx,lz=_editor_local({'position':[c['x'],c['y'],c['z']],'yaw':c['yaw']},x,z)
   if abs(lx)<c['w']/2+.22 and abs(lz)<c['d']/2+.22:return True
  return False
@@ -1291,6 +1304,73 @@ if _EDITOR_DOC:
  for o in _EDITOR_DOC['objects']:
   if o['type']=='doorway'and o.get('doorId'):
    x,y,z=_editor_world_point(*o['position']);DOORS[o['doorId']]=(x,z)
+
+
+# Optional game-first candidate rules. Existing campaign/save IDs stay authoritative.
+_CAMPAIGN=None
+if DATA.get('campaign'):
+ from campaign_rules import CampaignGeometry
+ for c in DATA['containers']:
+  if c.get('followTerrain'):c['floor']=terrain_height(c['x'],c['z'])
+ _CAMPAIGN=CampaignGeometry(DATA)
+ DOORS.update(_CAMPAIGN.doors)
+ _CAMPAIGN_SURFACE=surface_height
+ _CAMPAIGN_WALKABLE=walkable
+ _CAMPAIGN_CLEAR=clear_line
+ _CAMPAIGN_DISPATCH=dispatch
+ _CAMPAIGN_VALIDATE=validate_save
+
+ def surface_height(x,z,last_y=0):
+  return _CAMPAIGN.height(x,z,last_y,_CAMPAIGN_SURFACE(x,z,last_y))
+
+ def walkable(s,x,z,r=.22):
+  return _CAMPAIGN_WALKABLE(s,x,z,r)and not _CAMPAIGN.blocked(x,z,surface_height(x,z,s['player'].get('y',0)),s['doors'],r)
+
+ def clear_line(s,a,b):
+  return _CAMPAIGN_CLEAR(s,a,b)and not _CAMPAIGN.line_blocked(a,b,s['player'].get('y',0),s['doors'])
+
+ def _clear_saved_player(s):
+  p=s['player'];original=dict(p);feet=p.get('y',0)
+  if not _CAMPAIGN.blocked(p['x'],p['z'],feet,s['doors']):return
+  scene=_CAMPAIGN.scene_at(p['x'],p['z'],0)
+  # Search a deterministic 20 cm grid, nearest first, within four metres. An
+  # authored house keeps the player in that same footprint and on its floor.
+  floor=next((o['position'][1]for o in scene['objects']if o['type']=='floor'and abs(o['position'][1]-feet)<.08),None)if scene else None
+  offsets=sorted((ix*ix+iz*iz,ix,iz)for ix in range(-20,21)for iz in range(-20,21)if 0<ix*ix+iz*iz<=400)
+  for _,ix,iz in offsets:
+   x=original['x']+ix*.2;z=original['z']+iz*.2
+   if zone_at(x,z)!=s['zone']or(scene and _CAMPAIGN.scene_at(x,z,0)is not scene):continue
+   y=surface_height(x,z,feet)
+   if abs(y-feet)>.08 or(floor is not None and abs(y-floor)>.00001):continue
+   if not walkable(s,x,z,.29):continue
+   p.update(x=x,y=y,z=z)
+   note(s,'Your saved position moved a short distance clear of changed furniture on the same floor.',
+        id='candidate-player-clearance',fromPose=original,toPose=dict(p))
+   return
+  raise ValueError('No clear position within four metres on this saved floor. The original save has been kept; choose another backup or report this position.')
+
+ def validate_save(value):
+  s=_CAMPAIGN_VALIDATE(value)
+  _clear_saved_player(s)
+  for a in DATA.get('campaignSpawnAdjustments',[]):
+   enemy=next((e for e in s['enemies']if e['id']==a['id']),None)
+   if enemy and enemy['health']>0 and math.hypot(enemy['x']-a['from'][0],enemy['z']-a['from'][1])<1.25 and _CAMPAIGN.blocked(enemy['x'],enemy['z'],enemy.get('y',0),s['doors']):
+    enemy['x'],enemy['z']=a['to'];enemy['y']=surface_height(enemy['x'],enemy['z'])
+    for key in ['home','target']:
+     if key in enemy and math.hypot(enemy[key][0]-a['from'][0],enemy[key][1]-a['from'][1])<1.25:enemy[key]=list(a['to'])
+    note(s,'A quayside patrol moved clear of the changed cargo layout.',id='candidate-patrol-clearance:'+enemy['id'])
+  return s
+
+ def dispatch(state,action):
+  if not isinstance(action,dict)or action.get('type')!='climb':return _CAMPAIGN_DISPATCH(state,action)
+  s=copy.deepcopy(state);s['events']=[]
+  try:
+   pose,route=_CAMPAIGN.climb(s['player'],action.get('id'),s['zone'])
+   s['stats']['metres']+=abs(pose['y']-s['player'].get('y',0));s['player']=pose
+   advance(s,min(4,route['duration']),False,False,False,{})
+   if s['zone']==route['zone']:note(s,route['name']+'.','door',climb=route['id'])
+  except ValueError as error:note(s,str(error),level='warning')
+  return _finish(s)
 
 
 _state=None

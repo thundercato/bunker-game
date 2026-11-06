@@ -1,7 +1,7 @@
 {
-  "name": "Field Signal: Overgrowth",
-  "short_name": "Overgrowth",
-  "description": "Physical loot, model inspection and a zoomable field atlas.",
+  "name": "Field Signal",
+  "short_name": "Field Signal",
+  "description": "Explore the coast, search furnished homes and keep a physical field journal.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

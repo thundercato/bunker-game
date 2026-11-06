@@ -2,6 +2,7 @@ import * as T from './vendor/three.js';
 import {World as OvergrowthWorld, DATA} from './world-v11.js';
 import {LayoutScene, createMaterials} from './layout-renderer.js';
 import {toWorld} from './world-document.js';
+import {bindingAnchor} from './layout-core.js';
 import {previewBuilding, insidePreview, moveInPreview} from './world-preview.js';
 import {validLand} from './terrain.js';
 export {DATA};
@@ -10,9 +11,19 @@ export class World extends OvergrowthWorld {
   super(canvas, quality);
   if (DATA.editorLayout) this.v11Ready = this.v11Ready.then(() => this.mountEditedLayout());
  }
- async mountEditedLayout() {
-  const building = previewBuilding(DATA), doc = building.layout;
-  const compiled = new LayoutScene({library: this.library, materials: await createMaterials(), editor: false});
+ async mountEditedLayout() {return this.mountBuildingScene(previewBuilding(DATA));}
+ async mountBuildingScene(building) {
+  const doc = building.layout;
+  // An isolated authored-home preview also needs its licensed model paths.
+  // Register files only; never import normal campaign rules or saved state here.
+  if (doc.objects.some(o => o.asset?.startsWith('campaign_')) && !this.library.files.campaign_chair) {
+   const response = await fetch('assets/campaign/registry.json');
+   if (!response.ok) throw Error('Campaign asset registry unavailable');
+   const registry = await response.json();
+   this.library.files = {...this.library.files, ...Object.fromEntries(registry.assets.map(a => [a.id, a.path]))};
+  }
+  this.layoutMaterials ??= await createMaterials();
+  const compiled = new LayoutScene({library: this.library, materials: this.layoutMaterials, editor: false});
   await compiled.load(doc);
   if (compiled.errors.length) throw Error('Preview model failed: ' + compiled.errors.join('; '));
   this.layoutPreview = compiled;
@@ -27,7 +38,7 @@ export class World extends OvergrowthWorld {
     this.lamp(...position, o.colour, o.intensity, 'field', false);
    }
    if (o.binding?.type === 'container') {
-    const anchor = toWorld(building.transform, [o.position[0], o.position[1] + Math.min(.8, o.size[1]/2), o.position[2]]);
+    const anchor = toWorld(building.transform, bindingAnchor(o));
     const it = this.addInteract(root, 'container', o.binding.id, o.name, anchor); it.zone = 'field';
     this.containerMeshes[o.binding.id] = {group: root, hinge: new T.Group(), angle: 0};
    }
