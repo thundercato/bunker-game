@@ -48,13 +48,19 @@ or publication is implied. See `EDITOR_V2_PROGRESS.md` for actual status/results
    approaches and regional counts. Follow repair links, then rerun; changed drafts
    invalidate report export. Recovery errors are visible. Checks do not approve a
    release or replace walking the actual building.
-8. Test in game retains the existing local-layout preview. Connected game preview is
-   disabled in canonical main until its runtime adapter is accepted. To reproduce the
-   tested **unmerged** adapter combination, follow the compatibility record below.
+8. Test in game retains the existing local-layout preview. **Connected game preview**
+   uses the accepted main 11.1 adapter for this complete existing building and its
+   saved placement/local contents. Try Survey hut, Forester’s cottage and Rail signal
+   box in dry, non-overlapping locations north of the swamp, with a manual foundation
+   from 0 to 8 m. The runtime rejects unsafe placements. Open doors, walk the stairs,
+   search a moved container and check Atlas. Normal campaign/settings/journal are
+   isolated. Return to the same design and export/reload it. Terrain/paths/water/
+   district drafts and proposal loot/graphs do not activate in this preview.
 
 ## Automated checks
 
 ```sh
+python3 -m pip install --disable-pip-version-check shapely==2.1.2
 python3 -m unittest discover -s site/tests -p 'test_*.py' -v
 for f in site/tests/editor_v2_*.mjs; do node "$f"; done
 node site/tests/test_client.mjs
@@ -62,31 +68,53 @@ node site/tests/test_atlas.mjs
 node site/tests/test_layout.mjs
 node site/tests/test_world_v2.mjs
 node site/tests/test_world_document.mjs
+node site/tests/test_world_preview.mjs
+node site/tests/test_journal.mjs
+node site/tests/test_search_props.mjs
+node site/tests/test_districts.mjs
+node site/tests/test_campaign_interiors.mjs
+node site/tests/test_campaign.mjs
+node site/tests/test_roofs.mjs
+node site/tests/test_campaign_road_surfaces.mjs
+python3 tools/audit_world.py --check
+python3 tools/compile_campaign_road_surfaces.py --check
 python3 tools/build.py
 for f in tests/editor_v2_*_browser.cjs; do node "$f"; done
 node tests/editor_v2_offline.cjs
 EDITOR_PRIOR_WORKER=editor21 node tests/editor_v2_offline.cjs
+EDITOR_PRIOR_WORKER=release111 node tests/editor_v2_offline.cjs
 node tests/editor_controls.cjs
 node tests/editor_browser.cjs
 node tests/world_v2_browser.cjs
+node tests/world_preview_browser.cjs
+node tests/journal_browser.cjs
+node tests/campaign_browser.cjs
+node tests/campaign_editor_browser.cjs
 node tests/ci_smoke.cjs
 node tests/fieldcraft_browser.cjs
 node tests/overgrowth_browser.cjs
 ```
 
+Shapely is a development-only road reproducibility dependency and is not included
+in the public package. [Current CI workflow](../.github/workflows/deploy-pages.yml)
+is authoritative for the complete required suite.
+
 Run rendering suites sequentially. Every acceptance test serves canonical dist,
 not source. Missing imports/data files fail before browser startup. Upgrade fixtures
-include the published world2 worker and the previous editor review worker; all five
+include the published world2 worker, previous editor review worker and released
+11.1 worker; all five
 workspaces restart offline and preserve save/draft sentinels. Runtime previews have
 separate campaign/settings/journal namespaces. Linux Chromium/SwiftShader is not
 physical Mac/iPhone testing or a device benchmark.
 
-## Explicit runtime compatibility build
+## Earlier explicit runtime compatibility build
 
 [Exact tested revision, commands, fixtures and screenshots](EDITOR_V2_RUNTIME_COMPATIBILITY.md).
 `tools/editor_v2_compatibility.py` creates a new detached runtime worktree, preserves
 that runtime/compiler, and unions only explicit public editor paths. It neither
 merges a draft PR nor produces an approved release. Never deploy this artifact.
-Main tests verify that the optional adapter is unavailable without importing a
-missing module or creating a fake preview. Actual-game compatibility is a separate
-opt-in test, not a silent CI skip represented as gameplay support.
+That recorded combination is historical: PR81/83 were subsequently accepted into
+main and reconciled in `8cd2b24`. Normal `tests/editor_v2_preview_browser.cjs` now runs
+the real three-building journey from canonical dist; unsupported-runtime capability
+still has explicit pure regression coverage. Compatibility helpers remain optional
+development tools, never prerequisites for release acceptance.

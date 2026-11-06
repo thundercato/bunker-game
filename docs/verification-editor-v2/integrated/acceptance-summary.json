@@ -1,0 +1,35 @@
+{
+  "publicBrowserPackage": "af8a2e28773c6d98d73d9e3b863d8555d7c0f546",
+  "fixtureCorrection": "00f3f59",
+  "canonicalResources": 595,
+  "editorSuites": {
+    "assets": 21,
+    "bindings": 8,
+    "connected": 10,
+    "environment": 8,
+    "hierarchy": 9,
+    "interior": 13,
+    "loot": 10,
+    "missions": 15,
+    "preview-integrated": 38,
+    "recovery": 8,
+    "resize": 16,
+    "validation": 6,
+    "world": 16
+  },
+  "offlineSuites": {
+    "offline": 7,
+    "offline-editor21": 7,
+    "offline-release111": 7
+  },
+  "retainedSuites": {
+    "campaignEditor": 20,
+    "controls": 9,
+    "editorGamePreview": 31,
+    "worldV2": "aggregate PASS",
+    "worldMovedPreviewEarlier": 15
+  },
+  "finalBrowserErrors": [],
+  "finalMissingResources": [],
+  "publishedEditorPR": false
+}

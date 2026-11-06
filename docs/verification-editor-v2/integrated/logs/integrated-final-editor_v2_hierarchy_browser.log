@@ -1,0 +1,9 @@
+PASS Stable binding deep link selects actual existing container
+PASS Filtered bulk selection and named collection restore stable children
+PASS Bulk local translation is one reversible layout transaction
+PASS Bulk lock prevents an accidental partial group move
+PASS Hide and isolate detach gizmos and preserve document
+PASS Portable collection export/import and reload preserve references
+PASS Rejected building draft is retained before fallback replaces its key
+PASS Rejected collection metadata is backed up before a replacement collection is saved
+PASS Laptop editor has no exceptions or failed asset requests

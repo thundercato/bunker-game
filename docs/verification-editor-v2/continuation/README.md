@@ -1,4 +1,7 @@
-# Canonical editor continuation evidence
+# Earlier canonical editor continuation evidence
+
+This folder records the pre-main-integration checkpoint `f31920a` (309/307).
+For current accepted-main integration, use [integrated evidence](../integrated/README.md).
 
 Actual Linux Chromium141/SwiftShader output, not concept art or physical Apple
 hardware testing. See ../../EDITOR_V2_PROGRESS.md for scope, exact results and

@@ -1,0 +1,13 @@
+test_complete_module_graph_passes_and_built_omission_fails (test_editor_package.EditorPackageTests.test_complete_module_graph_passes_and_built_omission_fails) ... ok
+test_credentials_cannot_ship_even_when_explicitly_listed (test_editor_package.EditorPackageTests.test_credentials_cannot_ship_even_when_explicitly_listed) ... ok
+test_literal_editor_data_fetch_must_be_packaged (test_editor_package.EditorPackageTests.test_literal_editor_data_fetch_must_be_packaged) ... ok
+test_missing_import_is_reported_with_importer_before_build (test_editor_package.EditorPackageTests.test_missing_import_is_reported_with_importer_before_build) ... ok
+test_new_unreferenced_editor_workspace_requires_explicit_review (test_editor_package.EditorPackageTests.test_new_unreferenced_editor_workspace_requires_explicit_review) ... ok
+test_private_or_test_paths_cannot_ship (test_editor_package.EditorPackageTests.test_private_or_test_paths_cannot_ship) ... ok
+test_symlink_cannot_copy_a_private_file_outside_public_source (test_editor_package.EditorPackageTests.test_symlink_cannot_copy_a_private_file_outside_public_source) ... ok
+test_workspace_entrypoint_and_stylesheet_dependencies_are_checked (test_editor_package.EditorPackageTests.test_workspace_entrypoint_and_stylesheet_dependencies_are_checked) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.012s
+
+OK

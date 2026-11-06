@@ -1,0 +1,22 @@
+{
+  "checks": [
+    "Actual district numeric edits use one canonical transform and retain asset/collision identity",
+    "District numeric edits share durable world undo and redo",
+    "District isolation and layer visibility remain authoring metadata",
+    "District IDs and edited transforms survive canonical export and reload",
+    "Real building drag Escape restores document",
+    "Real snapped building drag is one undo transaction",
+    "Locked building rejects mouse movement",
+    "Numeric yaw uses degrees and persists radians",
+    "Actual sculpt stroke cancels atomically",
+    "Individual foliage lock survives terrain stroke",
+    "Curved road control insertion and deletion",
+    "World draft JSON reload and region UI sync",
+    "Rejected world draft retained before explicit replacement save",
+    "Storage failure keeps unsaved world in its workspace, blocks interior navigation and permits a portable export",
+    "Successful retry saves the retained world and clears its leave guard",
+    "No browser exceptions or missing assets"
+  ],
+  "errors": [],
+  "missing": []
+}

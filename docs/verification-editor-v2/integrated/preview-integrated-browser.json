@@ -1,0 +1,313 @@
+{
+  "kind": "canonical-dist",
+  "source": {
+    "id": "overgrowth-v11",
+    "revision": "6b4f9fb9401398a65eee576f40b2d80805ef6c76",
+    "sha256": "84fcc9d23960e75b84053d794636ce63c88a3ddd3d432b1d908fe8cd19a0d7c8"
+  },
+  "editorRelease": {
+    "name": "Field Signal World Editor",
+    "version": "2.1.2-preview",
+    "gameBase": "Field Signal 11.1.0",
+    "schema": "field-signal-layout/1",
+    "buildings": 37,
+    "propModels": 31,
+    "builtAt": "2026-11-06",
+    "worldMap": "editor/world.html",
+    "worldStatus": "Connected existing-building isolated previews; terrain, road, water and other world drafts remain authoring-only",
+    "packaging": "canonical manifest; editor suite offline-capable after cache completion",
+    "worldDocumentSchema": "field-signal-world-document/1",
+    "workspaces": [
+      "editor/",
+      "editor/world.html",
+      "editor/loot.html",
+      "editor/missions.html",
+      "editor/validation.html"
+    ],
+    "movedGamePreview": "Accepted runtime adapter; bounded existing-building isolated preview, not normal campaign publication"
+  },
+  "checks": [
+    {
+      "name": "Canonical package enables the accepted moved-building adapter",
+      "pass": true
+    },
+    {
+      "name": "hut numeric interior edit uses canonical local position",
+      "pass": true,
+      "detail": [
+        1.2,
+        0,
+        -2.3999999999999986
+      ]
+    },
+    {
+      "name": "hut world view preserves selected whole building",
+      "pass": true
+    },
+    {
+      "name": "hut focused view keeps local transform and selection after world move",
+      "pass": true
+    },
+    {
+      "name": "hut canonical JSON export/import/reload keeps complete design",
+      "pass": true
+    },
+    {
+      "name": "hut actual runtime composes moved/rotated/raised parent exactly once",
+      "pass": true,
+      "detail": {
+        "building": "hut",
+        "objects": 12,
+        "transform": {
+          "position": [
+            35,
+            1.25,
+            -48
+          ],
+          "yaw": 1.5707963267948966
+        },
+        "versioned": true,
+        "errors": []
+      }
+    },
+    {
+      "name": "hut rendered container agrees with canonical transformed position",
+      "pass": true,
+      "detail": {
+        "expected": [
+          32.6,
+          1.25,
+          -49.2
+        ],
+        "actual": [
+          32.6,
+          1.25,
+          -49.2
+        ],
+        "spawn": {
+          "x": 39.9,
+          "z": -48,
+          "y": 1.25,
+          "yaw": 1.5707963267948966,
+          "pitch": 0
+        }
+      }
+    },
+    {
+      "name": "hut real Use opens door and keyboard crosses raised rotated entrance",
+      "pass": true
+    },
+    {
+      "name": "hut real Use searches relocated bound container",
+      "pass": true
+    },
+    {
+      "name": "Mission-critical recorder survives moved container authoring",
+      "pass": true
+    },
+    {
+      "name": "Actual Atlas objective targets the moved mission cupboard",
+      "pass": true,
+      "detail": {
+        "expected": {
+          "x": 32.6,
+          "z": -48.885
+        },
+        "actual": {
+          "x": 32.6,
+          "z": -48.885
+        }
+      }
+    },
+    {
+      "name": "hut campaign/settings/journal/book stay isolated",
+      "pass": true
+    },
+    {
+      "name": "hut return recovers exact canonical authoring document",
+      "pass": true
+    },
+    {
+      "name": "forester numeric interior edit uses canonical local position",
+      "pass": true,
+      "detail": [
+        -2.15,
+        0,
+        -0.65
+      ]
+    },
+    {
+      "name": "forester world view preserves selected whole building",
+      "pass": true
+    },
+    {
+      "name": "forester focused view keeps local transform and selection after world move",
+      "pass": true
+    },
+    {
+      "name": "forester canonical JSON export/import/reload keeps complete design",
+      "pass": true
+    },
+    {
+      "name": "forester actual runtime composes moved/rotated/raised parent exactly once",
+      "pass": true,
+      "detail": {
+        "building": "forester",
+        "objects": 52,
+        "transform": {
+          "position": [
+            -140,
+            0.75,
+            -40
+          ],
+          "yaw": 0.6457718232379019
+        },
+        "versioned": true,
+        "errors": []
+      }
+    },
+    {
+      "name": "forester rendered container agrees with canonical transformed position",
+      "pass": true,
+      "detail": {
+        "expected": [
+          -142.10824611165052,
+          0.75,
+          -39.22521078175384
+        ],
+        "actual": [
+          -142.10824611165052,
+          0.75,
+          -39.22521078175384
+        ],
+        "spawn": {
+          "x": -136.44929136340292,
+          "z": -35.28805049072098,
+          "y": 0.75,
+          "yaw": 0.6457718232379019,
+          "pitch": 0
+        }
+      }
+    },
+    {
+      "name": "forester real Use opens door and keyboard crosses raised rotated entrance",
+      "pass": true
+    },
+    {
+      "name": "forester keyboard physically ascends transformed stairs to upper floor",
+      "pass": true
+    },
+    {
+      "name": "forester upper-floor keyboard movement retains parent plus floor height",
+      "pass": true
+    },
+    {
+      "name": "forester real Use searches relocated bound container",
+      "pass": true
+    },
+    {
+      "name": "forester campaign/settings/journal/book stay isolated",
+      "pass": true
+    },
+    {
+      "name": "forester return recovers exact canonical authoring document",
+      "pass": true
+    },
+    {
+      "name": "station numeric interior edit uses canonical local position",
+      "pass": true,
+      "detail": [
+        -4.1,
+        0,
+        -2.6
+      ]
+    },
+    {
+      "name": "station world view preserves selected whole building",
+      "pass": true
+    },
+    {
+      "name": "station focused view keeps local transform and selection after world move",
+      "pass": true
+    },
+    {
+      "name": "station canonical JSON export/import/reload keeps complete design",
+      "pass": true
+    },
+    {
+      "name": "station actual runtime composes moved/rotated/raised parent exactly once",
+      "pass": true,
+      "detail": {
+        "building": "station",
+        "objects": 19,
+        "transform": {
+          "position": [
+            -160,
+            1.5,
+            -145
+          ],
+          "yaw": -0.4886921905584123
+        },
+        "versioned": true,
+        "errors": []
+      }
+    },
+    {
+      "name": "station rendered container agrees with canonical transformed position",
+      "pass": true,
+      "detail": {
+        "expected": [
+          -162.3994590674783,
+          1.5,
+          -149.22049714885534
+        ],
+        "actual": [
+          -162.3994590674783,
+          1.5,
+          -149.22049714885534
+        ],
+        "spawn": {
+          "x": -162.76988222043676,
+          "z": -139.79060920213232,
+          "y": 1.5,
+          "yaw": -0.4886921905584123,
+          "pitch": 0
+        }
+      }
+    },
+    {
+      "name": "station real Use opens door and keyboard crosses raised rotated entrance",
+      "pass": true
+    },
+    {
+      "name": "station keyboard physically ascends transformed stairs to upper floor",
+      "pass": true
+    },
+    {
+      "name": "station upper-floor keyboard movement retains parent plus floor height",
+      "pass": true
+    },
+    {
+      "name": "station real Use searches relocated bound container",
+      "pass": true
+    },
+    {
+      "name": "station campaign/settings/journal/book stay isolated",
+      "pass": true
+    },
+    {
+      "name": "station return recovers exact canonical authoring document",
+      "pass": true
+    },
+    {
+      "name": "No browser exceptions or failed asset/module requests",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "missing": []
+      }
+    }
+  ],
+  "errors": [],
+  "missing": []
+}

@@ -20,8 +20,8 @@
     "editor/tools/world-authoring.js",
     "editor/tools/world-inspector.js"
   ],
-  "canonicalBuildFiles": 309,
-  "manifestResources": 307,
+  "canonicalBuildFiles": 597,
+  "manifestResources": 595,
   "addedPublicFiles": [
     {
       "path": "editor/connected-world.js",
@@ -62,6 +62,7 @@
       "dependencies": [
         "editor/panels/assets-core.js",
         "layout-renderer.js",
+        "search-props.js",
         "vendor/OrbitControls.js",
         "vendor/three.js"
       ]
@@ -112,7 +113,7 @@
       "path": "editor/panels/loot.js",
       "dependencies": [
         "editor/panels/loot-core.js",
-        "world.json"
+        "editor/source-adapter.js"
       ]
     },
     {
@@ -127,7 +128,7 @@
       "path": "editor/panels/missions.js",
       "dependencies": [
         "editor/panels/missions-core.js",
-        "world.json"
+        "editor/source-adapter.js"
       ]
     },
     {
@@ -143,9 +144,9 @@
     {
       "path": "editor/panels/recovery.js",
       "dependencies": [
-        "editor/panels/assets-core.js",
         "editor/panels/recovery-core.js",
-        "editor/session.js"
+        "editor/session.js",
+        "editor/source-adapter.js"
       ]
     },
     {
@@ -171,7 +172,7 @@
         "editor/panels/loot-core.js",
         "editor/panels/validation-core.js",
         "editor/session.js",
-        "world.json"
+        "editor/source-adapter.js"
       ]
     },
     {
@@ -183,9 +184,21 @@
     {
       "path": "editor/session.js",
       "dependencies": [
+        "editor/source-adapter.js",
         "editor/tools/world-authoring.js",
         "layout-core.js",
         "world-document.js"
+      ]
+    },
+    {
+      "path": "editor/source-adapter.js",
+      "dependencies": [
+        "asset-ids.js",
+        "campaign-loader.js",
+        "editor/source-context.json",
+        "layout-core.js",
+        "preview-document.js",
+        "world.json"
       ]
     },
     {
@@ -250,28 +263,32 @@
         "editor/panels/validation.js",
         "editor/suite-bootstrap.js"
       ]
-    },
-    {
-      "path": "world-document.js",
-      "dependencies": []
     }
   ],
-  "status": "Canonical build passes explicit import closure. No overlay; tests and credential/private paths rejected. New runtime adapter world-preview.js remains absent and capability-gated, not approved or shipped.",
+  "status": "RESOLVED: canonical build/import closure and all13 packaged browser suites plus all3 prior-worker offline upgrades pass without overlay. Accepted bounded building adapter is bundled; final-head normal CI is the merge gate.",
   "acceptance": [
-    "Canonical python3 tools/build.py: 309 public files / 307 explicit cached resources, no overlay.",
-    "Both prior worker fixtures: 7 checks each passed through real Prepare editor for offline action and five packaged workspaces; retained save/draft bytes.",
-    "site/tests/test_editor_package.py: 8 tests passed, including required JSON fetch omission, private/credential paths and escaping symlinks."
+    "Canonical python3 tools/build.py:597 explicit public files /595 cached resources,36 editor additions over accepted main; no overlay.",
+    "All13 packaged browser suites pass, including38 actual-game checks forhut/Forester/station; zero final exceptions/missing resources.",
+    "World2,previouseditor2.1,released11.1 worker fixtures:7 checks each, all5 workspaces offline and595 resources cached via real UI; retained campaign/settings/both journals/structured book/preview namespaces/draft bytes.",
+    "173 Python tests pass with zero skips; all15 editor pure suites pass Node22, including16 asset/30 interior/9 source/16 recovery cases and599 resize assertions.",
+    "Packaging regression8 tests pass after final metadata build; generated roads reproducible and264 navigation audit checks pass."
   ],
   "cacheReconciliation": {
-    "canonicalPrior": "field-signal-overgrowth-v11-world2.0.0",
-    "editorSuite": "field-signal-overgrowth-v11-editor2.1.1",
-    "unmergedPR83": "field-signal-game-first-candidate-1",
-    "resolution": "Unique editor cache; fresh suite and legacy runtime bootstraps; preserve PR83 candidate runtime changes separately. Existing public caches retire only after complete cache-all success. No localStorage clearing."
+    "originalCanonicalPrior": "field-signal-overgrowth-v11-world2.0.0",
+    "priorReview": "field-signal-overgrowth-v11-editor2.1.0",
+    "acceptedRuntimePrior": "field-signal-game-first-release-11-1",
+    "editorSuite": "field-signal-11.1-editor2.1.2",
+    "resolution": "Preserve accepted main resource traversal order and runtime fresh-entry gates, append explicit editor additions, use one matching cache in SW/runtime-ready/suite-bootstrap. Retire public caches only after complete cache-all; no storage clearing."
   },
   "addedPublicFileCount": 36,
   "priorReviewCache": "field-signal-overgrowth-v11-editor2.1.0",
   "optionalRuntimeDependencies": {
-    "editor/preview-launcher.js": "world-preview.js imported only with trusted capability; not bundled in canonical main"
+    "editor/preview-launcher.js": "world-preview.js is now bundled from accepted main; capability metadata validated against shipped source revision/digest"
   },
-  "developmentOverlayRequired": false
+  "developmentOverlayRequired": false,
+  "additiveBaseCommit": "0aacdb48f1cdbef3480dc7f8812a8fd5604c5f5e",
+  "acceptedRuntimeIntegrationCommit": "8cd2b24a7218c99bae383df1ef38c4a270842d18",
+  "finalMetadataCommit": "50562903e5a6179de8e1d3600cb77206a512aa5f",
+  "finalDocumentationMain": "220fb45",
+  "ciResult": "See PR82 final-head checks and canonical-editor-dist artifact; not inferred from previous heads."
 }

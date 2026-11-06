@@ -23,6 +23,7 @@ editor/panels/validation.css
 editor/panels/validation.js
 editor/preview-launcher.js
 editor/session.js
+editor/source-adapter.js
 editor/source-context.json
 editor/suite-bootstrap.js
 editor/tools/environment-brush-core.js
@@ -33,4 +34,3 @@ editor/tools/terrain-dirty-core.js
 editor/tools/world-authoring.js
 editor/tools/world-inspector.js
 editor/validation.html
-world-document.js

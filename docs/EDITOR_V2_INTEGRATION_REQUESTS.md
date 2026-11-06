@@ -67,9 +67,12 @@ adoption. No new-building IDs or copied quest bindings are introduced.
 
 The earlier detached combination passed 38 actual-browser assertions for hut,
 forester and station. That result remains historical evidence pinned to `edffe7b`
-and recorded editor hashes. A fresh canonical three-building journey is being
-verified after this merge; its result is recorded in progress/CI and must not be
-inferred from the older compatibility run.
+and recorded editor hashes. A fresh canonical three-building journey passed 38/38 after this merge, with
+zero exceptions or failed resources: actual 52-object Forester plus hut/station,
+physical stairs/upstairs, real doors/search, hut Atlas, exact return, JSON/reload and
+isolation. See the integrated evidence and final-head CI. This is independent of
+the older compatibility run. The preview applies one selected layout over its
+isolated base world, not all normal campaign/district enrichment.
 
 The accepted runtime extends stair sampling to 0.25 m past the top and handles the
 floor slab lip. Rotated floor openings still use conservative AABBs. Editor landing

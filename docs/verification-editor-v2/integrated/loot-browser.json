@@ -1,0 +1,19 @@
+{
+  "errors": [],
+  "missing": [],
+  "samples": 1000,
+  "legacyWeight": "8",
+  "tests": [
+    "real numeric edits",
+    "default inheritance",
+    "container override",
+    "bulk preview",
+    "undo redo",
+    "seeded simulation",
+    "JSON import export",
+    "reload persistence",
+    "invalid import rejection",
+    "campaign/layout isolation"
+  ],
+  "platform": "Linux headless Chromium"
+}

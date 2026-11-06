@@ -6,7 +6,10 @@ art, device testing or a performance benchmark. All files are from local review
 of this branch, not a deployed site. See `../EDITOR_V2_PROGRESS.md` for exact
 commands/results, observed errors and remaining runtime dependencies.
 
-**Current continuation:** [canonical build, connected editing, offline, recovery and
+**Current integrated canonical evidence:** [accepted 11.1 source, 38 game-preview
+checks,595-resource offline upgrades, real uppercutaways and final reports](integrated/README.md).
+
+**Earlier continuation:** [canonical build, connected editing, offline, recovery and
 validation evidence](continuation/README.md). IR-01 is resolved; the files below
 retain the original checkpoint history. The separate runtime-preview evidence uses
 an explicitly unmerged runtime compatibility build, not the canonical release.
@@ -27,5 +30,5 @@ lists. `resize-run1.json` and `resize-run2.json` preserve consecutive final runs
 `logs/` retains the original pure, browser, build and failed canonical startup
 record. That packaging failure was subsequently fixed and acceptance rerun using
 normal dist (see the continuation). `editor-runtime-files.txt` now enumerates the
-36 additive public paths relative to de5d758; the original omission was 17 files.
+36 additive editor paths relative to accepted main `0aacdb4`; the original omission was 17 files.
 It is an audit list, not a replacement release/cache manifest.

@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Selected real container reveals exact loot and mission authoring links",
+    "Actual refuge reference retains all five rooms and explicit read-only boundary",
+    "Selecting the actual radio reveals its existing ten mission offers",
+    "Vault/stair transition keeps source and target reference coordinates",
+    "Existing refuge storage links to its real container proposal",
+    "Reference inspection does not alter the authored layout or move a station",
+    "Station mission link selects the exact stable mission proposal",
+    "Packaged production-subpath journey has no exceptions or missing resources"
+  ],
+  "errors": [],
+  "missing": []
+}

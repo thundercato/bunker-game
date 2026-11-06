@@ -40,8 +40,11 @@ files are not assumed visible.
   validate, not reasons to add a second editor collision implementation.
 
 The earlier detached three-building run passed 38 assertions at its recorded
-revision. Fresh merged canonical acceptance is a separate run; consult the current
-progress and CI evidence rather than treating that historical pass as a new result.
+revision. Fresh merged canonical acceptance separately passed 38/38 with zero exceptions
+or failed resources, including actual 52-object Forester and both physical stair
+journeys. Consult current progress/integrated evidence and final-head CI. The
+selected-building loader overlays its isolated base world and skips normal
+campaign enrichment; other districts/homes and world drafts are outside that test.
 
 ## Released campaign content and its limits
 
@@ -85,6 +88,6 @@ integrated; those later shared mechanics remain separate work.
 The canonical build contains **597 explicit files / 595 cache resources** using
 `field-signal-11.1-editor2.1.2`. The allow-list/import closure retains runtime and
 editor resources without shipping tests, private files or build-only dependencies.
-CI exercises world2, editor2.1 and released11.1 prior-worker fixtures and all five
+CI exercises world2, editor2.1 and released 11.1 prior-worker fixtures and all five
 workspaces. Exact fresh pass/failure results belong to the progress/testing record
 and current PR checks. This editor branch has not merged or deployed its suite.

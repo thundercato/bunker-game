@@ -1,0 +1,2429 @@
+{
+  "kind": "canonical-production-build-no-overlay",
+  "editorCommit": "af8a2e28773c6d98d73d9e3b863d8555d7c0f546",
+  "acceptedMain": "0aacdb48f1cdbef3480dc7f8812a8fd5604c5f5e",
+  "branch": "codex/editor-v2-suite",
+  "builtAtUTC": "2026-11-06T19:43:02.818322+00:00",
+  "source": {
+    "id": "overgrowth-v11",
+    "revision": "6b4f9fb9401398a65eee576f40b2d80805ef6c76",
+    "sha256": "84fcc9d23960e75b84053d794636ce63c88a3ddd3d432b1d908fe8cd19a0d7c8"
+  },
+  "editorRelease": {
+    "name": "Field Signal World Editor",
+    "version": "2.1.2-preview",
+    "gameBase": "Field Signal 11.1.0",
+    "schema": "field-signal-layout/1",
+    "buildings": 37,
+    "propModels": 31,
+    "builtAt": "2026-11-06",
+    "worldMap": "editor/world.html",
+    "worldStatus": "Connected existing-building isolated previews; terrain, road, water and other world drafts remain authoring-only",
+    "packaging": "canonical manifest; editor suite offline-capable after cache completion",
+    "worldDocumentSchema": "field-signal-world-document/1",
+    "workspaces": [
+      "editor/",
+      "editor/world.html",
+      "editor/loot.html",
+      "editor/missions.html",
+      "editor/validation.html"
+    ],
+    "movedGamePreview": "Accepted runtime adapter; bounded existing-building isolated preview, not normal campaign publication"
+  },
+  "cacheResources": 595,
+  "explicitPublicFiles": 597,
+  "deploymentMarker": ".nojekyll",
+  "dirtyPublicSource": [],
+  "files": [
+    {
+      "path": "V10_CREDITS.md",
+      "sha256": "66de45588aa03798d5d26dc35174b9f84b92180318ddfaa7bee02def5b7f6d22"
+    },
+    {
+      "path": "V11_CREDITS.md",
+      "sha256": "91e85b28cc8405b2ccada7f45674a5e5cfc4c61ff37b4e64d2b25641b47011d7"
+    },
+    {
+      "path": "V7_CREDITS.md",
+      "sha256": "3a27a253b6af05b9d1bfad54731c3089a63d8228ce3c04e3880d16e43c616017"
+    },
+    {
+      "path": "V8_CREDITS.md",
+      "sha256": "b71149b430d2217128f0bdd31efa8f6f99a05e8512503604fa97a4b3c2642d6d"
+    },
+    {
+      "path": "V9_CREDITS.md",
+      "sha256": "b28a1bf513ec6aa0cf29031ec890752b3a9048aa943f679f9ecbf71967a0367b"
+    },
+    {
+      "path": "app.js",
+      "sha256": "bee310b57028485ba8cb3c9f4a608054e1aaffd7a9ea4989bfdd49dc77878709"
+    },
+    {
+      "path": "asset-ids.js",
+      "sha256": "97b190af3eaefed066c57580c39deb6f421d34bbd1ba91c4221a99e32b97524f"
+    },
+    {
+      "path": "asset-library.js",
+      "sha256": "e81001ecb7fa433847072096170dbecf8cd83b0a49b626a9cb827d136963e146"
+    },
+    {
+      "path": "assets/AUDIO_CREDITS.txt",
+      "sha256": "7980f4340cd74938c5e9c48e89592165f16000f39d7e9ac5990f90b7b347396a"
+    },
+    {
+      "path": "assets/PROVENANCE.txt",
+      "sha256": "68ade0b3e73f887db18cb1cbcd24dc0f8819c3160ec7f34645ad07b4413c7045"
+    },
+    {
+      "path": "assets/barrier/CREDIT.txt",
+      "sha256": "784e2c6e77f361a414f6f0c28de4fa5f5ab3184697ce0cf97339c96bda042642"
+    },
+    {
+      "path": "assets/barrier/arm.jpg",
+      "sha256": "091a2efcafea58c752914c69baee9087aefc5b3d6ab38bf458f088cb5e1b64b9"
+    },
+    {
+      "path": "assets/barrier/colour.jpg",
+      "sha256": "fad7882f7e9775802b0490a43f12370894a0a9423c1e703ea5fa0c733f14552b"
+    },
+    {
+      "path": "assets/barrier/model.json",
+      "sha256": "e0458eb6e9def867cdd2ca59aa6220fae19db17318dabb03423e0db1929fc791"
+    },
+    {
+      "path": "assets/barrier/normal.jpg",
+      "sha256": "8ebdd70554878ad356ce08fa99f8bbc7b583dcf5f7a878740f46c132ba1682b5"
+    },
+    {
+      "path": "assets/campaign/CREDITS.md",
+      "sha256": "7f402ebbcedbec967670f94fb352f8b76e956d90dd4fe38410303dbbf883c6c3"
+    },
+    {
+      "path": "assets/campaign/licences/city-kit-industrial.txt",
+      "sha256": "60a8c5c31191256ec9779dc18745dea6d69c46f4b29703459ce064c1765a59ea"
+    },
+    {
+      "path": "assets/campaign/licences/city-kit-roads.txt",
+      "sha256": "d23f51360ca2cd81711bc5b09ddfb28ac94da96d7ca2dbdef12c50f33f35c353"
+    },
+    {
+      "path": "assets/campaign/licences/furniture-kit.txt",
+      "sha256": "bc0de1a0742cb490f9ed4bae0bd284286ebb27e23149b9917c7d8c0d590b8b29"
+    },
+    {
+      "path": "assets/campaign/licences/survival-kit.txt",
+      "sha256": "62c8356876481204fa4d40dc59183dfed777adf987d7f2a1390fffe8a699f3ff"
+    },
+    {
+      "path": "assets/campaign/licences/train-kit.txt",
+      "sha256": "8ad3a0453dc1416d54e9af692dafe875a24069d577fe64edb193d3c8d868881a"
+    },
+    {
+      "path": "assets/campaign/models/barrel.glb",
+      "sha256": "c30553cd2fb524aa31d2f56211419a4f3508743dc258d7a7cba56bc86f06d88f"
+    },
+    {
+      "path": "assets/campaign/models/barrel_open.glb",
+      "sha256": "aff459442fcf0b9bcbcf73bf490ec20600507bed9f3653b9525116486141d04e"
+    },
+    {
+      "path": "assets/campaign/models/bathroom_cabinet.glb",
+      "sha256": "ab1cbca9869d0a51223ae8f906a4bb4cfa27191cc743fc7d0dc27b9c4032dca6"
+    },
+    {
+      "path": "assets/campaign/models/bathroom_cabinet_drawer.glb",
+      "sha256": "039b892d2b285f7712bffd67a2bafae02605c890f2181c5e39abd5a2b8084d99"
+    },
+    {
+      "path": "assets/campaign/models/bathroom_sink.glb",
+      "sha256": "0819eb56092d465508aa88167f02eaf74e1936378ec5f3338e1312068f8a808f"
+    },
+    {
+      "path": "assets/campaign/models/bed_bunk.glb",
+      "sha256": "54698e59884771a5aaba4b4169d17955775d58e6313d3e5131681680875b022f"
+    },
+    {
+      "path": "assets/campaign/models/bed_double.glb",
+      "sha256": "5eca428b0e653b8d50b7fac4457ce41346e170bf67d92d10edf33ec7be9b5d01"
+    },
+    {
+      "path": "assets/campaign/models/bed_single.glb",
+      "sha256": "0d00a3bd13232738fbcc8c546a0a2e3bd89c10580dd92e681f101dfded58c040"
+    },
+    {
+      "path": "assets/campaign/models/bedroll.glb",
+      "sha256": "0f078a6779cb614024a2ecceb4aef6198bbdf672b47c5930cb4a9d22d2c7364c"
+    },
+    {
+      "path": "assets/campaign/models/bedroll_packed.glb",
+      "sha256": "33d7e6cb562edaa5014fa9658745512c9faae14ca534dbddebaeb942df7289ba"
+    },
+    {
+      "path": "assets/campaign/models/bookcase_closed.glb",
+      "sha256": "4d077180fa978210e3a26d63d0e218b50a7ea69cc38302d2c5d56d9872bfd864"
+    },
+    {
+      "path": "assets/campaign/models/bookcase_closed_doors.glb",
+      "sha256": "41d7991d1881f092bcbf4ec887bb87aa37bf379c55992e0487245560bd82a8b9"
+    },
+    {
+      "path": "assets/campaign/models/bookcase_closed_wide.glb",
+      "sha256": "067e3e6b5c36ed7cf7603023891b0038e385c97d9435fd758f8aac96944039ee"
+    },
+    {
+      "path": "assets/campaign/models/bookcase_open.glb",
+      "sha256": "718a64280a078b37c074ceaabebd2b6d6f005405c1dbc87e218c7618a478fb33"
+    },
+    {
+      "path": "assets/campaign/models/bookcase_open_low.glb",
+      "sha256": "6e2af5e51a8b4068ea379e95dc281db41e03734987786058354539eb286c39e1"
+    },
+    {
+      "path": "assets/campaign/models/box.glb",
+      "sha256": "676971822a66a366f8adf1677b2a8a48eabe0f733fdc6dec98954dcaa9e8fdcb"
+    },
+    {
+      "path": "assets/campaign/models/box_large.glb",
+      "sha256": "15f4c82ebb4d1f0568ea4bcb658075150f0675c5d611b06c29ea0c74909c0eb1"
+    },
+    {
+      "path": "assets/campaign/models/bucket.glb",
+      "sha256": "87d0538afdddc174abbfb5d356a6f7178ce40ed8ea66912be01004d75864c32f"
+    },
+    {
+      "path": "assets/campaign/models/cabinet_bed.glb",
+      "sha256": "cfc81e8ff4f44e7cb43f3a2fa827ede133961a3164e8a06f8fea8e5503daa4ef"
+    },
+    {
+      "path": "assets/campaign/models/cabinet_bed_drawer.glb",
+      "sha256": "9c0ef1eea26f4f82c7b9e981d834638ffe7874d8c85e93a0f8dc465d539e037c"
+    },
+    {
+      "path": "assets/campaign/models/cabinet_bed_drawer_table.glb",
+      "sha256": "bf496ac357b10a02fa9a7105abb94127185d412fa992ea8bef09eec2aa88c94b"
+    },
+    {
+      "path": "assets/campaign/models/cabinet_television_doors.glb",
+      "sha256": "88acac29602546e9bd8a350cee7b8cd3497863a97da8e8791eb3f3fd5825ee07"
+    },
+    {
+      "path": "assets/campaign/models/cardboard_box_closed.glb",
+      "sha256": "63188460d4fb65380b6eeeb297f2f2e3c2136e4d8fd6fe9668abf43e344d0ede"
+    },
+    {
+      "path": "assets/campaign/models/cardboard_box_open.glb",
+      "sha256": "ae536f3dbd2233dbf9ca2b1ad962f3b5cf02f0cade8253647e48d0cb69a7b2ee"
+    },
+    {
+      "path": "assets/campaign/models/chair.glb",
+      "sha256": "e4d12bf81e389a74114bb9d73be6d0a172908b3d7a2d460148e3301aff750b4f"
+    },
+    {
+      "path": "assets/campaign/models/chair_cushion.glb",
+      "sha256": "bd1b6a39ba22f8aee395033e725f5aab6a896a058c502e66b294ac0c1e738d0f"
+    },
+    {
+      "path": "assets/campaign/models/chair_desk.glb",
+      "sha256": "fc609ad7884ef7e9c392b27addc974fd6b82feb60301fe0e950a1b45b957a4d0"
+    },
+    {
+      "path": "assets/campaign/models/chest.glb",
+      "sha256": "e6050e60637874e93f1f0a25066d058597ad9c010899aff944bb8c5c00ff4c44"
+    },
+    {
+      "path": "assets/campaign/models/chimney_large.glb",
+      "sha256": "93d7f09323267f6fb2644acbd83c390bfc318967762408c1da8210a0fc92f90b"
+    },
+    {
+      "path": "assets/campaign/models/chimney_medium.glb",
+      "sha256": "9d6d782c1fbf9066aa7af55ce492f3644fcc276e4db556094255f6deb7756ad3"
+    },
+    {
+      "path": "assets/campaign/models/chimney_small.glb",
+      "sha256": "b5b73752bc84c873cafc1a624faed64b06c9250267760528505d5ee35afd7f8b"
+    },
+    {
+      "path": "assets/campaign/models/construction_barrier.glb",
+      "sha256": "a5a18b2f9895974824486e7c1547b2841f5240455b25e852c09ffc1e0a5d9cba"
+    },
+    {
+      "path": "assets/campaign/models/construction_cone.glb",
+      "sha256": "95a44161a5bbb393e054db22eff283d8f3c6879190879ec13b6a5c4b3e6b5e2a"
+    },
+    {
+      "path": "assets/campaign/models/construction_fence.glb",
+      "sha256": "b2f3ae8cecea9195502c7776c08f05a2a844f0e3c9f6cc31d5a62c5ee2e43575"
+    },
+    {
+      "path": "assets/campaign/models/desk.glb",
+      "sha256": "2acbc81b976f29853680364eee7037a785e510f4ae6b2ac159b534b14ce21a44"
+    },
+    {
+      "path": "assets/campaign/models/desk_corner.glb",
+      "sha256": "8ea438aea4c284ed97e3e723a6bd240195b1c81075b94f04a578b8a462a2f04d"
+    },
+    {
+      "path": "assets/campaign/models/dryer.glb",
+      "sha256": "b2e4ea6f2ce57eebae1fe8333d46f22964ebb5bed884546a7257eec36711f95d"
+    },
+    {
+      "path": "assets/campaign/models/dumpster.glb",
+      "sha256": "ac3c3172ec165157a0fc5d0a21f1675103a634a40818a2bce2baeca89e45b79f"
+    },
+    {
+      "path": "assets/campaign/models/electricity_pole.glb",
+      "sha256": "592b698d3f40cc9f05d98175c00e89337092e7199c1febf7c1598ee9a916c813"
+    },
+    {
+      "path": "assets/campaign/models/fence.glb",
+      "sha256": "a64951c97f6974e217aae6dea8fa6c60e766219b7d6db9613ced28b2207eac3d"
+    },
+    {
+      "path": "assets/campaign/models/fence_doorway.glb",
+      "sha256": "b1dccfec425efbcda704fb7f2cffa3a3f255f9e19d41e92a44e85e0799bda152"
+    },
+    {
+      "path": "assets/campaign/models/fence_fortified.glb",
+      "sha256": "b1367d65bb9dc71c71da9bdaf97c71531602297a107477fe7212ac45ca066bfd"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_cabinet.glb",
+      "sha256": "8a0674388f49499326e881ca0281d76ec48dc46f9faa6a60dce40cd216b663f2"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_cabinet_corner_inner.glb",
+      "sha256": "2735749d1e7d5a414e8de820ee4e9d76acf6e1400265f5e6dcff8414f75f394b"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_cabinet_drawer.glb",
+      "sha256": "57f3211b8ab09204aa5352bb80cd7903cb9b4fcb1c6dc1f32ed19d7e01111125"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_cabinet_upper.glb",
+      "sha256": "ba399654b6e11418c455919d8a6ac58ec39fe491b8b568bcc99a6e80f910784e"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_cabinet_upper_double.glb",
+      "sha256": "d2697a981bac93b18bea44d843becf7ad4c5c02e0f45b0cd53e9f413131c4606"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_cabinet_upper_low.glb",
+      "sha256": "cff39b15cf0da2cceaaa7e7383aaf4bef91ff8d0471b036096069d79848c1148"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_fridge.glb",
+      "sha256": "79d552641b25c8bcaa18712a12552ec20b55900ab010ebfc9308edb79e8023a5"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_fridge_large.glb",
+      "sha256": "2186b4b6ab76021ad0ac4ec6495d62ea656ddbced41515051b9db21c94cdcdbc"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_fridge_small.glb",
+      "sha256": "95257b97245fb8230ff10f0e8bb8e0984a44144fae9f5be1aebaded4f0ea79c1"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_microwave.glb",
+      "sha256": "d74392fa3d9183e0cf05f70f14c7e106fad09c33c3a4feedbfeed291340ee8ba"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_sink.glb",
+      "sha256": "f1bcfddd7a8bd79c0e0d9916b8d93122750f777965ad9473e3f15c1e0698bed0"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_stove.glb",
+      "sha256": "2d172784db4d9e35d03f003d9ff53df163364af3d25a2ede033189ee744f8376"
+    },
+    {
+      "path": "assets/campaign/models/kitchen_stove_electric.glb",
+      "sha256": "72e670592583c320c868b2a0520b5d418d299b6d9242d81ca1eb58d575e1c6a4"
+    },
+    {
+      "path": "assets/campaign/models/lamp_square_ceiling.glb",
+      "sha256": "ee770a4d095544d9d44e0fa25522cbdf2e7f5108eb3b7931f61c2ab50d51e411"
+    },
+    {
+      "path": "assets/campaign/models/lamp_square_table.glb",
+      "sha256": "71a9b41fddf7cb04373a4dac3d96c8b6740e1cb23c19e97f341bfc0cdd3ddc25"
+    },
+    {
+      "path": "assets/campaign/models/lamp_wall.glb",
+      "sha256": "d63295f0e9f9250ff483eb96ee5ba4d7a40ea4b66126b038f344d6c68995b14f"
+    },
+    {
+      "path": "assets/campaign/models/light_curved.glb",
+      "sha256": "4d6526375252d749e0b04bbc54838708250cdb7687c3b45bbad3193cc4d172d9"
+    },
+    {
+      "path": "assets/campaign/models/light_square.glb",
+      "sha256": "998f0aea85bdc2407901d845dcfd9d0bf2e1476239de6aa6951100e1bc64c78b"
+    },
+    {
+      "path": "assets/campaign/models/lounge_chair.glb",
+      "sha256": "b6858e2c749c26f72d2b2722c0030ae1f36739e1eaec01d87ae0b524a9fbcaaa"
+    },
+    {
+      "path": "assets/campaign/models/lounge_sofa.glb",
+      "sha256": "15a020f24455c0b273189d4c5df68e6882d4b7e88624b00f063ac64031fe41e2"
+    },
+    {
+      "path": "assets/campaign/models/radio.glb",
+      "sha256": "e220f36a73fdfd88b8c5212399b1e4d1b6af3eb2a640cd8d2f5a50f1443064e9"
+    },
+    {
+      "path": "assets/campaign/models/railroad_damaged_straight.glb",
+      "sha256": "481088d7c054f57b1053c9c9559615f0e6ba5468825e18cbec0a1b5819ab17c9"
+    },
+    {
+      "path": "assets/campaign/models/railroad_straight.glb",
+      "sha256": "77ff9f2900ca616942a660415ccff7b9c99f48b31baf19b76ab29ad4fce90ce5"
+    },
+    {
+      "path": "assets/campaign/models/road_sign_warning.glb",
+      "sha256": "870fc0d506d79fa508380cb39e52ba23a6ad5f98c4b6b89efe2db38e7a47fee9"
+    },
+    {
+      "path": "assets/campaign/models/shipping_container_a.glb",
+      "sha256": "f8194efd081d0914d71af9a1e6c7bc2f0525140c4d91f2f9068a0f250e7b05cc"
+    },
+    {
+      "path": "assets/campaign/models/shipping_container_b.glb",
+      "sha256": "04f47b592201321664538030fdc527a6ac8d2468bc65c8d48c0c14473d9ed7bb"
+    },
+    {
+      "path": "assets/campaign/models/shipping_container_c.glb",
+      "sha256": "9fc68ea5ca08b4346b1cfd472b15085ee42516d1c89e09293c54a9a9b7c87d0b"
+    },
+    {
+      "path": "assets/campaign/models/shower.glb",
+      "sha256": "8b9152b808b2c93a80207a741d9af12cc7a2d3537ee422d9b6c9a556df75bbbe"
+    },
+    {
+      "path": "assets/campaign/models/side_table_drawers.glb",
+      "sha256": "ec9dc3b26c04216a141e8cd35f1c165b48e81f150e72bb38f3a280e8788f38d7"
+    },
+    {
+      "path": "assets/campaign/models/stool_bar.glb",
+      "sha256": "b679290a2c5a11cc1d5bc0350ad54bf450c76f28a826a7af1d63fe4a6b2cf0b6"
+    },
+    {
+      "path": "assets/campaign/models/table.glb",
+      "sha256": "cdfaacfaf45ef8268d58b542dc982894f06e30b8362d14c5cdebad4a929edade"
+    },
+    {
+      "path": "assets/campaign/models/table_coffee.glb",
+      "sha256": "715b664a32a5d4560d3b2fa0fbab8656490cae61fba8d901331e84c07a94be3d"
+    },
+    {
+      "path": "assets/campaign/models/tank.glb",
+      "sha256": "71818bc6b21ddf7e28f38a7c0c31253cefa78115deb32fee92621c9f713a7ae9"
+    },
+    {
+      "path": "assets/campaign/models/tank_large.glb",
+      "sha256": "a4893b00d5a8c6acc02bb61d6e259bc284bead09924534f4b576cfc3347f4b46"
+    },
+    {
+      "path": "assets/campaign/models/tent.glb",
+      "sha256": "d57917620d979afcaef682734f0d642986280633105176a454df22248a8da9cc"
+    },
+    {
+      "path": "assets/campaign/models/toilet.glb",
+      "sha256": "b993cbc311b81301bc51ae1480c8d34bf960dda70687ac1ff1a3cc1bd178e6c2"
+    },
+    {
+      "path": "assets/campaign/models/train_carriage_box.glb",
+      "sha256": "eb105f5a10123920907127cdc14438e65648ac6bd3fcba8e24db4156be892d22"
+    },
+    {
+      "path": "assets/campaign/models/train_carriage_coal.glb",
+      "sha256": "2a2e472655d2186ba6461949bb63c327b00e95462aa2765e4e445691e75a7125"
+    },
+    {
+      "path": "assets/campaign/models/train_carriage_flatbed.glb",
+      "sha256": "8861c13ffbc99cac296d79660340c1bc38752d8a51b12b141498f2124c2bb42d"
+    },
+    {
+      "path": "assets/campaign/models/train_carriage_tank.glb",
+      "sha256": "e6cb92a8eb141c435b7d2311b6cf2d26a1977333b18169cc290071959f6ca2a9"
+    },
+    {
+      "path": "assets/campaign/models/train_diesel_a.glb",
+      "sha256": "dddb83e3f69f326c029050200b0cb0adf0dbb6c22760ec765aa943ae91d266ac"
+    },
+    {
+      "path": "assets/campaign/models/trashcan.glb",
+      "sha256": "5aca0485e23e1b0b689667c2813876172e3a827996c1fbb8b55403e4c5843785"
+    },
+    {
+      "path": "assets/campaign/models/tree_log.glb",
+      "sha256": "440d1d0576d0da978ffc49bd78b665965322b9d69a1128772c977408656d87bd"
+    },
+    {
+      "path": "assets/campaign/models/tree_log_small.glb",
+      "sha256": "754141ddc5000c2b2ecfa33bd14ee87d91fe095e3a2f9ac1c5f0e5e758ae62b9"
+    },
+    {
+      "path": "assets/campaign/models/washer.glb",
+      "sha256": "216cc90abaf9afd132ca41645abc0077eab150939be37740b99a4b25ae50014e"
+    },
+    {
+      "path": "assets/campaign/models/water_tower.glb",
+      "sha256": "448243fff207d42cc3e3e62d9f8e75ab18a7b09a6728618ad378fcd1f52483e4"
+    },
+    {
+      "path": "assets/campaign/models/workbench.glb",
+      "sha256": "6ab6065bf0a3248e95afba4d432b3b253c6024357d5dfb3b0210b599508900d6"
+    },
+    {
+      "path": "assets/campaign/models/workbench_anvil.glb",
+      "sha256": "2ff0c1f602ba37ed7c44c5007a5491bb023518f8773f90a655bbdbfe3719d59a"
+    },
+    {
+      "path": "assets/campaign/models/workbench_grind.glb",
+      "sha256": "c8edadf6115f844e231e72bf7f1e0f01d57aab04bdfcb486b5573bc7f8345444"
+    },
+    {
+      "path": "assets/campaign/registry.json",
+      "sha256": "fa3a060af1aa908a57979c916ac8a37cb58d8deb441058bc31456b9a1b7f0ff4"
+    },
+    {
+      "path": "assets/campaign/sources.json",
+      "sha256": "0d18b4300483fea0d6fdfd47b3034bf2107aaa74d9810e0e19241d0458f4fb9c"
+    },
+    {
+      "path": "assets/campaign/textures/city-kit-industrial.png",
+      "sha256": "7f60ce46ed0a1e705c571dfcaee4f68eeb1e4e050935cf58cd3d5fe76b8744a8"
+    },
+    {
+      "path": "assets/campaign/textures/city-kit-roads.png",
+      "sha256": "b2769b46841cebdf09e61ce88df64e48c8a0af63757ae8716ef4aa53f4a31919"
+    },
+    {
+      "path": "assets/campaign/textures/survival-kit.png",
+      "sha256": "edb512a79a648e94a2776d6d5aaee93aa304697f286c2364517a7cd82133c496"
+    },
+    {
+      "path": "assets/campaign/textures/train-kit.png",
+      "sha256": "014bb931cc26ca1c237ce6c32746c32604a66d1c15dc7ff54c53b15eda8810c5"
+    },
+    {
+      "path": "assets/campaign/thumbnails/barrel.webp",
+      "sha256": "df3deae36eaf8ac25a626eccb915bce8c986cfbca9b3ec84d363343bc82f964d"
+    },
+    {
+      "path": "assets/campaign/thumbnails/barrel_open.webp",
+      "sha256": "eb7835f56322eeb845ac82c09ba7aafa113169f7ec04f0164987376fefda3e1f"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bathroom_cabinet.webp",
+      "sha256": "f93b88e784b713a16654846323991861ff6b8cab974a8cfbf268495f75aea42e"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bathroom_cabinet_drawer.webp",
+      "sha256": "46aaf90708d372769d9d651777782b4723f0609fcd2d532b372f003839cbe06b"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bathroom_sink.webp",
+      "sha256": "27c09a942855f47110dfa77d01c9173927d3ad7f12e2a926c8e8c831adeeee5e"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bed_bunk.webp",
+      "sha256": "4e13d8b2fbc5799321708efcac394e404f017acaf396fa16f46fa1d26c6559fa"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bed_double.webp",
+      "sha256": "6ea576f15f6a15c49aa6ef57cc4a4b3eec1bac630e4afeb81905f8c1616125e5"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bed_single.webp",
+      "sha256": "6561ae5dbeef71524a090205f6ed59bf73d8426c135326dbacc178959cfa9999"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bedroll.webp",
+      "sha256": "89628cf6ed4a46c7c642125044f52a23af3af245d54f7a0693b863fff1e03a67"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bedroll_packed.webp",
+      "sha256": "eb308bf8b8081d1999f51c4d25c32d0ecb39da8b74be31fe6a6ed66b8eeb2bdd"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bookcase_closed.webp",
+      "sha256": "10efa141178b0ee198a42ff5b8b88e8eff57a303f946ef1405b5f9324e492895"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bookcase_closed_doors.webp",
+      "sha256": "592a4c03ce5640deb20396b03a970661f6bff5016135d0915974ac7848f72a6c"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bookcase_closed_wide.webp",
+      "sha256": "50a6f4aa063ca1577dde4c3392a339510c3ff2941a43f36eb380058d7cbaa284"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bookcase_open.webp",
+      "sha256": "5c5f550af1080a27b7ebec6997ba06c73fd0b7f150532fa3149e4f36827f499f"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bookcase_open_low.webp",
+      "sha256": "4df0d6d4189f257dbbb20c1539baae75818a38bab4091a07363fe0a8c97ed1dc"
+    },
+    {
+      "path": "assets/campaign/thumbnails/box.webp",
+      "sha256": "a0ddf55d21e798079b79447b637a44879bb265402e7219c02c41b3deaf622f3c"
+    },
+    {
+      "path": "assets/campaign/thumbnails/box_large.webp",
+      "sha256": "0455c6efd6b41aca7bf521c4691ba53f615e57738eb8edbec873a3cb90e98612"
+    },
+    {
+      "path": "assets/campaign/thumbnails/bucket.webp",
+      "sha256": "5a33e6fea47249fe06b1578deaea2a2ac2682e577fc879244c2848beb02e14c8"
+    },
+    {
+      "path": "assets/campaign/thumbnails/cabinet_bed.webp",
+      "sha256": "a52defa894638b8f7bc4d2e90da4d6099162be2b4bba80dd7bb75e9b19a1b310"
+    },
+    {
+      "path": "assets/campaign/thumbnails/cabinet_bed_drawer.webp",
+      "sha256": "811c260469db9fa9ba1f697d590c5946876545542c0b40adc9522a0b5dba6285"
+    },
+    {
+      "path": "assets/campaign/thumbnails/cabinet_bed_drawer_table.webp",
+      "sha256": "7e0a12a30e3f244dfb3a60f31dd0ab4e8a54b782beefc6844318adb3b85352d3"
+    },
+    {
+      "path": "assets/campaign/thumbnails/cabinet_television_doors.webp",
+      "sha256": "a6174b9116122da34a372794dcec9f954cb2f937a71b085497e8987d764de630"
+    },
+    {
+      "path": "assets/campaign/thumbnails/cardboard_box_closed.webp",
+      "sha256": "e0a2f5e9718013e324dee8440062dc80cacd99793037a105751fa67ea1da0c12"
+    },
+    {
+      "path": "assets/campaign/thumbnails/cardboard_box_open.webp",
+      "sha256": "6b13d596b61e1508f0944d61f342efbb5f76f57fadb886c67c7178181025fd3c"
+    },
+    {
+      "path": "assets/campaign/thumbnails/chair.webp",
+      "sha256": "80ad9ff24528551acf85008a171614efe6a92630cd4c8a2ab6e5ab87dac9402a"
+    },
+    {
+      "path": "assets/campaign/thumbnails/chair_cushion.webp",
+      "sha256": "6b2dda1026aa1b1b826aa1ecb222375f6e7a5140b2a824c91a4ab443f3e02422"
+    },
+    {
+      "path": "assets/campaign/thumbnails/chair_desk.webp",
+      "sha256": "dd0ab6ba710a4ec970abc98bceb1d7401c84b8afd1c3313d30f5992db3732369"
+    },
+    {
+      "path": "assets/campaign/thumbnails/chest.webp",
+      "sha256": "d0d1973b7b42fd75e1379e0257294e438407076d97099c504904b413bdac2128"
+    },
+    {
+      "path": "assets/campaign/thumbnails/chimney_large.webp",
+      "sha256": "62d84b597f4e917861ecdf3454269aef204a13083119fc3032c08cf4d1032995"
+    },
+    {
+      "path": "assets/campaign/thumbnails/chimney_medium.webp",
+      "sha256": "8ad6556ee5e1708d2d71ca81c5961b402e260db598a178bd9e545be03c64e4cf"
+    },
+    {
+      "path": "assets/campaign/thumbnails/chimney_small.webp",
+      "sha256": "e383b0b52c22467488ba95829ea80d19d411d0b01c6c15ca698acc04b2a432ed"
+    },
+    {
+      "path": "assets/campaign/thumbnails/construction_barrier.webp",
+      "sha256": "bc29c057462512d76dc044f6839acb97c453eb380b7c5175c7195fdaf5cb81a2"
+    },
+    {
+      "path": "assets/campaign/thumbnails/construction_cone.webp",
+      "sha256": "498cba968c970c24bd6ffaf8b75cc03f1d7f75107bdfa32398ca02b7fdd3eb0b"
+    },
+    {
+      "path": "assets/campaign/thumbnails/construction_fence.webp",
+      "sha256": "ffab89115a56237fe35b04bde1a573b5d7d7c6487b9a1eb36f34566b54e94d78"
+    },
+    {
+      "path": "assets/campaign/thumbnails/desk.webp",
+      "sha256": "fbfdf4b98840780b02774265b4e0af8a21925a6079971a44fe2cf5fec2856738"
+    },
+    {
+      "path": "assets/campaign/thumbnails/desk_corner.webp",
+      "sha256": "54793bde500721bde1009edeb0e1c774bb8f883f4f7cba4748ed26c92a74be92"
+    },
+    {
+      "path": "assets/campaign/thumbnails/dryer.webp",
+      "sha256": "1235b1e5c60cc04c11903942a4d2509b24d314887f3083559f3ed25ead7c7698"
+    },
+    {
+      "path": "assets/campaign/thumbnails/dumpster.webp",
+      "sha256": "ee471a134d08b6bde955e7ce5a6cdea5d3c9d161e1201cd85408cdf5f95f623b"
+    },
+    {
+      "path": "assets/campaign/thumbnails/electricity_pole.webp",
+      "sha256": "341fb9252b0c30f65a088e03d0128fe9615191ad4a429bdca8976e7edea5a646"
+    },
+    {
+      "path": "assets/campaign/thumbnails/fence.webp",
+      "sha256": "d6578771f04bc267568f887ada5c2bbf840d0a5f644a3a0429c3a6552d1f749c"
+    },
+    {
+      "path": "assets/campaign/thumbnails/fence_doorway.webp",
+      "sha256": "5a43f1ffe41c51bebcc11509f2799cd4dd5ebb32c9ec9da554f86c861093428e"
+    },
+    {
+      "path": "assets/campaign/thumbnails/fence_fortified.webp",
+      "sha256": "aaef4fddb461d38393ceb10a3886129a395f3737b74494aae08c93f9d562161b"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_cabinet.webp",
+      "sha256": "7a3fa8954eecc0eefe3a6fe9efc7470c838968bb9c9a20eb8f2a1ad03ed4f0a5"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_cabinet_corner_inner.webp",
+      "sha256": "dc52cc2fdeb1be8d13adf51516c2cfd04921581acc1930fc4099de0a0faa3ee4"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_cabinet_drawer.webp",
+      "sha256": "9917a55199bc89bc99c034f6328dac9dcf726275b22807212329362f097e193a"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_cabinet_upper.webp",
+      "sha256": "af7b57af5a3207c5c3a62dbc6e541c5722d15f0d362b1a88a6ca027799877ab8"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_cabinet_upper_double.webp",
+      "sha256": "09dfb5dc45246a76384c1add439e17fbf6ab32cd120f70301e87b95463d48b9b"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_cabinet_upper_low.webp",
+      "sha256": "58192ae7dc157194ea47ac74bfb3fbfe3b9645f7fccd6d236097a87897c57ed2"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_fridge.webp",
+      "sha256": "ca26a73e7e016b9e0093fed2eebef210dbe5bd66a8ce70990af1dfd3d2607999"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_fridge_large.webp",
+      "sha256": "3df602d461e427bc508e47baeeced9b1c567b6ba5773491647e1ae7dc5d2f8cd"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_fridge_small.webp",
+      "sha256": "a66de9694efd2c9e78b4730f3a52643ad7e345adc6f32c8d5f6131d88ad3840e"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_microwave.webp",
+      "sha256": "694b9b94cab067cbffa2efe39ae219c493efa059ff1a4c8c6b244b9f18cbfb10"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_sink.webp",
+      "sha256": "9b55d239a6c5c6a5313f573d4d4e1210ee4ceb89c1cff982ac063b88f1e14ca8"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_stove.webp",
+      "sha256": "dc9285ae48d7ae4afc0cb203db90bcadc0ad1f947099988d89a892181459ceb7"
+    },
+    {
+      "path": "assets/campaign/thumbnails/kitchen_stove_electric.webp",
+      "sha256": "646fb7e159f890bbead087476100c315add38b5fce7fab6a7bd2c3ffdb92f0f9"
+    },
+    {
+      "path": "assets/campaign/thumbnails/lamp_square_ceiling.webp",
+      "sha256": "03e3d9e3454958d8ec776f99b3b9c97ad172e2946aa67c31455c61a98f79048b"
+    },
+    {
+      "path": "assets/campaign/thumbnails/lamp_square_table.webp",
+      "sha256": "09e56df2a5de0da935be5ae744c7af3ba9224a73876909a6033121f44b81d054"
+    },
+    {
+      "path": "assets/campaign/thumbnails/lamp_wall.webp",
+      "sha256": "4124550192466a4f5aa58ee2eaad41580f80f2d651534453981d93bd48237522"
+    },
+    {
+      "path": "assets/campaign/thumbnails/light_curved.webp",
+      "sha256": "957bee7ddbd5cfb0cb9a44195572b448feee30778d32f82de4d055d2ff3fb6fd"
+    },
+    {
+      "path": "assets/campaign/thumbnails/light_square.webp",
+      "sha256": "786135f462c41df2233f1cda788a22a6276a422eb668cceb00cfd3f00a2e3cac"
+    },
+    {
+      "path": "assets/campaign/thumbnails/lounge_chair.webp",
+      "sha256": "21d4ec9a64cb0a6331b08e031c5a4c12f64c4014f171a37546869ece8f4461ec"
+    },
+    {
+      "path": "assets/campaign/thumbnails/lounge_sofa.webp",
+      "sha256": "8a9ed8f48feab41e3650915f5beca428a1ca1b04c0ab4c9e3853e81351c39838"
+    },
+    {
+      "path": "assets/campaign/thumbnails/radio.webp",
+      "sha256": "0243176257af48e8bc7cdb5339cb899070b8ae03c76950dac9ae4209ece1892a"
+    },
+    {
+      "path": "assets/campaign/thumbnails/railroad_damaged_straight.webp",
+      "sha256": "6fcd40b7e7baad1ef37d9b105ecdce1714a8900eb5ab1d0d3ad67cb193b09325"
+    },
+    {
+      "path": "assets/campaign/thumbnails/railroad_straight.webp",
+      "sha256": "63ed6e25b742134ac84ebffa90f9c6dc0ff7f01e2ef5918cdbb5e8c6da8c4524"
+    },
+    {
+      "path": "assets/campaign/thumbnails/road_sign_warning.webp",
+      "sha256": "71ad65d8d3054d3ebbd5fdc4cf60f8b801edf61c821a2aed7e786a871014292d"
+    },
+    {
+      "path": "assets/campaign/thumbnails/shipping_container_a.webp",
+      "sha256": "a535a1692d528ae649b80c98c1819bad181f93c0932eab43db50c05f60002e3b"
+    },
+    {
+      "path": "assets/campaign/thumbnails/shipping_container_b.webp",
+      "sha256": "9b970fa4564edc2d5dfc97fa373017eed306373a2cc920286d6e33f0e9f4f544"
+    },
+    {
+      "path": "assets/campaign/thumbnails/shipping_container_c.webp",
+      "sha256": "4d670ef8a06c0916f4e28c55b92df4b81c436f2e98a468368daf7b80855b4fe1"
+    },
+    {
+      "path": "assets/campaign/thumbnails/shower.webp",
+      "sha256": "2c9b87a8e140aa8ac03a52e66fcd6f2379735f46c5156cdc8e7781dd7e24af83"
+    },
+    {
+      "path": "assets/campaign/thumbnails/side_table_drawers.webp",
+      "sha256": "2dd38524949154b4be31425d4a675807488d521f954b07841cf0182815fe6fa2"
+    },
+    {
+      "path": "assets/campaign/thumbnails/stool_bar.webp",
+      "sha256": "ff85656e6780a521778a31215dd42915fdcd68049ffa62f8cbac5e89a9b9ce99"
+    },
+    {
+      "path": "assets/campaign/thumbnails/table.webp",
+      "sha256": "f4fd23073dae1f426632a0e606f179f4fe972fa50d565bbdc14d3406923a52b1"
+    },
+    {
+      "path": "assets/campaign/thumbnails/table_coffee.webp",
+      "sha256": "5e42cd3f1f9131bc5a0cd1e44f83559c116d45ddcc8c20a2cbecbcf1b0b7d6c5"
+    },
+    {
+      "path": "assets/campaign/thumbnails/tank.webp",
+      "sha256": "aaff2a5b242a99ec1c900c544e808fbf17732beaaae2d970c72c1b193e540500"
+    },
+    {
+      "path": "assets/campaign/thumbnails/tank_large.webp",
+      "sha256": "77c35af87dbb3268e102f4da5371fa834dc91e5adec0351f8bf0b6894f3ea48a"
+    },
+    {
+      "path": "assets/campaign/thumbnails/tent.webp",
+      "sha256": "69f32cf0b39c93b444d48f3ee66ebe1288d5049bbb0b4dd5f16080e2586b2d88"
+    },
+    {
+      "path": "assets/campaign/thumbnails/toilet.webp",
+      "sha256": "abaf5bd3bcb5dc3889b3eb75b80676058bd1cf887d2a9b88464f552d30c0dbbe"
+    },
+    {
+      "path": "assets/campaign/thumbnails/train_carriage_box.webp",
+      "sha256": "a51fbaa13fc553064a3ea3d4fcd645bdf6dddab6368642e88fa9638c905cca05"
+    },
+    {
+      "path": "assets/campaign/thumbnails/train_carriage_coal.webp",
+      "sha256": "5d1b2adddcfe1650c19a39af931fbb43918078c7163cc0eddd6f440df4e090e8"
+    },
+    {
+      "path": "assets/campaign/thumbnails/train_carriage_flatbed.webp",
+      "sha256": "fd321901a5bd943281e34341395ab68883719addcd3a90b020119042bc79c03a"
+    },
+    {
+      "path": "assets/campaign/thumbnails/train_carriage_tank.webp",
+      "sha256": "4ee46f6f4362ae958509041fa2f47a6c718b8a1dac2ba0d61e566c62dbf23a80"
+    },
+    {
+      "path": "assets/campaign/thumbnails/train_diesel_a.webp",
+      "sha256": "0f05e47931ac97c740bcf5225c0a7de3997fb0a9067131966687f5df7404a444"
+    },
+    {
+      "path": "assets/campaign/thumbnails/trashcan.webp",
+      "sha256": "4bb6f1e31743d1ddac4aab9a1f4f0c59d342216f79cd035851d3d80a2358a8a6"
+    },
+    {
+      "path": "assets/campaign/thumbnails/tree_log.webp",
+      "sha256": "085e8cc491b23c18f41c08f41be4d30f5a1cc84c2a8a85ec465de858ec0a6524"
+    },
+    {
+      "path": "assets/campaign/thumbnails/tree_log_small.webp",
+      "sha256": "a238745bb70b7166ee25434757c3b61741342d154e9be36db699fd7e8a7d9ce3"
+    },
+    {
+      "path": "assets/campaign/thumbnails/washer.webp",
+      "sha256": "cda64cb476e91ff204ed1dfe869037378b02d7e2a186cbed0c615ce1230aaab6"
+    },
+    {
+      "path": "assets/campaign/thumbnails/water_tower.webp",
+      "sha256": "5bd0e6f2cf2d1f691e9ea5daf29610140b9bae8f37211d892455ace6df98104e"
+    },
+    {
+      "path": "assets/campaign/thumbnails/workbench.webp",
+      "sha256": "c81ad6a47f0143199eedb3a82f9f384b0d79578eebed4e739e5013aa0342e9b4"
+    },
+    {
+      "path": "assets/campaign/thumbnails/workbench_anvil.webp",
+      "sha256": "a05f14defc5f0d30e4afcbefd43d613e7699125e5d23a4b4fda66922671bb044"
+    },
+    {
+      "path": "assets/campaign/thumbnails/workbench_grind.webp",
+      "sha256": "871cdb89bb17e22fa867cb7aca1a07c2ab91b57d2bc0d9a4802dddbd6c527c6b"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_ammo_chest.webp",
+      "sha256": "7230eaa0e2a042f7efa666ad4247b8065f8a0d85708be381bb592c9f53f2f73f"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_apothecary_drawers.webp",
+      "sha256": "376ee88e29592eb0cfcb9860faf8a354c0a2f313dd592a09766aaead6a56a5c7"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_archive_shelf.webp",
+      "sha256": "ad1db1a8ca630b3a6e013b7707188ab137faa9d2d792d0fd2c4503e8860143eb"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_arms_locker.webp",
+      "sha256": "41c6ef842656b95361411ab2a244b910ff394afcd1cbdaf9a3d521d3e27a79eb"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_basin_vanity.webp",
+      "sha256": "d3c5eef5afc402ec92de1019d2b704515852224195a515f5678169f388737b4e"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_bedside_drawers.webp",
+      "sha256": "697db78b547c933d2f0e639f6d66327dd356f42270c6ac64fd57984db3154ca6"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_broom_cupboard.webp",
+      "sha256": "66564ac305ee161b403d1224a303e317946c3a3d1e6f2f11626c18f273978a37"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_cantilever_toolbox.webp",
+      "sha256": "fd098d31f967a83196ede8da69568f822f753f0ecb9452af597db52811c1e860"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_card_index.webp",
+      "sha256": "ac2255fe72632395a5e5677a5f310bf2a39d5d55478e623cead63ceb3e892995"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_cash_box.webp",
+      "sha256": "6dc35c1838cb8db40bbf8fc8fec390efaa43007f92cbe980d5934c0f966ad9d2"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_chest_drawers.webp",
+      "sha256": "c33381957fd91a3db2cd7a505ce4b1a202001d4fcc9e8e32d75f967e5b5f4557"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_chest_freezer.webp",
+      "sha256": "bfb0ef053e5deb9323bb8f3556e79e507b940edccffefa6279cd9c366e189bba"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_cooler.webp",
+      "sha256": "6ce780f745d5eb95c0e364d30405567f45aa546f10a76012c3575063b0f33404"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_corner_wall_cabinet.webp",
+      "sha256": "302351813cc69eef660210fd76e5b5d2f1b4d080cc8773d3906c9827a1602098"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_document_sorter.webp",
+      "sha256": "7095908be622466579f908c2a65cc6603f14327cc52ea722574f9e81a98a1c7d"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_double_sink.webp",
+      "sha256": "b44a65ed0ae475007930df6c1c6fb23ee520bfe2c51433afed2a23cfda2f6b26"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_double_wall_cupboard.webp",
+      "sha256": "2156d4a4bcd1fae1731f5db39e70d30e0702de32f8fc3189e69cc05391d659bc"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_electric_cooker.webp",
+      "sha256": "3dd64715211fb09e7163114c20e169a47e1aa518d10501a8372ea41264708b54"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_electrical_cabinet.webp",
+      "sha256": "a1b578f0368b143a35b8b77e359a14dc443de6342c3541495047b49703a5933e"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_field_medical_case.webp",
+      "sha256": "a52fc50407dee0dfb655d0adff65ffd1677e423efe03ed1f7f5e2d00204bd5a7"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_filing_four.webp",
+      "sha256": "fe98fa5f849def335e1c536341187776d45b5e17ac66d85d136ebc4c93ec0ffa"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_filing_lateral.webp",
+      "sha256": "8b714d94082a40f0a82fc2d554e02530ae9eec5453aa5de6090211a2e1ccabd1"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_filing_two.webp",
+      "sha256": "a0b03817973eca3e598108a7c81576b9591d6f2c388570a53c948319141998da"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_floor_safe.webp",
+      "sha256": "03b65f12918f9d9e13e999cf912c0305e0614d441ce1501e790d577d04bd8202"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_footlocker.webp",
+      "sha256": "d776695139128be479aa07b108e9d099f24960eb90b963ac62ced0491399dc2c"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_gas_cooker.webp",
+      "sha256": "05682cc10e4d704ecac97c27d7ecc2df6d23708cbc67051c3cc6ba84bc26d1a2"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_glazed_wall_cabinet.webp",
+      "sha256": "deae8effa985f40051c555a9dd93eaa8bae3ceac4303047093f58ce994f55966"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_kitbag.webp",
+      "sha256": "6b4a646615bb3615793920d8a8454ab5241825d89ee0f3e9e18a57464c1e40ab"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_kitchen_base.webp",
+      "sha256": "772963ed24829031e9db75aeaa494ae197b75d33c1f54467ed24464ea0098da5"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_kitchen_drawers.webp",
+      "sha256": "2e2eb6fd74450c4a72e00c1ba90119ec40dd8a18572ac105951dab3a0af6e565"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_kitchen_pantry.webp",
+      "sha256": "301e8c6b8beab67bb93a16dd682da82f738bc061eaf17e3a8e1383477716c61a"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_linen_hamper.webp",
+      "sha256": "5d4c269520ab210d316b9530135030bca3f769232e2933d76829266ab13cf89c"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_linen_press.webp",
+      "sha256": "612e24a21f0a63cd96eef581f699badc35152c1c4225db04cde11d8995d20ab9"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_locker_double.webp",
+      "sha256": "51edfbf2387eb94c97b6d5da50dbad924ceea19627a450b2c169fa1c8da46162"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_locker_single.webp",
+      "sha256": "3cd2102e7b7f0cd94f68b365f785ad3a842a2b4dd3c37882215dfb06d9afeb54"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_locker_split.webp",
+      "sha256": "ded32d5667cb4adcd4c0f4e662fd9e29da06d316ae902f0814650fc4571404ed"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_map_drawers.webp",
+      "sha256": "b2a169eee2584fca1a74f72014568aed35292bb3fb95e15742cc8546eecd4434"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_medical_trolley.webp",
+      "sha256": "d7ec1b2c3383372af0e5fe2017a0f17097815d5d95bc85f7bf1223de824a232f"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_medicine_cabinet.webp",
+      "sha256": "3e9ebca6d59c0c8220c1f89c9d8a79b6ec2f475d4c6d5fb8167375c9ee3bd5e4"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_microwave_cabinet.webp",
+      "sha256": "af509c9bf73b976ffbb68a307e302a298aa60a7fc22358c1b87899b3c37e4569"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_mirror_cabinet.webp",
+      "sha256": "b5fbfc9c950d56b400a06c837a775b5bc75566e73bddda991ecc6fa5f702f27d"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_office_desk.webp",
+      "sha256": "1eb787551ea0e5c8a3e08bd0e7c783a54c0853653ac76aa2baf75e25f778e803"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_parts_bins.webp",
+      "sha256": "fd18ab5207671f09bbaf27a0e1687046199a769b0adfd9df45425d9bf06968f4"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_pedestal_desk.webp",
+      "sha256": "a3094acbde12c004de6c816139020b13df68b3a03da1b6c5b7012811457daf97"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_reinforced_crate.webp",
+      "sha256": "7f27832dd91d7732462361984c76af9dfdb932abe7c58f3d56c8d34a0a447a4c"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_rolling_toolchest.webp",
+      "sha256": "6415f51664e6426e22ad119e76e988240443d73787a9a9fd8aab37af646a002e"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_rolltop_desk.webp",
+      "sha256": "1ca369d53442ed3d251fa87a6089676234ad81179b92fa5e0fd170475a356ed8"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_salvage_drum.webp",
+      "sha256": "78cbd319c2f297380b3384c986374b46322e5bdfd9d3ce681b8ead662e460852"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_salvaged_cabinet.webp",
+      "sha256": "16ef8e9f662bc3672191170ae72ea7a76cf2a3950d9633d671bc3cd513f6c062"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_salvaged_crate.webp",
+      "sha256": "6042b8ae845461627da651382cd0a08e6e06e0b169115ab433ee9f5e565dd0bc"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_shipping_container.webp",
+      "sha256": "9db698106aa32b98c849db35531cbb225f74e27ef9831f3a2a6db89ccb8cc4cc"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_sideboard.webp",
+      "sha256": "f1be643be21c53594d302d12b61d3f782708e70253067b2a5ae6b33ceb4e75b8"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_sink_unit.webp",
+      "sha256": "8ce640c8b6f6bff1d230d78fcf8cf82eb12ffe03ac1a9020fd89628b0d58f72d"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_slatted_crate.webp",
+      "sha256": "911179ca9756e365cdefac929812b5f4f5278328358ff1101115c81b76888114"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_suitcase.webp",
+      "sha256": "62fe74f4138fcbd4af491898ba72a7eeb8851e549fffb3924e68018e11ddb76b"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_tall_fridge.webp",
+      "sha256": "11ec0235449bb6df8654c86fc8e075f363d1f6737f38f8118eb2e338f1bbad81"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_tool_workbench.webp",
+      "sha256": "c7b3cbf60033e9469aa4db9fa665373c57ba56af18a3000be40c0a96e2798355"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_travel_trunk.webp",
+      "sha256": "d397b92d690682962ae489b286690b09f83acdb15d919adae358f09a026453ad"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_under_counter_fridge.webp",
+      "sha256": "4fcd54d045c2241acba3633d5e6297a0d5c58d3487500d259a666094b55bb6ef"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_utility_cabinet.webp",
+      "sha256": "032b8d3301e27642ecf50dd23f4c11806d4fbbe71e0e0ce9eddbcb0ae2b1ef78"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_vintage_drawers.webp",
+      "sha256": "aa11d9086d015956505e785160c066bc62d526493ba2b5aa6be86a1b8a92b910"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_wall_cupboard.webp",
+      "sha256": "f6180ce83afb568c455e134b95f47bdc39d8abcdbef0bd1c85e464449adef5a9"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_wall_safe.webp",
+      "sha256": "9df3b4ce87120e4a7a16e598a6d295d987dcd655dc33b5acf5f66400cec1b350"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_wall_tool_cabinet.webp",
+      "sha256": "b74d76ab8d10a1afc6bc573863b87979ed73e971a63b077b7482d024a5a08194"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_wardrobe_double.webp",
+      "sha256": "fc65eb2c44f4983baf03b2f606ad1be8e92a032157c1ac5b5e3eff9a25a1287a"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_wardrobe_single.webp",
+      "sha256": "78211f0274e24eb8892a6022a9a257fcbacbce1de4566933ac825e6f12ee581e"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_water_barrel.webp",
+      "sha256": "a7b554bd7cecc044c9c6c096cb2cdfbba02c2313510d8ee7575c8f4c72b305d5"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_wide_dresser.webp",
+      "sha256": "3c9c813eb66ef861be353d4d213e4155a2fcaad8411513dfe8adebf8cce50a8b"
+    },
+    {
+      "path": "assets/search-props/thumbnails/search_writing_desk.webp",
+      "sha256": "959bf287089eb1007e38d5d59bdb47f82db5a41f0685c79bc88cd005a647a614"
+    },
+    {
+      "path": "assets/textures/EZ-TREE-LICENSE.txt",
+      "sha256": "20e4afadfb10c67952b3d73cd2982d21d165ab4ae82b0dd9e4d6f2166ee349b6"
+    },
+    {
+      "path": "assets/textures/bark-colour.jpg",
+      "sha256": "6b266a1a2af331f411ca3ac2da14184f90b5ac88cd0dee86708aaf72804a2a6f"
+    },
+    {
+      "path": "assets/textures/ferns.webp",
+      "sha256": "923b0c85ae34414e0a612954231f74ea17bdc273b95ba0042ca445d69c9e6fa4"
+    },
+    {
+      "path": "assets/textures/ground-colour.jpg",
+      "sha256": "7f84d4638aa765e56bc0fcb2be4728d1e7e7e698f9c3c19b7c82ced309f51794"
+    },
+    {
+      "path": "assets/textures/pine.webp",
+      "sha256": "3f2a8833d6f4f3a385d6a5e85660299bc8435cab25ea387069644a3e2184e141"
+    },
+    {
+      "path": "assets/textures/wall-colour.jpg",
+      "sha256": "ac8687c9cd568c5300740245837c065475d9d343d9720963952650f727848e1f"
+    },
+    {
+      "path": "assets/textures/wood-colour.jpg",
+      "sha256": "19411634b4e022793b86189aad3199edf5dbe63b9816101e4433e1674e5f9627"
+    },
+    {
+      "path": "assets/ui/backpack.webp",
+      "sha256": "4e1dc256be2569d83d9807de91a1b362dc00e2c2b8140693e1d9dd2b25e64b2a"
+    },
+    {
+      "path": "assets/ui/icon-192.png",
+      "sha256": "e4fb0a5f4d4a7b52c1b1fb21215c72be436673ce3772a6a3c804bbeea63d70b9"
+    },
+    {
+      "path": "assets/ui/icon-512.png",
+      "sha256": "a636a25b07977c49c1559f376306a1ce31617f300e0c041298d0f7c8ee4d7a03"
+    },
+    {
+      "path": "assets/ui/start.webp",
+      "sha256": "52804036292a0a600389a44ce4b844af3d9f7153da2073758227ce02b84868ff"
+    },
+    {
+      "path": "assets/v10/item-visuals.json",
+      "sha256": "6a2424b0845cab86138c3940eca803656245007f1a9f9e116078aa1c32bb8ae4"
+    },
+    {
+      "path": "assets/v10/model-manifest.json",
+      "sha256": "b84949e5a8e0a4daa988b6cfc8a23f3677ad13bee2365b28b30b7f9c0d1306a3"
+    },
+    {
+      "path": "assets/v10/models/ammo_box.glb",
+      "sha256": "8e9bd76071cbaba5db827fdb370dde6c64107da0ae571bce460a1bcb3e3686f8"
+    },
+    {
+      "path": "assets/v10/models/binder_notebook.glb",
+      "sha256": "09639bab80b0700a4f8a785d93e83d1be41399d1a21f9f4911ab317e6b1a84da"
+    },
+    {
+      "path": "assets/v10/models/long_life_food.glb",
+      "sha256": "ba78a302852c978cf3bd4d6f5b7ce53117dfcd8649f680cfb6cd37a7164e67c0"
+    },
+    {
+      "path": "assets/v10/models/medical_box.glb",
+      "sha256": "c19c5009876beb670186ebb7cfd630d42eab177a2091b4bb0a547139125001af"
+    },
+    {
+      "path": "assets/v10/models/medical_tape.glb",
+      "sha256": "b51f5a841b4d99aa37067d88de3006fad0a9df77f7ce5fd5f1732ccf672c62b8"
+    },
+    {
+      "path": "assets/v10/models/metal_trash_can.glb",
+      "sha256": "1d6d8bc30b4d5adb494c439d7632d5f87c898512cb96a776b314782e839e8a76"
+    },
+    {
+      "path": "assets/v10/models/modular_factory_facade.glb",
+      "sha256": "0f1953f507d35cca42c4e6133507525d51149bd88c321e44d0ec6f4fb75ecaf2"
+    },
+    {
+      "path": "assets/v10/models/modular_wooden_pier.glb",
+      "sha256": "c1db53b1380e12d8f53c73540d638fd72dd8bd9ef7c07af14b559cb50e48cdd3"
+    },
+    {
+      "path": "assets/v10/models/oil_tin.glb",
+      "sha256": "52460e6bd027ca5c16d73112a7a3730eaa860fe676b6de917314896ca3f3bb05"
+    },
+    {
+      "path": "assets/v10/models/old_bed_frame.glb",
+      "sha256": "d80d1a332ddb529431be01e37e0b1db268c9e5af2c50e2ea370dc610b99a9273"
+    },
+    {
+      "path": "assets/v10/models/painted_wooden_cabinet.glb",
+      "sha256": "f40e4f1ee25ab92adf9e99c6500f30ab351b67987de83290c2a7afcc09b7434a"
+    },
+    {
+      "path": "assets/v10/models/painted_wooden_nightstand.glb",
+      "sha256": "e0375dcbb3dc1e94b89455cd573d4dd8f8ecadb1a3c39a9a0bb2c1102eaf8bfa"
+    },
+    {
+      "path": "assets/v10/models/painted_wooden_table.glb",
+      "sha256": "d41cd5e799f10ad9152933322baef8120cd483e9e4d4289fac2864b39d6b5723"
+    },
+    {
+      "path": "assets/v10/models/plastic_crate_01.glb",
+      "sha256": "d8829102d0b733621b9c41bb0b0679535ea4fb867a151dfeaa484f86e4386dd0"
+    },
+    {
+      "path": "assets/v10/models/plastic_thermos.glb",
+      "sha256": "3ed8d7b43fab50bcd53cea47f52818e72efba018ce0ef902dc8843c8522c3a4e"
+    },
+    {
+      "path": "assets/v10/models/portable_cassette_player.glb",
+      "sha256": "4d7c2086c20670f4f5bbf6eeb7b21b2984559e8c5e07e2064d99e8df5e448da0"
+    },
+    {
+      "path": "assets/v10/models/rollershutter_window_01.glb",
+      "sha256": "545c18c93e91435a6844f6ca555fdc1e17b498e119dd27c36a70edf3cc01e342"
+    },
+    {
+      "path": "assets/v10/models/rubber_boots.glb",
+      "sha256": "63d6348a314085c526ab14c56ccb3bd2d73d4fcadaf528af1f55c76baa2f83f1"
+    },
+    {
+      "path": "assets/v10/models/small_oil_can_01.glb",
+      "sha256": "1b3e848797a35422d2e192f9989c1e914632833da3033a726eb4093799449abe"
+    },
+    {
+      "path": "assets/v10/models/vintage_lighter.glb",
+      "sha256": "45709ba113118a9f5a3412c7d58bc61f9e51a24ff39086974083e7819b05016f"
+    },
+    {
+      "path": "assets/v10/models/vintage_wooden_drawer_01.glb",
+      "sha256": "b786e19a62a249221d96a70b838307752961849a767c8a58869a6ba2833b2530"
+    },
+    {
+      "path": "assets/v10/models/wooden_crate_01.glb",
+      "sha256": "a70e8fc666f0505f4a9e5634420d77ee5a476c2e274ef51335efe3906d36fb0b"
+    },
+    {
+      "path": "assets/v10/models/wooden_ladder.glb",
+      "sha256": "f0358eac74c488e07f5e5947b001a0ae6d217221b33d9754b216da8004f303fa"
+    },
+    {
+      "path": "assets/v10/models/wooden_picnic_table.glb",
+      "sha256": "f62f0c79bdb25fe1401d4b1e8cf4e826d64913d5b804cef7de56b35f84cdc0e0"
+    },
+    {
+      "path": "assets/v10/models/worn_metal_rack.glb",
+      "sha256": "a2f470b731ba7cfa2c6b7a240ea88caa0cabd1e2cfd6b87fb9eaf462e939592d"
+    },
+    {
+      "path": "assets/v10/thumbnails/ammo.webp",
+      "sha256": "c17e804e9c3e3c0cca81b6c88ba5cddf3870d99853adffbd9692a16a5ce1010b"
+    },
+    {
+      "path": "assets/v10/thumbnails/battery.webp",
+      "sha256": "45bd59fc0a8aadbc224babb4b8ce3691b1c9c144feda68f46f6428eb3735c8bb"
+    },
+    {
+      "path": "assets/v10/thumbnails/beacon_core.webp",
+      "sha256": "4f91c08386866ebf3807d00d123b9486c960258d8bbe912105b4655bc2834eb1"
+    },
+    {
+      "path": "assets/v10/thumbnails/bead.webp",
+      "sha256": "96b5b742e246516f465508ea4b951e83157e26c029cb43cf7dd520350bd96fce"
+    },
+    {
+      "path": "assets/v10/thumbnails/biscuits.webp",
+      "sha256": "08e27fea6ceb7811d16d1e33ea8ece6262acfab41e92b90fb5a819c15506e936"
+    },
+    {
+      "path": "assets/v10/thumbnails/boots.webp",
+      "sha256": "b23991371935da410e32b066d4359d97c30db3ca7d7092372bbce5d4f274dfcb"
+    },
+    {
+      "path": "assets/v10/thumbnails/bunker_key.webp",
+      "sha256": "d07c0d6236dc7056b9bc5789d425050a9dec8a4c2b779ae4e115407c75f68c80"
+    },
+    {
+      "path": "assets/v10/thumbnails/cap.webp",
+      "sha256": "68d9a8a81c48bbb64a013ae04701a87f4bc8cb9b4b516c84a49f21f36373018d"
+    },
+    {
+      "path": "assets/v10/thumbnails/carbine.webp",
+      "sha256": "aa023b58bce82e95c0345226d626a29fd7aea1091cf243669bfcc0b3d1883ca2"
+    },
+    {
+      "path": "assets/v10/thumbnails/carbine_mag.webp",
+      "sha256": "f0c37b9e4cbd498736ae0b3012a9af678cd5ea9ab88693bb180e78dc13293e67"
+    },
+    {
+      "path": "assets/v10/thumbnails/case.webp",
+      "sha256": "ef179d8c3d2a4d599225d61a50b927ded71b4d2a7119fb1dab757476652567bf"
+    },
+    {
+      "path": "assets/v10/thumbnails/cave_log.webp",
+      "sha256": "11934d7c02b417e52a1417ce93c5f0dcedb20d81160c1168475ac349a7cb4fe7"
+    },
+    {
+      "path": "assets/v10/thumbnails/cloth.webp",
+      "sha256": "fc8e390ae8063fb3d382d7e82f5e403b65396db28739d2ed34d041abcce4e266"
+    },
+    {
+      "path": "assets/v10/thumbnails/coat.webp",
+      "sha256": "51d8bdb060650634dceb0f214562c9228b9028d8aee262a383d523028c6a8fc9"
+    },
+    {
+      "path": "assets/v10/thumbnails/detector.webp",
+      "sha256": "d3efa3da4c7542c9322593d72823b08f7d6b5dd414290b9c0fdfe5ecf45d8638"
+    },
+    {
+      "path": "assets/v10/thumbnails/energy.webp",
+      "sha256": "63595aa8489978a0a211a60475c44c2879ecd88964f8136341a208395f6d78cc"
+    },
+    {
+      "path": "assets/v10/thumbnails/film.webp",
+      "sha256": "11934d7c02b417e52a1417ce93c5f0dcedb20d81160c1168475ac349a7cb4fe7"
+    },
+    {
+      "path": "assets/v10/thumbnails/food.webp",
+      "sha256": "db22c94d14c6dbc6f569bf58f2bd50b7a6c573af5b8f96c5dca5cc2621477644"
+    },
+    {
+      "path": "assets/v10/thumbnails/fuse.webp",
+      "sha256": "ceda5d40c26c481a02d80381e59466fa43c6695d501e91a2ec40cb5771f2970d"
+    },
+    {
+      "path": "assets/v10/thumbnails/gun.webp",
+      "sha256": "b5b61182deee01c91c86cf7396622c2c30a7f8e262f4be9b25e570faa392a6e5"
+    },
+    {
+      "path": "assets/v10/thumbnails/helmet.webp",
+      "sha256": "c863f16228e3bfab404f1b570ba7625e347cc7f028d0772bce3e5fbfac2915b6"
+    },
+    {
+      "path": "assets/v10/thumbnails/jacket.webp",
+      "sha256": "0e301a75a580b7821f21a2d38c30c7986738e4cae1974d5042d6c433b814bca1"
+    },
+    {
+      "path": "assets/v10/thumbnails/junk.webp",
+      "sha256": "d658525a044be57630520da5fd984f78438189a6195914ac276da71380f02400"
+    },
+    {
+      "path": "assets/v10/thumbnails/knife.webp",
+      "sha256": "5f724d578e8dff83631a397797f799009ba6702d55c5a9a1b973c46e872a43a0"
+    },
+    {
+      "path": "assets/v10/thumbnails/knot.webp",
+      "sha256": "13ca373942f59b17edcb3cc00b8f79340f1cd0cb5ed248641e64e014aab00b77"
+    },
+    {
+      "path": "assets/v10/thumbnails/lamp_blue.webp",
+      "sha256": "73862f18935a698e449c54e1fb24d05559d80a148bc1d6d1dfce9e688334c9b3"
+    },
+    {
+      "path": "assets/v10/thumbnails/ledger.webp",
+      "sha256": "d658525a044be57630520da5fd984f78438189a6195914ac276da71380f02400"
+    },
+    {
+      "path": "assets/v10/thumbnails/lighter.webp",
+      "sha256": "5225f1f268fd3b623b68b153bbb26771da340d8418d770a606351d0f37d86e5c"
+    },
+    {
+      "path": "assets/v10/thumbnails/magazine.webp",
+      "sha256": "0af54aade5c792fcc34aa418c233b0d155a520d698116e9c017d310f24b4d5c2"
+    },
+    {
+      "path": "assets/v10/thumbnails/manifest.json",
+      "sha256": "8d97258baa70b5b95dd446d44ea1242795238a30848e6fa8a21a80d6247e62e8"
+    },
+    {
+      "path": "assets/v10/thumbnails/med.webp",
+      "sha256": "48b54f56b2b1f8bd31aa2c7b1e56458c93b4e793846d75fbfefa80b33756f4ad"
+    },
+    {
+      "path": "assets/v10/thumbnails/medkit.webp",
+      "sha256": "ef179d8c3d2a4d599225d61a50b927ded71b4d2a7119fb1dab757476652567bf"
+    },
+    {
+      "path": "assets/v10/thumbnails/mug.webp",
+      "sha256": "bbf5daa5d6f6009f3fcdb6b9e76e928da9660a86f887ae73eb9c5d05e7e9df7d"
+    },
+    {
+      "path": "assets/v10/thumbnails/north_map.webp",
+      "sha256": "d658525a044be57630520da5fd984f78438189a6195914ac276da71380f02400"
+    },
+    {
+      "path": "assets/v10/thumbnails/oil.webp",
+      "sha256": "93b1d41484a3425ec00b079cf7ecf82aed3e5576affd578fcf02c9889a9a1618"
+    },
+    {
+      "path": "assets/v10/thumbnails/orders.webp",
+      "sha256": "d658525a044be57630520da5fd984f78438189a6195914ac276da71380f02400"
+    },
+    {
+      "path": "assets/v10/thumbnails/postbag.webp",
+      "sha256": "da9e3602a34dc07bb006c484af6cadf8d85eb471253158137024487b8c386014"
+    },
+    {
+      "path": "assets/v10/thumbnails/poster_orbit.webp",
+      "sha256": "44b2675e09b3a24957fec71775fbd4f6aab0122a557b7a5da0dba8b5166d14c1"
+    },
+    {
+      "path": "assets/v10/thumbnails/poster_return.webp",
+      "sha256": "6722043f7b779a3d2c6bdb1956f3dd8d002f1d32b7e4b3594280b002810daf88"
+    },
+    {
+      "path": "assets/v10/thumbnails/poster_signal.webp",
+      "sha256": "38915bb44a95641f695a6c8e05371080424a4e5f5d71d7eab4a7a6abad03eccf"
+    },
+    {
+      "path": "assets/v10/thumbnails/probes.webp",
+      "sha256": "00b9c14797e3ea45e95d70142b0a2e61c8b5487cb160bde9479064e7b52d6626"
+    },
+    {
+      "path": "assets/v10/thumbnails/radio_parts.webp",
+      "sha256": "423f02270fbe5b151b744ae859cba84795e644317a7ff7b188d3db0cd9125469"
+    },
+    {
+      "path": "assets/v10/thumbnails/receiver.webp",
+      "sha256": "a90ae33dbb1dcc6f952472fb73bc31d9edf00a975a40f2e95c4480e91296f62f"
+    },
+    {
+      "path": "assets/v10/thumbnails/recorder.webp",
+      "sha256": "423f02270fbe5b151b744ae859cba84795e644317a7ff7b188d3db0cd9125469"
+    },
+    {
+      "path": "assets/v10/thumbnails/relay.webp",
+      "sha256": "1115a45f622d9cc971cace91fc2e8d208054d73ce4f707e7934de7610e2f10e9"
+    },
+    {
+      "path": "assets/v10/thumbnails/rifle.webp",
+      "sha256": "b5a5349bef9a2836d7d8204807715b6a80a5d45677a54ede76ebd2fcb3b073ff"
+    },
+    {
+      "path": "assets/v10/thumbnails/rifle_ammo.webp",
+      "sha256": "c17e804e9c3e3c0cca81b6c88ba5cddf3870d99853adffbd9692a16a5ce1010b"
+    },
+    {
+      "path": "assets/v10/thumbnails/rifle_mag.webp",
+      "sha256": "f0c37b9e4cbd498736ae0b3012a9af678cd5ea9ab88693bb180e78dc13293e67"
+    },
+    {
+      "path": "assets/v10/thumbnails/rug.webp",
+      "sha256": "fc8e390ae8063fb3d382d7e82f5e403b65396db28739d2ed34d041abcce4e266"
+    },
+    {
+      "path": "assets/v10/thumbnails/sample.webp",
+      "sha256": "49d2a6467368ec65e3be0f612ba82ee93c132fbbe652ede534ea4837475b1363"
+    },
+    {
+      "path": "assets/v10/thumbnails/screws.webp",
+      "sha256": "6d62278ef9675106ec93ba0e74b047b846b87b1f9a3c08424ce6dfa1aa56fe5f"
+    },
+    {
+      "path": "assets/v10/thumbnails/sewer_map.webp",
+      "sha256": "d658525a044be57630520da5fd984f78438189a6195914ac276da71380f02400"
+    },
+    {
+      "path": "assets/v10/thumbnails/shard.webp",
+      "sha256": "5bc7be805dcd6db71d887254bf6b33f84e264855e4adc00a76e508d03b8ebd8d"
+    },
+    {
+      "path": "assets/v10/thumbnails/signal_torch.webp",
+      "sha256": "b61251df7ab406d04e316b723f7fec9095b91a81a3b06362d01f5972f7d61cba"
+    },
+    {
+      "path": "assets/v10/thumbnails/stormglass.webp",
+      "sha256": "b00695f7cded5fcdbf55534fbac061712f84df31d01529c65dc7436b3b4bf119"
+    },
+    {
+      "path": "assets/v10/thumbnails/torch.webp",
+      "sha256": "594fec5574f3d87e79081729b118a5b9bda4e40bca9862011e7f38d990344ad5"
+    },
+    {
+      "path": "assets/v10/thumbnails/trainers.webp",
+      "sha256": "6745f4433482ddacb95144bfde39bbf747e0a6affa10fb013b57a9ff699d58bf"
+    },
+    {
+      "path": "assets/v10/thumbnails/trousers.webp",
+      "sha256": "7dee8427c7ad9511504391156e185415cce7038a99594150bd4d9cbaf483dfb8"
+    },
+    {
+      "path": "assets/v10/thumbnails/tuna.webp",
+      "sha256": "55bb99671b3d552e4a8bf760def2256b7a98ee39a212b9a8c928359793f417f3"
+    },
+    {
+      "path": "assets/v10/thumbnails/watch.webp",
+      "sha256": "c931ca896c8ca9af0af90c1d9e74f5308b5e5595080e241cd27e92ee8fbdb97e"
+    },
+    {
+      "path": "assets/v10/thumbnails/water.webp",
+      "sha256": "5fda7c27d9827d22ba1913163d2fbc33f9286344e0382383d66c64d675bffd57"
+    },
+    {
+      "path": "assets/v10/thumbnails/wire.webp",
+      "sha256": "f249d011315f23acb83ac2f1bf6d9a3f5120face74d1f83313c62fe14ea005bc"
+    },
+    {
+      "path": "assets/v11/EZ-TREE-LICENSE.txt",
+      "sha256": "20e4afadfb10c67952b3d73cd2982d21d165ab4ae82b0dd9e4d6f2166ee349b6"
+    },
+    {
+      "path": "assets/v11/models.json",
+      "sha256": "01062d725998f78ad73dbfb50b0f58b1efab9eb244ce3f64c914f15397bec1d0"
+    },
+    {
+      "path": "assets/v11/models/covered_car.glb",
+      "sha256": "8021250cce44443a3d76aebff6bb45093e6112bf572f611ae4ec9d6b3385cbb7"
+    },
+    {
+      "path": "assets/v11/models/crashed-suv.glb",
+      "sha256": "451d6b01a1638a4f31172312af4363e8f04d0c95e8ad4bc0dd147584ae4cb04c"
+    },
+    {
+      "path": "assets/v11/models/dead_tree_trunk_02-mobile.glb",
+      "sha256": "0f932c2253d45c1395ce6b57fbf8106a67909a40bb13b957a46966b25c8839fb"
+    },
+    {
+      "path": "assets/v11/models/fern_02.glb",
+      "sha256": "597eea16edd7dd19a676fe1f6b11fc573365284736349acbd9bdd27b5d4d761e"
+    },
+    {
+      "path": "assets/v11/models/modular_urban_apartments_facade.glb",
+      "sha256": "08be20655e8dbe5f7883f10f8385ebe9215f609890eaccc7e3a619848cf0b10e"
+    },
+    {
+      "path": "assets/v11/models/pine-01.glb",
+      "sha256": "25720d28a6881ddc2d5a9acfcb28e5a7c0a88c1e0e13f9a7005f2edc0f24c309"
+    },
+    {
+      "path": "assets/v11/models/pine-02.glb",
+      "sha256": "a071f27786ae760679070899dbb4dc8ce2491df50e2b250d78a3427c5454eae9"
+    },
+    {
+      "path": "assets/v11/models/rock_moss_set_01-mobile.glb",
+      "sha256": "bcd5dfd9d3f9218fd04300e8d7c883a1bd94508656e5dc24d93ae0f62ccdc024"
+    },
+    {
+      "path": "assets/v11/models/tree_stump_01-mobile.glb",
+      "sha256": "2b79eac9c70c6c1d34ee0f52c5eaa39e874ed03ec2694ec834603c93aa51c1a8"
+    },
+    {
+      "path": "assets/v11/pine-01-0.webp",
+      "sha256": "3577f2b33020ea549c9d3c566b4e7e0ca76bee190865e6e33bed9161ced28f80"
+    },
+    {
+      "path": "assets/v11/pine-01-1.webp",
+      "sha256": "759a6659df27160dba457db1c0ca0a1f9a55f421e864bafc277670e162b60999"
+    },
+    {
+      "path": "assets/v11/pine-02-0.webp",
+      "sha256": "8cfb5b6ab0b47dd1ffbb15253762c9620a51f35a0c7b4a9c4eadeb8cb19feaee"
+    },
+    {
+      "path": "assets/v11/pine-02-1.webp",
+      "sha256": "7f5e267a74795aad03b91440bb6a401c15fdc3d52d2060ee3a1eef42096b35c4"
+    },
+    {
+      "path": "assets/v11/surfaces.json",
+      "sha256": "4d9935da261788f656023c86aaf101250f0266572c3f9c573516d134fe80f44f"
+    },
+    {
+      "path": "assets/v11/surfaces/brick-colour.jpg",
+      "sha256": "d6d2203a8a16b2997b2c49b95082b812c523ab96ddb8b6c171420fc82c1eed3e"
+    },
+    {
+      "path": "assets/v11/surfaces/brick-normal.jpg",
+      "sha256": "f2ea6086e3e71223cf015a7f7fabf36c461be0ec0d3932d4c10b138267a6f73e"
+    },
+    {
+      "path": "assets/v11/surfaces/brick-rough.jpg",
+      "sha256": "b76321679a945466e803eae0071f40b641cd8048ba19e7d684e5979b826b9a48"
+    },
+    {
+      "path": "assets/v11/surfaces/plaster-colour.jpg",
+      "sha256": "1dc6345f6087e24da29083e42cf4efbfd8bed29f4348962e88e12ee86b3f46a4"
+    },
+    {
+      "path": "assets/v11/surfaces/plaster-normal.jpg",
+      "sha256": "93def634af44f5f9962b6474156afff666011ec23d068394e338dc4620804d78"
+    },
+    {
+      "path": "assets/v11/surfaces/plaster-rough.jpg",
+      "sha256": "7fcb9deb2315bd840e1390a4dc7d5889366633b6087a6afceb536e1723537c07"
+    },
+    {
+      "path": "assets/v11/surfaces/roof-colour.jpg",
+      "sha256": "7e6e030e996f9b27a662fcb0d265bb0a86abdf1cf456d2b19512d456b62b6d38"
+    },
+    {
+      "path": "assets/v11/surfaces/roof-normal.jpg",
+      "sha256": "e83411256259277d90cf9e1da064470e98291c591101ea635319e15b5712489a"
+    },
+    {
+      "path": "assets/v11/surfaces/roof-rough.jpg",
+      "sha256": "9caf88164e27e25ccfd938e5f31448b60fcc3706eba34f4e50acb2a2cd9ed421"
+    },
+    {
+      "path": "assets/v11/surfaces/rust-colour.jpg",
+      "sha256": "acf0a2e487a1b130a4b5b1b9613039d7cda2706ae7a12ee71e1968c3fad7850a"
+    },
+    {
+      "path": "assets/v11/surfaces/rust-normal.jpg",
+      "sha256": "0aec563a41e02cd73e3d2c738c7aeaab44a3ee4c11708a648870e89a2b331dd9"
+    },
+    {
+      "path": "assets/v11/surfaces/rust-rough.jpg",
+      "sha256": "628960e2a557706f02bbde7e4df1b6f4a76b1e1d2f665ba758e9e6357e341400"
+    },
+    {
+      "path": "assets/v11/surfaces/wood-colour.jpg",
+      "sha256": "f6adbb3bb366681bd3c95239ec0c6911d046f0605b44a4de3cd6ca4a84832acb"
+    },
+    {
+      "path": "assets/v11/surfaces/wood-normal.jpg",
+      "sha256": "2ccd9912978f721d0530a9e1aede0267d0075629932b7f51aa57e3247c556f36"
+    },
+    {
+      "path": "assets/v11/surfaces/wood-rough.jpg",
+      "sha256": "1bbacc5bcb1452d8c9da0372bc0efaa50bf44774e0cc25bb075ddf055d5af226"
+    },
+    {
+      "path": "assets/v6/KENNEY-LICENSE.txt",
+      "sha256": "b9390bddfb9740d5fe219c06090f8f2430c6684074ca854d54d7b417853a7617"
+    },
+    {
+      "path": "assets/v6/canteen.png",
+      "sha256": "8c8387dcc3daced4e0e90c5d22288830ae971fb9b46c32177cc825bfd7a7b2ba"
+    },
+    {
+      "path": "assets/v6/character.fbx",
+      "sha256": "18835fef534eede635b081ee7fe647d01a885550a591d2e6bf071010906167d8"
+    },
+    {
+      "path": "assets/v6/trader.png",
+      "sha256": "1590e08cea37f5aecbacabb40a57c176e389e9a95d5b2a4de00086604ef23e1c"
+    },
+    {
+      "path": "assets/v7/asset-manifest.json",
+      "sha256": "a6115b386139975a3e1a88e92e30abc3fd8ac61e90368287770ce242b6c91b71"
+    },
+    {
+      "path": "assets/v7/models-0.json",
+      "sha256": "ced63ef6a85a4315d906c432094e3911c60c825fb29f99eb24736b4c2822ff97"
+    },
+    {
+      "path": "assets/v7/models-1.json",
+      "sha256": "a1c17eb38d6bcd0d1bbce5317cf38a7d401f139322cee332b97eb0f94faa08b4"
+    },
+    {
+      "path": "assets/v7/models-2.json",
+      "sha256": "751f547e8567381f70b87537977c59eea9f6c091c598d90a85fcd70dcae249b1"
+    },
+    {
+      "path": "assets/v7/surface-manifest.json",
+      "sha256": "da828738b5194312d2c3336605bbc5de0b850615c80f8e3a9b1e7276a57e8407"
+    },
+    {
+      "path": "assets/v7/surfaces.json",
+      "sha256": "30e64450f5bc0828b557cb962b885f05c6332d591ffe3e6fd9740149701b2389"
+    },
+    {
+      "path": "assets/v8/CREDITS.md",
+      "sha256": "b6c457af2f0879626f63e0eb2dd928a4d374e2a234181061e6902dc954b71dd5"
+    },
+    {
+      "path": "assets/v8/optimisation.json",
+      "sha256": "e392b662b90edcabed5df0b090b908366ca9fca322ba29752785ee9500856be0"
+    },
+    {
+      "path": "assets/v8/surfaces.json",
+      "sha256": "8defe5dcdedd9cc8c404e17e211dea07d99f327650616ca3eeae21f4615178f0"
+    },
+    {
+      "path": "assets/v9/REFUGE_MUSIC.md",
+      "sha256": "966dcff7f77bf062efb1ee1f6de4218223210259c64da6939d96d03e2ad56cbb"
+    },
+    {
+      "path": "assets/v9/briefings.json",
+      "sha256": "4e83b6b74194e0d62932355e64141a1c0b50863ef242c7f2def86aa55e7942a0"
+    },
+    {
+      "path": "assets/v9/model-manifest.json",
+      "sha256": "7618191675e4f500ef9556e6c466ab573597f5b04609ee97bc48d2333b895311"
+    },
+    {
+      "path": "assets/v9/models.json",
+      "sha256": "38c37b4fdd9c0e0b11c5f2803ae22f8d1819b55ee6a8e70f0ad13f12c3294651"
+    },
+    {
+      "path": "assets/v9/recon/beacon.jpg",
+      "sha256": "4648041f7073ee3aa0c036bf01ef679e1b065c6882f3968ebb883f4939ac95ee"
+    },
+    {
+      "path": "assets/v9/recon/cave.jpg",
+      "sha256": "a03de0ba95f0664e5a220db61a51df5cf4c974a035f46cf12125eafa01d61e67"
+    },
+    {
+      "path": "assets/v9/recon/hollow.jpg",
+      "sha256": "eb8cefa17edaf6840b9b0c83a9e1bf072449cd2acfd6592157eb4bd4b9e31181"
+    },
+    {
+      "path": "assets/v9/recon/mercy.jpg",
+      "sha256": "a9b9dd368771e4d827c1d5cc4764df6fb09eaae853d879f65a865f56ff2adedc"
+    },
+    {
+      "path": "assets/v9/recon/north.jpg",
+      "sha256": "d74c93916fbcc83f87ac688e123c929e5c3ba3f261d18914b814d08dce570fb3"
+    },
+    {
+      "path": "assets/v9/recon/orders.jpg",
+      "sha256": "11f0f3cac0e418d69ada69b51382071c82cd4616848e1402fec06cc775efcfec"
+    },
+    {
+      "path": "assets/v9/recon/pier.jpg",
+      "sha256": "f48665bfab55d4d3a1cc6d6e8601ef4029328a90a5ff5d9fde1b38e0524ae2f0"
+    },
+    {
+      "path": "assets/v9/recon/post.jpg",
+      "sha256": "35f014c8e20399444aaa456d9a54584f70914e3f6a0678af0c4ac883b0cc323e"
+    },
+    {
+      "path": "assets/v9/recon/provisions.jpg",
+      "sha256": "d97be9e7841f0aeee39316494605faa9698387952672a32e78cd5521879dd40b"
+    },
+    {
+      "path": "assets/v9/recon/rail.jpg",
+      "sha256": "a568577c0d6a5071e7a6af12b0bba396ee7f0f75c0f75eab84194a77aa520bec"
+    },
+    {
+      "path": "assets/v9/recon/shelter.jpg",
+      "sha256": "3aa3dd6ca6a729d41f6a3c0bc95793c272caaa9995b7592a99bcd65d06f9d41d"
+    },
+    {
+      "path": "assets/v9/recon/signal.jpg",
+      "sha256": "681734ae272d15696995d6a06bc97d5c696e7c132c2fb9f031de77d26ae2aaed"
+    },
+    {
+      "path": "assets/v9/recon/tides.jpg",
+      "sha256": "f2de8765536e70fa2fd3feb7a68231952b13a3a2a52fdcdf10dc2f5d6449d0e2"
+    },
+    {
+      "path": "assets/v9/recon/tower.jpg",
+      "sha256": "af3209930ca56915218f7d4e56e69983d0d8662fec523e384753f3229f79067c"
+    },
+    {
+      "path": "assets/v9/recon/tunnels.jpg",
+      "sha256": "d1f7f1e9d73cb07936ed422f67eb27463aabe226dbf851b6c8dff859422ad09c"
+    },
+    {
+      "path": "atlas-core.js",
+      "sha256": "905f02d3bd2d5e9b2623884084b56788db2b13f213de643802e05bd339f089b0"
+    },
+    {
+      "path": "atlas.js",
+      "sha256": "4fc05e284ff38434b08a64114f4b01e31fb67e0b9b9af8cef37bdba8ed5a583e"
+    },
+    {
+      "path": "audio-bank.json",
+      "sha256": "b3dc53f4475ccb9b4c50a5e2553d2f8efdafc963155398dab0a62be90d25bf86"
+    },
+    {
+      "path": "audio-v6.js",
+      "sha256": "e7e1212ef39903a716eb9fcc2f334e1eb3275379b3c71b7efc8746150def11c9"
+    },
+    {
+      "path": "audio-v7.js",
+      "sha256": "8994c54b238be96fd10793f006f9baa001c95020255a833f2f8f2f51effec94b"
+    },
+    {
+      "path": "audio-v9.js",
+      "sha256": "df7b4be110625e767e5f1663f6e95404452c44f3eab8ab4f98a17c095d9e79c6"
+    },
+    {
+      "path": "audio.js",
+      "sha256": "3890efc4e9d583a2c4c7c4c23f045cb9b9cff7f62ccbb90e172fe5545ac29b54"
+    },
+    {
+      "path": "bridge.js",
+      "sha256": "5cc4bc2b328dcc8f9bc0331469af2c9134655ddb9161e819eff0fe9bf7d171c6"
+    },
+    {
+      "path": "campaign-core.js",
+      "sha256": "0a6ae8cb2bcdf59cc867157afff4a5ed89dae5379671fd765c90a0c973ad9a15"
+    },
+    {
+      "path": "campaign-interiors.js",
+      "sha256": "c4e3c9662c861c71db05ddb7a12b691e446e1de9991aa45ef626f5b6335026cc"
+    },
+    {
+      "path": "campaign-loader.js",
+      "sha256": "95502522a4d61968c7e845457d48b9dd3e0cc4d3a4121cadc8ba8767a52adcea"
+    },
+    {
+      "path": "campaign-routes.json",
+      "sha256": "44069e55ddca419f1c230ae782c830c04b43b1f074cd860b0b7fd8186aaa37ff"
+    },
+    {
+      "path": "campaign-spawns.json",
+      "sha256": "0b8ac29cbcdefa94a8771bbbdd9f04a65dcf21da0de77c5eec1b4df25c3c8726"
+    },
+    {
+      "path": "campaign.css",
+      "sha256": "474c6d8ff1a09b772d50d433a1589c636159a4c06a792f1803743b27ab36024f"
+    },
+    {
+      "path": "campaign_rules.py",
+      "sha256": "dfb491f3e288e060a409e21bd58bbf6f77c4558f901a013d78d5d4fe01d6ee28"
+    },
+    {
+      "path": "candidate-credits.html",
+      "sha256": "18628ebe9052f433f494d1fc114c31a63aa1ac327b807103372df2c1a23aa9d2"
+    },
+    {
+      "path": "candidate-credits.js",
+      "sha256": "612df7cfa2f4f432115190d9f75b9804f7f15f5484f0eecfddf91c01c3b918ea"
+    },
+    {
+      "path": "controller-core.js",
+      "sha256": "611d92ea2c8014667eb2ecd2d11327e767bafcb89300d374372ccebeae8f8ae4"
+    },
+    {
+      "path": "controller.html",
+      "sha256": "c48955b6be972821b8176690cd11ef3175f59ca74de3e6f09f1d0cf149513d48"
+    },
+    {
+      "path": "district-scene.js",
+      "sha256": "475bbbf988e7d380d82b2296492964ff05987542e0718a527241d5a63049838a"
+    },
+    {
+      "path": "districts.json",
+      "sha256": "cdc619032ded900116e105b37a3eb2c72b927a5ab62e582bfa45c5c6d92680e6"
+    },
+    {
+      "path": "editor/bootstrap.js",
+      "sha256": "dec5bba76ac28c91b7b2f51e71c88c283a06c69803e1d5f3d30ad48b99cc65b0"
+    },
+    {
+      "path": "editor/connected-world.js",
+      "sha256": "c6d433ec2feff5a4ca5697446639e221fca0d72ed6456978e4e23a27226a5dfd"
+    },
+    {
+      "path": "editor/editor.css",
+      "sha256": "35e491b837844598f752a9de1315fa3af3807524c5151f12a78a50f9d19e49ec"
+    },
+    {
+      "path": "editor/editor.js",
+      "sha256": "95888a0dc8a428bab2d3134ccbc8736e579b5f653df475fde3ff27aceb58c390"
+    },
+    {
+      "path": "editor/index.html",
+      "sha256": "29129befa084b148aad4d797e8890c6b3ee2a5ceaea7199da4eef2bc9c347a30"
+    },
+    {
+      "path": "editor/loot.html",
+      "sha256": "360c8c95a0b96b16bece43866309e1eb7ee9720e53e798311c0eadccec463a9a"
+    },
+    {
+      "path": "editor/missions.html",
+      "sha256": "a08e66910f1d2e9c79a5beac8cac0d7cf256ef319e3ddc422ca96b9fbb59e2f9"
+    },
+    {
+      "path": "editor/panels/assets-core.js",
+      "sha256": "a9ad99d74f9ec8cf0c087af4364651c5e961362c122b48ee3a2d96e8ab83d526"
+    },
+    {
+      "path": "editor/panels/assets.css",
+      "sha256": "06a675bf5078e335f18a6ee833acc8446bc0a5daf91f0c8b9270d07591d5c68c"
+    },
+    {
+      "path": "editor/panels/assets.js",
+      "sha256": "8b3dfa35bb5ad1a852faa826ab94c9db489298e3d392c4c93b9b1bf07ec07ee4"
+    },
+    {
+      "path": "editor/panels/bindings-core.js",
+      "sha256": "b0627d2f0187fd6b8fb82fd758f3bd2d3c93e13c22b816d677252c0920f318e8"
+    },
+    {
+      "path": "editor/panels/bindings.js",
+      "sha256": "31905aa6e422ee74b7d27203c62c8b2e15dc07f47770a15c6f2b3ef2b17aeb46"
+    },
+    {
+      "path": "editor/panels/environment-brush.js",
+      "sha256": "921eb9c6c6b9688c443ba759746da6ed6e1ccfc5511b30abd13355272cdc9dd9"
+    },
+    {
+      "path": "editor/panels/hierarchy-core.js",
+      "sha256": "2fbf960982c2f315133fe945795e65d344676bcdcec10a612357284e995bea45"
+    },
+    {
+      "path": "editor/panels/hierarchy.js",
+      "sha256": "219fb96d75364f4ccb4b9cdb7325fad9fa718c02f82ed4ebad9acb30c5265c01"
+    },
+    {
+      "path": "editor/panels/interior-tools.js",
+      "sha256": "d437e3850d67cd1879983d59fe80d37bd5bac573f0d5c2649ad109c1f6b4ac3f"
+    },
+    {
+      "path": "editor/panels/loot-core.js",
+      "sha256": "1d76d922d71400bd79cefbaa2b62b2ace3054006e7ddf4db10eb6e77ce27f00e"
+    },
+    {
+      "path": "editor/panels/loot.css",
+      "sha256": "094913e67f68dc061a0edf964e0275a43dc18079088b7107a9ccae9e6a8cd7da"
+    },
+    {
+      "path": "editor/panels/loot.js",
+      "sha256": "d0c8eedda1e7bbc2a442ab038bd8bc3de61c2c47685bbaee99855daefa26695a"
+    },
+    {
+      "path": "editor/panels/missions-core.js",
+      "sha256": "061d6f02a690665dde5a0fdb4208d7f8bbef57125956aa0e47c1c9cd53a5234e"
+    },
+    {
+      "path": "editor/panels/missions.css",
+      "sha256": "3ccb2d7759667a566190510346447649de03c26dac16431f2f25173543517aab"
+    },
+    {
+      "path": "editor/panels/missions.js",
+      "sha256": "63357f2b43497857b5980691d1d8a5b17838a882dd1b7637d992ba687392b007"
+    },
+    {
+      "path": "editor/panels/recovery-core.js",
+      "sha256": "db41978f5df99bc4a6a3b2d929bfe450138d4b82281e51b7529841c31ec08222"
+    },
+    {
+      "path": "editor/panels/recovery.js",
+      "sha256": "4424eca6bc833e62155a3a8d6fcc4c3d8cd1a244e88fc033aebde70f6348dd4d"
+    },
+    {
+      "path": "editor/panels/validation-core.js",
+      "sha256": "031177abdcf93d1ed9860736f6b8fb6e8bcf765bd069d4d85b988cd168b61623"
+    },
+    {
+      "path": "editor/panels/validation.css",
+      "sha256": "498adc10de41caaadfa2bbfe901c48d93ad0c57ca7a11157160d944255021b67"
+    },
+    {
+      "path": "editor/panels/validation.js",
+      "sha256": "6e0c90d2f782530276d7d1761fc9777a3acb2f0124023a93e26a76209e94d10a"
+    },
+    {
+      "path": "editor/preview-launcher.js",
+      "sha256": "60d539d9945d088fc2fe059840d6ac20fc637abf71da38d9f27a1ef9cae7f701"
+    },
+    {
+      "path": "editor/release.json",
+      "sha256": "ef10e662943ccb89f000c6fe3b257e1c6a3cb0ef6a457819e288bf9069dd687d"
+    },
+    {
+      "path": "editor/runtime-bootstrap.js",
+      "sha256": "5f9641bd80f0a0a22544a829672084baae364105066bc071868ca51d9d7ee2db"
+    },
+    {
+      "path": "editor/session.js",
+      "sha256": "617d6c9e690782afef3b6415319da53fb0e93b507c03642e678e4249352a2967"
+    },
+    {
+      "path": "editor/source-adapter.js",
+      "sha256": "31d5e5725fe9d038888170a3324f447fb0b13f032f2ea711dcf28c996711020a"
+    },
+    {
+      "path": "editor/source-context.json",
+      "sha256": "02ee4f41c114a96aba9088b1050cf1f0d19914988e0fd3c47dc08c9a0dde3427"
+    },
+    {
+      "path": "editor/suite-bootstrap.js",
+      "sha256": "4a19aa162bdc6cc4e057fb58dbb113f50cfd4f6b7a8a4efd7d8aeb2a481ac7d1"
+    },
+    {
+      "path": "editor/thumbnails/binder_notebook.webp",
+      "sha256": "5c17889758b5452820e12060fb1ebb7f80846c480624619ac4cb733eca288eb5"
+    },
+    {
+      "path": "editor/thumbnails/can_rusted.webp",
+      "sha256": "d9955f6288447360aa0c90bd07e996b487d74a96917566875a6e957daf576998"
+    },
+    {
+      "path": "editor/thumbnails/cardboard_box_01.webp",
+      "sha256": "ad22b6df76f907cf63c458add119118ee3e1cfde2aa5d4949c079429db69790d"
+    },
+    {
+      "path": "editor/thumbnails/desk_lamp_arm_01.webp",
+      "sha256": "b9911a01c58784056a83f586042b5b1a0aaa10fed1ff0e58151093c9b90c5895"
+    },
+    {
+      "path": "editor/thumbnails/industrial_wall_lamp.webp",
+      "sha256": "259ef9cecf83c43d1a2377ebebe863dbcaa445e489c62b64ff83c41cb107f633"
+    },
+    {
+      "path": "editor/thumbnails/medical_box.webp",
+      "sha256": "45dc97c4d9795c9f09ed48d60e51a5315b180f930b0b5bdd17190f8f8a723534"
+    },
+    {
+      "path": "editor/thumbnails/metal_jerrycan.webp",
+      "sha256": "331b301351d08effb7c1ee49766711fb34175d8ad847d38103785ce94e98b520"
+    },
+    {
+      "path": "editor/thumbnails/metal_jug.webp",
+      "sha256": "95e333ccd7236ced5946d9e9ec103da8ba533d52c33b1bab668b56e4a2f04b3e"
+    },
+    {
+      "path": "editor/thumbnails/metal_toolbox.webp",
+      "sha256": "8d0f3bd4a04f2401b61cfa3b599e171fe8dd05fe3c711e9065ba2efe1918450c"
+    },
+    {
+      "path": "editor/thumbnails/metal_trash_can.webp",
+      "sha256": "5423c989bc125018670b8ba84a850dc35cd254eb3bf3776e4c796203a08e7cfe"
+    },
+    {
+      "path": "editor/thumbnails/old_bed_frame.webp",
+      "sha256": "fb3e80548426485de1986edd38ce4d7ac9b98b9451a7322cb61f17dd7b348716"
+    },
+    {
+      "path": "editor/thumbnails/old_military_crate.webp",
+      "sha256": "75fbd2b9c2ba8a3d375118b495ebcad9d6ed90afe726046a57c023a8f5c30905"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_cabinet.webp",
+      "sha256": "f5972ecdf2f56a20671205bdc708d441a3919dd363f6af945d1a82e23706902d"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_cabinet_02.webp",
+      "sha256": "66d00c50df67f0500ffbae468f6a279ce32c7f6f888609a8fe65e51745ef9dff"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_chair_01.webp",
+      "sha256": "460d7f24d3efb35e37374001556489c337b2be31eb68670b193995496e4d342b"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_nightstand.webp",
+      "sha256": "a0ad31999995a5d370d349e4e73c21c5e9c3c7c5f38eedc31e6e6041b64a3e74"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_table.webp",
+      "sha256": "343a90d04ab2b4082d17d410f5a81d2d5581fbe86f282391314e96f766d27a58"
+    },
+    {
+      "path": "editor/thumbnails/plastic_crate_01.webp",
+      "sha256": "2e5bf34e80fb829ba3a4b59c0de350cb9790847c0170818745dff8823eff9034"
+    },
+    {
+      "path": "editor/thumbnails/plastic_thermos.webp",
+      "sha256": "e49321968bfb92f5afe4ccc15bbd3302e43428160765bbe3c2d9e7171ca4d8e2"
+    },
+    {
+      "path": "editor/thumbnails/portable_cassette_player.webp",
+      "sha256": "d782ff972659eebdcac4f435de5ab1562e7c17bf6d96b1ed053c5a66e05be0bd"
+    },
+    {
+      "path": "editor/thumbnails/power_box_01.webp",
+      "sha256": "f04d9097e20e2bd9b9e4250b5a363b58db098550ec0a11bcca2dac4dec8b0fe4"
+    },
+    {
+      "path": "editor/thumbnails/propane_tank.webp",
+      "sha256": "c4bcb2215b63add029dbcce8600669f2cce0f539efc50e07b3af2c30f73e0ffa"
+    },
+    {
+      "path": "editor/thumbnails/russian_food_cans_01.webp",
+      "sha256": "f0ba2019c670b9f73bbc321c71e3fc6f1dda3b3d604e9757a3a960b0446b0188"
+    },
+    {
+      "path": "editor/thumbnails/small_oil_can_01.webp",
+      "sha256": "9b7866a58d7f2c29dbf9fdb8dc0cccd6dab6f7966f536f6667605cddbfd8187d"
+    },
+    {
+      "path": "editor/thumbnails/vintage_oil_lamp.webp",
+      "sha256": "c1adf9e09b18ba403a27cd7c98b7fa53fbb2c1ab8059342eb731fee8fc540af0"
+    },
+    {
+      "path": "editor/thumbnails/vintage_radio_transceiver.webp",
+      "sha256": "0d70ca71aa39d3e6b0530c59842f2574eaac7a94e6297e62f0eff092e5c3a069"
+    },
+    {
+      "path": "editor/thumbnails/vintage_wooden_drawer_01.webp",
+      "sha256": "623e699ea0803cdbe9a91673a452ebc8208176e162a967c5a728744821528685"
+    },
+    {
+      "path": "editor/thumbnails/wooden_bookshelf_worn.webp",
+      "sha256": "524edc13205c96dc87b5a64ecf69c6c6ffe762f96dcf67758849e603c9f3cd7b"
+    },
+    {
+      "path": "editor/thumbnails/wooden_crate_01.webp",
+      "sha256": "e0aa9310a5a7f2a2b86eb42ac0eb0985ea4f59946bdf8dcf9568c39af6476dff"
+    },
+    {
+      "path": "editor/thumbnails/wooden_picnic_table.webp",
+      "sha256": "2526db01f8a981e853ebeedc7194f2b8b2c4107c94bde37a8d9e5b03c5e8194a"
+    },
+    {
+      "path": "editor/thumbnails/worn_metal_rack.webp",
+      "sha256": "aedca8b37673960d69ba6652cba32f90faffad8816d67fb8192911c816d1bc69"
+    },
+    {
+      "path": "editor/tools/environment-brush-core.js",
+      "sha256": "c501ba569e3f654760911ca66f6c163935d59fc11f7a244434e785d564aef82e"
+    },
+    {
+      "path": "editor/tools/interior-core.js",
+      "sha256": "928249e2afd15265432fce81ba1381f0902b45858cc8644efae24b94e759238c"
+    },
+    {
+      "path": "editor/tools/resize-core.js",
+      "sha256": "e26d938c0e23f0e44b99acc8ee540fd297a6d7c1137a6f64eabff14dd0da0f3e"
+    },
+    {
+      "path": "editor/tools/resize-handles.js",
+      "sha256": "86ffc47343f6ba4241cfc395c86bdfe18bdc122114d662f2a4a798b2a1f9b43b"
+    },
+    {
+      "path": "editor/tools/terrain-dirty-core.js",
+      "sha256": "26d4f8d5e604cc963e804e8e5fe1a94c3d2a2803e23453858fc73d261e72e444"
+    },
+    {
+      "path": "editor/tools/world-authoring.js",
+      "sha256": "0d1deee7f13e6ec8e9551c5245bd76ba28f7d9534c199afa475e0eb9af1263f7"
+    },
+    {
+      "path": "editor/tools/world-inspector.js",
+      "sha256": "d7ec8b9dba7cd86f94b4b615a1f0aff1ca63d053f47e5ce60db5e9455707414d"
+    },
+    {
+      "path": "editor/validation.html",
+      "sha256": "d344ae7e4f70c50c52629332aa4c05dbc01f2caca53bc0a345bd0e953a183bf5"
+    },
+    {
+      "path": "editor/world-core.js",
+      "sha256": "be04aeaff3e7786c61d46c67ad7de9a888e4a13613ac16ff21e0b1d5e879ca02"
+    },
+    {
+      "path": "editor/world.html",
+      "sha256": "b7fc45b107c9de4833eea2633c7320d29771dd8f6f1a88b25cf54952995802e3"
+    },
+    {
+      "path": "editor/world.js",
+      "sha256": "df1b7fd81711eb2f53ec2a3f14cd09f358a2f248855d2f9a27cb607334c6acbe"
+    },
+    {
+      "path": "engine.py",
+      "sha256": "a984494ddaf351cb9d0c986ae88682d23c7953203ecc9cb5cf266f62060553f2"
+    },
+    {
+      "path": "fieldcraft.css",
+      "sha256": "08251d4bb91ec35854574f430bbff48f5396a6036d665739870808fe2f0d067d"
+    },
+    {
+      "path": "haptics.js",
+      "sha256": "31698ce3c4082cc721f1e7697a3ad5a5b453676788f7034cb9af5bd07d83aff0"
+    },
+    {
+      "path": "index.html",
+      "sha256": "e9f13457612a790a9e6ce5068b0bfb5618778cd0210ca444419aa3101f5e10e4"
+    },
+    {
+      "path": "input-v8.js",
+      "sha256": "37041582e12d5def2e5182738c04e57e8bbfc499ae8874166f801a8151459ef7"
+    },
+    {
+      "path": "input.js",
+      "sha256": "6394fec0860e70e6be61045a7d72a7c0509595558fb8aec171b702ed1ce68138"
+    },
+    {
+      "path": "item-models.js",
+      "sha256": "9cff84ad4aa331f2fc34dfd3765552fcf804f11ccc086d00a4e29cd484ad1396"
+    },
+    {
+      "path": "item-studio.js",
+      "sha256": "7221f131924c9722316d2ac57d8c3b04ccae9a45452533ab4dafad804c49bfa7"
+    },
+    {
+      "path": "journal-core.js",
+      "sha256": "6f16983b4d4fdaa1fb0586c17c7f49054a42e8fa368d613723d488c8571a49ae"
+    },
+    {
+      "path": "journal-view.js",
+      "sha256": "6bf063a5167425850bce0b342377b2a08ea081396b0d6aac4fdbfa4c6e2a3901"
+    },
+    {
+      "path": "journal.css",
+      "sha256": "fd4348d4f5b215a6391779ef41a9ee4e6cc6ca1e1b60edda3e3f0d43d2ec9e0c"
+    },
+    {
+      "path": "launch-building.js",
+      "sha256": "63d1a398cd1efb33421c25cb24a24c0d8276db5303c202ac8361efc7f1720834"
+    },
+    {
+      "path": "launch.js",
+      "sha256": "ad9300f222fb2affb654042b9d47c80a435e23d78f7e3059d7808924fd443947"
+    },
+    {
+      "path": "layout-core.js",
+      "sha256": "9ad7e13321eb050fe1b5d56aadfcd12d96725f751a7d5c6e3e15cde00912b627"
+    },
+    {
+      "path": "layout-preview.js",
+      "sha256": "c0233f6fd96b2e182d6ea12e30aca072aca52301c1000cf7bcd8b0e53f44e320"
+    },
+    {
+      "path": "layout-renderer.js",
+      "sha256": "1b03f58f23dc91b76f279012348a6d6d00f26c7cb20a34532a55b10889e6584c"
+    },
+    {
+      "path": "loot-defaults.json",
+      "sha256": "9bb9316ef37329530741f647f3b9369ce62a85dba2805db271e8a42d0c812d45"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "sha256": "2bb5ca19961ca471990e2c371d16d7cddc924a3033d566f950e363e89175b363"
+    },
+    {
+      "path": "precache.json",
+      "sha256": "7d472352770c74816c6cef41b8fde135a9810fc258adb357a12e0102a666f807"
+    },
+    {
+      "path": "preview-document.js",
+      "sha256": "5828d43485f3d9805977d6534a425bb637bc7bce3d1224a53f0301f0c0a68ddd"
+    },
+    {
+      "path": "release.json",
+      "sha256": "af68c31b85748e405a2a8286a6d1ded0607f9473c4c20a8b929e8b3cd6627657"
+    },
+    {
+      "path": "runtime-ready.js",
+      "sha256": "ed13ba34377af55cbebddcf20549c3fa0559a2582836b18a7c78ef3186e0040a"
+    },
+    {
+      "path": "search-props.js",
+      "sha256": "0c0c4623cc87c89cd35ec6894f1693b041f128273f875cf4cddee79e353d72cf"
+    },
+    {
+      "path": "search-props.json",
+      "sha256": "e98180fa7731e841dff1ade133ce545b21f4988a4afcf1adb907027df3ae250f"
+    },
+    {
+      "path": "sim-worker.js",
+      "sha256": "bb9d9227b2dd0b1fc8318d58700c6117f2abe4bd7108a6f3bedbb5405d6e10f0"
+    },
+    {
+      "path": "style.css",
+      "sha256": "fe53e20c08719be8cc63adbc8cbe4311901fa85e8978ae926a3c1b6969a37406"
+    },
+    {
+      "path": "sw.js",
+      "sha256": "3d535e5febd1e7bec3221ac9f221494d442519613d783cdc417f3409cee84398"
+    },
+    {
+      "path": "terrain.js",
+      "sha256": "748ea37f5a9e48923b651efafb25ddd2c76dfe3bb3515aa2198f852b84469c80"
+    },
+    {
+      "path": "vendor/BufferGeometryUtils.js",
+      "sha256": "c8a8b8dd3e018b5ef2ae0ef8bae598a8ae7f560a368780582f7466db4f11968f"
+    },
+    {
+      "path": "vendor/FBXLoader.js",
+      "sha256": "3cdf2cdd3081f24274cd778addd102512c8109ecdc720d2c21367effe0265923"
+    },
+    {
+      "path": "vendor/GLTFLoader.js",
+      "sha256": "b99ed2a3e951aaef75020c6105eb1bd7588ce39a389a61c66356f4f11bd33d9a"
+    },
+    {
+      "path": "vendor/NURBSCurve.js",
+      "sha256": "a6a41a496ac4126a29db73c2ebee37349bef257f356419cc7746138ba5725307"
+    },
+    {
+      "path": "vendor/NURBSUtils.js",
+      "sha256": "039e6e4964edca944fb28e7230253ef1ba947277acbbc5b2a0fe60b284ec42d2"
+    },
+    {
+      "path": "vendor/OrbitControls.js",
+      "sha256": "49617c6a9be488e6d5b0a73a71d433c44e3008d07916274d9c9bd13552f1e474"
+    },
+    {
+      "path": "vendor/PYODIDE-LICENSE.txt",
+      "sha256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5"
+    },
+    {
+      "path": "vendor/RoundedBoxGeometry.js",
+      "sha256": "6f9c53dc02b87bd9f7cc3770ba8e581d4e4fdf242cf5031c0e183a4989114511"
+    },
+    {
+      "path": "vendor/THREE-LICENSE.txt",
+      "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454"
+    },
+    {
+      "path": "vendor/TransformControls.js",
+      "sha256": "2c7320f921be55cf6f0801570223b97d89ad24f6bc140e613f21906aa4c9fa62"
+    },
+    {
+      "path": "vendor/fflate.module.js",
+      "sha256": "209a4412eb48ce609edb4391992a792ffcc3983d30ee7e2b0b89a8c470f3cd8a"
+    },
+    {
+      "path": "vendor/pyodide/pyodide-lock.json",
+      "sha256": "9c45b916001a750f4102fc287494f3eab215909c7535c626a20db80fd6333e2c"
+    },
+    {
+      "path": "vendor/pyodide/pyodide.asm.js",
+      "sha256": "6b4c90de5b7172873f04f21884d0e9d2274e305fe32116558fe3e4fbe3618d51"
+    },
+    {
+      "path": "vendor/pyodide/pyodide.asm.wasm",
+      "sha256": "a50dd1843f805a0b7c45b61037ee0d7b26dfe85efe0e18ef95a34ad24e401f5f"
+    },
+    {
+      "path": "vendor/pyodide/pyodide.js",
+      "sha256": "b4cb23a53aba19c221659b9fb40a2f18281d685691dc06647fb0afd0681baf98"
+    },
+    {
+      "path": "vendor/pyodide/python_stdlib.zip",
+      "sha256": "16611534726e5d8ac2bd8f926410b2dcb8d6f49aa24913463533b457a2115c16"
+    },
+    {
+      "path": "vendor/three.js",
+      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7"
+    },
+    {
+      "path": "world-campaign.js",
+      "sha256": "46c40d02010a8142d706081402d43a035011c4884f2b846931094ad4ccb4135f"
+    },
+    {
+      "path": "world-core.js",
+      "sha256": "2e2be6ad595c21d35021e3474ae9c72640d68e110d88a53c387e58fa351d1936"
+    },
+    {
+      "path": "world-document.js",
+      "sha256": "68c59f54794cdde334f20fc312c6194302edd360bf63eb942269f7a8628ed59a"
+    },
+    {
+      "path": "world-layout.js",
+      "sha256": "98abeb423946765737f36605183533a012253515289ee1f7aa9f87b6e86bf0fd"
+    },
+    {
+      "path": "world-preview.js",
+      "sha256": "8ecb354d936e20631aaf04d55b43f2337f265d6dad53a7e4c41c6fcb1296ea74"
+    },
+    {
+      "path": "world-source.json",
+      "sha256": "77a15a3542ee705a5b4b8826482727f8e3f3f1193165077144fc525ef43ade06"
+    },
+    {
+      "path": "world-v10.js",
+      "sha256": "61065dd4fef4269a806acfc575ce6575a2493c88e483d5a9cd10a8f62d257274"
+    },
+    {
+      "path": "world-v11.js",
+      "sha256": "81b32acfd1b27ec0dd84b7e4ab1a8d85b15eee70da06cd3a3ba3dc81e251d082"
+    },
+    {
+      "path": "world-v6.js",
+      "sha256": "c4517f27ec0c94496ecd4a5cc7208951bd2c5af717149aa2867e1fd07538cad2"
+    },
+    {
+      "path": "world-v7.js",
+      "sha256": "e3fdde63784d6ead88102b297a22547983bc48b7578aa45797de13ad54d66cd0"
+    },
+    {
+      "path": "world-v8.js",
+      "sha256": "e341065ed3d05bc4826f94f0b1ffa168112c3ccf8bd116acc43e7ed6c5427b1e"
+    },
+    {
+      "path": "world-v9.js",
+      "sha256": "3d610216913af99026d95e3f3eef7dafa8e707b3bd35a9f35e4e884e9f2285cd"
+    },
+    {
+      "path": "world.js",
+      "sha256": "461c43c3092c569247c0aeb439a3cae826cb0646c9f2a8ca45cd1c2301486c84"
+    },
+    {
+      "path": "world.json",
+      "sha256": "84fcc9d23960e75b84053d794636ce63c88a3ddd3d432b1d908fe8cd19a0d7c8"
+    }
+  ],
+  "mergedEditorPR": false,
+  "publishedEditorPR": false
+}

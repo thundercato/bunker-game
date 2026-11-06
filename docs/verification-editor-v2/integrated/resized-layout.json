@@ -1,0 +1,291 @@
+{
+  "format": "field-signal-layout",
+  "version": 1,
+  "buildingId": "hut",
+  "name": "Survey hut 03",
+  "origin": [
+    14,
+    0,
+    -31.5
+  ],
+  "bounds": [
+    8,
+    7
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "Ground floor",
+      "type": "floor",
+      "position": [
+        2.822665236644009,
+        0,
+        -1.0314121202707576
+      ],
+      "size": [
+        13,
+        0.16,
+        8.75
+      ],
+      "yaw": 0.6457718232379019,
+      "material": "concrete",
+      "solid": true,
+      "locked": false
+    },
+    {
+      "id": "wall-north",
+      "name": "Rear wall",
+      "type": "wall",
+      "position": [
+        0,
+        0,
+        -3.5
+      ],
+      "size": [
+        8,
+        3.2,
+        0.22
+      ],
+      "yaw": 0,
+      "material": "plaster",
+      "solid": true,
+      "locked": false
+    },
+    {
+      "id": "wall-west",
+      "name": "West wall",
+      "type": "wall",
+      "position": [
+        -3.8581279688313916,
+        0,
+        -0.27843953880886496
+      ],
+      "size": [
+        7.625,
+        3.575,
+        0.22
+      ],
+      "yaw": 1.0995574287564276,
+      "material": "plaster",
+      "solid": true,
+      "locked": false
+    },
+    {
+      "id": "wall-east",
+      "name": "East wall",
+      "type": "wall",
+      "position": [
+        4,
+        0,
+        0
+      ],
+      "size": [
+        7,
+        3.2,
+        0.22
+      ],
+      "yaw": 1.5707963267948966,
+      "material": "plaster",
+      "solid": true,
+      "locked": false
+    },
+    {
+      "id": "entrance",
+      "name": "Entrance wall + door",
+      "type": "doorway",
+      "position": [
+        0,
+        0,
+        3.5
+      ],
+      "size": [
+        8,
+        3.2,
+        0.22
+      ],
+      "yaw": 0,
+      "material": "plaster",
+      "solid": true,
+      "locked": false,
+      "opening": {
+        "width": 2.2,
+        "height": 2.75,
+        "sill": 0
+      },
+      "doorId": "hut"
+    },
+    {
+      "id": "roof",
+      "name": "Roof / ceiling",
+      "type": "roof",
+      "position": [
+        0,
+        3.2,
+        0
+      ],
+      "size": [
+        8.3,
+        0.18,
+        7.3
+      ],
+      "yaw": 0,
+      "material": "roof",
+      "solid": true,
+      "locked": false
+    },
+    {
+      "id": "container-hut_c0",
+      "name": "Tool cupboard",
+      "type": "prop",
+      "position": [
+        -3.5,
+        0,
+        -2.3999999999999986
+      ],
+      "size": [
+        0.65,
+        1.85,
+        0.5
+      ],
+      "yaw": 1.5707963267948966,
+      "material": "wood",
+      "solid": true,
+      "locked": false,
+      "asset": "search_broom_cupboard",
+      "binding": {
+        "type": "container",
+        "id": "hut_c0",
+        "anchor": [
+          0,
+          0.9,
+          0.33
+        ],
+        "floor": 0
+      }
+    },
+    {
+      "id": "container-hut_c1",
+      "name": "Drawer unit",
+      "type": "prop",
+      "position": [
+        3.5,
+        0,
+        -2.3999999999999986
+      ],
+      "size": [
+        1.35,
+        0.9,
+        0.47
+      ],
+      "yaw": -1.5707963267948966,
+      "material": "wood",
+      "solid": true,
+      "locked": false,
+      "asset": "search_sideboard",
+      "binding": {
+        "type": "container",
+        "id": "hut_c1",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.315
+        ],
+        "floor": 0
+      }
+    },
+    {
+      "id": "container-hut_c2",
+      "name": "Medicine cabinet",
+      "type": "prop",
+      "position": [
+        -3.5,
+        0,
+        0.3999999999999986
+      ],
+      "size": [
+        1.1,
+        1.05,
+        0.44
+      ],
+      "yaw": 1.5707963267948966,
+      "material": "wood",
+      "solid": true,
+      "locked": false,
+      "asset": "search_apothecary_drawers",
+      "binding": {
+        "type": "container",
+        "id": "hut_c2",
+        "anchor": [
+          0,
+          0.5775000000000001,
+          0.3
+        ],
+        "floor": 0
+      }
+    },
+    {
+      "id": "surface-hut_table",
+      "name": "Table • physical loot surface",
+      "type": "prop",
+      "position": [
+        2.3500000000000014,
+        0.015000000000000013,
+        0.6000000000000014
+      ],
+      "size": [
+        2.1,
+        0.985,
+        1.25
+      ],
+      "yaw": 0,
+      "material": "wood",
+      "solid": true,
+      "locked": false,
+      "asset": "painted_wooden_table",
+      "binding": {
+        "type": "loose",
+        "id": "hut_table"
+      }
+    },
+    {
+      "id": "light-0",
+      "name": "Ceiling light 1",
+      "type": "light",
+      "position": [
+        0,
+        2.65,
+        0
+      ],
+      "size": [
+        0.18,
+        0.15,
+        0.18
+      ],
+      "yaw": 0,
+      "material": "plaster",
+      "solid": false,
+      "locked": false,
+      "intensity": 35,
+      "colour": "#efd9ae"
+    },
+    {
+      "id": "spawn",
+      "name": "Walk-test start",
+      "type": "spawn",
+      "position": [
+        0,
+        0,
+        4.9
+      ],
+      "size": [
+        0.35,
+        1.7,
+        0.35
+      ],
+      "yaw": 0,
+      "material": "plaster",
+      "solid": false,
+      "locked": false
+    }
+  ]
+}

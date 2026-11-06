@@ -1,0 +1,31 @@
+PASS Editor loads actual game template and models
+PASS All 37 exterior buildings available
+PASS Hierarchy selects real object
+PASS Inspector position updates layout and model
+PASS Undo restores previous placement
+PASS Redo restores edited placement
+PASS Protected mission cupboard cannot be deleted
+PASS Orthographic plan and cutaway work
+PASS Library contains real model thumbnails
+PASS Place a licensed furniture model
+PASS Locked object detaches transform gizmo
+PASS Duplicate preserves model and makes a new ID
+PASS Delete decorative object works
+PASS Draft stored independently of campaign
+PASS Export is valid portable layout JSON
+PASS Stair transform rebuilds linked floor opening
+PASS Collision preview enabled
+PASS Switching buildings restores local draft
+PASS Actual keyboard walking enters building
+PASS Escape leaves walk mode
+PASS Invalid import is non-destructive
+PASS Exported layout reimports with every stable child and binding
+PASS Actual Python/WebGL game loads edited scene
+PASS Real preview starts at exported marker
+PASS Production save untouched by preview startup
+PASS Edited container visible at exact exported coordinates
+PASS Game door interaction and movement use edited geometry
+PASS Python searches relocated mission container
+PASS Normal save still unchanged after preview interactions
+PASS Normal settings and journal remain unchanged
+PASS No editor/preview JS errors or missing assets {"errors":[],"missing":[]}

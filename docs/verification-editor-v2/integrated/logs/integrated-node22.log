@@ -1,0 +1,184 @@
+v22.23.4
+PASS merges latest shared manifest and retains provenance
+PASS every registered placement has manifest provenance and reviewed dimensions
+PASS source scan counts are not passed off as runtime counts
+PASS search matches author, category, licence, source and ID
+PASS cost filter excludes unknown costs and obeys placement/category filters
+PASS source links accept HTTPS only
+PASS model costs count unique buffers/materials/textures but per-instance draws
+PASS unknown texture dimensions and multiple material groups are explicit
+PASS catalogue merge and filtering leave shared metadata unchanged
+PASS accepted campaign and semantic catalogues extend rather than replace existing models
+PASS campaign placement consumes reviewed metres/collision and actual mesh thumbnail
+PASS search visuals remain existing-container appearances even when listed in a prop selector
+PASS licensed search appearance retains underlying provenance without guessed geometry costs
+PASS unreviewed or inconsistent registry geometry cannot produce placement dimensions
+PASS extended catalogue leaves shared provenance, collision and recipes unchanged
+PASS public editor release counts match shared catalogue and reviewed placement metadata
+16 editor asset tests passed; 214 registered models/appearances, 107 reviewed decorative placements.
+PASS station identities and current source offers match actual world records
+PASS mission links encode actual stable mission identities
+PASS container links open its proposal rather than declaring runtime loot changed
+PASS selected real container reports binding, mission and per-container authoring links
+PASS rotating or moving a child never changes interaction identity
+PASS loose surfaces and doors retain distinct existing interaction kinds
+PASS decoration cannot masquerade as a searchable object
+PASS no selection has no invented binding
+PASS existing seeded building interaction references validate
+PASS duplicate interaction selects the copied offending object and explains repair
+PASS foreign binding is not treated as another decorative identity
+PASS missing source binding is a focused repair diagnostic
+PASS removed required interaction is reported without guessing a replacement
+PASS broken mission reference reports source contract failure
+PASS refuge view retains actual rooms, station IDs, container and transitions
+PASS refuge excludes field range station without relocating it
+PASS bad source station position is explicit and excluded from refuge map
+PASS reference inspection never mutates source or canonical layout JSON
+18 editor binding/reference tests passed
+PASS preview is deterministic, seeded and leaves canonical document unchanged
+PASS spacing protects existing locked and ordinary instances and each new neighbour
+PASS scale/yaw controls affect only new instances, with no reload reroll
+PASS instance allocation skips existing IDs even with stale nextId metadata
+PASS bounds reject out-of-world candidates rather than clamping them into a pile
+PASS moved and rotated source footprint and doorway approach exclude vegetation
+PASS curved path mask uses current road/rail width and clearance
+PASS global and local water avoid only submerged ground, with explicit bypass
+PASS terrain slope mask samples the existing height grid
+PASS a bounded attempt budget reports fully excluded regions without mutation
+PASS erase is selective, preserving locked IDs, transforms and unrelated instances
+PASS capacity limits are explicit and never replace existing foliage
+PASS invalid numeric settings, unknown kinds and nonfinite centres reject early
+13 environment-brush tests passed
+PASS editor hierarchy: atomic lock rejection, local offsets, JSON and reference validation (9 assertions)
+PASS rotated support: canonical local footprint fits, snap rests on actual top
+PASS support centre and yaw are explicit overrides
+PASS snap rejects full footprint overhang atomically
+PASS snap rejects collision on support atomically
+PASS floor support uses automatic stair opening
+PASS locked, missing and non-prop edits reject without partial edits
+PASS alignment uses rotated reference axes and projected dimensions
+PASS bottom and top alignment respect floor top convention
+PASS dimension and yaw match apply to targets, rejected mismatch is atomic
+PASS rigid collection rotates each child once in building-local coordinates
+PASS whole assembly edit is atomic with a locked child or missing pivot
+PASS template captures local rigid pose and JSON round trips
+PASS template rejects protected binding, door and spawn identities
+PASS import strips unknown fields and rejects duplicate/unsafe IDs, URLs and scripts
+PASS template insertion uses fresh IDs and concrete override fields
+PASS window opening scales and canonical material override is applied
+PASS duplicate IDs, invalid scale/material and bad dimensions never partially insert
+PASS overlap chooser returns real stable authored IDs and proximity is view-only
+PASS diagnostics reveal unsupported footprint, stair headroom, and suggested fixes
+PASS bounded reachability warns on cap without asserting inaccessible targets
+PASS sealed actual collision prevents sampled container approach
+PASS sampled approach uses the rotated canonical front anchor rather than a solid container centre
+PASS an anchor on the obstructed reverse face retains an actionable bounded warning
+PASS explicit ground support floor is honoured for a wall-mounted binding beneath a mezzanine
+PASS rotated wall endpoints meet once and preserve the opening binding
+PASS real floor landings respect stair rise, shared holes, fresh IDs and bottom yaw
+PASS UI height transforms keep accepted binding floor policy in local coordinates
+PASS cutaway opens the actual 52-object cottage on ground and upper floors without authoring changes
+PASS cutaway uses local boundary centres for rotated walls on every storey and leaves other object types alone
+PASS cutaway retains the existing 15 cm boundary tolerance and never removes a centred interior wall
+PASS editor interior workshop: 30 cases
+PASS actual source containers appear exactly once in grouped master
+PASS master searches stable container and real building names
+PASS every legacy suggestion has valid item IDs and explicit draft draw counts
+PASS suggestion preserves original world and profiles
+PASS unconfigured effective table is absent, not silently migrated
+PASS default inheritance and local override remain explicit
+PASS proposal JSON round trip preserves tables and stable references
+PASS foreign canonical/runtime formats are rejected
+PASS unknown container reference is rejected
+PASS unknown profile reference is rejected
+PASS unknown item IDs rejected
+PASS empty pool rejected
+PASS all-zero pool rejected
+PASS negative, infinite and excessive weights rejected
+PASS fractional and reversed draw bounds rejected
+PASS invalid quantity bounds rejected
+PASS duplicate rows rejected rather than changing no-repeat semantics
+PASS repeat permissions must be explicit boolean values
+PASS unsatisfiable minimum rejected
+PASS maximum depletion warning and runtime-free simulation shortfall
+PASS seeded simulation exactly reproducible and does not mutate
+PASS nonrepeat firearm never appears twice; repeats occur for allowed medicine
+PASS first-draw weights are conditional relative probabilities
+PASS zero draws yield zero overall inclusion but retain conditional first draw
+PASS single nonrepeat entry with weight 100 is not guaranteed when draw count can be zero
+PASS capacity overflow reported without removing or rerolling results
+PASS negative capacity rejected
+PASS sample count bounded
+PASS real mission guarantees remain unchanged and absent from proposal
+PASS unsupported guarantee fields rejected instead of silently ignored
+PASS unsupported proposal fields rejected
+PASS fractional unit capacity rejected
+PASS invalid seeds rejected
+33 editor weighted-loot tests passed
+PASS existing mission IDs and source stable IDs are preserved
+PASS source world is never mutated by authoring
+PASS all current mission graphs have no errors
+PASS source mission graphs round trip with proposal policies
+PASS reordered missions retain stable identities
+PASS campaign and world documents are rejected
+PASS source version mismatch is rejected without rewriting
+PASS missing and copied mission IDs are rejected
+PASS non-finite graph poses and oversized content are rejected
+PASS executable and unsupported node types cannot import
+PASS unknown attributes are stripped rather than executed or retained
+PASS unknown source, item and target are reported together
+PASS real object target uses stable layout ID and building link
+PASS local-scene target does not pretend a focused editor exists
+PASS ordinary collection has no invented target
+PASS invalid prerequisite and cross-source cycles are reported
+PASS permanently failed prerequisite warns of softlock
+PASS missing outcome branches and unowned delivery are errors
+PASS missing completion outcome is reported
+PASS graph cycles and unreachable nodes are reported
+PASS typed item ports cannot connect to flow input
+PASS self, duplicate and missing-node connections rejected
+PASS valid connection adds detached declarative data
+PASS proposal policy values are restricted and surge stays separate
+PASS every graph explicitly declares game execution unavailable
+PASS all built-in node ports declare a supported type
+PASS generated graph captions follow values while custom captions survive
+27 editor mission proposal tests passed
+PASS editor preview adapter: capability gate, absent interior, canonical payload/subpath/isolation, rejected compile, storage failure, missing compiler, adapter recovery message (7 scenarios)
+PASS strict backup key allowlist excludes all campaign, settings, journals and arbitrary editor keys
+PASS enumeration reads only allowed editor backup and rejected keys
+PASS malformed original bytes remain unchanged and cannot restore
+PASS template libraries are download-only
+PASS selection collection backups remain downloadable but cannot overwrite scene data
+PASS foreign building IDs cannot restore through another building recovery key
+PASS canonical world document and checkpoint wrapper validate through existing contract
+PASS source revision mismatches cannot restore
+PASS world authoring validates through existing world-v2 validator
+PASS loot and mission proposals use their existing validators
+PASS a stale backup cannot restore a different raw value
+PASS restoring a layout retains exact original backup and stable IDs
+PASS active unsaved design is backed up before restored layout replaces it
+PASS backup quota failure prevents all primary changes and retains active work
+PASS proposal restore preserves both stored and unsaved proposal designs before write
+PASS normal campaign bytes are untouched by all recovery operations
+16 editor recovery tests passed
+PASS 599 editor anchored resize checks
+PASS concurrent valid/invalid legacy mirrors, initially absent drafts, world mirrors, multiple recoveries and backup-quota atomicity
+PASS editor connected session: legacy adoption, global history, saved UI state, canonical JSON, stable IDs, composed transforms, external edits and quota-safe recovery
+PASS Accepted runtime loader retains original IDs and supplies actual campaign scenes
+PASS Editor uses the accepted runtime full asset registry
+PASS Initial scene is a detached exact authored layout and canonical binding anchors agree
+PASS Session chooses actual campaign layout only when no existing explicit draft exists
+PASS Legacy world draft adopts missing accepted districts in memory and writes defaults only on explicit save
+PASS Existing authored districts and hidden district layer survive accepted source loading
+PASS mismatched raw source bytes are rejected before editor source adoption
+PASS stale editor metadata cannot enable a mismatched source
+PASS missing source gives recoverable error without storage changes
+9 accepted editor source integration checks passed
+PASS local sculpt reuses geometry and matches a complete position/colour/normal rebuild
+PASS sequential distant dabs retain pending uploads and never alter distant attributes
+PASS boundary and non-grid-aligned world edges retain exact incident normals
+PASS bilinear dependencies are bounded, with null updates for remote strokes
+4 dirty-terrain tests passed
+PASS 11 cross-workspace validation checks: canonical references, water, region counts, proposals, digest and nonmutation
+PASS 37 editor world authoring constraints: grounding locks, bounds, snapping, paths, regions, JSON and detached invalid edits
+PASS district authoring integration: nested canonical transforms, degrees, retained identities/colliders, detached validation, source isolation and JSON

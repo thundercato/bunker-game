@@ -1,13 +1,38 @@
-# Explicit runtime compatibility testing
+# Building-preview runtime verification
 
-The canonical editor package on PR #82 does not include the moved-building game
-adapter. Its trusted `editor/source-context.json` declares `worldPreview: false`.
-The connected preview buttons are disabled and the launcher refuses to import an
-absent module or create preview state. The existing stationary layout preview
-remains a separate supported mode.
+## Accepted runtime integration
 
-PR #83 (`feat/game-first-candidate`) contains the optional runtime adapter. This is
-unmerged runtime work, not published functionality or an approved dependency.
+PR81 and PR83 were accepted into main while the editor continuation ran. Editor
+checkpoint `8cd2b24` reconciles accepted main `0aacdb4`, preserving its runtime/compiler,
+campaign scenes/assets and publication work. The canonical package now includes
+the moved-building adapter and enables bounded previews for existing buildings.
+The normal preview browser suite now runs the three-building actual-game journey
+from canonical dist; final acceptance results are recorded in EDITOR_V2_PROGRESS.md.
+The accepted preview loader mounts the selected layout over the isolated base
+world, then skips normal campaign enrichment when `editorLayout` is present.
+Consequently this mode does not preview all 11.1 districts or other furnished
+campaign homes; its inherited info label may still say Overgrowth 11.0. The game,
+compiler, journal and renderer files come from accepted main 11.1 (recorded hashes),
+and the selected furnished layout/semantic assets are real. Normal 11.1 campaign
+content is unchanged. This is a bounded building preview, not a whole-campaign test.
+Whole-map terrain/path/water/district drafts and loot/mission proposals still do
+not execute. This editor PR has not been merged or published.
+
+## Historical explicit compatibility artifact
+
+The remainder records the earlier, explicitly unmerged test artifact and its exact
+provenance. It is retained as historical evidence, not substituted for integrated
+canonical acceptance.
+
+
+At checkpoint `f31920a`, the canonical editor package did not include the moved-building
+game adapter. Its trusted metadata declared `worldPreview: false`, and connected
+preview buttons were disabled. The launcher refused to import an absent module or
+create preview state. The existing local-layout preview remained supported.
+
+At that time, PR83 (`feat/game-first-candidate`) contained the optional runtime
+adapter and was unmerged, unapproved runtime work. It was subsequently accepted
+through PR81, as described above.
 The adapter accepts existing building IDs in canonical world documents; its
 shareable sample URL is restricted to the hut. Its current limits are a dry,
 non-overlapping placement inside the map north of the swamp, an apron of 2.5 m,
@@ -38,8 +63,9 @@ IDs, dirty editor paths, copied resource hashes and every narrow build change.
 
 This artifact exists only for compatibility verification. It must not be used as
 the canonical release build or deployed. Release acceptance uses `python3
-tools/build.py` and the unchanged canonical `dist/`; the normal preview browser
-suite checks that unsupported moved previews remain explicitly unavailable.
+tools/build.py` and the unchanged canonical `dist/`; the current normal preview browser
+suite executes the accepted adapter; unsupported-runtime capability still has
+explicit pure regression coverage.
 
 The compatibility journey edits bound contents through numeric inspector fields,
 moves/rotates/raises the same complete building in the map, returns to the focused
