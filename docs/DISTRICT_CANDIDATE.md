@@ -4,13 +4,14 @@ This is implemented candidate content for the game-first campaign. The campaign
 adapter decides when to load it; this file does not authorise a production release.
 Existing building, container, vehicle and mission IDs stay in the source world.
 
-`site/districts.json` contains 94 authored objects in eight districts: village,
+`site/districts.json` contains 95 authored objects in eight districts: village,
 woodland, crossing, railway, docks, utility spur, western ridge and refuge. New
 garden boundaries have open gates and driveways; the cargo quay uses four actual
 Kenney CC0 shipping-container instances, textured crates, mooring bollards,
 floodlights and an original lattice crane. Woodland clearings and western rock
 silhouettes use existing licensed moss-rock and deadwood assets. New poles branch
-away from the old utility line. Railway work adds ballast shoulders, fastening
+away from the old utility line, with an explicit cable link to its pole at
+`(-36,-125)`. Railway work adds ballast shoulders, fastening
 clips, open crossing equipment and signals around the existing rails/sleepers.
 Refuge detail sits against walls and ceilings, clear of the existing save furniture.
 
@@ -94,7 +95,7 @@ rotated local-to-world poses, every source building footprint and door approach,
 licensed campaign asset references, pier-bound crane endpoints, landing/rail
 clearance, outside-shaft waypoints, geometry construction, authored-data isolation
 and zone/distance/vegetation culling. Stub-model geometry construction produces
-145 merged meshes, below the authored 450 whole-candidate merged-mesh ceiling;
+146 merged meshes, below the authored 450 whole-candidate merged-mesh ceiling;
 these are not measured live frame times or actual imported-model triangle counts.
 The full geometry catalogue is distance culled and only nearby cells render.
 

@@ -2786,6 +2786,37 @@
             }
           ],
           "surfaces": []
+        },
+        {
+          "id": "utility-source-link-01",
+          "component": "cable-span",
+          "asset": "field-signal:cable-span",
+          "transform": {
+            "x": -52,
+            "y": 1.2268,
+            "z": -155,
+            "yaw": 0
+          },
+          "size": [
+            18.4,
+            3,
+            30
+          ],
+          "colliders": [],
+          "surfaces": [],
+          "end": {
+            "x": 16,
+            "y": 1.2558,
+            "z": 30
+          },
+          "startHeight": 7.12,
+          "endHeight": 6.5,
+          "sourceAnchor": {
+            "x": -36,
+            "z": -125,
+            "poleHeight": 6.5,
+            "kind": "existing-utility-pole"
+          }
         }
       ]
     },
