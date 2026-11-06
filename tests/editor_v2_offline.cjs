@@ -44,7 +44,7 @@ const workspaces=[
   const source=JSON.parse(fs.readFileSync(path.join(dist,'world.json'))),{seedLayout}=await import(path.join(root,'site/layout-core.js')),{initialWorld}=await import(path.join(root,'site/editor/world-core.js'));
   const layout=seedLayout(source,'hut');layout.objects.find(o=>o.id==='container-hut_c1').position[0]+=.125;
   const world=initialWorld(source);world.buildings[0].x+=.25;
-  const retained={'field-signal-dead-air-v9':'campaign-retention-sentinel','field-signal-dead-air-options':'{"music":0.23}','field-signal-v8-journal':'[]','field-signal-editor-v1:hut':JSON.stringify(layout),'field-signal-world-v2-draft':JSON.stringify(world)};
+  const retained={'field-signal-dead-air-v9':'campaign-retention-sentinel','field-signal-dead-air-options':'{"music":0.23}','field-signal-v8-journal':'[]','field-signal-v9-journal':'[{"text":"protected current journal"}]','field-signal-field-journal-v1':'{"format":"field-signal-journal/1","protected":true}','field-signal-editor-game:retained':'preview-campaign-sentinel','field-signal-editor-options:retained':'preview-options-sentinel','field-signal-editor-journal:retained':'preview-journal-sentinel','field-signal-editor-book:retained':'preview-book-sentinel','field-signal-editor-v1:hut':JSON.stringify(layout),'field-signal-world-v2-draft':JSON.stringify(world)};
   await page.evaluate(values=>{for(const [key,value]of Object.entries(values))localStorage.setItem(key,value);},retained);
   legacy=false;
   await page.goto(base+workspaces[0].url);await page.waitForFunction(workspaces[0].ready,null,{timeout:120000});
@@ -62,7 +62,7 @@ const workspaces=[
   await page.evaluate(async cache=>{const stored=await caches.open(cache);await stored.delete(new URL('editor/',document.baseURI));},CACHE);
   await context.setOffline(true);
   for(const workspace of workspaces){await page.goto(base+workspace.url);await page.waitForFunction(workspace.ready,null,{timeout:120000});await page.screenshot({path:path.join(out,`offline-${workspace.name}.png`)});}pass('Every workspace restarts offline, including never-cached directory navigation');
-  assert.deepEqual(await page.evaluate(keys=>Object.fromEntries(keys.map(key=>[key,localStorage.getItem(key)])),Object.keys(retained)),retained);pass('Campaign, settings, journal and backward-compatible editor drafts remain byte-for-byte intact');
+  assert.deepEqual(await page.evaluate(keys=>Object.fromEntries(keys.map(key=>[key,localStorage.getItem(key)])),Object.keys(retained)),retained);pass('Campaign, settings, both legacy journals, current field journal, existing preview namespaces and backward-compatible drafts remain byte-for-byte intact');
   assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);pass('No browser exceptions or missing packaged network resources');
  }finally{fs.writeFileSync(path.join(out,previous.report),JSON.stringify({checks,errors,missing},null,2));await browser?.close();await new Promise(resolve=>host.close(resolve));}
 })().catch(error=>{console.error(error.stack);process.exitCode=1;});

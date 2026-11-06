@@ -16,13 +16,20 @@ const server=http.createServer((req,res)=>{
 });
 (async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base=`http://127.0.0.1:${server.address().port}/bunker-game/`;
- let browser;const checks=[],errors=[],missing=[],adapterRequests=[];
+ let browser,activePage;const checks=[],errors=[],missing=[],adapterRequests=[];
  const check=(name,condition,detail)=>{checks.push({name,pass:!!condition,detail});console.log(condition?'PASS':'FAIL',name);assert.ok(condition,name);};
  const near=(a,b)=>Math.abs(a-b)<.025;
  const observe=p=>{p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)missing.push([r.status(),r.url()]);});p.on('request',r=>{if(new URL(r.url()).pathname.endsWith('/world-preview.js'))adapterRequests.push(r.url());});};
  try{
   browser=await chromium.launch({headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-  const context=await browser.newContext({viewport:{width:1440,height:1000}});let page=await context.newPage();observe(page);
+  const context=await browser.newContext({viewport:{width:1440,height:1000}});
+  await context.addInitScript(()=>{
+   // Set the same low/shadow profile used below before its isolated renderer
+   // compiles. Ordinary campaign options retain their protected sentinel bytes.
+   const id=new URL(location.href).searchParams.get('worldPreview');
+   if(/^[a-f0-9-]{36}$/.test(id||''))localStorage.setItem('field-signal-editor-options:world-'+id,JSON.stringify({quality:'low',shadows:false,reducedMotion:true}));
+  });
+  let page=await context.newPage();activePage=page;observe(page);
   await page.goto(base+'editor/');await page.waitForFunction(()=>window.FieldEditor?.ready(),null,{timeout:120000});
   if(compat)console.log('COMPATIBILITY ONLY runtime',report.runtimeRevision,'editor',report.editorRevision);
   check(compat?'Explicit compatibility artifact enables adapter capability':'Canonical package enables the accepted moved-building adapter',await page.evaluate(()=>FieldEditor.getSourceContext().worldPreview===true)&&await page.locator('#connected-preview').isEnabled(),report?.runtimeRevision);
@@ -36,7 +43,7 @@ const server=http.createServer((req,res)=>{
    const protectedState=p=>p.evaluate(()=>['field-signal-dead-air-v9','field-signal-dead-air-options','field-signal-v9-journal','field-signal-field-journal-v1'].map(k=>localStorage.getItem(k)));
    for(const spec of [
     {id:'hut',container:'hut_c1',position:[1.2,0,-2.4],pose:[35,1.25,-48],degrees:90},
-    {id:'forester',container:'forester_c1',position:[-3.5,0,-2.8],pose:[-140,.75,-40],degrees:37},
+    {id:'forester',container:'forester_c1',position:[-3.5,0,-2.8],pose:[-140,.75,-40],degrees:37,upperFixture:[1.25,3.2,-2.9],searchStandOff:.75},
     {id:'station',container:'station_c0',position:[-4.1,0,-2.6],pose:[-160,1.5,-145],degrees:-28},
    ]){
     await page.setViewportSize({width:1440,height:1000});
@@ -66,7 +73,7 @@ const server=http.createServer((req,res)=>{
     await page.reload();await page.waitForFunction(()=>window.FieldEditor?.ready(),null,{timeout:120000});
     assert.deepEqual(await page.evaluate(()=>FieldEditor.getWorldDocument()),doc);check(spec.id+' canonical JSON export/import/reload keeps complete design',true);
     await page.screenshot({path:path.join(out,'preview-'+spec.id+'-interior-editor.png')});
-    const popup=context.waitForEvent('page');await page.locator('#connected-preview').click();const game=await popup;observe(game);
+    const popup=context.waitForEvent('page');await page.locator('#connected-preview').click();const game=await popup;activePage=game;observe(game);
     await game.setViewportSize({width:844,height:500});await game.bringToFront();await page.close();
     async function start(){await game.locator('#load-world').click();await game.locator('#silent:enabled').waitFor({timeout:240000});await game.locator('#silent').click();await game.evaluate(()=>{const w=FieldSignal3D.getWorld();w.setQuality('low');w.renderSettings.shadows=false;w.renderer.shadowMap.enabled=false;w.renderer.setPixelRatio(.3);w.resize();});}
     await start();
@@ -99,11 +106,13 @@ const server=http.createServer((req,res)=>{
      await game.evaluate(yaw=>{const p=FieldSignal3D.getPlayer();FieldSignal3D.getInput().look(yaw+Math.PI-p.yaw,-.55-p.pitch);},spec.degrees*Math.PI/180);
      await game.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
      await game.screenshot({path:path.join(out,'preview-'+spec.id+'-stairs.png')});
-     await restoreLocal([0,3.2,0],0);const prior=await game.evaluate(()=>FieldSignal3D.getPlayer());await game.keyboard.down('KeyW');try{await game.waitForFunction(p=>Math.hypot(FieldSignal3D.getPlayer().x-p.x,FieldSignal3D.getPlayer().z-p.z)>.7,prior,{timeout:30000});}finally{await game.keyboard.up('KeyW');}
+     await restoreLocal(spec.upperFixture||[0,3.2,0],0);const prior=await game.evaluate(()=>FieldSignal3D.getPlayer());await game.keyboard.down('KeyW');try{await game.waitForFunction(p=>Math.hypot(FieldSignal3D.getPlayer().x-p.x,FieldSignal3D.getPlayer().z-p.z)>.7,prior,{timeout:30000});}finally{await game.keyboard.up('KeyW');}
      check(spec.id+' upper-floor keyboard movement retains parent plus floor height',near((await game.evaluate(()=>FieldSignal3D.getPlayer())).y,spec.pose[1]+3.2));
     }
     const authoredContainer=authoredLayout.objects.find(o=>o.binding?.id===spec.container);
-    const searchFixture=await game.evaluate(async o=>{const {bindingAnchor}=await import('./layout-core.js'),a=bindingAnchor(o);return [a[0]+Math.sin(o.yaw)*1.55,o.binding.floor??o.position[1],a[2]+Math.cos(o.yaw)*1.55];},authoredContainer);
+    // Forester's authored rear aisle is narrow; its known staging point is
+    // 0.75 m in front of the cabinet binding, clear of the exterior wall.
+    const searchFixture=await game.evaluate(async({o,standOff})=>{const {bindingAnchor}=await import('./layout-core.js'),a=bindingAnchor(o);return [a[0]+Math.sin(o.yaw)*standOff,o.binding.floor??o.position[1],a[2]+Math.cos(o.yaw)*standOff];},{o:authoredContainer,standOff:spec.searchStandOff||1.55});
     await restoreLocal(searchFixture);await face(spec.container);await game.keyboard.press('KeyE');await game.waitForFunction(id=>!!FieldSignal3D.getState().containers[id],spec.container,{timeout:30000});
     check(spec.id+' real Use searches relocated bound container',!!(await game.evaluate(id=>FieldSignal3D.getState().containers[id],spec.container)));
     await game.screenshot({path:path.join(out,'preview-'+spec.id+'-search.png')});await game.locator('#close-panel').click();
@@ -122,6 +131,6 @@ const server=http.createServer((req,res)=>{
     page=game;
    }
   check('No browser exceptions or failed asset/module requests',errors.length===0&&missing.length===0,{errors,missing});await context.close();
- }catch(error){checks.push({failure:error.stack});throw error;}
+ }catch(error){checks.push({failure:error.stack});if(activePage&&!activePage.isClosed()){const state=await activePage.evaluate(()=>({url:location.href,editor:window.FieldEditor?.info(),world:window.FieldWorldEditor?.info(),game:window.FieldSignal3D?.getInfo(),player:window.FieldSignal3D?.getPlayer(),selection:window.FieldSignal3D?.getWorld().select()?.id,anchors:window.FieldSignal3D?.getWorld().interact.filter(i=>['container','door'].includes(i.type)).map(i=>({id:i.id,type:i.type,anchor:i.anchor,visible:i.obj.visible}))})).catch(()=>null);fs.writeFileSync(path.join(out,'preview-integrated-failure-state.json'),JSON.stringify(state,null,2));await activePage.screenshot({path:path.join(out,'preview-integrated-failure.png'),timeout:120000}).catch(()=>{});}throw error;}
  finally{fs.writeFileSync(path.join(out,compat?'preview-compatibility-browser.json':'preview-integrated-browser.json'),JSON.stringify({kind:compat?'unmerged-runtime-compatibility-only':'canonical-dist',runtimeRevision:report?.runtimeRevision,source:JSON.parse(fs.readFileSync(path.join(dist,'world-source.json'),'utf8')),editorRelease:JSON.parse(fs.readFileSync(path.join(dist,'editor/release.json'),'utf8')),checks,errors,missing},null,2));await browser?.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error.stack);process.exitCode=1;});

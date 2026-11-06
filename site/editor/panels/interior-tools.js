@@ -23,7 +23,7 @@ export function mountInteriorTools({getDocument,change,select,getSelection,getSe
       <div class="interior-pair"><label>Moving edge<select id="interior-wall-moving"><option value="negative">Local X −</option><option value="positive">Local X +</option></select></label><label>Fixed edge<select id="interior-wall-fixed"><option value="positive">Local X +</option><option value="negative">Local X −</option></select></label></div>
       <label>Yaw at joint<select id="interior-wall-orientation"><option value="keep">Keep current</option><option value="parallel">Parallel to reference</option><option value="perpendicular">90° to reference</option></select></label>
       <button data-interior="join-wall">Join wall endpoints</button>
-      <p class="empty">A landing is a real floor at the selected stair end, using the shared stair opening margin. Existing floors are preserved. Clipped rotated landings are rejected; top-edge walking needs the reviewed runtime adapter and game verification.</p>
+      <p class="empty">A landing is a real floor at the selected stair end, using the shared stair opening margin. Existing floors are preserved. Clipped rotated landings are rejected. Preview uses the shared stair/collision rules; walk both ends before approving a new arrangement.</p>
       <div class="interior-pair"><label>Stair end<select id="interior-landing-end"><option value="top">Top</option><option value="bottom">Bottom</option></select></label><label>Depth · m<input id="interior-landing-depth" type="number" min="0.65" max="10" step="0.05" value="1.2"></label></div>
       <button data-interior="landing">Add stair landing</button>
     </details>
