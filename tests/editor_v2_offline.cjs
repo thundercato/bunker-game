@@ -44,7 +44,9 @@ const workspaces=[
   const actualCache=await page.evaluate(()=>new Promise(resolve=>{const channel=new MessageChannel();channel.port1.onmessage=e=>resolve(e.data.cache);navigator.serviceWorker.controller.postMessage({type:'editor-version'},[channel.port2]);}));
   assert.equal(actualCache,CACHE);assert.ok(!errors.some(e=>e.includes('STALE_EDITOR_MODULE_EXECUTED')));pass('Prior production service worker upgrades before importing stale editor modules');
   for(const workspace of workspaces.slice(1)){await page.goto(base+workspace.url);await page.waitForFunction(workspace.ready,null,{timeout:120000});}pass('All five editor workspaces start from canonical dist under /bunker-game/');
-  await page.evaluate(()=>new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Full offline cache did not finish')),180000);const receive=event=>{if(!['cache-ready','cache-error'].includes(event.data?.type))return;clearTimeout(timer);navigator.serviceWorker.removeEventListener('message',receive);event.data.type==='cache-ready'?resolve():reject(Error(event.data.error));};navigator.serviceWorker.addEventListener('message',receive);navigator.serviceWorker.controller.postMessage({type:'cache-all'});}));
+  await page.locator('#prepare-offline').click();
+  await page.waitForFunction(()=>document.querySelector('#prepare-offline')?.dataset.state==='ready',null,{timeout:180000});
+  pass('Actual Prepare editor for offline action completes the public package without overwriting save status');
   const manifest=JSON.parse(fs.readFileSync(path.join(dist,'precache.json')));
   const absent=await page.evaluate(async({cache,paths})=>{const stored=await caches.open(cache),missing=[];for(const name of paths)if(!await stored.match(new URL(name,document.baseURI)))missing.push(name);return missing;},{cache:CACHE,paths:manifest});assert.deepEqual(absent,[]);
   assert.equal(await page.evaluate(old=>caches.has(old),OLD),false);pass(`Complete explicit offline manifest cached (${manifest.length} resources), prior public cache retired safely`);

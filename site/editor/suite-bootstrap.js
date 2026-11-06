@@ -10,6 +10,25 @@ export async function editorRuntimeCurrent() {
   worker.postMessage({type:'editor-version'},[channel.port2]);
  });
 }
+// Real user action: cache the explicit public manifest without touching drafts.
+// Keeping this separate from save/status text prevents cache progress hiding errors.
+function mountOfflinePreparation(){
+ if(document.querySelector('#prepare-offline')||!navigator.serviceWorker?.controller)return;
+ const button=document.createElement('button');button.id='prepare-offline';button.type='button';
+ button.textContent='Prepare editor for offline';button.dataset.state='unchecked';
+ button.title='Downloads the explicit game/editor package. Drafts remain in this browser; no saved data is cleared.';
+ button.style.cssText='font-size:10px;max-width:190px;white-space:normal';
+ (document.querySelector('.left-foot,.file-actions')||document.querySelector('header')||document.body).append(button);
+ navigator.serviceWorker.addEventListener('message',event=>{
+  if(button.dataset.state!=='working')return;const message=event.data;
+  if(message?.type==='cache-progress')button.textContent='Offline files '+message.done+' / '+message.total;
+  if(message?.type==='cache-ready'){button.dataset.state='ready';button.disabled=false;button.textContent='Editor ready offline';}
+  if(message?.type==='cache-error'){button.dataset.state='error';button.disabled=false;button.textContent='Offline incomplete · retry';button.title=message.error;}
+ });
+ button.onclick=()=>{const worker=navigator.serviceWorker.controller;if(!worker)return;
+  button.dataset.state='working';button.disabled=true;button.textContent='Preparing offline files…';worker.postMessage({type:'cache-all'});
+ };
+}
 export async function startEditorWorkspace(modulePath) {
  try {
   if(!/^editor\/[\w/-]+\.js$/.test(modulePath))throw Error('Unsupported editor workspace module.');
@@ -24,6 +43,7 @@ export async function startEditorWorkspace(modulePath) {
    if(!current)throw Error('The offline runtime could not update. Reconnect and reload; your drafts and campaign are preserved.');
   }
   await import(new URL(modulePath,document.baseURI).href);
+  mountOfflinePreparation();
  }catch(error){
   const message='Editor could not start: '+error.message;
   const host=document.querySelector('#status,#save-state');if(host)host.textContent=message;
