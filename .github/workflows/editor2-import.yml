@@ -1,0 +1,67 @@
+name: Import World Studio v2 checkpoint
+on:
+  push:
+    branches: [field-signal-editor-v2]
+    paths: [field-signal-editor-v2-source.json, .github/workflows/editor2-import.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: world-studio-v2-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify and apply editor-only source checkpoint
+        run: |
+          python3 - <<'PY'
+          import hashlib, io, json, pathlib, stat, urllib.request, zipfile
+          root=pathlib.Path.cwd()
+          pointer=root/'field-signal-editor-v2-source.json'
+          if not pointer.exists():
+              print('Waiting for checkpoint pointer.')
+              raise SystemExit(0)
+          spec=json.loads(pointer.read_text())
+          if not spec['url'].startswith('https://d2ol7oe51mr4n9.cloudfront.net/'):
+              raise ValueError('Unexpected checkpoint host')
+          raw=urllib.request.urlopen(spec['url'],timeout=90).read()
+          if hashlib.sha256(raw).hexdigest()!=spec['sha256']:
+              raise ValueError('Checkpoint SHA-256 mismatch')
+          with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+              if sum(i.file_size for i in archive.infolist())>25_000_000:
+                  raise ValueError('Editor patch exceeds budget')
+              for info in archive.infolist():
+                  path=pathlib.PurePosixPath(info.filename)
+                  if path.is_absolute() or '..' in path.parts or stat.S_ISLNK(info.external_attr>>16):
+                      raise ValueError('Unsafe patch path')
+                  name=str(path)
+                  allowed=name.startswith(('site/editor2/','tests/editor2/','docs/verification-editor2/')) or name in ('docs/WORLD_EDITOR_V2.md','docs/EDITOR_V2_RELEASE.md','docs/EDITOR_V2_PLAN.md','site/precache.json','README.md')
+                  if not allowed or path.suffix.lower() in ('.ttf','.otf','.woff','.woff2'):
+                      raise ValueError('Not an editor-only path: '+name)
+              for info in archive.infolist():
+                  if info.is_dir():continue
+                  path=root/info.filename
+                  path.parent.mkdir(parents=True,exist_ok=True)
+                  path.write_bytes(archive.read(info))
+          print('Checkpoint imported:',spec['label'])
+          PY
+      - name: Check editor syntax and pure functions
+        run: |
+          if [ -f site/editor2/core.js ]; then
+            for file in site/editor2/*.js; do node --check "$file"; done
+            node tests/editor2/core.mjs
+          fi
+      - name: Persist development source
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat: checkpoint editor-only World Studio v2 source'
+            git push origin HEAD:field-signal-editor-v2
+          fi
