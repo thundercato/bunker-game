@@ -149,6 +149,14 @@ export class JournalStore {
   let count = 0;
   for (const e of entries) {
    const r = makeRecord({id: `legacy:${journalId({text: e.text, time: e.time, zone: e.zone})}`, timestamp: e.time, category: categoryFor(e), source: 'legacy-v9', payload: {text: e.text, zone: e.zone || 'unknown', kind: 'Imported v9 entry'}});
+   // v9 used Math.floor(state.clock). Match at that recorded precision so an
+   // explicit copy does not repeat the same event under a legacy-prefixed ID.
+   // Missing times cannot establish that two otherwise similar events coincide.
+   const duplicate = r.timestamp != null && this.data.events.some(existing =>
+    existing.timestamp != null && existing.payload.text === r.payload.text &&
+    (existing.payload.zone || 'unknown') === r.payload.zone &&
+    (Number.isInteger(e.time) ? Math.floor(existing.timestamp) === r.timestamp : existing.timestamp === r.timestamp));
+   if (duplicate) continue;
    if (this.append(r)) count++;
   }
   this.data.legacyAdopted = true; this.save(); return count;
