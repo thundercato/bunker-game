@@ -5,8 +5,8 @@ import {brushSettings,previewScatter,paintScatter,eraseScatter} from '../tools/e
 function previewOverlay(scene,getDocument) {
   if(!scene)return {show(){},hide(){},destroy(){}};
   const group=new T.Group();group.name='Editor scatter preview — not authored';scene.add(group);
-  const green=new T.PointsMaterial({color:'#9eeab8',size:1.2,depthTest:false,sizeAttenuation:false});
-  const red=new T.PointsMaterial({color:'#ee8d80',size:2,depthTest:false,sizeAttenuation:false});
+  const green=new T.PointsMaterial({color:'#9eeab8',size:5,depthTest:false,sizeAttenuation:false});
+  const red=new T.PointsMaterial({color:'#ee8d80',size:3.5,depthTest:false,sizeAttenuation:false});
   const amber=new T.LineBasicMaterial({color:'#e3bd78',depthTest:false,transparent:true,opacity:.7});
   const water=new T.LineBasicMaterial({color:'#82d3e6',depthTest:false,transparent:true,opacity:.8});
   const point=(x,z)=>new T.Vector3(x,heightAt(getDocument(),x,z)+.3,z);
@@ -49,7 +49,9 @@ export function mountEnvironmentBrush({getDocument,getSource,host,scene,notice=(
   <p class="hint">Green points: next placements. Red points: rejected candidates. Amber: building/path exclusion estimates. Blue: local water outlines. Spacing is between centres, in metres. Erase retains individually locked instances.</p>
   <p class="hint">Authoring proxies only. These masks do not add runtime terrain, water or road physics.</p>`;
   const style=document.createElement('style');style.textContent='#environment-brush{border:1px solid #3f5757;padding:8px;margin:12px 0;font-size:11px}#environment-brush summary{cursor:pointer;color:#a9d4ba}#environment-brush .environment-pair{display:grid;grid-template-columns:1fr 1fr;gap:7px}#environment-brush input[type=checkbox]{width:auto;margin-right:5px}#environment-brush output{display:block;line-height:1.5;padding:7px;background:#0d1c21;border-left:2px solid #8cbca4;color:#cfdfd1}';
+  style.textContent+='#environment-brush-preview-summary{position:absolute;top:12px;right:12px;max-width:290px;background:#101c22ed;border:1px solid #76a58d;border-radius:5px;padding:9px;pointer-events:none;white-space:pre-line;font:11px/1.5 ui-monospace;color:#d7ebde}';
   document.head.append(style);host.append(panel);
+  const previewReport=document.createElement('output');previewReport.id='environment-brush-preview-summary';previewReport.hidden=true;previewReport.setAttribute('aria-live','polite');document.querySelector('#world-viewport')?.append(previewReport);
   const overlay=previewOverlay(scene,getDocument),report=panel.querySelector('output');
   const controls=Object.fromEntries([...panel.querySelectorAll('[data-environment]')].map(input=>[input.dataset.environment,input]));
   let lastCenter=null,lastResult=null;
@@ -63,11 +65,12 @@ export function mountEnvironmentBrush({getDocument,getSource,host,scene,notice=(
   function showPreview(result){
     lastResult=result;overlay.show(result);if(!result)return;
     const rejected=Object.entries(result.rejections).filter(([,count])=>count).map(([reason,count])=>`${count} ${reason}`).join(', ');
+    previewReport.hidden=false;previewReport.textContent=`${result.accepted.length} / ${result.requested} ${result.settings.kind} next · seed ${result.seed}${rejected?'\nRejected: '+rejected:''}`;
     report.textContent=`${result.accepted.length} / ${result.requested} next placements · seed ${result.seed}${rejected?' · rejected: '+rejected:''}. No existing instances regenerated.`;
   }
-  function preview(x,z){lastCenter={x,z};try{const result=previewScatter(getDocument(),getSource(),x,z,settings());showPreview(result);return result;}catch(error){overlay.hide();report.textContent=error.message;return null;}}
+  function preview(x,z){lastCenter={x,z};try{const result=previewScatter(getDocument(),getSource(),x,z,settings());showPreview(result);return result;}catch(error){overlay.hide();previewReport.hidden=false;previewReport.textContent=error.message;report.textContent=error.message;return null;}}
   function paint(doc,x,z){const result=paintScatter(doc,getSource(),x,z,settings());showPreview(result);return result;}
-  function erase(doc,x,z){const result=eraseScatter(doc,x,z,settings().radius);overlay.hide();report.textContent=`Erased ${result.removed.length} instances · retained ${result.locked.length} locked instances.`;return result;}
+  function erase(doc,x,z){const result=eraseScatter(doc,x,z,settings().radius);overlay.hide();previewReport.hidden=false;previewReport.textContent=`Erased ${result.removed.length} · retained ${result.locked.length} locked`;report.textContent=`Erased ${result.removed.length} instances · retained ${result.locked.length} locked instances.`;return result;}
   for(const input of Object.values(controls))input.onchange=()=>{try{settings();if(lastCenter)preview(lastCenter.x,lastCenter.z);}catch(error){report.textContent=error.message;notice(error.message);}};
-  return {element:panel,settings,preview,paint,erase,showPreview,hidePreview:()=>overlay.hide(),lastResult:()=>lastResult,destroy(){overlay.destroy();panel.remove();style.remove();}};
+  return {element:panel,settings,preview,paint,erase,showPreview,hidePreview:()=>{overlay.hide();previewReport.hidden=true;},lastResult:()=>lastResult,destroy(){overlay.destroy();panel.remove();previewReport.remove();style.remove();}};
 }
