@@ -1,0 +1,26 @@
+{
+  "format": "field-signal-editor-object-template",
+  "version": 1,
+  "name": "Quota recovery",
+  "objects": [
+    {
+      "id": "wall-west",
+      "name": "West wall",
+      "type": "wall",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        9,
+        6.4,
+        0.22
+      ],
+      "yaw": 0,
+      "material": "plaster",
+      "solid": true,
+      "locked": false
+    }
+  ]
+}
