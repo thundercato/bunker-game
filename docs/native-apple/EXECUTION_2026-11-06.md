@@ -65,8 +65,11 @@ property; the fault transition at `audio-v7.js:25` then calls that property. The
 files and the browser test have identical Git blobs to baseline `25cd697`.
 `git diff --quiet 25cd697 -- site tests .github/workflows/deploy-pages.yml` passes.
 This is an existing browser workstream defect, recorded without altering the
-canonical game, editor or concurrent branches. The PR is not described as having
-all checks green.
+canonical game, editor or concurrent branches. The latest
+[web run 42310250505](https://github.com/thundercato/bunker-game/actions/runs/42310250505)
+subsequently **passed** at native source 9df6a27 without any browser changes.
+This does not fix the reproduced intermittent name collision; it remains a
+separate browser follow-up.
 
 ## Reproduce and continue
 

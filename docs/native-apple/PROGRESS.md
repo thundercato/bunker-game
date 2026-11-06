@@ -27,10 +27,12 @@ These are test durations, not frame-rate measurements. Both actual screenshots
 were inspected; [persistent evidence](verification/README.md) accompanies the
 [dated execution note](EXECUTION_2026-11-06.md) and [Mac handoff](MAC_HANDOFF.md).
 
-The separate web workflow is **not claimed green**. Run 42308083323 exposed an
-existing `this.crackle is not a function` audio fault, reproduced against unchanged
-baseline files. Exact isolation proof and cause are in the execution note. No
-canonical browser/editor code or deployment workflow was changed.
+The latest separate [web run 42310250505](https://github.com/thundercato/bunker-game/actions/runs/42310250505)
+also **passed** at the same 9df6a27 checkpoint. An earlier run 42308083323 exposed
+an intermittent existing `this.crackle is not a function` audio fault, reproduced
+against unchanged baseline files. The later pass does not resolve that latent
+name collision; exact isolation proof and follow-up are in the execution note.
+No canonical browser/editor code or deployment workflow was changed.
 
 The history below preserves failed and superseded checkpoints rather than hiding
 compilation, packaging, test or presentation issues found during development.
