@@ -32,7 +32,7 @@ test('real floor landings respect stair rise, shared holes, fresh IDs and bottom
 
 const {updateMovedBindingFloors}=await import('../editor/tools/interior-core.js');
 test('UI height transforms keep accepted binding floor policy in local coordinates',()=>{
- const previous={objects:[object('ground','floor',[0,0,0],[8,.2,8]),object('upper','floor',[0,3.2,0],[8,.2,8]),object('case','prop',[1,1,0],[1,1,1],{binding:{kind:'container',id:'case',floor:0,anchor:[0,.5,.5]}})]};
+ const previous={objects:[object('ground','floor',[0,0,0],[8,.2,8]),object('upper','floor',[0,3.2,0],[8,.2,8]),object('case','prop',[1,1,0],[1,1,1],{binding:{type:'container',id:'case',floor:0,anchor:[0,.5,.5]}})]};
  const next=clone(previous);next.objects[2].position[1]=4.1;
  updateMovedBindingFloors(previous,next);assert.equal(next.objects[2].binding.floor,3.2);assert.deepEqual(next.objects[2].binding.anchor,[0,.5,.5]);
  const down=clone(next);down.objects[2].position[1]=.8;updateMovedBindingFloors(next,down);assert.equal(down.objects[2].binding.floor,0);
