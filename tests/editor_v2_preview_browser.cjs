@@ -43,7 +43,7 @@ const server=http.createServer((req,res)=>{
    const protectedState=p=>p.evaluate(()=>['field-signal-dead-air-v9','field-signal-dead-air-options','field-signal-v9-journal','field-signal-field-journal-v1'].map(k=>localStorage.getItem(k)));
    for(const spec of [
     {id:'hut',container:'hut_c1',position:[1.2,0,-2.4],pose:[35,1.25,-48],degrees:90},
-    {id:'forester',container:'forester_c1',position:[-3.5,0,-2.8],pose:[-140,.75,-40],degrees:37,upperFixture:[1.25,3.2,-2.9],searchStandOff:.75,searchLateral:.2},
+    {id:'forester',container:'forester_c1',position:[-2.15,0,-.65],pose:[-140,.75,-40],degrees:37,upperFixture:[1.25,3.2,-2.9]},
     {id:'station',container:'station_c0',position:[-4.1,0,-2.6],pose:[-160,1.5,-145],degrees:-28},
    ]){
     await page.setViewportSize({width:1440,height:1000});
@@ -115,8 +115,8 @@ const server=http.createServer((req,res)=>{
      check(spec.id+' upper-floor keyboard movement retains parent plus floor height',near((await game.evaluate(()=>FieldSignal3D.getPlayer())).y,spec.pose[1]+3.2));
     }
     const authoredContainer=authoredLayout.objects.find(o=>o.binding?.id===spec.container);
-    // Forester's authored rear aisle is narrow; its known staging point is
-    // 0.75 m in front with 0.2 m lateral clearance from the kitchen cooker.
+    // Stage in front of the authored binding. The Forester edit stays near
+    // its approved workbench location, with a clear view of its real drawer.
     // The canonical collision query rejects a staging point inside furniture.
     const searchFixture=await game.evaluate(async({layout,o,standOff,lateral})=>{const {bindingAnchor,blocked}=await import('./layout-core.js'),a=bindingAnchor(o),p=[a[0]+Math.sin(o.yaw)*standOff+Math.cos(o.yaw)*lateral,o.binding.floor??o.position[1],a[2]+Math.cos(o.yaw)*standOff-Math.sin(o.yaw)*lateral];if(blocked(layout,p[0],p[2],p[1],{doorsOpen:true}))throw Error('Search fixture intersects an authored collider for '+o.id);return p;},{layout:authoredLayout,o:authoredContainer,standOff:spec.searchStandOff||1.55,lateral:spec.searchLateral||0});
     await restoreLocal(searchFixture);await face(spec.container);await game.keyboard.press('KeyE');await game.waitForFunction(id=>!!FieldSignal3D.getState().containers[id],spec.container,{timeout:30000});
