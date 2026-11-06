@@ -1309,6 +1309,7 @@ if DATA.get('campaign'):
  _CAMPAIGN_WALKABLE=walkable
  _CAMPAIGN_CLEAR=clear_line
  _CAMPAIGN_DISPATCH=dispatch
+ _CAMPAIGN_VALIDATE=validate_save
 
  def surface_height(x,z,last_y=0):
   return _CAMPAIGN.height(x,z,last_y,_CAMPAIGN_SURFACE(x,z,last_y))
@@ -1318,6 +1319,17 @@ if DATA.get('campaign'):
 
  def clear_line(s,a,b):
   return _CAMPAIGN_CLEAR(s,a,b)and not _CAMPAIGN.line_blocked(a,b,s['player'].get('y',0),s['doors'])
+
+ def validate_save(value):
+  s=_CAMPAIGN_VALIDATE(value)
+  for a in DATA.get('campaignSpawnAdjustments',[]):
+   enemy=next((e for e in s['enemies']if e['id']==a['id']),None)
+   if enemy and enemy['health']>0 and math.hypot(enemy['x']-a['from'][0],enemy['z']-a['from'][1])<1.25 and _CAMPAIGN.blocked(enemy['x'],enemy['z'],enemy.get('y',0),s['doors']):
+    enemy['x'],enemy['z']=a['to'];enemy['y']=surface_height(enemy['x'],enemy['z'])
+    for key in ['home','target']:
+     if key in enemy and math.hypot(enemy[key][0]-a['from'][0],enemy[key][1]-a['from'][1])<1.25:enemy[key]=list(a['to'])
+    note(s,'A quayside patrol moved clear of the changed cargo layout.',id='candidate-patrol-clearance:'+enemy['id'])
+  return s
 
  def dispatch(state,action):
   if not isinstance(action,dict)or action.get('type')!='climb':return _CAMPAIGN_DISPATCH(state,action)

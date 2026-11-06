@@ -48,11 +48,12 @@ export function assignSearchProps(source,catalogue) {
  return {catalogue:props.length,placed:used.size};
 }
 
-export function applyCampaignSource(source,{districts,props,interiors=[],sourceRevision,routes=null}) {
+export function applyCampaignSource(source,{districts,props,interiors=[],sourceRevision,routes=null,spawns=null}) {
  if(source.editorLayout)return source;
  let world=clone(source);
  if(routes){if(routes.format!=='field-signal-campaign-routes/1'||routes.roads.length!==source.roads.length)throw Error('Invalid candidate routes');world.roads=clone(routes.roads);world.rail.route=clone(routes.rail);}
  const geometry=compileDistricts(districts);
+ if(spawns){if(spawns.format!=='field-signal-campaign-spawns/1')throw Error('Invalid spawn adjustments');for(const a of spawns.adjustments){const e=world.enemies.find(e=>e.id===a.id);if(!e||![...a.from,...a.to].every(finite)||Math.hypot(e.x-a.from[0],e.z-a.from[1])>.01)throw Error('Spawn source mismatch');e.x=a.to[0];e.z=a.to[1];}world.campaignSpawnAdjustments=clone(spawns.adjustments);}
  for(const district of districts.districts)for(const object of district.objects)for(const binding of object.containerBindings||[]){
   if(world.containers.some(c=>c.id===binding.id))throw Error('Duplicate district container');
   const t=object.transform,[x,z]=worldPoint({position:[t.x,t.y,t.z],yaw:t.yaw},binding.position[0],binding.position[2]);
@@ -88,7 +89,7 @@ export function campaignSurface(data,x,z,lastY,baseHeight) {
  return height;
 }
 
-export function resolveMovement(player,dx,dz,{colliders,valid,height,zone,doors={},radius=.29,jump=0}) {
+export function resolveMovement(player,dx,dz,{colliders,valid,height,zone,doors={},radius=.29,jump=0,preventFall=false}) {
  const p={...player},feet=(player.y||0)+jump;
  const nearby=colliders.filter(c=>!c.off&&(!c.zone||c.zone===zone)&&!doors[c.doorId]&&feet<(c.maxY??99)-(c.kind==='floor'?.15:.035)&&feet+1.45>(c.minY??-99));
  const blocked=(x,z)=>!valid(x,z)||nearby.some(c=>{
@@ -101,6 +102,6 @@ export function resolveMovement(player,dx,dz,{colliders,valid,height,zone,doors=
  for(let i=0;i<steps;i++){if(!blocked(p.x+dx/steps,p.z))p.x+=dx/steps;if(!blocked(p.x,p.z+dz/steps))p.z+=dz/steps;}
  p.y=height(p.x,p.z,player.y||0);
  // Deliberate ladder transitions, rather than accidental falls through an open gate.
- if(player.y>2&&p.y<player.y-.8)return player;
+ if(preventFall&&player.y>2&&p.y<player.y-.8)return player;
  return p;
 }

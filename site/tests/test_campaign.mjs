@@ -22,7 +22,7 @@ check('Crane has bidirectional routes, external waypoints and safe selectable la
 });
 check('Deck rail collision blocks walking through barriers and prevents falling through gate',()=>{
  const p={x:113,y:12,z:-151};const q=resolveMovement(p,0,4,{colliders:world.campaignGeometry.colliders,valid:()=>true,height:(x,z,y)=>campaignSurface(world,x,z,y,0),zone:'field'});assert.ok(q.z<-149);
- const edge=resolveMovement({x:110.4,y:12,z:-151},-2,0,{colliders:[],valid:()=>true,height:(x,z,y)=>campaignSurface(world,x,z,y,0),zone:'field'});assert.equal(edge.x,110.4);
+ const edge=resolveMovement({x:110.4,y:12,z:-151},-2,0,{preventFall:true,colliders:[],valid:()=>true,height:(x,z,y)=>campaignSurface(world,x,z,y,0),zone:'field'});assert.equal(edge.x,110.4);
 });
 check('Malformed or duplicated world objects are rejected before mutation',()=>{
  const d=structuredClone(options.districts);d.districts[0].objects.push(structuredClone(d.districts[0].objects[0]));assert.throws(()=>compileDistricts(d),/Duplicate/);
