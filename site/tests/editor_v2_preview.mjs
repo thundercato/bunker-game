@@ -16,4 +16,6 @@ assert.deepEqual(result.compiled,{accepted:'forester'});assert.equal(result.url,
 const payload=JSON.parse([...values.values()][0]);assert.equal(payload.format,'field-signal-preview/1');assert.equal(payload.buildingId,'forester');assert.deepEqual(payload.document,document);
 await assert.rejects(launchWorldPreview({...options,capabilities:{worldPreview:true},importAdapter:async()=>({compilePreviewWorld:()=>{throw Error('Overlaps another building');}})}),/Overlaps/);assert.equal(values.size,1);assert.equal(calls.length,1);
 await assert.rejects(launchWorldPreview({...options,capabilities:{worldPreview:true},storage:{setItem(){throw Error('Quota');}},importAdapter:async()=>({compilePreviewWorld:()=>({})})}),/Quota/);assert.equal(calls.length,1);
-console.log('PASS editor preview adapter: capability gate, trusted context, existing payload, subpath, isolated ID and rejected compile/storage (13 assertions)');
+await assert.rejects(launchWorldPreview({...options,capabilities:{worldPreview:true},importAdapter:async()=>({})}),/no compatible building preview compiler/);
+await assert.rejects(launchWorldPreview({...options,capabilities:{worldPreview:true},importAdapter:async()=>{throw Error('module offline');}}),/adapter could not load.*design is preserved.*module offline/);assert.equal(calls.length,1);assert.equal(values.size,1);
+console.log('PASS editor preview adapter: capability gate, absent interior, canonical payload/subpath/isolation, rejected compile, storage failure, missing compiler, adapter recovery message (7 scenarios)');

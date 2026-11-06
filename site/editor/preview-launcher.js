@@ -16,7 +16,12 @@ export async function launchWorldPreview({document: input, buildingId, context,
   if (!context?.source || !context.sourceRevision || !baseURI) throw Error('A trusted runtime source context is required.');
   const document = validateWorldDocument(input, context);
   if (!document.interiors.some(layout => layout.buildingId === buildingId)) throw Error('Open this building interior before previewing it.');
-  const {compilePreviewWorld} = await importAdapter();
+  let adapter;
+  try { adapter = await importAdapter(); }
+  catch (error) {
+    throw Error('The runtime declares building preview support, but its adapter could not load. Reconnect and reload the editor; your design is preserved. ' + error.message);
+  }
+  const {compilePreviewWorld} = adapter;
   if (typeof compilePreviewWorld !== 'function') throw Error('The installed runtime has no compatible building preview compiler.');
   const compiled = compilePreviewWorld(document, buildingId, context);
   const id = uuid();

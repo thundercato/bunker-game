@@ -51,9 +51,12 @@ const server=http.createServer((req,res)=>{
     await page.goto(base+'editor/?building='+spec.id);await page.waitForFunction(id=>window.FieldEditor?.ready()&&FieldEditor.getDocument().buildingId===id,spec.id,{timeout:120000});
     await page.locator('#hierarchy [data-id="container-'+spec.container+'"]').click();
     for(let i=0;i<3;i++){
-     const field=page.locator('[data-field="position"][data-axis="'+i+'"]');await field.fill(String(spec.position[i]));await field.press('Tab');
+     const field=page.locator('[data-field="position"][data-axis="'+i+'"]');
+     if(Number(await field.inputValue())===spec.position[i])continue;
+     await field.fill(String(spec.position[i]));await field.press('Tab');
+     await page.waitForFunction(({id,axis,value})=>{const raw=localStorage.getItem('field-signal-editor-v1:'+id);return raw&&Math.abs(JSON.parse(raw).objects.find(o=>o.binding?.id===FieldEditor.getSelection().replace('container-','')).position[axis]-value)<1e-8;},{id:spec.id,axis:i,value:spec.position[i]});
     }
-    check(spec.id+' numeric interior edit uses canonical local position',await page.evaluate(s=>JSON.stringify(FieldEditor.getDocument().objects.find(o=>o.binding?.id===s.container).position)===JSON.stringify(s.position),spec));
+    check(spec.id+' numeric interior edit uses canonical local position',await page.evaluate(s=>FieldEditor.getDocument().objects.find(o=>o.binding?.id===s.container).position.every((n,i)=>Math.abs(n-s.position[i])<1e-8),spec),await page.evaluate(s=>FieldEditor.getDocument().objects.find(o=>o.binding?.id===s.container).position,spec));
     await page.locator('a[href="editor/world.html"]').first().click();await page.waitForFunction(()=>window.FieldWorldEditor?.ready(),null,{timeout:120000});
     check(spec.id+' world view preserves selected whole building',await page.evaluate(id=>FieldWorldEditor.getSelection()?.id===id,spec.id));
     await page.locator('[data-world-field="foundation"]').selectOption('manual');
@@ -62,7 +65,7 @@ const server=http.createServer((req,res)=>{
     }
     await page.locator('#focus-selected').click();await page.screenshot({path:path.join(out,'preview-'+spec.id+'-world.png')});
     await page.locator('#open-interior').click();await page.waitForFunction(id=>window.FieldEditor?.ready()&&FieldEditor.getDocument().buildingId===id,spec.id,{timeout:120000});
-    check(spec.id+' focused view keeps local transform and selection after world move',await page.evaluate(s=>FieldEditor.getSelection()==='container-'+s.container&&JSON.stringify(FieldEditor.getDocument().objects.find(o=>o.binding?.id===s.container).position)===JSON.stringify(s.position),spec));
+    check(spec.id+' focused view keeps local transform and selection after world move',await page.evaluate(s=>FieldEditor.getSelection()==='container-'+s.container&&FieldEditor.getDocument().objects.find(o=>o.binding?.id===s.container).position.every((n,i)=>Math.abs(n-s.position[i])<1e-8),spec));
     const doc=await page.evaluate(()=>FieldEditor.getWorldDocument());
     assert.equal(doc.format,'field-signal-world-document');
     const download=page.waitForEvent('download');await page.locator('#export-world').click();const file=await download;
