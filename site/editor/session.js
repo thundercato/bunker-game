@@ -63,7 +63,7 @@ export class EditorSession {
       try { apply(JSON.parse(raw)); }
       catch (error) { this.rejected.set(key, raw); this.issues.push(key + ': ' + error.message); }
     };
-    adopt(WORLD_DRAFT_KEY, value => { this.document.authoring = checkDocument(value, this.context.source); });
+    adopt(WORLD_DRAFT_KEY, value => {const candidate=this.getDocument();candidate.authoring=checkDocument(value,this.context.source);this.document=this.checked(candidate);});
     for (const building of this.context.source.buildings) {
       adopt(LAYOUT_DRAFT_PREFIX + building.id, value => {
         const layout = validateLayout(value, {world: this.context.source, assets: this.context.assets});
