@@ -1,5 +1,5 @@
 import {MATERIALS} from '../../layout-core.js';
-import {supportCandidates,snapToSupport,alignSelection,rotateAssembly,createTemplate,
+import {supportCandidates,snapToSupport,alignSelection,rotateAssembly,joinWallEndpoints,addStairLanding,createTemplate,
   validateTemplate,instantiateTemplate,overlappingAt,nearbyObjects,interiorIssues} from '../tools/interior-core.js';
 
 const LIBRARY_KEY='field-signal-editor-object-templates-v1';
@@ -16,6 +16,16 @@ export function mountInteriorTools({getDocument,change,select,getSelection,getSe
       <label class="check"><input id="interior-centre" type="checkbox"> Centre on support</label>
       <label class="check"><input id="interior-align-yaw" type="checkbox"> Match support yaw</label>
       <button data-interior="snap">Snap selected prop</button>
+    </details>
+    <details><summary>Wall joints / stair landings</summary>
+      <p class="empty">Join the current wall/opening to a fixed wall endpoint. Dimensions, openings and door bindings stay attached. Endpoints are the centres of each local X edge.</p>
+      <label>Fixed reference wall<select id="interior-wall-reference"></select></label>
+      <div class="interior-pair"><label>Moving edge<select id="interior-wall-moving"><option value="negative">Local X −</option><option value="positive">Local X +</option></select></label><label>Fixed edge<select id="interior-wall-fixed"><option value="positive">Local X +</option><option value="negative">Local X −</option></select></label></div>
+      <label>Yaw at joint<select id="interior-wall-orientation"><option value="keep">Keep current</option><option value="parallel">Parallel to reference</option><option value="perpendicular">90° to reference</option></select></label>
+      <button data-interior="join-wall">Join wall endpoints</button>
+      <p class="empty">A landing is a real floor at the selected stair end, using the shared stair opening margin. Existing floors are preserved. Clipped rotated landings are rejected; top-edge walking needs the reviewed runtime adapter and game verification.</p>
+      <div class="interior-pair"><label>Stair end<select id="interior-landing-end"><option value="top">Top</option><option value="bottom">Bottom</option></select></label><label>Depth · m<input id="interior-landing-depth" type="number" min="0.65" max="10" step="0.05" value="1.2"></label></div>
+      <button data-interior="landing">Add stair landing</button>
     </details>
     <details><summary>Align collection / assembly</summary>
       <p class="empty">Use checked Selection sets children, or the current object. The current object is the fixed reference/pivot; locked children prevent the whole edit.</p>
@@ -67,6 +77,7 @@ export function mountInteriorTools({getDocument,change,select,getSelection,getSe
   function update(){const doc=getDocument();if(!doc)return;const o=current();q('#interior-reference').textContent=o?'Reference / pivot: '+o.name+' · '+o.id:'Select a reference object in the view or hierarchy.';
     refill('#interior-support','<option value="">Choose support</option>'+(o?supportCandidates(doc,o.id).map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${s.height.toFixed(2)} m · ${s.kind}</option>`).join(''):''));
     refill('#interior-overlap','<option value="">Choose object</option>'+(o?overlappingAt(doc,o.id).map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${s.type}${hidden.has(s.id)?' · hidden':''}</option>`).join(''):''));
+    refill('#interior-wall-reference','<option value="">Choose fixed wall</option>'+doc.objects.filter(p=>p.id!==o?.id&&['wall','doorway','window'].includes(p.type)).map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join(''));
     refill('#interior-template','<option value="">Choose template</option>'+templates.map((t,i)=>`<option value="${i}">${esc(t.name)} · ${t.objects.length} children</option>`).join(''));
   }
   function revealSelect(id){hidden.delete(id);applyView();select(id);focus();update();}
@@ -83,6 +94,8 @@ export function mountInteriorTools({getDocument,change,select,getSelection,getSe
     }
     if(!o)throw Error('Select a reference object first.');
     if(action==='snap')await change(d=>snapToSupport(d,o.id,q('#interior-support').value,{alignYaw:q('#interior-align-yaw').checked,centre:q('#interior-centre').checked}));
+    else if(action==='join-wall')await change(d=>joinWallEndpoints(d,o.id,q('#interior-wall-reference').value,{movingEnd:q('#interior-wall-moving').value,referenceEnd:q('#interior-wall-fixed').value,orientation:q('#interior-wall-orientation').value}));
+    else if(action==='landing'){let id;await change(d=>{id=addStairLanding(d,o.id,{end:q('#interior-landing-end').value,depth:Number(q('#interior-landing-depth').value)});});if(id&&getDocument().objects.some(p=>p.id===id))revealSelect(id);}
     else if(action==='align')await change(d=>alignSelection(d,ids(),o.id,q('#interior-alignment').value));
     else if(action==='rotate')await change(d=>rotateAssembly(d,ids(),Number(q('#interior-rotation').value),o.id));
     else if(action==='capture'){const chosen=ids(),t=createTemplate(doc,chosen,q('#template-name').value,chosen.includes(o.id)?o.id:chosen[0]);if(templates.length>=100&&!templates.some(p=>p.name===t.name))throw Error('Template library is full (100). Export a template before replacing a named entry.');const previous=templates;templates=[...templates.filter(p=>p.name!==t.name),t];try{persist();}catch(e){templates=previous;throw e;}update();q('#interior-template').value=String(templates.length-1);toast('Template saved with unbound children.');}

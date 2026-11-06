@@ -76,6 +76,30 @@ export function rotateAssembly(doc,ids,degrees,pivotId=ids[0]) {
   for(const o of next.objects.filter(o=>objects.some(p=>p.id===o.id))){const x=o.position[0]-pivot.position[0],z=o.position[2]-pivot.position[2];o.position[0]=pivot.position[0]+c*x+s*z;o.position[2]=pivot.position[2]-s*x+c*z;o.yaw+=angle;}
   return copyBack(doc,next);
 }
+export function joinWallEndpoints(doc,movingId,referenceId,{movingEnd='negative',referenceEnd='positive',orientation='keep'}={}) {
+  const moving=selected(doc,[movingId])[0],reference=doc.objects.find(o=>o.id===referenceId),wall=o=>o&&['wall','doorway','window'].includes(o.type);
+  if(!wall(moving)||!wall(reference)||movingId===referenceId)throw Error('Choose two different walls/openings; the selected wall moves.');
+  if(!['negative','positive'].includes(movingEnd)||!['negative','positive'].includes(referenceEnd)||!['keep','parallel','perpendicular'].includes(orientation))throw Error('Choose valid wall endpoints and orientation.');
+  const next=clone(doc),o=next.objects.find(o=>o.id===movingId);
+  if(orientation!=='keep')o.yaw=reference.yaw+(orientation==='perpendicular'?Math.PI/2:0);
+  const target=worldPoint(reference,(referenceEnd==='positive'?1:-1)*reference.size[0]/2,0),offset=worldPoint({position:[0,0,0],yaw:o.yaw},(movingEnd==='positive'?1:-1)*o.size[0]/2,0);
+  o.position=[target[0]-offset[0],reference.position[1],target[1]-offset[1]];
+  return copyBack(doc,next);
+}
+export function addStairLanding(doc,stairsId,{end='top',depth=1.2,material='wood'}={},idFactory=()=> 'object-'+crypto.randomUUID()) {
+  const stairs=selected(doc,[stairsId],{mutable:false})[0];
+  if(stairs.type!=='stairs')throw Error('Select a staircase first.');
+  if(!['top','bottom'].includes(end)||!finite(depth)||depth<.65||depth>10||!MATERIALS.includes(material))throw Error('Choose a landing end, depth 0.65–10 m and canonical material.');
+  const id=idFactory();if(!safeId(id)||doc.objects.some(o=>o.id===id))throw Error('A landing needs a fresh unique object ID.');
+  // Shared floorPieces cuts a 0.16 m margin around stairs at upper levels.
+  // Starting the top landing beyond that margin preserves its complete face.
+  const z=(end==='top'?-1:1)*(stairs.size[2]/2+depth/2+(end==='top'?.16:0)),[x,wz]=worldPoint(stairs,0,z);
+  const o={id,name:(stairs.name+' · '+end+' landing').slice(0,120),type:'floor',position:[x,stairs.position[1]+(end==='top'?stairs.size[1]:0),wz],size:[stairs.size[0],.16,depth],yaw:stairs.yaw,material,solid:true,locked:false};
+  const next=clone(doc);next.objects.push(o);
+  const area=geometryPieces(next,o).reduce((sum,p)=>sum+p.size[0]*p.size[2],0);
+  if(area<o.size[0]*o.size[2]-.0001)throw Error('The shared rotated stair opening clips this landing. Adjust the stair yaw or await the reviewed opening adapter; no partial landing was added.');
+  copyBack(doc,next);return id;
+}
 
 export const TEMPLATE_FORMAT='field-signal-editor-object-template';
 export function createTemplate(doc,ids,name,pivotId=ids[0]) {
@@ -129,6 +153,8 @@ export function interiorDiagnostics(doc,{reachability=true,limit=1200}={}) {
   }
   for(const stairs of doc.objects.filter(o=>o.type==='stairs')){
     for(const t of [.2,.5,.8]){const[x,z]=worldPoint(stairs,0,stairs.size[2]*(.5-t)),y=stairs.position[1]+stairs.size[1]*t;const ceiling=collidersFor(doc,{doorsOpen:true}).find(c=>c.id!==stairs.id&&c.y>y+.05&&c.y<y+1.75&&Math.abs(localPoint({position:[c.x,c.y,c.z],yaw:c.yaw},x,z)[0])<c.w/2&&Math.abs(localPoint({position:[c.x,c.y,c.z],yaw:c.yaw},x,z)[1])<c.d/2);if(ceiling){issues.push({id:stairs.id,level:'warning',message:'Low stair headroom near '+Math.round(t*100)+'% of '+stairs.name+'.',fix:'Raise/remove the ceiling or adjust stair rise/run; the walk needs about 1.75 m clearance.'});break;}}
+    const[x,z]=worldPoint(stairs,0,-stairs.size[2]/2+.2),startY=stairs.position[1]+stairs.size[1]*(1-.2/stairs.size[2]),[dx,dz]=worldPoint({position:[0,0,0],yaw:stairs.yaw},0,-.75),arrival=moveInLayout(doc,{x,y:startY,z},dx,dz,{doorsOpen:true});
+    if(arrival.y<stairs.position[1]+stairs.size[1]-.2||Math.hypot(arrival.x-x,arrival.z-z)<.65)issues.push({id:stairs.id,level:'warning',message:'The sampled top transition of '+stairs.name+' does not reach a clear upper floor.',fix:'Add/check the landing and its opening, clear the floor lip and verify the route in preview. Rotated opening and stair-edge support need the shared runtime adapter.'});
   }
   if(!reachability)return issues;
   const start=doc.objects.find(o=>o.type==='spawn');if(!start)return issues;
