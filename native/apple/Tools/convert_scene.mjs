@@ -87,9 +87,13 @@ export function validateScene(scene){
  return scene;
 }
 
+export function verifySourceLock(lock,readFile=read){
+ if(lock.format!=='field-signal-native-source-lock'||lock.version!==1||!/^([a-f0-9]{40})$/.test(lock.revision))fail('Invalid source lock');
+ for(const [file,hash]of Object.entries(lock.files))if(sha(readFile(file))!==hash)fail('Pinned source changed: '+file+'. Rebase explicitly; never relabel changed content.');
+}
 async function main(){
  const lock=json('native/apple/Tools/source-lock.json');
- for(const [file,hash]of Object.entries(lock.files))if(sha(read(file))!==hash)fail('Pinned source changed: '+file+'. Rebase explicitly; never relabel changed content.');
+ verifySourceLock(lock);
  const source=json('site/world.json'),catalogue=validateSearchPropCatalogue(json('site/search-props.json'));
  const layout=createCampaignInteriors(source).find(x=>x.buildingId==='forester');
  const document=createWorldDocument({source,sourceRevision:lock.revision,layouts:[layout]});
@@ -111,6 +115,10 @@ async function main(){
  for(const [index,i]of compiled.interactions.entries()){const o=layout.objects.find(o=>o.id===i.objectId),entity=i.type==='door'?source.buildings.find(x=>x.id===i.id)||source.partitions.find(x=>x.id===i.id):source.containers.find(x=>x.id===i.id);const item=i.type==='container'?itemIDs[index%itemIDs.length]:i.type==='loose'?'wire':undefined;
   scene.interactions.push({id:i.id,kind:i.type,objectID:i.type==='door'?`${i.objectId}-leaf`:i.objectId,name:entity?.name||o?.name||i.id,position:vector(i.position),...(item?{itemID:item}:{})});
  }
+ // A visible copper-wire coil uses the source item's wire silhouette; collection
+ // hides this child alone, retaining its source-authored physical table.
+ const loose=scene.interactions.find(i=>i.id==='forester_table');
+ objects.push({id:'native-loot-forester_table',kind:'loot',position:[loose.position[0],rounded(loose.position[1]+.02),loose.position[2]],size:[.18,.09,.18],yaw:0,material:'copper'});
  // Native-only bounded approach, no claim of compiling the campaign terrain.
  objects.push({id:'native-outdoor',kind:'floor',position:[-30,0,-59],size:[48,.12,48],yaw:0,material:'earth'});
  objects.push({id:'native-path',kind:'floor',position:[-30,.01,-46],size:[2.4,.02,15],yaw:0,material:'gravel'});

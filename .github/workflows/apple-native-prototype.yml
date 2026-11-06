@@ -69,8 +69,7 @@ jobs:
           set -euo pipefail
           node native/apple/Tools/convert_scene.mjs --check
           node native/apple/Tools/test_pipeline.mjs
-          python3 native/apple/Tools/generate_project.py
-          git diff --exit-code -- native/apple/FieldSignal.xcodeproj
+          python3 native/apple/Tools/generate_project.py --check
       - name: Compile, test and launch native simulator app
         run: bash native/apple/Tools/ci_build.sh '${{ matrix.platform }}'
       - name: Upload compiler logs, test results and unsigned simulator app

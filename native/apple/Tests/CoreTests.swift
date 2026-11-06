@@ -140,6 +140,76 @@ final class CoreTests: XCTestCase {
         XCTAssertThrowsError(try scene { $0["spawn"] = [0,0] })
     }
 
+
+    private func importedScene() throws -> SceneDocument {
+        let bundle = Bundle(for: CoreTests.self)
+        let bundled = bundle.url(forResource: "scene", withExtension: "json", subdirectory: "Resources")
+        let local = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("Resources/scene.json")
+        return try SceneDocument.load(data: Data(contentsOf: bundled ?? local))
+    }
+
+    private func face(_ session: GameSession, x: Double, z: Double) {
+        let targetYaw = atan2(-(x-session.position.x), -(z-session.position.z))
+        session.move(strafe: 0, forward: 0, lookYaw: targetYaw-session.yaw, deltaTime: 0)
+    }
+
+    private func walkTo(_ session: GameSession, x: Double, z: Double,
+                        file: StaticString = #filePath, line: UInt = #line) {
+        face(session, x: x, z: z)
+        for _ in 0..<600 {
+            if hypot(session.position.x-x, session.position.z-z) < 0.06 { break }
+            session.move(strafe: 0, forward: 1, deltaTime: 0.02)
+        }
+        XCTAssertLessThan(hypot(session.position.x-x, session.position.z-z), 0.07,
+                          "Blocked at \(session.position) travelling towards \(x),\(z)", file: file, line: line)
+    }
+
+    func testImportedForesterPlayableRouteDoorsSuppliesStairsAndCheckpoint() throws {
+        let document = try importedScene()
+        XCTAssertEqual(document.buildingID, "forester")
+        XCTAssertFalse(document.stairs.isEmpty)
+        let session = try GameSession(scene: document)
+        // This route uses actual compiler geometry, source doors and licensed furniture.
+        walk(session, forward: 1, ticks: 60)
+        XCTAssertGreaterThan(session.position.z, -54.3, "Closed source door must block entrance")
+        XCTAssertEqual(session.nearestInteraction?.id, "forester")
+        session.interact()
+        XCTAssertTrue(session.doorsOpen.contains("forester"))
+        walkTo(session, x: -30, z: -57.1)
+        XCTAssertEqual(session.nearestInteraction?.id, "forester_inner")
+        session.interact()
+        XCTAssertTrue(session.doorsOpen.contains("forester_inner"))
+        walkTo(session, x: -30, z: -60.1)
+        walkTo(session, x: -32.3, z: -60.1)
+        face(session, x: -32.4, z: -59.25)
+        XCTAssertEqual(session.nearestInteraction?.id, "forester_c1")
+        session.interact()
+        XCTAssertTrue(session.searched.contains("forester_c1"))
+        XCTAssertNil(session.inventory["med"])
+        session.interact()
+        XCTAssertEqual(session.inventory["med"], 1)
+        session.interact()
+        XCTAssertEqual(session.inventory["med"], 1)
+        walkTo(session, x: -30, z: -60.1)
+        walkTo(session, x: -30, z: -56.0)
+        walkTo(session, x: -26.5, z: -55.8)
+        walkTo(session, x: -26.5, z: -62.4)
+        XCTAssertEqual(session.position.y, 3.2, accuracy: 0.02)
+        walkTo(session, x: -28.1, z: -62.4)
+        XCTAssertEqual(session.position.y, 3.2, accuracy: 0.02, "Upper landing must remain supported")
+        session.toggleTorch()
+        let resumed = try GameSession(scene: document)
+        try resumed.restore(data: session.saveData())
+        XCTAssertEqual(resumed.position, session.position)
+        XCTAssertEqual(resumed.inventory["med"], 1)
+        XCTAssertTrue(resumed.searched.contains("forester_c1"))
+        XCTAssertFalse(resumed.torchOn)
+        walkTo(resumed, x: -26.5, z: -62.4)
+        walkTo(resumed, x: -26.5, z: -55.8)
+        XCTAssertEqual(resumed.position.y, 0, accuracy: 0.02)
+    }
+
     func testNativeSaveStoreUsesSeparateNamespace() throws {
         let suite = "org.fieldsignal.native.tests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))

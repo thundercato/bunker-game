@@ -68,6 +68,8 @@ struct FieldSignalView: View {
                     Spacer()
                     footer
                 }.padding(hudPadding)
+                    .allowsHitTesting(!model.inventoryVisible && !model.paused)
+                    .accessibilityHidden(model.inventoryVisible || model.paused)
                 if model.inventoryVisible { inventoryPanel }
                 if model.paused { pausePanel }
             }
@@ -97,8 +99,12 @@ struct FieldSignalView: View {
                 Text(model.controllerName).font(.caption).foregroundStyle(.white.opacity(0.72))
             }
             Spacer()
+            #if os(tvOS)
+            Text("Menu · pause").font(.callout.monospaced())
+            #else
             Button { model.setPaused(true) } label: { Image(systemName: "pause.fill").padding(12) }
                 .accessibilityLabel("Pause").accessibilityIdentifier("native.pause")
+            #endif
         }.padding(14).background(.black.opacity(0.58), in: RoundedRectangle(cornerRadius: 10))
     }
     private var footer: some View {
@@ -114,6 +120,10 @@ struct FieldSignalView: View {
                     .font(.callout.monospaced()).padding(16).background(.black.opacity(0.7), in: RoundedRectangle(cornerRadius: 8))
                 #endif
                 Spacer(minLength: 0)
+                #if os(tvOS)
+                Text(model.interaction).font(.title3.monospaced()).padding(18)
+                    .background(.black.opacity(0.72), in: RoundedRectangle(cornerRadius: 10))
+                #else
                 VStack(spacing: 12) {
                     Button(model.interaction) { model.interact() }
                         .accessibilityIdentifier("native.interact")
@@ -124,6 +134,7 @@ struct FieldSignalView: View {
                             .accessibilityIdentifier("native.inventory")
                     }
                 }.buttonStyle(.borderedProminent).tint(Color(red: 0.25, green: 0.31, blue: 0.21))
+                #endif
             }
             #if os(iOS)
             Text("Drag the left pad to move · drag the right half to look · search then interact again to collect")
@@ -161,6 +172,9 @@ struct FieldSignalView: View {
                 .multilineTextAlignment(.center)
             Text("This experimental native session is separate from browser campaigns.")
                 .font(.callout).foregroundStyle(.secondary)
+            Text(model.checkpointStatus).font(.callout).multilineTextAlignment(.center)
+            Button("Save native checkpoint") { model.saveCheckpoint() }
+                .accessibilityIdentifier("native.save")
             Button("Resume exploration") { model.setPaused(false) }
                 .accessibilityIdentifier("native.resume")
         }

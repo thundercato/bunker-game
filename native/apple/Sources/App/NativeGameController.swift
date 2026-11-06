@@ -12,6 +12,7 @@ final class NativeGameController: NSObject, ObservableObject {
     @Published var torchOn = false
     @Published var controllerName = "Touch controls"
     @Published var loadingError: String?
+    @Published var checkpointStatus = "Native checkpoints use a separate experimental save."
     private(set) var game: GameSession?
     private(set) var rendering: NativeScene?
     private var displayLink: CADisplayLink?
@@ -22,6 +23,8 @@ final class NativeGameController: NSObject, ObservableObject {
     private var pendingLook = SIMD2<Double>(0, 0)
     private var inactive = false
     private var uiElapsed = 0.0
+    private let saveStore = NativeSaveStore()
+    private let isUITesting = ProcessInfo.processInfo.arguments.contains("--uitesting")
 
     override init() {
         super.init()
@@ -30,7 +33,11 @@ final class NativeGameController: NSObject, ObservableObject {
             let url = resourceRoot.appendingPathComponent("Resources/scene.json")
             let scene = try JSONDecoder().decode(SceneDocument.self, from: Data(contentsOf: url))
             game = try GameSession(scene: scene)
-            rendering = try NativeScene(sceneURL: url)
+            if !isUITesting, let game {
+                do { try saveStore.load(into: game) }
+                catch { checkpointStatus = "Checkpoint preserved but could not be loaded: \(error.localizedDescription)" }
+            }
+            rendering = try NativeScene(document: scene, resourceURL: url.deletingLastPathComponent())
             refresh()
             NotificationCenter.default.addObserver(self, selector: #selector(controllersChanged), name: .GCControllerDidConnect, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(controllerLost), name: .GCControllerDidDisconnect, object: nil)
@@ -67,6 +74,19 @@ final class NativeGameController: NSObject, ObservableObject {
         let dt = min(0.05, previousTime == 0 ? 1.0 / 60.0 : link.timestamp - previousTime)
         previousTime = link.timestamp
         if let pad = gamepad {
+            #if os(tvOS)
+            // SwiftUI owns focused menu activation and Back. Exploration has no
+            // focusable buttons, so a physical A press reaches only this path.
+            if !paused && !inventoryVisible {
+                edge("inventory", pad.buttonY.isPressed) { self.toggleInventory() }
+                edge("torch", pad.buttonX.isPressed) { self.toggleTorch() }
+                edge("interact", pad.buttonA.isPressed) { self.interact() }
+            } else {
+                if !pad.buttonY.isPressed { buttonsHeld.remove("inventory") }
+                if !pad.buttonX.isPressed { buttonsHeld.remove("torch") }
+                if !pad.buttonA.isPressed { buttonsHeld.remove("interact") }
+            }
+            #else
             edge("menu", pad.buttonMenu.isPressed) { self.setPaused(!self.paused) }
             edge("inventory", pad.buttonY.isPressed) { self.toggleInventory() }
             edge("torch", pad.buttonX.isPressed) { self.toggleTorch() }
@@ -75,6 +95,7 @@ final class NativeGameController: NSObject, ObservableObject {
                 if self.inventoryVisible { self.toggleInventory() }
                 else { self.setPaused(!self.paused) }
             }
+            #endif
         }
         let forward = deadzone(Double(gamepad?.leftThumbstick.yAxis.value ?? 0))
         let strafe = deadzone(Double(gamepad?.leftThumbstick.xAxis.value ?? 0))
@@ -130,6 +151,13 @@ final class NativeGameController: NSObject, ObservableObject {
         inactive = !value
         if !value { setPaused(true) }
         previousTime = 0
+    }
+    func saveCheckpoint() {
+        guard let game else { return }
+        do {
+            if !isUITesting { try saveStore.save(game) }
+            checkpointStatus = "Native checkpoint saved. Continue from here next time."
+        } catch { checkpointStatus = "Checkpoint could not be saved: \(error.localizedDescription)" }
     }
     func itemName(_ id: String) -> String {
         // The catalogue is shared with Core; identifiers remain available if a future item has no label.

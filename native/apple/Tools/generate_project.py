@@ -4,6 +4,7 @@
 Stable SHA-derived object IDs and sorted inputs make this byte reproducible.
 No package manager, Xcode wizard, account or signing material is required.
 """
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -11,6 +12,18 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / 'FieldSignal.xcodeproj'
 objects = {}
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--check', action='store_true', help='validate generated project without changing files')
+args = parser.parse_args()
+
+
+def write(path, content):
+    if args.check:
+        if not path.exists() or path.read_text() != content:
+            raise SystemExit(f'Stale generated Xcode project: {path.relative_to(ROOT)}; run Tools/generate_project.py')
+    else:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content)
 
 
 def oid(name):
@@ -124,9 +137,8 @@ def encode(value, depth=0):
     return json.dumps(value)
 
 
-PROJECT.mkdir(exist_ok=True)
 payload = dict(archiveVersion=1, classes={}, objectVersion=56, objects=objects, rootObject=ref('Project'))
-(PROJECT / 'project.pbxproj').write_text('// !$*UTF8*$!\n' + encode(payload) + '\n')
+write(PROJECT / 'project.pbxproj', '// !$*UTF8*$!\n' + encode(payload) + '\n')
 for app, names in schemes:
     def entry(name):
         ext = 'app' if name == app else 'xctest'
@@ -148,6 +160,5 @@ for app, names in schemes:
 </Scheme>
 '''
     path = PROJECT / 'xcshareddata/xcschemes' / (app + '.xcscheme')
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(xml)
-print(f'Generated {PROJECT.relative_to(ROOT)} ({len(app_files)} app Swift files)')
+    write(path, xml)
+print(f'{"Checked" if args.check else "Generated"} {PROJECT.relative_to(ROOT)} ({len(app_files)} app Swift files)')

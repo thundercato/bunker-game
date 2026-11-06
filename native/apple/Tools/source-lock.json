@@ -19,6 +19,9 @@
     "site/assets/campaign/textures/train-kit.png": "014bb931cc26ca1c237ce6c32746c32604a66d1c15dc7ff54c53b15eda8810c5",
     "site/assets/campaign/textures/survival-kit.png": "edb512a79a648e94a2776d6d5aaee93aa304697f286c2364517a7cd82133c496",
     "site/assets/v10/model-manifest.json": "b84949e5a8e0a4daa988b6cfc8a23f3677ad13bee2365b28b30b7f9c0d1306a3",
-    "site/assets/v10/models/painted_wooden_table.glb": "d41cd5e799f10ad9152933322baef8120cd483e9e4d4289fac2864b39d6b5723"
+    "site/assets/v10/models/painted_wooden_table.glb": "d41cd5e799f10ad9152933322baef8120cd483e9e4d4289fac2864b39d6b5723",
+    "site/assets/campaign/licences/furniture-kit.txt": "bc0de1a0742cb490f9ed4bae0bd284286ebb27e23149b9917c7d8c0d590b8b29",
+    "site/assets/campaign/licences/survival-kit.txt": "62c8356876481204fa4d40dc59183dfed777adf987d7f2a1390fffe8a699f3ff",
+    "site/assets/v11/EZ-TREE-LICENSE.txt": "20e4afadfb10c67952b3d73cd2982d21d165ab4ae82b0dd9e4d6f2166ee349b6"
   }
 }

@@ -12,17 +12,6 @@ final class NativeScene {
     private var objectNodes: [String: SCNNode] = [:]
     private var looseObjects: [String: String] = [:]
 
-    struct Object: Decodable {
-        let id: String
-        let kind: String
-        let position: [Double]
-        let size: [Double]
-        let yaw: Double
-        let material: String?
-        let assetID: String?
-        let doorID: String?
-    }
-    private struct Document: Decodable { let objects: [Object] }
     private struct MeshFile: Decodable {
         let dimensions: [Double]
         let meshes: [Mesh]
@@ -40,11 +29,10 @@ final class NativeScene {
         let doubleSided: Bool?
     }
 
-    init(sceneURL: URL) throws {
-        let document = try JSONDecoder().decode(Document.self, from: Data(contentsOf: sceneURL))
-        let validated = try SceneDocument.load(data: Data(contentsOf: sceneURL))
-        for interaction in validated.interactions where interaction.kind == "loose" {
-            looseObjects[interaction.id] = interaction.objectID
+    init(document: SceneDocument, resourceURL: URL) throws {
+        for interaction in document.interactions where interaction.kind == "loose" {
+            // The binding object is a reusable table, not the removable item.
+            looseObjects[interaction.id] = "native-loot-" + interaction.id
         }
         scene.background.contents = UIColor(red: 0.18, green: 0.23, blue: 0.25, alpha: 1)
         scene.fogColor = UIColor(red: 0.25, green: 0.29, blue: 0.28, alpha: 1)
@@ -89,7 +77,7 @@ final class NativeScene {
         torch.position = SCNVector3(0.2, -0.12, -0.15)
         camera.addChildNode(torch)
 
-        for object in document.objects { try add(object, resourceURL: sceneURL.deletingLastPathComponent()) }
+        for object in document.objects { try add(object, resourceURL: resourceURL) }
     }
 
     func update(position: Vec3, yaw: Double, pitch: Double, torchOn: Bool, doorsOpen: Set<String>, collected: Set<String>) {
@@ -108,8 +96,7 @@ final class NativeScene {
         }
     }
 
-    private func add(_ object: Object, resourceURL: URL) throws {
-        guard object.position.count == 3, object.size.count == 3 else { return }
+    private func add(_ object: SceneObject, resourceURL: URL) throws {
         if object.kind == "spawn" { return }
         if object.kind == "light" {
             let node = SCNNode()
@@ -131,33 +118,39 @@ final class NativeScene {
             let meshURL = resourceURL.appendingPathComponent("Meshes").appendingPathComponent(assetID + ".json")
             let mesh = try JSONDecoder().decode(MeshFile.self, from: Data(contentsOf: meshURL))
             let model = meshNode(mesh, resourceURL: resourceURL)
-            model.scale = SCNVector3(Float(object.size[0] / mesh.dimensions[0]),
-                                    Float(object.size[1] / mesh.dimensions[1]),
-                                    Float(object.size[2] / mesh.dimensions[2]))
+            model.scale = SCNVector3(Float(object.size.x / mesh.dimensions[0]),
+                                    Float(object.size.y / mesh.dimensions[1]),
+                                    Float(object.size.z / mesh.dimensions[2]))
             node.addChildNode(model)
+        } else if object.kind == "loot" {
+            // Existing wire catalogue item, shown as a native coil marker above its authored surface.
+            let coil = SCNTorus(ringRadius: object.size.x / 3, pipeRadius: object.size.y / 3)
+            node.geometry = coil
+            node.position.y += Float(object.size.y / 2)
+            node.geometry?.firstMaterial = material("copper")
         } else if object.kind == "stairs" {
-            let steps = max(4, Int(ceil(object.size[1] / 0.18)))
+            let steps = max(4, Int(ceil(object.size.y / 0.18)))
             for index in 0..<steps {
-                let step = SCNNode(geometry: SCNBox(width: object.size[0],
-                    height: object.size[1] * Double(index + 1) / Double(steps),
-                    length: object.size[2] / Double(steps), chamferRadius: 0))
-                step.position = SCNVector3(0, Float(object.size[1] * Double(index + 1) / Double(steps) / 2),
-                    Float(object.size[2] / 2 - object.size[2] * (Double(index) + 0.5) / Double(steps)))
+                let step = SCNNode(geometry: SCNBox(width: object.size.x,
+                    height: object.size.y * Double(index + 1) / Double(steps),
+                    length: object.size.z / Double(steps), chamferRadius: 0))
+                step.position = SCNVector3(0, Float(object.size.y * Double(index + 1) / Double(steps) / 2),
+                    Float(object.size.z / 2 - object.size.z * (Double(index) + 0.5) / Double(steps)))
                 step.geometry?.firstMaterial = material(object.material)
                 node.addChildNode(step)
             }
         } else {
-            node.geometry = SCNBox(width: object.size[0], height: object.size[1], length: object.size[2], chamferRadius: 0)
+            node.geometry = SCNBox(width: object.size.x, height: object.size.y, length: object.size.z, chamferRadius: 0)
             node.geometry?.firstMaterial = material(object.material)
             // Floors are top-centred; every other primitive is bottom-centred.
-            node.pivot = SCNMatrix4MakeTranslation(0, Float(object.kind == "floor" ? object.size[1] / 2 : -object.size[1] / 2), 0)
+            node.pivot = SCNMatrix4MakeTranslation(0, Float(object.kind == "floor" ? object.size.y / 2 : -object.size.y / 2), 0)
         }
         objectNodes[object.id] = node
         if object.kind == "door", let id = object.doorID {
             let pivot = SCNNode()
-            let half = object.size[0] / 2
-            pivot.position = SCNVector3(Float(object.position[0] - cos(object.yaw) * half),
-                Float(object.position[1]), Float(object.position[2] + sin(object.yaw) * half))
+            let half = object.size.x / 2
+            pivot.position = SCNVector3(Float(object.position.x - cos(object.yaw) * half),
+                Float(object.position.y), Float(object.position.z + sin(object.yaw) * half))
             pivot.eulerAngles.y = Float(object.yaw)
             node.position = SCNVector3(Float(half), 0, 0)
             node.eulerAngles.y = 0
@@ -213,7 +206,7 @@ final class NativeScene {
         return root
     }
 
-    private func vector(_ values: [Double]) -> SCNVector3 { SCNVector3(Float(values[0]), Float(values[1]), Float(values[2])) }
+    private func vector(_ value: Vec3) -> SCNVector3 { SCNVector3(Float(value.x), Float(value.y), Float(value.z)) }
 
     private func material(_ name: String?) -> SCNMaterial {
         let colours: [String: UIColor] = [
@@ -223,6 +216,7 @@ final class NativeScene {
             "concrete": UIColor(red: 0.38, green: 0.40, blue: 0.37, alpha: 1),
             "metal": UIColor(red: 0.29, green: 0.33, blue: 0.31, alpha: 1),
             "roof": UIColor(red: 0.23, green: 0.25, blue: 0.23, alpha: 1),
+            "copper": UIColor(red: 0.68, green: 0.39, blue: 0.15, alpha: 1),
             "grass": UIColor(red: 0.24, green: 0.29, blue: 0.18, alpha: 1)
         ]
         let result = SCNMaterial()
