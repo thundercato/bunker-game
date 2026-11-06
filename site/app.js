@@ -20,7 +20,7 @@ function configure(){sound.configure(settings);input.dead=Number(settings.deadzo
 configure();
 function toast(text,level='info'){clearTimeout(toastTimer);ui.toast.textContent=text;ui.toast.className='visible '+level;toastTimer=setTimeout(()=>ui.toast.className='',level==='danger'?6500:4000)}
 function save(){if(!state)return;try{localStorage.setItem(SAVE,JSON.stringify({...state,player:{...(climbing&&climbCommittedPose?climbCommittedPose:player)},events:[]}));$('#save-status').textContent='Saved'}catch{$('#save-status').textContent='Export a backup'}}
-function apply(r,reset=false){const before=state;state=r.state;weight=r.weight;world.updateState(state,r.loot);if(reset||before&&(before.deaths!==state.deaths||before.zone!==state.zone)||state.events?.some(e=>e.climb)){player={...state.player};motionTime=0;input.clear();world.lastCull=-1e6;}
+function apply(r,reset=false){const before=state;state=r.state;if(climbing)climbCommittedPose={...state.player};weight=r.weight;world.updateState(state,r.loot);if(reset||before&&(before.deaths!==state.deaths||before.zone!==state.zone)||state.events?.some(e=>e.climb)){player={...state.player};motionTime=0;input.clear();world.lastCull=-1e6;}
  if(before&&state.health<before.health){$('#hurt').classList.remove('hit');void $('#hurt').offsetWidth;$('#hurt').classList.add('hit')}
  for(const e of state.events||[]){if(e.hitFlash)world.flashEnemy(e.hitFlash);if(e.knifeSwing)world.slash9();if(e.enemyShot){world.showEnemyShot(e.enemyShot);sound.effect('enemy_rifle',{position:{x:e.enemyShot.from[0],y:e.enemyShot.from[1],z:e.enemyShot.from[2]},volume:.75});}rememberEvent8(e);if(e.jump)world.jump();if(e.text&&!e.text.startsWith('Cleaning:'))toast(e.text,e.level);if(e.fired){if(settings.haptics)window.FieldHaptics?.pulse('auto',state.activeWeapon==='rifle'?85:45,.36);world.flashShot();sound.effect('pistol'+(state.stats.shots%2+1));if(e.bottle!=null){world.breakBottle(e.bottle);sound.effect('glass')}}else if(e.sound&&!e.enemyShot)sound.effect(e.sound);}
  if(state.events?.some(e=>e.text.includes('Movement was interrupted')))player={...state.player};
@@ -394,6 +394,7 @@ async function climbTarget(target){
  climbing=true;input.paused=true;climbCommittedPose={...player};const start={...player};
  try{
   const result=await act({type:'climb',id:target.id});
+  if(result?.state)climbCommittedPose={...result.state.player};
   if(!result?.state.events.some(e=>e.climb)||result.state.zone!==route.zone)return;
   const end={...result.state.player};climbCommittedPose=end;
   if(!settings.reducedMotion){

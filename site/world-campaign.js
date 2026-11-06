@@ -4,7 +4,7 @@ import {buildDistrictScene} from './district-scene.js';
 import {createSearchProp,loadSearchPropCatalogue,setSearchPropOpen,searchPropCollider} from './search-props.js';
 import {resolveMovement} from './campaign-core.js';
 import {localPoint} from './layout-core.js';
-import {previewSurface,insidePreview,moveInPreview} from './world-preview.js';
+import {insidePreview,moveInPreview} from './world-preview.js';
 import {terrainHeight,surfaceHeight,zoneAt,validLand} from './terrain.js';
 export {DATA};
 export class World extends LayoutWorld {

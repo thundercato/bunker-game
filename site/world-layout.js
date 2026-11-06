@@ -14,6 +14,14 @@ export class World extends OvergrowthWorld {
  async mountEditedLayout() {return this.mountBuildingScene(previewBuilding(DATA));}
  async mountBuildingScene(building) {
   const doc = building.layout;
+  // An isolated authored-home preview also needs its licensed model paths.
+  // Register files only; never import normal campaign rules or saved state here.
+  if (doc.objects.some(o => o.asset?.startsWith('campaign_')) && !this.library.files.campaign_chair) {
+   const response = await fetch('assets/campaign/registry.json');
+   if (!response.ok) throw Error('Campaign asset registry unavailable');
+   const registry = await response.json();
+   this.library.files = {...this.library.files, ...Object.fromEntries(registry.assets.map(a => [a.id, a.path]))};
+  }
   const compiled = new LayoutScene({library: this.library, materials: await createMaterials(), editor: false});
   await compiled.load(doc);
   if (compiled.errors.length) throw Error('Preview model failed: ' + compiled.errors.join('; '));
