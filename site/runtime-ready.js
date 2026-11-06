@@ -1,5 +1,5 @@
 // A new HTML entry must not import cached application modules from an old worker.
-export const RUNTIME_CACHE = 'field-signal-overgrowth-v11-building-preview-1';
+export const RUNTIME_CACHE = 'field-signal-game-first-candidate-1';
 export async function ensureRuntime() {
  if (!('serviceWorker' in navigator) || !isSecureContext) return;
  const current = () => new Promise(resolve => {

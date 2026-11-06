@@ -1,7 +1,7 @@
 {
-  "name": "Field Signal: Overgrowth",
-  "version": "11.0.0",
-  "build": "overgrowth-11.0.0-building-preview-1-20261106",
+  "name": "Field Signal: Game-first candidate",
+  "version": "11.1.0-candidate.1",
+  "build": "game-first-candidate-1-20261106",
   "baseScore": "Relay Lanterns",
   "saveSchema": 9,
   "builtAt": "2026-11-06",
@@ -13,5 +13,14 @@
     "worldMap": "editor/world.html",
     "buildingPreview": "?buildingPreview=hut&play=1",
     "worldDocument": "field-signal-world-document/1"
+  },
+  "published": false,
+  "baseGame": "Overgrowth 11.0.0",
+  "candidate": {
+    "journal": "field-signal-journal/1",
+    "searchVariants": 69,
+    "refurbishedInteriors": 4,
+    "districts": 8,
+    "productionApprovalRequired": true
   }
 }
