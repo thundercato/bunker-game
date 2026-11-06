@@ -1,79 +1,168 @@
-# Editor v2 integration requests — 6 November 2026
+# Editor v2 integration contracts — current continuation
 
-Track B baseline: main `be64a7f`. PR #81 `feat/moved-building-preview` remains
-unmerged at initial audit. No uncommitted Track A work is assumed available.
-These are review requests, not accepted canonical schemas or runtime capabilities.
+Main inspected: `be64a7f`. PR81 remains unmerged at `476441ee2def32752031c20124c6bbdc2077a14c`;
+PR83 successor inspected/tested at `edffe7b118961406a6516ac079f706375a725ab8`.
+No private/uncommitted work is assumed. See `EDITOR_V2_CONTRACT_AUDIT.md` and
+`EDITOR_V2_RUNTIME_COMPATIBILITY.md` for the exact available APIs and test artifact.
 
-## IR-01: editor module packaging / offline release (blocking merge/release)
+## IR-01 — RESOLVED in canonical packaging (CI result in progress record)
 
-Consumer: the existing `/editor/` and `/editor/world.html` plus new loot/mission
-workspaces. New editor modules are imported by the existing entry points. The
-canonical `tools/build.py` copies only `site/precache.json` entries. Track A owns
-that manifest, worker version, bootstrap runtime revision and deployment.
+The user explicitly authorised this narrow ownership exception. `precache.json`
+now explicitly includes all editor resources and the existing world compiler;
+normal `tools/build.py` produces 309 files / 307 cache resources without overlays.
+The original 17-file omission was reproduced. New editor work increased the actual
+additive set to 36 public files. `tools/validate_editor_package.py` checks module
+imports/exports, workspace bootstrap targets, HTML/CSS resources and literal data
+fetches; it also rejects private/credential/test paths and escaping symlinks.
 
-Producer requested: add every new editor file listed in
-`docs/verification-editor-v2/editor-runtime-files.txt` to the existing manifest,
-review the additive editor imports, and choose a coordinated cache/bootstrap bump.
-Do not change campaign or draft keys. Until accepted, build verification uses
-`python3 tools/editor_v2_review.py`: the canonical build followed by an explicit
-editor-only review overlay. This is not a shipping/release build and is not wired
-to Pages. The normal build alone lacks the new modules and must not be published
-with this branch's entry points. A merge must include accepted packaging first.
+Suite/bootstrap/SW expectations agree on
+`field-signal-overgrowth-v11-editor2.1.1`. Real prior-world2 and prior-editor2.1
+workers upgrade before stale modules execute, all five workspaces restart offline
+on `/bunker-game/`, and retained save/draft sentinels stay unchanged. No storage
+clear is used. CI runs all editor pure/browser suites and retains a successful
+canonical dist as an ordinary review artifact, never a PR deployment.
 
-Acceptance: canonical build includes all listed files and CI runs the six new
-editor pure/browser suites listed in `EDITOR_V2_TESTING.md`; existing/new editor browser
-tests pass from dist and `/bunker-game/`; real prior service worker upgrades and
-all workspaces restart offline, preserving normal/preview saves and drafts.
+Future PR83 integration must reconcile its `field-signal-game-first-candidate-1`
+cache, runtime-ready helpers and explicit manifest with these additions. Choose
+one new integrated release cache; retain network-fresh bootstrap routes, both
+runtime/editor public entries and all ownership changes. Do not replace whole files
+with either branch's older variant. Editor review cache retirement and preservation
+are tested; merging/publishing still requires review and approval.
 
-## IR-02: shared world geometry and complete buildings
+## IR-02 — connected authoring done; actual moved runtime adapter not bundled
 
-Consumers: terrain/material brushes, bridges, underground/local scenes, focused
-and in-world connected interiors, complete building templates and groups.
-Current v1 layout and world v2 have fixed building IDs/footprints, coarse 12 m grid,
-no material masks, bridge spans, local-scene registry or new-building bindings.
-No competing format is introduced here.
+The existing `field-signal-world-document/1` remains authoritative. The editor's
+session wrapper contains UI/history metadata around that envelope, not a new world
+schema. Existing world2/layout1 drafts are adopted without rewriting them on load;
+canonical/legacy conflicts and failed mirror writes have tested recovery paths.
 
-Requested reviewed, versioned additions: explicit building instance/local-scene
-identity and child/reference policy, terrain material/resolution contract, bridge
-span deck/support/collider definitions, water depth/overlap/dry exclusions, and
-accepted component definitions for APR/protection/discovery, fuse, siren, surge,
-pod/save/sleep/station and coupled lighting/audio/fixtures. Example intent:
-`{buildingId:'hut', objectId:'entrance'}` remains a reference, never a mesh UUID.
-Validate all cross-scene IDs, finite metres, unique instances, source revisions and
-migration of old drafts. No speculative field in these requests executes in game.
+In-world and focused views now edit the same layout. `compileBuilding` supplies
+one parent transform; local `LayoutScene` children remain local. Rendering,
+compiled colliders/interactions/mission anchors and exported identity are tested.
+No new-building instances or duplicated mission bindings are introduced.
 
-Acceptance: compiler returns visuals/collisions/interactions from one definition;
-move/rotate/raise composes once; actual walks through both floors, saved round-trip,
-dry refuge, linked missions/containers, preview isolation and old saves pass.
+The optional launcher consumes `compilePreviewWorld(document, buildingId, context)`
+and `{format:'field-signal-preview/1',buildingId,document}` through the existing
+world-preview namespace. The underlying PR83 adapter supports existing buildings
+generally, although that branch's old UI only offers the hut. Actual detached
+compatibility tests passed for hut, forester and station, including physical stairs,
+search and Atlas. This is not approval, publication or inclusion of that adapter
+in PR82. Canonical source-context explicitly keeps `worldPreview:false`.
 
-## IR-03: loot proposal adapter (E5 runtime dependency)
+**Smallest producer integration:** review the actual world-preview/preview-document,
+layout-preview/world-layout, engine/terrain transform and runtime-ready startup
+changes from the pinned runtime branch; retain its canonical bindingAnchor/stair
+fixes where required. Supply trusted `world-source.json` identity/hash and accepted
+asset registry/source loader. No new parallel runtime is requested. Reconcile
+campaign-scene import without replacing existing edited layouts with seeded rooms.
+Enable capability metadata only after the combined canonical build passes real
+old-worker, old-save, current-editor and three-building gameplay journeys.
 
-Consumer: `/editor/loot.html`; portable editor-only proposals retain actual
-container/item IDs, named reusable defaults and explicit per-container overrides.
-`panels/loot-core.js` is a deterministic authoring simulator, NOT a gameplay loot
-engine and is not imported by runtime. The legacy game's independent-roll loot
-is not relabelled or overwritten. Producer: accept a canonical weighted-table
-contract and capacity/mission-guarantee policy, then implement/reuse one runtime
-engine and make editor simulation call its pure API. See exported editor proposal
-for concrete draw/item/quantity/repeat payload. Unknown capacity is reported;
-no guarantee/preallocation or reward-overflow policy is invented.
+Known structural contract issue: the baseline floor opening margin is 0.16 m,
+while baseline stair sampling ends 0.10 m past the top; PR83 extends it to 0.25 m
+and fixes floor slab lip collision. Rotated openings also use conservative AABBs.
+Editor landing generation rejects clipped floors and warns about transitions;
+it does not invent a competing walking surface. Acceptance requires rotated
+openings, headroom and actual top/bottom traversal with the reviewed shared fix.
 
-Acceptance: same seeded vectors match runtime and editor; draws versus stack
-units are explicit; no-repeat depletion/minimum failure validated; containers roll
-once per world cycle and survive reload; mission-critical items never depend on
-weights; legacy saves and old content migrate explicitly.
+## IR-03 — weighted loot runtime API still absent
 
-## IR-04: mission graph proposal adapter (E6 runtime dependency)
+The actual PR83 tree contains no accepted weighted runtime generator. Editor
+proposal `field-signal-editor-loot-proposal/1` retains real container/item IDs,
+reusable defaults and overrides. It is not imported by gameplay. The simulator
+remains an authoring tool; legacy independent-roll profiles and guaranteed mission
+contents remain unchanged.
 
-Consumer: `/editor/missions.html`, editor-only declarative proposals derived from
-actual world mission/source/container IDs. Current game missions remain unchanged.
-Producer: versioned graph contract and supported runtime action registry, typed
-ports, prerequisite references, timer units, failure/retry/death/abandon policies,
-reward delivery/idempotence and stable world-reference resolver. No graph evaluator
-is implemented in this editor task. Unsupported objectives/components stay disabled.
+Requested shared pure API: one versioned bounded draw implementation with
+`minDraws`, `maxDraws`, item-relative weights, units min/max and per-item repeat
+permission. The editor should call that API, then compare identical seeded test
+vectors with the worker/runtime. Runtime producer owns roll-once/per-world-cycle
+persistence and old-save migration. Reject missing IDs, impossible minima and
+forbidden duplicates; report depletion rather than manufacture repeats.
 
-Acceptance: collect/deliver/reach/interact execute against real objects after
-building movement; persisted candidate selection and deadlines; failure/retry and
-all/any joins; rewards once across duplicate events/reload; preview-only test events
-never touch normal campaign/settings/journal. Escort/surge/sleep cannot be marked
-supported until their runtime adapters and tests exist.
+Mission guarantees/preallocation draw-budget treatment and actual capacity/overflow
+rules remain unresolved. Do not treat optional proposal simulation limits as
+known game capacities or invent a guarantee policy. Acceptance includes seeded
+parity, protected mission items, reload consistency and old loot/save behaviour.
+
+## IR-04 — graph runtime/action registry still absent
+
+The actual PR83 tree has legacy missions and a new physical journal, not a graph
+evaluator or accepted graph schema. This editor's declarative graph proposals do
+not execute. Existing collect/recover/deliver game actions are not relabelled as
+support for arbitrary authored graphs. Source/container links resolve real stable
+IDs; their bindings survive parent placement through the compiler.
+
+Producer requested: versioned typed graph/action registry and narrow adapters for
+collect, deliver, reach and interact. Explicit voluntary offer/acceptance, all/any
+joins, failure/retry/death/abandonment, owned delivery and once-only rewards must
+have one runtime owner. Candidate-location choice and timed deadlines must persist;
+clock units and reset/overflow policies require actual decisions/interfaces.
+
+Acceptance: real world objects after move/rotation, seeded persisted choice,
+reload during objectives/timers, branch/retry/death examples, rewards exactly once
+across repeated events, no prerequisite softlocks, isolated event simulation, and
+normal campaign/settings/journal unchanged. Unsupported mechanics remain disabled.
+
+## IR-05 — actual refuge/local-scene and gameplay components
+
+Current source provides five base rooms, service stations, container and portals;
+PR83 also has source districts/services. The editor can inspect/link those actual
+references now. Neither branch supplies a lossless editable local-scene contract
+for the rendered refuge's pipes, lights, corridors and coupled service colliders.
+A read-only source map deliberately does not pretend to be editable base geometry.
+
+Requested producer: stable scene/entity IDs and lossless import of current rooms,
+fixtures, stations, transitions and interactive anchors. A local-scene transform
+must move renderer/collider/service interaction together; distinguish its source
+frame from exterior coordinates without migrating existing IDs by accident.
+Procedural instances need stable IDs or explicit locked-reference status before
+replacement. Preserve trader/canteen/radio/vault/stair functions and layout.
+
+APR/protection/discovery, lever/fuse, siren/surge, reward zone, pod/save/sleep and
+linked light/audio components also have no accepted definitions or runtime adapters.
+Request a versioned supported-component registry with references, units, validation
+and declared preview capability. No unused switches/JSON fields are enabled here.
+Global water must have explicit local-scene dry exclusions before any flooding rule.
+
+## IR-06 — material/support/prefab extensions
+
+Canonical material choices work; authored UV tiling/orientation does not exist.
+Request validated per-object UV scale/orientation/tint semantics, bounds and a
+renderer implementation that does not mutate a shared material globally. Real
+support snapping currently uses authored floor pieces and solid prop top faces,
+including shared stair holes; a mesh shelf/support-face registry needs producer
+geometry metadata. No decorative mesh is assumed to be a loot container.
+
+Templates currently expand unbound concrete children with fresh IDs and explicit
+scale/material overrides; they cannot copy quest bindings/doors/spawn. Linked
+prefab instance identity/update policies and full building cloning remain absent.
+Request explicit retained/remapped/omitted binding policy before allowing them.
+
+## IR-07 — terrain/path/water physics and format evolution
+
+Current brushes use existing concrete foliage IDs/transforms; dirty updates and
+exclusion previews work without changing the 12 m world2 height format. Material
+blend masks/finer cells require a versioned backward-compatible sampling/migration
+contract. Foundations still use existing centre sampling/offset/manual locks;
+footprint cut/fill ordering must be agreed to avoid feedback with terrain-fit paths.
+
+Bridges need explicit endpoints, deck/support definitions and shared physical
+surfaces. Water needs stable local volume IDs/boundaries/depth/classification,
+overlap precedence and dry-scene exclusions. Existing visual circles/global level
+are authoring proxies; no drowning or walkable bridge is claimed. Acceptance is
+saved terrain/road/rail/bridge/water geometry agreeing with collisions, grounded
+locked objects and mission access in isolated game preview, with measured budgets.
+
+### Final remote reconciliation
+
+PR83 advanced to `e31b72a8ff4096dfd94d74297d190af4426b62dd` while this task ran.
+Inspected changes include generated fixed campaign road polygons and their renderer/
+sampling inputs (`field-signal-campaign-road-surfaces/1`, development-only Shapely
+generator); no editor world2-draft adapter is added. This is useful producer work,
+not a reason to implement competing editor road physics. The three-building browser
+compatibility evidence remains pinned to `edffe7b` with exact hashes. Candidate
+notes still explicitly identify terrain/road/water/district-transform drafts as
+authoring-only. Added design notes clarify optional binding floor/anchor, roofRise
+and bounded same-floor legacy spawn clearance; they do not add missing loot/graph/
+APR/sleep/local-refuge contracts or approve publication.

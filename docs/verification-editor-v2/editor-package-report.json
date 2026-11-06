@@ -20,8 +20,8 @@
     "editor/tools/world-authoring.js",
     "editor/tools/world-inspector.js"
   ],
-  "canonicalBuildFiles": 306,
-  "manifestResources": 304,
+  "canonicalBuildFiles": 309,
+  "manifestResources": 307,
   "addedPublicFiles": [
     {
       "path": "editor/connected-world.js",
@@ -111,7 +111,8 @@
     {
       "path": "editor/panels/loot.js",
       "dependencies": [
-        "editor/panels/loot-core.js"
+        "editor/panels/loot-core.js",
+        "world.json"
       ]
     },
     {
@@ -125,7 +126,26 @@
     {
       "path": "editor/panels/missions.js",
       "dependencies": [
-        "editor/panels/missions-core.js"
+        "editor/panels/missions-core.js",
+        "world.json"
+      ]
+    },
+    {
+      "path": "editor/panels/recovery-core.js",
+      "dependencies": [
+        "editor/panels/loot-core.js",
+        "editor/panels/missions-core.js",
+        "editor/session.js",
+        "editor/tools/world-authoring.js",
+        "layout-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/recovery.js",
+      "dependencies": [
+        "editor/panels/assets-core.js",
+        "editor/panels/recovery-core.js",
+        "editor/session.js"
       ]
     },
     {
@@ -150,7 +170,8 @@
         "editor/panels/assets-core.js",
         "editor/panels/loot-core.js",
         "editor/panels/validation-core.js",
-        "editor/session.js"
+        "editor/session.js",
+        "world.json"
       ]
     },
     {
@@ -173,7 +194,9 @@
     },
     {
       "path": "editor/suite-bootstrap.js",
-      "dependencies": []
+      "dependencies": [
+        "editor/panels/recovery.js"
+      ]
     },
     {
       "path": "editor/tools/environment-brush-core.js",
@@ -197,6 +220,13 @@
       "path": "editor/tools/resize-handles.js",
       "dependencies": [
         "editor/tools/resize-core.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/tools/terrain-dirty-core.js",
+      "dependencies": [
+        "editor/world-core.js",
         "vendor/three.js"
       ]
     },
@@ -228,13 +258,20 @@
   ],
   "status": "Canonical build passes explicit import closure. No overlay; tests and credential/private paths rejected. New runtime adapter world-preview.js remains absent and capability-gated, not approved or shipped.",
   "acceptance": [
-    "tests/editor_v2_offline.cjs: 6 checks passed; production subpath, prior service worker upgrade, 5 workspaces online/offline, unchanged campaign/settings/journal/legacy drafts, no browser exceptions or missing network resources",
-    "site/tests/test_editor_package.py: 7 tests passed including omitted imports/workspaces/styles, missing built files, private/test files, credentials and symlink escape"
+    "Canonical python3 tools/build.py: 309 public files / 307 explicit cached resources, no overlay.",
+    "Both prior worker fixtures: 7 checks each passed through real Prepare editor for offline action and five packaged workspaces; retained save/draft bytes.",
+    "site/tests/test_editor_package.py: 8 tests passed, including required JSON fetch omission, private/credential paths and escaping symlinks."
   ],
   "cacheReconciliation": {
     "canonicalPrior": "field-signal-overgrowth-v11-world2.0.0",
-    "editorSuite": "field-signal-overgrowth-v11-editor2.1.0",
+    "editorSuite": "field-signal-overgrowth-v11-editor2.1.1",
     "unmergedPR83": "field-signal-game-first-candidate-1",
     "resolution": "Unique editor cache; fresh suite and legacy runtime bootstraps; preserve PR83 candidate runtime changes separately. Existing public caches retire only after complete cache-all success. No localStorage clearing."
-  }
+  },
+  "addedPublicFileCount": 36,
+  "priorReviewCache": "field-signal-overgrowth-v11-editor2.1.0",
+  "optionalRuntimeDependencies": {
+    "editor/preview-launcher.js": "world-preview.js imported only with trusted capability; not bundled in canonical main"
+  },
+  "developmentOverlayRequired": false
 }

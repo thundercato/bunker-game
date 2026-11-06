@@ -1,162 +1,173 @@
-# Editor v2 execution — 6 November 2026
+# Editor v2 current progress — 6 November 2026
 
-## Baseline and ownership
+Branch `codex/editor-v2-suite`, draft [PR #82](https://github.com/thundercato/bunker-game/pull/82).
+Continuation began at `de5d758`; main remained `be64a7f`. Original baseline and
+verification are retained in Git history and `verification-editor-v2/`. No merge,
+publication, engine change, save-key migration, asset replacement or paid service.
 
-Branch `codex/editor-v2-suite`, from latest main `be64a7f`. Clean fresh checkout;
-no existing user files removed/reset. Confirmed AGENTS.md and all six requested
-brief/design/world/cloud/parallel documents present and read. Also read the
-handoff, architecture and next-steps records. Rechecked main and open PRs after
-implementation. PR #81 remains open at
-`476441ee2def32752031c20124c6bbdc2077a14c`; its file list and world-entry diff were
-inspected. No dependency on another task's uncommitted work or automatic adoption
-of that unreviewed branch. M0/M1 compiler not recreated.
+## Execution and capability checklist
 
-Track A's canonical compiler/schema, game code, assets, journal, save keys,
-release/cache/deployment and progress docs are unchanged. Editor entry changes
-are isolated imports/mounts and UI gestures; compare PR #81 seams before merging.
+The user authorised narrow packaging/cache/bootstrap/CI changes. All other shared
+runtime ownership remains respected. Inspected PR81 `476441ee2def32752031c20124c6bbdc2077a14c`
+and successor PR83 `edffe7b118961406a6516ac079f706375a725ab8`; neither was merged.
+Other tasks' uncommitted files are unavailable. Final remote audit observed PR83
+at `e31b72a8ff4096dfd94d74297d190af4426b62dd` (still unmerged); its newly compiled
+fixed road surfaces and decision notes were inspected. Full-map authoring-draft
+geometry still has no runtime adapter; the compatibility run remains pinned to
+`edffe7b`, not silently relabelled as the later revision.
 
-## Capability checklist (not a release claim)
-
-| Brief milestone | Editor / portable authoring | Actual game preview | Published |
+| Area | Authored, validated and exportable in this branch | Actual game preview | Published |
 | --- | --- | --- | --- |
-| E0 audit | Complete; baseline and ownership above | Existing baseline only | No |
-| E1 anchored dimensions | Face/corner tool, opposite anchors, rotated local maths, precise offsets, snapping, transaction cancellation, undo/redo, collision rebuild, old layout JSON | Existing v1 layout adapter retained; regression verification below. Moved world building depends on #81 | No |
-| E2 hierarchy/assets | Type-filtered multi-selection sets; bulk lock/hide/isolate/move; named portable collections; 54 registered models inspected, 31 reviewed placements; provenance and measured/estimated costs | Collections are editor metadata; props use existing v1 decoration/collision path | No |
-| E3 terrain/paths/water | Existing sculpt/scatter extended with brush outline/flatten target, snapped/cancelled gestures, individual grounding locks, hierarchy/regions/layers, curve point/width editing and circle-water inspection | Authoring-only proxies; no full-map runtime geometry | No |
-| E4 refuge/components | **Blocked** on canonical local scenes/component contracts; no speculative runtime fields | Not implemented | No |
-| E5 weighted loot | Real grouped 139-container/61-item workspace; reusable defaults/overrides, bulk preview, history, deterministic authoring simulator, validation and recovery/export | **No weighted gameplay adapter**; legacy independent loot preserved | No |
-| E6 missions | 15 real missions/4 sources; graph drag/connect/delete/pan/zoom, typed ports, form alternative, prerequisites/policy/currency proposals, real object links, validation/history/export | **No graph evaluator**; unsupported mechanics disabled | No |
-| E7 release integration | **Blocked** on IR-01 packaging and accepted runtime contracts; review overlay only | No combined #81 integration claimed | No |
+| Canonical packaging | Original 17 omissions fixed; now 309 explicit public build files / 307 cached resources, including new tools. Build checks imports, data fetches, styles, entry modules, private files and symlink escapes. All browser suites use dist. | Current game retained | No |
+| Connected world/buildings | One existing canonical envelope, lossless legacy adoption, durable global history, per-view camera/selection, actual in-world local geometry/cutaway, numeric child edits, whole-building parent placement once, canonical export/import | Existing v1 local preview bundled. Moved/raised preview disabled in main; tested for hut/forester/station only in explicit unmerged PR83 compatibility build | No |
+| Interior tools | Anchored edge/corner resize and precise transforms retained; actual top-face snapping, alignment/rigid rotation, protected decorative templates with explicit concrete overrides/new IDs, wall joints, real floor landings, overlap/room isolation, support/headroom/access warnings | Concrete layout children use existing v1 adapter. Shared rotated stair/top-transition limits remain explicit | No |
+| Terrain/environment | Seeded spaced brushes, scale/yaw controls, building/approach/curve/water/slope masks, visible candidates/rejections, locked erase, stable IDs. In-stroke local terrain buffers/normals and incremental foliage meshes | Terrain/roads/water/vegetation still authoring-only proxies | No |
+| Assets | Existing actual-model inspection/provenance/costs retained | Reviewed decorative props use existing adapter | No |
+| Loot/missions | Existing weighted proposals, simulator, typed graphs and recovery retained; real container/source links and cross-workspace validation | No weighted generator or graph evaluator is installed. Existing legacy missions/loot remain unchanged | No |
+| Refuge/components | Real source-room/station/container/portal reference map, source offers and binding diagnostics. No invented empty base or gameplay switches | Actual editable local-scene/APR/surge/pod/save/sleep contracts absent | No |
+| Validation/review | Fifth workspace aggregates canonical layouts/world/proposals, recovery failures, water-approach risk and region counts; clickable repairs and stale-report prevention | Checks do not substitute for an actual walk-through or approve publication | No |
 
-Selection collections are sets of stable existing children, not canonical scene
-parents. World/building documents retain existing schemas and keys. Per-object
-hidden state is session-only; world layers/region are portable. Whole buildings
-remain source-bound placements with existing children/bindings, not arbitrary
-new instances. Floor openings continue to use the existing shared compiler.
+## Coherent checkpoints
 
-## Recoverable checkpoints
+- `588d4f8`, `c8c44b3`, `26e4c17`, `76460f5`: canonical allow-list, dependency preflight,
+  credential/private/symlink checks, CI and offline upgrade bootstrap. Final cache
+  `field-signal-overgrowth-v11-editor2.1.1` distinguishes earlier review caches.
+- `12293e2`, `b0419e9`, `48103fe`: canonical connected session, actual cutaway,
+  portable history and incremental updates. No replacement world schema/compiler.
+- `2aac23c`, `87d1985`, `9d66401`, `cab534f`: practical interior workshop, joints,
+  landings, templates and quota-safe in-memory/export recovery.
+- `93d1f08`, `e82f771`, `202bd23`, `1fcad60`: deterministic masks/brushes and local
+  GPU-buffer updates; settings affect new dabs, never rerandomise saved instances.
+- `9074355`, `b295583`, `5655855`: actual binding/refuge references, validation and
+  rejected-draft visibility. `7d18f30` preserves concurrent legacy/canonical work
+  and blocks navigation/preview after failed saves. `91232c6` plus shared bootstrap
+  mounting adds real validated restore/download workflows for editor backups in all
+  five workspaces, preserving active unsaved designs before restoration.
+- `6ff6469`, `cabcd94`, `58818b1`: protect numeric fields and commands while
+  asynchronous model loading rebuilds the scene; reset guards after errors.
+- `131ed1e`, `700fdb9`, `2840397`, `c4e7018`: optional reviewed-adapter consumer,
+  detached compatibility tooling, actual-game evidence; no runtime draft merge.
 
-- `e748b07`: anchored resizing/local offsets; `f5a1106` and `bada308`: interaction tests.
-- `b36a9b4`: model inspection; `2a4aa5a`/`25e171a`: browser/laptop coverage.
-- `b4beba4`: collections and mounts.
-- `d2da468`, `166c07b`: world selection/brush transactions/locks.
-- `26c5a09`, `991a459`, `109da7a`, `719af3e`: loot workspace, semantics, recovery.
-- `e0efe85`, `bf3f423`: mission workspace and caption corrections.
-- `a640a96`: workspace links, binding deep links, review overlay, integration requests.
+## Canonical packaging and prior-worker acceptance
 
-## Final verification
+The old canonical failure was reproduced as 17 omitted modules/styles/pages; it
+is no longer worked around with an overlay. `python3 tools/build.py` builds the
+editor through the normal manifest and fails immediately for missing modules or
+required literal JSON fetches. Tests/tools, `.env`/credentials and unrelated source
+are excluded. `tools/editor_v2_review.py` now delegates to the canonical build.
 
-Implementation checkpoint `c889a66` plus script-only resize reliability fix
-`9230e83`; final documentation/evidence follow without implementation changes.
-Python 3.12.14: all 96 tests passed (1.597 s). Existing pure tests: 15 client,
-18 Atlas, 54 layout, world-v2 aggregate and 57 world-document passed. New pure
-suites: 9 asset cases, hierarchy 9 assertions, 33 loot cases, 27 mission cases,
-599 resize assertions, 37 world assertions. Full JavaScript syntax and whitespace
-checks passed. Local browser runner: Node v24.22.1 / Playwright 1.56.1. All six new pure
-suites were additionally rerun successfully using Node **22.23.4**, matching CI's
-major version; raw output is archived.
+The suite bootstrap upgrades an old controller before importing editor code.
+Real old-worker fixtures cover both the published world2 worker and the first
+editor2.1 review worker. Both upgrade to editor2.1.1, cache all 307 resources,
+restart all five workspaces offline at `/bunker-game/`, and retain normal campaign,
+settings, journal and old draft bytes. No storage clearing is used. PR83's different
+candidate cache is retained only in its isolated compatibility artifact; future
+integration needs one deliberately chosen release cache, not a blanket file overwrite.
 
-Canonical `python3 tools/build.py` validates unchanged content (15 missions,
-139 containers, 61 item/preview models), builds 273 files. **It excludes the 17
-new editor files.** `python3 tools/editor_v2_review.py` builds that baseline plus
-24 editor HTML/JS/CSS files for local review. This deliberately leaves shared
-release infrastructure alone. The standard PR CI run
-[42260964658](https://github.com/thundercato/bunker-game/actions/runs/42260964658)
-failed editor startup after 120 seconds because its canonical package lacks these
-imports. Failed-job log is archived. Do not merge/deploy before IR-01; no green
-canonical CI or offline-new-editor claim is made.
+Normal CI runs all new pure and packaged browser suites plus existing game/editor
+regressions. A successful PR run retains `canonical-editor-dist` for review; deployment
+remains main-only and this task does not merge or deploy. The final head must have a green normal CI check before merge. Its exact run and
+review artifact are linked from the PR description; a prior green head is not a
+substitute. Local canonical results are recorded below.
 
-All the following local browser commands exited 0. Existing runtime/editor suites
-used the review overlay; dedicated asset/loot/mission suites serve source directly.
+## Runtime compatibility: exact boundary
 
-| Command | Result |
-| --- | --- |
-| `node tests/editor_v2_assets_browser.cjs` | 12 checks; actual model mouse orbit/placement, provenance, 1280×800 modal |
-| `node tests/editor_v2_hierarchy_browser.cjs` | 8 checks; bulk offsets/lock/hide/isolate, collections JSON, rejected draft recovery |
-| `node tests/editor_v2_loot_browser.cjs` | 10 recorded scenarios; real numeric/bulk/simulator, inheritance, JSON/reload/recovery/isolation |
-| `node tests/editor_v2_missions_browser.cjs` | 15 checks; real drag/pan/zoom/connect/delete/undo, JSON; save-during-drag, deletion and quota regression |
-| `node tests/editor_v2_resize_browser.cjs` | 16 checks, **two consecutive final passes**; 37° floor/63° wall, face/corner mouse drags, fixed opposite edges, collider parity, numeric/local inputs, cancellation, JSON/reload |
-| `node tests/editor_v2_world_browser.cjs` | 10 checks; cancelled sculpt/building gestures, snapping/locks, path points, JSON/region sync, rejected world recovery |
-| `node tests/editor_controls.cjs` | 9 checks; actual gizmo and keyboard, final rerun after review fixes |
-| `node tests/editor_browser.cjs` | 31 checks; real Python/WebGL preview, door traversal/search, automatic stair opening, protected IDs, campaign/settings/journal isolation |
-| `node tests/world_v2_browser.cjs` | Passed aggregate draft/brush/building/export/reload checks |
-| `node tests/ci_smoke.cjs` | 15 checks; legacy save import, offline restart, controller support and calmer refuge audio decode |
-| `node tests/fieldcraft_browser.cjs` | 35 checks; inventory/inspection/Atlas, responsive browser viewports and missing-asset checks |
-| `node tests/overgrowth_browser.cjs` | 15 checks; stairs, bounded forest models, vehicles, underground transition and mission/Atlas |
+[Compatibility record](EDITOR_V2_RUNTIME_COMPATIBILITY.md): pinned unmerged PR83,
+editor checkpoint `12293e2` plus recorded public-file hashes, built in a detached
+worktree without merging/cherry-picking runtime commits into PR82. **38/38 actual
+browser assertions passed**, zero exceptions/failed requests: edit/move/rotate/raise,
+canonical return/export/reload, real door/search actions, keyboard entry, physical
+stair ascent/upper-floor movement for forester and station, moved container anchors,
+hut Atlas and ordinary campaign/settings/journal/book isolation.
 
-All final suites reported zero browser exceptions and zero failed asset requests.
-Linux Chromium 141 / SwiftShader, 1280×800 to 1600×1000 for editor work (existing
-runtime suites also use smaller responsive browser viewports). This is not physical
-Mac/iPhone testing or a hardware performance benchmark. Raw screenshots/JSON/logs
-are in `docs/verification-editor-v2/`, with exact commands in `EDITOR_V2_TESTING.md`.
+Individual staircase/search checks use disclosed test-save positioning, then real
+keyboard/E actions. Compatibility capture was online, Linux Chromium/SwiftShader,
+not physical Apple hardware or a published release. Later editor recovery/diagnostic
+and visual-only changes are not represented as a new combined-runtime release.
 
-### Errors found, corrected and remaining limits
+## Verification and errors found
 
-- Canonical-build missing imports reproduced locally and in CI: **remaining IR-01
-  integration blocker**, not hidden by a claimed shipping build.
-- World layer UI startup exception fixed in `a640a96`; final world suites pass.
-- Review found transient graph saves and Delete-during-drag failure: `07ce015`
-  blocks transient save/export and cancels before edits; final browser repros pass.
-- Rejected layout/world drafts could be overwritten by template fallback: `c889a66`
-  preserves originals in recovery keys before replacing; failed writes keep the
-  original. Real browser recovery tests pass. Mission/loot recovery is also present.
-- Unsafe/duplicate foliage/path references rejected by `0054f80`; no canonical
-  schema change or new competing IDs.
-- Initial extended resize tests occasionally targeted a stale projected handle
-  before async scene rebuild. `9230e83` waits scene completion, two frames and
-  actual pointer target, without hidden retries; two final 16-check passes.
-- #81 combined moved-world preview, historical-worker upgrade and **new suite**
-  offline caching remain untested until accepted packaging/runtime integration.
-  Legacy saves, current-runtime offline restart and v1 preview isolation passed.
-- No high-density editor stress/device benchmark; vegetation remains proxy meshes,
-  terrain is still 12 m, and full connected interiors/refuge are outstanding.
+All local suites listed below passed against canonical dist; CI for the final
+checkpoint is linked from PR82 checks and must be green before merge. Evidence is under
+`docs/verification-editor-v2/`; commands and review directions are in
+`EDITOR_V2_TESTING.md`. Node 22/24, Python 3.12, Playwright 1.56.1 / Chromium 141.
+No physical Mac/iPhone or device FPS claim is made.
 
-## Remaining scope and next checkpoint
+- Missing-import/startup timeout: resolved by packaging and preflight; no overlay.
+- Initial CI expected the previous import toast and numeric edits raced model
+  loading. Tests now check connected import plus exact layout integrity, and the
+  editor disables stale numeric inputs until loading completes. Assertions were
+  strengthened rather than bypassed.
+- Connected inspector displays four decimals; its test now checks display precision
+  and separately exact canonical coordinates. Camera tests compare the actual
+  persisted navigation frame, accounting for orbit damping.
+- Pure/review tests found partial mirror writes and concurrent legacy changes.
+  Canonical-first recovery now retains committed designs and all conflicting raw
+  versions before replacement; quota failure prevents primary writes/navigation.
+- New validation reports rejected drafts as errors instead of silently validating
+  a fallback. Template quota failures retain old storage and an exportable new
+  in-memory design.
 
-Full master brief is **not complete**. Do not advertise E2–E7 as delivered wholesale.
-Remaining: connected world/focused interiors on one canonical document; real parent
-assemblies/templates/new instances; pivots/box selection; texture tiling/material
-painting; finer terrain/dirty tiles, spacing/exclusion scatter and instancing;
-bridges and terrain cut/fill; water depth/murk/sound/dry exclusions; refuge/local
-scenes, pipes/audio and APR/fuse/protection/discovery/siren/surge/pod/save/sleep
-components; mission item/world rewards, dossier art, timers/candidate retrieval and
-all gameplay policies; accepted runtime loot/graph execution and publication.
+## Exact local verification results
 
-Next checkpoint: Track A reviews IR-01 additive editor packaging and selects the
-actual #81 compiler/preview revision. Integrate those seams preserving both tracks,
-run canonical build plus editor/actual-game and old-worker/offline/save/draft
-regressions, then consume the accepted IR-02–04 contracts. Do not duplicate engines
-or silently treat authoring proposals as gameplay. No merge/live publication.
+- Python 3.12.14: **104 tests passed**, including eight packaging regression cases.
+- All **14 editor pure suites passed on Node 22.23.4**; Node 24 also passed the
+  implementation suites during development. This includes 599 anchored-resize
+  assertions, 23 interior cases, 16 recovery cases, 13 brush cases, four terrain
+  buffer cases, 37 world constraints and the canonical-session recovery aggregate.
+- Canonical build: **309 files**, **307 cached resources**, **36 additive public
+  paths** relative to de5d758. No overlay, tests, credentials or private paths.
+- All 12 original/continuation editor browser scripts passed from canonical dist;
+  the additional recovery suite passed eight checks (now 13 packaged editor suites).
+  Main optional-preview checks prove unsupported capability stays disabled without
+  missing-module fetches or fake payloads.
+- New packaged journeys: assets12, bindings8, connected9, environment8, hierarchy9,
+  interior13, loot10 scenarios, missions15, main-preview4, resize16, validation6,
+  world12, recovery8. Zero final exceptions or missing/failed resources reported.
+- Prior world2 and prior editor2.1 workers: **7 checks each**, all five workspaces
+  offline, actual offline-preparation button, byte-identical saved data.
+- Existing canonical editor tests: controls9, actual-game v1 editor/preview31, world2
+  aggregate passed locally. CI additionally runs ci_smoke, fieldcraft and overgrowth
+  (these passed on the earlier canonical continuation run before its UI-test fixes).
+- Actual pinned unmerged runtime compatibility: **38/38**, three buildings including
+  two physical upstairs journeys, with zero exceptions/failed requests.
 
-## Delivery
+One measured sculpt dab updated **42 position / 72 normal vertices out of 3,672**,
+retaining geometry identity; pure tests compare every normal/position with full
+rebuilds, including boundaries and distant dabs. This is bounded editor work, not
+a device FPS claim. Full transaction-end refreshes and large-document stress
+limits remain; terrain is still 12 m and foliage still uses authoring proxies.
 
-Draft review: [PR #82](https://github.com/thundercato/bunker-game/pull/82).
-Branch pushed in meaningful checkpoints. No merge, live publication, game version
-bump, save migration, asset/licence replacement or deployment. Standard packaging
-is deliberately gated on Track A review. See `EDITOR_V2_TESTING.md` for local review
-and `EDITOR_V2_INTEGRATION_REQUESTS.md` for the exact next integration work.
+The screenshot review found coplanar terrain obscuring in-world ground floors.
+`c278e40` applies floor material depth bias only; authored geometry/parent poses
+and colliders stay exact. The complete nine-check connected journey passed again
+and the actual cutaway image was inspected.
 
-## Continuation execution plan (current)
+Raw commands/results/images: `verification-editor-v2/continuation/`; exact runtime
+provenance is separately recorded in `EDITOR_V2_RUNTIME_COMPATIBILITY.md`. Historical
+startup/CI failures are retained and explained rather than described as passes.
 
-Continuation baseline `de5d758`; remote main remains `be64a7f`, PR82 unchanged.
-Runtime successor PR83 is open at `edffe7b118961406a6516ac079f706375a725ab8`,
-stacked on unmerged PR81 `476441ee2def32752031c20124c6bbdc2077a14c`.
-No other task's private/uncommitted work is assumed. The user explicitly authorises
-narrow additive packaging/cache/bootstrap/CI changes for this continuation.
+## Remaining dependencies and exact next checkpoint
 
-1. Reproduce IR-01 with the canonical build; close it with explicit shipped files,
-   import-closure validation, packaged-only browser suites, old-worker upgrade and
-   all-workspace offline tests; obtain normal CI results.
-2. Connect world and focused building edits through the existing canonical world
-   envelope and compiler, shared history/drafts, in-world authored cutaways and
-   portable envelope round trips. Test the optional runtime adapter in an isolated
-   combination with a pinned unmerged runtime revision; do not merge that PR.
-3. Add actual surface snapping, rigid decorative assemblies/templates, overlap
-   selection/isolation, useful binding diagnostics and deterministic spaced brushes.
-4. Reassess runtime contracts for further ready work, run meaningful journeys,
-   preserve screenshots/logs, commit/push checkpoints and update PR82.
+The full master brief is **not complete**. Available safe authoring work has advanced;
+remaining physical/gameplay features require the shared interfaces documented in
+`EDITOR_V2_INTEGRATION_REQUESTS.md` and `EDITOR_V2_CONTRACT_AUDIT.md`.
 
-Capability checkpoint at start: anchored tools/proposals work; shipping packaging,
-connected views and integrated moved-building previews are not yet accepted.
-Refuge source references exist, but current runtime has no reviewed editable
-local-scene/station-transform or APR/mission/weighted-loot component adapter.
+1. Review/integrate the actual runtime/compiler adapter from PR83 without replacing
+   this editor's newer UI, recovery or packaging. Reconcile its campaign source/
+   asset registry and current editor metadata; rerun all canonical/old-worker/game
+   journeys. Only then enable moved preview in shipped source-context metadata.
+2. Agree canonical refuge/local-scene entities, imports and renderer/collider/service
+   anchors before editable base stations/pipes/lights. Current map is read-only.
+3. Agree UV/support-surface/prefab schema; rotated stair opening/landing traversal
+   must use the reviewed runtime fix, not a second editor collision algorithm.
+4. Agree material masks/finer terrain, bridge deck/support/physics, foundation
+   footprint policy and water overlap/depth/dry exclusions before exposing those
+   authoring fields or claiming full-map runtime geometry.
+5. Consume shared weighted-loot and mission graph APIs when produced. No duplicate
+   loot/game evaluator, guarantees/overflow policy, timer units or reset rules are
+   silently invented. APR/surge/pod/checkpoint/sleep definitions remain absent.
+
+Until those accepted adapters exist, new switches saving unused gameplay JSON
+would misrepresent functionality and are deliberately not added. No merge/live
+publication is authorised by this checkpoint.

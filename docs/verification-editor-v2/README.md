@@ -4,7 +4,12 @@
 Playwright 1.56.1, SwiftShader. These are actual editor/game captures; not concept
 art, device testing or a performance benchmark. All files are from local review
 of this branch, not a deployed site. See `../EDITOR_V2_PROGRESS.md` for exact
-commands/results, observed errors and outstanding packaging/runtime dependencies.
+commands/results, observed errors and remaining runtime dependencies.
+
+**Current continuation:** [canonical build, connected editing, offline, recovery and
+validation evidence](continuation/README.md). IR-01 is resolved; the files below
+retain the original checkpoint history. The separate runtime-preview evidence uses
+an explicitly unmerged runtime compatibility build, not the canonical release.
 
 - `resize-drag.png`: real 37° floor face drag; green fixed anchor and live dimension.
 - `resize-result.png`: final resized floor after corner drag and JSON reload.
@@ -19,6 +24,8 @@ commands/results, observed errors and outstanding packaging/runtime dependencies
 
 JSON reports record final interaction assertions and empty error/missing-asset
 lists. `resize-run1.json` and `resize-run2.json` preserve consecutive final runs.
-`logs/` holds pure, browser, build and the intentionally unresolved canonical CI
-startup failure. `editor-runtime-files.txt` is the 17-file additive packaging
-request for Track A, not a replacement release/cache manifest.
+`logs/` retains the original pure, browser, build and failed canonical startup
+record. That packaging failure was subsequently fixed and acceptance rerun using
+normal dist (see the continuation). `editor-runtime-files.txt` now enumerates the
+36 additive public paths relative to de5d758; the original omission was 17 files.
+It is an audit list, not a replacement release/cache manifest.

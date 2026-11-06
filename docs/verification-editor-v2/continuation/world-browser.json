@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "Real building drag Escape restores document",
+    "Real snapped building drag is one undo transaction",
+    "Locked building rejects mouse movement",
+    "Numeric yaw uses degrees and persists radians",
+    "Actual sculpt stroke cancels atomically",
+    "Individual foliage lock survives terrain stroke",
+    "Curved road control insertion and deletion",
+    "World draft JSON reload and region UI sync",
+    "Rejected world draft retained before explicit replacement save",
+    "Storage failure keeps unsaved world in its workspace, blocks interior navigation and permits a portable export",
+    "Successful retry saves the retained world and clears its leave guard",
+    "No browser exceptions or missing assets"
+  ],
+  "errors": [],
+  "missing": []
+}

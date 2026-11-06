@@ -1,63 +1,71 @@
-# Review the editor suite
-
-This is an editor branch, not a deployed update. Read `EDITOR_V2_PROGRESS.md`
-and `EDITOR_V2_INTEGRATION_REQUESTS.md` before release integration.
-
-## Start a local review
+# Review and test the canonical editor
 
 ```sh
 npm install --no-save --package-lock=false playwright@1.56.1
 npx playwright install chromium
-python3 tools/editor_v2_review.py
+python3 tools/build.py
 python3 -m http.server 8000 --directory dist
 ```
 
-The review script runs the canonical build, then copies editor HTML/JS/CSS into
-its output. It does not alter the manifest or service worker. **Do not deploy this
-output or merge before IR-01 packaging review.** The ordinary build alone omits
-17 new editor files. Offline operation of the new suite is not accepted yet.
+Open `http://localhost:8000/editor/` and use World, Loot, Missions and Validation.
+Use **Prepare editor for offline** and wait for **Editor ready offline** before
+disconnecting. **Recover editor backups** lists original editor bytes and offers
+validated restores; malformed originals remain downloadable and cannot be applied.
+This is the normal production package; **no review overlay is needed**. Tests run
+that same dist under `/bunker-game/`. A successful PR CI run also offers the
+`canonical-editor-dist` download; extract it and serve it as above. No deployment
+or publication is implied. See `EDITOR_V2_PROGRESS.md` for actual status/results.
 
-## Try the actual tools
+## Practical journeys
 
-1. Open `http://localhost:8000/editor/`. Select Ground floor. Enter 37° rotation.
-   Choose **Keep negative edge · extend positive**. Change width by an exact metre:
-   only the positive local edge moves. Choose **Resize edges**, drag X+ or a
-   corner; the green opposite anchor stays fixed. Escape cancels. Undo/redo
-   restores both size and position. Export, import and reload the layout.
-2. Use **Object local** axes or the relative local offset fields. Focus frames
-   the selection; Top gives plan view. Numeric inputs retain unsnapped precision;
-   mouse handles use the selected dimension snap. Y edge drags need a 3D view.
-   Toggle collisions; stairs still generate floor openings from shared definitions.
-3. Expand **Selection sets · bulk tools**. Filter walls, select shown, store a
-   named collection; apply a building-local offset as one undo step. Try lock,
-   hide, isolate and reveal. Collections export separately as editor metadata.
-4. Open **Model library** in the left footer. Search `kirill table`, inspect the
-   actual model, drag to orbit, check source/licence/cost, then place decoration.
-   Inspection-only models cannot be placed without reviewed dimensions.
-5. Open `/editor/world.html`. Use hierarchy search and regions. Focus a building,
-   drag with snap, cancel with Escape, lock and retry. Edit yaw in degrees or
-   manual foundation height. Paint foliage, select and lock an instance; sculpt
-   beneath it. Edit curved path points/width or a local water circle. World
-   visuals remain authoring proxies and do not change the playable world.
-6. Open `/editor/loot.html`. Select a real container, explicitly suggest weights
-   from legacy data, edit draws/entries, choose inherited default or local override,
-   preview a bulk change, undo it and simulate with a seed. First-draw probabilities
-   differ from estimated overall inclusion. Export a proposal; no game loot changes.
-7. Open `/editor/missions.html`. Filter an actual source/mission, follow its real
-   object link, drag graph nodes, connect typed ports or use the form alternative,
-   edit prerequisites/policies/reward proposals, validate, undo and export. These
-   graphs do not run in preview; unsupported node kinds are disabled.
-8. The existing **Test in game** button opens the v1 building-layout preview in
-   isolated state. World placement preview is PR #81's separate integration.
-   No button in this suite publishes to the live game.
+1. Select a floor, enter 37° yaw, choose its numeric anchor, extend width and drag
+   Resize edges/corner handles. Observe fixed opposite anchor, collision view,
+   exact local offsets, Escape, undo/redo and layout export/reload. Y drags need 3D.
+2. Edit a hut container, click Full World Map, move/rotate/raise its complete parent,
+   open its actual in-world cutaway and edit a child's local coordinate. Return
+   to focused view: contents, selection, camera and shared undo/redo remain. Repeat
+   with Forester's cottage and the station. Export connected world JSON to retain
+   all interiors and placements; old layout/world JSON imports remain supported.
+3. In Interior workshop, snap a small prop to a rotated table/support, align selected
+   children and rotate a collection about its selected pivot. Capture an unbound
+   decorative template and instantiate with explicit material/scale overrides.
+   Existing gameplay bindings/doors/start markers cannot be copied. Inspect overlaps,
+   focus a room, join walls and add real stair landing floors. Clipped landings are
+   rejected; shared top-transition warnings require actual-game verification.
+4. In Model library inspect actual geometry, provenance and costs before placement.
+   In Interactions/references follow actual container loot/mission links. Inspect the
+   real refuge source map: rooms, radio/NPC offers, storage and vault transitions.
+   It is read-only until a shared local-scene authoring contract exists.
+5. On the world map choose foliage/rock, seed, spacing, scale/yaw and exclusion masks.
+   Hover for candidates/rejections, paint, lock one instance, erase, cancel and undo.
+   Export/reload does not reroll. Sculpting keeps the terrain buffer and updates local
+   vertex/normal ranges during the gesture. A full refresh can still occur at transaction boundaries; large-document stress testing remains outstanding.
+6. Loot and mission workspaces retain their actual source IDs and proposals. Use
+   grouped overrides/bulk preview, weighted seeded simulation or typed graph editing;
+   follow a target back to the existing world object. These proposals do not execute
+   in the game. Unsupported mechanics remain disabled or explicitly labelled.
+7. Run Validation for current coverage, support/headroom/access, references, water
+   approaches and regional counts. Follow repair links, then rerun; changed drafts
+   invalidate report export. Recovery errors are visible. Checks do not approve a
+   release or replace walking the actual building.
+8. Test in game retains the existing local-layout preview. Connected game preview is
+   disabled in canonical main until its runtime adapter is accepted. To reproduce the
+   tested **unmerged** adapter combination, follow the compatibility record below.
 
 ## Automated checks
 
 ```sh
 python3 -m unittest discover -s site/tests -p 'test_*.py' -v
 for f in site/tests/editor_v2_*.mjs; do node "$f"; done
-python3 tools/editor_v2_review.py
+node site/tests/test_client.mjs
+node site/tests/test_atlas.mjs
+node site/tests/test_layout.mjs
+node site/tests/test_world_v2.mjs
+node site/tests/test_world_document.mjs
+python3 tools/build.py
 for f in tests/editor_v2_*_browser.cjs; do node "$f"; done
+node tests/editor_v2_offline.cjs
+EDITOR_PRIOR_WORKER=editor21 node tests/editor_v2_offline.cjs
 node tests/editor_controls.cjs
 node tests/editor_browser.cjs
 node tests/world_v2_browser.cjs
@@ -66,9 +74,19 @@ node tests/fieldcraft_browser.cjs
 node tests/overgrowth_browser.cjs
 ```
 
-Run rendering suites sequentially. Asset/loot/mission dedicated browser tests serve
-source directly; resize/hierarchy/world and existing regressions use the review
-build. Tests use separate local origins/profiles and preserve production sentinels.
-Logs and screenshots: `test-results/editor-v2/`; reviewed evidence is committed in
-`docs/verification-editor-v2/`. Linux Chromium/SwiftShader is neither physical Apple
-testing nor a device performance measurement. See progress for exact executed results.
+Run rendering suites sequentially. Every acceptance test serves canonical dist,
+not source. Missing imports/data files fail before browser startup. Upgrade fixtures
+include the published world2 worker and the previous editor review worker; all five
+workspaces restart offline and preserve save/draft sentinels. Runtime previews have
+separate campaign/settings/journal namespaces. Linux Chromium/SwiftShader is not
+physical Mac/iPhone testing or a device benchmark.
+
+## Explicit runtime compatibility build
+
+[Exact tested revision, commands, fixtures and screenshots](EDITOR_V2_RUNTIME_COMPATIBILITY.md).
+`tools/editor_v2_compatibility.py` creates a new detached runtime worktree, preserves
+that runtime/compiler, and unions only explicit public editor paths. It neither
+merges a draft PR nor produces an approved release. Never deploy this artifact.
+Main tests verify that the optional adapter is unavailable without importing a
+missing module or creating a fake preview. Actual-game compatibility is a separate
+opt-in test, not a silent CI skip represented as gameplay support.

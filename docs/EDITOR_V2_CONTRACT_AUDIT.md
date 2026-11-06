@@ -15,9 +15,10 @@ PR #81 `476441ee2def32752031c20124c6bbdc2077a14c`, and its successor PR #83
 - `compileBuilding(document, buildingId, context)` returns one building's resolved
   parent transform, local layout, world objects/colliders/interactions,
   container-bound mission targets and spawn. It already handles an existing
-  building generally; the actual moved-world preview launcher is still explicitly
-  limited to the hut. General compilation does not prove general game-preview
-  support.
+  building generally; the runtime branch's old moved-preview UI is hut-bounded. The underlying
+  adapter is generic; the editor continuation subsequently proved hut, forester
+  and station in its detached compatibility artifact (see the runtime record).
+  This does not bundle or approve that adapter in PR82.
 - Child coordinates are local, Y up, metres/radians; parent position/yaw composes
   once. `layout.origin` remains provenance. Compiler results must not be passed
   back as local authored child positions.
@@ -62,3 +63,13 @@ The current smallest shared requests remain IR-02, IR-03 and IR-04 in
 `EDITOR_V2_INTEGRATION_REQUESTS.md`. A new field in editor JSON does not satisfy
 these dependencies. The bindings panel therefore exposes read-only source
 references, actionable invalid-reference diagnostics and stable authoring links.
+
+## Final observed successor
+
+A final fetch observed PR83 `e31b72a8ff4096dfd94d74297d190af4426b62dd`. Its added
+fixed-road polygon compilation and renderer/sampling data were inspected; they do
+not compile editable world2 draft paths into gameplay. Its new design notes document
+existing optional binding floor/anchor and roofRise, plus bounded same-floor save
+clearance. None supplies weighted-loot/graph or refuge-component authoring APIs.
+The recorded three-building compatibility run is deliberately still attributed to
+`edffe7b` and exact copied-editor hashes. Neither runtime PR has been merged here.
