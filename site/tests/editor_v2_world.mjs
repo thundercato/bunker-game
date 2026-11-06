@@ -15,4 +15,7 @@ const p={kind:'node',id:d.roads[0].id,index:0},n=entityFor(d,p).points.length;in
 entityFor(d,p).points=entityFor(d,p).points.slice(0,2);assert.throws(()=>deletePoint(d,p),/two/);
 entityFor(d,p).width=-1;assert.throws(()=>checkDocument(d,source),/width/);entityFor(d,p).width=3.5;
 assert.deepEqual(checkDocument(JSON.parse(JSON.stringify(d)),source),d);assert.equal(changed(d,clone(d)),false);
-console.log('PASS 24 editor world authoring constraints: grounding locks, bounds, snapping, paths, regions, JSON and detached invalid edits');
+for(const value of [NaN,Infinity,null]){const bad=clone(d);bad.buildings[0].offset=value;assert.throws(()=>checkDocument(bad,source),/offset/);}
+assert.throws(()=>checkDocument({...d,region:'invented'},source),/region/);
+assert.throws(()=>checkDocument({...d,layers:{...d.layers,terrain:'yes'}},source),/visibility/);
+console.log('PASS 29 editor world authoring constraints: grounding locks, bounds, snapping, paths, regions, JSON and detached invalid edits');
