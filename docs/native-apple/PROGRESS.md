@@ -1,5 +1,40 @@
 # Native Apple experiment — execution record
 
+## Verified result — 6 November 2026
+
+[PR #87](https://github.com/thundercato/bunker-game/pull/87), branch
+`codex/apple-native-prototype`. Tested native source:
+`9df6a2761e41182dfad9a90d330f13ae3eae7cd6`.
+[Native run 42310250562](https://github.com/thundercato/bunker-game/actions/runs/42310250562)
+completed **successfully on both platforms**.
+
+| Evidence gate | Actual result |
+| --- | --- |
+| Prepared source, pinned asset conversion and generated Xcode project | Complete; 9 portable pipeline checks pass |
+| iPadOS Simulator unsigned build | Passed, including test-product compilation |
+| iPad Simulator tests | 10 Core + 3 rendering + 1 UI = 14 passed, zero failures |
+| tvOS Simulator unsigned build | Passed, including test-product compilation |
+| Apple TV Simulator tests | 10 Core + 3 rendering + 1 UI = 14 passed, zero failures |
+| Independent macOS SwiftPM model tests | 10 passed, zero failures |
+| Direct simulator install / launch / screenshot | Passed on both platforms |
+| Physical iPad / Apple TV / real gamepad testing | Not performed |
+| Device signing, merge, publication or TestFlight | Not performed |
+
+Actual toolchain: `macos-latest`, macOS 26.6.2 (25G83), Xcode 26.6 (17F113),
+iOS/tvOS Simulator SDKs 26.5; iPad mini (A17 Pro) and Apple TV 4K (3rd generation,
+1080p) simulators on OS 26.5. iPad's UI case completed in 85.764 s; TV's in 12.703 s.
+These are test durations, not frame-rate measurements. Both actual screenshots
+were inspected; [persistent evidence](verification/README.md) accompanies the
+[dated execution note](EXECUTION_2026-11-06.md) and [Mac handoff](MAC_HANDOFF.md).
+
+The separate web workflow is **not claimed green**. Run 42308083323 exposed an
+existing `this.crackle is not a function` audio fault, reproduced against unchanged
+baseline files. Exact isolation proof and cause are in the execution note. No
+canonical browser/editor code or deployment workflow was changed.
+
+The history below preserves failed and superseded checkpoints rather than hiding
+compilation, packaging, test or presentation issues found during development.
+
 ## Baseline and isolation
 
 Started 6 November 2026 on `codex/apple-native-prototype`, from main
@@ -19,7 +54,7 @@ and searches. Licensed source meshes are converted deterministically, with hashe
 and provenance, rather than downloading replacement art. The prototype has its
 own native-only persistence namespace.
 
-Work in progress: source, portable conversion tests, reproducible Xcode project,
+Initial checkpoint (since completed): source, portable conversion tests, reproducible Xcode project,
 unsigned iPad/tvOS simulator CI, and Mac continuation instructions. No successful
 Apple compilation or device test is claimed by this initial checkpoint.
 
@@ -141,3 +176,21 @@ compatibility mode, so the plist now supports all four iPad orientations and UI
 automation explicitly rotates to landscape. The UI test now physically walks the
 path with the native touch pad before opening the door, with a bounded number of
 held gestures for slower simulator rendering. Nine portable pipeline checks pass.
+
+
+## Final native checkpoint
+
+`9df6a27` fixes inventory accessibility inheritance, native iPad sizing and
+landscape test orientation, starts on the outdoor approach, softens the torch,
+and verifies a real held touch-pad walk before door use. All native gates listed
+above passed in run 42310250562. UI tests retain exact inventory, foreground,
+pause/resume and background/restore assertions. The source-derived scene still
+has 25 unique asset meshes, 15,952 unique imported triangles, 97 objects,
+90 source colliders and seven interactions. The original source spawn remains
+recorded separately; canonical content, world-document, mesh and texture bytes
+are preserved.
+
+Final documentation/evidence commits do not change tested executable source,
+project generation, workflows or bundled data. They may use `[skip ci]` to avoid
+repeating these completed macOS jobs solely for screenshots and handoff prose.
+The authoritative compiled/tested source SHA remains the full 9df6a27 SHA above.

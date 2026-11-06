@@ -235,3 +235,11 @@ called on fixture faults. Source/test blob hashes match baseline `25cd697`; no
 web fix was applied in the read-only native workstream. Coordinate a separate
 browser fix with the concurrent editor branch. Exact evidence is in
 `native-apple/EXECUTION_2026-11-06.md`.
+
+Native cloud acceptance completed at `9df6a27`: macOS run 42310250562 passed both
+unsigned simulator builds and all 14 native tests per platform, plus 10 independent
+SwiftPM tests and nine portable conversion checks. Exact results and actual images
+are in the native execution note. Next native task: reproduce this same branch
+with Codex Local/Xcode on the Mac, then perform approved physical-device/controller
+and sustained performance checks. Do not restart the project or infer device
+performance from these simulator passes. No merge/signing/publication authorised.

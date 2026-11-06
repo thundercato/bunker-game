@@ -2,7 +2,7 @@
 
 Branch: `codex/apple-native-prototype`; review: [PR #87](https://github.com/thundercato/bunker-game/pull/87).
 Content baseline: `25cd697be9d68a88fe8b66b5cfbcee268c565d6d`.
-Native source checkpoint under verification: `c355adc5a0bdbc92954e82b72553c4c14e8af023`.
+Verified native source: `9df6a2761e41182dfad9a90d330f13ae3eae7cd6`.
 
 ## Delivered source
 
@@ -21,14 +21,34 @@ MacBook, signing or distribution service was used.
 
 ## Verification
 
-The exact final simulator result will be filled from
-[run 42308083339](https://github.com/thundercato/bunker-game/actions/runs/42308083339).
-Apple TV completed successfully (13 unit/render + 1 UI test). iPad compiled and
-passed all 13 unit/render cases, but its UI case exposed an inherited accessibility
-identifier on the inventory Close button. A source fix and presentation improvements
-are prepared for the next run.
-See [PROGRESS.md](PROGRESS.md) for prior failures and fixes. A simulator success
-does not establish physical-device or real gamepad behaviour.
+[Run 42310250562](https://github.com/thundercato/bunker-game/actions/runs/42310250562)
+is **green on both macOS jobs**. Xcode 26.6 (17F113), macOS 26.6.2 (25G83),
+iOS/tvOS SDKs and runtimes 26.5; signing disabled throughout.
+
+| Target | Compilation | Simulator tests | Direct launch/capture |
+| --- | --- | --- | --- |
+| FieldSignaliPad — iPad mini (A17 Pro) | Build + test build passed | 10 Core + 3 renderer + 1 UI passed | Passed |
+| FieldSignalTV — Apple TV 4K 3rd generation, 1080p | Build + test build passed | 10 Core + 3 renderer + 1 UI passed | Passed |
+
+Independent macOS SwiftPM: 10 passed. iPad UI exercises actual touch-pad movement,
+door opening, torch/inventory and Home/background/foreground/resume. TV UI checks
+native focus and Menu/Back without sending the app Home. Model tests walk the
+actual furnished cottage through both doors, search/collect once, climb to the
+upper landing, save/reload and descend. Renderer tests load source triangles and
+textures, check door surfaces/hinge and retain the table after collecting its coil.
+
+Actual [simulator images and provenance](verification/README.md) are committed.
+Full logs, `.xcresult`, screenshots and unsigned simulator `.app` ZIPs are retained
+in Actions artifacts for 14 days (IDs 13548183883 iPad, 13547943804 TV). The cloud
+proxy denied direct Azure artifact redirects; completed GitHub log archives and
+log-embedded image previews supplied inspectable evidence. No Metal/shader errors
+were reported. Nonfatal simulator/XCTest diagnostics are retained in the logs.
+
+Earlier compiler, CFBundle layout, focus, accessibility and presentation failures
+and fixes are preserved in [PROGRESS.md](PROGRESS.md), including one cancelled
+partial iPad UI attempt. A simulator success does not establish physical-device,
+real gamepad or sustained performance behaviour. SceneKit remains deprecated,
+as documented in the framework decision; no full-port recommendation is implied.
 
 Portable checks passed: nine conversion checks, byte reproducibility and project
 generation checks. Existing read-only web checks passed: 165 Python tests with five

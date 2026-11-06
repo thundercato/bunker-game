@@ -5,6 +5,18 @@ GitHub without this workspace. This is an independent experiment, not a replacem
 for the browser game or editor. Read [PROGRESS.md](PROGRESS.md) for exact compilation
 and test results and [BUILD_AND_TEST.md](BUILD_AND_TEST.md) for build details.
 
+## Cloud result to continue
+
+Verified source `9df6a2761e41182dfad9a90d330f13ae3eae7cd6`,
+[run 42310250562](https://github.com/thundercato/bunker-game/actions/runs/42310250562):
+both schemes compiled and each simulator passed 13 unit/rendering tests plus one
+UI case, then separately installed/launched/captured. Independent SwiftPM: 10
+passed. Xcode 26.6, macOS 26.6.2, OS/SDK 26.5; iPad mini (A17 Pro) and Apple TV 4K
+3rd generation simulators. Logs/xcresult/unsigned app artifacts live on that run
+for 14 days; source and [small actual image evidence](verification/README.md) remain
+in Git. No physical iPad/TV or real controller was tested. Later documentation-only
+commits retain identical executable source to this verified checkpoint.
+
 ## Get the same work
 
 Use Codex **Local** in the repository or a separate worktree on the Mac, with Xcode
@@ -71,7 +83,9 @@ The imported garden is a bounded flat approach, not the campaign terrain. Loot i
 a deterministic three-item fixture, not the browser survival/mission/loot engine.
 Only diffuse maps and vertex colours are imported; full PBR maps, animated furniture,
 audio, combat, missions, terrain and a complete port are future work. Door leaves
-animate but open-door collision is a simplified passable doorway. No sustained
+animate but open-door collision is a simplified passable doorway. Outdoor tree/log
+dressing is cosmetic; the exported building colliders and garden boundary provide
+movement collision. No sustained
 frame-rate, thermal, memory or battery claim is established by a simulator.
 
 After simulator review, physical iPad and Apple TV checks should measure controller
