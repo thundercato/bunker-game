@@ -153,3 +153,24 @@ query paths. Five focused actor tests cover ground-floor wardrobes with the
 player upstairs, upstairs beds with the player below, committed skitter leaps,
 state/jump isolation and legacy parity. Full Python discovery passes all 150
 tests in 31.154 s on this container after that change.
+
+Candidate save validation now also repairs an old player pose obstructed by new
+furniture. It searches the nearest valid point on a deterministic 0.2 m grid,
+within 4 m, retaining the zone and an authored house's footprint and floor.
+Candidates clear the client's 0.29 m body radius. Clear poses, including every
+canonical crane landing, are preserved exactly; inventory, health and mission
+state are untouched. Successful repairs emit `candidate-player-clearance` with
+the old and new poses. If the bounded search has no same-floor result, validation
+raises an explanatory error and leaves the input snapshot untouched. Ordinary
+campaign and editor-preview save paths do not run this candidate-only repair.
+Eight focused clearance tests pass; full Python discovery now passes all 158
+tests in 37.256 s on Python 3.12.14 in this container.
+
+This remains a concentrated world-art slice. Of the 95 new district objects,
+15 belong to village streets, 21 to woodland approaches, 8 to the crossing, 9 to
+railway dressing, 13 to docks, 9 to utilities, 7 to the western ridge and 13 to the
+refuge. The eastern bank, military compound, southern bog and deep northern
+wilderness primarily retain their v11 environment. Station platforms/wagons,
+expanded industrial yards, more varied ridge geology and fuller refuge rooms are
+next art areas. Scene culling and the unique atlas-image estimates do not establish
+physical-device frame rates or actual GPU texture deduplication.

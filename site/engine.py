@@ -1329,8 +1329,29 @@ if DATA.get('campaign'):
  def clear_line(s,a,b):
   return _CAMPAIGN_CLEAR(s,a,b)and not _CAMPAIGN.line_blocked(a,b,s['player'].get('y',0),s['doors'])
 
+ def _clear_saved_player(s):
+  p=s['player'];original=dict(p);feet=p.get('y',0)
+  if not _CAMPAIGN.blocked(p['x'],p['z'],feet,s['doors']):return
+  scene=_CAMPAIGN.scene_at(p['x'],p['z'],0)
+  # Search a deterministic 20 cm grid, nearest first, within four metres. An
+  # authored house keeps the player in that same footprint and on its floor.
+  floor=next((o['position'][1]for o in scene['objects']if o['type']=='floor'and abs(o['position'][1]-feet)<.08),None)if scene else None
+  offsets=sorted((ix*ix+iz*iz,ix,iz)for ix in range(-20,21)for iz in range(-20,21)if 0<ix*ix+iz*iz<=400)
+  for _,ix,iz in offsets:
+   x=original['x']+ix*.2;z=original['z']+iz*.2
+   if zone_at(x,z)!=s['zone']or(scene and _CAMPAIGN.scene_at(x,z,0)is not scene):continue
+   y=surface_height(x,z,feet)
+   if abs(y-feet)>.08 or(floor is not None and abs(y-floor)>.00001):continue
+   if not walkable(s,x,z,.29):continue
+   p.update(x=x,y=y,z=z)
+   note(s,'Your saved position moved a short distance clear of changed furniture on the same floor.',
+        id='candidate-player-clearance',fromPose=original,toPose=dict(p))
+   return
+  raise ValueError('No clear position within four metres on this saved floor. The original save has been kept; choose another backup or report this position.')
+
  def validate_save(value):
   s=_CAMPAIGN_VALIDATE(value)
+  _clear_saved_player(s)
   for a in DATA.get('campaignSpawnAdjustments',[]):
    enemy=next((e for e in s['enemies']if e['id']==a['id']),None)
    if enemy and enemy['health']>0 and math.hypot(enemy['x']-a['from'][0],enemy['z']-a['from'][1])<1.25 and _CAMPAIGN.blocked(enemy['x'],enemy['z'],enemy.get('y',0),s['doors']):
