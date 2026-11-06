@@ -2,7 +2,7 @@
    The checkpoint wrapper is UI metadata, never a second world/export schema. */
 import {clone, validateLayout} from '../layout-core.js';
 import {initialEditorLayout} from './source-adapter.js';
-import {packHistory, unpackHistory} from './history-codec.js';
+import {packHistory, unpackHistory, HISTORY_LIMIT} from './history-codec.js';
 import {createWorldDocument, validateWorldDocument} from '../world-document.js';
 import {checkDocument} from './tools/world-authoring.js';
 
@@ -49,7 +49,13 @@ export class EditorSession {
       try {
         const state = JSON.parse(checkpoint);
         if (state.version !== 1) throw Error('Unknown editor checkpoint version.');
-        const decoded=state.history === undefined ? {past:(state.past||[]).slice(-LIMIT),future:(state.future||[]).slice(-LIMIT)} : unpackHistory(state.document,state.history);
+        let decoded;
+        if (state.history !== undefined) decoded=unpackHistory(state.document,state.history);
+        else {
+          const past=state.past??[],future=state.future??[];
+          if (!Array.isArray(past)||!Array.isArray(future)||past.length+future.length>HISTORY_LIMIT) throw Error('Editor history exceeds sixty accepted undo/redo states.');
+          decoded={past,future};
+        }
         const checked=this.checked(state.document),past=decoded.past.map(d=>this.checked(d)),future=decoded.future.map(d=>this.checked(d));
         this.document = checked;
         this.views = state.views && typeof state.views === 'object' && !Array.isArray(state.views) ? clone(state.views) : {};

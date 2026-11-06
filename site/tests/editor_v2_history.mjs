@@ -40,7 +40,7 @@ test('identical frames use a zero-insert splice and thirty states per stack rema
  assert.deepEqual(packed.past[0],[JSON.stringify(document).length,0,'']);assert.deepEqual(unpackHistory(document,packed),{past,future});
 });
 test('malformed headers, stacks and unsafe splice indices are rejected',()=>{
- for(const history of [null,[],{}, {format:'other',past:[],future:[]}, {format:HISTORY_FORMAT,past:[]},delta({},[]),delta(Array(31).fill([0,0,'{}']))])assert.throws(()=>unpackHistory({},history));
+ for(const history of [null,[],{}, {format:'other',past:[],future:[]}, {format:HISTORY_FORMAT,past:[]},delta({},[]),delta(Array(61).fill([0,0,'{}'])),delta(Array(31).fill([0,0,'{}']),Array(30).fill([0,0,'{}']))])assert.throws(()=>unpackHistory({},history));
  for(const value of [[-1,0,'{}'],[.2,0,'{}'],[Infinity,0,'{}'],[Number.MAX_SAFE_INTEGER+1,0,'{}'],[0,-1,'{}'],[0,.1,'{}'],[0,3,''],[1,2,''],[0,0,1],[0,0],{prefix:0}])assert.throws(()=>unpackHistory({},delta([value])),/history splice/);
 });
 test('frame limits and non-JSON decoded data reject bounded expansion',()=>{
@@ -63,6 +63,18 @@ test('legacy full snapshots load unchanged and rewrite without losing undo or re
  const store=new Store(),session=make(store);session.ensureLayout('hut');for(let i=0;i<4;i++){const world=session.getAuthoring();world.waterLevel+=.2;session.setAuthoring(world);}session.undo();
  store.setItem(SESSION_KEY,JSON.stringify({version:1,document:session.getDocument(),past:session.past,future:session.future,views:{world:{camera:[1,2,3]}}}));
  const old=make(store);assert.deepEqual(old.past,session.past);assert.deepEqual(old.future,session.future);assert.deepEqual(old.getView('world'),{camera:[1,2,3]});old.save();const next=make(store);assert.deepEqual(next.past,session.past);assert.deepEqual(next.future,session.future);assert.ok(JSON.parse(store.getItem(SESSION_KEY)).history);
+});
+test('legacy thirty-plus-thirty histories move losslessly through sixty redo and undo states',()=>{
+ const store=new Store(),initial=make(store);initial.ensureLayout('hut');const base=initial.getDocument();
+ const frames=Array.from({length:61},(_,i)=>{const doc=clone(base);doc.authoring.waterLevel=-1.25+i/100;return doc;});
+ store.setItem(SESSION_KEY,JSON.stringify({version:1,document:frames[30],past:frames.slice(0,30),future:frames.slice(31).reverse()}));
+ let session=make(store);assert.deepEqual(session.history(),{undo:30,redo:30});assert.equal(session.undo(),true);session.save();session=make(store);assert.deepEqual(session.history(),{undo:29,redo:31});assert.deepEqual(session.getDocument(),frames[29]);
+ for(let i=0;i<29;i++)assert.equal(session.undo(),true);session.save();session=make(store);assert.deepEqual(session.history(),{undo:0,redo:60});assert.deepEqual(session.getDocument(),frames[0]);
+ for(let i=0;i<60;i++)assert.equal(session.redo(),true);session.save();session=make(store);assert.deepEqual(session.history(),{undo:60,redo:0});assert.deepEqual(session.getDocument(),frames[60]);
+ for(let i=0;i<60;i++)assert.equal(session.undo(),true);assert.deepEqual(session.getDocument(),frames[0]);
+ // A full legacy stack also survives without a silent thirty-frame slice.
+ store.setItem(SESSION_KEY,JSON.stringify({version:1,document:frames[60],past:frames.slice(0,60),future:[]}));session=make(store);assert.deepEqual(session.history(),{undo:60,redo:0});
+ const excessive=JSON.stringify({version:1,document:frames[60],past:[...frames],future:[]});store.setItem(SESSION_KEY,excessive);session=make(store);assert.ok(session.rejected.has(SESSION_KEY));assert.equal(store.getItem(SESSION_KEY),excessive);
 });
 test('invalid history or canonical history frames reject the entire checkpoint before adoption',()=>{
  const store=new Store(),session=make(store);session.ensureLayout('hut');const altered=session.getDocument();altered.authoring.waterLevel=4;

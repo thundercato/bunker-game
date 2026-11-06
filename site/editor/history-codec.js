@@ -2,9 +2,11 @@
    canonical documents; adjacent JSON splices avoid persisting thirty copies of
    every unchanged forest, building and interior. */
 export const HISTORY_FORMAT = 'field-signal-editor-history/1';
-export const HISTORY_LIMIT = 30;
+// Older checkpoints accepted thirty states on each side of the current frame.
+// Undo/redo may move all sixty onto one stack; preserve every accepted frame.
+export const HISTORY_LIMIT = 60;
 export const MAX_FRAME_CHARS = 4_000_000;
-const MAX_DECODED_CHARS = MAX_FRAME_CHARS * HISTORY_LIMIT;
+const MAX_DECODED_CHARS = 120_000_000;
 const own = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
 
 function serialise(value) {
@@ -14,8 +16,8 @@ function serialise(value) {
   return text;
 }
 function stacks(past, future) {
-  if (!Array.isArray(past) || !Array.isArray(future) || past.length > HISTORY_LIMIT || future.length > HISTORY_LIMIT) {
-    throw Error('Editor history exceeds thirty states per undo/redo stack.');
+  if (!Array.isArray(past) || !Array.isArray(future) || past.length > HISTORY_LIMIT || future.length > HISTORY_LIMIT || past.length + future.length > HISTORY_LIMIT) {
+    throw Error('Editor history exceeds sixty accepted undo/redo states.');
   }
 }
 function splice(previous, next) {
