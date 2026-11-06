@@ -54,3 +54,33 @@ machine-readable results are written under `test-results/editor-v2/`.
 
 All browser evidence is Linux Chromium with SwiftShader. It is not physical Mac,
 iPhone, controller-hardware or device-performance testing.
+
+## Recorded continuation result
+
+The explicit combined build at runtime
+`edffe7b118961406a6516ac079f706375a725ab8` and editor checkout
+`12293e20ae201f10de474d538f64f2ea40985b3d` plus the exact recorded public-file
+hashes built 593 files and passed the strict package import closure. Its real
+browser journey passed **38/38 checks**, with **0 browser exceptions and 0 failed
+asset/module requests**. The game preview exercised:
+
+| Building | Parent position X, Y, Z (m) | Yaw | Verified floors |
+| --- | --- | --- | --- |
+| Survey hut 03 | 35, 1.25, -48 | 90° | Ground |
+| Forester’s cottage | -140, 0.75, -40 | 37° | Ground and upper, including keyboard stair ascent |
+| Rail signal box | -160, 1.5, -145 | -28° | Ground and upper, including keyboard stair ascent |
+
+Each passed real entrance Use/keyboard traversal, relocated bound-container Use
+search, canonical JSON export/import/reload, isolated normal-state sentinels and
+exact return to the same connected document. The hut also retained its recorder
+and focused the actual Atlas on the moved mission target. Position fixtures for
+stair/reach checks used the supported preview save importer as described above.
+This combined journey ran online; canonical offline/cache acceptance is separate.
+Later editor commits are outside this captured candidate's hash manifest.
+
+Evidence: [browser results](verification-editor-v2/runtime-preview-compatibility.json),
+[exact source hashes/build provenance](verification-editor-v2/runtime-preview-build.json),
+[actual game doorway](verification-editor-v2/runtime-preview-hut-door.png), and
+[actual Atlas target](verification-editor-v2/runtime-preview-hut-atlas.png).
+The raw run's stair-end screenshots face the rear wall, so physical stair evidence
+is the recorded input journey and height assertions rather than those images.

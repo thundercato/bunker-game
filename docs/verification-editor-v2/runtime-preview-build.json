@@ -1,0 +1,311 @@
+{
+  "kind": "unmerged-runtime-compatibility-only",
+  "runtimeRevision": "edffe7b118961406a6516ac079f706375a725ab8",
+  "editorRevision": "12293e20ae201f10de474d538f64f2ea40985b3d",
+  "editorWorktreeChanges": [
+    "M site/editor/preview-launcher.js"
+  ],
+  "runtimeCache": "field-signal-game-first-candidate-1",
+  "source": {
+    "id": "overgrowth-v11",
+    "revision": "6b4f9fb9401398a65eee576f40b2d80805ef6c76",
+    "sha256": "84fcc9d23960e75b84053d794636ce63c88a3ddd3d432b1d908fe8cd19a0d7c8"
+  },
+  "copiedEditorFiles": [
+    {
+      "path": "editor/bootstrap.js",
+      "sha256": "dec5bba76ac28c91b7b2f51e71c88c283a06c69803e1d5f3d30ad48b99cc65b0"
+    },
+    {
+      "path": "editor/connected-world.js",
+      "sha256": "75d4961e53ea73f99c4e3abb11b73b5e3a3fcd22140933a3b657f6fbe5b67af6"
+    },
+    {
+      "path": "editor/editor.css",
+      "sha256": "d7d15a25469a49a61664565d940a786025069f2e1a8133259ab7d2919c06574c"
+    },
+    {
+      "path": "editor/editor.js",
+      "sha256": "ffeb6d8ee6d2987ffcf2172e084df59390d7cccf504ea3be3bd2fefccadc7eb9"
+    },
+    {
+      "path": "editor/index.html",
+      "sha256": "29129befa084b148aad4d797e8890c6b3ee2a5ceaea7199da4eef2bc9c347a30"
+    },
+    {
+      "path": "editor/loot.html",
+      "sha256": "360c8c95a0b96b16bece43866309e1eb7ee9720e53e798311c0eadccec463a9a"
+    },
+    {
+      "path": "editor/missions.html",
+      "sha256": "a08e66910f1d2e9c79a5beac8cac0d7cf256ef319e3ddc422ca96b9fbb59e2f9"
+    },
+    {
+      "path": "editor/panels/assets-core.js",
+      "sha256": "a813c00ad4da0a1069895624ff6808b5461c16e733d17afb2651702e63efdc0b"
+    },
+    {
+      "path": "editor/panels/assets.css",
+      "sha256": "06a675bf5078e335f18a6ee833acc8446bc0a5daf91f0c8b9270d07591d5c68c"
+    },
+    {
+      "path": "editor/panels/assets.js",
+      "sha256": "ca38e2775499848234850b94810287f643dd1cf0ba98454192de1fb919a0a582"
+    },
+    {
+      "path": "editor/panels/bindings-core.js",
+      "sha256": "b0627d2f0187fd6b8fb82fd758f3bd2d3c93e13c22b816d677252c0920f318e8"
+    },
+    {
+      "path": "editor/panels/bindings.js",
+      "sha256": "31905aa6e422ee74b7d27203c62c8b2e15dc07f47770a15c6f2b3ef2b17aeb46"
+    },
+    {
+      "path": "editor/panels/environment-brush.js",
+      "sha256": "460a35442d587e7ff8d7d4735f18e0bd5f759fa5721724c6f2c9615f378c1fdc"
+    },
+    {
+      "path": "editor/panels/hierarchy-core.js",
+      "sha256": "2fbf960982c2f315133fe945795e65d344676bcdcec10a612357284e995bea45"
+    },
+    {
+      "path": "editor/panels/hierarchy.js",
+      "sha256": "2bcece1eae36caa6644b41aa360a248fbc473ea554d109d9d7ca40c2b3bb4f5f"
+    },
+    {
+      "path": "editor/panels/interior-tools.js",
+      "sha256": "d98e2418d70cbfd321f564fe81c3739aca5907a66480478c8581f9f3f40477ef"
+    },
+    {
+      "path": "editor/panels/loot-core.js",
+      "sha256": "1d76d922d71400bd79cefbaa2b62b2ace3054006e7ddf4db10eb6e77ce27f00e"
+    },
+    {
+      "path": "editor/panels/loot.css",
+      "sha256": "094913e67f68dc061a0edf964e0275a43dc18079088b7107a9ccae9e6a8cd7da"
+    },
+    {
+      "path": "editor/panels/loot.js",
+      "sha256": "9d539595b671a6ed6d8c41a2595c4b19f5f020f4b657a8258356ede97a1d2e13"
+    },
+    {
+      "path": "editor/panels/missions-core.js",
+      "sha256": "061d6f02a690665dde5a0fdb4208d7f8bbef57125956aa0e47c1c9cd53a5234e"
+    },
+    {
+      "path": "editor/panels/missions.css",
+      "sha256": "3ccb2d7759667a566190510346447649de03c26dac16431f2f25173543517aab"
+    },
+    {
+      "path": "editor/panels/missions.js",
+      "sha256": "af177abf0c5e15487a231df8bcbf3afdfc3c6047c2f6c5558244f4a608cad7ba"
+    },
+    {
+      "path": "editor/panels/validation-core.js",
+      "sha256": "5ba8aab332d060b22b0e381880ce90c6ef87ad2e917badd8ff0367ef81e19f63"
+    },
+    {
+      "path": "editor/panels/validation.css",
+      "sha256": "498adc10de41caaadfa2bbfe901c48d93ad0c57ca7a11157160d944255021b67"
+    },
+    {
+      "path": "editor/panels/validation.js",
+      "sha256": "e27d3ebd5e01a0b6b90ea9ba5bef6ca66b07086b80229da2f0b188d2bd60d046"
+    },
+    {
+      "path": "editor/preview-launcher.js",
+      "sha256": "9d16f1d18b7617a4f80d449cf77ae5831867a4b3a4f7e15c8a730b1d16278f7c"
+    },
+    {
+      "path": "editor/release.json",
+      "sha256": "4e159c6341e673c566a5c7383d3332c2ae7037a856332ce93a6227d4982b3771"
+    },
+    {
+      "path": "editor/session.js",
+      "sha256": "04e4f18f8adee01a40e4591c428ebf2dc9c9f363394899fbe38b9b43bc9d8ab3"
+    },
+    {
+      "path": "editor/source-context.json",
+      "sha256": "3dba5cca302e4e035c4769ad506e51e4611c9f5701182352d6e5cff37133b046"
+    },
+    {
+      "path": "editor/suite-bootstrap.js",
+      "sha256": "24f11fa638f49ec567cbe90a4153d2889fa640da835ffdd469641499dcac75a8"
+    },
+    {
+      "path": "editor/thumbnails/binder_notebook.webp",
+      "sha256": "5c17889758b5452820e12060fb1ebb7f80846c480624619ac4cb733eca288eb5"
+    },
+    {
+      "path": "editor/thumbnails/can_rusted.webp",
+      "sha256": "d9955f6288447360aa0c90bd07e996b487d74a96917566875a6e957daf576998"
+    },
+    {
+      "path": "editor/thumbnails/cardboard_box_01.webp",
+      "sha256": "ad22b6df76f907cf63c458add119118ee3e1cfde2aa5d4949c079429db69790d"
+    },
+    {
+      "path": "editor/thumbnails/desk_lamp_arm_01.webp",
+      "sha256": "b9911a01c58784056a83f586042b5b1a0aaa10fed1ff0e58151093c9b90c5895"
+    },
+    {
+      "path": "editor/thumbnails/industrial_wall_lamp.webp",
+      "sha256": "259ef9cecf83c43d1a2377ebebe863dbcaa445e489c62b64ff83c41cb107f633"
+    },
+    {
+      "path": "editor/thumbnails/medical_box.webp",
+      "sha256": "45dc97c4d9795c9f09ed48d60e51a5315b180f930b0b5bdd17190f8f8a723534"
+    },
+    {
+      "path": "editor/thumbnails/metal_jerrycan.webp",
+      "sha256": "331b301351d08effb7c1ee49766711fb34175d8ad847d38103785ce94e98b520"
+    },
+    {
+      "path": "editor/thumbnails/metal_jug.webp",
+      "sha256": "95e333ccd7236ced5946d9e9ec103da8ba533d52c33b1bab668b56e4a2f04b3e"
+    },
+    {
+      "path": "editor/thumbnails/metal_toolbox.webp",
+      "sha256": "8d0f3bd4a04f2401b61cfa3b599e171fe8dd05fe3c711e9065ba2efe1918450c"
+    },
+    {
+      "path": "editor/thumbnails/metal_trash_can.webp",
+      "sha256": "5423c989bc125018670b8ba84a850dc35cd254eb3bf3776e4c796203a08e7cfe"
+    },
+    {
+      "path": "editor/thumbnails/old_bed_frame.webp",
+      "sha256": "fb3e80548426485de1986edd38ce4d7ac9b98b9451a7322cb61f17dd7b348716"
+    },
+    {
+      "path": "editor/thumbnails/old_military_crate.webp",
+      "sha256": "75fbd2b9c2ba8a3d375118b495ebcad9d6ed90afe726046a57c023a8f5c30905"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_cabinet.webp",
+      "sha256": "f5972ecdf2f56a20671205bdc708d441a3919dd363f6af945d1a82e23706902d"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_cabinet_02.webp",
+      "sha256": "66d00c50df67f0500ffbae468f6a279ce32c7f6f888609a8fe65e51745ef9dff"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_chair_01.webp",
+      "sha256": "460d7f24d3efb35e37374001556489c337b2be31eb68670b193995496e4d342b"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_nightstand.webp",
+      "sha256": "a0ad31999995a5d370d349e4e73c21c5e9c3c7c5f38eedc31e6e6041b64a3e74"
+    },
+    {
+      "path": "editor/thumbnails/painted_wooden_table.webp",
+      "sha256": "343a90d04ab2b4082d17d410f5a81d2d5581fbe86f282391314e96f766d27a58"
+    },
+    {
+      "path": "editor/thumbnails/plastic_crate_01.webp",
+      "sha256": "2e5bf34e80fb829ba3a4b59c0de350cb9790847c0170818745dff8823eff9034"
+    },
+    {
+      "path": "editor/thumbnails/plastic_thermos.webp",
+      "sha256": "e49321968bfb92f5afe4ccc15bbd3302e43428160765bbe3c2d9e7171ca4d8e2"
+    },
+    {
+      "path": "editor/thumbnails/portable_cassette_player.webp",
+      "sha256": "d782ff972659eebdcac4f435de5ab1562e7c17bf6d96b1ed053c5a66e05be0bd"
+    },
+    {
+      "path": "editor/thumbnails/power_box_01.webp",
+      "sha256": "f04d9097e20e2bd9b9e4250b5a363b58db098550ec0a11bcca2dac4dec8b0fe4"
+    },
+    {
+      "path": "editor/thumbnails/propane_tank.webp",
+      "sha256": "c4bcb2215b63add029dbcce8600669f2cce0f539efc50e07b3af2c30f73e0ffa"
+    },
+    {
+      "path": "editor/thumbnails/russian_food_cans_01.webp",
+      "sha256": "f0ba2019c670b9f73bbc321c71e3fc6f1dda3b3d604e9757a3a960b0446b0188"
+    },
+    {
+      "path": "editor/thumbnails/small_oil_can_01.webp",
+      "sha256": "9b7866a58d7f2c29dbf9fdb8dc0cccd6dab6f7966f536f6667605cddbfd8187d"
+    },
+    {
+      "path": "editor/thumbnails/vintage_oil_lamp.webp",
+      "sha256": "c1adf9e09b18ba403a27cd7c98b7fa53fbb2c1ab8059342eb731fee8fc540af0"
+    },
+    {
+      "path": "editor/thumbnails/vintage_radio_transceiver.webp",
+      "sha256": "0d70ca71aa39d3e6b0530c59842f2574eaac7a94e6297e62f0eff092e5c3a069"
+    },
+    {
+      "path": "editor/thumbnails/vintage_wooden_drawer_01.webp",
+      "sha256": "623e699ea0803cdbe9a91673a452ebc8208176e162a967c5a728744821528685"
+    },
+    {
+      "path": "editor/thumbnails/wooden_bookshelf_worn.webp",
+      "sha256": "524edc13205c96dc87b5a64ecf69c6c6ffe762f96dcf67758849e603c9f3cd7b"
+    },
+    {
+      "path": "editor/thumbnails/wooden_crate_01.webp",
+      "sha256": "e0aa9310a5a7f2a2b86eb42ac0eb0985ea4f59946bdf8dcf9568c39af6476dff"
+    },
+    {
+      "path": "editor/thumbnails/wooden_picnic_table.webp",
+      "sha256": "2526db01f8a981e853ebeedc7194f2b8b2c4107c94bde37a8d9e5b03c5e8194a"
+    },
+    {
+      "path": "editor/thumbnails/worn_metal_rack.webp",
+      "sha256": "aedca8b37673960d69ba6652cba32f90faffad8816d67fb8192911c816d1bc69"
+    },
+    {
+      "path": "editor/tools/environment-brush-core.js",
+      "sha256": "c501ba569e3f654760911ca66f6c163935d59fc11f7a244434e785d564aef82e"
+    },
+    {
+      "path": "editor/tools/interior-core.js",
+      "sha256": "905a88a01eac1cbd832fc53f9467e49c1dc188529778006e2a437283eba03b80"
+    },
+    {
+      "path": "editor/tools/resize-core.js",
+      "sha256": "e26d938c0e23f0e44b99acc8ee540fd297a6d7c1137a6f64eabff14dd0da0f3e"
+    },
+    {
+      "path": "editor/tools/resize-handles.js",
+      "sha256": "86ffc47343f6ba4241cfc395c86bdfe18bdc122114d662f2a4a798b2a1f9b43b"
+    },
+    {
+      "path": "editor/tools/world-authoring.js",
+      "sha256": "e618646cb8c6e5c878348b9ed45f9aa8dc5c870724bcfad79d5aedc6280eaf5c"
+    },
+    {
+      "path": "editor/tools/world-inspector.js",
+      "sha256": "081e19dc10df5f5528f32e6538859d0d9aa76d7a829da5dba0f0d43d51f3c5d3"
+    },
+    {
+      "path": "editor/validation.html",
+      "sha256": "d344ae7e4f70c50c52629332aa4c05dbc01f2caca53bc0a345bd0e953a183bf5"
+    },
+    {
+      "path": "editor/world.html",
+      "sha256": "65676375db86ae96769f5a64c1101fcaa4aac6f2dd4da3a191bf34921e0a04bd"
+    },
+    {
+      "path": "editor/world.js",
+      "sha256": "83681371a05a790d5884e60e1646722ed458ad138056c2d676ae33e0776099a4"
+    }
+  ],
+  "preservedCanonicalModules": [
+    "layout-core.js",
+    "world-document.js",
+    "world-preview.js",
+    "editor/world-core.js"
+  ],
+  "narrowBuildChanges": [
+    "explicit editor manifest union",
+    "trusted source-context capability",
+    "suite-bootstrap expected candidate cache",
+    "suite-bootstrap network-fresh worker route"
+  ],
+  "dist": "/workspace/editor-runtime-compat-final/dist",
+  "published": false,
+  "merged": false
+}

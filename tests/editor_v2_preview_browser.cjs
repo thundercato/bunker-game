@@ -48,6 +48,7 @@ const server=http.createServer((req,res)=>{
     {id:'forester',container:'forester_c1',position:[-3.5,0,-2.8],pose:[-140,.75,-40],degrees:37},
     {id:'station',container:'station_c0',position:[-4.1,0,-2.6],pose:[-160,1.5,-145],degrees:-28},
    ]){
+    await page.setViewportSize({width:1440,height:1000});
     await page.goto(base+'editor/?building='+spec.id);await page.waitForFunction(id=>window.FieldEditor?.ready()&&FieldEditor.getDocument().buildingId===id,spec.id,{timeout:120000});
     await page.locator('#hierarchy [data-id="container-'+spec.container+'"]').click();
     for(let i=0;i<3;i++){
@@ -102,6 +103,8 @@ const server=http.createServer((req,res)=>{
      await restoreLocal([stairs.position[0],stairs.position[1],stairs.position[2]+stairs.size[2]/2-.05],stairs.yaw);
      await game.keyboard.down('KeyW');try{await game.waitForFunction(y=>FieldSignal3D.getPlayer().y>=y-.025,spec.pose[1]+stairs.position[1]+stairs.size[1],{timeout:90000});}finally{await game.keyboard.up('KeyW');}
      check(spec.id+' keyboard physically ascends transformed stairs to upper floor',near((await game.evaluate(()=>FieldSignal3D.getPlayer())).y,spec.pose[1]+3.2));
+     await game.evaluate(yaw=>{const p=FieldSignal3D.getPlayer();FieldSignal3D.getInput().look(yaw+Math.PI-p.yaw,-.55-p.pitch);},spec.degrees*Math.PI/180);
+     await game.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
      await game.screenshot({path:path.join(out,'preview-'+spec.id+'-stairs.png')});
      await restoreLocal([0,3.2,0],0);const prior=await game.evaluate(()=>FieldSignal3D.getPlayer());await game.keyboard.down('KeyW');try{await game.waitForFunction(p=>Math.hypot(FieldSignal3D.getPlayer().x-p.x,FieldSignal3D.getPlayer().z-p.z)>.7,prior,{timeout:30000});}finally{await game.keyboard.up('KeyW');}
      check(spec.id+' upper-floor keyboard movement retains parent plus floor height',near((await game.evaluate(()=>FieldSignal3D.getPlayer())).y,spec.pose[1]+3.2));
