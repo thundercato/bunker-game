@@ -117,9 +117,9 @@ const server=http.createServer((req,res)=>{
     }
     await face(spec.id);await game.keyboard.press('KeyE');await game.waitForFunction(id=>FieldSignal3D.getState().doors[id],spec.id,{timeout:30000});
     await game.evaluate(yaw=>{const p=FieldSignal3D.getPlayer();FieldSignal3D.getInput().look(yaw-p.yaw,-p.pitch);},spec.degrees*Math.PI/180);
-    await game.keyboard.down('KeyW');try{await game.waitForFunction(()=>window.__fieldEditorTestLocal(FieldSignal3D.getPlayer())[2]<FieldSignal3D.getWorld().layoutPreview.doc.bounds[1]/2-1.1,null,{timeout:90000});}finally{await game.keyboard.up('KeyW');}
-    const entered=await game.evaluate(()=>({player:FieldSignal3D.getPlayer(),local:window.__fieldEditorTestLocal(FieldSignal3D.getPlayer()),depth:FieldSignal3D.getWorld().layoutPreview.doc.bounds[1]}));
-    check(spec.id+' real Use opens door and keyboard crosses raised rotated entrance',near(entered.player.y,spec.pose[1])&&entered.local[2]<entered.depth/2-1.1,entered);
+    await game.keyboard.down('KeyW');try{await game.waitForFunction(()=>{const p=FieldSignal3D.getPlayer(),worker=FieldSignal3D.getState().player,depth=FieldSignal3D.getWorld().layoutPreview.doc.bounds[1],baseY=FieldSignal3D.getInfo().editorPreview.transform.position[1];return window.__fieldEditorTestLocal(p)[2]<depth/2-1.1&&window.__fieldEditorTestLocal(worker)[2]<depth/2-1.1&&Math.abs(p.y-baseY)<.025&&Math.abs(worker.y-baseY)<.025;},null,{timeout:90000});}finally{await game.keyboard.up('KeyW');}
+    const entered=await game.evaluate(()=>{const player=FieldSignal3D.getPlayer(),worker=FieldSignal3D.getState().player;return {player,worker,local:window.__fieldEditorTestLocal(player),workerLocal:window.__fieldEditorTestLocal(worker),depth:FieldSignal3D.getWorld().layoutPreview.doc.bounds[1]};});
+    check(spec.id+' real Use opens door and keyboard crosses raised rotated entrance',near(entered.player.y,spec.pose[1])&&near(entered.worker.y,spec.pose[1])&&entered.local[2]<entered.depth/2-1.1&&entered.workerLocal[2]<entered.depth/2-1.1,entered);
     await game.screenshot({path:path.join(out,'preview-'+spec.id+'-door.png')});
     // Position through the supported save importer to isolate each physical
     // collision/reach test. Movement and Use after positioning are real input.
@@ -132,8 +132,9 @@ const server=http.createServer((req,res)=>{
     const authoredLayout=doc.interiors.find(d=>d.buildingId===spec.id),stairs=authoredLayout.objects.find(o=>o.type==='stairs');
     if(stairs){
      await restoreLocal([stairs.position[0],stairs.position[1],stairs.position[2]+stairs.size[2]/2-.05],stairs.yaw);
-     await game.keyboard.down('KeyW');try{await game.waitForFunction(y=>FieldSignal3D.getPlayer().y>=y-.025,spec.pose[1]+stairs.position[1]+stairs.size[1],{timeout:90000});}finally{await game.keyboard.up('KeyW');}
-     check(spec.id+' keyboard physically ascends transformed stairs to upper floor',near((await game.evaluate(()=>FieldSignal3D.getPlayer())).y,spec.pose[1]+3.2));
+     await game.keyboard.down('KeyW');try{await game.waitForFunction(y=>Math.abs(FieldSignal3D.getPlayer().y-y)<.001&&Math.abs(FieldSignal3D.getState().player.y-y)<.001,spec.pose[1]+stairs.position[1]+stairs.size[1],{timeout:90000});}finally{await game.keyboard.up('KeyW');}
+     const ascended=await game.evaluate(()=>({player:FieldSignal3D.getPlayer(),worker:FieldSignal3D.getState().player}));
+     check(spec.id+' keyboard physically ascends transformed stairs to upper floor',near(ascended.player.y,spec.pose[1]+3.2)&&near(ascended.worker.y,spec.pose[1]+3.2),ascended);
      if(landingProof){
       // Continue from the actual stair ascent. There is no restore or placement
       // between the ramp and this newly authored physical landing.
@@ -147,8 +148,10 @@ const server=http.createServer((req,res)=>{
      await game.evaluate(yaw=>{const p=FieldSignal3D.getPlayer();FieldSignal3D.getInput().look(yaw+Math.PI-p.yaw,-.55-p.pitch);},spec.degrees*Math.PI/180);
      await game.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
      await game.screenshot({path:path.join(out,'preview-'+spec.id+'-stairs.png')});
-     await restoreLocal(spec.upperFixture||[0,3.2,0],0);const prior=await game.evaluate(()=>FieldSignal3D.getPlayer());await game.keyboard.down('KeyW');try{await game.waitForFunction(p=>Math.hypot(FieldSignal3D.getPlayer().x-p.x,FieldSignal3D.getPlayer().z-p.z)>.7,prior,{timeout:30000});}finally{await game.keyboard.up('KeyW');}
-     check(spec.id+' upper-floor keyboard movement retains parent plus floor height',near((await game.evaluate(()=>FieldSignal3D.getPlayer())).y,spec.pose[1]+3.2));
+     await restoreLocal(spec.upperFixture||[0,3.2,0],0);const prior=await game.evaluate(()=>({player:FieldSignal3D.getPlayer(),worker:FieldSignal3D.getState().player}));
+     await game.keyboard.down('KeyW');try{await game.waitForFunction(({prior,y})=>{const player=FieldSignal3D.getPlayer(),worker=FieldSignal3D.getState().player;return Math.hypot(player.x-prior.player.x,player.z-prior.player.z)>.7&&Math.hypot(worker.x-prior.worker.x,worker.z-prior.worker.z)>.7&&Math.abs(player.y-y)<.025&&Math.abs(worker.y-y)<.025;},{prior,y:spec.pose[1]+3.2},{timeout:30000});}finally{await game.keyboard.up('KeyW');}
+     const upperMove=await game.evaluate(prior=>{const player=FieldSignal3D.getPlayer(),worker=FieldSignal3D.getState().player;return {player,worker,clientDistance:Math.hypot(player.x-prior.player.x,player.z-prior.player.z),workerDistance:Math.hypot(worker.x-prior.worker.x,worker.z-prior.worker.z)};},prior);
+     check(spec.id+' upper-floor keyboard movement retains parent plus floor height',near(upperMove.player.y,spec.pose[1]+3.2)&&near(upperMove.worker.y,spec.pose[1]+3.2)&&upperMove.clientDistance>.7&&upperMove.workerDistance>.7,upperMove);
     }
     const authoredContainer=authoredLayout.objects.find(o=>o.binding?.id===spec.container);
     // Stage in front of the authored binding. The Forester edit stays near
