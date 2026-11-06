@@ -1,5 +1,9 @@
 # Playable building-preview update
 
+Current status: PR #81 remains a draft, unpublished. The later game-first campaign
+instruction requires approval before any live replacement and supersedes the
+earlier publication intent recorded below.
+
 Scope authorised by the follow-up request to make the new version and provide a
 play link. PR #80 passed verification and was merged as `24de65a`. Feature branch
 `feat/moved-building-preview` starts there; adapter commit `00e75d0` connects the

@@ -1,7 +1,7 @@
 /* Authoring contract and pure compiler. This module does not activate a preview,
    patch DATA, load assets or read/write browser storage. See docs/WORLD_DOCUMENT.md. */
 import {
-  clone, validateLayout, geometryPieces, collidersFor, worldPoint, localPoint,
+  clone, validateLayout, geometryPieces, collidersFor, worldPoint, localPoint, bindingAnchor,
 } from './layout-core.js';
 import {
   initialWorld, validate as validateDraft, objectHeight,
@@ -104,11 +104,10 @@ export function compileBuilding(input, buildingId, context) {
   for (const o of layout.objects) {
     if (o.binding) {
       const container = o.binding.type === 'container';
-      const anchorY = o.position[1] + (container ? Math.min(.8, o.size[1] / 2) : o.size[1] + .015);
-      const position = toWorld(transform, [o.position[0], anchorY, o.position[2]]);
+      const position = toWorld(transform, bindingAnchor(o));
       interactions.push({
         ...o.binding, objectId: o.id, buildingId, position,
-        floor: transform.position[1] + o.position[1], yaw: transform.yaw + o.yaw,
+        floor: transform.position[1] + (o.binding.floor ?? o.position[1]), yaw: transform.yaw + o.yaw,
         ...(container ? {} : {surface: {width: o.size[0], depth: o.size[2]}}),
       });
     }

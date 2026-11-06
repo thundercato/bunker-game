@@ -3094,7 +3094,21 @@
           "grounding": {
             "mode": "pier-deck",
             "offset": 0
-          }
+          },
+          "containerBindings": [
+            {
+              "id": "dock_cargo_1",
+              "name": "Quayside cargo inspection 1",
+              "profile": "crate",
+              "searchProp": "search_reinforced_crate",
+              "position": [
+                3.65,
+                0,
+                0.35
+              ],
+              "yaw": 0
+            }
+          ]
         },
         {
           "id": "docks-container-02",
@@ -3170,7 +3184,21 @@
           "grounding": {
             "mode": "pier-deck",
             "offset": 0
-          }
+          },
+          "containerBindings": [
+            {
+              "id": "dock_cargo_3",
+              "name": "Quayside cargo inspection 3",
+              "profile": "crate",
+              "searchProp": "search_slatted_crate",
+              "position": [
+                3.65,
+                0,
+                0.35
+              ],
+              "yaw": 0
+            }
+          ]
         },
         {
           "id": "docks-container-04",
@@ -3208,7 +3236,21 @@
           "grounding": {
             "mode": "pier-deck",
             "offset": 0
-          }
+          },
+          "containerBindings": [
+            {
+              "id": "dock_cargo_4",
+              "name": "Quayside cargo inspection 4",
+              "profile": "crate",
+              "searchProp": "search_salvaged_crate",
+              "position": [
+                3.65,
+                0,
+                0.35
+              ],
+              "yaw": 0
+            }
+          ]
         },
         {
           "id": "docks-bollard-01",
@@ -3870,7 +3912,21 @@
           "grounding": {
             "mode": "pier-deck",
             "offset": 0
-          }
+          },
+          "containerBindings": [
+            {
+              "id": "dock_crane_tools",
+              "name": "Gantry maintenance tool case",
+              "profile": "workshop",
+              "searchProp": "search_cantilever_toolbox",
+              "position": [
+                1.3,
+                12,
+                0.3
+              ],
+              "yaw": 0
+            }
+          ]
         }
       ]
     },

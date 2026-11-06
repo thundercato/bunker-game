@@ -538,7 +538,9 @@ def terrain_height(x,z):
  for b in BUILDINGS:f=min(f,smooth(max(abs(x-b['x'])-b['w']/2-2,abs(z-b['z'])-b['d']/2-2)/9))
  for path in DATA['roads']:
   for a,b in zip(path,path[1:]):f=min(f,smooth((segment_distance(x,z,a,b)-4)/7))
- if DATA['rail']['minZ']-5<z<DATA['rail']['maxZ']+5:f=min(f,smooth((abs(x-DATA['rail']['x'])-4)/7))
+ if DATA.get('campaign'):
+  for a,b in zip(DATA['rail']['route'],DATA['rail']['route'][1:]):f=min(f,smooth((segment_distance(x,z,a,b)-4)/7))
+ elif DATA['rail']['minZ']-5<z<DATA['rail']['maxZ']+5:f=min(f,smooth((abs(x-DATA['rail']['x'])-4)/7))
  for a in DATA['anomalies']:f=min(f,smooth((math.hypot(x-a['x'],z-a['z'])-a['radius']-1)/7))
  for xx,zz in [(-123,-285),(35,-276)]:f=min(f,smooth((math.hypot(x-xx,z-zz)-5)/8))
  f=min(f,smooth((math.hypot(x+145,z+261)-16)/8))
@@ -864,6 +866,8 @@ def terrain_height(x,z):
  for b in BUILDINGS:f=min(f,smooth(max(abs(x-b['x'])-b['w']/2-2,abs(z-b['z'])-b['d']/2-2)/8))
  for route in DATA['roads']:
   for a,b in zip(route,route[1:]):f=min(f,smooth((segment_distance(x,z,a,b)-4)/7))
+ if DATA.get('campaign'):
+  for a,b in zip(DATA['rail']['route'],DATA['rail']['route'][1:]):f=min(f,smooth((segment_distance(x,z,a,b)-4)/7))
  if 178<x<297 and -609<z<-475:f=0
  for q in [(154,-348),(210,-422)]:f=min(f,smooth((math.hypot(x-q[0],z-q[1])-5)/7))
  return max(0,(2.4+1.3*math.sin(x*.038)*math.cos(z*.025)+.45*math.sin(x*.19+z*.17))*f)
@@ -1244,7 +1248,7 @@ def surface_height(x,z,last_y=0):
  for o in _EDITOR_DOC['objects']:
   if o['type']!='stairs':continue
   lx,lz=_editor_local(o,x,z);w,h,d=o['size']
-  if abs(lx)<=w/2-.06 and -d/2-.1<=lz<=d/2+.25:
+  if abs(lx)<=w/2-.06 and -d/2-.25<=lz<=d/2+.25:
    y=o['position'][1]+clamp((d/2-lz)/d)*h
    if abs(last_y-y)<.65 or last_y>=o['position'][1]and lz>d/2-.25:return base_y+y
  floor=0.
@@ -1261,7 +1265,7 @@ def _editor_collides(s,x,z,y=0):
   x-=_EDITOR_DOC['origin'][0];z-=_EDITOR_DOC['origin'][2]
  for c in DATA.get('editorColliders',[]):
   if c.get('doorId')and s['doors'].get(c['doorId'],True):continue
-  if y>=c['y']+c['h']-.035 or y+1.65<=c['y']+.02:continue
+  if y>=c['y']+c['h']-(.15 if c.get('kind')=='floor' else .035) or y+1.65<=c['y']+.02:continue
   lx,lz=_editor_local({'position':[c['x'],c['y'],c['z']],'yaw':c['yaw']},x,z)
   if abs(lx)<c['w']/2+.22 and abs(lz)<c['d']/2+.22:return True
  return False
@@ -1291,6 +1295,40 @@ if _EDITOR_DOC:
  for o in _EDITOR_DOC['objects']:
   if o['type']=='doorway'and o.get('doorId'):
    x,y,z=_editor_world_point(*o['position']);DOORS[o['doorId']]=(x,z)
+
+
+# Optional game-first candidate rules. Existing campaign/save IDs stay authoritative.
+_CAMPAIGN=None
+if DATA.get('campaign'):
+ from campaign_rules import CampaignGeometry
+ for c in DATA['containers']:
+  if c.get('followTerrain'):c['floor']=terrain_height(c['x'],c['z'])
+ _CAMPAIGN=CampaignGeometry(DATA)
+ DOORS.update(_CAMPAIGN.doors)
+ _CAMPAIGN_SURFACE=surface_height
+ _CAMPAIGN_WALKABLE=walkable
+ _CAMPAIGN_CLEAR=clear_line
+ _CAMPAIGN_DISPATCH=dispatch
+
+ def surface_height(x,z,last_y=0):
+  return _CAMPAIGN.height(x,z,last_y,_CAMPAIGN_SURFACE(x,z,last_y))
+
+ def walkable(s,x,z,r=.22):
+  return _CAMPAIGN_WALKABLE(s,x,z,r)and not _CAMPAIGN.blocked(x,z,surface_height(x,z,s['player'].get('y',0)),s['doors'],r)
+
+ def clear_line(s,a,b):
+  return _CAMPAIGN_CLEAR(s,a,b)and not _CAMPAIGN.line_blocked(a,b,s['player'].get('y',0),s['doors'])
+
+ def dispatch(state,action):
+  if not isinstance(action,dict)or action.get('type')!='climb':return _CAMPAIGN_DISPATCH(state,action)
+  s=copy.deepcopy(state);s['events']=[]
+  try:
+   pose,route=_CAMPAIGN.climb(s['player'],action.get('id'),s['zone'])
+   s['stats']['metres']+=abs(pose['y']-s['player'].get('y',0));s['player']=pose
+   advance(s,min(4,route['duration']),False,False,False,{})
+   if s['zone']==route['zone']:note(s,route['name']+'.','door',climb=route['id'])
+  except ValueError as error:note(s,str(error),level='warning')
+  return _finish(s)
 
 
 _state=None
