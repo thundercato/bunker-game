@@ -118,3 +118,30 @@ surface maps retain their own registry manifests and credits.
 Next task: run the candidate in the integrated game, visually inspect the table's
 viewpoints, traverse the crane in both directions, and record actual draw calls,
 triangles and screenshots before considering release.
+
+## Candidate sight-line review and optimisation
+
+The integrated Python candidate initially sampled each sight line at 0.15 m
+intervals and scanned all 612 candidate colliders at every sample. A 40 m line
+required 267 complete scans, and a 50 m line required 334. The exact replacement
+in `campaign_rules.py` transforms the segment into each collider's local frame
+once and clips it against the footprint. It retains the prior door, floor-height,
+vertical reach, strict boundary and 0.02 m footprint-padding rules. It also detects
+thin obstacles that fell between the old samples.
+
+Controlled before/after measurements used the same effective campaign source,
+doors open, Python in this Linux container, seven calls per case and median wall
+time. All three lines are clear. These CPU measurements are separate from browser
+rendering and physical-device frame-rate claims.
+
+| Line X,Z → X,Z | Old candidate scan | Exact candidate scan | Old full `clear_line` | Exact full `clear_line` |
+| --- | --- | --- | --- | --- |
+| `-80,-70 → -40,-70` | 40.598 ms | 0.372 ms | 44.597 ms | 0.586 ms |
+| `-70,-220 → -30,-220` | 44.324 ms | 0.268 ms | 45.060 ms | 0.451 ms |
+| `-140,-200 → -90,-200` | 50.460 ms | 0.322 ms | 49.388 ms | 0.506 ms |
+
+`python3 -m unittest discover -s site/tests -p 'test_campaign_geometry.py' -v`
+passes six focused tests, including rotated boxes, diagonals, tangency, zero-length
+and reversed lines, height/door filters, a missed thin obstacle and 300 seeded
+comparisons with the former sampler. The 13 integration tests in `test_campaign.py`
+also pass, covering the crane, legacy saves and full first-assignment expedition.

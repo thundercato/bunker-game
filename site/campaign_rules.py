@@ -70,8 +70,29 @@ class CampaignGeometry:
         return False
 
     def line_blocked(self,a,b,y,doors):
-        count=max(1,int(math.hypot(a[0]-b[0],a[1]-b[1])/.15))
-        return any(self.blocked(a[0]+(b[0]-a[0])*i/count,a[1]+(b[1]-a[1])*i/count,y,doors,.02) for i in range(count+1))
+        # Clip the segment against each rotated footprint once. Sampling every
+        # 15 cm repeated the full collider scan hundreds of times per enemy and
+        # could still miss a thin obstacle between samples.
+        for collider in self.colliders:
+            if collider.get('doorId') and doors.get(collider['doorId'],True):continue
+            if y>=collider['maxY']-(.15 if collider.get('kind')=='floor' else .035) or y+1.65<=collider['minY']+.02:continue
+            angle=collider.get('yaw',0);c=math.cos(angle);s=math.sin(angle)
+            ax=a[0]-collider['x'];az=a[1]-collider['z']
+            bx=b[0]-collider['x'];bz=b[1]-collider['z']
+            x=ax*c-az*s;z=ax*s+az*c
+            dx=(bx-ax)*c-(bz-az)*s;dz=(bx-ax)*s+(bz-az)*c
+            lo=0.;hi=1.
+            for origin,delta,half in [(x,dx,collider['w']/2+.02),(z,dz,collider['d']/2+.02)]:
+                # blocked() uses a strict interior. A line lying along an edge
+                # or touching only a corner must therefore remain unblocked.
+                if delta==0:
+                    if abs(origin)>=half:break
+                else:
+                    first=(-half-origin)/delta;last=(half-origin)/delta
+                    lo=max(lo,min(first,last));hi=min(hi,max(first,last))
+                    if lo>=hi:break
+            else:return True
+        return False
 
     def climb(self,player,route_id,zone):
         route=self.climbs.get(route_id)
