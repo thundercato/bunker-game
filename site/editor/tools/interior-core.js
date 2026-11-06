@@ -9,6 +9,15 @@ const protectedObject=o=>!!o.binding||!!o.doorId||['spawn','doorway'].includes(o
 const corners=o=>[[-1,-1],[-1,1],[1,-1],[1,1]].map(([x,z])=>worldPoint(o,x*o.size[0]/2,z*o.size[2]/2));
 const top=o=>o.position[1]+(o.type==='floor'?0:o.size[1]);
 const bottom=o=>o.position[1]-(o.type==='floor'?o.size[1]:0);
+// Extend the shared renderer's positive-X / positive-Z cutaway to every storey.
+// These are view-only IDs in the building's local frame; no authored visibility,
+// gameplay bindings or collision geometry is changed. Child yaw and a compiled
+// parent transform do not alter which exterior side is being opened.
+export function cutawayWalls(doc) {
+  const east=doc.bounds[0]/2-.15,front=doc.bounds[1]/2-.15;
+  return doc.objects.filter(o=>['wall','window','doorway'].includes(o.type)&&
+    (o.position[0]>=east||o.position[2]>=front)).map(o=>o.id);
+}
 function selected(doc,ids,{mutable=true}={}) {
   const wanted=new Set(ids),objects=[...wanted].map(id=>doc.objects.find(o=>o.id===id));
   if(!objects.length||objects.some(o=>!o))throw Error('Choose existing objects first.');

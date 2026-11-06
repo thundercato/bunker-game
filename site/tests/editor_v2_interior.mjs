@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {createCampaignInteriors} from '../campaign-interiors.js';
 import {clone,validateLayout,worldPoint,localPoint,collidersFor} from '../layout-core.js';
-import {supportCandidates,snapToSupport,fitsSupport,alignSelection,rotateAssembly,joinWallEndpoints,addStairLanding,createTemplate,validateTemplate,instantiateTemplate,overlappingAt,nearbyObjects,interiorDiagnostics} from '../editor/tools/interior-core.js';
+import {cutawayWalls,supportCandidates,snapToSupport,fitsSupport,alignSelection,rotateAssembly,joinWallEndpoints,addStairLanding,createTemplate,validateTemplate,instantiateTemplate,overlappingAt,nearbyObjects,interiorDiagnostics} from '../editor/tools/interior-core.js';
 let count=0;
 function test(name,fn){fn();count++;console.log('PASS',name);}
 const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`);
@@ -38,6 +40,33 @@ test('UI height transforms keep accepted binding floor policy in local coordinat
  const down=clone(next);down.objects[2].position[1]=.8;updateMovedBindingFloors(next,down);assert.equal(down.objects[2].binding.floor,0);
  const explicit=clone(next);explicit.objects[2].binding.floor=2.7;updateMovedBindingFloors(next,explicit);assert.equal(explicit.objects[2].binding.floor,2.7);
  assert.equal(previous.objects[2].binding.floor,0);
+});
+
+test('cutaway opens the actual 52-object cottage on ground and upper floors without authoring changes',()=>{
+ const source=JSON.parse(fs.readFileSync(new URL('../world.json',import.meta.url))),d=createCampaignInteriors(source).find(d=>d.buildingId==='forester');
+ assert.equal(d.objects.length,52);
+ const raw=JSON.stringify(d),colliders=collidersFor(d),bindings=d.objects.filter(o=>o.binding||o.doorId).map(clone);
+ assert.deepEqual(cutawayWalls(d),['wall-east','entrance','upper-wall-east','upper-wall-front']);
+ assert.equal(JSON.stringify(d),raw);assert.deepEqual(collidersFor(d),colliders);assert.deepEqual(d.objects.filter(o=>o.binding||o.doorId),bindings);
+ assert.ok(!cutawayWalls(d).includes('partition-door-forester_inner'));
+});
+test('cutaway uses local boundary centres for rotated walls on every storey and leaves other object types alone',()=>{
+ const d=scene();d.objects.push(
+  object('east-upper','wall',[6,6.4,0],[7,3.2,.2],{yaw:.63}),
+  object('front-upper','window',[0,3.2,6],[7,3.2,.2],{yaw:-.42,opening:{width:2,height:1.2,sill:1}}),
+  object('front-door','doorway',[0,0,6],[3,3.2,.2],{doorId:'hut',opening:{width:1.3,height:2.5,sill:0}}),
+  object('rear-upper','wall',[0,6.4,-6],[12,3.2,.2]),
+  object('west-upper','wall',[-6,6.4,0],[12,3.2,.2],{yaw:Math.PI/2}),
+  object('partition-upper','wall',[1,3.2,2],[6,3.2,.2]),
+  object('east-bound-prop','prop',[6,3.2,0],[1,1,1],{binding:{type:'container',id:'hut_c1'}}),
+  object('front-floor','floor',[0,3.2,6],[3,.16,3])
+ );
+ assert.deepEqual(cutawayWalls(d),['east-upper','front-upper','front-door']);
+ assert.deepEqual(cutawayWalls({...d,origin:[110,7,-210]}),cutawayWalls(d),'Provenance origin must not be composed into local view tests');
+});
+test('cutaway retains the existing 15 cm boundary tolerance and never removes a centred interior wall',()=>{
+ const d=scene();d.objects.push(object('at-east-tolerance','wall',[5.85,0,0],[2,3,.2]),object('inside-east-tolerance','wall',[5.849,0,0],[2,3,.2]),object('at-front-tolerance','wall',[0,9.6,5.85],[2,3,.2]));
+ assert.deepEqual(cutawayWalls(d),['at-east-tolerance','at-front-tolerance']);
 });
 
 console.log(`PASS editor interior workshop: ${count} cases`);
