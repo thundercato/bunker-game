@@ -3,6 +3,7 @@
 ## Start here
 
 Read these before changing code:
+0. `docs/MEGA_BUILD_README.md` when working on the user-requested major game-first environment, asset and 3D journal overhaul. It is ambitious requested scope, not shipped functionality; checkpoint frequently.
 1. `docs/CODEX_HANDOFF.md` for the verified implementation state and entry points.
 2. `docs/DESIGN_DECISIONS_2026-11-06.md` for Adam's approved direction, superseded ideas and unresolved details.
 3. `docs/NEXT_STEPS.md` for staged work and acceptance criteria.
