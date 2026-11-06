@@ -1,0 +1,17 @@
+editor/loot.html
+editor/missions.html
+editor/panels/assets-core.js
+editor/panels/assets.css
+editor/panels/assets.js
+editor/panels/hierarchy-core.js
+editor/panels/hierarchy.js
+editor/panels/loot-core.js
+editor/panels/loot.css
+editor/panels/loot.js
+editor/panels/missions-core.js
+editor/panels/missions.css
+editor/panels/missions.js
+editor/tools/resize-core.js
+editor/tools/resize-handles.js
+editor/tools/world-authoring.js
+editor/tools/world-inspector.js
