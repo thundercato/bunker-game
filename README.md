@@ -1,3 +1,11 @@
+## Continuing development in Codex
+
+**Start with [AGENTS.md](AGENTS.md) and the [Codex handover](docs/CODEX_HANDOFF.md).** The handover was prepared on 6 November 2026 against `d31f178a674ec16d730a7d13f59c7eb112eb24bc` and distinguishes implemented features from the approved roadmap.
+
+[Copy the first-task prompt](docs/CODEX_START_PROMPT.md) · [Cloud setup and tests](docs/CODEX_CLOUD_SETUP.md) · [Agreed design decisions](docs/DESIGN_DECISIONS_2026-11-06.md) · [Staged next steps](docs/NEXT_STEPS.md) · [Architecture and performance review](docs/ARCHITECTURE_REVIEW.md)
+
+The next priority is shared editor/game world data and a verified end-to-end preview, not a wholesale engine rewrite. The handover does not publish v12 or change game mechanics.
+
 ## Full World Editor v2 (authoring preview)
 
 [Open the full map](https://thundercato.github.io/bunker-game/editor/world.html) · [Read scope and limitations](docs/WORLD_EDITOR_V2.md)
@@ -71,4 +79,4 @@ The GitHub workflow repeats verification before deploying main and then tests th
 
 ## What comes next
 
-See `docs/ROADMAP.md`. A native-app evaluation is explicitly deferred until after this web release has device feedback. It must preserve the game’s progress and be judged with a representative forest, house, creature and inventory scene, rather than choosing a platform solely because its wrapper is native.
+For the current detailed continuation plan, use [NEXT_STEPS.md](docs/NEXT_STEPS.md) and the [decision register](docs/DESIGN_DECISIONS_2026-11-06.md). The older [ROADMAP.md](docs/ROADMAP.md) remains historical context. A native-app evaluation is separate from this browser/editor work and must preserve progress and use representative forest, house, creature and inventory scenes. A native wrapper alone does not prove better graphics or performance.
