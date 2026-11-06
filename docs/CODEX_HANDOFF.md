@@ -1,7 +1,7 @@
 # Field Signal: Codex handover
 
-Release update: the user has authorised publishing the tested game-first build
-as Field Signal 11.1.0 for Safari/Home Screen use. See
+Release update: Field Signal 11.1.0 is published and verified for hosted
+Safari/Home Screen use. Main run 42277856101 passed all three jobs. See
 `EXECUTION_2026-11-06_PUBLICATION.md` and the live release metadata. Earlier
 approval-pending text below is historical; the remaining roadmap stays separate.
 

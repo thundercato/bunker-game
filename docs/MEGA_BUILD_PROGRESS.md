@@ -1,5 +1,12 @@
 # Field Signal game-first campaign checkpoint
 
+Release completed: Field Signal 11.1.0 is published at
+https://thundercato.github.io/bunker-game/ . PRs #81 and #83 are merged; the
+main verification, deployment and public game/editor/preview checks all passed
+in run 42277856101. See `EXECUTION_2026-11-06_PUBLICATION.md` for actual browser
+proof and iPhone Home Screen instructions. Earlier unpublished/approval-pending
+notes below are historical. The remaining roadmap is still future work.
+
 Publication update, 6 November 2026: the user has explicitly requested a hosted
 play link for iPhone Home Screen installation. This authorises publishing the
 tested candidate as Field Signal 11.1.0. Release preparation retains the same
