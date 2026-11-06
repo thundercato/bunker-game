@@ -12,6 +12,7 @@ import sys
 
 SOURCE = Path(__file__).resolve().parents[1] / 'site'
 IMPORT = re.compile(r'(?:\bimport\s+(?:[^;\n]*?\s+from\s*)?|\bexport\s+[^;\n]*?\s+from\s*|\bimport\(\s*)[\'\"]([^\'\"]+)[\'\"]')
+FETCH = re.compile(r'\bfetch\(\s*[\'\"]([^\'\"]+)[\'\"]\s*(?=[,)])')
 HTML_RESOURCE = re.compile(r'<(?:script|link|img)\b[^>]*?\b(?:src|href)=[\'\"]([^\'\"]+)[\'\"]', re.I)
 WORKSPACE_MODULE = re.compile(r'\bdata-editor-module=[\'\"]([^\'\"]+)[\'\"]', re.I)
 CSS_RESOURCE = re.compile(r'url\(\s*[\'\"]?([^\)\'\"]+)', re.I)
@@ -60,12 +61,13 @@ def validate(source=SOURCE, paths=None, package=None):
         content=file.read_text()
         if file.suffix=='.js':
             references=[(m.group(1),False) for m in IMPORT.finditer(content)]
+            references += [(m.group(1),True) for m in FETCH.finditer(content)]
         elif file.suffix=='.html':
             references=[(m.group(1),True) for pattern in (HTML_RESOURCE,WORKSPACE_MODULE) for m in pattern.finditer(content)]
         else:
             references=[(m.group(1),False) for m in CSS_RESOURCE.finditer(content)]
         for ref,document in references:
-            if file.suffix=='.js' and not ref.startswith(('./','../','/')):
+            if file.suffix=='.js' and not document and not ref.startswith(('./','../','/')):
                 continue
             path=local_path(name,ref,document)
             if path is not None and path not in listed:

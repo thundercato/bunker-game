@@ -30,6 +30,13 @@ class EditorPackageTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'editor/start.js -> editor/tools/gesture.js'):
             editor_package.validate(self.source, ['editor/start.js'])
 
+    def test_literal_editor_data_fetch_must_be_packaged(self):
+        self.write('editor/start.js', "fetch('editor/source-context.json')")
+        self.write('editor/source-context.json', '{}')
+        with self.assertRaisesRegex(ValueError, 'editor/start.js -> editor/source-context.json'):
+            editor_package.validate(self.source, ['editor/start.js'])
+        editor_package.validate(self.source, ['editor/start.js', 'editor/source-context.json'])
+
     def test_new_unreferenced_editor_workspace_requires_explicit_review(self):
         self.write('editor/new.html', '<!doctype html>')
         with self.assertRaisesRegex(ValueError, 'Unpackaged editor file: editor/new.html'):
