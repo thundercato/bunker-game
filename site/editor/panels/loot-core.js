@@ -97,7 +97,7 @@ export function simulate(table, catalogue, seed=1, samples=1000) {
 }
 export function containerRows(source, query='') {
   const text=query.toLowerCase();
-  return source.containers.map(c=>({...c,region:source.zones[c.zone]?.name || c.zone || 'Field',buildingName:source.buildings.find(b=>b.id===c.building)?.name || 'Local scene',room:`Floor ${(c.floor||0)+1}`}))
+  return source.containers.map(c=>({...c,region:source.zones[c.zone]?.name || c.zone || 'Field',buildingName:source.buildings.find(b=>b.id===c.building)?.name || 'Local scene',room:c.floor ? `Level at ${c.floor} m` : 'Ground floor'}))
     .filter(c=>[c.id,c.name,c.profile,c.region,c.buildingName,c.room].some(v=>v.toLowerCase().includes(text)))
     .sort((a,b)=>`${a.region}/${a.buildingName}/${a.room}/${a.id}`.localeCompare(`${b.region}/${b.buildingName}/${b.room}/${b.id}`));
 }
