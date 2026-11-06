@@ -27,6 +27,13 @@ screenshots/status/worker diagnostics. Navigation-cancelled background requests
 are reported separately from genuine network/HTTP failures. The earlier fourth-
 worker CI timeout remains recorded, without claiming its cause was reproduced.
 
+The campaign browser's crane helper (`7904360`, test-only) now waits for the actual
+client/worker XYZ endpoint and released input after each of the six real Use
+routes. It retains the same 30 s bound and animation/save assertions, replacing
+fixed sleeps that could aim while input was paused. Failed ray probes print to
+CI logs and use portable filenames; route IDs containing `:down` stay intact in
+their JSON. No game or public package bytes changed.
+
 ## Practical journeys
 
 Undo/redo now uses lossless internal snapshot deltas, keeping canonical/legacy

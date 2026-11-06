@@ -42,5 +42,16 @@
   "artifactUnpackedLocally": false,
   "artifactDownloadLimitation": "Storage-host CONNECT HTTP 403",
   "editor-controls-chromium.json": 9,
-  "editor-browser.json": 31
+  "editor-browser.json": 31,
+  "campaignTestHarnessCommit": "7904360ec633f1fe27e32866882dbe2b1a134a78",
+  "campaignFollowUp": {
+    "focused": {
+      "checks": 15,
+      "completedRealUseRoutes": 6
+    },
+    "full": {
+      "checks": 25,
+      "completedRealUseRoutes": 6
+    }
+  }
 }

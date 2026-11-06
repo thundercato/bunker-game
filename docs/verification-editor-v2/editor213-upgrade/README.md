@@ -6,6 +6,9 @@ files, including accepted gameplay/compiler/render/save/journal/audio code, have
 identical hashes. The normal package remains 598 explicit files / 596 cache
 resources, no overlay. [Exact hashes](package-provenance.json).
 
+The later `7904360` campaign-harness correction is test-only and changes no public
+bytes. See the campaign CI follow-up below; final-head normal CI remains required.
+
 [CI42292276042](https://github.com/thundercato/bunker-game/actions/runs/42292276042)
 passed all 14 editor browser suites (including strict 41 actual-game checks and
 13 dense-history checks), then all three original offline variants. Starting the
@@ -54,3 +57,29 @@ Retained actual [station editor](editor-station.jpg) and [game preview search](e
 Full strict 41 three-building/generated-landing screenshots and 5,000-instance
 history evidence remain in the preceding 2.1.3 folder; final-head CI reruns every
 editor suite, all four upgrades and the retained game checks before artifact upload.
+
+## Campaign CI follow-up
+
+[CI42297927816](https://github.com/thundercato/bunker-game/actions/runs/42297927816)
+passed normal build/editor/moved-preview checks but timed out aiming at the middle
+crane landing. The game reports a worker endpoint before its climb animation
+releases input; the previous Y-only wait plus fixed 3.1 s delay could aim too early,
+so input deliberately ignored it. The helper now waits for rendered/worker XYZ and
+unpaused input within the original 30 s bound. All six actual KeyE/menu routes,
+animation and mid-animation pagehide-save assertions remain; no teleport or game
+change is introduced.
+
+The original ray filename included `:down`, which GitHub artifact upload rejects.
+Probe filenames are now portable, original IDs remain in JSON and full probe data
+prints to CI logs. The [original failed-stage log](logs/ci-42297927816-failure.log)
+records both errors. The original local crane-only run passed, matching an
+intermittent scheduling issue; the corrected tests observe actual completion.
+
+Corrected local follow-up: **focused crane 15/15 and full campaign 25/25 passed**. Each
+records all six real Use routes with matching rendered/worker XYZ and input
+unpaused. Full campaign retains combat, furnished stairs/return, journal/controller,
+mission archive/rewards, old saves, licences and offline restart. Exception/missing
+arrays are empty. [Full report](campaign-browser.json), [raw logs](logs/),
+[actual upper platform](crane-platform.jpg) and [recorded pose](crane-platform-pose.json).
+The post-browser 598-file exact-byte/no-extra check still passes. No public source
+changed after `e3719db`; final-head normal CI is linked from PR82.

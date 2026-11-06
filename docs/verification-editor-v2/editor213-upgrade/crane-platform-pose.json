@@ -1,0 +1,128 @@
+{
+  "player": {
+    "x": 111.16999999999993,
+    "z": -149.60000000000014,
+    "y": 12,
+    "yaw": -0.03997868712339514,
+    "pitch": -1.1094826869757781
+  },
+  "camera": {
+    "x": 111.16999999999993,
+    "y": 13.67,
+    "z": -149.60000000000014
+  },
+  "info": {
+    "calls": 86,
+    "triangles": 163639,
+    "trees": 5841,
+    "scannedBarriers": true,
+    "textures": 320,
+    "buildings": 37,
+    "containers": 143,
+    "creatures": 35,
+    "zone": "field",
+    "terrainChunks": 330,
+    "foliageSectors": 544,
+    "lightSources": 163,
+    "activeLights": 2,
+    "npcs": 3,
+    "build": "Overgrowth 11.0",
+    "licensedModelFamilies": 78,
+    "importedInstances": 192,
+    "assetErrors": [],
+    "drains": {
+      "channels": 2,
+      "length": 45.6,
+      "bars": 870,
+      "depth": 0.36,
+      "physicalVoid": true
+    },
+    "radioPosition": {
+      "x": -486,
+      "y": 1.35,
+      "z": 14
+    },
+    "placements": {
+      "placed": 115,
+      "unsupported": [],
+      "wallSegments": 26,
+      "duplicateGhostsRemoved": 6
+    },
+    "antialias": true,
+    "depthRange": [
+      0.09,
+      360
+    ],
+    "performance": {
+      "fps": 4,
+      "ms": 228.72979047682375,
+      "draws": 86,
+      "triangles": 163639
+    },
+    "equipmentModels": true,
+    "missionCount": 15,
+    "worldBounds": {
+      "minX": -240,
+      "maxX": 360,
+      "minZ": -700,
+      "maxZ": 150
+    },
+    "impactCount": 0,
+    "hiddenAnomalies": true,
+    "fieldcraft": {
+      "tables": 46,
+      "containers": 118,
+      "beds": 10,
+      "buildingDetails": 5,
+      "decorations": 15,
+      "looseItems": 32
+    },
+    "itemVisuals": {
+      "catalogue": 61,
+      "ready": 61,
+      "imported": 25,
+      "authored": 36,
+      "errors": []
+    },
+    "fieldcraftErrors": [],
+    "overgrowth": {
+      "vehicles": 8,
+      "buildings": 33,
+      "facadeModules": 140,
+      "roofs": 33,
+      "rocks": 307,
+      "stumps": 64,
+      "deadwood": 36,
+      "ferns": 1438
+    },
+    "overgrowthReady": true,
+    "forestLOD": {
+      "near": 0,
+      "far": 1,
+      "sourceTrees": 5841,
+      "updates": 58
+    },
+    "overgrowthErrors": [],
+    "editorPreview": null,
+    "campaign": {
+      "id": "field-signal-game-first-candidate-1",
+      "baselineModelFamilies": 58,
+      "scenes": 4,
+      "searchCatalogue": 69,
+      "placedSearchVariants": 68,
+      "props": 118,
+      "districts": {
+        "districts": 8,
+        "objects": 95,
+        "assetInstances": 37,
+        "proceduralObjects": 58,
+        "mergedMeshes": 169,
+        "meshes": 185,
+        "triangles": 94027,
+        "visibleCells": 6
+      },
+      "climbs": 6,
+      "errors": []
+    }
+  }
+}

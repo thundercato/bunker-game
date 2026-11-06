@@ -11,7 +11,30 @@ Final fetch observed main `220fb45`: publication/native documentation only, with
 no additional runtime changes. `6448145` preserves those accepted notes/instructions.
 The other task verified/published game 11.1; this editor suite is still unpublished.
 
-## Latest startup and package follow-up
+## Final CI timing follow-up — test-only
+
+CI42297927816 passed the normal build and retained editor/moved-preview checks,
+then timed out aiming at the middle crane landing in the existing campaign suite.
+Its raw interaction ID also created a colon-containing diagnostic filename, causing
+verification-artifact upload to fail. The original log remains in the evidence.
+
+`7904360` changes only `tests/campaign_browser.cjs`. The game commits a climb's
+worker endpoint before its visible animation releases input; the old Y-only wait
+and fixed 3.1 s sleep could advance too early, so the next look was ignored. The
+test now waits for matching rendered/worker XYZ and unpaused input within the same
+30 s bound. All six real Use routes, animations, menu choices and mid-animation
+save assertion remain. Ray diagnostics retain the original ID in JSON, print to
+CI logs and use portable filenames. No game code or public package bytes changed;
+the package remains exactly the `e3719db` provenance below.
+
+Corrected local follow-up: **focused crane 15/15, full campaign 25/25, all six real Use
+routes/client+worker XYZ/input release in each; 598 exact canonical bytes/no extras**.
+Combat, furnished stairs/return, journal/controller, archive/rewards, old saves,
+licences and offline restart pass, with empty exception/missing arrays. Logs, full
+report and actual platform capture are in `verification-editor-v2/editor213-upgrade/`.
+Final-head normal CI/artifact remains the gate linked from PR82.
+
+## Startup and package follow-up
 
 Public source `e3719db` follows the complete 2.1.3 acceptance below. Only the
 network-fresh suite gate changed among the 598 public files; all other hashes,

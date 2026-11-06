@@ -1,0 +1,18 @@
+PASS Candidate boots real Python, original features and all new scene assets {"id":"field-signal-game-first-candidate-1","baselineModelFamilies":58,"scenes":4,"searchCatalogue":69,"placedSearchVariants":68,"props":118,"districts":{"districts":8,"objects":95,"assetInstances":37,"proceduralObjects":58,"mergedMeshes":169,"meshes":185,"triangles":94027,"visibleCells":3},"climbs":6,"errors":[]}
+PASS Existing schema-9 credits and inventory continue unchanged
+PASS New dock searches retain all original container IDs
+PASS Calmer Relay Lanterns soundtrack is retained and decodes
+PASS Quayside inspection crate performs persistent actual loot search
+Climbing toward 4
+Climbing toward 8
+PASS Closing during ladder animation saves the canonical safe landing
+Climbing toward 12
+PASS Crane climbs three real guarded landings through actual Use controls
+PASS Upper gantry tool case is physically searchable on its own floor
+PASS Rail opening cannot accidentally drop the player off the platform
+PASS Crane returns through all three real down-ladder routes
+PASS Real completed expedition appears in journal archive with actual reward
+PASS Original v9 journal entries are preserved
+PASS Candidate models, rules, mission archive and book restart offline
+PASS In-game asset registry exposes exact licences for 91 models and 69 variants
+PASS No game/browser errors or missing runtime assets {"errors":[],"missing":[]}

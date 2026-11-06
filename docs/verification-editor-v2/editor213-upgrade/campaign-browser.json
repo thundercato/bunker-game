@@ -1,0 +1,126 @@
+[
+  {
+    "name": "Candidate boots real Python, original features and all new scene assets",
+    "pass": true,
+    "detail": {
+      "id": "field-signal-game-first-candidate-1",
+      "baselineModelFamilies": 58,
+      "scenes": 4,
+      "searchCatalogue": 69,
+      "placedSearchVariants": 68,
+      "props": 118,
+      "districts": {
+        "districts": 8,
+        "objects": 95,
+        "assetInstances": 37,
+        "proceduralObjects": 58,
+        "mergedMeshes": 169,
+        "meshes": 185,
+        "triangles": 94027,
+        "visibleCells": 3
+      },
+      "climbs": 6,
+      "errors": []
+    }
+  },
+  {
+    "name": "Existing schema-9 credits and inventory continue unchanged",
+    "pass": true
+  },
+  {
+    "name": "New dock searches retain all original container IDs",
+    "pass": true
+  },
+  {
+    "name": "Calmer Relay Lanterns soundtrack is retained and decodes",
+    "pass": true
+  },
+  {
+    "name": "Low-quality game gets an accessible real-mission journal",
+    "pass": true
+  },
+  {
+    "name": "Journal pauses the real simulation",
+    "pass": true
+  },
+  {
+    "name": "Actual 3D paper deforms and completes a page turn",
+    "pass": true
+  },
+  {
+    "name": "Real controller shoulder input turns the in-game journal",
+    "pass": true
+  },
+  {
+    "name": "Journal and mission buttons fit phone landscape",
+    "pass": true
+  },
+  {
+    "name": "Journal records a conversation only after actual contact",
+    "pass": true
+  },
+  {
+    "name": "Real workbench pickup, magazine insertion, rack and safety controls work",
+    "pass": true
+  },
+  {
+    "name": "Actual keyboard fire consumes a round and damages the visible enemy",
+    "pass": true
+  },
+  {
+    "name": "Actual keyboard stairs reach the refurbished upper landing",
+    "pass": true
+  },
+  {
+    "name": "Actual keyboard return stairs and front entrance remain clear",
+    "pass": true
+  },
+  {
+    "name": "Quayside inspection crate performs persistent actual loot search",
+    "pass": true
+  },
+  {
+    "name": "Closing during ladder animation saves the canonical safe landing",
+    "pass": true
+  },
+  {
+    "name": "Crane climbs three real guarded landings through actual Use controls",
+    "pass": true
+  },
+  {
+    "name": "Upper gantry tool case is physically searchable on its own floor",
+    "pass": true
+  },
+  {
+    "name": "Rail opening cannot accidentally drop the player off the platform",
+    "pass": true
+  },
+  {
+    "name": "Crane returns through all three real down-ladder routes",
+    "pass": true
+  },
+  {
+    "name": "Real completed expedition appears in journal archive with actual reward",
+    "pass": true
+  },
+  {
+    "name": "Original v9 journal entries are preserved",
+    "pass": true
+  },
+  {
+    "name": "Candidate models, rules, mission archive and book restart offline",
+    "pass": true
+  },
+  {
+    "name": "In-game asset registry exposes exact licences for 91 models and 69 variants",
+    "pass": true
+  },
+  {
+    "name": "No game/browser errors or missing runtime assets",
+    "pass": true,
+    "detail": {
+      "errors": [],
+      "missing": []
+    }
+  }
+]
