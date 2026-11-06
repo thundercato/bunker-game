@@ -138,9 +138,9 @@ async function main(){
  for(const [src,dest]of [['site/assets/campaign/licences/furniture-kit.txt','furniture-kit.txt'],['site/assets/campaign/licences/survival-kit.txt','survival-kit.txt'],['site/assets/v11/EZ-TREE-LICENSE.txt','EZ-TREE-LICENSE.txt']])output('Licences/'+dest,read(src));
  output('Licences/FIELD_SIGNAL_CONTENT.txt','Field Signal scene and original procedural search recipes are reused from this repository at the revision recorded in provenance.json. Preserve the repository licence and the third-party notices in this directory. Native additions: bounded approach plane/path; deterministic test loot fixture.\n');
  if(process.argv.includes('--check')){
-  for(const[name,bytes]of outputs){const file=path.join(native,'Resources',name);if(!fs.existsSync(file)||!fs.readFileSync(file).equals(bytes))fail('Generated output differs: '+name);}
-  const existing=fs.readdirSync(path.join(native,'Resources/Meshes'));if(existing.some(name=>!outputs.has('Meshes/'+name)))fail('Unexpected stale generated mesh');
+  for(const[name,bytes]of outputs){const file=path.join(native,'NativeContent',name);if(!fs.existsSync(file)||!fs.readFileSync(file).equals(bytes))fail('Generated output differs: '+name);}
+  const existing=fs.readdirSync(path.join(native,'NativeContent/Meshes'));if(existing.some(name=>!outputs.has('Meshes/'+name)))fail('Unexpected stale generated mesh');
   console.log(`Native asset reproducibility passed: ${outputs.size} files, ${assets.length} assets, ${objects.length} objects.`);
- }else{for(const[name,bytes]of outputs){const file=path.join(native,'Resources',name);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,bytes);}console.log(`Exported Forester’s cottage: ${outputs.size} files, ${assets.length} assets, ${objects.length} objects.`);}
+ }else{for(const[name,bytes]of outputs){const file=path.join(native,'NativeContent',name);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,bytes);}console.log(`Exported Forester’s cottage: ${outputs.size} files, ${assets.length} assets, ${objects.length} objects.`);}
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))await main();

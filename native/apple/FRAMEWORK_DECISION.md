@@ -35,3 +35,20 @@ replace Field Signal's browser engine.
 Physical Apple TV compatibility, controller recognition, thermal behaviour and
 frame rates require later testing on real hardware. No signing or distribution
 is performed by this workflow.
+
+## Bundle layout constraint found during simulator testing
+
+Ship converted data in `NativeContent`, never a literal `Resources` directory at
+the root of an iOS/tvOS app or XCTest bundle. CoreFoundation uses that directory
+as an old-style deep-bundle layout marker, then searches for the Info.plist there.
+The installer can consequently report “Missing bundle ID” even when Python can
+read a correct identifier from the root Info.plist. CI rejects reserved root
+layout directories and checks the bundle through actual Apple Foundation as well
+as parsing the plist.
+
+The public CoreFoundation implementation documents this behaviour in
+[`CFBundle_Resources.c` lines 451–459](https://github.com/swiftlang/swift-corelibs-foundation/blob/ba621edf9c28eb60b4fdf59e214ef7160a1f5548/Sources/CoreFoundation/CFBundle_Resources.c#L451-L459)
+and the corresponding
+[`CFBundle_InfoPlist.c` lookup](https://github.com/swiftlang/swift-corelibs-foundation/blob/ba621edf9c28eb60b4fdf59e214ef7160a1f5548/Sources/CoreFoundation/CFBundle_InfoPlist.c#L687-L690).
+This was a packaging defect in the experiment, not evidence of unsupported Apple
+frameworks or a requirement for developer credentials.

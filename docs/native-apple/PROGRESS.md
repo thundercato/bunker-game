@@ -92,3 +92,15 @@ logs and result links remain recorded instead of assuming a pass.
   `build-for-testing` / `test-without-building`, validate every prepared app/test
   plist and attempt direct CoreSimulator installation. No simulator test pass or
   launch is claimed by this run.
+
+- `0d96cd0`: corrected route interaction and isolated build/test/install phases.
+  Run 42305682175 passed all **10 macOS Swift Core tests**. TV direct installation
+  failed despite correct root plist fields. A read-only packaging audit identified
+  the literal root `Resources` directory as CoreFoundation's legacy-bundle marker:
+  Apple bundle lookup searched for `Resources/Info.plist` instead of the root file.
+  Content is now packaged as `NativeContent` and every loader/export/check updated;
+  original generated data bytes are unchanged. CI now rejects reserved root bundle
+  layout directories and verifies `Bundle(path:).bundleIdentifier` through actual
+  Apple Foundation. Boot waits are bounded with simulator diagnostics on timeout.
+  The still-active iPad run is superseded because it uses the same known-bad
+  bundle layout; it is not counted as a simulator test/launch pass.

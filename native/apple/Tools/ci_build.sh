@@ -7,6 +7,21 @@ case "$platform" in
   tv) scheme=FieldSignalTV; destination='generic/platform=tvOS Simulator'; bundle=org.fieldsignal.prototype.fieldsignaltv ;;
   *) exit 2 ;;
 esac
+wait_for_simulator() {
+  python3 - "$udid" <<'PYBOOT'
+import subprocess, sys
+udid = sys.argv[1]
+try:
+    # An already booted simulator reports a harmless nonzero boot result.
+    subprocess.run(['xcrun', 'simctl', 'boot', udid], check=False, timeout=60)
+    subprocess.run(['xcrun', 'simctl', 'bootstatus', udid, '-b'], check=True, timeout=240)
+except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as error:
+    print(f'Simulator boot did not complete within the bounded wait: {error}', flush=True)
+    for command in (['xcrun', 'simctl', 'list', 'devices', 'available'], ['xcrun', 'simctl', 'list', 'runtimes']):
+        subprocess.run(command, check=False, timeout=30)
+    raise SystemExit(1)
+PYBOOT
+}
 output="native/apple/BuildResults/$platform"
 mkdir -p "$output"
 project=native/apple/FieldSignal.xcodeproj
@@ -16,6 +31,24 @@ xcodebuild -project "$project" -scheme "$scheme" -configuration Debug \
   CODE_SIGNING_ALLOWED=NO build 2>&1 | tee "$output/build.log"
 # Retain the successful simulator compilation even if a later test fails.
 app="$output/DerivedData/Build/Products/Debug-$([ "$platform" = ipad ] && printf 'iphonesimulator' || printf 'appletvsimulator')/$scheme.app"
+# CFBundle reserves root Resources/Contents/Support Files for other bundle
+# layouts. A valid-looking root Info.plist alone cannot validate installability.
+python3 - "$app" <<'PYLAYOUT'
+import pathlib, sys
+app = pathlib.Path(sys.argv[1])
+for reserved in ('Resources', 'Contents', 'Support Files'):
+    if (app / reserved).exists():
+        raise SystemExit(f'Reserved bundle-layout directory must not be shipped at app root: {reserved}')
+PYLAYOUT
+swift - "$app" "$bundle" <<'SWIFTBUNDLE'
+import Foundation
+let path = URL(fileURLWithPath: CommandLine.arguments[1]).standardizedFileURL.path
+let expected = CommandLine.arguments[2]
+guard let app = Bundle(path: path), app.bundleIdentifier == expected else {
+    fatalError("Apple Foundation cannot identify native simulator bundle at \(path)")
+}
+print("Apple Foundation recognised simulator bundle: \(app.bundleIdentifier!)")
+SWIFTBUNDLE
 ditto -c -k --sequesterRsrc --keepParent "$app" "$output/$scheme-unsigned-simulator.zip"
 python3 - "$app/Info.plist" "$bundle" "$scheme" <<'PYINFO'
 import json, pathlib, plistlib, sys
@@ -60,17 +93,14 @@ for path in sorted(app.parent.rglob('Info.plist')):
             raise SystemExit(f'Invalid prepared test bundle metadata {path}: {key}={info.get(key)!r}')
 PYBUNDLES
 # A direct CoreSimulator install isolates packaging errors from XCTest startup.
-if ! xcrun simctl boot "$udid"; then
-  xcrun simctl bootstatus "$udid" -b
-fi
-xcrun simctl bootstatus "$udid" -b
+wait_for_simulator
 xcrun simctl install "$udid" "$app" 2>&1 | tee "$output/install.log"
 xcodebuild -project "$project" -scheme "$scheme" -configuration Debug \
   -destination "$simulator_destination" -destination-timeout 120 \
   -derivedDataPath "$output/DerivedData" -resultBundlePath "$output/Tests.xcresult" \
   -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test-without-building 2>&1 | tee "$output/tests.log"
 # A separate direct install/launch is evidence outside the XCUITest runner.
-xcrun simctl bootstatus "$udid" -b
+wait_for_simulator
 xcrun simctl install "$udid" "$app"
 xcrun simctl launch --terminate-running-process "$udid" "$bundle" --uitesting 2>&1 | tee "$output/launch.log"
 # The XCTest attachment above waits for native.scene. Allow initial presentation here too.

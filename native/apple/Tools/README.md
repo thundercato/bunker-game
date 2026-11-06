@@ -32,7 +32,7 @@ on the actual source table; collecting it removes the marker, never the table.
 
 ## Resource contract
 
-`Resources/scene.json` has format `field-signal-native-scene`, version 1. Positions
+`NativeContent/scene.json` has format `field-signal-native-scene`, version 1. Positions
 and dimensions are three-element arrays in metres, Y-up; yaw is radians with
 positive local +Z rotating towards world +X. **Every pose is already world-space.**
 `parentID` preserves authored identity/provenance; it is not a second runtime
@@ -69,7 +69,7 @@ animation and moving furniture assemblies are deliberately outside this slice.
 Search recipes use the existing original-composite closed-pose geometry tier;
 provenance distinguishes these from optional licensed-model replacements.
 
-`Resources/provenance.json` records author, source, licence, source SHA-256,
+`NativeContent/provenance.json` records author, source, licence, source SHA-256,
 modifications, triangle counts and dimensions per imported asset. Original
-third-party notices live in `Resources/Licences/`. No downloading, scraping or
+third-party notices live in `NativeContent/Licences/`. No downloading, scraping or
 new asset acquisition occurs during regeneration.

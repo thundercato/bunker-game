@@ -8,7 +8,7 @@ import UIKit
 /// real bundled cottage rather than a hand-written mirror of its geometry.
 final class NativeRenderingTests: XCTestCase {
     private func load() throws -> (SceneDocument, NativeScene) {
-        let resources = try XCTUnwrap(Bundle.main.resourceURL).appendingPathComponent("Resources")
+        let resources = try XCTUnwrap(Bundle.main.resourceURL).appendingPathComponent("NativeContent")
         let scene = try SceneDocument.load(data: Data(contentsOf: resources.appendingPathComponent("scene.json")))
         return (scene, try NativeScene(document: scene, resourceURL: resources))
     }

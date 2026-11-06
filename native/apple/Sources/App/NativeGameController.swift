@@ -30,7 +30,7 @@ final class NativeGameController: NSObject, ObservableObject {
         super.init()
         do {
             guard let resourceRoot = Bundle.main.resourceURL else { throw CocoaError(.fileNoSuchFile) }
-            let url = resourceRoot.appendingPathComponent("Resources/scene.json")
+            let url = resourceRoot.appendingPathComponent("NativeContent/scene.json")
             let scene = try JSONDecoder().decode(SceneDocument.self, from: Data(contentsOf: url))
             game = try GameSession(scene: scene)
             if !isUITesting, let game {

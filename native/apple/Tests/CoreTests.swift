@@ -147,9 +147,9 @@ final class CoreTests: XCTestCase {
 
     private func importedScene() throws -> SceneDocument {
         let bundle = Bundle(for: CoreTests.self)
-        let bundled = bundle.url(forResource: "scene", withExtension: "json", subdirectory: "Resources")
+        let bundled = bundle.url(forResource: "scene", withExtension: "json", subdirectory: "NativeContent")
         let local = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-            .appendingPathComponent("Resources/scene.json")
+            .appendingPathComponent("NativeContent/scene.json")
         return try SceneDocument.load(data: Data(contentsOf: bundled ?? local))
     }
 

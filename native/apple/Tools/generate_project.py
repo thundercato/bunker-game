@@ -70,7 +70,7 @@ core_files = [ref('file:' + p.relative_to(ROOT).as_posix()) for p in sorted((ROO
 render_files = [ref('file:' + p.relative_to(ROOT).as_posix()) for p in sorted((ROOT / 'Sources/Rendering').rglob('*.swift'))]
 test_files = file_refs(sorted((ROOT / 'Tests').rglob('*.swift')))
 ui_files = file_refs(sorted((ROOT / 'UITests').rglob('*.swift')))
-resource = add('Resources', 'PBXFileReference', lastKnownFileType='folder', path='Resources', sourceTree='<group>')
+resource = add('NativeContent', 'PBXFileReference', lastKnownFileType='folder', path='NativeContent', sourceTree='<group>')
 products = []
 targets = []
 schemes = []

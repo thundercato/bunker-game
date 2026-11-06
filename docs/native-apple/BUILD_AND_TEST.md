@@ -56,9 +56,10 @@ bash native/apple/Tools/ci_build.sh tv
 
 `ci_build.sh` first builds the named scheme against the generic iOS Simulator or
 tvOS Simulator destination, with `CODE_SIGNING_ALLOWED=NO`. It then selects an
-available iPad or Apple TV UDID running OS 26 or newer, runs the XCTest model and
-UI suites with `xcodebuild test`, and separately installs and launches the native
-app with `simctl`. Missing compatible runtimes fail explicitly. The UI suite waits
+available iPad or Apple TV UDID running OS 26 or newer, compiles test bundles with `xcodebuild build-for-testing`, validates the final
+app/test metadata, directly installs the app with `simctl`, and runs the XCTest
+model and UI suites with `xcodebuild test-without-building`. It separately launches
+the native app with `simctl`. Missing compatible runtimes fail explicitly. The UI suite waits
 for the native scene and attaches a screenshot. iPad UI checks also open the
 inventory, open the cottage door through touch UI, toggle the torch, and pause/resume. The Apple TV UI check establishes
 launch and uses the simulated remote Menu command to pause/resume. It does not
@@ -98,12 +99,16 @@ and devices. iPad and TV jobs run independently; one target failure does not hid
 the other. PR updates share a branch concurrency group so superseded runs are cancelled.
 
 The generated base app/test plists contain required CFBundle keys explicitly.
-The build script validates the built app identifier, executable and package type
-before attempting simulator installation.
+The build script validates the built app identifier, executable and package type,
+and independently verifies Apple Foundation can recognise its bundle identifier,
+before attempting simulator installation. Content is bundled under `NativeContent`:
+a literal root `Resources` directory would trigger CFBundle's obsolete deep-bundle
+layout detection and hide the root Info.plist.
 
 Each platform's artifact retains:
 
-- `sdk-and-simulators.log`, `build.log`, `tests.log` and `launch.log`.
+- `sdk-and-simulators.log`, `build.log`, `build-for-testing.log`, `install.log`,
+  `tests.log` and `launch.log`.
 - `Tests.xcresult`, containing test outcomes and UI screenshot attachments.
 - `simulator-udid.txt` and `launched.png` from the separate install/launch.
 - A ZIP of the unsigned **simulator** `.app` bundle.
