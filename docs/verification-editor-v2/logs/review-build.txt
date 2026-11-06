@@ -1,0 +1,4 @@
+Content valid: 15 missions, 139 containers, 35 enemies
+Fieldcraft visuals valid: 61 items and 61 previews
+Built 273 self-contained files
+EDITOR REVIEW OVERLAY: 24 editor files; not an offline release

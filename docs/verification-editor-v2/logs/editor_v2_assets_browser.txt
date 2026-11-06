@@ -1,0 +1,12 @@
+PASS Shared manifest model library is mounted and searchable 
+PASS Author + model search resolves real table 
+PASS Actual shared model renders with observed geometry cost 
+PASS Real mouse orbit changes rendered model view 
+PASS Model workspace fits 1280 × 800 laptop viewport 
+PASS Cost + placement filters exclude unmeasured facade 
+PASS Low-cost registered model remains available 
+PASS Intentional placement uses reviewed dimensions and decorative identity 
+PASS Existing gameplay binding IDs survive model placement 
+PASS Unreviewed model remains inspection only 
+PASS Escape dismisses model inspection 
+PASS No browser exceptions or asset HTTP failures { errors: [], failures: [] }

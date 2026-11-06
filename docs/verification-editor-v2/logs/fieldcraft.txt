@@ -1,0 +1,35 @@
+PASS v11 starts all 58 imported model families {"tables":53,"containers":131,"beds":14,"buildingDetails":5,"decorations":15,"looseItems":32}
+PASS 61 catalogue items have valid 3D templates {"catalogue":61,"ready":61,"imported":25,"authored":36,"errors":[]}
+PASS 53 tables and 131 searchable containers replaced 
+PASS Backpack shows actual model thumbnails 
+PASS Backpack thumbnails need no new WebGL context 
+PASS Thumbnail opens a live 3D inspector 
+PASS Inspector drag rotates model 
+PASS Inspector button zoom changes camera 
+PASS Inspector reset restores orientation 
+PASS Inspector returns to previous backpack 
+PASS Inspection leaves inventory and money untouched 
+PASS Read-only catalogue gallery shows 12 item previews 
+PASS Catalogue category filter works 
+PASS Viewer reuses one graphics context 
+PASS Atlas opens without browser fullscreen 
+PASS Objective button changes to target region {"zone":"field","zoom":6,"centre":[17.5,-33.9],"selected":"signal","markers":1}
+PASS Map zoom-in button works 
+PASS Map zoom-out button works 
+PASS Map drag pans geography 
+PASS Two-finger pinch genuinely zooms canvas 
+PASS Centre on player returns to base map 
+PASS Fit region restores full extent 
+PASS Full atlas pauses simulation 
+PASS Atlas opens correct mission dossier 
+PASS Mission dossier opens its objective on map 
+PASS HUD mission shortcut opens pinned briefing 
+PASS New physical table does not hide starting PM "pistol"
+PASS PM collection still succeeds 
+PASS Imported supply cabinet remains searchable 
+PASS Loot results use the same model images 
+PASS Recovered mission redirects to correct return contact {"zone":"base","zoom":2,"centre":[-500,44],"selected":"signal","markers":1}
+PASS All five refuge doorways remain traversable [{"room":"trader","pass":true},{"room":"bar","pass":true},{"room":"canteen","pass":true},{"room":"workshop","pass":true},{"room":"bedroom","pass":true}]
+PASS New panels fit tablet and landscape phone without scrolling [{"size":{"width":1024,"height":768},"k":"pack","tab":"supplies","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"pack","tab":"tools","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"pack","tab":"mags","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"loot","tab":"base_locker","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"catalogue","tab":"all","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"map","tab":"objective","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"inspect","tab":"gun","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"missions","tab":null,"overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"pause","tab":null,"overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"pack","tab":"supplies","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"pack","tab":"tools","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"pack","tab":"mags","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"loot","tab":"base_locker","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"catalogue","tab":"all","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"map","tab":"objective","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"inspect","tab":"gun","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"missions","tab":null,"overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"pause","tab":null,"overflow":false,"clipped":[]}]
+PASS No runtime JS errors []
+PASS No missing model, image or runtime requests []

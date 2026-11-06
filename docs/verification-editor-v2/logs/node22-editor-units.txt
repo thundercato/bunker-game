@@ -1,0 +1,76 @@
+v22.23.4
+PASS merges latest shared manifest and retains provenance
+PASS every registered placement has manifest provenance and reviewed dimensions
+PASS source scan counts are not passed off as runtime counts
+PASS search matches author, category, licence, source and ID
+PASS cost filter excludes unknown costs and obeys placement/category filters
+PASS source links accept HTTPS only
+PASS model costs count unique buffers/materials/textures but per-instance draws
+PASS unknown texture dimensions and multiple material groups are explicit
+PASS catalogue merge and filtering leave shared metadata unchanged
+9 editor asset tests passed; 54 registered models, 31 reviewed placements.
+PASS editor hierarchy: atomic lock rejection, local offsets, JSON and reference validation (9 assertions)
+PASS actual source containers appear exactly once in grouped master
+PASS master searches stable container and real building names
+PASS every legacy suggestion has valid item IDs and explicit draft draw counts
+PASS suggestion preserves original world and profiles
+PASS unconfigured effective table is absent, not silently migrated
+PASS default inheritance and local override remain explicit
+PASS proposal JSON round trip preserves tables and stable references
+PASS foreign canonical/runtime formats are rejected
+PASS unknown container reference is rejected
+PASS unknown profile reference is rejected
+PASS unknown item IDs rejected
+PASS empty pool rejected
+PASS all-zero pool rejected
+PASS negative, infinite and excessive weights rejected
+PASS fractional and reversed draw bounds rejected
+PASS invalid quantity bounds rejected
+PASS duplicate rows rejected rather than changing no-repeat semantics
+PASS repeat permissions must be explicit boolean values
+PASS unsatisfiable minimum rejected
+PASS maximum depletion warning and runtime-free simulation shortfall
+PASS seeded simulation exactly reproducible and does not mutate
+PASS nonrepeat firearm never appears twice; repeats occur for allowed medicine
+PASS first-draw weights are conditional relative probabilities
+PASS zero draws yield zero overall inclusion but retain conditional first draw
+PASS single nonrepeat entry with weight 100 is not guaranteed when draw count can be zero
+PASS capacity overflow reported without removing or rerolling results
+PASS negative capacity rejected
+PASS sample count bounded
+PASS real mission guarantees remain unchanged and absent from proposal
+PASS unsupported guarantee fields rejected instead of silently ignored
+PASS unsupported proposal fields rejected
+PASS fractional unit capacity rejected
+PASS invalid seeds rejected
+33 editor weighted-loot tests passed
+PASS existing mission IDs and source stable IDs are preserved
+PASS source world is never mutated by authoring
+PASS all current mission graphs have no errors
+PASS source mission graphs round trip with proposal policies
+PASS reordered missions retain stable identities
+PASS campaign and world documents are rejected
+PASS source version mismatch is rejected without rewriting
+PASS missing and copied mission IDs are rejected
+PASS non-finite graph poses and oversized content are rejected
+PASS executable and unsupported node types cannot import
+PASS unknown attributes are stripped rather than executed or retained
+PASS unknown source, item and target are reported together
+PASS real object target uses stable layout ID and building link
+PASS local-scene target does not pretend a focused editor exists
+PASS ordinary collection has no invented target
+PASS invalid prerequisite and cross-source cycles are reported
+PASS permanently failed prerequisite warns of softlock
+PASS missing outcome branches and unowned delivery are errors
+PASS missing completion outcome is reported
+PASS graph cycles and unreachable nodes are reported
+PASS typed item ports cannot connect to flow input
+PASS self, duplicate and missing-node connections rejected
+PASS valid connection adds detached declarative data
+PASS proposal policy values are restricted and surge stays separate
+PASS every graph explicitly declares game execution unavailable
+PASS all built-in node ports declare a supported type
+PASS generated graph captions follow values while custom captions survive
+27 editor mission proposal tests passed
+PASS 599 editor anchored resize checks
+PASS 37 editor world authoring constraints: grounding locks, bounds, snapping, paths, regions, JSON and detached invalid edits

@@ -1,0 +1,14 @@
+verify	Editor actual mouse gizmo, keyboard and reload checks	﻿2026-11-06T17:23:59.5301858Z ##[group]Run node tests/editor_controls.cjs
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5302155Z [36;1mnode tests/editor_controls.cjs[0m
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5320416Z shell: /usr/bin/bash -e {0}
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5320628Z env:
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5320849Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5321192Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5321533Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5321827Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5322127Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5322418Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:23:59.5322667Z ##[endgroup]
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:25:59.9168596Z page.waitForFunction: Timeout 120000ms exceeded.
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:25:59.9169265Z     at /home/runner/work/bunker-game/bunker-game/tests/editor_controls.cjs:7:344
+verify	Editor actual mouse gizmo, keyboard and reload checks	2026-11-06T17:25:59.9258194Z ##[error]Process completed with exit code 1.

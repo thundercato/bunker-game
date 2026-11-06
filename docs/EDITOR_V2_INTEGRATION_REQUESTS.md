@@ -20,7 +20,8 @@ editor-only review overlay. This is not a shipping/release build and is not wire
 to Pages. The normal build alone lacks the new modules and must not be published
 with this branch's entry points. A merge must include accepted packaging first.
 
-Acceptance: canonical build includes all listed files; existing/new editor browser
+Acceptance: canonical build includes all listed files and CI runs the six new
+editor pure/browser suites listed in `EDITOR_V2_TESTING.md`; existing/new editor browser
 tests pass from dist and `/bunker-game/`; real prior service worker upgrades and
 all workspaces restart offline, preserving normal/preview saves and drafts.
 
