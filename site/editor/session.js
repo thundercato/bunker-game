@@ -24,7 +24,7 @@ export class EditorSession {
     this.storage = storage;
     this.document = createWorldDocument({source, sourceRevision});
     this.past = []; this.future = []; this.views = {}; this.mirrors = {};
-    this.rejected = new Map(); this.issues = []; this.pendingMirrors = {}; this.checkpointFingerprint=null;
+    this.rejected = new Map(); this.issues = []; this.pendingMirrors = {}; this.observedMirrors = {}; this.checkpointFingerprint=null;
   }
   checked(value) {
     const result = validateWorldDocument(value, this.context);
@@ -37,7 +37,7 @@ export class EditorSession {
   }
   load() {
     this.document = createWorldDocument({source:this.context.source,sourceRevision:this.context.sourceRevision});
-    this.past=[];this.future=[];this.views={};this.mirrors={};this.pendingMirrors={};this.rejected=new Map();this.issues=[];
+    this.past=[];this.future=[];this.views={};this.mirrors={};this.pendingMirrors={};this.observedMirrors={};this.rejected=new Map();this.issues=[];
     const checkpoint = this.read(SESSION_KEY);this.checkpointFingerprint=fingerprint(checkpoint);
     if (checkpoint !== null) {
       try {
@@ -59,6 +59,7 @@ export class EditorSession {
     // Nothing is overwritten during loading, including rejected raw drafts.
     const adopt = (key, apply) => {
       const raw = this.read(key);
+      this.observedMirrors[key] = fingerprint(raw);
       if (raw === null || fingerprint(raw) === this.mirrors[key] || fingerprint(raw) === this.pendingMirrors[key]) return;
       try { apply(JSON.parse(raw)); }
       catch (error) { this.rejected.set(key, raw); this.issues.push(key + ': ' + error.message); }
@@ -123,23 +124,42 @@ export class EditorSession {
   }
   save() {
     if (!this.storage) throw Error('Browser storage is unavailable; export a backup.');
-    const external=this.read(SESSION_KEY);if(external!==null&&fingerprint(external)!==this.checkpointFingerprint)this.rejected.set(SESSION_KEY,external);
+    const legacy = [[WORLD_DRAFT_KEY, JSON.stringify(this.document.authoring)],
+      ...this.document.interiors.map(layout => [LAYOUT_DRAFT_PREFIX + layout.buildingId, JSON.stringify(layout)])];
+    // Read every destination before writing anything. A legacy editor can change
+    // a mirror without touching the connected checkpoint, including creating a
+    // previously absent draft. Preserve those exact bytes before replacement.
+    const recoveries = [...this.rejected].map(([key, raw]) => ({key, raw, external:false}));
+    const preserveExternal = (key, raw) => {
+      if (raw === null || recoveries.some(entry => entry.key === key && entry.raw === raw)) return;
+      recoveries.push({key, raw, external:true});
+      if (!this.rejected.has(key)) this.rejected.set(key, raw);
+    };
+    const external=this.storage.getItem(SESSION_KEY);
+    if(external!==null&&fingerprint(external)!==this.checkpointFingerprint)preserveExternal(SESSION_KEY,external);
+    const priorMirrors = {};
+    for (const [key] of legacy) {
+      const raw = this.storage.getItem(key), prior = fingerprint(raw);
+      priorMirrors[key] = prior;
+      if (prior !== (this.observedMirrors[key] ?? null)) preserveExternal(key, raw);
+    }
     // Back up rejected bytes before replacing any key. Quota failures keep the
     // original key and pending recovery entry, so the next attempt can recover.
-    for (const [key, raw] of this.rejected) {
-      this.storage.setItem(key + ':recovery:' + Date.now() + '-' + this.rejected.size, raw);
-      this.rejected.delete(key);
+    for (const [index, entry] of recoveries.entries()) {
+      const {key, raw} = entry;
+      this.storage.setItem(key + ':recovery:' + Date.now() + '-' + index + '-' + crypto.randomUUID(), raw);
+      if (this.rejected.get(key) === raw) this.rejected.delete(key);
+      if (entry.external) this.issues.push('Another workspace changed ' + key + '. Its exact stored draft was backed up before this save replaced it.');
     }
-    const mirrors = {...this.mirrors}, legacy = [[WORLD_DRAFT_KEY, JSON.stringify(this.document.authoring)],
-      ...this.document.interiors.map(layout => [LAYOUT_DRAFT_PREFIX + layout.buildingId, JSON.stringify(layout)])];
+    const mirrors = {...this.mirrors};
     for (const [key, raw] of legacy) mirrors[key] = fingerprint(raw);
     // The canonical checkpoint is committed first. Legacy mirrors are retained
     // for older builds and may be retried if browser storage rejects a write.
-    const pendingMirrors=Object.fromEntries(legacy.map(([key])=>[key,fingerprint(this.read(key))]));
+    const pendingMirrors=priorMirrors;
     const checkpoint={version:1,document:this.document,past:this.past,future:this.future,views:this.views,mirrors,pendingMirrors};
     const rawCheckpoint=JSON.stringify(checkpoint);this.storage.setItem(SESSION_KEY,rawCheckpoint);this.checkpointFingerprint=fingerprint(rawCheckpoint);
     this.mirrors = mirrors;this.pendingMirrors=pendingMirrors;
-    for (const [key, raw] of legacy) this.storage.setItem(key, raw);
+    for (const [key, raw] of legacy) {this.storage.setItem(key, raw);this.observedMirrors[key]=fingerprint(raw);}
     // Seal the transaction only after every mirror write succeeded. A partial
     // write leaves known old hashes, which loading must never adopt over the
     // newer canonical checkpoint. No campaign/settings keys are involved.
