@@ -39,12 +39,15 @@ const server=http.createServer((req,res)=>{
   await p.goto(base+'editor/world.html');await p.waitForFunction(()=>window.FieldWorldEditor?.ready(),null,{timeout:120000});
   const cache=await p.evaluate(()=>new Promise(resolve=>{const c=new MessageChannel();c.port1.onmessage=e=>resolve(e.data.cache);navigator.serviceWorker.controller.postMessage({type:'editor-version'},[c.port2]);}));
   check('Old worker upgraded before importing editor or game',cache==='field-signal-game-first-candidate-1');
-  await p.evaluate(async()=>{
+  const expectedMission=await p.evaluate(async()=>{
    const {seedLayout}=await import('./layout-core.js');const d=seedLayout(FieldWorldEditor.getSource(),'hut');
    d.objects.find(o=>o.binding?.id==='hut_c1').position=[1.2,0,-2.4];
    d.objects.push({id:'test-chair',name:'Preview chair',type:'prop',position:[-2.5,0,0],size:[.55,.95,.55],yaw:.3,material:'wood',solid:true,locked:false,asset:'painted_wooden_chair_01'});
    localStorage.setItem('field-signal-editor-v1:hut',JSON.stringify(d));
    FieldWorldEditor.select({kind:'building',id:'hut'});
+   // Independent known-90-degree transform of the authored front anchor.
+   const o=d.objects.find(o=>o.binding?.id==='hut_c1'),a=o.binding.anchor||[0,0,0],c=Math.cos(o.yaw),s=Math.sin(o.yaw);
+   return{x:35+o.position[2]-a[0]*s+a[2]*c,z:-48-o.position[0]-a[0]*c-a[2]*s};
   });
   for(const [field,value]of [['x','35'],['z','-48'],['yaw',String(Math.PI/2)],['y','1.25']]){
    const input=p.getByLabel(field,{exact:true});await input.fill(value);await input.press('Tab');
@@ -68,8 +71,8 @@ const server=http.createServer((req,res)=>{
    return Math.abs(cup.position.x-32.6)<.02&&Math.abs(cup.position.z+49.2)<.02&&Math.abs(chair.position.z+45.5)<.02&&Math.abs(chair.rotation.y-(Math.PI/2+.3))<.02;
   }));
   async function face(id){
-   const name=await g.evaluate(id=>{const w=FieldSignal3D.getWorld(),p=FieldSignal3D.getPlayer(),it=w.interact.find(i=>i.id===id),dx=it.anchor.x-p.x,dz=it.anchor.z-p.z;
-    FieldSignal3D.getInput().look(-Math.atan2(dx,-dz)-p.yaw,Math.atan2(it.anchor.y-p.y-1.67,Math.hypot(dx,dz))-p.pitch);return it.name;},id);
+   const name=await g.evaluate(async id=>{const T=await import('./vendor/three.js'),w=FieldSignal3D.getWorld(),p=FieldSignal3D.getPlayer(),it=w.interact.find(i=>i.id===id);w.scene.updateMatrixWorld(true);const target=it.type==='container'?new T.Box3().setFromObject(it.obj).getCenter(new T.Vector3()):it.anchor,dx=target.x-p.x,dz=target.z-p.z;
+    FieldSignal3D.getInput().look(-Math.atan2(dx,-dz)-p.yaw,Math.atan2(target.y-p.y-1.67,Math.hypot(dx,dz))-p.pitch);return it.name;},id);
    await g.waitForFunction(id=>FieldSignal3D.getWorld().select()?.id===id,id,{timeout:30000});
    await g.waitForFunction(name=>document.querySelector('#target strong').textContent===name,name,{timeout:30000});
   }
@@ -86,7 +89,7 @@ const server=http.createServer((req,res)=>{
   check('Physical search reaches moved mission cupboard',await g.evaluate(()=>FieldSignal3D.getState().containers.hut_c1.items.recorder>=1));
   await g.screenshot({path:path.join(out,'world-preview-search.jpg'),type:'jpeg',quality:80});
   await g.locator('#close-panel').click();await g.locator('#open-atlas10').click();await g.locator('[data-atlas="target"]').click();
-  check('Actual Atlas targets the moved cupboard',await g.evaluate(()=>Math.abs(FieldSignal3D.getAtlas().camera.cx-32.6)<.02&&Math.abs(FieldSignal3D.getAtlas().camera.cz+49.2)<.02));
+  check('Actual Atlas targets the moved cupboard front binding',await g.evaluate(expected=>Math.abs(FieldSignal3D.getAtlas().camera.cx-expected.x)<.02&&Math.abs(FieldSignal3D.getAtlas().camera.cz-expected.z)<.02,expectedMission),{expected:expectedMission,actual:await g.evaluate(()=>FieldSignal3D.getAtlas().info())});
   await g.screenshot({path:path.join(out,'world-preview-atlas.jpg'),type:'jpeg',quality:80});
   const protectedState=()=>g.evaluate(()=>({save:localStorage.getItem('field-signal-dead-air-v9'),options:localStorage.getItem('field-signal-dead-air-options'),journal:localStorage.getItem('field-signal-v9-journal')}));
   const expected={save:'PROTECTED-CAMPAIGN',options:'{"music":0.23}',journal:'[{"text":"PROTECTED-JOURNAL"}]'};

@@ -22,6 +22,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install road compiler verification dependency
+        run: python3 -m pip install --disable-pip-version-check shapely==2.1.2
       - name: Python gameplay, save and editor integration tests
         run: python3 -m unittest discover -s site/tests -p 'test_*.py' -v
       - name: JavaScript, audio, atlas and shared-layout unit tests
@@ -39,8 +41,12 @@ jobs:
           node site/tests/test_campaign_interiors.mjs
           node site/tests/test_campaign.mjs
           node site/tests/test_roofs.mjs
+          node site/tests/test_campaign_road_surfaces.mjs
       - name: Build and validate runtime assets
-        run: python3 tools/build.py
+        run: |
+          python3 tools/compile_campaign_road_surfaces.py --check
+          python3 tools/audit_world.py --check
+          python3 tools/build.py
       - name: Install browser test runner
         timeout-minutes: 5
         env:
