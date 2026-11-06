@@ -1,8 +1,24 @@
+## Field Signal 11.1 · Field Journal & Quayside
+
+**[Play Field Signal](https://thundercato.github.io/bunker-game/)**
+
+On iPhone, open the link in Safari, then Share → Add to Home Screen → Add.
+Rotate to landscape. Let the initial world/offline download finish; Saves & offline
+shows when the game is ready without a connection. Existing campaign keys remain
+unchanged. See [publication notes](docs/EXECUTION_2026-11-06_PUBLICATION.md) and the
+[Pages workflow](https://github.com/thundercato/bunker-game/actions/workflows/deploy-pages.yml)
+for deployment verification. The older campaign notes below describe its preparation.
+
 ## 🚧 Codex mega-build: game-first world overhaul
 
 **[Full development brief and execution roadmap](docs/MEGA_BUILD_README.md)** · [Current progress and next steps](docs/NEXT_STEPS.md) · [Design decisions](docs/DESIGN_DECISIONS_2026-11-06.md)
 
 The ambitious next build prioritises the **playable game**: a rebuilt, coherent map; realistic licensed buildings, foliage, vehicles, rail and dock assets; roughly 50+ distinct searchable prop variants across the world; a tactile page-turning 3D field journal; polished rooms, lighting, sounds and interactions; and compatibility with the World Editor. This is a **Codex task specification, not an implemented release**. The current playable baseline remains Overgrowth v11 until a tested, approved release is published. Codex should work in checkpointed feature branches and PRs rather than silently replacing the live game.
+
+**Implemented candidate:** [PR#83](https://github.com/thundercato/bunker-game/pull/83)
+now contains the furnished district/journal/search-prop slice. It is unpublished
+and depends on PR#81. [Actual results, screenshots and play instructions](docs/EXECUTION_2026-11-06_GAME_FIRST.md)
+separate its implemented scope from the remaining roadmap. The public game is unchanged.
 
 ## Continuing development in Codex
 
@@ -10,7 +26,7 @@ The ambitious next build prioritises the **playable game**: a rebuilt, coherent 
 
 [Copy the first-task prompt](docs/CODEX_START_PROMPT.md) · [Cloud setup and tests](docs/CODEX_CLOUD_SETUP.md) · [Agreed design decisions](docs/DESIGN_DECISIONS_2026-11-06.md) · [Staged next steps](docs/NEXT_STEPS.md) · [Architecture and performance review](docs/ARCHITECTURE_REVIEW.md)
 
-The next priority is shared editor/game world data and a verified end-to-end preview, not a wholesale engine rewrite. The handover does not publish v12 or change game mechanics.
+The current priority is the game-first candidate and its shared editor/runtime contract. The separate editor track follows `docs/EDITOR_V2_PARALLEL_WORK.md`; no engine rewrite is authorised. The handover does not publish v12 or change game mechanics.
 
 ## Full World Editor v2 (authoring preview)
 

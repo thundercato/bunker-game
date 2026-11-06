@@ -1,0 +1,31 @@
+PASS 3D initialisation succeeds {"format":"field-signal-journal/1","events":5,"notes":0,"discarded":0,"legacyAvailable":0,"legacyAdopted":false,"persistent":true,"error":"","mode":"3d","model":"layered covers, paper stacks, metal binder and flexible sheet","fallback":false,"sceneError":null,"section":"active","page":0,"turning":false,"turns":0,"renders":1,"drawCalls":13,"triangles":912}
+PASS Real vendored Three notebook includes covers, paper and binder {"format":"field-signal-journal/1","events":5,"notes":0,"discarded":0,"legacyAvailable":0,"legacyAdopted":false,"persistent":true,"error":"","mode":"3d","model":"layered covers, paper stacks, metal binder and flexible sheet","fallback":false,"sceneError":null,"section":"active","page":0,"turning":false,"turns":0,"renders":1,"drawCalls":13,"triangles":912}
+PASS Journal header stays in its component instead of inheriting fixed HUD positioning 
+PASS Mission text uses readable DOM and exact campaign data 
+PASS Atlas action preserves stable mission ID 
+PASS Balanced mode preserves an available manual 2D to 3D toggle 
+PASS Tab focuses the first available journal control before global game input 
+PASS Shift+Tab reaches the last journal control 
+PASS Enter turns exactly one instant 2D page despite global interact mapping 
+PASS Space activates a focused journal control once 
+PASS Page actually bends out of the notebook during turn 
+PASS Keyboard turn reaches next readable spread 
+PASS Idle journal does not run a render loop 
+PASS Controller right shoulder turns a page 
+PASS Controller left shoulder turns back 
+PASS Controller can focus journal controls 
+PASS Landscape journal stays inside viewport and keeps page controls visible 
+PASS Mission Atlas, pin and dossier buttons stay visible below scrollable paper 
+PASS A real vertical touch gesture scrolls paper without turning pages 
+PASS A real horizontal touch gesture turns a page instead of scrolling the document 
+PASS Escape immediately disposes an in-progress journal turn 
+PASS Low-power mode creates the 2D fallback without a WebGL renderer 
+PASS Battery saver describes and disables the unavailable 3D action 
+PASS Communications show the exact encountered written briefing 
+PASS Completed assignment remains in archive with real reward and time 
+PASS Player note is explicit, stored and navigable 
+PASS Explicit legacy adoption preserves original v9 storage 
+PASS Remount and reload do not duplicate journal records 
+PASS OS reduced motion selects fallback without WebGL 
+PASS Reduced motion describes and disables the unavailable 3D action 
+PASS No browser exceptions []

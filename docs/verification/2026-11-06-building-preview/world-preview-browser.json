@@ -1,0 +1,80 @@
+[
+  {
+    "name": "Old worker upgraded before importing editor or game",
+    "pass": true
+  },
+  {
+    "name": "Versioned preview runs moved, rotated and raised hut",
+    "pass": true,
+    "detail": {
+      "building": "hut",
+      "objects": 13,
+      "transform": {
+        "position": [
+          35,
+          1.25,
+          -48
+        ],
+        "yaw": 1.5707963267948966
+      },
+      "versioned": true,
+      "errors": []
+    }
+  },
+  {
+    "name": "Spawn follows building once",
+    "pass": true
+  },
+  {
+    "name": "Saved interior cupboard and decorative chair follow whole-building pose",
+    "pass": true
+  },
+  {
+    "name": "Door opens through real Use input",
+    "pass": true
+  },
+  {
+    "name": "Keyboard traverses rotated door on the raised floor",
+    "pass": true
+  },
+  {
+    "name": "Physical search reaches moved mission cupboard",
+    "pass": true
+  },
+  {
+    "name": "Actual Atlas targets the moved cupboard",
+    "pass": true
+  },
+  {
+    "name": "Actual v9 campaign, settings and journal remain untouched",
+    "pass": true
+  },
+  {
+    "name": "Preview events use their own journal key",
+    "pass": true
+  },
+  {
+    "name": "Moved preview reloads offline without rerolling searched container",
+    "pass": true
+  },
+  {
+    "name": "Production data survives offline preview restart",
+    "pass": true
+  },
+  {
+    "name": "Return to editor retains exact world draft",
+    "pass": true
+  },
+  {
+    "name": "Shareable play link works without any editor draft",
+    "pass": true
+  },
+  {
+    "name": "No missing assets or browser errors",
+    "pass": true,
+    "detail": {
+      "errors": [],
+      "missing": []
+    }
+  }
+]

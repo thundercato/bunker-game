@@ -22,7 +22,7 @@ This is an extensive implementation task, not a plan-only request or a restricti
 
 This is Field Signal, not the retired Bunker Game whose repository name is retained. It is a gritty first-person survival game for mobile browsers, with a desktop-first authoring editor. The working game uses Three.js/JavaScript rendering and Python gameplay through Pyodide in a browser worker. It is hosted as static files on GitHub Pages.
 
-The playable baseline is Overgrowth v11. The v1 building editor has an isolated actual-game preview. The v2 full-map editor at `site/editor/world.html` is an authoring foundation: its terrain, water, roads and moved building drafts DO NOT YET drive the playable world's geometry, collisions or missions. Do not report otherwise.
+The playable baseline is Overgrowth v11. The v1 building editor has an isolated actual-game preview. The v2 full-map editor at `site/editor/world.html` now has a bounded Survey hut actual-game preview using the versioned world compiler. Terrain, water, roads and other building drafts still DO NOT drive the normal playable world. See `docs/WORLD_DOCUMENT.md`; do not report full-map runtime integration as complete.
 
 ## Working and release rules
 

@@ -36,6 +36,7 @@ node site/tests/test_atlas.mjs
 node site/tests/test_layout.mjs
 node site/tests/test_world_v2.mjs
 node site/tests/test_world_document.mjs
+node site/tests/test_world_preview.mjs
 python3 tools/build.py
 ```
 
@@ -50,6 +51,7 @@ node tests/overgrowth_browser.cjs
 node tests/editor_controls.cjs
 node tests/editor_browser.cjs
 node tests/world_v2_browser.cjs
+node tests/world_preview_browser.cjs
 ```
 
 Optional M0 diagnostics, run sequentially after building (no frame-budget gate):
@@ -63,6 +65,41 @@ Measurements and screenshots go to `test-results/performance/`. Interpretation a
 known unmeasured costs are in `EXECUTION_2026-11-06_M0.md`.
 
 Tests generally create their own local server and write output to `test-results/`. Keep screenshots, exceptions, HTTP failures and console logs for review. Inspect screenshots visually. Linux WebKit can be an additional check when available; it is not a substitute for physical Mac Safari or iPhone/iPad tests.
+
+## Game-first candidate additions
+
+PR #83 uses the retained compiler/runtime and adds these pure suites:
+
+```sh
+node site/tests/test_journal.mjs
+node site/tests/test_search_props.mjs
+node site/tests/test_districts.mjs
+node site/tests/test_campaign_interiors.mjs
+node site/tests/test_campaign.mjs
+node site/tests/test_roofs.mjs
+node site/tests/test_campaign_road_surfaces.mjs
+```
+
+The road polygon generator/reproducibility tests use development-only
+`shapely==2.1.2`; install it with `python3 -m pip install shapely==2.1.2` before
+running all geometry tests. CI installs it explicitly. It is not shipped to
+Pyodide and normal building/runtime needs no Shapely. Regenerate routes and their
+paint polygons with `node tools/compile_campaign_routes.mjs`; check committed data
+with `python3 tools/compile_campaign_road_surfaces.py --check`. The candidate
+world audit is `python3 tools/audit_world.py --check`.
+
+Run the additional browser suites sequentially:
+
+```sh
+node tests/journal_browser.cjs
+node tests/campaign_browser.cjs
+node tests/campaign_editor_browser.cjs
+```
+
+`node tests/campaign_performance.cjs` records five real scenes, software-renderer
+costs/resource estimates and original/candidate worker comparisons. See
+`CANDIDATE_PERFORMANCE.md`; these are not physical target-device measurements.
+The candidate artifact is a static build, and PR workflows cannot deploy Pages.
 
 ## Manual local preview
 

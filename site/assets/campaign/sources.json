@@ -1,0 +1,113 @@
+{
+  "format": "field-signal-asset-sources/1",
+  "acquired": "2026-11-06",
+  "sources": [
+    {
+      "id": "furniture-kit",
+      "name": "Furniture Kit 2.0",
+      "authors": [
+        "Kenney"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenceEvidence": "assets/campaign/licences/furniture-kit.txt",
+      "licenceEvidenceSha256": "bc0de1a0742cb490f9ed4bae0bd284286ebb27e23149b9917c7d8c0d590b8b29",
+      "acquired": "2026-11-06",
+      "archiveBytes": 5130729,
+      "archiveSha256": "e67652d0932cee41683f74711c03d3e192a2af9979ef8e6b237711f5482d46b0",
+      "archiveFile": "furniture-kit.zip",
+      "downloadMethod": "Public provider page -> download-link with page Referer -> signed ZIP; see importer."
+    },
+    {
+      "id": "city-kit-industrial",
+      "name": "City Kit Industrial 2.0",
+      "authors": [
+        "Kenney"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenceEvidence": "assets/campaign/licences/city-kit-industrial.txt",
+      "licenceEvidenceSha256": "60a8c5c31191256ec9779dc18745dea6d69c46f4b29703459ce064c1765a59ea",
+      "acquired": "2026-11-06",
+      "archiveBytes": 5045077,
+      "archiveSha256": "5b381164e5760f3830a2dbee43b972deee38b2a695d091b56e238ab2910c96d2",
+      "archiveFile": "city-kit-industrial.zip",
+      "downloadMethod": "Public provider page -> download-link with page Referer -> signed ZIP; see importer.",
+      "textureSourceBytes": 11986,
+      "textureSourceDimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "id": "survival-kit",
+      "name": "Survival Kit 2.0",
+      "authors": [
+        "Kenney"
+      ],
+      "source": "https://kenney.nl/assets/survival-kit",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenceEvidence": "assets/campaign/licences/survival-kit.txt",
+      "licenceEvidenceSha256": "62c8356876481204fa4d40dc59183dfed777adf987d7f2a1390fffe8a699f3ff",
+      "acquired": "2026-11-06",
+      "archiveBytes": 1948174,
+      "archiveSha256": "c3586341b5932c87eb43d75d915434f47daed168b17ed36a03e8ca9977c7443e",
+      "archiveFile": "survival-kit.zip",
+      "downloadMethod": "Public provider page -> download-link with page Referer -> signed ZIP; see importer.",
+      "textureSourceBytes": 7440,
+      "textureSourceDimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "id": "train-kit",
+      "name": "Train Kit 1.1",
+      "authors": [
+        "Kenney",
+        "Guus Vermeulen",
+        "Tony Schaer"
+      ],
+      "source": "https://kenney.nl/assets/train-kit",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenceEvidence": "assets/campaign/licences/train-kit.txt",
+      "licenceEvidenceSha256": "8ad3a0453dc1416d54e9af692dafe875a24069d577fe64edb193d3c8d868881a",
+      "acquired": "2026-11-06",
+      "archiveBytes": 5266588,
+      "archiveSha256": "cf50d77e8cbacbf38dd50826d4bce5392db8e4f67373d3c4e583b0ed0e474475",
+      "archiveFile": "train-kit.zip",
+      "downloadMethod": "Public provider page -> download-link with page Referer -> signed ZIP; see importer.",
+      "textureSourceBytes": 12684,
+      "textureSourceDimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "id": "city-kit-roads",
+      "name": "City Kit Roads 2.2",
+      "authors": [
+        "Kenney"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-roads",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenceEvidence": "assets/campaign/licences/city-kit-roads.txt",
+      "licenceEvidenceSha256": "d23f51360ca2cd81711bc5b09ddfb28ac94da96d7ca2dbdef12c50f33f35c353",
+      "acquired": "2026-11-06",
+      "archiveBytes": 2852289,
+      "archiveSha256": "374a4552115cbd11b4ec5c930ee31a533562dc78a09af249a655d03f7ea3b959",
+      "archiveFile": "city-kit-roads.zip",
+      "downloadMethod": "Public provider page -> download-link with page Referer -> signed ZIP; see importer.",
+      "textureSourceBytes": 11428,
+      "textureSourceDimensions": [
+        512,
+        512
+      ]
+    }
+  ]
+}

@@ -1,19 +1,35 @@
 # Field Signal: Codex handover
 
+Release update: the user has authorised publishing the tested game-first build
+as Field Signal 11.1.0 for Safari/Home Screen use. See
+`EXECUTION_2026-11-06_PUBLICATION.md` and the live release metadata. Earlier
+approval-pending text below is historical; the remaining roadmap stays separate.
+
 Prepared 6 November 2026. Implementation audit baseline: `d31f178a674ec16d730a7d13f59c7eb112eb24bc` on `main`. This handover records current code separately from the much larger approved roadmap. It does not release v12 or change game behaviour.
 
 Continuation update: M0 is reproduced and measured in
 [`EXECUTION_2026-11-06_M0.md`](EXECUTION_2026-11-06_M0.md). The first M1 slice is a
-tested pure world document/compiler, described in
-[`WORLD_DOCUMENT.md`](WORLD_DOCUMENT.md). It is not wired to the runtime yet.
-Continue with that document's isolated preview adapter checkpoint; the original
-v2 authoring-only boundary below still applies.
+tested world document/compiler with a bounded Survey hut isolated game preview,
+described in [`WORLD_DOCUMENT.md`](WORLD_DOCUMENT.md). Normal play remains v11;
+other building moves and terrain/roads/water remain authoring-only. The historical
+audit below predates this adapter; use the latest NEXT_STEPS checkpoint to continue.
+
+## Game-first candidate checkpoint
+
+The later mega-build request changes the immediate priority to the playable game.
+PR #83 (`feat/game-first-candidate`, stacked on unpublished PR #81) integrates the
+licensed campaign assets, 69 searchable variants, four refurnished homes, eight
+district scenery sets, six guarded crane routes and physical mission journal.
+Read `MEGA_BUILD_PROGRESS.md` and the candidate execution note before continuing;
+the historical audit below predates this work. The production game remains v11.
+The whole-map editor still does not compile terrain/road/water/district drafts
+into normal gameplay. No engine or Python migration has been made.
 
 ## What Adam is trying to build
 
 An atmospheric, gritty, Eastern European-inspired first-person survival/exploration game, initially playable on iPhone/iPad from a browser and Home Screen. Inspiration is mechanical and atmospheric, not permission to copy proprietary game assets. The base should feel like a refuge: retain the calmer Relay Lanterns music. The desktop browser editor is a first-class product, aimed at a Mac with a mouse/keyboard, with Windows compatibility desirable.
 
-Adam's immediate priority is a usable editor that can fix real building layouts, wall gaps, stairs, furniture and the surrounding map. He wants one-sided floor/wall resizing, an integrated exterior/interior workflow, terrain sculpting and natural brush placement. Later systems include richer loot, visual missions, safe relay stations, surges, saving and fatigue. Build reliable foundations rather than accumulating more unconnected features.
+Adam's latest immediate priority is the game-first environment, interior and journal overhaul in `MEGA_BUILD_README.md`. Keep the editor capable of authoring the new content and fixing real layouts, wall gaps, stairs, furniture and map placements. He wants one-sided floor/wall resizing, an integrated exterior/interior workflow, terrain sculpting and natural brush placement. Later systems include richer loot, visual missions, safe relay stations, surges, saving and fatigue. Build reliable foundations rather than accumulating more unconnected features.
 
 ## Repository and links
 

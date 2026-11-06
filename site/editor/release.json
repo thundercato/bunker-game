@@ -1,11 +1,11 @@
 {
   "name": "Field Signal World Editor",
-  "version": "2.0.0-preview",
+  "version": "2.1.0-preview",
   "gameBase": "Overgrowth 11.0.0",
   "schema": "field-signal-layout/1",
   "buildings": 37,
   "propModels": 31,
-  "builtAt": "2026-11-05",
+  "builtAt": "2026-11-06",
   "worldMap": "editor/world.html",
-  "worldStatus": "draft authoring only, not runtime integration"
+  "worldStatus": "Survey hut isolated game preview; other world drafts authoring only"
 }
