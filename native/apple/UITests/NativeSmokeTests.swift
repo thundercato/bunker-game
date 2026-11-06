@@ -42,9 +42,11 @@ final class NativeSmokeTests: XCTestCase {
         #elseif os(tvOS)
         XCUIRemote.shared.press(.menu)
         XCTAssertTrue(app.buttons["native.resume"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.state, .runningForeground, "Menu must pause inside the native app, not send it to Home.")
         XCUIRemote.shared.press(.menu)
         expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: app.buttons["native.resume"])
         waitForExpectations(timeout: 5)
+        XCTAssertEqual(app.state, .runningForeground)
         XCTAssertTrue(app.staticTexts["native.status"].exists)
         #endif
     }

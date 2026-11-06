@@ -102,5 +102,22 @@ logs and result links remain recorded instead of assuming a pass.
   original generated data bytes are unchanged. CI now rejects reserved root bundle
   layout directories and verifies `Bundle(path:).bundleIdentifier` through actual
   Apple Foundation. Boot waits are bounded with simulator diagnostics on timeout.
-  The still-active iPad run is superseded because it uses the same known-bad
-  bundle layout; it is not counted as a simulator test/launch pass.
+  Completed logs confirm iPad direct installation also rejected the same
+  legacy bundle layout; neither platform reached a simulator test/launch pass.
+
+- `3b6fa25`: renamed bundled data to NativeContent and added real Foundation
+  identification plus reserved-layout guards. In run 42306411049 both platforms
+  installed successfully and executed native tests: 10/10 Core cases and 2/3
+  renderer cases passed. The door assertion incorrectly treated SceneKit's
+  pivot-adjusted node centre as the source bottom; it now tests actual converted
+  geometry bottom/top/corner world positions. TV UI launched the scene, but the
+  pause/Back check failed. Exploration lacked a focus context, allowing Menu to
+  go Home and lifecycle pause to masquerade as opening the in-app pause menu.
+  The viewport now has explicit non-button focus; overlays focus their native
+  controls and the smoke test checks that Menu leaves the app in foreground.
+
+Run 42306411049 was cancelled after roughly ten minutes overall while iPad UI
+was still progressing through real door, torch and inventory touch actions. Its
+partial UI result is **inconclusive**, not a pass or proof of a hang. The next run
+will be allowed to complete its UI flow. CI now attempts a direct scene screenshot
+even after an XCTest failure, while preserving that original nonzero exit status.

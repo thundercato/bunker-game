@@ -37,6 +37,10 @@ private struct NativeSceneView: UIViewRepresentable {
 struct FieldSignalView: View {
     @ObservedObject var model: NativeGameController
     @State private var lastLook = CGSize.zero
+    #if os(tvOS)
+    private enum TVFocus: Hashable { case exploration, resume, inventory }
+    @FocusState private var tvFocus: TVFocus?
+    #endif
     private let accent = Color(red: 0.82, green: 0.88, blue: 0.65)
 
     var body: some View {
@@ -49,6 +53,12 @@ struct FieldSignalView: View {
                 }.padding(40)
             } else if let scene = model.rendering {
                 NativeSceneView(scene: scene).ignoresSafeArea()
+                    #if os(tvOS)
+                    // Exit commands require an active focus context on TV.
+                    // This viewport has no Select action; Core owns gameplay A.
+                    .focusable(!model.paused && !model.inventoryVisible)
+                    .focused($tvFocus, equals: .exploration)
+                    #endif
                 #if os(iOS)
                 HStack(spacing: 0) {
                     Color.clear
@@ -78,6 +88,13 @@ struct FieldSignalView: View {
         .foregroundStyle(accent)
         .preferredColorScheme(.dark)
         #if os(tvOS)
+        .onAppear { tvFocus = .exploration }
+        .onChange(of: model.paused) { _, paused in
+            tvFocus = paused ? .resume : (model.inventoryVisible ? .inventory : .exploration)
+        }
+        .onChange(of: model.inventoryVisible) { _, inventoryVisible in
+            tvFocus = model.paused ? .resume : (inventoryVisible ? .inventory : .exploration)
+        }
         .onExitCommand { model.handleBack() }
         #endif
     }
@@ -156,6 +173,9 @@ struct FieldSignalView: View {
             }
             Button("Return to exploration") { model.toggleInventory() }
                 .accessibilityIdentifier("native.inventory.close")
+                #if os(tvOS)
+                .focused($tvFocus, equals: .inventory)
+                #endif
         }
         .padding(32).frame(maxWidth: 600)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
@@ -175,6 +195,9 @@ struct FieldSignalView: View {
                 .accessibilityIdentifier("native.save")
             Button("Resume exploration") { model.setPaused(false) }
                 .accessibilityIdentifier("native.resume")
+                #if os(tvOS)
+                .focused($tvFocus, equals: .resume)
+                #endif
         }
         .padding(36).frame(maxWidth: 650)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16)).padding(30)

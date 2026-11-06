@@ -113,6 +113,10 @@ Each platform's artifact retains:
 - `simulator-udid.txt` and `launched.png` from the separate install/launch.
 - A ZIP of the unsigned **simulator** `.app` bundle.
 
+When XCTest fails, the script retains its original nonzero exit status while
+attempting the separate native launch/screenshot, so a visual diagnostic never
+turns a failed test run green.
+
 A small JPEG of the actual launched scene is also encoded between
 `NATIVE_SCENE_PREVIEW_BASE64_BEGIN_*` and `NATIVE_SCENE_PREVIEW_BASE64_END_*` markers
 in the job log. This allows visual review from a cloud worker when the normal

@@ -95,10 +95,16 @@ PYBUNDLES
 # A direct CoreSimulator install isolates packaging errors from XCTest startup.
 wait_for_simulator
 xcrun simctl install "$udid" "$app" 2>&1 | tee "$output/install.log"
+test_status=0
 xcodebuild -project "$project" -scheme "$scheme" -configuration Debug \
   -destination "$simulator_destination" -destination-timeout 120 \
   -derivedDataPath "$output/DerivedData" -resultBundlePath "$output/Tests.xcresult" \
-  -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test-without-building 2>&1 | tee "$output/tests.log"
+  -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test-without-building 2>&1 | tee "$output/tests.log" || test_status=$?
+if [ "$test_status" -ne 0 ]; then
+  printf 'XCTest failed with status %s; attempting an actual native scene capture before returning that failure.\n' "$test_status"
+  # A subsequent capture failure must not replace or hide the original test exit.
+  trap 'exit "$test_status"' EXIT
+fi
 # A separate direct install/launch is evidence outside the XCUITest runner.
 wait_for_simulator
 xcrun simctl install "$udid" "$app"
@@ -112,3 +118,4 @@ sips -s format jpeg -s formatOptions 65 -Z 960 "$output/launched.png" --out "$ou
 printf '\nNATIVE_SCENE_PREVIEW_BASE64_BEGIN_%s\n' "$platform"
 base64 -b 76 -i "$output/launched-preview.jpg"
 printf '\nNATIVE_SCENE_PREVIEW_BASE64_END_%s\n' "$platform"
+exit "$test_status"
