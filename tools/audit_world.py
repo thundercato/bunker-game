@@ -87,6 +87,28 @@ def path_footprint_overlaps(world):
     return overlaps
 
 
+def rail_grounding(world, engine):
+    """The current rail renderer uses a flat land rail centre at y=0.11 m.
+
+    Bridges have their own elevated deck/rail meshes, so exclude their explicit
+    spans when comparing the underlying land terrain with that flat geometry.
+    """
+    samples = []
+    river = world['river']
+    for index, (a, b) in enumerate(zip(world['rail']['route'], world['rail']['route'][1:])):
+        steps = max(1, math.ceil(math.dist(a, b)/2))
+        for i in range(steps+1):
+            x, z = (a[k]+(b[k]-a[k])*i/steps for k in range(2))
+            bridge = river['west']-7 <= x <= river['east']+7 and any(
+                abs(z-br['z']) <= br['halfWidth'] for br in river['bridges'])
+            if not bridge:
+                samples.append({'segment': index, 'position': [rounded(x), rounded(z)],
+                                'terrainHeight': rounded(engine['terrain_height'](x, z))})
+    return {'sampleSpacingAtMost': 2, 'landRailCentreY': .11, 'landSamples': len(samples),
+            'maxLandTerrainHeight': max((s['terrainHeight'] for s in samples), default=0),
+            'samplesAboveRailGeometry': [s for s in samples if s['terrainHeight'] > .165]}
+
+
 def glb_metrics(raw):
     """Count stored primitives, not rendered instances or the manifest's source mesh.
 
@@ -411,6 +433,10 @@ def navigation_inventory(site, world, issues):
         check('bridge-centre', bridge['id'], passed, 'bridge centre crosses a blocked boundary')
         bridges.append({'id': bridge['id'], 'samples': len(samples), 'clear': passed,
                         'middleHeight': engine['surface_height']((r['west']+r['east'])/2, bridge['z'])})
+    rail_surface = rail_grounding(world, engine)
+    if world.get('campaign'):
+        check('rail-grounding', 'rail-main', not rail_surface['samplesAboveRailGeometry'],
+              'flat land rails are buried in sampled terrain; flatten the full authored route')
     approaches = []
     for c in world['containers']:
         # Test a physical approach on its floor, rather than demanding that a
@@ -462,7 +488,7 @@ def navigation_inventory(site, world, issues):
                         'Container approach uses actual search dispatch but does not prove a renderer ray hit', 'No physical-device/browser playtest'],
         'passed': sum(row['passed'] for row in checks), 'failed': sum(not row['passed'] for row in checks),
         'checks': checks, 'buildings': building_checks, 'portals': portal_checks,
-        'bridges': bridges, 'containerApproaches': approaches,
+        'bridges': bridges, 'railGrounding': rail_surface, 'containerApproaches': approaches,
     }
 
 
@@ -508,7 +534,9 @@ def optional_registries(site, world, issues):
             if identity and identity not in ids:
                 issues.append({'severity': 'error', 'code': 'container-search-prop', 'id': c['id'], 'detail': identity})
         result['searchProps'] = {'path': 'search-props.json', 'sha256': digest(props_path.read_bytes()),
-                                 'variants': len(props), 'profiles': dict(sorted(Counter(p.get('profile') for p in props).items()))}
+                                 'variants': len(props), 'profiles': dict(sorted(Counter(p.get('profile') for p in props).items())),
+                                 'placedVariants': world.get('campaign', {}).get('bindingStats', {}).get('placed'),
+                                 'placementDefinition': 'Distinct actual container-bound variants, including authored interior asset overrides.'}
     districts_path = site / 'districts.json'
     if districts_path.exists():
         data = read_json(districts_path)
@@ -667,11 +695,15 @@ def audit(root=ROOT, world=None, include_assets=True):
                                                {'buildings': 37, 'containers': 139, 'missions': 15, 'roads': 15}.items() if counts[key] != expected},
                              'preservedSourceFieldTargetDrift': [m for m in historical_drift if m['fieldTargetDriftMetres'] and m['fieldTargetDriftMetres'] > .01]},
         'preservedSourceLayoutFindings': {'pathBuildingOverlaps': path_footprint_overlaps(original),
-                                         'containerSurfaceOffsets': original_surface_offsets},
+                                         'containerSurfaceOffsets': original_surface_offsets,
+                                         'railGrounding': rail_grounding(original, original_engine)},
         'regions': {'field': {'bounds': world['bounds'], 'movementMaxZ': world['swamp']['limit']},
                      'underground': world['zones'],
                      'note': 'Underground zones intentionally use separate coordinates outside field bounds.'},
-        'buildings': building_records, 'containers': world['containers'],
+        'buildings': building_records,
+        'containers': [{**c, 'renderedSearchProp': next((o.get('asset') for s in world.get('campaignScenes', [])
+                                                        for o in s['layout']['objects'] if o.get('binding', {}).get('id') == c['id']),
+                                                       c.get('searchProp'))} for c in world['containers']],
         'profiles': [{'id': key, 'rules': len(value), 'eligibleItems': [k for k, v in value.items() if v['chance'] > 0]}
                      for key, value in world['profiles'].items()],
         'missions': missions,

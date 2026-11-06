@@ -17,12 +17,12 @@
     "effectiveSource": "campaign adapter",
     "runtimeModules": {
       "terrain.js": "748ea37f5a9e48923b651efafb25ddd2c76dfe3bb3515aa2198f852b84469c80",
-      "campaign-core.js": "c80865f97d3520f473576037938bc722824bebfb20cb0fec518f4217721c4c86",
+      "campaign-core.js": "e361c1e303c886c5b5cd46f078b5511ffb2ba1cd05d0322ae72fbee76b570847",
       "campaign-interiors.js": "e1aad8b32610394d5f2eba9dcc08dbaa48f28af4b4274fee32a725e1596e4b0a",
       "campaign-routes.json": "1be208e325a9a2deed0232a64571a2224174eb8d07af9bbd0b9372056be6c31c",
       "campaign_rules.py": "379de4a262a477c13b582994db0e3f0034deefe5b7b66f379b183fa068d74f79"
     },
-    "effectiveWorldSha256": "35276a008d1e9e16b5207f33eac98bb8dcebf377cba4a74aab3aeb3672dde3aa"
+    "effectiveWorldSha256": "889c8e28ae19e49781fc553a27b58533d4830ed8e8eb60e714366399226751d2"
   },
   "counts": {
     "buildings": 37,
@@ -711,7 +711,1263 @@
         "surfaceHeight": 2.488862,
         "offset": 2.488862
       }
-    ]
+    ],
+    "railGrounding": {
+      "sampleSpacingAtMost": 2,
+      "landRailCentreY": 0.11,
+      "landSamples": 295,
+      "maxLandTerrainHeight": 5.741742,
+      "samplesAboveRailGeometry": [
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -256.0
+          ],
+          "terrainHeight": 2.328374
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -258.0
+          ],
+          "terrainHeight": 2.356067
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -260.0
+          ],
+          "terrainHeight": 2.427425
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -262.0
+          ],
+          "terrainHeight": 2.550275
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -264.0
+          ],
+          "terrainHeight": 2.716181
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -266.0
+          ],
+          "terrainHeight": 2.903111
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -268.0
+          ],
+          "terrainHeight": 3.082541
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -270.0
+          ],
+          "terrainHeight": 3.228664
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -272.0
+          ],
+          "terrainHeight": 3.326712
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -274.0
+          ],
+          "terrainHeight": 3.377638
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -276.0
+          ],
+          "terrainHeight": 3.397659
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -278.0
+          ],
+          "terrainHeight": 2.761078
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -280.0
+          ],
+          "terrainHeight": 1.408146
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -282.0
+          ],
+          "terrainHeight": 0.232585
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -294.0
+          ],
+          "terrainHeight": 1.46083
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -296.0
+          ],
+          "terrainHeight": 3.224155
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -298.0
+          ],
+          "terrainHeight": 4.245082
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -300.0
+          ],
+          "terrainHeight": 4.232303
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -302.0
+          ],
+          "terrainHeight": 4.21472
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -304.0
+          ],
+          "terrainHeight": 4.234837
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -306.0
+          ],
+          "terrainHeight": 4.295199
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -308.0
+          ],
+          "terrainHeight": 4.382538
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -310.0
+          ],
+          "terrainHeight": 4.472112
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -312.0
+          ],
+          "terrainHeight": 4.535825
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -314.0
+          ],
+          "terrainHeight": 4.551489
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -316.0
+          ],
+          "terrainHeight": 4.510183
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -318.0
+          ],
+          "terrainHeight": 4.419312
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -320.0
+          ],
+          "terrainHeight": 4.234072
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -322.0
+          ],
+          "terrainHeight": 3.216034
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -324.0
+          ],
+          "terrainHeight": 1.739587
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -326.0
+          ],
+          "terrainHeight": 0.467012
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -340.0
+          ],
+          "terrainHeight": 0.9073
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -342.0
+          ],
+          "terrainHeight": 2.173893
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -344.0
+          ],
+          "terrainHeight": 3.238834
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -346.0
+          ],
+          "terrainHeight": 3.584698
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -348.0
+          ],
+          "terrainHeight": 3.568856
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -350.0
+          ],
+          "terrainHeight": 3.605379
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -352.0
+          ],
+          "terrainHeight": 3.676725
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -354.0
+          ],
+          "terrainHeight": 3.75603
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -356.0
+          ],
+          "terrainHeight": 3.81594
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -358.0
+          ],
+          "terrainHeight": 3.837558
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -360.0
+          ],
+          "terrainHeight": 3.816594
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -362.0
+          ],
+          "terrainHeight": 3.764685
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -364.0
+          ],
+          "terrainHeight": 3.705472
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -366.0
+          ],
+          "terrainHeight": 3.666716
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -368.0
+          ],
+          "terrainHeight": 3.671032
+        },
+        {
+          "segment": 1,
+          "position": [
+            -89.0,
+            -370.0
+          ],
+          "terrainHeight": 3.728274
+        },
+        {
+          "segment": 2,
+          "position": [
+            -89.0,
+            -370.0
+          ],
+          "terrainHeight": 3.728274
+        },
+        {
+          "segment": 2,
+          "position": [
+            -88.09375,
+            -371.71875
+          ],
+          "terrainHeight": 3.896288
+        },
+        {
+          "segment": 2,
+          "position": [
+            -87.1875,
+            -373.4375
+          ],
+          "terrainHeight": 4.132784
+        },
+        {
+          "segment": 2,
+          "position": [
+            -86.28125,
+            -375.15625
+          ],
+          "terrainHeight": 4.398245
+        },
+        {
+          "segment": 2,
+          "position": [
+            -85.375,
+            -376.875
+          ],
+          "terrainHeight": 4.637162
+        },
+        {
+          "segment": 2,
+          "position": [
+            -84.46875,
+            -378.59375
+          ],
+          "terrainHeight": 4.808481
+        },
+        {
+          "segment": 2,
+          "position": [
+            -83.5625,
+            -380.3125
+          ],
+          "terrainHeight": 4.907765
+        },
+        {
+          "segment": 2,
+          "position": [
+            -82.65625,
+            -382.03125
+          ],
+          "terrainHeight": 4.968319
+        },
+        {
+          "segment": 2,
+          "position": [
+            -81.75,
+            -383.75
+          ],
+          "terrainHeight": 5.040643
+        },
+        {
+          "segment": 2,
+          "position": [
+            -80.84375,
+            -385.46875
+          ],
+          "terrainHeight": 5.162119
+        },
+        {
+          "segment": 2,
+          "position": [
+            -79.9375,
+            -387.1875
+          ],
+          "terrainHeight": 5.334438
+        },
+        {
+          "segment": 2,
+          "position": [
+            -79.03125,
+            -388.90625
+          ],
+          "terrainHeight": 5.521818
+        },
+        {
+          "segment": 2,
+          "position": [
+            -78.125,
+            -390.625
+          ],
+          "terrainHeight": 5.671039
+        },
+        {
+          "segment": 2,
+          "position": [
+            -77.21875,
+            -392.34375
+          ],
+          "terrainHeight": 5.741742
+        },
+        {
+          "segment": 2,
+          "position": [
+            -76.3125,
+            -394.0625
+          ],
+          "terrainHeight": 5.729481
+        },
+        {
+          "segment": 2,
+          "position": [
+            -75.40625,
+            -395.78125
+          ],
+          "terrainHeight": 5.668214
+        },
+        {
+          "segment": 2,
+          "position": [
+            -74.5,
+            -397.5
+          ],
+          "terrainHeight": 5.610774
+        },
+        {
+          "segment": 2,
+          "position": [
+            -73.59375,
+            -399.21875
+          ],
+          "terrainHeight": 5.598574
+        },
+        {
+          "segment": 2,
+          "position": [
+            -72.6875,
+            -400.9375
+          ],
+          "terrainHeight": 5.638008
+        },
+        {
+          "segment": 2,
+          "position": [
+            -71.78125,
+            -402.65625
+          ],
+          "terrainHeight": 5.697143
+        },
+        {
+          "segment": 2,
+          "position": [
+            -70.875,
+            -404.375
+          ],
+          "terrainHeight": 5.724592
+        },
+        {
+          "segment": 2,
+          "position": [
+            -69.96875,
+            -406.09375
+          ],
+          "terrainHeight": 5.679638
+        },
+        {
+          "segment": 2,
+          "position": [
+            -69.0625,
+            -407.8125
+          ],
+          "terrainHeight": 5.556199
+        },
+        {
+          "segment": 2,
+          "position": [
+            -68.15625,
+            -409.53125
+          ],
+          "terrainHeight": 5.386779
+        },
+        {
+          "segment": 2,
+          "position": [
+            -67.25,
+            -411.25
+          ],
+          "terrainHeight": 5.22411
+        },
+        {
+          "segment": 2,
+          "position": [
+            -66.34375,
+            -412.96875
+          ],
+          "terrainHeight": 5.111062
+        },
+        {
+          "segment": 2,
+          "position": [
+            -65.4375,
+            -414.6875
+          ],
+          "terrainHeight": 5.056198
+        },
+        {
+          "segment": 2,
+          "position": [
+            -64.53125,
+            -416.40625
+          ],
+          "terrainHeight": 5.029084
+        },
+        {
+          "segment": 2,
+          "position": [
+            -63.625,
+            -418.125
+          ],
+          "terrainHeight": 4.97805
+        },
+        {
+          "segment": 2,
+          "position": [
+            -62.71875,
+            -419.84375
+          ],
+          "terrainHeight": 4.860186
+        },
+        {
+          "segment": 2,
+          "position": [
+            -61.8125,
+            -421.5625
+          ],
+          "terrainHeight": 4.666242
+        },
+        {
+          "segment": 2,
+          "position": [
+            -60.90625,
+            -423.28125
+          ],
+          "terrainHeight": 4.426098
+        },
+        {
+          "segment": 2,
+          "position": [
+            -60.0,
+            -425.0
+          ],
+          "terrainHeight": 4.191644
+        },
+        {
+          "segment": 3,
+          "position": [
+            -60.0,
+            -425.0
+          ],
+          "terrainHeight": 4.191644
+        },
+        {
+          "segment": 3,
+          "position": [
+            -58.191489,
+            -425.851064
+          ],
+          "terrainHeight": 4.11539
+        },
+        {
+          "segment": 3,
+          "position": [
+            -56.382979,
+            -426.702128
+          ],
+          "terrainHeight": 4.106323
+        },
+        {
+          "segment": 3,
+          "position": [
+            -54.574468,
+            -427.553191
+          ],
+          "terrainHeight": 4.134455
+        },
+        {
+          "segment": 3,
+          "position": [
+            -52.765957,
+            -428.404255
+          ],
+          "terrainHeight": 4.145771
+        },
+        {
+          "segment": 3,
+          "position": [
+            -50.957447,
+            -429.255319
+          ],
+          "terrainHeight": 4.09744
+        },
+        {
+          "segment": 3,
+          "position": [
+            -49.148936,
+            -430.106383
+          ],
+          "terrainHeight": 3.985855
+        },
+        {
+          "segment": 3,
+          "position": [
+            -47.340426,
+            -430.957447
+          ],
+          "terrainHeight": 3.850059
+        },
+        {
+          "segment": 3,
+          "position": [
+            -45.531915,
+            -431.808511
+          ],
+          "terrainHeight": 3.748316
+        },
+        {
+          "segment": 3,
+          "position": [
+            -43.723404,
+            -432.659574
+          ],
+          "terrainHeight": 3.722237
+        },
+        {
+          "segment": 3,
+          "position": [
+            -41.914894,
+            -433.510638
+          ],
+          "terrainHeight": 3.770598
+        },
+        {
+          "segment": 3,
+          "position": [
+            -40.106383,
+            -434.361702
+          ],
+          "terrainHeight": 3.849068
+        },
+        {
+          "segment": 3,
+          "position": [
+            -38.297872,
+            -435.212766
+          ],
+          "terrainHeight": 3.896127
+        },
+        {
+          "segment": 3,
+          "position": [
+            -36.489362,
+            -436.06383
+          ],
+          "terrainHeight": 3.869314
+        },
+        {
+          "segment": 3,
+          "position": [
+            -34.680851,
+            -436.914894
+          ],
+          "terrainHeight": 3.769609
+        },
+        {
+          "segment": 3,
+          "position": [
+            -32.87234,
+            -437.765957
+          ],
+          "terrainHeight": 3.639088
+        },
+        {
+          "segment": 3,
+          "position": [
+            -31.06383,
+            -438.617021
+          ],
+          "terrainHeight": 3.533468
+        },
+        {
+          "segment": 3,
+          "position": [
+            -29.255319,
+            -439.468085
+          ],
+          "terrainHeight": 3.486651
+        },
+        {
+          "segment": 3,
+          "position": [
+            -27.446809,
+            -440.319149
+          ],
+          "terrainHeight": 3.48926
+        },
+        {
+          "segment": 3,
+          "position": [
+            -25.638298,
+            -441.170213
+          ],
+          "terrainHeight": 3.494485
+        },
+        {
+          "segment": 3,
+          "position": [
+            -23.829787,
+            -442.021277
+          ],
+          "terrainHeight": 3.447623
+        },
+        {
+          "segment": 3,
+          "position": [
+            -22.021277,
+            -442.87234
+          ],
+          "terrainHeight": 3.321044
+        },
+        {
+          "segment": 3,
+          "position": [
+            -20.212766,
+            -443.723404
+          ],
+          "terrainHeight": 3.132866
+        },
+        {
+          "segment": 3,
+          "position": [
+            -18.404255,
+            -444.574468
+          ],
+          "terrainHeight": 2.93769
+        },
+        {
+          "segment": 3,
+          "position": [
+            -16.595745,
+            -445.425532
+          ],
+          "terrainHeight": 2.794918
+        },
+        {
+          "segment": 3,
+          "position": [
+            -14.787234,
+            -446.276596
+          ],
+          "terrainHeight": 2.734051
+        },
+        {
+          "segment": 3,
+          "position": [
+            -12.978723,
+            -447.12766
+          ],
+          "terrainHeight": 2.738186
+        },
+        {
+          "segment": 3,
+          "position": [
+            -11.170213,
+            -447.978723
+          ],
+          "terrainHeight": 2.755771
+        },
+        {
+          "segment": 3,
+          "position": [
+            -9.361702,
+            -448.829787
+          ],
+          "terrainHeight": 2.733241
+        },
+        {
+          "segment": 3,
+          "position": [
+            -7.553191,
+            -449.680851
+          ],
+          "terrainHeight": 2.648326
+        },
+        {
+          "segment": 3,
+          "position": [
+            -5.744681,
+            -450.531915
+          ],
+          "terrainHeight": 2.523473
+        },
+        {
+          "segment": 3,
+          "position": [
+            -3.93617,
+            -451.382979
+          ],
+          "terrainHeight": 2.411146
+        },
+        {
+          "segment": 3,
+          "position": [
+            -2.12766,
+            -452.234043
+          ],
+          "terrainHeight": 2.36018
+        },
+        {
+          "segment": 3,
+          "position": [
+            -0.319149,
+            -453.085106
+          ],
+          "terrainHeight": 2.384118
+        },
+        {
+          "segment": 3,
+          "position": [
+            1.489362,
+            -453.93617
+          ],
+          "terrainHeight": 2.451232
+        },
+        {
+          "segment": 3,
+          "position": [
+            3.297872,
+            -454.787234
+          ],
+          "terrainHeight": 2.502586
+        },
+        {
+          "segment": 3,
+          "position": [
+            5.106383,
+            -455.638298
+          ],
+          "terrainHeight": 2.487152
+        },
+        {
+          "segment": 3,
+          "position": [
+            6.914894,
+            -456.489362
+          ],
+          "terrainHeight": 2.392466
+        },
+        {
+          "segment": 3,
+          "position": [
+            8.723404,
+            -457.340426
+          ],
+          "terrainHeight": 2.251981
+        },
+        {
+          "segment": 3,
+          "position": [
+            10.531915,
+            -458.191489
+          ],
+          "terrainHeight": 2.124665
+        },
+        {
+          "segment": 3,
+          "position": [
+            12.340426,
+            -459.042553
+          ],
+          "terrainHeight": 2.05941
+        },
+        {
+          "segment": 3,
+          "position": [
+            14.148936,
+            -459.893617
+          ],
+          "terrainHeight": 2.066176
+        },
+        {
+          "segment": 3,
+          "position": [
+            15.957447,
+            -460.744681
+          ],
+          "terrainHeight": 2.111576
+        },
+        {
+          "segment": 3,
+          "position": [
+            17.765957,
+            -461.595745
+          ],
+          "terrainHeight": 2.141458
+        },
+        {
+          "segment": 3,
+          "position": [
+            19.574468,
+            -462.446809
+          ],
+          "terrainHeight": 2.116381
+        },
+        {
+          "segment": 3,
+          "position": [
+            21.382979,
+            -463.297872
+          ],
+          "terrainHeight": 2.037882
+        },
+        {
+          "segment": 3,
+          "position": [
+            23.191489,
+            -464.148936
+          ],
+          "terrainHeight": 1.949148
+        },
+        {
+          "segment": 3,
+          "position": [
+            25.0,
+            -465.0
+          ],
+          "terrainHeight": 1.909508
+        },
+        {
+          "segment": 4,
+          "position": [
+            25.0,
+            -465.0
+          ],
+          "terrainHeight": 1.909508
+        },
+        {
+          "segment": 4,
+          "position": [
+            26.984127,
+            -465.0
+          ],
+          "terrainHeight": 1.97482
+        },
+        {
+          "segment": 4,
+          "position": [
+            28.968254,
+            -465.0
+          ],
+          "terrainHeight": 2.130435
+        },
+        {
+          "segment": 4,
+          "position": [
+            30.952381,
+            -465.0
+          ],
+          "terrainHeight": 2.338084
+        },
+        {
+          "segment": 4,
+          "position": [
+            32.936508,
+            -465.0
+          ],
+          "terrainHeight": 2.545571
+        },
+        {
+          "segment": 4,
+          "position": [
+            34.920635,
+            -465.0
+          ],
+          "terrainHeight": 2.705578
+        },
+        {
+          "segment": 4,
+          "position": [
+            36.904762,
+            -465.0
+          ],
+          "terrainHeight": 2.792542
+        },
+        {
+          "segment": 4,
+          "position": [
+            38.888889,
+            -465.0
+          ],
+          "terrainHeight": 2.811413
+        },
+        {
+          "segment": 4,
+          "position": [
+            40.873016,
+            -465.0
+          ],
+          "terrainHeight": 2.795106
+        },
+        {
+          "segment": 4,
+          "position": [
+            42.857143,
+            -465.0
+          ],
+          "terrainHeight": 2.781168
+        },
+        {
+          "segment": 4,
+          "position": [
+            44.84127,
+            -465.0
+          ],
+          "terrainHeight": 2.735206
+        },
+        {
+          "segment": 4,
+          "position": [
+            46.825397,
+            -465.0
+          ],
+          "terrainHeight": 2.667288
+        },
+        {
+          "segment": 4,
+          "position": [
+            48.809524,
+            -465.0
+          ],
+          "terrainHeight": 2.564861
+        },
+        {
+          "segment": 4,
+          "position": [
+            50.793651,
+            -465.0
+          ],
+          "terrainHeight": 2.390904
+        },
+        {
+          "segment": 4,
+          "position": [
+            52.777778,
+            -465.0
+          ],
+          "terrainHeight": 2.114518
+        },
+        {
+          "segment": 4,
+          "position": [
+            54.761905,
+            -465.0
+          ],
+          "terrainHeight": 1.736278
+        },
+        {
+          "segment": 4,
+          "position": [
+            56.746032,
+            -465.0
+          ],
+          "terrainHeight": 1.294573
+        },
+        {
+          "segment": 4,
+          "position": [
+            58.730159,
+            -465.0
+          ],
+          "terrainHeight": 0.851433
+        },
+        {
+          "segment": 6,
+          "position": [
+            187.5,
+            -460.0
+          ],
+          "terrainHeight": 0.768307
+        },
+        {
+          "segment": 6,
+          "position": [
+            188.333333,
+            -458.333333
+          ],
+          "terrainHeight": 1.232885
+        },
+        {
+          "segment": 6,
+          "position": [
+            189.166667,
+            -456.666667
+          ],
+          "terrainHeight": 1.67673
+        },
+        {
+          "segment": 6,
+          "position": [
+            190.0,
+            -455.0
+          ],
+          "terrainHeight": 2.028235
+        },
+        {
+          "segment": 6,
+          "position": [
+            190.833333,
+            -453.333333
+          ],
+          "terrainHeight": 2.246261
+        },
+        {
+          "segment": 6,
+          "position": [
+            191.666667,
+            -451.666667
+          ],
+          "terrainHeight": 2.327593
+        },
+        {
+          "segment": 6,
+          "position": [
+            192.5,
+            -450.0
+          ],
+          "terrainHeight": 2.297865
+        },
+        {
+          "segment": 6,
+          "position": [
+            193.333333,
+            -448.333333
+          ],
+          "terrainHeight": 2.200141
+        },
+        {
+          "segment": 6,
+          "position": [
+            194.166667,
+            -446.666667
+          ],
+          "terrainHeight": 2.158438
+        },
+        {
+          "segment": 6,
+          "position": [
+            195.0,
+            -445.0
+          ],
+          "terrainHeight": 2.198772
+        }
+      ]
+    }
   },
   "regions": {
     "field": {
@@ -1860,7 +3116,8 @@
         0.9,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_broom_cupboard"
     },
     {
       "id": "hut_c1",
@@ -1888,7 +3145,8 @@
         0.49500000000000005,
         0.315
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_sideboard"
     },
     {
       "id": "hut_c2",
@@ -1913,15 +3171,16 @@
         0.5775000000000001,
         0.3
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_apothecary_drawers"
     },
     {
       "id": "forester_c0",
       "name": "Wall cupboard",
       "profile": "cupboard",
-      "x": -34.69,
+      "x": -34.42,
       "z": -62.4,
-      "y": 1.7799999999999998,
+      "y": 1.8199999999999998,
       "building": "forester",
       "zone": "field",
       "floor": 0,
@@ -1939,15 +3198,16 @@
         0.27
       ],
       "searchMount": 0.85,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_double_wall_cupboard"
     },
     {
       "id": "forester_c1",
       "name": "Drawer unit",
       "profile": "drawers",
       "x": -32.4,
-      "z": -59.25,
-      "y": 0.65,
+      "z": -59.66,
+      "y": 0.715,
       "building": "forester",
       "zone": "field",
       "floor": 0,
@@ -1965,15 +3225,16 @@
         0.29
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_tool_workbench"
     },
     {
       "id": "forester_c2",
       "name": "Tall locker",
       "profile": "locker",
-      "x": -34.55,
+      "x": -34.17,
       "z": -57.95,
-      "y": 0.8,
+      "y": 0.9,
       "building": "forester",
       "zone": "field",
       "floor": 0,
@@ -1991,7 +3252,8 @@
         0.38
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_wardrobe_single"
     },
     {
       "id": "pump_c0",
@@ -2016,7 +3278,8 @@
         0.715,
         0.41000000000000003
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_tool_workbench"
     },
     {
       "id": "pump_c1",
@@ -2041,7 +3304,8 @@
         0.33,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_slatted_crate"
     },
     {
       "id": "ranger_c0",
@@ -2066,7 +3330,8 @@
         0.9,
         0.39
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_wardrobe_double"
     },
     {
       "id": "ranger_c1",
@@ -2091,7 +3356,8 @@
         0.4675,
         0.455
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_reinforced_crate"
     },
     {
       "id": "crossing_c0",
@@ -2116,7 +3382,8 @@
         0.5775000000000001,
         0.32
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_chest_drawers"
     },
     {
       "id": "crossing_c1",
@@ -2141,7 +3408,8 @@
         0.55,
         0.32
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_rolling_toolchest"
     },
     {
       "id": "station_c0",
@@ -2169,7 +3437,8 @@
         0.396,
         0.20500000000000002
       ],
-      "searchMount": 0.85
+      "searchMount": 0.85,
+      "renderedSearchProp": "search_wall_tool_cabinet"
     },
     {
       "id": "station_c1",
@@ -2194,7 +3463,8 @@
         0.9,
         0.34
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_locker_single"
     },
     {
       "id": "station_c2",
@@ -2219,7 +3489,8 @@
         0.9,
         1.155
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_shipping_container"
     },
     {
       "id": "freight_c0",
@@ -2244,7 +3515,8 @@
         0.48400000000000004,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_salvage_drum"
     },
     {
       "id": "freight_c1",
@@ -2269,7 +3541,8 @@
         0.396,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_water_barrel"
     },
     {
       "id": "freight_c2",
@@ -2294,7 +3567,8 @@
         0.17600000000000002,
         0.22999999999999998
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_cantilever_toolbox"
     },
     {
       "id": "coastguard_c0",
@@ -2322,7 +3596,8 @@
         0.49500000000000005,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_wide_dresser"
     },
     {
       "id": "coastguard_c1",
@@ -2347,7 +3622,8 @@
         0.385,
         0.2
       ],
-      "searchMount": 0.85
+      "searchMount": 0.85,
+      "renderedSearchProp": "search_medicine_cabinet"
     },
     {
       "id": "coastguard_c2",
@@ -2372,7 +3648,8 @@
         0.9,
         0.34
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_locker_double"
     },
     {
       "id": "boathouse_c0",
@@ -2397,7 +3674,8 @@
         0.4675,
         0.455
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_salvaged_crate"
     },
     {
       "id": "boathouse_c1",
@@ -2422,15 +3700,16 @@
         0.55,
         0.22999999999999998
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_electrical_cabinet"
     },
     {
       "id": "v1_c0",
       "name": "Wall cupboard",
       "profile": "cupboard",
-      "x": -34.69,
+      "x": -34.41,
       "z": -169.4,
-      "y": 1.8499999999999999,
+      "y": 1.8969999999999998,
       "building": "v1",
       "zone": "field",
       "floor": 0,
@@ -2448,15 +3727,16 @@
         0.27
       ],
       "searchMount": 0.85,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_glazed_wall_cabinet"
     },
     {
       "id": "v1_c1",
       "name": "Drawer unit",
       "profile": "drawers",
       "x": -32.4,
-      "z": -166.25,
-      "y": 0.395,
+      "z": -166.63,
+      "y": 0.43450000000000005,
       "building": "v1",
       "zone": "field",
       "floor": 0,
@@ -2474,15 +3754,16 @@
         0.29
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_writing_desk"
     },
     {
       "id": "v1_c2",
       "name": "Tall locker",
       "profile": "locker",
-      "x": -34.55,
+      "x": -34.17,
       "z": -164.95,
-      "y": 0.8,
+      "y": 0.9,
       "building": "v1",
       "zone": "field",
       "floor": 0,
@@ -2500,15 +3781,16 @@
         0.33
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_wardrobe_single"
     },
     {
       "id": "v2_c0",
       "name": "Wall cupboard",
       "profile": "cupboard",
-      "x": -18.69,
+      "x": -18.42,
       "z": -171.4,
-      "y": 1.805,
+      "y": 1.8475,
       "building": "v2",
       "guaranteed": {
         "postbag": 1
@@ -2529,15 +3811,16 @@
         0.28
       ],
       "searchMount": 0.85,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_wall_cupboard"
     },
     {
       "id": "v2_c1",
       "name": "Drawer unit",
       "profile": "drawers",
       "x": -16.4,
-      "z": -168.25,
-      "y": 0.57,
+      "z": -168.665,
+      "y": 0.627,
       "building": "v2",
       "zone": "field",
       "floor": 0,
@@ -2555,15 +3838,16 @@
         0.38
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_rolltop_desk"
     },
     {
       "id": "v2_c2",
       "name": "Tall locker",
       "profile": "locker",
-      "x": -18.55,
+      "x": -18.17,
       "z": -166.95,
-      "y": 0.8,
+      "y": 0.9,
       "building": "v2",
       "zone": "field",
       "floor": 0,
@@ -2581,15 +3865,16 @@
         0.33
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_wardrobe_single"
     },
     {
       "id": "v3_c0",
       "name": "Wall cupboard",
       "profile": "cupboard",
-      "x": -0.6900000000000004,
+      "x": -0.41999999999999993,
       "z": -171.4,
-      "y": 1.7799999999999998,
+      "y": 1.8199999999999998,
       "building": "v3",
       "zone": "field",
       "floor": 0,
@@ -2607,15 +3892,16 @@
         0.35500000000000004
       ],
       "searchMount": 0.85,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_double_wall_cupboard"
     },
     {
       "id": "v3_c1",
       "name": "Drawer unit",
       "profile": "drawers",
-      "x": 8.65,
+      "x": 8.33,
       "z": -171.4,
-      "y": 0.525,
+      "y": 0.5775000000000001,
       "building": "v3",
       "zone": "field",
       "floor": 0,
@@ -2633,15 +3919,16 @@
         0.405
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_chest_drawers"
     },
     {
       "id": "v3_c2",
       "name": "Tall locker",
       "profile": "locker",
-      "x": -0.5499999999999998,
+      "x": -0.16999999999999993,
       "z": -166.95,
-      "y": 0.8,
+      "y": 0.9,
       "building": "v3",
       "zone": "field",
       "floor": 0,
@@ -2659,7 +3946,8 @@
         0.39
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_wardrobe_single"
     },
     {
       "id": "v4_c0",
@@ -2684,7 +3972,8 @@
         0.66,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_utility_cabinet"
     },
     {
       "id": "v4_c1",
@@ -2709,7 +3998,8 @@
         0.44000000000000006,
         0.44
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_office_desk"
     },
     {
       "id": "v4_c2",
@@ -2734,7 +4024,8 @@
         0.30250000000000005,
         0.20500000000000002
       ],
-      "searchMount": 0.85
+      "searchMount": 0.85,
+      "renderedSearchProp": "search_wall_safe"
     },
     {
       "id": "v5_c0",
@@ -2759,7 +4050,8 @@
         0.9,
         0.35000000000000003
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_linen_press"
     },
     {
       "id": "v5_c1",
@@ -2784,7 +4076,8 @@
         0.627,
         0.41500000000000004
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_rolltop_desk"
     },
     {
       "id": "v5_c2",
@@ -2809,7 +4102,8 @@
         0.9,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_wardrobe_single"
     },
     {
       "id": "v6_c0",
@@ -2834,7 +4128,8 @@
         0.49500000000000005,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_kitchen_base"
     },
     {
       "id": "v6_c1",
@@ -2859,7 +4154,8 @@
         0.49500000000000005,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_kitchen_drawers"
     },
     {
       "id": "v6_c2",
@@ -2884,7 +4180,8 @@
         0.9,
         0.39
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_wardrobe_double"
     },
     {
       "id": "clinic_c0",
@@ -2909,7 +4206,8 @@
         0.42900000000000005,
         0.19
       ],
-      "searchMount": 0.85
+      "searchMount": 0.85,
+      "renderedSearchProp": "search_mirror_cabinet"
     },
     {
       "id": "clinic_c1",
@@ -2934,7 +4232,8 @@
         0.49500000000000005,
         0.34500000000000003
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_basin_vanity"
     },
     {
       "id": "clinic_c2",
@@ -2959,7 +4258,8 @@
         0.41800000000000004,
         0.37
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_filing_two"
     },
     {
       "id": "store_c0",
@@ -2984,7 +4284,8 @@
         0.9,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_kitchen_pantry"
     },
     {
       "id": "store_c1",
@@ -3009,7 +4310,8 @@
         0.7425000000000002,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_filing_four"
     },
     {
       "id": "store_c2",
@@ -3034,7 +4336,8 @@
         0.49500000000000005,
         0.28
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_parts_bins"
     },
     {
       "id": "ticket_c0",
@@ -3059,7 +4362,8 @@
         0.44000000000000006,
         0.32
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_filing_lateral"
     },
     {
       "id": "ticket_c1",
@@ -3084,7 +4388,8 @@
         0.9,
         0.34
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_locker_single"
     },
     {
       "id": "cafe_c0",
@@ -3109,7 +4414,8 @@
         0.5115000000000001,
         0.39
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_sink_unit"
     },
     {
       "id": "cafe_c1",
@@ -3137,7 +4443,8 @@
         0.5115000000000001,
         0.32
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_medical_trolley"
     },
     {
       "id": "arcade_c0",
@@ -3165,7 +4472,8 @@
         0.9,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_broom_cupboard"
     },
     {
       "id": "arcade_c1",
@@ -3190,7 +4498,8 @@
         0.6050000000000001,
         0.27
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_document_sorter"
     },
     {
       "id": "arcade_c2",
@@ -3215,7 +4524,8 @@
         0.33,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_slatted_crate"
     },
     {
       "id": "north_c0",
@@ -3243,7 +4553,8 @@
         0.4675,
         0.455
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_reinforced_crate"
     },
     {
       "id": "north_c1",
@@ -3268,7 +4579,8 @@
         0.18,
         0.24
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_field_medical_case"
     },
     {
       "id": "base_locker",
@@ -3299,7 +4611,8 @@
         0.9,
         0.34
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_locker_double"
     },
     {
       "id": "range_ammo",
@@ -3326,7 +4639,8 @@
         1.155
       ],
       "searchMount": 0,
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": "search_shipping_container"
     },
     {
       "id": "field_cache",
@@ -3350,7 +4664,8 @@
         0.38
       ],
       "searchMount": 0,
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": "search_salvage_drum"
     },
     {
       "id": "beach_crate",
@@ -3374,7 +4689,8 @@
         0.33
       ],
       "searchMount": 0,
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": "search_water_barrel"
     },
     {
       "id": "station_chest",
@@ -3399,15 +4715,16 @@
         0.49500000000000005,
         0.405
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_chest_freezer"
     },
     {
       "id": "v2_chest",
       "name": "Reinforced upstairs chest",
       "profile": "chest",
-      "x": -18.5,
+      "x": -18.17,
       "z": -171,
-      "y": 3.475,
+      "y": 3.5025000000000004,
       "floor": 3.2,
       "zone": "field",
       "building": "v2",
@@ -3425,7 +4742,8 @@
         0.31
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_travel_trunk"
     },
     {
       "id": "lodge_c0",
@@ -3450,7 +4768,8 @@
         0.4675,
         0.455
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_salvaged_crate"
     },
     {
       "id": "lodge_c1",
@@ -3475,7 +4794,8 @@
         0.44000000000000006,
         0.51
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_map_drawers"
     },
     {
       "id": "lodge_chest",
@@ -3505,7 +4825,8 @@
         0.25300000000000006,
         0.32
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_footlocker"
     },
     {
       "id": "tower_c0",
@@ -3530,7 +4851,8 @@
         0.33,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_slatted_crate"
     },
     {
       "id": "tower_c1",
@@ -3555,7 +4877,8 @@
         0.77,
         0.29
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_archive_shelf"
     },
     {
       "id": "tower_chest",
@@ -3583,7 +4906,8 @@
         0.10450000000000001,
         0.22999999999999998
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_cash_box"
     },
     {
       "id": "substation_c0",
@@ -3608,7 +4932,8 @@
         0.4675,
         0.455
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_reinforced_crate"
     },
     {
       "id": "substation_c1",
@@ -3633,7 +4958,8 @@
         0.49500000000000005,
         0.315
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_salvaged_cabinet"
     },
     {
       "id": "logging_c0",
@@ -3658,7 +4984,8 @@
         0.9,
         1.155
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_shipping_container"
     },
     {
       "id": "logging_c1",
@@ -3683,7 +5010,8 @@
         0.49500000000000005,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_vintage_drawers"
     },
     {
       "id": "northstore_c0",
@@ -3708,7 +5036,8 @@
         0.48400000000000004,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_salvage_drum"
     },
     {
       "id": "northstore_c1",
@@ -3733,7 +5062,8 @@
         0.49500000000000005,
         0.315
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_sideboard"
     },
     {
       "id": "cave_crate",
@@ -3759,7 +5089,8 @@
         0.22000000000000003,
         0.295
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_ammo_chest"
     },
     {
       "id": "cave_cache",
@@ -3783,7 +5114,8 @@
         0.396,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_water_barrel"
     },
     {
       "id": "bunker_chest",
@@ -3810,7 +5142,8 @@
         0.30250000000000005,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_travel_trunk"
     },
     {
       "id": "bunker_tools",
@@ -3834,7 +5167,8 @@
         0.715,
         0.41000000000000003
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_tool_workbench"
     },
     {
       "id": "car0",
@@ -3846,7 +5180,8 @@
       "floor": 0,
       "zone": "field",
       "building": "car",
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": null
     },
     {
       "id": "car1",
@@ -3858,7 +5193,8 @@
       "floor": 0,
       "zone": "field",
       "building": "car",
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": null
     },
     {
       "id": "car2",
@@ -3870,7 +5206,8 @@
       "floor": 0,
       "zone": "field",
       "building": "car",
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": null
     },
     {
       "id": "car3",
@@ -3882,7 +5219,8 @@
       "floor": 0,
       "zone": "field",
       "building": "car",
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": null
     },
     {
       "id": "car4",
@@ -3894,7 +5232,8 @@
       "floor": 0,
       "zone": "field",
       "building": "car",
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": null
     },
     {
       "id": "car5",
@@ -3906,7 +5245,8 @@
       "floor": 0,
       "zone": "field",
       "building": "car",
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": null
     },
     {
       "id": "car6",
@@ -3918,7 +5258,8 @@
       "floor": 0,
       "zone": "field",
       "building": "car",
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": null
     },
     {
       "id": "car7",
@@ -3930,7 +5271,8 @@
       "floor": 0,
       "zone": "field",
       "building": "car",
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": null
     },
     {
       "id": "barracks_c0",
@@ -3958,7 +5300,8 @@
         0.9,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_locker_split"
     },
     {
       "id": "barracks_c1",
@@ -3984,7 +5327,8 @@
         0.4675,
         0.455
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_salvaged_crate"
     },
     {
       "id": "barracks_c2",
@@ -4010,7 +5354,8 @@
         0.132,
         0.305
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_suitcase"
     },
     {
       "id": "camp_c0",
@@ -4038,7 +5383,8 @@
         0.38
       ],
       "searchMount": 0,
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": "search_slatted_crate"
     },
     {
       "id": "camp_c1",
@@ -4063,7 +5409,8 @@
         0.455
       ],
       "searchMount": 0,
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": "search_reinforced_crate"
     },
     {
       "id": "camp_c2",
@@ -4088,7 +5435,8 @@
         1.155
       ],
       "searchMount": 0,
-      "followTerrain": true
+      "followTerrain": true,
+      "renderedSearchProp": "search_shipping_container"
     },
     {
       "id": "ferry_c0",
@@ -4114,7 +5462,8 @@
         0.5225,
         0.4
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_double_sink"
     },
     {
       "id": "ferry_c1",
@@ -4140,7 +5489,8 @@
         0.319,
         0.29
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_bedside_drawers"
     },
     {
       "id": "ferry_c2",
@@ -4166,7 +5516,8 @@
         0.18150000000000002,
         0.26
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_kitbag"
     },
     {
       "id": "mill_c0",
@@ -4192,7 +5543,8 @@
         0.5060000000000001,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_gas_cooker"
     },
     {
       "id": "mill_c1",
@@ -4218,7 +5570,8 @@
         0.5775000000000001,
         0.32
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_chest_drawers"
     },
     {
       "id": "mill_c2",
@@ -4244,7 +5597,8 @@
         0.231,
         0.27
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_cooler"
     },
     {
       "id": "east1_c0",
@@ -4270,7 +5624,8 @@
         0.49500000000000005,
         0.39
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_electric_cooker"
     },
     {
       "id": "east1_c1",
@@ -4296,7 +5651,8 @@
         0.49500000000000005,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_wide_dresser"
     },
     {
       "id": "east1_c2",
@@ -4322,7 +5678,8 @@
         0.49500000000000005,
         0.405
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_chest_freezer"
     },
     {
       "id": "east2_c0",
@@ -4348,7 +5705,8 @@
         0.9,
         0.405
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_tall_fridge"
     },
     {
       "id": "east2_c1",
@@ -4374,7 +5732,8 @@
         0.47300000000000003,
         0.29
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_card_index"
     },
     {
       "id": "east2_c2",
@@ -4400,7 +5759,8 @@
         0.385,
         0.31
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_linen_hamper"
     },
     {
       "id": "mast_c0",
@@ -4426,7 +5786,8 @@
         0.4675,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_under_counter_fridge"
     },
     {
       "id": "mast_c1",
@@ -4452,7 +5813,8 @@
         0.43450000000000005,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_writing_desk"
     },
     {
       "id": "mast_c2",
@@ -4481,7 +5843,8 @@
         0.25300000000000006,
         0.32
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_footlocker"
     },
     {
       "id": "hangar_c0",
@@ -4507,7 +5870,8 @@
         0.29700000000000004,
         0.3
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_microwave_cabinet"
     },
     {
       "id": "hangar_c1",
@@ -4533,7 +5897,8 @@
         0.44000000000000006,
         0.405
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_pedestal_desk"
     },
     {
       "id": "hangar_c2",
@@ -4559,7 +5924,8 @@
         0.10450000000000001,
         0.22999999999999998
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_cash_box"
     },
     {
       "id": "garrison_c0",
@@ -4585,7 +5951,8 @@
         0.4675,
         0.27
       ],
-      "searchMount": 0.85
+      "searchMount": 0.85,
+      "renderedSearchProp": "search_wall_cupboard"
     },
     {
       "id": "garrison_c1",
@@ -4611,7 +5978,8 @@
         0.44000000000000006,
         0.44
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_office_desk"
     },
     {
       "id": "garrison_c2",
@@ -4641,7 +6009,8 @@
         0.22000000000000003,
         0.295
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_ammo_chest"
     },
     {
       "id": "command_c0",
@@ -4667,7 +6036,8 @@
         0.44000000000000006,
         0.27
       ],
-      "searchMount": 0.85
+      "searchMount": 0.85,
+      "renderedSearchProp": "search_double_wall_cupboard"
     },
     {
       "id": "command_c1",
@@ -4693,7 +6063,8 @@
         0.627,
         0.41500000000000004
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_rolltop_desk"
     },
     {
       "id": "command_c2",
@@ -4721,7 +6092,8 @@
         0.30250000000000005,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_travel_trunk"
     },
     {
       "id": "armoury_c0",
@@ -4747,7 +6119,8 @@
         0.517,
         0.28
       ],
-      "searchMount": 0.85
+      "searchMount": 0.85,
+      "renderedSearchProp": "search_glazed_wall_cabinet"
     },
     {
       "id": "armoury_c1",
@@ -4773,7 +6146,8 @@
         0.49500000000000005,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_kitchen_drawers"
     },
     {
       "id": "armoury_c2",
@@ -4804,7 +6178,8 @@
         0.132,
         0.305
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_suitcase"
     },
     {
       "id": "yard_c0",
@@ -4830,7 +6205,8 @@
         0.49500000000000005,
         0.35500000000000004
       ],
-      "searchMount": 0.85
+      "searchMount": 0.85,
+      "renderedSearchProp": "search_corner_wall_cabinet"
     },
     {
       "id": "yard_c1",
@@ -4856,7 +6232,8 @@
         0.41800000000000004,
         0.37
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_filing_two"
     },
     {
       "id": "yard_c2",
@@ -4882,15 +6259,16 @@
         0.18150000000000002,
         0.26
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_kitbag"
     },
     {
       "id": "forester_kitchen",
       "name": "Kitchen unit drawers",
       "profile": "drawers",
       "x": -28.7,
-      "z": -63,
-      "y": 0.45,
+      "z": -62.62,
+      "y": 0.49500000000000005,
       "floor": 0,
       "building": "forester",
       "zone": "field",
@@ -4908,7 +6286,8 @@
         0.38
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_kitchen_drawers"
     },
     {
       "id": "ranger_kitchen",
@@ -4933,7 +6312,8 @@
         0.44000000000000006,
         0.32
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_filing_lateral"
     },
     {
       "id": "crossing_kitchen",
@@ -4958,15 +6338,16 @@
         0.6050000000000001,
         0.27
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_document_sorter"
     },
     {
       "id": "v1_kitchen",
       "name": "Kitchen unit drawers",
       "profile": "drawers",
       "x": -28.7,
-      "z": -170,
-      "y": 0.45,
+      "z": -169.62,
+      "y": 0.49500000000000005,
       "floor": 0,
       "building": "v1",
       "zone": "field",
@@ -4984,15 +6365,16 @@
         0.51
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_kitchen_drawers"
     },
     {
       "id": "v2_kitchen",
       "name": "Kitchen unit drawers",
       "profile": "drawers",
       "x": -12.7,
-      "z": -172,
-      "y": 0.45,
+      "z": -171.62,
+      "y": 0.49500000000000005,
       "floor": 0,
       "building": "v2",
       "zone": "field",
@@ -5010,15 +6392,16 @@
         0.29
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_kitchen_drawers"
     },
     {
       "id": "v3_kitchen",
       "name": "Kitchen unit drawers",
       "profile": "drawers",
       "x": 3.2,
-      "z": -172,
-      "y": 0.45,
+      "z": -171.62,
+      "y": 0.49500000000000005,
       "floor": 0,
       "building": "v3",
       "zone": "field",
@@ -5036,7 +6419,8 @@
         0.315
       ],
       "searchMount": 0,
-      "editorScene": true
+      "editorScene": true,
+      "renderedSearchProp": "search_kitchen_drawers"
     },
     {
       "id": "v4_kitchen",
@@ -5061,7 +6445,8 @@
         0.49500000000000005,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_vintage_drawers"
     },
     {
       "id": "v5_kitchen",
@@ -5086,7 +6471,8 @@
         0.49500000000000005,
         0.315
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_sideboard"
     },
     {
       "id": "v6_kitchen",
@@ -5111,7 +6497,8 @@
         0.319,
         0.29
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_bedside_drawers"
     },
     {
       "id": "clinic_kitchen",
@@ -5136,7 +6523,8 @@
         0.5775000000000001,
         0.32
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_chest_drawers"
     },
     {
       "id": "store_kitchen",
@@ -5161,7 +6549,8 @@
         0.49500000000000005,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_wide_dresser"
     },
     {
       "id": "lodge_kitchen",
@@ -5186,7 +6575,8 @@
         0.47300000000000003,
         0.29
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_card_index"
     },
     {
       "id": "ferry_kitchen",
@@ -5211,7 +6601,8 @@
         0.43450000000000005,
         0.38
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_writing_desk"
     },
     {
       "id": "east1_kitchen",
@@ -5236,7 +6627,8 @@
         0.44000000000000006,
         0.405
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_pedestal_desk"
     },
     {
       "id": "east2_kitchen",
@@ -5261,7 +6653,8 @@
         0.44000000000000006,
         0.44
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_office_desk"
     },
     {
       "id": "sewer_plan",
@@ -5288,7 +6681,8 @@
         0.231,
         0.27
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_cooler"
     },
     {
       "id": "sewer_tools",
@@ -5316,7 +6710,8 @@
         0.9,
         0.33
       ],
-      "searchMount": 0
+      "searchMount": 0,
+      "renderedSearchProp": "search_arms_locker"
     }
   ],
   "profiles": [
@@ -5561,11 +6956,11 @@
       "count": 1,
       "container": "v2_c0",
       "mapTarget": [
-        -18.69,
+        -18.42,
         -171.4
       ],
       "containerPosition": [
-        -18.69,
+        -18.42,
         0,
         -171.4
       ],
@@ -6601,7 +7996,7 @@
       "Container approach uses actual search dispatch but does not prove a renderer ray hit",
       "No physical-device/browser playtest"
     ],
-    "passed": 258,
+    "passed": 259,
     "failed": 0,
     "checks": [
       {
@@ -7122,6 +8517,11 @@
       {
         "check": "bridge-centre",
         "id": "rail_bridge",
+        "passed": true
+      },
+      {
+        "check": "rail-grounding",
+        "id": "rail-main",
         "passed": true
       },
       {
@@ -8666,6 +10066,13 @@
         "middleHeight": 0.45
       }
     ],
+    "railGrounding": {
+      "sampleSpacingAtMost": 2,
+      "landRailCentreY": 0.11,
+      "landSamples": 306,
+      "maxLandTerrainHeight": 0,
+      "samplesAboveRailGeometry": []
+    },
     "containerApproaches": [
       {
         "id": "hut_c0",
@@ -8710,11 +10117,11 @@
         "id": "forester_c0",
         "originWalkable": false,
         "approach": [
-          -33.94,
+          -33.67,
           0,
           -62.4
         ],
-        "sampledWalkableApproaches": 95,
+        "sampledWalkableApproaches": 92,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -8725,9 +10132,9 @@
         "approach": [
           -32.4,
           0,
-          -60.0
+          -60.41
         ],
-        "sampledWalkableApproaches": 88,
+        "sampledWalkableApproaches": 91,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -8736,11 +10143,11 @@
         "id": "forester_c2",
         "originWalkable": false,
         "approach": [
-          -33.8,
+          -33.42,
           0,
           -57.95
         ],
-        "sampledWalkableApproaches": 75,
+        "sampledWalkableApproaches": 67,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -8970,11 +10377,11 @@
         "id": "v1_c0",
         "originWalkable": false,
         "approach": [
-          -33.94,
+          -33.66,
           0,
           -169.4
         ],
-        "sampledWalkableApproaches": 97,
+        "sampledWalkableApproaches": 96,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -8985,9 +10392,9 @@
         "approach": [
           -32.4,
           0,
-          -167.0
+          -167.38
         ],
-        "sampledWalkableApproaches": 92,
+        "sampledWalkableApproaches": 95,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -8996,11 +10403,11 @@
         "id": "v1_c2",
         "originWalkable": false,
         "approach": [
-          -33.8,
+          -33.42,
           0,
           -164.95
         ],
-        "sampledWalkableApproaches": 74,
+        "sampledWalkableApproaches": 66,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -9009,7 +10416,7 @@
         "id": "v2_c0",
         "originWalkable": false,
         "approach": [
-          -17.94,
+          -17.67,
           0,
           -171.4
         ],
@@ -9024,9 +10431,9 @@
         "approach": [
           -16.4,
           0,
-          -169.0
+          -169.415
         ],
-        "sampledWalkableApproaches": 90,
+        "sampledWalkableApproaches": 93,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -9035,11 +10442,11 @@
         "id": "v2_c2",
         "originWalkable": false,
         "approach": [
-          -17.8,
+          -17.42,
           0,
           -166.95
         ],
-        "sampledWalkableApproaches": 74,
+        "sampledWalkableApproaches": 66,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -9048,7 +10455,20 @@
         "id": "v3_c0",
         "originWalkable": false,
         "approach": [
-          0.06,
+          0.33,
+          0,
+          -171.4
+        ],
+        "sampledWalkableApproaches": 93,
+        "authoredFloor": 0,
+        "effectiveSearchFloor": 0,
+        "originSurfaceHeight": 0
+      },
+      {
+        "id": "v3_c1",
+        "originWalkable": false,
+        "approach": [
+          7.58,
           0,
           -171.4
         ],
@@ -9058,27 +10478,14 @@
         "originSurfaceHeight": 0
       },
       {
-        "id": "v3_c1",
-        "originWalkable": false,
-        "approach": [
-          7.9,
-          0,
-          -171.4
-        ],
-        "sampledWalkableApproaches": 105,
-        "authoredFloor": 0,
-        "effectiveSearchFloor": 0,
-        "originSurfaceHeight": 0
-      },
-      {
         "id": "v3_c2",
         "originWalkable": false,
         "approach": [
-          0.2,
+          0.58,
           0,
           -166.95
         ],
-        "sampledWalkableApproaches": 77,
+        "sampledWalkableApproaches": 70,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -9464,11 +10871,11 @@
         "id": "v2_chest",
         "originWalkable": false,
         "approach": [
-          -17.75,
+          -17.42,
           3.2,
           -171.0
         ],
-        "sampledWalkableApproaches": 99,
+        "sampledWalkableApproaches": 94,
         "authoredFloor": 3.2,
         "effectiveSearchFloor": 3.2,
         "originSurfaceHeight": 3.2
@@ -10259,9 +11666,9 @@
         "approach": [
           -28.7,
           0,
-          -62.25
+          -61.87
         ],
-        "sampledWalkableApproaches": 115,
+        "sampledWalkableApproaches": 119,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -10298,9 +11705,9 @@
         "approach": [
           -28.7,
           0,
-          -169.25
+          -168.87
         ],
-        "sampledWalkableApproaches": 115,
+        "sampledWalkableApproaches": 117,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -10311,9 +11718,9 @@
         "approach": [
           -12.7,
           0,
-          -171.25
+          -170.87
         ],
-        "sampledWalkableApproaches": 115,
+        "sampledWalkableApproaches": 117,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -10324,7 +11731,7 @@
         "approach": [
           3.2,
           0,
-          -171.25
+          -170.87
         ],
         "sampledWalkableApproaches": 99,
         "authoredFloor": 0,
@@ -10479,7 +11886,7 @@
   "registries": {
     "searchProps": {
       "path": "search-props.json",
-      "sha256": "f5cb374fefa701b1065880b2f9a62139a9a4780691706c9f1da212e26015589b",
+      "sha256": "e98180fa7731e841dff1ade133ce545b21f4988a4afcf1adb907027df3ae250f",
       "variants": 69,
       "profiles": {
         "chest": 9,
@@ -10489,11 +11896,13 @@
         "locker": 8,
         "medical": 6,
         "workshop": 7
-      }
+      },
+      "placedVariants": 68,
+      "placementDefinition": "Distinct actual container-bound variants, including authored interior asset overrides."
     },
     "districts": {
       "path": "districts.json",
-      "sha256": "889e3527c776f6fa14c7f7bce4f043680a966037393f58fdf478a326e3065cfe",
+      "sha256": "93c0fc652c5eff10d444ebe20615e713eb58cf21a1cb1cfc6e4a0876c71185ae",
       "count": 8,
       "objects": 95,
       "ids": [
@@ -10506,7 +11915,7 @@
         "western-ridge",
         "woodland"
       ],
-      "colliders": 109,
+      "colliders": 153,
       "surfaces": 3,
       "climbStructures": 1,
       "definitions": [
@@ -10525,7 +11934,7 @@
               "asset": "field-signal:garden",
               "transform": {
                 "x": -30,
-                "y": 0,
+                "y": 0.248504,
                 "z": -155.8,
                 "yaw": 0
               },
@@ -10536,69 +11945,290 @@
               ],
               "colliders": [
                 {
-                  "id": "front-west",
+                  "id": "front-west-1",
+                  "x": -5.083333,
+                  "y": 0.600064,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-west-2",
                   "x": -3.65,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "y": 0.595073,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "front-east",
+                  "id": "front-west-3",
+                  "x": -2.216667,
+                  "y": 0.589162,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-1",
+                  "x": 2.216667,
+                  "y": 0.574679,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-2",
                   "x": 3.65,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "y": 0.574946,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "return-west",
+                  "id": "front-east-3",
+                  "x": 5.083333,
+                  "y": 0.578882,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "return-west-1",
                   "x": -5.8,
-                  "y": 0.58,
-                  "z": -2.4,
-                  "w": 0.13,
+                  "y": 0.664653,
+                  "z": -0.6,
+                  "w": 1.2,
                   "h": 1.16,
-                  "d": 4.8,
-                  "yaw": 0
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "return-east",
+                  "id": "return-west-2",
+                  "x": -5.8,
+                  "y": 0.550007,
+                  "z": -1.8,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-west-3",
+                  "x": -5.8,
+                  "y": 0.38006,
+                  "z": -3.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-west-4",
+                  "x": -5.8,
+                  "y": 0.331793,
+                  "z": -4.2,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-east-1",
                   "x": 5.8,
-                  "y": 0.58,
-                  "z": -2.4,
-                  "w": 0.13,
+                  "y": 0.63826,
+                  "z": -0.6,
+                  "w": 1.2,
                   "h": 1.16,
-                  "d": 4.8,
-                  "yaw": 0
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "gate-leaf-west",
+                  "id": "return-east-2",
+                  "x": 5.8,
+                  "y": 0.537838,
+                  "z": -1.8,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-east-3",
+                  "x": 5.8,
+                  "y": 0.38024,
+                  "z": -3.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-east-4",
+                  "x": 5.8,
+                  "y": 0.331816,
+                  "z": -4.2,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "gate-leaf-west-1",
                   "x": -1.5,
-                  "y": 0.51,
+                  "y": 0.635992,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "gate-leaf-east",
+                  "id": "gate-leaf-east-1",
                   "x": 1.5,
-                  "y": 0.51,
+                  "y": 0.626079,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 }
               ],
               "surfaces": [],
               "gap": 3,
-              "depth": 4.8
+              "depth": 4.8,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              },
+              "groundProfile": {
+                "x": [
+                  -5.8,
+                  -4.511111,
+                  -3.222222,
+                  -1.933333,
+                  -1.5,
+                  -0.644444,
+                  0,
+                  0.644444,
+                  1.5,
+                  1.933333,
+                  3.222222,
+                  4.511111,
+                  5.8
+                ],
+                "z": [
+                  -4.8,
+                  -3.6,
+                  -2.4,
+                  -1.2,
+                  -1.05,
+                  0.0
+                ],
+                "heights": [
+                  [
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504,
+                    -0.248504
+                  ],
+                  [
+                    -0.247909,
+                    -0.247924,
+                    -0.247929,
+                    -0.247924,
+                    -0.247921,
+                    -0.247913,
+                    -0.247905,
+                    -0.247898,
+                    -0.247888,
+                    -0.247883,
+                    -0.247871,
+                    -0.247864,
+                    -0.247864
+                  ],
+                  [
+                    -0.151971,
+                    -0.154315,
+                    -0.155628,
+                    -0.156021,
+                    -0.155979,
+                    -0.155692,
+                    -0.155335,
+                    -0.154894,
+                    -0.154236,
+                    -0.153892,
+                    -0.15292,
+                    -0.152149,
+                    -0.151655
+                  ],
+                  [
+                    0.091986,
+                    0.084049,
+                    0.07723,
+                    0.071615,
+                    0.070013,
+                    0.067291,
+                    0.06564,
+                    0.064344,
+                    0.063183,
+                    0.062844,
+                    0.062839,
+                    0.064344,
+                    0.067332
+                  ],
+                  [
+                    0.131474,
+                    0.122661,
+                    0.114761,
+                    0.107931,
+                    0.10591,
+                    0.102376,
+                    0.100146,
+                    0.098319,
+                    0.096561,
+                    0.095975,
+                    0.095513,
+                    0.097028,
+                    0.100528
+                  ],
+                  [
+                    0.022225,
+                    0.018339,
+                    0.013451,
+                    0.007954,
+                    0.006074,
+                    0.002482,
+                    0.0,
+                    -0.002173,
+                    -0.004403,
+                    -0.005183,
+                    -0.005812,
+                    -0.003529,
+                    0.001902
+                  ]
+                ]
+              }
             },
             {
               "id": "village-garden-v3",
@@ -10606,7 +12236,7 @@
               "asset": "field-signal:garden",
               "transform": {
                 "x": 4,
-                "y": 0,
+                "y": 1.418828,
                 "z": -156.8,
                 "yaw": 0
               },
@@ -10617,69 +12247,290 @@
               ],
               "colliders": [
                 {
-                  "id": "front-west",
+                  "id": "front-west-1",
+                  "x": -5.083333,
+                  "y": 0.375583,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-west-2",
                   "x": -3.65,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "y": 0.537809,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "front-east",
+                  "id": "front-west-3",
+                  "x": -2.216667,
+                  "y": 0.558561,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-1",
+                  "x": 2.216667,
+                  "y": 0.584671,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-2",
                   "x": 3.65,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "y": 0.579006,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "return-west",
+                  "id": "front-east-3",
+                  "x": 5.083333,
+                  "y": 0.566842,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "return-west-1",
                   "x": -5.8,
-                  "y": 0.58,
-                  "z": -2.4,
-                  "w": 0.13,
+                  "y": 0.008497,
+                  "z": -0.6,
+                  "w": 1.2,
                   "h": 1.16,
-                  "d": 4.8,
-                  "yaw": 0
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "return-east",
+                  "id": "return-west-2",
+                  "x": -5.8,
+                  "y": -0.30013,
+                  "z": -1.8,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-west-3",
+                  "x": -5.8,
+                  "y": -0.582905,
+                  "z": -3.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-west-4",
+                  "x": -5.8,
+                  "y": -0.786675,
+                  "z": -4.2,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-east-1",
                   "x": 5.8,
-                  "y": 0.58,
-                  "z": -2.4,
-                  "w": 0.13,
+                  "y": 0.299902,
+                  "z": -0.6,
+                  "w": 1.2,
                   "h": 1.16,
-                  "d": 4.8,
-                  "yaw": 0
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "gate-leaf-west",
+                  "id": "return-east-2",
+                  "x": 5.8,
+                  "y": -0.184688,
+                  "z": -1.8,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-east-3",
+                  "x": 5.8,
+                  "y": -0.571429,
+                  "z": -3.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-east-4",
+                  "x": 5.8,
+                  "y": -0.784761,
+                  "z": -4.2,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "gate-leaf-west-1",
                   "x": -1.5,
-                  "y": 0.51,
+                  "y": 0.327223,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "gate-leaf-east",
+                  "id": "gate-leaf-east-1",
                   "x": 1.5,
-                  "y": 0.51,
+                  "y": 0.340145,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 }
               ],
               "surfaces": [],
               "gap": 3,
-              "depth": 4.8
+              "depth": 4.8,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              },
+              "groundProfile": {
+                "x": [
+                  -5.8,
+                  -4.511111,
+                  -3.222222,
+                  -1.933333,
+                  -1.5,
+                  -0.644444,
+                  0,
+                  0.644444,
+                  1.5,
+                  1.933333,
+                  3.222222,
+                  4.511111,
+                  5.8
+                ],
+                "z": [
+                  -4.8,
+                  -3.6,
+                  -2.4,
+                  -1.2,
+                  -1.05,
+                  0.0
+                ],
+                "heights": [
+                  [
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828,
+                    -1.418828
+                  ],
+                  [
+                    -1.314521,
+                    -1.315533,
+                    -1.316948,
+                    -1.318285,
+                    -1.318638,
+                    -1.319108,
+                    -1.319222,
+                    -1.3191,
+                    -1.318555,
+                    -1.318113,
+                    -1.316197,
+                    -1.313592,
+                    -1.310693
+                  ],
+                  [
+                    -1.01129,
+                    -1.007988,
+                    -1.010416,
+                    -1.012934,
+                    -1.013585,
+                    -1.014355,
+                    -1.014367,
+                    -1.013817,
+                    -1.012163,
+                    -1.010927,
+                    -1.005835,
+                    -0.999214,
+                    -0.992164
+                  ],
+                  [
+                    -0.748971,
+                    -0.564468,
+                    -0.560769,
+                    -0.558287,
+                    -0.557538,
+                    -0.555988,
+                    -0.55466,
+                    -0.553131,
+                    -0.550754,
+                    -0.549406,
+                    -0.545001,
+                    -0.540583,
+                    -0.537211
+                  ],
+                  [
+                    -0.707783,
+                    -0.503011,
+                    -0.497779,
+                    -0.493998,
+                    -0.492889,
+                    -0.490766,
+                    -0.48914,
+                    -0.487439,
+                    -0.485033,
+                    -0.483758,
+                    -0.479906,
+                    -0.476496,
+                    -0.474483
+                  ],
+                  [
+                    -0.389797,
+                    -0.0564,
+                    -0.035133,
+                    -0.01758,
+                    -0.012665,
+                    -0.004581,
+                    -0.0,
+                    0.003219,
+                    0.005323,
+                    0.005432,
+                    0.001971,
+                    -0.006962,
+                    -0.020917
+                  ]
+                ]
+              }
             },
             {
               "id": "village-garden-clinic",
@@ -10687,7 +12538,7 @@
               "asset": "field-signal:garden",
               "transform": {
                 "x": 25,
-                "y": 0,
+                "y": 0.985695,
                 "z": -159.8,
                 "yaw": 0
               },
@@ -10698,69 +12549,310 @@
               ],
               "colliders": [
                 {
-                  "id": "front-west",
-                  "x": -3.9,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.8,
+                  "id": "front-west-1",
+                  "x": -5.7,
+                  "y": 0.876655,
+                  "z": 0.0,
+                  "w": 1.2,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "front-east",
-                  "x": 3.9,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.8,
+                  "id": "front-west-2",
+                  "x": -4.5,
+                  "y": 0.810538,
+                  "z": 0.0,
+                  "w": 1.2,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "return-west",
+                  "id": "front-west-3",
+                  "x": -3.3,
+                  "y": 0.742297,
+                  "z": 0.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-west-4",
+                  "x": -2.1,
+                  "y": 0.676259,
+                  "z": 0.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-1",
+                  "x": 2.1,
+                  "y": 0.516266,
+                  "z": 0.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-2",
+                  "x": 3.3,
+                  "y": 0.494418,
+                  "z": 0.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-3",
+                  "x": 4.5,
+                  "y": 0.472115,
+                  "z": 0.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-4",
+                  "x": 5.7,
+                  "y": 0.189663,
+                  "z": 0.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "return-west-1",
                   "x": -6.3,
-                  "y": 0.58,
-                  "z": -2.4,
-                  "w": 0.13,
+                  "y": 0.676229,
+                  "z": -0.6,
+                  "w": 1.2,
                   "h": 1.16,
-                  "d": 4.8,
-                  "yaw": 0
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "return-east",
+                  "id": "return-west-2",
+                  "x": -6.3,
+                  "y": 0.228325,
+                  "z": -1.8,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-west-3",
+                  "x": -6.3,
+                  "y": -0.142615,
+                  "z": -3.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-west-4",
+                  "x": -6.3,
+                  "y": -0.35197,
+                  "z": -4.2,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-east-1",
                   "x": 6.3,
-                  "y": 0.58,
-                  "z": -2.4,
-                  "w": 0.13,
+                  "y": -0.013096,
+                  "z": -0.6,
+                  "w": 1.2,
                   "h": 1.16,
-                  "d": 4.8,
-                  "yaw": 0
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "gate-leaf-west",
+                  "id": "return-east-2",
+                  "x": 6.3,
+                  "y": -0.06365,
+                  "z": -1.8,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-east-3",
+                  "x": 6.3,
+                  "y": -0.223811,
+                  "z": -3.0,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "return-east-4",
+                  "x": 6.3,
+                  "y": -0.367895,
+                  "z": -4.2,
+                  "w": 1.2,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
+                },
+                {
+                  "id": "gate-leaf-west-1",
                   "x": -1.5,
-                  "y": 0.51,
+                  "y": 0.476904,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "gate-leaf-east",
+                  "id": "gate-leaf-east-1",
                   "x": 1.5,
-                  "y": 0.51,
+                  "y": 0.381029,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 }
               ],
               "surfaces": [],
               "gap": 3,
-              "depth": 4.8
+              "depth": 4.8,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              },
+              "groundProfile": {
+                "x": [
+                  -6.3,
+                  -4.9,
+                  -3.5,
+                  -2.1,
+                  -1.5,
+                  -0.7,
+                  0,
+                  0.7,
+                  1.5,
+                  2.1,
+                  3.5,
+                  4.9,
+                  6.3
+                ],
+                "z": [
+                  -4.8,
+                  -3.6,
+                  -2.4,
+                  -1.2,
+                  -1.05,
+                  0.0
+                ],
+                "heights": [
+                  [
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695,
+                    -0.985695
+                  ],
+                  [
+                    -0.878245,
+                    -0.884584,
+                    -0.89133,
+                    -0.897705,
+                    -0.900152,
+                    -0.903047,
+                    -0.905187,
+                    -0.906933,
+                    -0.90844,
+                    -0.909244,
+                    -0.910188,
+                    -0.91025,
+                    -0.910094
+                  ],
+                  [
+                    -0.566985,
+                    -0.593249,
+                    -0.621089,
+                    -0.647326,
+                    -0.657384,
+                    -0.669269,
+                    -0.678042,
+                    -0.685185,
+                    -0.691335,
+                    -0.694598,
+                    -0.698352,
+                    -0.698424,
+                    -0.697529
+                  ],
+                  [
+                    -0.136366,
+                    -0.189191,
+                    -0.245101,
+                    -0.298083,
+                    -0.318572,
+                    -0.34303,
+                    -0.361371,
+                    -0.376643,
+                    -0.3903,
+                    -0.397991,
+                    -0.408623,
+                    -0.412227,
+                    -0.58977
+                  ],
+                  [
+                    -0.078404,
+                    -0.134503,
+                    -0.193879,
+                    -0.250216,
+                    -0.272043,
+                    -0.298152,
+                    -0.317793,
+                    -0.334219,
+                    -0.349012,
+                    -0.357433,
+                    -0.369409,
+                    -0.374005,
+                    -0.590486
+                  ],
+                  [
+                    0.329073,
+                    0.253432,
+                    0.173303,
+                    0.096259,
+                    0.065852,
+                    0.028751,
+                    -0.0,
+                    -0.025007,
+                    -0.04893,
+                    -0.063734,
+                    -0.089223,
+                    -0.11535,
+                    -0.596577
+                  ]
+                ]
+              }
             },
             {
               "id": "village-garden-v4",
@@ -10779,49 +12871,178 @@
               ],
               "colliders": [
                 {
-                  "id": "front-west",
+                  "id": "front-west-1",
+                  "x": -5.083333,
+                  "y": 0.58,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-west-2",
                   "x": -3.65,
                   "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "front-east",
+                  "id": "front-west-3",
+                  "x": -2.216667,
+                  "y": 0.58,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-1",
+                  "x": 2.216667,
+                  "y": 0.58,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-2",
                   "x": 3.65,
                   "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "gate-leaf-west",
+                  "id": "front-east-3",
+                  "x": 5.083333,
+                  "y": 0.58,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "gate-leaf-west-1",
                   "x": -1.5,
-                  "y": 0.51,
+                  "y": 0.58,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "gate-leaf-east",
+                  "id": "gate-leaf-east-1",
                   "x": 1.5,
-                  "y": 0.51,
+                  "y": 0.58,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 }
               ],
               "surfaces": [],
               "gap": 3,
-              "depth": 1.7
+              "depth": 1.7,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              },
+              "groundProfile": {
+                "x": [
+                  -5.8,
+                  -4.511111,
+                  -3.222222,
+                  -1.933333,
+                  -1.5,
+                  -0.644444,
+                  0,
+                  0.644444,
+                  1.5,
+                  1.933333,
+                  3.222222,
+                  4.511111,
+                  5.8
+                ],
+                "z": [
+                  -1.7,
+                  -1.05,
+                  -0.85,
+                  0.0
+                ],
+                "heights": [
+                  [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                ]
+              }
             },
             {
               "id": "village-garden-v6",
@@ -10829,7 +13050,7 @@
               "asset": "field-signal:garden",
               "transform": {
                 "x": 10,
-                "y": 0,
+                "y": 0.105365,
                 "z": -184.4,
                 "yaw": 0
               },
@@ -10840,49 +13061,178 @@
               ],
               "colliders": [
                 {
-                  "id": "front-west",
+                  "id": "front-west-1",
+                  "x": -5.083333,
+                  "y": 0.556573,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-west-2",
                   "x": -3.65,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "y": 0.561509,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "front-east",
+                  "id": "front-west-3",
+                  "x": -2.216667,
+                  "y": 0.568031,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-1",
+                  "x": 2.216667,
+                  "y": 0.59152,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-2",
                   "x": 3.65,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "y": 0.59728,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "gate-leaf-west",
+                  "id": "front-east-3",
+                  "x": 5.083333,
+                  "y": 0.601034,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "gate-leaf-west-1",
                   "x": -1.5,
-                  "y": 0.51,
+                  "y": 0.515043,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "gate-leaf-east",
+                  "id": "gate-leaf-east-1",
                   "x": 1.5,
-                  "y": 0.51,
+                  "y": 0.521875,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 }
               ],
               "surfaces": [],
               "gap": 3,
-              "depth": 1.7
+              "depth": 1.7,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              },
+              "groundProfile": {
+                "x": [
+                  -5.8,
+                  -4.511111,
+                  -3.222222,
+                  -1.933333,
+                  -1.5,
+                  -0.644444,
+                  0,
+                  0.644444,
+                  1.5,
+                  1.933333,
+                  3.222222,
+                  4.511111,
+                  5.8
+                ],
+                "z": [
+                  -1.7,
+                  -1.05,
+                  -0.85,
+                  0.0
+                ],
+                "heights": [
+                  [
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365,
+                    -0.105365
+                  ],
+                  [
+                    -0.105187,
+                    -0.105178,
+                    -0.105167,
+                    -0.105153,
+                    -0.105148,
+                    -0.105138,
+                    -0.10513,
+                    -0.105122,
+                    -0.105112,
+                    -0.105107,
+                    -0.105095,
+                    -0.105086,
+                    -0.10508
+                  ],
+                  [
+                    -0.100972,
+                    -0.100771,
+                    -0.100493,
+                    -0.100152,
+                    -0.100026,
+                    -0.09977,
+                    -0.099573,
+                    -0.099378,
+                    -0.09913,
+                    -0.099011,
+                    -0.098701,
+                    -0.098472,
+                    -0.098339
+                  ],
+                  [
+                    -0.025411,
+                    -0.021842,
+                    -0.016827,
+                    -0.0106,
+                    -0.008307,
+                    -0.003605,
+                    0.0,
+                    0.00357,
+                    0.008115,
+                    0.01028,
+                    0.01592,
+                    0.020019,
+                    0.022305
+                  ]
+                ]
+              }
             },
             {
               "id": "village-garden-store",
@@ -10890,7 +13240,7 @@
               "asset": "field-signal:garden",
               "transform": {
                 "x": 25,
-                "y": 0,
+                "y": 0.035197,
                 "z": -183.9,
                 "yaw": 0
               },
@@ -10901,49 +13251,178 @@
               ],
               "colliders": [
                 {
-                  "id": "front-west",
+                  "id": "front-west-1",
+                  "x": -5.083333,
+                  "y": 0.58307,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-west-2",
                   "x": -3.65,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "y": 0.58201,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "front-east",
+                  "id": "front-west-3",
+                  "x": -2.216667,
+                  "y": 0.580998,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-1",
+                  "x": 2.216667,
+                  "y": 0.580101,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "front-east-2",
                   "x": 3.65,
-                  "y": 0.58,
-                  "z": 0,
-                  "w": 4.3,
+                  "y": 0.580634,
+                  "z": 0.0,
+                  "w": 1.433333,
                   "h": 1.16,
                   "d": 0.13,
-                  "yaw": 0
+                  "yaw": -0.0
                 },
                 {
-                  "id": "gate-leaf-west",
+                  "id": "front-east-3",
+                  "x": 5.083333,
+                  "y": 0.581342,
+                  "z": 0.0,
+                  "w": 1.433333,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": -0.0
+                },
+                {
+                  "id": "gate-leaf-west-1",
                   "x": -1.5,
-                  "y": 0.51,
+                  "y": 0.558475,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 },
                 {
-                  "id": "gate-leaf-east",
+                  "id": "gate-leaf-east-1",
                   "x": 1.5,
-                  "y": 0.51,
+                  "y": 0.558236,
                   "z": -0.525,
-                  "w": 0.13,
-                  "h": 1.15,
-                  "d": 1.05,
-                  "yaw": 0
+                  "w": 1.05,
+                  "h": 1.16,
+                  "d": 0.13,
+                  "yaw": 1.570796326795
                 }
               ],
               "surfaces": [],
               "gap": 3,
-              "depth": 1.7
+              "depth": 1.7,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              },
+              "groundProfile": {
+                "x": [
+                  -5.8,
+                  -4.511111,
+                  -3.222222,
+                  -1.933333,
+                  -1.5,
+                  -0.644444,
+                  0,
+                  0.644444,
+                  1.5,
+                  1.933333,
+                  3.222222,
+                  4.511111,
+                  5.8
+                ],
+                "z": [
+                  -1.7,
+                  -1.05,
+                  -0.85,
+                  0.0
+                ],
+                "heights": [
+                  [
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197
+                  ],
+                  [
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197
+                  ],
+                  [
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197,
+                    -0.035197
+                  ],
+                  [
+                    0.003574,
+                    0.002667,
+                    0.001683,
+                    0.000805,
+                    0.000561,
+                    0.000183,
+                    -0.0,
+                    -9e-05,
+                    -6.4e-05,
+                    9e-06,
+                    0.000428,
+                    0.001049,
+                    0.001708
+                  ]
+                ]
+              }
             },
             {
               "id": "village-lamp-01",
@@ -10951,7 +13430,7 @@
               "asset": "campaign_light_curved",
               "transform": {
                 "x": -44,
-                "y": 1.6786,
+                "y": 0.776808,
                 "z": -157,
                 "yaw": 0
               },
@@ -10977,7 +13456,11 @@
                 0,
                 1.5707963267948966,
                 0
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "village-lamp-02",
@@ -10985,7 +13468,7 @@
               "asset": "campaign_light_curved",
               "transform": {
                 "x": -42,
-                "y": 0.5303,
+                "y": 0.530331,
                 "z": -185,
                 "yaw": 0
               },
@@ -11011,7 +13494,11 @@
                 0,
                 1.5707963267948966,
                 0
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "village-lamp-03",
@@ -11045,7 +13532,11 @@
                 0,
                 1.5707963267948966,
                 0
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "village-lamp-04",
@@ -11053,7 +13544,7 @@
               "asset": "campaign_light_curved",
               "transform": {
                 "x": 43,
-                "y": 0.747,
+                "y": 0.746973,
                 "z": -193,
                 "yaw": 0
               },
@@ -11079,7 +13570,11 @@
                 0,
                 1.5707963267948966,
                 0
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "village-bench-01",
@@ -11087,7 +13582,7 @@
               "asset": "field-signal:bench",
               "transform": {
                 "x": -38,
-                "y": 0.1356,
+                "y": 0.13557,
                 "z": -158,
                 "yaw": 0
               },
@@ -11108,7 +13603,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "village-bench-02",
@@ -11116,7 +13615,7 @@
               "asset": "field-signal:bench",
               "transform": {
                 "x": 15,
-                "y": 1.2317,
+                "y": 1.231748,
                 "z": -157,
                 "yaw": 0.25
               },
@@ -11137,7 +13636,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "village-bench-03",
@@ -11145,7 +13648,7 @@
               "asset": "field-signal:bench",
               "transform": {
                 "x": 42,
-                "y": 0.2072,
+                "y": 0.207207,
                 "z": -186,
                 "yaw": -1.57
               },
@@ -11166,7 +13669,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "village-noticeboard-01",
@@ -11174,7 +13681,7 @@
               "asset": "field-signal:noticeboard",
               "transform": {
                 "x": -44,
-                "y": 1.8784,
+                "y": 1.878376,
                 "z": -168,
                 "yaw": 0
               },
@@ -11196,7 +13703,11 @@
                 }
               ],
               "surfaces": [],
-              "text": "ROWAN / VILLAGE"
+              "text": "ROWAN / VILLAGE",
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "village-bin-01",
@@ -11204,7 +13715,7 @@
               "asset": "campaign_dumpster",
               "transform": {
                 "x": 42,
-                "y": 0.1654,
+                "y": 0.165365,
                 "z": -183,
                 "yaw": 0
               },
@@ -11225,7 +13736,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             }
           ]
         },
@@ -11244,7 +13759,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -57,
-                "y": 1.5732,
+                "y": 1.573181,
                 "z": -55,
                 "yaw": 0.4
               },
@@ -11268,7 +13783,11 @@
               "surfaces": [],
               "parts": [
                 "rock_moss_set_01_rock03$"
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-boulder-02",
@@ -11276,7 +13795,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -65,
-                "y": 1.2192,
+                "y": 1.219152,
                 "z": -64,
                 "yaw": 2.1
               },
@@ -11300,7 +13819,11 @@
               "surfaces": [],
               "parts": [
                 "rock_moss_set_01_rock03$"
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-boulder-03",
@@ -11308,7 +13831,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -64,
-                "y": 1.7853,
+                "y": 1.785324,
                 "z": -81,
                 "yaw": 0.8
               },
@@ -11332,7 +13855,11 @@
               "surfaces": [],
               "parts": [
                 "rock_moss_set_01_rock03$"
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-boulder-04",
@@ -11340,7 +13867,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -30,
-                "y": 2.9236,
+                "y": 2.923606,
                 "z": -116,
                 "yaw": 1.9
               },
@@ -11364,7 +13891,11 @@
               "surfaces": [],
               "parts": [
                 "rock_moss_set_01_rock03$"
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-boulder-05",
@@ -11372,7 +13903,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -52,
-                "y": 2.4371,
+                "y": 2.437109,
                 "z": -123,
                 "yaw": 0.2
               },
@@ -11396,7 +13927,11 @@
               "surfaces": [],
               "parts": [
                 "rock_moss_set_01_rock03$"
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-boulder-06",
@@ -11404,7 +13939,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -50,
-                "y": 2.0566,
+                "y": 2.056631,
                 "z": -38,
                 "yaw": 2.6
               },
@@ -11428,7 +13963,11 @@
               "surfaces": [],
               "parts": [
                 "rock_moss_set_01_rock03$"
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-boulder-07",
@@ -11436,7 +13975,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -57,
-                "y": 1.9568,
+                "y": 1.956823,
                 "z": -23,
                 "yaw": 1.3
               },
@@ -11460,7 +13999,11 @@
               "surfaces": [],
               "parts": [
                 "rock_moss_set_01_rock03$"
-              ]
+              ],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fallen-trunk-01",
@@ -11468,7 +14011,7 @@
               "asset": "deadwood",
               "transform": {
                 "x": -57,
-                "y": 1.9545,
+                "y": 1.954509,
                 "z": -62,
                 "yaw": 0.7
               },
@@ -11489,7 +14032,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fallen-trunk-02",
@@ -11497,7 +14044,7 @@
               "asset": "deadwood",
               "transform": {
                 "x": -59,
-                "y": 1.7362,
+                "y": 1.736165,
                 "z": -78,
                 "yaw": 1.8
               },
@@ -11518,7 +14065,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fallen-trunk-03",
@@ -11526,7 +14077,7 @@
               "asset": "deadwood",
               "transform": {
                 "x": -41,
-                "y": 2.5048,
+                "y": 2.504798,
                 "z": -118,
                 "yaw": 0.2
               },
@@ -11547,7 +14098,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fern-01",
@@ -11555,7 +14110,7 @@
               "asset": "fern",
               "transform": {
                 "x": -56,
-                "y": 1.7526,
+                "y": 1.752643,
                 "z": -58,
                 "yaw": 0.0
               },
@@ -11566,7 +14121,11 @@
               ],
               "colliders": [],
               "surfaces": [],
-              "vegetation": true
+              "vegetation": true,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fern-02",
@@ -11574,7 +14133,7 @@
               "asset": "fern",
               "transform": {
                 "x": -59,
-                "y": 1.7011,
+                "y": 1.701055,
                 "z": -60,
                 "yaw": 1.23
               },
@@ -11585,7 +14144,11 @@
               ],
               "colliders": [],
               "surfaces": [],
-              "vegetation": true
+              "vegetation": true,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fern-03",
@@ -11593,7 +14156,7 @@
               "asset": "fern",
               "transform": {
                 "x": -65,
-                "y": 1.3489,
+                "y": 1.348897,
                 "z": -68,
                 "yaw": 2.46
               },
@@ -11604,7 +14167,11 @@
               ],
               "colliders": [],
               "surfaces": [],
-              "vegetation": true
+              "vegetation": true,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fern-04",
@@ -11612,7 +14179,7 @@
               "asset": "fern",
               "transform": {
                 "x": -67,
-                "y": 1.859,
+                "y": 1.858991,
                 "z": -78,
                 "yaw": 3.69
               },
@@ -11623,7 +14190,11 @@
               ],
               "colliders": [],
               "surfaces": [],
-              "vegetation": true
+              "vegetation": true,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fern-05",
@@ -11631,7 +14202,7 @@
               "asset": "fern",
               "transform": {
                 "x": -55,
-                "y": 2.2763,
+                "y": 2.276338,
                 "z": -119,
                 "yaw": 4.92
               },
@@ -11642,7 +14213,11 @@
               ],
               "colliders": [],
               "surfaces": [],
-              "vegetation": true
+              "vegetation": true,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fern-06",
@@ -11650,7 +14225,7 @@
               "asset": "fern",
               "transform": {
                 "x": -43,
-                "y": 2.5462,
+                "y": 2.546159,
                 "z": -121,
                 "yaw": 6.15
               },
@@ -11661,7 +14236,11 @@
               ],
               "colliders": [],
               "surfaces": [],
-              "vegetation": true
+              "vegetation": true,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fern-07",
@@ -11669,7 +14248,7 @@
               "asset": "fern",
               "transform": {
                 "x": -49,
-                "y": 2.1039,
+                "y": 2.103853,
                 "z": -37,
                 "yaw": 7.38
               },
@@ -11680,7 +14259,11 @@
               ],
               "colliders": [],
               "surfaces": [],
-              "vegetation": true
+              "vegetation": true,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fern-08",
@@ -11688,7 +14271,7 @@
               "asset": "fern",
               "transform": {
                 "x": -54,
-                "y": 1.6694,
+                "y": 1.669375,
                 "z": -32,
                 "yaw": 8.61
               },
@@ -11699,7 +14282,11 @@
               ],
               "colliders": [],
               "surfaces": [],
-              "vegetation": true
+              "vegetation": true,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-fern-09",
@@ -11707,7 +14294,7 @@
               "asset": "fern",
               "transform": {
                 "x": -60,
-                "y": 1.6937,
+                "y": 1.693711,
                 "z": -25,
                 "yaw": 9.84
               },
@@ -11718,7 +14305,11 @@
               ],
               "colliders": [],
               "surfaces": [],
-              "vegetation": true
+              "vegetation": true,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-waymarker-01",
@@ -11726,7 +14317,7 @@
               "asset": "field-signal:waymarker",
               "transform": {
                 "x": -20,
-                "y": 0.622,
+                "y": 0.622049,
                 "z": -59,
                 "yaw": 0
               },
@@ -11748,7 +14339,11 @@
                 }
               ],
               "surfaces": [],
-              "text": "VILLAGE ↓"
+              "text": "VILLAGE ↓",
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "woodland-waymarker-02",
@@ -11756,7 +14351,7 @@
               "asset": "field-signal:waymarker",
               "transform": {
                 "x": -53,
-                "y": 0.2767,
+                "y": 1.223059,
                 "z": -87,
                 "yaw": 0
               },
@@ -11778,7 +14373,11 @@
                 }
               ],
               "surfaces": [],
-              "text": "CROSSING ←"
+              "text": "CROSSING ←",
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             }
           ]
         },
@@ -11797,7 +14396,7 @@
               "asset": "field-signal:rail-signal",
               "transform": {
                 "x": -97.8,
-                "y": 0,
+                "y": 0.102112,
                 "z": -107,
                 "yaw": 0
               },
@@ -11818,7 +14417,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "crossing-signal-02",
@@ -11847,7 +14450,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "crossing-signal-03",
@@ -11855,7 +14462,7 @@
               "asset": "field-signal:rail-signal",
               "transform": {
                 "x": -97.3,
-                "y": 0,
+                "y": 5.3e-05,
                 "z": -137,
                 "yaw": 0
               },
@@ -11876,7 +14483,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "crossing-signal-04",
@@ -11905,7 +14516,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "crossing-barrier-01",
@@ -11934,7 +14549,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "crossing-barrier-02",
@@ -11963,7 +14582,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "crossing-timber-deck-01",
@@ -11981,7 +14604,11 @@
                 6
               ],
               "colliders": [],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "rail-surface",
+                "offset": 0.12
+              }
             },
             {
               "id": "crossing-electric-cabinet-01",
@@ -11989,7 +14616,7 @@
               "asset": "field-signal:utility-cabinet",
               "transform": {
                 "x": -99.5,
-                "y": 1.483,
+                "y": 0.73762,
                 "z": -107,
                 "yaw": 0
               },
@@ -12010,7 +14637,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             }
           ]
         },
@@ -12039,7 +14670,11 @@
                 10
               ],
               "colliders": [],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "rail-surface",
+                "offset": -0.02
+              }
             },
             {
               "id": "railway-ballast-02",
@@ -12057,7 +14692,11 @@
                 10
               ],
               "colliders": [],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "rail-surface",
+                "offset": -0.02
+              }
             },
             {
               "id": "railway-ballast-03",
@@ -12075,7 +14714,11 @@
                 10
               ],
               "colliders": [],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "rail-surface",
+                "offset": -0.02
+              }
             },
             {
               "id": "railway-ballast-04",
@@ -12093,7 +14736,11 @@
                 10
               ],
               "colliders": [],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "rail-surface",
+                "offset": -0.02
+              }
             },
             {
               "id": "railway-ballast-05",
@@ -12111,7 +14758,11 @@
                 10
               ],
               "colliders": [],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "rail-surface",
+                "offset": -0.02
+              }
             },
             {
               "id": "railway-ballast-06",
@@ -12129,7 +14780,11 @@
                 10
               ],
               "colliders": [],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "rail-surface",
+                "offset": -0.02
+              }
             },
             {
               "id": "railway-lineside-box-01",
@@ -12137,7 +14792,7 @@
               "asset": "field-signal:utility-cabinet",
               "transform": {
                 "x": -99,
-                "y": 0.6736,
+                "y": 0.32383,
                 "z": -166,
                 "yaw": 0
               },
@@ -12158,7 +14813,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "railway-lineside-box-02",
@@ -12166,7 +14825,7 @@
               "asset": "field-signal:utility-cabinet",
               "transform": {
                 "x": -99,
-                "y": 2.095,
+                "y": 1.666777,
                 "z": -220,
                 "yaw": 0
               },
@@ -12187,7 +14846,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "railway-milepost-01",
@@ -12195,7 +14858,7 @@
               "asset": "field-signal:waymarker",
               "transform": {
                 "x": -94,
-                "y": 0,
+                "y": 0.021871,
                 "z": -236,
                 "yaw": 0
               },
@@ -12217,7 +14880,11 @@
                 }
               ],
               "surfaces": [],
-              "text": "17 / 6"
+              "text": "17 / 6",
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             }
           ]
         },
@@ -12262,7 +14929,11 @@
                 0,
                 1.5707963267948966,
                 0
-              ]
+              ],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-container-02",
@@ -12296,7 +14967,11 @@
                 0,
                 1.5707963267948966,
                 0
-              ]
+              ],
+              "grounding": {
+                "mode": "stacked",
+                "offset": 2.59
+              }
             },
             {
               "id": "docks-container-03",
@@ -12330,7 +15005,11 @@
                 0,
                 1.5707963267948966,
                 0
-              ]
+              ],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-container-04",
@@ -12364,7 +15043,11 @@
                 0,
                 1.5707963267948966,
                 0
-              ]
+              ],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-bollard-01",
@@ -12393,7 +15076,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-bollard-02",
@@ -12422,7 +15109,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-bollard-03",
@@ -12451,7 +15142,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-bollard-04",
@@ -12480,7 +15175,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-cargo-crate-01",
@@ -12509,7 +15208,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-cargo-crate-02",
@@ -12538,7 +15241,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-floodlight-01",
@@ -12567,7 +15274,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-floodlight-02",
@@ -12596,7 +15307,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
+              }
             },
             {
               "id": "docks-crane-01",
@@ -12990,6 +15705,10 @@
                     "bidirectional": true
                   }
                 ]
+              },
+              "grounding": {
+                "mode": "pier-deck",
+                "offset": 0
               }
             }
           ]
@@ -13009,7 +15728,7 @@
               "asset": "field-signal:utility-pole",
               "transform": {
                 "x": -52,
-                "y": 1.2268,
+                "y": 0.091138,
                 "z": -155,
                 "yaw": 0
               },
@@ -13030,7 +15749,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "utility-service-pole-02",
@@ -13038,7 +15761,7 @@
               "asset": "field-signal:utility-pole",
               "transform": {
                 "x": -53,
-                "y": 2.4126,
+                "y": 2.412575,
                 "z": -181,
                 "yaw": 0
               },
@@ -13059,7 +15782,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "utility-service-span-01",
@@ -13067,7 +15794,7 @@
               "asset": "field-signal:cable-span",
               "transform": {
                 "x": -53,
-                "y": 2.4126,
+                "y": 2.412575,
                 "z": -181,
                 "yaw": 0
               },
@@ -13080,8 +15807,12 @@
               "surfaces": [],
               "end": {
                 "x": 1,
-                "y": -1.1858,
+                "y": -2.321437,
                 "z": 26
+              },
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
               }
             },
             {
@@ -13111,7 +15842,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "utility-service-span-02",
@@ -13132,8 +15867,12 @@
               "surfaces": [],
               "end": {
                 "x": 0,
-                "y": 2.4126,
+                "y": 2.412575,
                 "z": 28
+              },
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
               }
             },
             {
@@ -13142,7 +15881,7 @@
               "asset": "field-signal:utility-pole",
               "transform": {
                 "x": -58,
-                "y": 0.831,
+                "y": 0.830965,
                 "z": -236,
                 "yaw": 0
               },
@@ -13163,7 +15902,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "utility-service-span-03",
@@ -13171,7 +15914,7 @@
               "asset": "field-signal:cable-span",
               "transform": {
                 "x": -58,
-                "y": 0.831,
+                "y": 0.830965,
                 "z": -236,
                 "yaw": 0
               },
@@ -13184,8 +15927,12 @@
               "surfaces": [],
               "end": {
                 "x": 5,
-                "y": -0.831,
+                "y": -0.830965,
                 "z": 27
+              },
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
               }
             },
             {
@@ -13194,7 +15941,7 @@
               "asset": "field-signal:transformer",
               "transform": {
                 "x": -55,
-                "y": 2.3498,
+                "y": 2.349828,
                 "z": -182,
                 "yaw": 0
               },
@@ -13215,7 +15962,11 @@
                   "yaw": 0
                 }
               ],
-              "surfaces": []
+              "surfaces": [],
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "utility-source-link-01",
@@ -13223,7 +15974,7 @@
               "asset": "field-signal:cable-span",
               "transform": {
                 "x": -52,
-                "y": 1.2268,
+                "y": 0.091138,
                 "z": -155,
                 "yaw": 0
               },
@@ -13236,7 +15987,7 @@
               "surfaces": [],
               "end": {
                 "x": 16,
-                "y": 1.2558,
+                "y": 2.391493,
                 "z": 30
               },
               "startHeight": 7.12,
@@ -13246,6 +15997,10 @@
                 "z": -125,
                 "poleHeight": 6.5,
                 "kind": "existing-utility-pole"
+              },
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
               }
             }
           ]
@@ -13265,7 +16020,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -219,
-                "y": 0.7346,
+                "y": 0.734595,
                 "z": -235,
                 "yaw": 0.2
               },
@@ -13290,7 +16045,11 @@
               "parts": [
                 "rock_moss_set_01_rock01$"
               ],
-              "cull": 165
+              "cull": 165,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "ridge-boulder-02",
@@ -13298,7 +16057,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -226,
-                "y": 0.1715,
+                "y": 0.171523,
                 "z": -259,
                 "yaw": 0.6
               },
@@ -13323,7 +16082,11 @@
               "parts": [
                 "rock_moss_set_01_rock01$"
               ],
-              "cull": 165
+              "cull": 165,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "ridge-boulder-03",
@@ -13331,7 +16094,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -218,
-                "y": 1.494,
+                "y": 1.494025,
                 "z": -285,
                 "yaw": 1.6
               },
@@ -13356,7 +16119,11 @@
               "parts": [
                 "rock_moss_set_01_rock01$"
               ],
-              "cull": 165
+              "cull": 165,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "ridge-boulder-04",
@@ -13364,7 +16131,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -226,
-                "y": 3.4302,
+                "y": 3.430224,
                 "z": -313,
                 "yaw": 0.8
               },
@@ -13389,7 +16156,11 @@
               "parts": [
                 "rock_moss_set_01_rock01$"
               ],
-              "cull": 165
+              "cull": 165,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "ridge-boulder-05",
@@ -13397,7 +16168,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -218,
-                "y": 3.9659,
+                "y": 3.965859,
                 "z": -342,
                 "yaw": 1.1
               },
@@ -13422,7 +16193,11 @@
               "parts": [
                 "rock_moss_set_01_rock01$"
               ],
-              "cull": 165
+              "cull": 165,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "ridge-boulder-06",
@@ -13430,7 +16205,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -225,
-                "y": 3.3793,
+                "y": 3.379343,
                 "z": -372,
                 "yaw": 0.2
               },
@@ -13455,7 +16230,11 @@
               "parts": [
                 "rock_moss_set_01_rock01$"
               ],
-              "cull": 165
+              "cull": 165,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             },
             {
               "id": "ridge-boulder-07",
@@ -13463,7 +16242,7 @@
               "asset": "moss_rocks",
               "transform": {
                 "x": -211,
-                "y": 2.7605,
+                "y": 2.760469,
                 "z": -402,
                 "yaw": 1.5
               },
@@ -13488,7 +16267,11 @@
               "parts": [
                 "rock_moss_set_01_rock01$"
               ],
-              "cull": 165
+              "cull": 165,
+              "grounding": {
+                "mode": "terrain",
+                "offset": 0
+              }
             }
           ]
         },

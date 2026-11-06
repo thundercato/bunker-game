@@ -45,6 +45,11 @@ The audit identified these concrete defects in the preserved source:
   These are geometric layout findings, not proof that the surrounding district
   is globally unreachable. Keep building/mission/save coordinates stable and
   reroute candidate transport geometry.
+- The rail extensions rise into terrain despite their flat rail meshes; the
+  preserved source reaches 5.741742 m of terrain beneath nominal 0.11 m rails.
+  Candidate terrain now flattens the full authored rail route. The audit samples
+  land spans at no more than two-metre intervals and excludes explicit bridge
+  spans when checking for buried rail geometry.
 - The `tower`, `orders` and `beacon` field map markers are respectively 0.300000,
   2.745906 and 0.583095 metres from their bound containers. Candidate source
   adaptation binds them to those existing container coordinates. Underground
@@ -66,11 +71,12 @@ Original findings remain under `preservedSourceLayoutFindings` and
 transport overlaps and validation results are separate, so a corrected candidate
 does not erase the evidence or misrepresent an old defect as still active.
 
-The current candidate passes **258 navigation checks with zero errors and zero
+The current candidate passes **259 navigation checks with zero errors and zero
 warnings**. All 139 containers have a sampled approach accepted by actual search
 rules. The report includes four compiled house interiors, 95 district objects,
-109 local colliders, three deck surfaces and one ladder structure, plus the 69
-searchable prop variants. Candidate transport has no remaining centreline/building
+109 local colliders, three deck surfaces and one ladder structure, plus 69
+searchable prop variants with 68 actually placed after interior overrides.
+Candidate transport has no remaining centreline/building
 footprint intersections. These counts are generated, not content targets.
 
 Each building entrance is sampled closed and open, every legacy two-storey stair
@@ -112,5 +118,5 @@ tree and furniture colliders. Actual screenshot/traversal evidence, offline/save
 regression checks and device testing belong to the campaign execution record.
 No browser/GPU run or new performance benchmark is claimed by this audit.
 
-Verification: all 18 audit tests passed. The generated candidate report passed
-its structural/reference checks and all 258 real-engine navigation checks.
+Verification: all 19 audit tests passed. The generated candidate report passed
+its structural/reference checks and all 259 real-engine navigation checks.

@@ -129,6 +129,11 @@ class RealEngineAudit(unittest.TestCase):
     def test_effective_world_has_no_structural_or_navigation_errors(self):
         self.assertEqual(self.report['summary']['errors'], 0, self.report['issues'])
 
+    def test_land_rail_geometry_is_not_buried_beyond_the_old_straight_extent(self):
+        grounding = self.report['navigation']['railGrounding']
+        self.assertGreater(grounding['landSamples'], 100)
+        self.assertEqual(grounding['samplesAboveRailGeometry'], [])
+
     def test_underground_markers_remain_entrances(self):
         missions = {m['id']: m for m in self.report['missions']}
         for identity in ('cave', 'shelter', 'tunnels'):
