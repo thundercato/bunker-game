@@ -114,6 +114,7 @@ export function validateTemplate(input,{assets=null}={}) {
   if(!input||input.format!==TEMPLATE_FORMAT||input.version!==1||typeof input.name!=='string'||!input.name.trim()||input.name.length>80||/[\x00-\x1f]/.test(input.name)||!Array.isArray(input.objects)||!input.objects.length||input.objects.length>200)throw Error('Not a supported object template (1–200 unbound children).');
   const objects=[],ids=new Set();
   for(const original of input.objects){
+    if(!original||typeof original!=='object'||Array.isArray(original))throw Error('Template contains an invalid child.');
     const o=clone(original);
     if(!safeId(o.id)||ids.has(o.id)||protectedObject(o)||!Array.isArray(o.position)||o.position.length!==3||!o.position.every(n=>finite(n)&&Math.abs(n)<=100))throw Error('Template contains unsafe, duplicate or protected children.');ids.add(o.id);
     // Canonical validation owns type/material/asset/size/opening semantics. A test
