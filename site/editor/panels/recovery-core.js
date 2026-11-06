@@ -54,7 +54,7 @@ export function validateRecovery(entry, {context}) {
         if (input.history !== undefined) decoded = unpackHistory(input.document, input.history);
         else {
           const past = input.past ?? [], future = input.future ?? [];
-          if (!Array.isArray(past) || !Array.isArray(future) || past.length > HISTORY_LIMIT || future.length > HISTORY_LIMIT) throw Error('Recovery history exceeds thirty undo/redo states.');
+          if (!Array.isArray(past) || !Array.isArray(future) || past.length > HISTORY_LIMIT || future.length > HISTORY_LIMIT || past.length + future.length > HISTORY_LIMIT) throw Error('Recovery history exceeds sixty combined undo/redo states.');
           decoded = {past, future};
         }
         history = {past:decoded.past.map(frame => probe.checked(frame)), future:decoded.future.map(frame => probe.checked(frame))};
