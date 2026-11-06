@@ -30,6 +30,7 @@ jobs:
             for i in z.infolist():
               p=pathlib.PurePosixPath(i.filename)
               if p.is_absolute() or '..' in p.parts or stat.S_ISLNK(i.external_attr>>16):raise ValueError('Unsafe archive')
+              if p.parts[0]=='.github':continue
               target=root/p
               target.parent.mkdir(parents=True,exist_ok=True)
               target.write_bytes(z.read(i))
