@@ -48,6 +48,20 @@ class EditorPackageTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Unsafe/private package entry: tests/check.js'):
             editor_package.validate(self.source, ['tests/check.js'])
 
+    def test_credentials_cannot_ship_even_when_explicitly_listed(self):
+        for name in ['.env', '.env.production', 'credentials.json', '.aws/credentials', 'private.key']:
+            with self.subTest(name=name):
+                self.write(name, 'private fixture')
+                with self.assertRaisesRegex(ValueError, 'Unsafe/private package entry'):
+                    editor_package.validate(self.source, [name])
+
+    def test_symlink_cannot_copy_a_private_file_outside_public_source(self):
+        private=Path(self.temp.name)/'private.txt'
+        private.write_text('private fixture')
+        (self.source/'innocent.txt').symlink_to(private)
+        with self.assertRaisesRegex(ValueError, 'Package entry escapes public source'):
+            editor_package.validate(self.source, ['innocent.txt'])
+
     def test_complete_module_graph_passes_and_built_omission_fails(self):
         files = {'editor/start.js': "export {run} from './nested/tool.js';", 'editor/nested/tool.js': "import '../../math.js';", 'math.js': ''}
         for name, content in files.items():

@@ -36,10 +36,14 @@ def validate(source=SOURCE, paths=None, package=None):
     errors=[]
     for name in sorted(listed):
         rel=PurePosixPath(name)
-        if rel.is_absolute() or '..' in rel.parts or any(part in {'tests','node_modules','.git','__pycache__'} for part in rel.parts) or rel.suffix in {'.pyc','.env'}:
+        private_parts={'tests','node_modules','.git','__pycache__','.ssh','.aws','.gnupg'}
+        private_name=rel.name=='.env' or rel.name.startswith('.env.') or rel.name in {'credentials.json','credentials','secrets.json','id_rsa','id_ed25519'}
+        if rel.is_absolute() or '..' in rel.parts or any(part in private_parts for part in rel.parts) or private_name or rel.suffix in {'.pyc','.pem','.p12','.pfx','.key'}:
             errors.append('Unsafe/private package entry: '+name)
         elif not (source/name).is_file():
             errors.append('Missing source package entry: '+name)
+        elif not (source/name).resolve().is_relative_to(source.resolve()):
+            errors.append('Package entry escapes public source: '+name)
         if package is not None and not (Path(package)/name).is_file():
             errors.append('Missing built package file: '+name)
     # Explicit editor sources are the authoring application, not tests or tools.
