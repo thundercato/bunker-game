@@ -30,6 +30,7 @@ jobs:
           node site/tests/test_client.mjs
           node site/tests/test_atlas.mjs
           node site/tests/test_layout.mjs
+          node site/tests/test_world_v2.mjs
       - name: Build and validate runtime assets
         run: python3 tools/build.py
       - name: Install browser test runner
@@ -49,6 +50,9 @@ jobs:
         run: node tests/editor_controls.cjs
       - name: Editor import, export, collision and real-game preview checks
         run: node tests/editor_browser.cjs
+      - name: World v2 full-map editor browser checks
+        timeout-minutes: 5
+        run: node tests/world_v2_browser.cjs
       - name: Preserve verification output
         if: always()
         uses: actions/upload-artifact@v4

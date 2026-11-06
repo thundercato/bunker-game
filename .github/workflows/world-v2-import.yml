@@ -1,0 +1,53 @@
+name: Import World Editor v2 checkpoint
+on:
+  push:
+    branches: [world-editor-v2-foundation]
+    paths: [world-editor-v2-checkpoint.json, .github/workflows/world-v2-import.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Import hash-verified source files
+        run: |
+          python3 - <<'PY'
+          import io,hashlib,json,pathlib,urllib.request,zipfile,stat
+          root=pathlib.Path.cwd()
+          d=json.loads((root/'world-editor-v2-checkpoint.json').read_text())
+          if not d['url'].startswith('https://d2ol7oe51mr4n9.cloudfront.net/'):raise ValueError('Invalid source host')
+          data=urllib.request.urlopen(d['url'],timeout=60).read()
+          if hashlib.sha256(data).hexdigest()!=d['sha256']:raise ValueError('Source hash mismatch')
+          allowed=set(d['paths'])
+          with zipfile.ZipFile(io.BytesIO(data)) as z:
+            if set(z.namelist())!=allowed:raise ValueError('Unexpected files')
+            if sum(i.file_size for i in z.infolist())>250000:raise ValueError('Source too large')
+            for i in z.infolist():
+              p=pathlib.PurePosixPath(i.filename)
+              if p.is_absolute() or '..' in p.parts or stat.S_ISLNK(i.external_attr>>16):raise ValueError('Unsafe archive')
+              if p.parts[0]=='.github':continue
+              target=root/p
+              target.parent.mkdir(parents=True,exist_ok=True)
+              target.write_bytes(z.read(i))
+          print('Imported',len(allowed),'files')
+          PY
+      - name: Validate editor and existing game
+        run: |
+          node --check site/editor/world.js
+          node site/tests/test_world_v2.mjs
+          python3 -m unittest discover -s site/tests -p 'test_*.py' -q
+          python3 tools/build.py
+      - name: Commit imported changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat: full-map terrain and world editor v2 foundation'
+            git push origin HEAD:world-editor-v2-foundation
+          fi

@@ -1,0 +1,20 @@
+{
+  "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3LFbMmm7xkQiq2NzFlDVHV19jYK/9e2c3104-946b-4b74-98e7-436c7a396d86.zip",
+  "sha256": "fc61f8458afb7d732cc9df25d23882fb143e12f2f3f8a82d76b0611d84fecfc6",
+  "paths": [
+    "site/editor/world.js",
+    "site/editor/world-core.js",
+    "site/editor/world.html",
+    "site/editor/index.html",
+    "site/editor/editor.js",
+    "site/editor/release.json",
+    "site/precache.json",
+    "site/sw.js",
+    "site/editor/bootstrap.js",
+    "site/tests/test_world_v2.mjs",
+    "tests/world_v2_browser.cjs",
+    "docs/WORLD_EDITOR_V2.md",
+    "README.md",
+    ".github/workflows/deploy-pages.yml"
+  ]
+}
