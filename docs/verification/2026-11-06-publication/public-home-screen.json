@@ -1,0 +1,176 @@
+{
+  "url": "https://thundercato.github.io/bunker-game/",
+  "release": {
+    "name": "Field Signal: Field Journal & Quayside",
+    "version": "11.1.0",
+    "build": "field-journal-quayside-11.1.0-20261106",
+    "baseScore": "Relay Lanterns",
+    "saveSchema": 9,
+    "builtAt": "2026-11-06",
+    "sourceRepository": "thundercato/bunker-game",
+    "worldEditor": {
+      "version": "2.1.0-preview",
+      "path": "editor/",
+      "previewCampaignIsolated": true,
+      "worldMap": "editor/world.html",
+      "buildingPreview": "?buildingPreview=hut&play=1",
+      "worldDocument": "field-signal-world-document/1"
+    },
+    "published": true,
+    "baseGame": "Overgrowth 11.0.0",
+    "candidate": {
+      "journal": "field-signal-journal/1",
+      "searchVariants": 69,
+      "refurbishedInteriors": 4,
+      "districts": 8,
+      "productionApprovalRequired": false
+    },
+    "publication": {
+      "approvedAt": "2026-11-06",
+      "channel": "GitHub Pages",
+      "homeScreen": "Safari → Share → Add to Home Screen"
+    }
+  },
+  "manifest": {
+    "name": "Field Signal",
+    "short_name": "Field Signal",
+    "description": "Explore the coast, search furnished homes and keep a physical field journal.",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "landscape",
+    "background_color": "#17231e",
+    "theme_color": "#17231e",
+    "icons": [
+      {
+        "src": "assets/ui/icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "assets/ui/icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  },
+  "manifestContentType": "application/manifest+json; charset=utf-8",
+  "runtimeCache": "field-signal-game-first-release-11-1",
+  "info": {
+    "calls": 47,
+    "triangles": 91046,
+    "trees": 5841,
+    "scannedBarriers": true,
+    "textures": 54,
+    "buildings": 37,
+    "containers": 143,
+    "creatures": 35,
+    "zone": "base",
+    "terrainChunks": 330,
+    "foliageSectors": 544,
+    "lightSources": 163,
+    "activeLights": 4,
+    "npcs": 3,
+    "build": "Overgrowth 11.0",
+    "licensedModelFamilies": 78,
+    "importedInstances": 192,
+    "assetErrors": [],
+    "drains": {
+      "channels": 2,
+      "length": 45.6,
+      "bars": 870,
+      "depth": 0.36,
+      "physicalVoid": true
+    },
+    "radioPosition": {
+      "x": -486,
+      "y": 1.35,
+      "z": 14
+    },
+    "placements": {
+      "placed": 115,
+      "unsupported": [],
+      "wallSegments": 26,
+      "duplicateGhostsRemoved": 6
+    },
+    "antialias": true,
+    "depthRange": [
+      0.09,
+      68
+    ],
+    "performance": {
+      "fps": 33,
+      "ms": 30.550357163499456,
+      "draws": 47,
+      "triangles": 91046
+    },
+    "equipmentModels": true,
+    "missionCount": 15,
+    "worldBounds": {
+      "minX": -240,
+      "maxX": 360,
+      "minZ": -700,
+      "maxZ": 150
+    },
+    "impactCount": 0,
+    "hiddenAnomalies": true,
+    "fieldcraft": {
+      "tables": 46,
+      "containers": 118,
+      "beds": 10,
+      "buildingDetails": 5,
+      "decorations": 15,
+      "looseItems": 32
+    },
+    "itemVisuals": {
+      "catalogue": 61,
+      "ready": 61,
+      "imported": 25,
+      "authored": 36,
+      "errors": []
+    },
+    "fieldcraftErrors": [],
+    "overgrowth": {
+      "vehicles": 8,
+      "buildings": 33,
+      "facadeModules": 140,
+      "roofs": 33,
+      "rocks": 307,
+      "stumps": 64,
+      "deadwood": 36,
+      "ferns": 1438
+    },
+    "overgrowthReady": true,
+    "forestLOD": {
+      "near": 0,
+      "far": 0,
+      "sourceTrees": 5841,
+      "updates": 0
+    },
+    "overgrowthErrors": [],
+    "editorPreview": null,
+    "campaign": {
+      "id": "field-signal-game-first-candidate-1",
+      "baselineModelFamilies": 58,
+      "scenes": 4,
+      "searchCatalogue": 69,
+      "placedSearchVariants": 68,
+      "props": 118,
+      "districts": {
+        "districts": 8,
+        "objects": 95,
+        "assetInstances": 37,
+        "proceduralObjects": 58,
+        "mergedMeshes": 169,
+        "meshes": 185,
+        "triangles": 94027,
+        "visibleCells": 3
+      },
+      "climbs": 6,
+      "errors": []
+    }
+  },
+  "errors": [],
+  "missing": [],
+  "testEnvironment": "Linux Chromium 141 / SwiftShader with touch-enabled viewport; no physical iPhone or Mac/Safari installation test"
+}
