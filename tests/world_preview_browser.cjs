@@ -102,8 +102,9 @@ const server=http.createServer((req,res)=>{
   // A separate browser context has no editor draft/payload. The shareable play link
   // must construct the reviewed sample and stay isolated without a local UUID.
   const sample=await browser.newPage({viewport:{width:844,height:500}});observe(sample);
+  await sample.addInitScript(()=>{navigator.serviceWorker.register=async()=>{throw new DOMException('Offline storage unavailable','SecurityError');};});
   await sample.goto(base+'?buildingPreview=hut&play=1');await start(sample,true);
-  check('Shareable play link works without any editor draft',await sample.evaluate(()=>FieldSignal3D.getInfo().editorPreview.versioned&&Math.abs(FieldSignal3D.getPlayer().x-39.9)<.02&&!localStorage.getItem('field-signal-dead-air-v9')));
+  check('Shareable link works without drafts even when offline storage is unavailable',await sample.evaluate(()=>FieldSignal3D.getInfo().editorPreview.versioned&&Math.abs(FieldSignal3D.getPlayer().x-39.9)<.02&&!localStorage.getItem('field-signal-dead-air-v9')));
   await sample.screenshot({path:path.join(out,'world-preview-play-link.jpg'),type:'jpeg',quality:80});
   check('No missing assets or browser errors',!errors.length&&!missing.length,{errors,missing});
  }catch(error){checks.push({failure:error.stack});throw error;}

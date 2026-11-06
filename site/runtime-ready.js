@@ -12,7 +12,14 @@ export async function ensureRuntime() {
  });
  if (await current()) return;
  const root = new URL('./', document.baseURI);
- const registration = await navigator.serviceWorker.register(new URL('sw.js', root), {scope: root.pathname, updateViaCache: 'none'});
+ let registration;
+ try {registration = await navigator.serviceWorker.register(new URL('sw.js', root), {scope: root.pathname, updateViaCache: 'none'});}
+ catch (error) {
+  // Without a controlling worker, online modules cannot come from an old cache.
+  // Keep online play available when a browser declines offline storage.
+  if (!navigator.serviceWorker.controller) return;
+  throw error;
+ }
  await registration.update();
  for (let i = 0; i < 20; i++) {
   if (await current()) return;

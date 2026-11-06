@@ -43,6 +43,8 @@ creates a new preview UUID. No ordinary save or draft key was renamed/deleted.
 - Old service workers update before importing game/editor modules. A test installs
   the real previous worker and poisons its cached `app.js` to catch stale imports.
   Entry scripts use network-first/offline-cache fallback for later upgrades.
+  Browsers that decline worker registration can still play online when no older
+  worker controls the page; an existing stale worker must update before play.
 - Terrain, roads, water, foliage, other building placements, refuge editing and the
   broader v12 mechanics remain outside this release. The UI states the boundary.
 - River/swamp/out-of-bounds/overlapping building placements and foundations outside
