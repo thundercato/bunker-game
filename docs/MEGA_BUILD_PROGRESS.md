@@ -66,10 +66,11 @@ this is a geometry routine measurement, not a physical device frame-rate claim.
 
 The machine-readable audit currently checks264 navigation approaches/spawn
 clearance with zero errors/warnings. It distinguishes the original139-container
-source from the143-container effective candidate. Final tests, screenshots and
-performance evidence are being collected against the integrated build; see the
-forthcoming execution note for the final commit and exact result matrix. Do not
-interpret an earlier component-only test result as a complete release pass.
+source from the143-container effective candidate. Final local checks pass:165 Python tests;13 Node suites plus51 syntax checks;
+25 full-game,19 authored-home preview,31 notebook and15 moved-building browser
+checks. Final PR CI also runs the existing regression suites. Actual screenshots,
+metrics and exact play/continuation instructions are in
+`EXECUTION_2026-11-06_GAME_FIRST.md`; current remote status is in PR#83 checks.
 
 ## Remaining scope and continuation
 
@@ -92,7 +93,7 @@ Safari pass is claimed. GPU memory is an estimate: four atlas source URLs do not
 prove four runtime texture allocations, because GLTFLoader parsers can duplicate
 Texture/image objects. Preserve that distinction in performance reporting.
 
-Next: finish the queued full regression suites and real scene inspection, attach
-actual screenshots/measurements, refresh the audit hashes, and make the PR ready
-for review. Play instructions and a precise post-candidate task belong in the
-final execution note. Do not merge or publish without approval of this candidate.
+Next: review the passing candidate/artifact with physical-device profiling and
+the eastern/military/bog district work in the execution note. Use PR#83 and its
+exact dependency on PR#81 for the parallel editor integration. Review the actual
+combined result; do not merge or publish without approval of this candidate.

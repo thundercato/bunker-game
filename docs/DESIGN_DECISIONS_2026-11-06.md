@@ -170,3 +170,25 @@ Draft -> Test -> Validate -> Approve -> GitHub release is confirmed. GitHub hist
 - Physical target-device performance measurements and the minimum supported device class.
 
 Do not reopen already-approved broad choices. For nonblocking implementation details, state a conservative reversible default and keep it marked as a proposal.
+
+
+## 14. Game-first candidate implementation notes
+
+The latest explicit request prioritises actual playable map/interior/journal
+improvements over further editor-only foundations. PR #83 implements a bounded
+campaign candidate on the retained Three.js/Python engine; no production approval
+or whole-v12 completion is implied. See MEGA_BUILD_PROGRESS for actual scope.
+
+For compatibility with changed furniture, a blocked imported player position may
+move to the nearest sampled clear point within4m on the same zone, authored house
+footprint and physical floor. Valid positions and guarded crane endpoints remain
+exact; health, loot and mission progress do not change. Failure preserves the
+input and rejects the repair instead of choosing another storey. A visible event
+records a successful clearance adjustment. This bounded candidate repair does not
+settle the broader future checkpoint/death/save-system design.
+
+Optional layout binding.floor and binding.anchor distinguish a wall-mounted
+model from its physical search floor. Optional roofRise adds pitched exterior
+geometry above a retained flat ceiling/collider without inventing a usable loft.
+Old documents omit these optional fields and retain their previous behaviour.
+These values are validated authored data, never executable imported scripts.

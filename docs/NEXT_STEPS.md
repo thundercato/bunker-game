@@ -2,6 +2,35 @@
 
 Prepared 6 November 2026. This is the current continuation plan, not a promise that the whole roadmap fits one build. Read `CODEX_HANDOFF.md` and the decision register first. Preserve the playable release until an independently testable replacement is approved.
 
+## Current game-first continuation
+
+The active candidate is PR #83 on `feat/game-first-candidate`, stacked on PR #81.
+See `MEGA_BUILD_PROGRESS.md` for implemented scope and the dated candidate execution
+note for final verification, screenshots and play instructions. M0/M1 already
+exist and must not be recreated. Main/public release is unchanged pending approval.
+
+Continue from the reviewed candidate, retaining its real content and stable IDs:
+
+1. Review the final artifact and run the first expedition, both directions of the
+   crane, home stairs and journal on physical target Safari devices. Prioritise
+   the measured field draw-call and texture-memory costs; cloud SwiftShader does
+   not establish a mobile frame-rate budget. Compare before changing engines.
+2. Complete a coherent eastern river/crossing/military or bog gameplay district,
+   with access/mission tests and actual screenshots. These areas largely retain
+   v11 art; do not describe eight scene sets as a complete rebuilt map.
+3. Extend the shared versioned compiler to one district's full placement and
+   physical children in an isolated game preview. V2 proxy selection/export is
+   implemented, but district/terrain/road/water draft changes are not normal-game
+   integration. Preserve all old v1/v2 drafts and normal/preview state keys.
+4. Design an explicit portable export for structured journal notes/history before
+   calling campaign JSON an all-data backup. Current browser-local book records
+   are separate and retained when a campaign slot is replaced. Candidate saves
+   with the four new cargo search IDs have no automatic downgrade to public v11.
+
+Do not merge either pending PR or replace production without approval of the
+actual candidate. A PR check, downloadable build and local preview are separate
+from a deployed release.
+
 ## M0. Reproduce, measure, checkpoint
 
 Status: baseline reproduced and initial cloud measurements recorded in
