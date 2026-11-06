@@ -82,9 +82,14 @@ See [WORLD_DOCUMENT.md](WORLD_DOCUMENT.md) for the contract and remaining work.
 
 ## Closing checkpoint
 
-Publishing follows passing PR verification and the existing Pages workflow.
-Record the follow-up PR, final verification/deployment result and exact release
-commit here after they exist; do not infer deployment from a pushed branch.
+Review/release: [PR #81](https://github.com/thundercato/bunker-game/pull/81).
+Implementation commits: `00e75d0` (runtime adapter), `f6cb52a` (browser/release
+verification), `2736e3f` (historical worker fixture for shallow CI).
+All seven local browser suites passed; the final network-first entry/offline
+rerun also passed all 15 checks. CI and publication are tracked on that PR and the
+repository's Pages workflow; deployment must match release build
+`overgrowth-11.0.0-building-preview-1-20261106`, not merely the older version string.
+The task's final response will give the play link only after public verification.
 
 Next: target-device review of this bounded preview, then another small editor/
 building slice. Full-map runtime terrain/roads/water and M2–M6 are not delivered.

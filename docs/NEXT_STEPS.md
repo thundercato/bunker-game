@@ -174,6 +174,12 @@ surface parity, old-location rejection and sight lines crossing the moved wall.
 Final full-suite/public-release results and screenshots belong in the accompanying
 execution note. No physical Apple-device tests are claimed.
 
+All seven local browser suites passed. Release PR:
+[PR #81](https://github.com/thundercato/bunker-game/pull/81); implementation commits
+`00e75d0`, `f6cb52a`, `2736e3f`. Exact local results, screenshots, play instructions
+and the release build identifier are in `EXECUTION_2026-11-06_BUILDING_PREVIEW.md`.
+The PR/Pages checks record the eventual merge/deployment and public-link proof.
+
 **Next task:** validate this preview on target devices and review the real output;
 then choose the next bounded editor/building slice. Do not repeat this adapter or
 claim full-map terrain/road/water integration. M2–M6 remain future work.
