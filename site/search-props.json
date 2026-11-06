@@ -77,7 +77,8 @@
         "asset": "search_wall_cupboard",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_wall_cupboard.webp"
       }
     },
     {
@@ -151,7 +152,8 @@
         "asset": "search_double_wall_cupboard",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_double_wall_cupboard.webp"
       }
     },
     {
@@ -226,7 +228,8 @@
         "asset": "search_glazed_wall_cabinet",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_glazed_wall_cabinet.webp"
       }
     },
     {
@@ -300,7 +303,8 @@
         "asset": "search_corner_wall_cabinet",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_corner_wall_cabinet.webp"
       }
     },
     {
@@ -374,7 +378,8 @@
         "asset": "search_utility_cabinet",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_utility_cabinet.webp"
       }
     },
     {
@@ -449,7 +454,8 @@
         "asset": "search_sideboard",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_sideboard.webp"
       }
     },
     {
@@ -522,7 +528,8 @@
         "asset": "search_bedside_drawers",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_bedside_drawers.webp"
       }
     },
     {
@@ -595,7 +602,8 @@
         "asset": "search_chest_drawers",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_chest_drawers.webp"
       }
     },
     {
@@ -668,7 +676,8 @@
         "asset": "search_wide_dresser",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_wide_dresser.webp"
       }
     },
     {
@@ -742,7 +751,8 @@
         "asset": "search_apothecary_drawers",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_apothecary_drawers.webp"
       }
     },
     {
@@ -816,7 +826,8 @@
         "asset": "search_card_index",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_card_index.webp"
       }
     },
     {
@@ -890,7 +901,8 @@
         "asset": "search_wardrobe_single",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_wardrobe_single.webp"
       }
     },
     {
@@ -964,7 +976,8 @@
         "asset": "search_wardrobe_double",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_wardrobe_double.webp"
       }
     },
     {
@@ -1038,7 +1051,8 @@
         "asset": "search_linen_press",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_linen_press.webp"
       }
     },
     {
@@ -1112,7 +1126,8 @@
         "asset": "search_broom_cupboard",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_broom_cupboard.webp"
       }
     },
     {
@@ -1185,7 +1200,8 @@
         "asset": "search_writing_desk",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_writing_desk.webp"
       }
     },
     {
@@ -1258,7 +1274,8 @@
         "asset": "search_pedestal_desk",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_pedestal_desk.webp"
       }
     },
     {
@@ -1331,7 +1348,8 @@
         "asset": "search_office_desk",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_office_desk.webp"
       }
     },
     {
@@ -1405,7 +1423,8 @@
         "asset": "search_rolltop_desk",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_rolltop_desk.webp"
       }
     },
     {
@@ -1478,7 +1497,8 @@
         "asset": "search_kitchen_base",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_kitchen_base.webp"
       }
     },
     {
@@ -1552,7 +1572,8 @@
         "asset": "search_kitchen_drawers",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_kitchen_drawers.webp"
       }
     },
     {
@@ -1627,7 +1648,8 @@
         "asset": "search_kitchen_pantry",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_kitchen_pantry.webp"
       }
     },
     {
@@ -1701,7 +1723,8 @@
         "asset": "search_sink_unit",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_sink_unit.webp"
       }
     },
     {
@@ -1774,7 +1797,8 @@
         "asset": "search_double_sink",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_double_sink.webp"
       }
     },
     {
@@ -1846,7 +1870,8 @@
         "asset": "search_gas_cooker",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_gas_cooker.webp"
       }
     },
     {
@@ -1918,7 +1943,8 @@
         "asset": "search_electric_cooker",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_electric_cooker.webp"
       }
     },
     {
@@ -1990,7 +2016,8 @@
         "asset": "search_tall_fridge",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_tall_fridge.webp"
       }
     },
     {
@@ -2062,7 +2089,8 @@
         "asset": "search_under_counter_fridge",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_under_counter_fridge.webp"
       }
     },
     {
@@ -2133,7 +2161,8 @@
         "asset": "search_chest_freezer",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_chest_freezer.webp"
       }
     },
     {
@@ -2204,7 +2233,8 @@
         "asset": "search_microwave_cabinet",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_microwave_cabinet.webp"
       }
     },
     {
@@ -2279,7 +2309,8 @@
         "asset": "search_medicine_cabinet",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_medicine_cabinet.webp"
       }
     },
     {
@@ -2351,7 +2382,8 @@
         "asset": "search_mirror_cabinet",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_mirror_cabinet.webp"
       }
     },
     {
@@ -2425,7 +2457,8 @@
         "asset": "search_basin_vanity",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_basin_vanity.webp"
       }
     },
     {
@@ -2497,7 +2530,8 @@
         "asset": "search_linen_hamper",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_linen_hamper.webp"
       }
     },
     {
@@ -2569,7 +2603,8 @@
         "asset": "search_medical_trolley",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_medical_trolley.webp"
       }
     },
     {
@@ -2643,7 +2678,8 @@
         "asset": "search_locker_single",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_locker_single.webp"
       }
     },
     {
@@ -2716,7 +2752,8 @@
         "asset": "search_locker_double",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_locker_double.webp"
       }
     },
     {
@@ -2790,7 +2827,8 @@
         "asset": "search_locker_split",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_locker_split.webp"
       }
     },
     {
@@ -2862,7 +2900,8 @@
         "asset": "search_footlocker",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_footlocker.webp"
       }
     },
     {
@@ -2936,7 +2975,8 @@
         "asset": "search_arms_locker",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_arms_locker.webp"
       }
     },
     {
@@ -3008,7 +3048,8 @@
         "asset": "search_floor_safe",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_floor_safe.webp"
       }
     },
     {
@@ -3081,7 +3122,8 @@
         "asset": "search_wall_safe",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_wall_safe.webp"
       }
     },
     {
@@ -3153,7 +3195,8 @@
         "asset": "search_cash_box",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_cash_box.webp"
       }
     },
     {
@@ -3226,7 +3269,8 @@
         "asset": "search_filing_two",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_filing_two.webp"
       }
     },
     {
@@ -3299,7 +3343,8 @@
         "asset": "search_filing_four",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_filing_four.webp"
       }
     },
     {
@@ -3372,7 +3417,8 @@
         "asset": "search_filing_lateral",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_filing_lateral.webp"
       }
     },
     {
@@ -3445,7 +3491,8 @@
         "asset": "search_document_sorter",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_document_sorter.webp"
       }
     },
     {
@@ -3519,7 +3566,8 @@
         "asset": "search_map_drawers",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_map_drawers.webp"
       }
     },
     {
@@ -3592,7 +3640,8 @@
         "asset": "search_tool_workbench",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_tool_workbench.webp"
       }
     },
     {
@@ -3665,7 +3714,8 @@
         "asset": "search_rolling_toolchest",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_rolling_toolchest.webp"
       }
     },
     {
@@ -3739,7 +3789,8 @@
         "asset": "search_wall_tool_cabinet",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_wall_tool_cabinet.webp"
       }
     },
     {
@@ -3811,7 +3862,8 @@
         "asset": "search_cantilever_toolbox",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_cantilever_toolbox.webp"
       }
     },
     {
@@ -3884,7 +3936,8 @@
         "asset": "search_electrical_cabinet",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_electrical_cabinet.webp"
       }
     },
     {
@@ -3957,7 +4010,8 @@
         "asset": "search_parts_bins",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_parts_bins.webp"
       }
     },
     {
@@ -4030,7 +4084,8 @@
         "asset": "search_slatted_crate",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_slatted_crate.webp"
       }
     },
     {
@@ -4105,7 +4160,8 @@
         "asset": "search_reinforced_crate",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_reinforced_crate.webp"
       }
     },
     {
@@ -4178,7 +4234,8 @@
         "asset": "search_ammo_chest",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_ammo_chest.webp"
       }
     },
     {
@@ -4251,7 +4308,8 @@
         "asset": "search_travel_trunk",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_travel_trunk.webp"
       }
     },
     {
@@ -4324,7 +4382,8 @@
         "asset": "search_shipping_container",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_shipping_container.webp"
       }
     },
     {
@@ -4397,7 +4456,8 @@
         "asset": "search_salvage_drum",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_salvage_drum.webp"
       }
     },
     {
@@ -4470,7 +4530,8 @@
         "asset": "search_water_barrel",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_water_barrel.webp"
       }
     },
     {
@@ -4542,7 +4603,8 @@
         "asset": "search_suitcase",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_suitcase.webp"
       }
     },
     {
@@ -4613,7 +4675,8 @@
         "asset": "search_kitbag",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_kitbag.webp"
       }
     },
     {
@@ -4684,7 +4747,8 @@
         "asset": "search_cooler",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_cooler.webp"
       }
     },
     {
@@ -4757,7 +4821,8 @@
         "asset": "search_archive_shelf",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_archive_shelf.webp"
       }
     },
     {
@@ -4842,7 +4907,8 @@
         "asset": "search_salvaged_cabinet",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_salvaged_cabinet.webp"
       }
     },
     {
@@ -4924,7 +4990,8 @@
         "asset": "search_vintage_drawers",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_vintage_drawers.webp"
       }
     },
     {
@@ -5009,7 +5076,8 @@
         "asset": "search_salvaged_crate",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_salvaged_crate.webp"
       }
     },
     {
@@ -5093,7 +5161,8 @@
         "asset": "search_field_medical_case",
         "bindingType": "container",
         "requiresExistingContainerId": true,
-        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile.",
+        "thumbnail": "assets/search-props/thumbnails/search_field_medical_case.webp"
       }
     }
   ],

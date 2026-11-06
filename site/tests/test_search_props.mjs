@@ -23,6 +23,28 @@ await check('Catalogue has at least 50 meaningful variants across domestic, medi
  assert.equal(catalogue.props.filter(p=>p.licensedAsset).length,4);
 });
 
+await check('All 69 editor thumbnails are distinct local 192 by 160 WebP files below the total asset budget',()=>{
+ const hashes=new Set();let totalBytes=0;
+ for(const p of catalogue.props){
+  assert.equal(p.editor.thumbnail,`assets/search-props/thumbnails/${p.id}.webp`);
+  const bytes=fs.readFileSync(new URL('../'+p.editor.thumbnail,import.meta.url));
+  assert.equal(bytes.toString('ascii',0,4),'RIFF');assert.equal(bytes.toString('ascii',8,12),'WEBP');
+  assert.equal(bytes.readUInt32LE(4)+8,bytes.length,'complete WebP container');
+  let dimensions;
+  for(let cursor=12;cursor+8<=bytes.length;){
+   const kind=bytes.toString('ascii',cursor,cursor+4),length=bytes.readUInt32LE(cursor+4),start=cursor+8;
+   assert.ok(start+length<=bytes.length,'complete WebP chunk');
+   if(kind==='VP8 '){assert.equal(bytes.toString('hex',start+3,start+6),'9d012a');dimensions=[bytes.readUInt16LE(start+6)&0x3fff,bytes.readUInt16LE(start+8)&0x3fff];}
+   if(kind==='VP8X')dimensions=[1+bytes.readUIntLE(start+4,3),1+bytes.readUIntLE(start+7,3)];
+   if(kind==='VP8L'){const bits=bytes.readUInt32LE(start+1);dimensions=[1+(bits&0x3fff),1+((bits>>>14)&0x3fff)];}
+   cursor=start+length+(length&1);
+  }
+  assert.deepEqual(dimensions,[192,160],p.id+' thumbnail dimensions');
+  const hash=createHash('sha256').update(bytes).digest('hex');assert.ok(!hashes.has(hash),'duplicate thumbnail '+p.id);hashes.add(hash);totalBytes+=bytes.length;
+ }
+ assert.equal(hashes.size,69);assert.ok(totalBytes<1024*1024,'thumbnail corpus below 1 MiB');
+});
+
 for(const p of catalogue.props){
  await check('Render, collision, independent opening and close round trip: '+p.id,async()=>{
   const root=await createSearchProp(p.id,{catalogue}),second=await createSearchProp(p.id,{catalogue});
@@ -82,6 +104,7 @@ await check('Duplicate IDs, non-finite coordinates, mismatched collision and uns
   data=>data.props[0].recipe.rows=1000000,
   data=>data.props[0].rooms='kitchen',
   data=>data.props[0].editor.asset='search_other',
+  data=>data.props[0].editor.thumbnail='https://untrusted.invalid/image.webp',
   data=>data.props[0].licensedAsset={id:'external',path:'https://untrusted.invalid/a.glb',movingParts:['a']},
  ]){const data=structuredClone(catalogue);change(data);assert.throws(()=>validateSearchPropCatalogue(data));}
 });

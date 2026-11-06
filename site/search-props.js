@@ -36,6 +36,7 @@ export function validateSearchPropCatalogue(data) {
   if (p.collision?.type!=='box' || !p.collision.size?.every((n,i)=>n===p.dimensions[i]) || p.collision.size.length!==3 || p.collision.offset?.length!==3 || p.collision.offset.some((n,i)=>n!==(i===1?p.dimensions[1]/2:0))) throw Error('Prop collider does not match dimensions: '+p.id);
   if (!['slide','lid','hinge'].includes(p.opening) || !p.provenance?.author || !p.provenance.source || !p.provenance.licence) throw Error('Missing prop provenance or opening: '+p.id);
   if(p.editor?.asset!==p.id||p.editor.bindingType!=='container'||p.editor.requiresExistingContainerId!==true)throw Error('Invalid prop editor binding: '+p.id);
+  if(p.editor.thumbnail!==`assets/search-props/thumbnails/${p.id}.webp`)throw Error('Invalid prop editor thumbnail: '+p.id);
   if (p.licensedAsset && (!/^[a-z0-9_]+$/.test(p.licensedAsset.id) || !/^assets\/v10\/models\/[a-z0-9_]+\.glb$/.test(p.licensedAsset.path) || !p.licensedAsset.movingParts?.length)) throw Error('Invalid licensed prop source: '+p.id);
  }
  return data;
