@@ -1,5 +1,12 @@
 # Field Signal game-first campaign checkpoint
 
+Publication update, 6 November 2026: the user has explicitly requested a hosted
+play link for iPhone Home Screen installation. This authorises publishing the
+tested candidate as Field Signal 11.1.0. Release preparation retains the same
+assets, rules and save keys; it updates release/PWA names and the offline cache
+version. Final deployment and live checks are recorded in the release execution
+note and Pages workflow. The earlier approval-pending notes below are historical.
+
 6 November 2026. Branch `feat/game-first-candidate`, stacked on the unpublished
 moved-building preview in PR #81. Main/public play remains Overgrowth v11. The
 latest user instruction requires approval before production replacement. No merge

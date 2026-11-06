@@ -38,7 +38,7 @@ const server=http.createServer((req,res)=>{
   });
   await p.goto(base+'editor/world.html');await p.waitForFunction(()=>window.FieldWorldEditor?.ready(),null,{timeout:120000});
   const cache=await p.evaluate(()=>new Promise(resolve=>{const c=new MessageChannel();c.port1.onmessage=e=>resolve(e.data.cache);navigator.serviceWorker.controller.postMessage({type:'editor-version'},[c.port2]);}));
-  check('Old worker upgraded before importing editor or game',cache==='field-signal-game-first-candidate-1');
+  check('Old worker upgraded before importing editor or game',cache==='field-signal-game-first-release-11-1');
   const expectedMission=await p.evaluate(async()=>{
    const {seedLayout}=await import('./layout-core.js');const d=seedLayout(FieldWorldEditor.getSource(),'hut');
    d.objects.find(o=>o.binding?.id==='hut_c1').position=[1.2,0,-2.4];

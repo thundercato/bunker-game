@@ -1,3 +1,14 @@
+## Field Signal 11.1 · Field Journal & Quayside
+
+**[Play Field Signal](https://thundercato.github.io/bunker-game/)**
+
+On iPhone, open the link in Safari, then Share → Add to Home Screen → Add.
+Rotate to landscape. Let the initial world/offline download finish; Saves & offline
+shows when the game is ready without a connection. Existing campaign keys remain
+unchanged. See [publication notes](docs/EXECUTION_2026-11-06_PUBLICATION.md) and the
+[Pages workflow](https://github.com/thundercato/bunker-game/actions/workflows/deploy-pages.yml)
+for deployment verification. The older campaign notes below describe its preparation.
+
 ## 🚧 Codex mega-build: game-first world overhaul
 
 **[Full development brief and execution roadmap](docs/MEGA_BUILD_README.md)** · [Current progress and next steps](docs/NEXT_STEPS.md) · [Design decisions](docs/DESIGN_DECISIONS_2026-11-06.md)

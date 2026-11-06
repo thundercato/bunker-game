@@ -1,5 +1,10 @@
 # Field Signal: staged execution plan
 
+Publication checkpoint: the latest request explicitly authorises the hosted
+Field Signal 11.1.0 build and iPhone Home Screen installation. See
+`EXECUTION_2026-11-06_PUBLICATION.md` for the release identifier, public link and
+verification path. Future game/editor work remains on feature branches.
+
 Prepared 6 November 2026. This is the current continuation plan, not a promise that the whole roadmap fits one build. Read `CODEX_HANDOFF.md` and the decision register first. Preserve the playable release until an independently testable replacement is approved.
 
 ## Current game-first continuation

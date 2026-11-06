@@ -11,11 +11,17 @@ try{
  page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)missing.push([r.status(),r.url()])});
  let release=null;const expectedRelease=JSON.parse(fs.readFileSync(path.join(ROOT,'site/release.json')));
  for(let i=0;i<30;i++){try{const r=await page.request.get(BASE+'release.json?verify='+Date.now(),{timeout:20000});if(r.ok()){const j=await r.json();if(j.build===expectedRelease.build){release=j;break;}}}catch{}await page.waitForTimeout(5000)}
- check('Actual public release matches the reviewed build',!!release,release);
+ check('Actual public release matches the reviewed build',!!release&&release.published===true,release);
+ const manifest=await(await page.request.get(BASE+'manifest.webmanifest')).json();
+ check('Home Screen manifest stays within the game and opens standalone',manifest.start_url==='./'&&manifest.scope==='./'&&manifest.display==='standalone'&&manifest.short_name==='Field Signal'&&manifest.icons.some(i=>i.sizes==='192x192')&&manifest.icons.some(i=>i.sizes==='512x512'),manifest);
  await page.addInitScript(fixture=>{if(!localStorage.getItem('fieldcraft-release-test-seeded')){localStorage.setItem('field-signal-dead-air-v9',JSON.stringify(fixture));localStorage.setItem('fieldcraft-release-test-seeded','yes')}},fixture);
  await page.goto(BASE,{waitUntil:'domcontentloaded'});await page.locator('#load-world').click();await page.locator('#silent:enabled').waitFor({timeout:240000});await page.locator('#silent').click();
  await page.evaluate(()=>{const w=FieldSignal3D.getWorld();w.setQuality('low');w.renderSettings.shadows=false;w.renderer.shadowMap.enabled=false;w.renderer.setPixelRatio(.4);w.resize()});
+ check('Apple Home Screen metadata and touch icon are available',await page.locator('meta[name="apple-mobile-web-app-capable"]').getAttribute('content')==='yes'&&await page.locator('meta[name="apple-mobile-web-app-title"]').getAttribute('content')==='Field Signal'&&(await page.request.get(BASE+'assets/ui/icon-192.png')).ok());
  const info=await page.evaluate(()=>FieldSignal3D.getInfo());
+ check('Published game contains the approved journal, homes and searchable catalogue',info.campaign?.scenes===4&&info.campaign.searchCatalogue===69&&!info.campaign.errors.length);
+ await page.locator('#open-journal').click();await page.waitForFunction(()=>!!FieldSignal3D.getJournal()?.info().mode);
+ check('Public field journal shows the real active assignment',await page.locator('.fj-left h3').textContent()==='First signal');await page.locator('[data-journal="close"]').click();
  check('Public Python and all 58 imported model families load',info.build==='Overgrowth 11.0'&&(info.campaign?.baselineModelFamilies??info.licensedModelFamilies)===58&&info.fieldcraftErrors.length===0&&info.assetErrors.length===0);
  const state=await page.evaluate(()=>FieldSignal3D.getState());check('Existing compatible v9 storage continues automatically',state.credits===1267&&state.bag.wire===3&&state.version===9);
  await page.evaluate(()=>FieldSignal3D.openPanel('pack'));await page.waitForFunction(()=>[...document.querySelectorAll('.item-thumb img')].every(i=>i.complete&&i.naturalWidth>0));

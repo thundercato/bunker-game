@@ -1,5 +1,10 @@
 # Field Signal: Codex handover
 
+Release update: the user has authorised publishing the tested game-first build
+as Field Signal 11.1.0 for Safari/Home Screen use. See
+`EXECUTION_2026-11-06_PUBLICATION.md` and the live release metadata. Earlier
+approval-pending text below is historical; the remaining roadmap stays separate.
+
 Prepared 6 November 2026. Implementation audit baseline: `d31f178a674ec16d730a7d13f59c7eb112eb24bc` on `main`. This handover records current code separately from the much larger approved roadmap. It does not release v12 or change game behaviour.
 
 Continuation update: M0 is reproduced and measured in
