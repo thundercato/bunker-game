@@ -1,0 +1,233 @@
+baseline-python.log
+test_actions_do_not_double_count_time (test_dead_air.DeadAir.test_actions_do_not_double_count_time) ... ok
+test_anomalies_begin_hidden (test_dead_air.DeadAir.test_anomalies_begin_hidden) ... ok
+test_base_clock_one_minute_per_minute (test_dead_air.DeadAir.test_base_clock_one_minute_per_minute) ... ok
+test_base_return_resets_field_visibility (test_dead_air.DeadAir.test_base_return_resets_field_visibility) ... ok
+test_closed_door_blocks_visibility (test_dead_air.DeadAir.test_closed_door_blocks_visibility) ... ok
+test_completed_mission_cannot_pay_twice (test_dead_air.DeadAir.test_completed_mission_cannot_pay_twice) ... ok
+test_completion_logs_time_and_duration (test_dead_air.DeadAir.test_completion_logs_time_and_duration) ... ok
+test_detector_does_not_draw_anomaly (test_dead_air.DeadAir.test_detector_does_not_draw_anomaly) ... ok
+test_enemy_fov_matters (test_dead_air.DeadAir.test_enemy_fov_matters) ... ok
+test_field_clock_one_hour_per_five_minutes (test_dead_air.DeadAir.test_field_clock_one_hour_per_five_minutes) ... ok
+test_first_completion_does_not_unlock_everything (test_dead_air.DeadAir.test_first_completion_does_not_unlock_everything) ... ok
+test_first_completion_offers_two_radio_jobs (test_dead_air.DeadAir.test_first_completion_offers_two_radio_jobs) ... ok
+test_idle_enemy_approaches (test_dead_air.DeadAir.test_idle_enemy_approaches) ... ok
+test_idle_tick_advances_elapsed (test_dead_air.DeadAir.test_idle_tick_advances_elapsed) ... ok
+test_initial_only_first_assignment (test_dead_air.DeadAir.test_initial_only_first_assignment) ... ok
+test_knife_grip_without_gun (test_dead_air.DeadAir.test_knife_grip_without_gun) ... ok
+test_legacy_campaign_migrates (test_dead_air.DeadAir.test_legacy_campaign_migrates) ... ok
+test_military_rear_gap_real (test_dead_air.DeadAir.test_military_rear_gap_real) ... ok
+test_mission_owner_required (test_dead_air.DeadAir.test_mission_owner_required) ... ok
+test_new_schema (test_dead_air.DeadAir.test_new_schema) ... ok
+test_no_invented_old_completion_times (test_dead_air.DeadAir.test_no_invented_old_completion_times) ... ok
+test_npc_can_accept_near_owner (test_dead_air.DeadAir.test_npc_can_accept_near_owner) ... ok
+test_open_door_allows_visibility (test_dead_air.DeadAir.test_open_door_allows_visibility) ... ok
+test_plain_save_roundtrip (test_dead_air.DeadAir.test_plain_save_roundtrip) ... ok
+test_probe_no_immunity_in_centre (test_dead_air.DeadAir.test_probe_no_immunity_in_centre) ... ok
+test_probe_reveals_only_its_throw_path (test_dead_air.DeadAir.test_probe_reveals_only_its_throw_path) ... ok
+test_pure_state_query_does_not_advance_clock (test_dead_air.DeadAir.test_pure_state_query_does_not_advance_clock) ... ok
+test_radio_acknowledgement (test_dead_air.DeadAir.test_radio_acknowledgement) ... ok
+test_remote_accept_refused (test_dead_air.DeadAir.test_remote_accept_refused) ... ok
+test_revealed_field_persists_after_wait (test_dead_air.DeadAir.test_revealed_field_persists_after_wait) ... ok
+test_rifle_ammo_is_separate (test_dead_air.DeadAir.test_rifle_ammo_is_separate) ... ok
+test_rifle_loaded_and_valid (test_dead_air.DeadAir.test_rifle_loaded_and_valid) ... ok
+test_rifleman_enters_movement_cycle (test_dead_air.DeadAir.test_rifleman_enters_movement_cycle) ... ok
+test_river_requires_bridge (test_dead_air.DeadAir.test_river_requires_bridge) ... ok
+test_running_and_crouching_reduce_hit_chance (test_dead_air.DeadAir.test_running_and_crouching_reduce_hit_chance) ... ok
+test_sewer_route_portals (test_dead_air.DeadAir.test_sewer_route_portals) ... ok
+test_shooter_max_chance_is_half (test_dead_air.DeadAir.test_shooter_max_chance_is_half) ... ok
+test_signal_torch_colours (test_dead_air.DeadAir.test_signal_torch_colours) ... ok
+test_swamp_has_hard_limit (test_dead_air.DeadAir.test_swamp_has_hard_limit) ... ok
+test_swamp_sink_and_recovery (test_dead_air.DeadAir.test_swamp_sink_and_recovery) ... ok
+test_torch_cycles_off (test_dead_air.DeadAir.test_torch_cycles_off) ... ok
+test_torch_increases_indoor_detection (test_dead_air.DeadAir.test_torch_increases_indoor_detection) ... ok
+test_tuna_count_required (test_dead_air.DeadAir.test_tuna_count_required) ... ok
+test_tuna_side_quest_consumes_exactly_three (test_dead_air.DeadAir.test_tuna_side_quest_consumes_exactly_three) ... ok
+test_window_blocks_visibility (test_dead_air.DeadAir.test_window_blocks_visibility) ... ok
+test_closed_door_blocks_layout_collision (test_editor_preview.EditorPreview.test_closed_door_blocks_layout_collision) ... ok
+test_existing_door_can_be_opened (test_editor_preview.EditorPreview.test_existing_door_can_be_opened) ... ok
+test_moved_container_keeps_mission_binding (test_editor_preview.EditorPreview.test_moved_container_keeps_mission_binding) ... ok
+test_preview_enemies_disabled (test_editor_preview.EditorPreview.test_preview_enemies_disabled) ... ok
+test_preview_save_roundtrips (test_editor_preview.EditorPreview.test_preview_save_roundtrips) ... ok
+test_preview_starts_at_layout_marker (test_editor_preview.EditorPreview.test_preview_starts_at_layout_marker) ... ok
+test_relocated_container_search_uses_real_rules (test_editor_preview.EditorPreview.test_relocated_container_search_uses_real_rules) ... ok
+test_relocated_table_offsets_follow_rotation (test_editor_preview.EditorPreview.test_relocated_table_offsets_follow_rotation) ... ok
+test_source_world_never_contains_preview (test_editor_preview.EditorPreview.test_source_world_never_contains_preview) ... ok
+test_all_catalogue_items_have_models (test_fieldcraft.Fieldcraft.test_all_catalogue_items_have_models) ... ok
+test_all_catalogue_items_have_rendered_images (test_fieldcraft.Fieldcraft.test_all_catalogue_items_have_rendered_images) ... ok
+test_build_version_is_eleven_but_save_is_nine (test_fieldcraft.Fieldcraft.test_build_version_is_eleven_but_save_is_nine) ... ok
+test_credits_exist_for_each_new_asset (test_fieldcraft.Fieldcraft.test_credits_exist_for_each_new_asset) ... ok
+test_downloaded_models_are_self_contained_glb (test_fieldcraft.Fieldcraft.test_downloaded_models_are_self_contained_glb) ... ok
+test_existing_progress_roundtrips (test_fieldcraft.Fieldcraft.test_existing_progress_roundtrips) ... ok
+test_no_raw_font_files_shipped (test_fieldcraft.Fieldcraft.test_no_raw_font_files_shipped) ... ok
+test_offline_manifest_contains_all_new_runtime_assets (test_fieldcraft.Fieldcraft.test_offline_manifest_contains_all_new_runtime_assets) ... ok
+test_previews_are_not_one_placeholder (test_fieldcraft.Fieldcraft.test_previews_are_not_one_placeholder) ... ok
+test_save_schema_still_compatible (test_fieldcraft.Fieldcraft.test_save_schema_still_compatible) ... ok
+test_all_new_models_have_source_and_licence (test_overgrowth.Overgrowth.test_all_new_models_have_source_and_licence) ... ok
+test_all_selected_models_valid (test_overgrowth.Overgrowth.test_all_selected_models_valid) ... ok
+test_five_material_sets_have_three_maps (test_overgrowth.Overgrowth.test_five_material_sets_have_three_maps) ... ok
+test_model_ids_unique (test_overgrowth.Overgrowth.test_model_ids_unique) ... ok
+test_new_model_manifest_is_cached (test_overgrowth.Overgrowth.test_new_model_manifest_is_cached) ... ok
+test_only_selected_sources_in_runtime (test_overgrowth.Overgrowth.test_only_selected_sources_in_runtime) ... ok
+test_pine_variants_are_real_meshes (test_overgrowth.Overgrowth.test_pine_variants_are_real_meshes) ... ok
+test_refuge_music_still_present (test_overgrowth.Overgrowth.test_refuge_music_still_present) ... ok
+test_render_detail_does_not_change_rules (test_overgrowth.Overgrowth.test_render_detail_does_not_change_rules) ... ok
+test_save_key_remains_compatible (test_overgrowth.Overgrowth.test_save_key_remains_compatible) ... ok
+test_all_mission_photographs_present (test_regression_v9.RegressionV9.test_all_mission_photographs_present) ... ok
+test_all_missions_have_target_and_owner (test_regression_v9.RegressionV9.test_all_missions_have_target_and_owner) ... ok
+test_ammunition_stash_conserves_total (test_regression_v9.RegressionV9.test_ammunition_stash_conserves_total) ... ok
+test_buy_sell_has_no_profit_loop (test_regression_v9.RegressionV9.test_buy_sell_has_no_profit_loop) ... ok
+test_calm_track_in_runtime_bank (test_regression_v9.RegressionV9.test_calm_track_in_runtime_bank) ... ok
+test_chest_does_not_reroll (test_regression_v9.RegressionV9.test_chest_does_not_reroll) ... ok
+test_cleaning_costs_exactly_two_credits (test_regression_v9.RegressionV9.test_cleaning_costs_exactly_two_credits) ... ok
+test_cleaning_refused_away_from_bench (test_regression_v9.RegressionV9.test_cleaning_refused_away_from_bench) ... ok
+test_doors_have_same_keys_after_migration (test_regression_v9.RegressionV9.test_doors_have_same_keys_after_migration) ... ok
+test_drinking_consumes_water (test_regression_v9.RegressionV9.test_drinking_consumes_water) ... ok
+test_eating_costs_money_and_restores_hunger (test_regression_v9.RegressionV9.test_eating_costs_money_and_restores_hunger) ... ok
+test_essential_supply_locker_has_detector (test_regression_v9.RegressionV9.test_essential_supply_locker_has_detector) ... ok
+test_higher_floor_container_unreachable_from_ground (test_regression_v9.RegressionV9.test_higher_floor_container_unreachable_from_ground) ... ok
+test_loaded_magazine_storage_keeps_rounds (test_regression_v9.RegressionV9.test_loaded_magazine_storage_keeps_rounds) ... ok
+test_mission_item_not_storable (test_regression_v9.RegressionV9.test_mission_item_not_storable) ... ok
+test_poster_requires_purchase (test_regression_v9.RegressionV9.test_poster_requires_purchase) ... ok
+test_poster_save_roundtrip (test_regression_v9.RegressionV9.test_poster_save_roundtrip) ... ok
+test_recovery_key_explicitly_different (test_regression_v9.RegressionV9.test_recovery_key_explicitly_different) ... ok
+test_remote_stash_refused (test_regression_v9.RegressionV9.test_remote_stash_refused) ... ok
+test_unloaded_weapon_cannot_fire (test_regression_v9.RegressionV9.test_unloaded_weapon_cannot_fire) ... ok
+test_v5_save_cannot_be_silently_upgraded (test_regression_v9.RegressionV9.test_v5_save_cannot_be_silently_upgraded) ... ok
+test_weapon_safety_blocks_firing (test_regression_v9.RegressionV9.test_weapon_safety_blocks_firing) ... ok
+
+----------------------------------------------------------------------
+Ran 96 tests in 1.691s
+
+OK
+
+
+baseline-ci_smoke.log
+PASS Controller preflight precedes engine 
+PASS Python rules and all 58 model families start {"calls":45,"triangles":90946,"trees":5860,"scannedBarriers":true,"textures":54,"buildings":37,"containers":139,"creatures":35,"zone":"base","terrainChunks":330,"foliageSectors":544,"lightSources":161,"activeLights":4,"npcs":3,"build":"Overgrowth 11.0","licensedModelFamilies":58,"importedInstances":203,"assetErrors":[],"drains":{"channels":2,"length":45.6,"bars":870,"depth":0.36,"physicalVoid":true},"radioPosition":{"x":-486,"y":1.35,"z":14},"placements":{"placed":115,"unsupported":[],"wallSegments":26,"duplicateGhostsRemoved":6},"antialias":true,"depthRange":[0.09,68],"performance":{"fps":29,"ms":34.81888723751155,"draws":45,"triangles":90946},"equipmentModels":true,"missionCount":15,"worldBounds":{"minX":-240,"maxX":360,"minZ":-700,"maxZ":150},"impactCount":0,"hiddenAnomalies":true,"fieldcraft":{"tables":53,"containers":131,"beds":14,"buildingDetails":5,"decorations":15,"looseItems":32},"itemVisuals":{"catalogue":61,"ready":61,"imported":25,"authored":36,"errors":[]},"fieldcraftErrors":[],"overgrowth":{"vehicles":8,"buildings":37,"facadeModules":162,"roofs":37,"rocks":309,"stumps":64,"deadwood":37,"ferns":1443},"overgrowthReady":true,"forestLOD":{"near":0,"far":0,"sourceTrees":5860,"updates":0},"overgrowthErrors":[],"editorPreview":null}
+PASS One visual hitbox per enemy 
+PASS Base clock advances while stationary {"before":900.0319433333334,"after":900.0477766666668}
+PASS First contract dossier has correct recon image 
+PASS Menus pause time 
+PASS Sparse controller index drives camera 
+PASS Controller input and disconnect handled 
+PASS Calmer refuge soundtrack decodes {"duration":128}
+PASS Old credits and ammunition survive import 
+PASS Complete runtime cached under project path 
+PASS Offline boot restores Python campaign 
+PASS Controller Clinic works offline without game renderer 
+PASS No missing runtime assets []
+PASS No browser exceptions []
+
+
+baseline-fieldcraft_browser.log
+PASS v11 starts all 58 imported model families {"tables":53,"containers":131,"beds":14,"buildingDetails":5,"decorations":15,"looseItems":32}
+PASS 61 catalogue items have valid 3D templates {"catalogue":61,"ready":61,"imported":25,"authored":36,"errors":[]}
+PASS 53 tables and 131 searchable containers replaced 
+PASS Backpack shows actual model thumbnails 
+PASS Backpack thumbnails need no new WebGL context 
+PASS Thumbnail opens a live 3D inspector 
+PASS Inspector drag rotates model 
+PASS Inspector button zoom changes camera 
+PASS Inspector reset restores orientation 
+PASS Inspector returns to previous backpack 
+PASS Inspection leaves inventory and money untouched 
+PASS Read-only catalogue gallery shows 12 item previews 
+PASS Catalogue category filter works 
+PASS Viewer reuses one graphics context 
+PASS Atlas opens without browser fullscreen 
+PASS Objective button changes to target region {"zone":"field","zoom":6,"centre":[17.5,-33.9],"selected":"signal","markers":1}
+PASS Map zoom-in button works 
+PASS Map zoom-out button works 
+PASS Map drag pans geography 
+PASS Two-finger pinch genuinely zooms canvas 
+PASS Centre on player returns to base map 
+PASS Fit region restores full extent 
+PASS Full atlas pauses simulation 
+PASS Atlas opens correct mission dossier 
+PASS Mission dossier opens its objective on map 
+PASS HUD mission shortcut opens pinned briefing 
+PASS New physical table does not hide starting PM "pistol"
+PASS PM collection still succeeds 
+PASS Imported supply cabinet remains searchable 
+PASS Loot results use the same model images 
+PASS Recovered mission redirects to correct return contact {"zone":"base","zoom":2,"centre":[-500,44],"selected":"signal","markers":1}
+PASS All five refuge doorways remain traversable [{"room":"trader","pass":true},{"room":"bar","pass":true},{"room":"canteen","pass":true},{"room":"workshop","pass":true},{"room":"bedroom","pass":true}]
+PASS New panels fit tablet and landscape phone without scrolling [{"size":{"width":1024,"height":768},"k":"pack","tab":"supplies","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"pack","tab":"tools","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"pack","tab":"mags","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"loot","tab":"base_locker","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"catalogue","tab":"all","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"map","tab":"objective","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"inspect","tab":"gun","overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"missions","tab":null,"overflow":false,"clipped":[]},{"size":{"width":1024,"height":768},"k":"pause","tab":null,"overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"pack","tab":"supplies","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"pack","tab":"tools","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"pack","tab":"mags","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"loot","tab":"base_locker","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"catalogue","tab":"all","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"map","tab":"objective","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"inspect","tab":"gun","overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"missions","tab":null,"overflow":false,"clipped":[]},{"size":{"width":844,"height":390},"k":"pause","tab":null,"overflow":false,"clipped":[]}]
+PASS No runtime JS errors []
+PASS No missing model, image or runtime requests []
+
+
+baseline-overgrowth_browser.log
+PASS Overgrowth boots all required models with no asset failures {"vehicles":8,"buildings":37,"facadeModules":162,"roofs":37,"rocks":309,"stumps":64,"deadwood":37,"ferns":1443}
+PASS All existing houses and vehicles receive the environmental pass 
+PASS All existing inventory models are retained 
+PASS No forest instances render in the underground refuge 
+PASS All 37 exterior door apertures remain traversable [{"id":"hut","entered":true,"finalZ":-31.00000000000007},{"id":"forester","entered":true,"finalZ":-55.80000000000005},{"id":"pump","entered":true,"finalZ":-77.99999999999972},{"id":"ranger","entered":true,"finalZ":-100.49999999999972},{"id":"crossing","entered":true,"finalZ":-90.99999999999972},{"id":"station","entered":true,"finalZ":-139.7999999999998},{"id":"freight","entered":true,"finalZ":-175.99999999999972},{"id":"coastguard","entered":true,"finalZ":-118.99999999999972},{"id":"boathouse","entered":true,"finalZ":-193.49999999999972},{"id":"v1","entered":true,"finalZ":-162.7999999999998},{"id":"v2","entered":true,"finalZ":-164.7999999999998},{"id":"v3","entered":true,"finalZ":-166.49999999999972},{"id":"v4","entered":true,"finalZ":-185.7999999999998},{"id":"v5","entered":true,"finalZ":-188.49999999999972},{"id":"v6","entered":true,"finalZ":-190.49999999999972},{"id":"clinic","entered":true,"finalZ":-167.7999999999998},{"id":"store","entered":true,"finalZ":-189.49999999999972},{"id":"ticket","entered":true,"finalZ":-140.99999999999972},{"id":"cafe","entered":true,"finalZ":-140.99999999999972},{"id":"arcade","entered":true,"finalZ":-140.99999999999972},{"id":"north","entered":true,"finalZ":-236.49999999999972},{"id":"lodge","entered":true,"finalZ":-316.50000000000114},{"id":"tower","entered":true,"finalZ":-361.00000000000114},{"id":"substation","entered":true,"finalZ":-274.50000000000114},{"id":"logging","entered":true,"finalZ":-369.00000000000114},{"id":"northstore","entered":true,"finalZ":-356.00000000000114},{"id":"barracks","entered":true,"finalZ":-73.99999999999972},{"id":"ferry","entered":true,"finalZ":-258.5000000000004},{"id":"mill","entered":true,"finalZ":-325.80000000000075},{"id":"east1","entered":true,"finalZ":-374.30000000000075},{"id":"east2","entered":true,"finalZ":-376.30000000000075},{"id":"mast","entered":true,"finalZ":-642.8000000000008},{"id":"hangar","entered":true,"finalZ":-510.00000000000114},{"id":"garrison","entered":true,"finalZ":-531.8000000000008},{"id":"command","entered":true,"finalZ":-576.8000000000008},{"id":"armoury","entered":true,"finalZ":-577.5000000000011},{"id":"yard","entered":true,"finalZ":-462.50000000000114}]
+PASS Every existing upper-storey stairway still reaches its floor [{"id":"forester","y":3.1771428571428584,"pass":true},{"id":"station","y":3.177142857142852,"pass":true},{"id":"v1","y":3.177142857142852,"pass":true},{"id":"v2","y":3.177142857142852,"pass":true},{"id":"v4","y":3.177142857142852,"pass":true},{"id":"clinic","y":3.177142857142852,"pass":true},{"id":"lodge","y":3.185454545454542,"pass":true},{"id":"tower","y":3.1799999999999957,"pass":true},{"id":"mill","y":3.185454545454542,"pass":true},{"id":"east1","y":3.1799999999999957,"pass":true},{"id":"east2","y":3.1799999999999957,"pass":true},{"id":"mast","y":3.1822222222222383,"pass":true},{"id":"garrison","y":3.185454545454559,"pass":true},{"id":"command","y":3.185454545454559,"pass":true}]
+PASS Forest swaps to bounded near meshes and distant views {"near":14,"far":142,"sourceTrees":5860,"updates":1}
+PASS Original tree collision locations retained 5860
+PASS Replacement wreck is physically targetable from an actual approach [{"x":-20,"z":-178.2},{"x":-20,"z":-183.7,"target":"car1"}]
+PASS Searching the replacement car uses persistent existing loot 
+PASS No primitive duplicate car bodies remain [{"id":"car0","children":1,"source":"crashed_suv","zone":"field"},{"id":"car1","children":1,"source":"crashed_suv","zone":"field"},{"id":"car2","children":1,"source":"crashed_suv","zone":"field"},{"id":"car3","children":1,"source":"crashed_suv","zone":"field"},{"id":"car4","children":1,"source":"covered_car","zone":"field"},{"id":"car5","children":1,"source":"crashed_suv","zone":"field"},{"id":"car6","children":1,"source":"crashed_suv","zone":"field"},{"id":"car7","children":1,"source":"covered_car","zone":"field"}]
+PASS Returning underground stops all outdoor nature rendering 
+PASS Atlas and current mission remain available 
+PASS Mission dossier opens after environment update 
+PASS No browser errors or missing runtime assets {"errors":[],"missing":[]}
+
+
+baseline-editor_controls.log
+PASS chromium editor starts actual models 
+PASS Mouse drag of translation arrow changes saved position { initial: 3.5, after: 4.75 }
+PASS Mac Command-Z undoes actual gizmo edit 
+PASS Mac Command-Shift-Z redoes it 
+PASS Rotation ring limited to persisted upright yaw 
+PASS Wall snapping moves geometry and interaction together 
+PASS Display filters retain editable data 
+PASS Reload restores persistent draft 
+PASS No chromium editor exceptions []
+
+
+baseline-editor_browser.log
+PASS Editor loads actual game template and models 
+PASS All 37 exterior buildings available 
+PASS Hierarchy selects real object 
+PASS Inspector position updates layout and model 
+PASS Undo restores previous placement 
+PASS Redo restores edited placement 
+PASS Protected mission cupboard cannot be deleted 
+PASS Orthographic plan and cutaway work 
+PASS Library contains real model thumbnails 
+PASS Place a licensed furniture model 
+PASS Locked object detaches transform gizmo 
+PASS Duplicate preserves model and makes a new ID 
+PASS Delete decorative object works 
+PASS Draft stored independently of campaign 
+PASS Export is valid portable layout JSON 
+PASS Stair transform rebuilds linked floor opening 
+PASS Collision preview enabled 
+PASS Switching buildings restores local draft 
+PASS Actual keyboard walking enters building 
+PASS Escape leaves walk mode 
+PASS Invalid import is non-destructive 
+PASS Exported layout reimports 
+PASS Actual Python/WebGL game loads edited scene 
+PASS Real preview starts at exported marker 
+PASS Production save untouched by preview startup 
+PASS Edited container visible at exact exported coordinates 
+PASS Game door interaction and movement use edited geometry 
+PASS Python searches relocated mission container 
+PASS Normal save still unchanged after preview interactions 
+PASS Normal settings and journal remain unchanged 
+PASS No editor/preview JS errors or missing assets {"errors":[],"missing":[]}
+
+
+baseline-world_v2_browser.log
+READY {
+  buildings: 37,
+  roads: 15,
+  foliage: 0,
+  terrainCells: 0,
+  waterVolumes: 0
+}
+PASS world v2 browser draft persistence, brushes, building movement, link and export
