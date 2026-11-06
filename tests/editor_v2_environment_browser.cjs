@@ -71,7 +71,9 @@ const server=http.createServer((req,res)=>{
   await page.keyboard.press('Control+z');assert.deepEqual(await page.evaluate(()=>FieldWorldEditor.getDocument()),locked);
   pass('Mouse erasing preserves the individually locked object and undo restores its neighbours');
   const downloadPromise=page.waitForEvent('download');await page.locator('#world-export').click();const download=await downloadPromise;
-  const exported=JSON.parse(fs.readFileSync(await download.path(),'utf8'));assert.deepEqual(exported,locked);
+  const exported=JSON.parse(fs.readFileSync(await download.path(),'utf8'));assert.equal(exported.format,'field-signal-world-document');assert.deepEqual(exported.authoring,locked);
+  await page.locator('#world-file').setInputFiles({name:'Field-Signal-Connected-World.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(exported))});
+  await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('saved'));assert.deepEqual(await page.evaluate(()=>FieldWorldEditor.getDocument()),locked);
   await page.reload();await page.waitForFunction(()=>window.FieldWorldEditor?.ready());assert.deepEqual(await page.evaluate(()=>FieldWorldEditor.getDocument()),locked);
   assert.deepEqual(await page.evaluate(()=>[localStorage.getItem('field-signal-dead-air-v9'),localStorage.getItem('field-signal-dead-air-options'),localStorage.getItem('field-signal-v8-journal')]),['ENVIRONMENT-CAMPAIGN-SENTINEL','{"music":0.23}','[]']);
   await page.screenshot({path:path.join(out,'environment-brush-reloaded.png')});
