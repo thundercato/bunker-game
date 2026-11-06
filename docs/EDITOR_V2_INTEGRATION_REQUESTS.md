@@ -198,3 +198,18 @@ earlier 38 movement waits, which used an async predicate that did not poll. New
 checks require rendered/worker motion and physically traverse a generated station
 landing after anchored floor resizing. Both end at world Y 4.7. Game/compiler files
 remain unchanged. See the current progress/evidence for final-head CI.
+
+### Final startup/package follow-up
+
+`e3719db` changes only the network-fresh suite gate among public files. It reuses
+installing/waiting workers and safely rechecks InvalidStateError handoffs, while
+requiring the expected controller cache and retaining the same polling bounds.
+Nine deterministic activation cases cover success and refusal paths. Original
+CI42292276042 passed all 14 editor suites/three offline variants; the fourth timed
+out, then passed five local repeats. Its precise cause remains unconfirmed.
+Offline failures now expose console/status/worker/cache diagnostics and captures.
+The package validator rejects byte changes/extra files, and CI repeats that guard
+after browser acceptance before upload. Exact results/new hashes are under
+`verification-editor-v2/editor213-upgrade/`; final-head CI/artifact is linked from
+PR82. The workspace's artifact storage host blocks downloads with HTTP403; this
+does not substitute a local unpacking claim for CI's exact canonical-byte check.

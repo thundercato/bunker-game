@@ -1,0 +1,46 @@
+{
+  "sourceCommit": "e3719dbbb6b709020452e4e8ce6b65f4c08eff4b",
+  "pythonTests": 173,
+  "pythonSkips": 0,
+  "editorPureSuites": 16,
+  "activationScenarios": 9,
+  "offline": {
+    "world2": {
+      "checks": 7,
+      "errors": [],
+      "consoleErrors": [],
+      "missing": [],
+      "requests": [],
+      "navigationCancelledRequests": 4
+    },
+    "editor21": {
+      "checks": 7,
+      "errors": [],
+      "consoleErrors": [],
+      "missing": [],
+      "requests": [],
+      "navigationCancelledRequests": 5
+    },
+    "release111": {
+      "checks": 7,
+      "errors": [],
+      "consoleErrors": [],
+      "missing": [],
+      "requests": [],
+      "navigationCancelledRequests": 5
+    },
+    "editor212": {
+      "checks": 7,
+      "errors": [],
+      "consoleErrors": [],
+      "missing": [],
+      "requests": [],
+      "navigationCancelledRequests": 7
+    }
+  },
+  "normalRuntimeChanged": false,
+  "artifactUnpackedLocally": false,
+  "artifactDownloadLimitation": "Storage-host CONNECT HTTP 403",
+  "editor-controls-chromium.json": 9,
+  "editor-browser.json": 31
+}

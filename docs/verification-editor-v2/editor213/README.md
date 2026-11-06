@@ -1,5 +1,9 @@
 # Editor 2.1.3 canonical acceptance
 
+[Final startup follow-up](../editor213-upgrade/README.md) records source `e3719db`,
+its sole public gate change, nine lifecycle regressions and exact-byte CI guard.
+The later fourth-worker CI timeout and unconfirmed cause remain visible there.
+
 This is the normal production package, no overlay or competing runtime. Frozen
 source `8567fc7` builds 598 explicit public files / 596 cached resources (plus the
 .nojekyll marker); per-file hashes are in package-provenance.json. Accepted game,

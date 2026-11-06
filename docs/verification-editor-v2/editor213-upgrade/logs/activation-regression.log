@@ -1,0 +1,11 @@
+PASS editor preview adapter: capability gate, absent interior, canonical payload/subpath/isolation, rejected compile, storage failure, missing compiler, adapter recovery message (7 scenarios)
+PASS Current cache and browsers without service workers need no registration
+PASS An installing worker completes and claims the expected cache without a second update
+PASS A waiting worker must activate and expose the expected cache
+PASS A normal update still verifies controller activation before application imports
+PASS InvalidStateError during a concurrent installation is followed by cache verification
+PASS A genuine update failure remains blocked even if another worker could later activate
+PASS Neither installing state nor InvalidStateError accepts a wrong or unclaimed cache
+PASS A redundant captured controller is rechecked after handoff rather than granting readiness
+PASS Unexpected controller-message errors propagate and keep application imports blocked
+9 editor runtime activation regression scenarios passed

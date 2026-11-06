@@ -1,0 +1,9 @@
+PASS chromium editor starts actual models
+PASS Mouse drag of translation arrow changes saved position { initial: 3.5, after: 4.75 }
+PASS Mac Command-Z undoes actual gizmo edit
+PASS Mac Command-Shift-Z redoes it
+PASS Rotation ring limited to persisted upright yaw
+PASS Wall snapping moves geometry and interaction together
+PASS Display filters retain editable data
+PASS Reload restores persistent draft
+PASS No chromium editor exceptions []

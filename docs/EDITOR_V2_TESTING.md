@@ -16,6 +16,17 @@ that same dist under `/bunker-game/`. A successful PR CI run also offers the
 `canonical-editor-dist` download; extract it and serve it as above. No deployment
 or publication is implied. See `EDITOR_V2_PROGRESS.md` for actual status/results.
 
+The final startup follow-up is public source `e3719db`; only its suite gate differs
+from the full `8567fc7` acceptance package. Nine deterministic activation cases
+exercise installing/waiting workers, redundant-controller handoff, genuine errors
+and refusal of a wrong/unclaimed cache. The existing poll/timeout bounds remain.
+Run `python3 tools/validate_editor_package.py dist` after browser acceptance to
+verify every shipped byte and reject extra/private files; normal CI does this
+immediately before upload. Offline reports include console errors and failure
+screenshots/status/worker diagnostics. Navigation-cancelled background requests
+are reported separately from genuine network/HTTP failures. The earlier fourth-
+worker CI timeout remains recorded, without claiming its cause was reproduced.
+
 ## Practical journeys
 
 Undo/redo now uses lossless internal snapshot deltas, keeping canonical/legacy

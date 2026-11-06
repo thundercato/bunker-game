@@ -1,0 +1,285 @@
+verify	Packaged editor suite mouse, graph, model and persistence checks	﻿2026-11-06T21:08:31.2088184Z ##[group]Run for file in tests/editor_v2_*_browser.cjs; do node "$file"; done
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2088862Z [36;1mfor file in tests/editor_v2_*_browser.cjs; do node "$file"; done[0m
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2089165Z [36;1mnode tests/editor_v2_offline.cjs[0m
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2089452Z [36;1mEDITOR_PRIOR_WORKER=editor21 node tests/editor_v2_offline.cjs[0m
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2089804Z [36;1mEDITOR_PRIOR_WORKER=release111 node tests/editor_v2_offline.cjs[0m
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2090150Z [36;1mEDITOR_PRIOR_WORKER=editor212 node tests/editor_v2_offline.cjs[0m
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2108295Z shell: /usr/bin/bash -e {0}
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2108742Z env:
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2108962Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2109329Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2109656Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2109948Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2110298Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2110585Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:31.2110838Z ##[endgroup]
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:32.7113262Z PASS Shared manifest model library is mounted and searchable
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:32.7775607Z PASS Author + model search resolves real table
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:34.3316719Z PASS Actual shared model renders with observed geometry cost
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:38.5299367Z PASS Real mouse orbit changes rendered model view
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:39.3715711Z PASS Model workspace fits 1280 × 800 laptop viewport
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:40.8657466Z PASS Cost + placement filters exclude unmeasured facade
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:40.8701620Z PASS Low-cost registered model remains available
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:41.1027568Z PASS Intentional placement uses reviewed dimensions and decorative identity
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:41.1028836Z PASS Existing gameplay binding IDs survive model placement
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:43.4669509Z PASS Unreviewed model remains inspection only
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:43.4789376Z PASS Escape dismisses model inspection
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:43.5280043Z PASS Accepted registry extends the original catalogue without replacing it
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:44.2162441Z PASS Real campaign mesh inspection retains Kenney provenance, cost and metre dimensions
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:44.8045551Z PASS Campaign placement uses reviewed collider bounds and a fresh decorative ID
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:44.8106462Z PASS Inspector displays the actual selected campaign asset without substituting a legacy model
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:44.8107615Z PASS Accepted model placement preserves every existing gameplay binding
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:45.1117333Z PASS Campaign placement remains one complete undo operation
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:46.1894298Z PASS Semantic variant renders actual shared geometry and original provenance
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:46.1949545Z PASS Semantic appearance cannot create a new container or silently add loot
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:47.3736866Z PASS Authored opening collision stays inspection-only with its real limitation
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:47.3809433Z PASS No browser exceptions or asset HTTP failures { errors: [], failures: [] }
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:48.8857805Z PASS Selected real container reveals exact loot and mission authoring links
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:49.2397667Z PASS Actual refuge reference retains all five rooms and explicit read-only boundary
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:49.2462890Z PASS Selecting the actual radio reveals its existing ten mission offers
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:49.2550892Z PASS Vault/stair transition keeps source and target reference coordinates
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:49.2641275Z PASS Existing refuge storage links to its real container proposal
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:50.8850317Z PASS Reference inspection does not alter the authored layout or move a station
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:52.3360987Z PASS Station mission link selects the exact stable mission proposal
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:52.3479588Z PASS Packaged production-subpath journey has no exceptions or missing resources
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:08:57.1339781Z PASS Focused edit and stable selection enter the same canonical map document
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:00.5798227Z PASS Moved and rotated building returns with contents, camera, selection and canonical placement
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:01.5120444Z PASS Focused undo/redo crosses workspace boundaries and restores the world transform
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:03.7212957Z PASS Actual in-world local geometry uses one canonical parent transform and retains interaction binding [ 20.059907975537293, 0, -36.536053276763354 ]
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:10.7439373Z PASS In-world object numeric edits return to the focused inspector without copying objects
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:28.7859991Z PASS Both editor views open the real upper-storey cutaway; height edits keep binding floors and exact undo
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:29.3081703Z PASS One session retains authored hut, two-storey cottage and station layouts
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:32.8458920Z PASS Canonical portable JSON round trip and reload retain all buildings, IDs and durable history
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:32.8580695Z PASS Normal campaign/settings/journal remain isolated and accepted runtime adapter is available
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:39.3350071Z PASS No browser exceptions or missing packaged assets
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:49.2573448Z PASS Real terrain hover previews deterministic candidates without changing authored data
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:49.7536132Z PASS Actual mouse dab commits displayed rock instances and is one undo/redo operation
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:50.6989740Z PASS Escape restores a real multi-dab brush gesture atomically
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:51.9709691Z PASS Real drag spaces new instances against earlier dabs and keeps one history transaction
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:53.0600505Z PASS Mouse erasing preserves the individually locked object and undo restores its neighbours
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:55.9829911Z PASS Export and reload preserve concrete stable IDs and transforms without a seed reroll or campaign writes
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:59.0132682Z PASS Actual sculpt updates local GPU buffers without rebuilding terrain and retains cancel/undo/redo
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:09:59.0171447Z PASS Packaged production subpath has no browser exceptions or missing resources
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:01.5768214Z PASS Stable binding deep link selects actual existing container
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:02.2619890Z PASS Filtered bulk selection and named collection restore stable children
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:02.6679638Z PASS Bulk local translation is one reversible layout transaction
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:03.1460048Z PASS Bulk lock prevents an accidental partial group move
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:03.9486803Z PASS Hide and isolate detach gizmos and preserve document
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:05.2497675Z PASS Portable collection export/import and reload preserve references
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:07.5971235Z PASS Rejected building draft is retained before fallback replaces its key
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:08.8459857Z PASS Rejected collection metadata is backed up before a replacement collection is saved
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:08.8472786Z PASS Laptop editor has no exceptions or failed asset requests
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:13.1430126Z PASS Real localStorage saves5000UUID instances, three interiors and all30 history states without quota failure {
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:13.1430957Z   checkpointChars: 792185,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:13.1431327Z   utf16StorageEstimate: 3168256,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:13.1431651Z   hiddenVegetation: true
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:13.1431928Z }
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:13.1432585Z PASS Checkpoint uses the lossless history encoding while canonical document and legacy mirrors remain exact
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:15.0214996Z PASS Actual reload preserves SHA256 of the current document, every30 undo frame and all foliage IDs
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:18.8199914Z PASS Real undo/redo buttons and keyboard restore growing strokes as complete transactions
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:25.8818120Z PASS World/focused navigation and map reload retain full history, selection and hidden forest without reroll
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:25.8825598Z PASS Normal campaign, settings, both journals and unrelated preview state remain byte-identical during dense history edits
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:39.0839948Z PASS An actual older full-snapshot checkpoint loads200 instances and all28undo+2redo frames unchanged
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:46.0904637Z PASS Explicit Save converts old snapshots losslessly and actual reload retains both history stacks
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:46.4246251Z PASS Concurrent external legacy checkpoint is backed up byte-for-byte before Save retains active compressed history
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:10:54.6360517Z PASS Invalid encoded splice preserves raw checkpoint, offers exact download and refuses an unsafe restore
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:01.8250739Z PASS Explicit recovery Save retains corrupt bytes in backup, persists the valid mirror design and survives reload
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:01.8420095Z PASS Both fresh profiles preserve every normal and unrelated preview sentinel without clearing storage
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:01.8462456Z PASS Canonical production-subpath history journeys have no browser exceptions or failed asset/module requests
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:02.9326948Z Editor package/import closure valid: 598 explicit public files
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:09.4449673Z PASS Real asset placement and numeric rotated top-face snap use one undo transaction
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:10.3775498Z PASS Snapped pose survives undo and redo
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:14.0450888Z PASS Collection rigid rotation and reversal preserve one local pivot and child pose
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:15.2249599Z PASS Collection bottom alignment uses canonical face convention and undo
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:17.5777237Z PASS Portable template import/export inserts unique concrete children with explicit overrides atomically
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:19.4117569Z PASS Bound container templates are visibly rejected without duplicating mission bindings
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:23.3312195Z PASS Overlapping top faces can be selected and nearby workspace isolation stays view-only
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:26.7389727Z PASS Support diagnostic selects actual offending child and gives a concrete repair
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:31.4235001Z PASS Layout round trip, recovered draft and private template library preserve campaign/settings/journal sentinels
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:38.2377827Z PASS Wall endpoint joint on a two-storey building respects shared local coordinates and undo
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:40.2029983Z PASS Existing two-storey stair creates a real top landing floor as one undo step; traversal remains explicitly gated
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:41.5840560Z PASS Template quota failure retains old storage and exports the unsaved new design
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:41.5919405Z PASS Packaged /bunker-game/ editor has no exceptions, missing assets or failed requests
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:44.1757967Z PASS editor weighted-loot browser interactions, persistence, export/import and isolation; no page errors or missing assets
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:44.9860841Z PASS Real source missions and typed graphs load without validation errors
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:45.0448733Z PASS Source and item search filter actual mission identities
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:45.1913140Z PASS Real node drag Escape restores the complete proposal
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:45.4257204Z PASS Saving during a drag cannot persist a cancelled transient node pose
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:45.5834967Z PASS Delete during a drag cancels the gesture before the undoable edit
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:45.7411171Z PASS Real graph drag is one undo/redo step
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:45.9815042Z PASS Actual right-drag pan, wheel zoom and fit operate
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:46.0052071Z PASS Numeric reward proposal persists without changing world source
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:46.0827652Z PASS Storage failure protects unsaved edits until a successful save
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:46.1382174Z PASS Typed connection form rejects item-to-flow links
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:46.2370169Z PASS Connection deletion and undo repair the real graph
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:46.2404510Z PASS Stable target link and unsupported mechanics state actual integration limits
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:46.3309011Z PASS Real JSON download and file import round trip
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:46.4997396Z PASS Reload retains proposals and captures actual workspace
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:46.4998029Z PASS No browser exceptions or missing assets
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:47.9019577Z PASS Canonical package enables the accepted moved-building adapter
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:50.1014476Z PASS hut numeric interior edit uses canonical local position
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:51.5135176Z PASS hut world view preserves selected whole building
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:56.1834665Z PASS hut focused view keeps local transform and selection after world move
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:11:58.1694627Z PASS hut canonical JSON export/import/reload keeps complete design
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:12:25.7619962Z PASS hut actual runtime composes moved/rotated/raised parent exactly once
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:12:25.7639183Z PASS hut rendered container agrees with canonical transformed position
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:12:45.1381064Z PASS hut real Use opens door and keyboard crosses raised rotated entrance
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:12:57.4350593Z PASS hut real Use searches relocated bound container
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:00.5424377Z PASS Mission-critical recorder survives moved container authoring
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:01.5115501Z PASS Actual Atlas objective targets the moved mission cupboard
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:04.9994332Z PASS hut campaign/settings/journal/book stay isolated
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:07.9364998Z PASS hut return recovers exact canonical authoring document
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:09.4673850Z PASS forester numeric interior edit uses canonical local position
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:13.0289166Z PASS forester world view preserves selected whole building
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:18.3274044Z PASS forester focused view keeps local transform and selection after world move
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:22.5080111Z PASS forester canonical JSON export/import/reload keeps complete design
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:47.1519585Z PASS forester actual runtime composes moved/rotated/raised parent exactly once
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:13:47.1549468Z PASS forester rendered container agrees with canonical transformed position
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:14:14.3009751Z PASS forester real Use opens door and keyboard crosses raised rotated entrance
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:14:47.0805493Z PASS forester keyboard physically ascends transformed stairs to upper floor
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:14:57.3563617Z PASS forester upper-floor keyboard movement retains parent plus floor height
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:00.6500341Z PASS forester real Use searches relocated bound container
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:02.9807136Z PASS forester campaign/settings/journal/book stay isolated
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:04.7240129Z PASS forester return recovers exact canonical authoring document
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:06.3740365Z PASS station one-sided upper-floor resize keeps its front edge fixed and removes the rear strip
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:07.6056920Z PASS station adds a unique concrete landing that alone supports the removed upper-floor strip
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:10.7479887Z PASS station numeric interior edit uses canonical local position
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:12.1148038Z PASS station world view preserves selected whole building
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:17.2177047Z PASS station focused view keeps local transform and selection after world move
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:19.6113522Z PASS station canonical JSON export/import/reload keeps complete design
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:34.4750039Z PASS station actual runtime composes moved/rotated/raised parent exactly once
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:34.4800561Z PASS station rendered container agrees with canonical transformed position
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:15:59.4129052Z PASS station real Use opens door and keyboard crosses raised rotated entrance
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:16:34.0756548Z PASS station keyboard physically ascends transformed stairs to upper floor
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:16:36.1358692Z PASS station continuously walks from the stairs onto its new physical landing with matching worker height
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:16:49.8083799Z PASS station upper-floor keyboard movement retains parent plus floor height
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:16:55.3651026Z PASS station real Use searches relocated bound container
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:16:57.0214287Z PASS station campaign/settings/journal/book stay isolated
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:16:58.0379984Z PASS station return recovers exact canonical authoring document
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:16:58.0381038Z PASS No browser exceptions or failed asset/module requests
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:16:59.9669946Z PASS Recovery lists only editor backups and validates the concurrent real hut design
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:00.4009773Z PASS Corrupt backup remains download-only and downloads its exact original bytes
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:03.2099755Z PASS Explicit restore reloads the actual design, retains history and backup, and preserves campaign/settings/journal
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:04.2627156Z PASS Real recovery list and validator work in editor/world.html
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:05.1101828Z PASS Real recovery list and validator work in editor/loot.html
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:05.5305373Z PASS Real recovery list and validator work in editor/missions.html
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:05.7966614Z PASS Real recovery list and validator work in editor/validation.html
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:05.7973542Z PASS Packaged subpath recovery has no browser exceptions or missing resources
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5022950Z PASS 37 degree floor numeric anchored resize {
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5038730Z   id: 'ground',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5038940Z   name: 'Ground floor',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5039134Z   type: 'floor',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5039404Z   position: [ 0.4492324744016022, 0, -0.33852095052302716 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5039713Z   size: [ 9.125, 0.16, 7 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5039904Z   yaw: 0.6457718232379019,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5040090Z   material: 'concrete',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5040274Z   solid: true,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5040438Z   locked: false
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.5040603Z }
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:08.6907548Z PASS Input undo and shortcut letters stay in field
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7609786Z PASS Real rotated edge drag fixes opposite edge and creates one transaction {
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7628926Z   before: {
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7629233Z     id: 'ground',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7660105Z     name: 'Ground floor',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7678795Z     type: 'floor',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7679263Z     position: [ 0.4492324744016022, 0, -0.33852095052302716 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7680107Z     size: [ 9.125, 0.16, 7 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7680414Z     yaw: 0.6457718232379019,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7680715Z     material: 'concrete',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7681012Z     solid: true,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7681282Z     locked: false
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7681525Z   },
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7681749Z   after: {
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7681980Z     id: 'ground',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7682243Z     name: 'Ground floor',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7682523Z     type: 'floor',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7682893Z     position: [ 1.2977827038268508, 0, -0.9779494126220785 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7683286Z     size: [ 11.25, 0.16, 7 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7683576Z     yaw: 0.6457718232379019,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7683873Z     material: 'concrete',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7684164Z     solid: true,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7684432Z     locked: false
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7684676Z   }
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7684897Z }
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:10.7685269Z PASS Resized geometry and canonical collision agree
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:11.1939459Z PASS Undo/redo restores both dimensions and position
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:11.8820739Z PASS Escape cancels resize without history or durable draft changes
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:12.4602564Z PASS blur cancels resize without history or durable draft changes
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:13.2116833Z PASS Real corner drag preserves opposite local corner and one history entry { before: [ 11.25, 0.16, 7 ], after: [ 13, 0.16, 8.75 ] }
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:14.1229806Z PASS Escape cancels existing mouse gizmo drag without committing undo
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:14.3438562Z PASS Invalid doorway resize is rejected with visible explanation
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0001606Z PASS 63 degree wall numeric width and height retain anchor and collision agreement {
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0018865Z   before: {
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0035951Z     id: 'wall-west',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0057194Z     name: 'West wall',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0057749Z     type: 'wall',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0058195Z     position: [ -4, 0, 0 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0058860Z     size: [ 7, 3.2, 0.22 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0059293Z     yaw: 1.0995574287564276,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0059732Z     material: 'plaster',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0060166Z     solid: true,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0060559Z     locked: false
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0061426Z   },
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0061791Z   after: {
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0062165Z     id: 'wall-west',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0062575Z     name: 'West wall',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0062984Z     type: 'wall',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0063514Z     position: [ -3.8581279688313916, 0, -0.27843953880886496 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0064096Z     size: [ 7.625, 3.575, 0.22 ],
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0064535Z     yaw: 1.0995574287564276,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0064947Z     material: 'plaster',
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0065351Z     solid: true,
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0065729Z     locked: false
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0066096Z   }
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.0066426Z }
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.2974642Z PASS Precise numeric offset follows rotated local X
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:15.6826764Z PASS Portable JSON export/import retains resized rotated pose
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:16.9762585Z PASS Browser reload restores draft without changing IDs
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:18.4802480Z PASS No browser exceptions
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:18.4899679Z PASS Asset request report { failures: [] }
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:19.3818912Z PASS Packaged validation starts on production subpath with honest coverage
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:19.4885150Z PASS Flooded authored entrance identifies actual building/object repair link
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:19.5470377Z PASS Review report exports current canonical snapshot identity
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:19.6443320Z PASS Changed authored data invalidates old report before export
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:19.6950909Z PASS Rejected original drafts remain visible as review errors without changing their bytes
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:19.7751076Z PASS No browser errors/missing packaged resources or production-save writes
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:21.0117737Z PASS Actual district numeric edits use one canonical transform and retain asset/collision identity
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:22.2380055Z PASS District numeric edits share durable world undo and redo
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:22.9125489Z PASS District isolation and layer visibility remain authoring metadata
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:26.2849794Z PASS District IDs and edited transforms survive canonical export and reload
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:28.7379521Z PASS Real building drag Escape restores document
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:29.8289764Z PASS Real snapped building drag is one undo transaction
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:30.6349371Z PASS Locked building rejects mouse movement
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:30.8679458Z PASS Numeric yaw uses degrees and persists radians
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:31.7152600Z PASS Actual sculpt stroke cancels atomically
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:32.2468099Z PASS Individual foliage lock survives terrain stroke
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:33.0699604Z PASS Curved road control insertion and deletion
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:36.6131997Z PASS World draft JSON reload and region UI sync
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:37.9498180Z PASS Rejected world draft retained before explicit replacement save
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:40.6681888Z PASS Storage failure keeps unsaved world in its workspace, blocks interior navigation and permits a portable export
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:40.8589651Z PASS Successful retry saves the retained world and clears its leave guard
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:40.8616536Z PASS No browser exceptions or missing assets
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:43.7849821Z PASS Prior production service worker upgrades before importing stale editor modules
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:45.8911678Z PASS All five editor workspaces start from canonical dist under /bunker-game/
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:47.0135013Z PASS Actual Prepare editor for offline action completes the public package without overwriting save status
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:47.1099839Z PASS Complete explicit offline manifest cached (596 resources), prior public cache retired safely
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:51.6209922Z PASS Every workspace restarts offline, including never-cached directory navigation
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:51.6225065Z PASS Campaign, settings, both legacy journals, current field journal, existing preview namespaces and backward-compatible drafts remain byte-for-byte intact
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:51.6225771Z PASS No browser exceptions or missing packaged network resources
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:53.2557298Z PASS Prior production service worker upgrades before importing stale editor modules
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:55.0407388Z PASS All five editor workspaces start from canonical dist under /bunker-game/
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:56.0320263Z PASS Actual Prepare editor for offline action completes the public package without overwriting save status
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:17:56.1247209Z PASS Complete explicit offline manifest cached (596 resources), prior public cache retired safely
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:00.5969654Z PASS Every workspace restarts offline, including never-cached directory navigation
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:00.5985021Z PASS Campaign, settings, both legacy journals, current field journal, existing preview namespaces and backward-compatible drafts remain byte-for-byte intact
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:00.5985739Z PASS No browser exceptions or missing packaged network resources
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:01.9252050Z PASS Prior production service worker upgrades before importing stale editor modules
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:04.0519847Z PASS All five editor workspaces start from canonical dist under /bunker-game/
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:05.0625415Z PASS Actual Prepare editor for offline action completes the public package without overwriting save status
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:05.1569427Z PASS Complete explicit offline manifest cached (596 resources), prior public cache retired safely
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:09.6629393Z PASS Every workspace restarts offline, including never-cached directory navigation
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:09.6644855Z PASS Campaign, settings, both legacy journals, current field journal, existing preview namespaces and backward-compatible drafts remain byte-for-byte intact
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:18:09.6645563Z PASS No browser exceptions or missing packaged network resources
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:20:10.1638070Z page.waitForFunction: Timeout 120000ms exceeded.
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:20:10.1638968Z     at /home/runner/work/bunker-game/bunker-game/tests/editor_v2_offline.cjs:51:54
+verify	Packaged editor suite mouse, graph, model and persistence checks	2026-11-06T21:20:10.1735677Z ##[error]Process completed with exit code 1.

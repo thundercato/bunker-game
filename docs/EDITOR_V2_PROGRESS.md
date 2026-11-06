@@ -11,7 +11,37 @@ Final fetch observed main `220fb45`: publication/native documentation only, with
 no additional runtime changes. `6448145` preserves those accepted notes/instructions.
 The other task verified/published game 11.1; this editor suite is still unpublished.
 
-## Current 2.1.3 continuation checkpoint
+## Latest startup and package follow-up
+
+Public source `e3719db` follows the complete 2.1.3 acceptance below. Only the
+network-fresh suite gate changed among the 598 public files; all other hashes,
+accepted runtime files, cache label, save keys and draft formats are unchanged.
+Normal CI42292276042 passed all 14 editor suites and three offline variants, then
+timed out starting the fourth (prior editor2.1.2). Its cause remains unconfirmed;
+five instrumented local repeats of the original package passed 7/7 each.
+
+The gate now reuses installing/waiting workers and treats an InvalidStateError
+handoff as a reason to recheck, never as readiness. Expected controller-cache
+verification and the original polling bounds remain mandatory. Nine deterministic
+activation cases plus the existing seven adapter cases pass. Offline failures now
+retain console/status/worker/cache diagnostics and screenshots. Reports distinguish
+navigation-cancelled background requests from real network failures.
+
+The package validator now rejects changed canonical bytes and extra shipped files,
+including tests/private material. CI runs that check again after browser acceptance
+and before artifact upload. A successful final-head CI/artifact remains the review
+gate linked from PR82. This workspace's artifact storage host returns HTTP403;
+CI performs the exact-byte verification, with no local artifact-unpacking claim.
+Evidence: [startup follow-up](verification-editor-v2/editor213-upgrade/README.md).
+
+Final local follow-up on exact `e3719db`: **173 Python / zero skips, all 16 pure
+suites (including nine activation cases), four offline variants 7/7 each, controls
+9/9, retained actual-game editor/preview 31/31, post-browser 598 exact bytes/no
+extras**. All exception/console/HTTP/genuine-network-error arrays are empty;
+background navigation cancellations remain visible in the reports. Final normal
+CI reruns the entire suite on the pushed review head before upload.
+
+## Full 2.1.3 continuation acceptance before the startup follow-up
 
 Code `8567fc7` follows green canonical checkpoint `7bd5db1`, verified by normal
 [CI 42285211842](https://github.com/thundercato/bunker-game/actions/runs/42285211842).
