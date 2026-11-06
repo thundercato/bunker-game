@@ -28,6 +28,11 @@ registry IDs; original components use `field-signal:component-name`. An optional
 `assetRotation` normalises an imported model before fitting its desired dimensions.
 Transforms are authored against the current terrain, rather than silently moving
 legacy mission anchors. Future terrain authoring must deliberately reground them.
+`grounding` records whether an object follows terrain, the pier deck, the rail
+surface, or a container stack. Garden `groundProfile` grids store local height
+offsets; the renderer bilinearly samples them for each post, rail and picket.
+Their shorter collider segments use those same heights. This keeps the rear fence
+returns grounded when their front edge lies on a village slope.
 
 Children are local to their parent object. Collider `{x,y,z,w,h,d,yaw}` values use
 the box centre; surface `{x,y,z,w,d,yaw}` values use the floor's top. The shared
@@ -94,7 +99,12 @@ the old building footprints. Source road/rail indices remain stable.
 rotated local-to-world poses, every source building footprint and door approach,
 licensed campaign asset references, pier-bound crane endpoints, landing/rail
 clearance, outside-shaft waypoints, geometry construction, authored-data isolation
-and zone/distance/vegetation culling. Stub-model geometry construction produces
+and zone/distance/vegetation culling. The test also creates the effective campaign
+source with its repaired roads and four interiors, runs the real Python terrain
+sampler, and checks every terrain-following object, garden grid point, cable end
+and crane landing against it. The final reground changed 46 Y values, including
+small precision corrections; the pier baseline and 2.59 m container stack remain
+explicit. Stub-model geometry construction produces
 146 merged meshes, below the authored 450 whole-candidate merged-mesh ceiling;
 these are not measured live frame times or actual imported-model triangle counts.
 The full geometry catalogue is distance culled and only nearby cells render.

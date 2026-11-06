@@ -17,6 +17,13 @@ export function districtWorldPoint(transform, point) {
  return {x:transform.x+c*point.x+s*point.z,y:transform.y+point.y,z:transform.z-s*point.x+c*point.z,yaw:(transform.yaw||0)+(point.yaw||0)};
 }
 
+export function districtGroundAt(object,x,z) {
+ const grid=object.groundProfile;if(!grid)return 0;
+ const interval=(values,value)=>{let i=0;while(i<values.length-2&&value>values[i+1])i++;return [i,Math.min(1,Math.max(0,(value-values[i])/(values[i+1]-values[i])))];};
+ const [ix,u]=interval(grid.x,x),[iz,v]=interval(grid.z,z),a=grid.heights[iz],b=grid.heights[iz+1];
+ return (a[ix]*(1-u)+a[ix+1]*u)*(1-v)+(b[ix]*(1-u)+b[ix+1]*u)*v;
+}
+
 export function validateDistrictDefinition(definition) {
  const errors=[],ids=new Set();
  const unique=(id,label)=>{if(typeof id!=='string'||!id.trim())errors.push(label+' needs a stable ID');else if(ids.has(id))errors.push('Duplicate district ID: '+id);else ids.add(id);};
@@ -54,6 +61,7 @@ export function validateDistrictDefinition(definition) {
     }
    }
    if(object.component==='cable-span'&&(!object.end||!['x','y','z'].every(k=>finite(object.end[k]))))errors.push(object.id+' has invalid cable endpoints');
+   if(object.groundProfile){const grid=object.groundProfile,axis=values=>Array.isArray(values)&&values.length>=2&&values.every((n,i)=>finite(n)&&(i===0||n>values[i-1]));if(!axis(grid.x)||!axis(grid.z)||!Array.isArray(grid.heights)||grid.heights.length!==grid.z.length||grid.heights.some(row=>!Array.isArray(row)||row.length!==grid.x.length||!row.every(finite)))errors.push(object.id+' has an invalid ground profile');}
   }
  }
  return errors;
@@ -76,7 +84,7 @@ function materials(world) {
  };
 }
 
-function toolsFor(world,group,m) {
+function toolsFor(world,group,m,definition) {
  const mesh=(geometry,material)=>{const o=new T.Mesh(geometry,material);o.castShadow=true;o.receiveShadow=true;o.userData.districtOwnedGeometry=true;group.add(o);return o;};
  const box=(w,h,d,x,y,z,material=m.iron)=>{
   const geometry=new T.BoxGeometry(w,h,d),a=geometry.attributes.position,n=geometry.attributes.normal,uv=geometry.attributes.uv;
@@ -89,14 +97,14 @@ function toolsFor(world,group,m) {
  const torus=(radius,tube,x,y,z,material=m.iron)=>{const o=mesh(new T.TorusGeometry(radius,tube,6,16),material);o.position.set(x,y,z);return o;};
  const sign=(text,w,h,x,y,z,yaw=0)=>{if(!world.label)return;const o=world.label(text,w,h,'#d0c59f','#34443b');o.position.set(x,y,z);o.rotation.y=yaw;o.userData.districtLabel=true;group.add(o);return o;};
  const cable=(points,r=.012,material=m.dark)=>mesh(new T.TubeGeometry(new T.CatmullRomCurve3(points.map(p=>new T.Vector3(...p))),12,r,4,false),material);
- return {mesh,box,cylinder,beam,torus,sign,cable,m};
+ return {mesh,box,cylinder,beam,torus,sign,cable,m,groundAt:(x,z)=>districtGroundAt(definition,x,z)};
 }
 
 function fence(ctx,a,b,height=1.16,style='timber') {
- const {box,beam,m}=ctx,dx=b[0]-a[0],dz=b[1]-a[1],length=Math.hypot(dx,dz),steps=Math.max(1,Math.ceil(length/1.8));
- for(let i=0;i<=steps;i++){const t=i/steps,x=a[0]+dx*t,z=a[1]+dz*t;box(.12,height+.13,.12,x,height/2,z,m.wood);}
- for(const y of [height*.28,height*.76])beam([a[0],y,a[1]],[b[0],y,b[1]],.047,style==='timber'?m.wood:m.iron);
- if(style==='timber')for(let i=0;i<Math.ceil(length/.22);i++){const t=(i+.5)/Math.ceil(length/.22),o=box(.13,height*.77,.045,a[0]+dx*t,height*.53,a[1]+dz*t,m.wood);o.rotation.y=-Math.atan2(dz,dx);}
+ const {box,beam,m,groundAt}=ctx,dx=b[0]-a[0],dz=b[1]-a[1],length=Math.hypot(dx,dz),steps=Math.max(1,Math.ceil(length/1.8));
+ for(let i=0;i<=steps;i++){const t=i/steps,x=a[0]+dx*t,z=a[1]+dz*t;box(.12,height+.13,.12,x,groundAt(x,z)+height/2,z,m.wood);}
+ for(let i=0;i<steps;i++)for(const y of [height*.28,height*.76]){const ax=a[0]+dx*i/steps,az=a[1]+dz*i/steps,bx=a[0]+dx*(i+1)/steps,bz=a[1]+dz*(i+1)/steps;beam([ax,groundAt(ax,az)+y,az],[bx,groundAt(bx,bz)+y,bz],.047,style==='timber'?m.wood:m.iron);}
+ if(style==='timber')for(let i=0;i<Math.ceil(length/.22);i++){const t=(i+.5)/Math.ceil(length/.22),x=a[0]+dx*t,z=a[1]+dz*t,o=box(.13,height*.77,.045,x,groundAt(x,z)+height*.53,z,m.wood);o.rotation.y=-Math.atan2(dz,dx);}
 }
 
 function railing(ctx,a,b,y) {
@@ -107,9 +115,9 @@ function railing(ctx,a,b,y) {
 }
 
 const builders={
- garden(ctx,q){const {box,m}=ctx,w=q.size[0],gap=q.gap||3,depth=q.depth||4.8;fence(ctx,[-w/2,0],[-gap/2,0]);fence(ctx,[gap/2,0],[w/2,0]);if(depth>2){fence(ctx,[-w/2,0],[-w/2,-depth]);fence(ctx,[w/2,0],[w/2,-depth]);}
+ garden(ctx,q){const {box,m,groundAt}=ctx,w=q.size[0],gap=q.gap||3,depth=q.depth||4.8;fence(ctx,[-w/2,0],[-gap/2,0]);fence(ctx,[gap/2,0],[w/2,0]);if(depth>2){fence(ctx,[-w/2,0],[-w/2,-depth]);fence(ctx,[w/2,0],[w/2,-depth]);}
   // Each gate is fixed visibly open, leaving the same three metre gap as collision.
-  fence(ctx,[-gap/2,0],[-gap/2,-1.05],1.02);box(.18,.25,.27,w/2-.1,1.15,.12,m.iron);box(.25,.16,.16,w/2-.1,1.4,.12,m.yellow);
+  fence(ctx,[-gap/2,0],[-gap/2,-1.05],1.02);const y=groundAt(w/2,0);box(.18,.25,.27,w/2-.1,y+1.15,.12,m.iron);box(.25,.16,.16,w/2-.1,y+1.4,.12,m.yellow);
  },
  bench({box,beam,m}){for(const z of [-.23,0,.23])box(1.8,.055,.15,0,.49,z,m.wood);for(const y of [.69,.88])box(1.8,.12,.055,0,y,-.28,m.wood);for(const x of [-.66,.66]){beam([x,.05,-.23],[x,.49,-.23],.035);beam([x,.05,.23],[x,.49,.23],.035);beam([x,.49,-.23],[x,.95,-.28],.025);}},
  noticeboard({box,sign,m},q){for(const x of [-1,1])box(.13,2.5,.13,x,1.25,0,m.wood);box(2.5,1.2,.16,0,1.7,0,m.wood);box(2.3,1,.03,0,1.7,.1,m.paper);box(2.7,.12,.55,0,2.4,0,m.rust);sign(q.text||'FIELD NOTICE',2.15,.3,0,1.95,.13);for(const [x,y]of [[-.55,1.5],[.45,1.5]]){const p=box(.54,.5,.01,x,y,.128,m.paper);p.rotation.z=x*.08;}},
@@ -209,7 +217,7 @@ export async function buildDistrictScene(world,definition) {
   let cell=cells.get(key);
   if(!cell){cell=new T.Group();const cx=q.climb?q.transform.x:(Math.floor(q.transform.x/cellSize)+.5)*cellSize,cz=q.climb?q.transform.z:(Math.floor(q.transform.z/cellSize)+.5)*cellSize;cell.position.set(cx,0,cz);cell.userData={zone:district.zone,keep:true,centre:[cx,cz],cull:q.cull||definition.budgets?.defaultCull||115,districtCell:true,vegetation:!!q.vegetation,authoredIds:[]};root.add(cell);cells.set(key,cell);groups.push(cell);}
   const group=new T.Group();group.name=q.id;group.position.set(q.transform.x-cell.position.x,q.transform.y,q.transform.z-cell.position.z);group.rotation.y=q.transform.yaw;group.userData={authoredId:q.id,zone:district.zone,asset:q.asset};cell.add(group);cell.userData.authoredIds.push(q.id);objects.set(q.id,{definition:q,districtId:district.id,group,cell});
-  const ctx=toolsFor(world,group,m);
+  const ctx=toolsFor(world,group,m,q);
   const imported=['model','cargo-container','street-lamp'].includes(q.component)&&!q.asset.startsWith('field-signal:');
   if(imported){
    try{const key=JSON.stringify([q.asset,q.size,q.parts,q.assetRotation]);let template=modelCache.get(key);if(!template){template=await world.model(q.asset,{dim:q.size,parts:q.parts,rotate:q.assetRotation});modelCache.set(key,template);}group.add(template.clone(true));counts.assetInstances++;}

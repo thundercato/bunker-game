@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 import * as T from '../vendor/three.js';
-import {buildDistrictScene,validateDistrictDefinition,districtWorldPoint} from '../district-scene.js';
+import {buildDistrictScene,validateDistrictDefinition,districtWorldPoint,districtGroundAt} from '../district-scene.js';
+import {applyCampaignSource} from '../campaign-core.js';
+import {createCampaignInteriors} from '../campaign-interiors.js';
 
 const definition=JSON.parse(fs.readFileSync(new URL('../districts.json',import.meta.url)));
 const source=JSON.parse(fs.readFileSync(new URL('../world.json',import.meta.url)));
@@ -80,6 +84,29 @@ for(const q of all.filter(q=>q.zone==='field'))for(const collider of q.colliders
   assert.ok(!intersectsRectangle(local(path[i-1]),local(path[i]),collider.w+half*2,collider.d+half*2),`${q.id}/${collider.id} blocks road ${index}`);
  }
 }
+
+// Check authored grounding against the actual Python candidate sampler, including
+// full-route flattening. Explicit pier/deck/stack heights remain distinct.
+const props=JSON.parse(fs.readFileSync(new URL('../search-props.json',import.meta.url)));
+const metadata=JSON.parse(fs.readFileSync(new URL('../world-source.json',import.meta.url)));
+const effective=applyCampaignSource(source,{districts:definition,props,routes,interiors:createCampaignInteriors(source),sourceRevision:metadata.revision});
+const groundChecks=[];
+for(const q of all){
+ if(q.grounding?.mode==='terrain')groundChecks.push({id:q.id,...q.transform,expected:q.transform.y});
+ if(q.groundProfile){
+  const grid=q.groundProfile;
+  for(let z=0;z<grid.z.length;z++)for(let x=0;x<grid.x.length;x++){const p=districtWorldPoint(q.transform,{x:grid.x[x],y:grid.heights[z][x],z:grid.z[z]});groundChecks.push({id:q.id+':grid',...p,expected:p.y});}
+  for(const c of q.colliders)assert.ok(Math.abs(c.y-c.h/2-districtGroundAt(q,c.x,c.z))<.000002,'Fence collision follows its rendered ground profile');
+ }
+ if(q.component==='cable-span'){const p=districtWorldPoint(q.transform,q.end);groundChecks.push({id:q.id+':cable-end',...p,expected:p.y});}
+}
+const enginePath=fileURLToPath(new URL('../engine.py',import.meta.url));
+const sampled=JSON.parse(execFileSync('python3',['-c',
+ 'import json,runpy,sys;from pathlib import Path;p=json.load(sys.stdin);sys.path.insert(0,str(Path(sys.argv[1]).parent));e=runpy.run_path(sys.argv[1],init_globals={"WORLD_JSON":json.dumps(p["world"])});print(json.dumps({"ground":[e["terrain_height"](q["x"],q["z"]) for q in p["points"]],"surfaces":[e["surface_height"](q["x"],q["z"],q["y"]) for q in p["landings"]]}))',enginePath],
+ {input:JSON.stringify({world:effective,points:groundChecks,landings:crane.climb.routes.map(r=>districtWorldPoint(crane.transform,r.to))}),encoding:'utf8'}));
+groundChecks.forEach((p,i)=>assert.ok(Math.abs(p.expected-sampled.ground[i])<.000002,`${p.id} does not follow candidate terrain: ${p.expected} != ${sampled.ground[i]}`));
+sampled.surfaces.forEach((y,i)=>near(y,crane.climb.routes[i].to.y));
+assert.equal(all.find(q=>q.id==='docks-container-02').transform.y,2.59);
 
 // Exercise real geometry construction and cell culling without a GPU or texture decode.
 const material=new T.MeshStandardMaterial({color:'#7b8170'}),world={scene:new T.Scene(),occluders:[],currentZone:'field',quality:'balanced',renderSettings:{},state:{player:{x:110,z:-151}},mat:{wood:material,metal:material,rock:material,concrete:material},async model(id,spec){const group=new T.Group(),mesh=new T.Mesh(new T.BoxGeometry(...spec.dim),material);mesh.position.y=spec.dim[1]/2;group.add(mesh);return group;},label(){return new T.Mesh(new T.PlaneGeometry(1,.2),material);}};
