@@ -12,6 +12,12 @@ Read these before changing code:
 
 Do not assume this task has access to earlier chat history. The documents are the durable handover. If code and a historical release report disagree, inspect the code and record the discrepancy. An agreed feature is not automatically implemented.
 
+### Current campaign priority: game first
+
+For the mega-build campaign, Adam's latest request changes the earlier editor-first task order: prioritise the playable world overhaul, 3D journal, richer licensed assets, useful searchable interiors and gameplay polish. Retain the shared-world/compiler work needed to make those changes reliable, and keep new content compatible with the editor. Do not repeat M0 or recreate the M1 compiler already delivered in PR #80; inspect subsequent changes before continuing.
+
+This is an extensive implementation task, not a plan-only request or a restriction to one tiny slice. Continue through ready milestones within the actual task's limits, with tests and recoverable checkpoints between them. Use substantial available effort for real implementation, asset optimisation and verification; do not waste allowance on filler or claim to control the user's quota/reset. If blocked on one independent workstream, document it and continue with another safe one. Preserve all release, licence and save-protection rules below. The compact kickoff prompt is in `docs/MEGA_BUILD_START_PROMPT.md`.
+
 ## Project and current boundary
 
 This is Field Signal, not the retired Bunker Game whose repository name is retained. It is a gritty first-person survival game for mobile browsers, with a desktop-first authoring editor. The working game uses Three.js/JavaScript rendering and Python gameplay through Pyodide in a browser worker. It is hosted as static files on GitHub Pages.
