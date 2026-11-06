@@ -121,3 +121,23 @@ was still progressing through real door, torch and inventory touch actions. Its
 partial UI result is **inconclusive**, not a pass or proof of a hang. The next run
 will be allowed to complete its UI flow. CI now attempts a direct scene screenshot
 even after an XCTest failure, while preserving that original nonzero exit status.
+
+- `c355adc`: TV exploration focus and actual rendered door surface assertions.
+  [Run 42308083339](https://github.com/thundercato/bunker-game/actions/runs/42308083339):
+  TV **green**, 13 unit/render cases + 1 UI case passed, direct launch and capture
+  passed. iPad compiled and passed all 13 unit/render cases plus 10 standalone
+  SwiftPM cases; its UI case failed because a parent accessibility identifier
+  propagated to the Close button. Hierarchy confirms the inventory actually opened
+  and survived backgrounding. The parent identifier is removed; exact child and
+  lifecycle assertions remain.
+
+Both actual screenshots were inspected. The close source spawn filled the view
+with a wall and an overexposed torch hotspot. The native-only approach spawn now
+starts 6.6 m further along the source building's local +Z, preserving the original
+marker separately as sourceSpawn. The torch intensity is reduced from 1600 to 80.
+The iPad target's family was verified as [2]; it was not an iPhone wrapper. Current
+Apple guidance favours native iPad window sizing rather than deprecated fullscreen
+compatibility mode, so the plist now supports all four iPad orientations and UI
+automation explicitly rotates to landscape. The UI test now physically walks the
+path with the native touch pad before opening the door, with a bounded number of
+held gestures for slower simulator rendering. Nine portable pipeline checks pass.

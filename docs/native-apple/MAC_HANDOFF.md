@@ -8,7 +8,8 @@ and test results and [BUILD_AND_TEST.md](BUILD_AND_TEST.md) for build details.
 ## Get the same work
 
 Use Codex **Local** in the repository or a separate worktree on the Mac, with Xcode
-26 or newer installed. The branch is `codex/apple-native-prototype`; review is
+26 or newer installed, plus Node.js 22+ and Python 3.12+ for the conversion and
+project checks. The branch is `codex/apple-native-prototype`; review is
 [PR #87](https://github.com/thundercato/bunker-game/pull/87). Do not check out or
 replace the concurrent editor branch. In a fresh clone:
 

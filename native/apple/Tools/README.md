@@ -30,12 +30,19 @@ provide an explicit deterministic search fixture; this does not claim parity
 with the browser's weighted seeded loot engine. A native copper coil marker sits
 on the actual source table; collecting it removes the marker, never the table.
 
+The native-only starting position is `(-30, 0, -46.5)`, farther along this path so
+the player can see the cottage before approaching it. It is derived by moving
+6.6 m along building-local +Z from the compiled source walk-test marker. The
+original marker remains in `scene.sourceSpawn`; the generated world document,
+canonical scene geometry, asset meshes and interaction IDs are unchanged.
+
 ## Resource contract
 
 `NativeContent/scene.json` has format `field-signal-native-scene`, version 1. Positions
 and dimensions are three-element arrays in metres, Y-up; yaw is radians with
 positive local +Z rotating towards world +X. **Every pose is already world-space.**
-`parentID` preserves authored identity/provenance; it is not a second runtime
+`spawn` is the native approach position and `sourceSpawn` preserves the compiled
+source marker. `parentID` preserves authored identity/provenance; it is not a second runtime
 transform or a scene hierarchy instruction. Stable binding IDs stay unchanged.
 
 - `objects`: `id`, `kind`, `position`, `size`, `yaw`, optional `assetID`, `parentID`,

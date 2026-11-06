@@ -228,3 +228,10 @@ world compiler; Swift gameplay and native rendering are isolated under
 `native/apple/`. See `native-apple/PROGRESS.md` for checkpoints and actual CI
 results, and `native-apple/MAC_HANDOFF.md` for continuation using Codex Local.
 Simulator verification and physical-device acceptance remain distinct.
+
+The native PR's separate existing web CI exposed a baseline audio name collision:
+`audio-v9.js` assigns `this.crackle`, shadowing the inherited `audio-v7.js` method
+called on fixture faults. Source/test blob hashes match baseline `25cd697`; no
+web fix was applied in the read-only native workstream. Coordinate a separate
+browser fix with the concurrent editor branch. Exact evidence is in
+`native-apple/EXECUTION_2026-11-06.md`.

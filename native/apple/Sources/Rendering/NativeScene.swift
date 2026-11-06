@@ -69,11 +69,11 @@ final class NativeScene {
         torch.light = SCNLight()
         torch.light?.type = .spot
         torch.light?.color = UIColor(red: 1, green: 0.88, blue: 0.66, alpha: 1)
-        torch.light?.intensity = 1600
+        torch.light?.intensity = 80
         torch.light?.spotInnerAngle = 20
         torch.light?.spotOuterAngle = 58
-        torch.light?.attenuationStartDistance = 1
-        torch.light?.attenuationEndDistance = 22
+        torch.light?.attenuationStartDistance = 0.25
+        torch.light?.attenuationEndDistance = 14
         torch.position = SCNVector3(0.2, -0.12, -0.15)
         camera.addChildNode(torch)
 

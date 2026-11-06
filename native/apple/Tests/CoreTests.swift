@@ -175,7 +175,7 @@ final class CoreTests: XCTestCase {
         XCTAssertFalse(document.stairs.isEmpty)
         let session = try GameSession(scene: document)
         // This route uses actual compiler geometry, source doors and licensed furniture.
-        walk(session, forward: 1, ticks: 60)
+        walk(session, forward: 1, ticks: 200)
         XCTAssertGreaterThan(session.position.z, -54.3, "Closed source door must block entrance")
         XCTAssertEqual(session.nearestInteraction?.id, "forester")
         session.interact()

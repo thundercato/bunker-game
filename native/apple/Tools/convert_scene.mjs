@@ -78,8 +78,15 @@ async function meshFromRecipe(id,catalogue){
  });return normaliseMesh(meshes);
 }
 
+// The source walk-test marker stays in provenance; native play starts farther
+// along building-local +Z on the deliberately bounded outdoor approach.
+export function nativeApproachSpawn(compiled){
+ return vector(toWorld({position:compiled.spawn.position,yaw:compiled.transform.yaw},[0,0,6.6]));
+}
+
 export function validateScene(scene){
  if(scene.format!=='field-signal-native-scene'||scene.version!==1||!safeID(scene.buildingID))fail('Unsupported scene');
+ for(const field of ['spawn','sourceSpawn'])if(scene[field]?.length!==3||scene[field].some(n=>!Number.isFinite(n)))fail('Invalid '+field);
  const parentIDs=new Set(scene.objects.map(o=>o.parentID).filter(Boolean));
  const ids=new Set();for(const o of scene.objects){if(!safeID(o.id)||ids.has(o.id))fail('Duplicate/invalid scene ID '+o.id);ids.add(o.id);for(const field of ['position','size'])if(o[field]?.length!==3||o[field].some(n=>!Number.isFinite(n)))fail('Invalid '+field);if(o.size.some(n=>n<=0)||!Number.isFinite(o.yaw))fail('Invalid scene dimensions');if(o.parentID&&!safeID(o.parentID))fail('Invalid parent ID');}
  const interactionIDs=new Set();for(const i of scene.interactions){if(!safeID(i.id)||interactionIDs.has(i.id)||!ids.has(i.objectID))fail('Invalid interaction binding '+i.id);interactionIDs.add(i.id);if(i.itemID&&!scene.items.some(x=>x.id===i.itemID))fail('Unknown item');}
@@ -99,7 +106,7 @@ async function main(){
  const document=createWorldDocument({source,sourceRevision:lock.revision,layouts:[layout]});
  const b=document.authoring.buildings.find(x=>x.id==='forester');Object.assign(b,{y:0,foundation:'manual'});
  const compiled=compileBuilding(document,'forester',{source,sourceRevision:lock.revision});
- const scene={format:'field-signal-native-scene',version:1,source:{revision:lock.revision,worldSHA256:lock.files['site/world.json']},buildingID:'forester',name:layout.name,spawn:compiled.spawn.position.map(rounded),objects:[],colliders:[],stairs:[],interactions:[],items:[]};
+ const scene={format:'field-signal-native-scene',version:1,source:{revision:lock.revision,worldSHA256:lock.files['site/world.json']},buildingID:'forester',name:layout.name,sourceSpawn:compiled.spawn.position.map(rounded),spawn:nativeApproachSpawn(compiled),objects:[],colliders:[],stairs:[],interactions:[],items:[]};
  const objects=scene.objects,world=(o,p)=>toWorld({position:o.position,yaw:o.yaw},p);
  for(const o of compiled.objects){
   const shared={parentID:o.id,name:o.name,yaw:rounded(o.yaw),material:o.material};

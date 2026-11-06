@@ -59,8 +59,10 @@ tvOS Simulator destination, with `CODE_SIGNING_ALLOWED=NO`. It then selects an
 available iPad or Apple TV UDID running OS 26 or newer, compiles test bundles with `xcodebuild build-for-testing`, validates the final
 app/test metadata, directly installs the app with `simctl`, and runs the XCTest
 model and UI suites with `xcodebuild test-without-building`. It separately launches
-the native app with `simctl`. Missing compatible runtimes fail explicitly. The UI suite waits
-for the native scene and attaches a screenshot. iPad UI checks also open the
+the native app with `simctl`. Missing compatible runtimes fail explicitly. The UI suite sets the iPad simulator to landscape before launch, waits
+for the native scene and attaches a screenshot. The actual built iPad metadata
+uses device family 2 with all four iPad orientations, allowing native window
+resizing rather than a fixed-scene compatibility mode. iPad UI checks also open the
 inventory, open the cottage door through touch UI, toggle the torch, and pause/resume. The Apple TV UI check establishes
 launch and uses the simulated remote Menu command to pause/resume. It does not
 establish real controller input.

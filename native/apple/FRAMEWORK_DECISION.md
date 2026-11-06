@@ -52,3 +52,15 @@ and the corresponding
 [`CFBundle_InfoPlist.c` lookup](https://github.com/swiftlang/swift-corelibs-foundation/blob/ba621edf9c28eb60b4fdf59e214ef7160a1f5548/Sources/CoreFoundation/CFBundle_InfoPlist.c#L687-L690).
 This was a packaging defect in the experiment, not evidence of unsupported Apple
 frameworks or a requirement for developer credentials.
+
+## Native iPad window sizing
+
+The iPad app declares device family 2 and all four orientations via
+`UISupportedInterfaceOrientations~ipad`, so its native 3D view and flexible HUD can
+resize with the current iPad window. CI sets the simulator to landscape before
+real touch tests and captures that same device afterward. Do not add
+`UIRequiresFullScreen` to repair a letterboxed screenshot: Apple deprecated that
+key in iPadOS 26 and documents that it requests a fixed-scene compatibility mode,
+rather than guaranteeing a full-screen native window.
+
+See [Apple's UIRequiresFullScreen documentation](https://developer.apple.com/documentation/bundleresources/information-property-list/uirequiresfullscreen).

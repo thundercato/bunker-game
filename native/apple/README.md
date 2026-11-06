@@ -23,7 +23,8 @@ Xcode can open the project directly.
 ## Play the slice
 
 On iPad, drag the left circular pad to move and the right half of the screen to
-look. Use the labelled action to open the cottage door. Search a cupboard, then
+look. Walk along the path towards the cottage, then use the labelled action to
+open its door. Search a cupboard, then
 interact again to collect its supplies. The Inventory button opens the native
 pack, and Torch toggles the camera-mounted spotlight. Go through the inner door,
 return to the entrance hall and climb the stairs on the right to the upper floor.

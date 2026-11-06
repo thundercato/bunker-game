@@ -162,7 +162,10 @@ for kind, package_type in [('App', 'APPL'), ('Test', 'BNDL')]:
     if kind == 'App':
         info.update(CFBundleDisplayName='Field Signal', UILaunchScreen={},
                     UIApplicationSceneManifest={'UIApplicationSupportsMultipleScenes': False},
-                    UISupportedInterfaceOrientations=['UIInterfaceOrientationLandscapeLeft', 'UIInterfaceOrientationLandscapeRight'])
+                    UISupportedInterfaceOrientations=['UIInterfaceOrientationLandscapeLeft', 'UIInterfaceOrientationLandscapeRight'],
+                    **{'UISupportedInterfaceOrientations~ipad': [
+                        'UIInterfaceOrientationPortrait', 'UIInterfaceOrientationPortraitUpsideDown',
+                        'UIInterfaceOrientationLandscapeLeft', 'UIInterfaceOrientationLandscapeRight']})
     write(ROOT / 'Configuration' / (kind + '-Info.plist'), plistlib.dumps(info, sort_keys=True).decode())
 
 payload = dict(archiveVersion=1, classes={}, objectVersion=56, objects=objects, rootObject=ref('Project'))

@@ -181,7 +181,7 @@ struct FieldSignalView: View {
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
         .padding(30)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.black.opacity(0.65)).accessibilityIdentifier("native.inventory.panel")
+        .background(.black.opacity(0.65))
     }
     private var pausePanel: some View {
         VStack(spacing: 24) {
@@ -223,6 +223,7 @@ private struct MovementPad: View {
             offset = CGSize(width: value.translation.width * scale, height: value.translation.height * scale)
             onMove(SIMD2<Double>(Double(offset.width / 48), -Double(offset.height / 48)))
         }.onEnded { _ in offset = .zero; onMove(.zero) })
+        .accessibilityElement(children: .ignore)
         .accessibilityLabel("Movement pad").accessibilityIdentifier("native.move")
     }
 }
