@@ -4,7 +4,7 @@
   "gameBase": "Field Signal 11.1.0",
   "schema": "field-signal-layout/1",
   "buildings": 37,
-  "propModels": 31,
+  "propModels": 107,
   "builtAt": "2026-11-06",
   "worldMap": "editor/world.html",
   "worldStatus": "Connected existing-building isolated previews; terrain, road, water and other world drafts remain authoring-only",
@@ -17,5 +17,9 @@
     "editor/missions.html",
     "editor/validation.html"
   ],
-  "movedGamePreview": "Accepted runtime adapter; bounded existing-building isolated preview, not normal campaign publication"
+  "movedGamePreview": "Accepted runtime adapter; bounded existing-building isolated preview, not normal campaign publication",
+  "legacyPropModels": 31,
+  "modelCatalogueEntries": 214,
+  "decorativePlacementModels": 107,
+  "existingContainerAppearances": 69
 }
