@@ -63,5 +63,6 @@ export function mountAssetBrowser({library,place,host=document.querySelector('.f
   for(const key of controls)$(key).addEventListener(key==='query'?'input':'change',renderList);
   $('place').onclick=()=>{if(!selected?.placement)return;place({...selected.placement,size:[...selected.placement.size]});close()};
   dialog.addEventListener('cancel',()=>{++token});
+  dialog.addEventListener('keydown',event=>event.stopPropagation());
   return {open,close,info:()=>({models:rows.length,selected:selected?.id,errors:[...errors]}),destroy:()=>{++token;orbit?.dispose();renderer?.dispose();dialog.remove();button.remove();style.remove()}};
 }
