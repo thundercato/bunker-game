@@ -1,3 +1,9 @@
+## 🚧 Codex mega-build: game-first world overhaul
+
+**[Full development brief and execution roadmap](docs/MEGA_BUILD_README.md)** · [Current progress and next steps](docs/NEXT_STEPS.md) · [Design decisions](docs/DESIGN_DECISIONS_2026-11-06.md)
+
+The ambitious next build prioritises the **playable game**: a rebuilt, coherent map; realistic licensed buildings, foliage, vehicles, rail and dock assets; roughly 50+ distinct searchable prop variants across the world; a tactile page-turning 3D field journal; polished rooms, lighting, sounds and interactions; and compatibility with the World Editor. This is a **Codex task specification, not an implemented release**. The current playable baseline remains Overgrowth v11 until a tested, approved release is published. Codex should work in checkpointed feature branches and PRs rather than silently replacing the live game.
+
 ## Continuing development in Codex
 
 **Start with [AGENTS.md](AGENTS.md) and the [Codex handover](docs/CODEX_HANDOFF.md).** The handover was prepared on 6 November 2026 against `d31f178a674ec16d730a7d13f59c7eb112eb24bc` and distinguishes implemented features from the approved roadmap.
