@@ -35,6 +35,7 @@ node site/tests/test_client.mjs
 node site/tests/test_atlas.mjs
 node site/tests/test_layout.mjs
 node site/tests/test_world_v2.mjs
+node site/tests/test_world_document.mjs
 python3 tools/build.py
 ```
 
@@ -50,6 +51,16 @@ node tests/editor_controls.cjs
 node tests/editor_browser.cjs
 node tests/world_v2_browser.cjs
 ```
+
+Optional M0 diagnostics, run sequentially after building (no frame-budget gate):
+
+```sh
+node tests/performance_baseline.cjs
+node tests/performance_baseline.cjs --worker-only
+```
+
+Measurements and screenshots go to `test-results/performance/`. Interpretation and
+known unmeasured costs are in `EXECUTION_2026-11-06_M0.md`.
 
 Tests generally create their own local server and write output to `test-results/`. Keep screenshots, exceptions, HTTP failures and console logs for review. Inspect screenshots visually. Linux WebKit can be an additional check when available; it is not a substitute for physical Mac Safari or iPhone/iPad tests.
 

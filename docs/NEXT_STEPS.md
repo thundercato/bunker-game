@@ -4,7 +4,9 @@ Prepared 6 November 2026. This is the current continuation plan, not a promise t
 
 ## M0. Reproduce, measure, checkpoint
 
-Status: next recommended task.
+Status: baseline reproduced and initial cloud measurements recorded in
+`EXECUTION_2026-11-06_M0.md`. All six browser suites and baseline pure tests passed.
+Hardware/GPU/decode/peak-memory and sustained combat measurements remain open.
 
 - Inspect current HEAD, working tree, README, release files, existing tests and the v2 authoring-only boundary.
 - Run the baseline commands from `CODEX_CLOUD_SETUP.md`. Record actual versions, commands, results and environmental failures. Do not substitute historic pass counts.
@@ -17,7 +19,9 @@ Acceptance: reproducible baseline, isolated preview intact, a ranked bottleneck 
 
 ## M1. Authoritative world data and one end-to-end building
 
-Status: planned; v2 draft is not yet a game world.
+Status: schema/compiler foundation implemented, preview adapter next. The v2
+draft is still not a playable game world. See `WORLD_DOCUMENT.md` for the contract,
+57 compiler tests and exact adapter checkpoint. Do not rebuild the v2 editor UI.
 
 Create a versioned world-document contract that combines terrain, building instances, local interior definitions, roads/rails, water, objects, regions and stable gameplay references. Validate before applying. Compile it into the data both rendering and gameplay consume. Keep renderer-specific caches separate from authored state and player state.
 
@@ -98,3 +102,45 @@ Append a dated entry below with baseline/branch/commit, changed scope, tests run
 ### 2026-11-06: handover checkpoint
 
 Source audited at `d31f178a674ec16d730a7d13f59c7eb112eb24bc`. Added durable context, decisions, execution plan, cloud setup and an architecture comparison. This is documentation work; no game/editor/runtime asset changes or new playtest are claimed. No engine migration is authorised by this checkpoint. The next coding task is M0 followed by the smallest useful M1 slice.
+
+### 2026-11-06: M0 execution and M1 schema/compiler
+
+Baseline/latest main: `6b4f9fb9401398a65eee576f40b2d80805ef6c76`. Branch:
+`feat/world-document-compiler`. M0 commit `4a4667e` contains the repeatable diagnostic
+harness, raw measurements, exact baseline logs and actual screenshots; see
+`EXECUTION_2026-11-06_M0.md`. No existing test failures reproduced. Browser tests
+used Linux Chromium/SwiftShader, not physical Apple hardware.
+
+M1 introduces the pure `site/world-document.js` envelope/compiler plus 57 tests
+and a CI entry. Existing v1/v2 drafts are adopted without changing their formats,
+storage or IDs. One building's local children compile into coherent world poses,
+colliders, door/container/loose-loot anchors, spawn and container-bound mission
+targets. Tests cover 90-degree movement/raise, arbitrary rotation/inverse collision,
+an upstairs item, floor openings, bindings, JSON and repeat compilation. Compiler
+output is **not yet consumed by the game**; the module is intentionally absent from
+the shipping precache. Normal and old v1 preview runtime files remain unchanged.
+
+Final pure verification: Python 3.12.14, 96 tests passed in 1.819 s. Node 22.23.4:
+15 client, 18 Atlas, 54 layout, v2 aggregate and 57 world-document tests passed.
+Syntax checks passed; build passed with the same 273 runtime files and content
+counts. The six baseline browser commands all exited 0, including actual mouse/
+keyboard and v1 game preview search/door actions, legacy import, offline restart,
+save/settings/journal isolation, Atlas and inspection. No new runtime/cache change
+requires a separate historical-worker migration in this PR; that test is mandatory
+when the adapter starts shipping. Test commands and compiler demonstration are in
+`CODEX_CLOUD_SETUP.md` and `WORLD_DOCUMENT.md`.
+
+Measured priority: rendering/submission and asset budgets first; worker handler
+4.6 ms median / 7.8 ms p95 in an isolated base test does not justify a Python port.
+No engine change, gameplay version bump, music/control/licence change, normal save
+migration, merge or publication. Implementation commits: `4a4667e` (M0) and
+`cf4ef0e` (M1). Review: [PR #80](https://github.com/thundercato/bunker-game/pull/80).
+PR verification was running when this checkpoint was written; local results above
+are complete. No Pages deployment is requested by this PR.
+
+**Next task:** implement only the explicit isolated Survey hut preview adapter in
+the six steps under `WORLD_DOCUMENT.md`, using the existing drafts and this compiler.
+Audit both JS and Python coordinate assumptions. Prove door traversal, physical
+search, furniture/collision/floor alignment and Atlas target through browser UI,
+preview reload/return and production sentinels; preserve legacy v1 links and offline
+upgrade behaviour. Do not claim roads/water/terrain are integrated or start M2–M6.

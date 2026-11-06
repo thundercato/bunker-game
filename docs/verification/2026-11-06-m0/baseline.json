@@ -1,0 +1,1879 @@
+{
+  "environment": {
+    "node": "v24.22.1",
+    "platform": "linux",
+    "renderer": "Chromium SwiftShader; not a device benchmark",
+    "viewport": [
+      844,
+      500
+    ],
+    "pixelRatio": 0.35,
+    "shadows": false,
+    "browser": "141.0.7390.37"
+  },
+  "scenes": [
+    {
+      "name": "refuge",
+      "interval": {
+        "samples": 40,
+        "median": 398.19999999995343,
+        "p95": 670.8999999999651
+      },
+      "work": {
+        "samples": 40,
+        "median": 9.399999999965075,
+        "p95": 18
+      },
+      "render": {
+        "samples": 40,
+        "median": 8,
+        "p95": 17.300000000046566
+      },
+      "calls": {
+        "samples": 40,
+        "median": 190,
+        "p95": 190
+      },
+      "triangles": {
+        "samples": 40,
+        "median": 185945,
+        "p95": 185945
+      },
+      "resources": {
+        "geometryBufferBytes": 101216150,
+        "textureRGBAEstimateBytes": 443136341,
+        "allocated": {
+          "geometries": 187,
+          "textures": 83
+        },
+        "gpuTimerAvailable": true
+      }
+    },
+    {
+      "name": "two-storey-house",
+      "interval": {
+        "samples": 40,
+        "median": 1294,
+        "p95": 2363.3000000000466
+      },
+      "work": {
+        "samples": 40,
+        "median": 15.599999999976717,
+        "p95": 38.29999999998836
+      },
+      "render": {
+        "samples": 40,
+        "median": 13.799999999988358,
+        "p95": 35.399999999965075
+      },
+      "calls": {
+        "samples": 40,
+        "median": 854,
+        "p95": 854
+      },
+      "triangles": {
+        "samples": 40,
+        "median": 538499,
+        "p95": 538499
+      },
+      "resources": {
+        "geometryBufferBytes": 101216150,
+        "textureRGBAEstimateBytes": 443136341,
+        "allocated": {
+          "geometries": 997,
+          "textures": 240
+        },
+        "gpuTimerAvailable": true
+      }
+    },
+    {
+      "name": "forest",
+      "interval": {
+        "samples": 40,
+        "median": 1405.7999999999884,
+        "p95": 2827.7000000000116
+      },
+      "work": {
+        "samples": 40,
+        "median": 13.599999999976717,
+        "p95": 33.5
+      },
+      "render": {
+        "samples": 40,
+        "median": 11.299999999988358,
+        "p95": 31.699999999953434
+      },
+      "calls": {
+        "samples": 40,
+        "median": 663,
+        "p95": 663
+      },
+      "triangles": {
+        "samples": 40,
+        "median": 622927,
+        "p95": 622927
+      },
+      "resources": {
+        "geometryBufferBytes": 101216150,
+        "textureRGBAEstimateBytes": 443136341,
+        "allocated": {
+          "geometries": 1084,
+          "textures": 257
+        },
+        "gpuTimerAvailable": true
+      }
+    },
+    {
+      "name": "village-vehicles",
+      "interval": {
+        "samples": 40,
+        "median": 833.5999999999767,
+        "p95": 1544.5
+      },
+      "work": {
+        "samples": 40,
+        "median": 13.100000000034925,
+        "p95": 27.20000000001164
+      },
+      "render": {
+        "samples": 40,
+        "median": 10.400000000023283,
+        "p95": 24.599999999976717
+      },
+      "calls": {
+        "samples": 40,
+        "median": 474,
+        "p95": 474
+      },
+      "triangles": {
+        "samples": 40,
+        "median": 407473,
+        "p95": 407473
+      },
+      "resources": {
+        "geometryBufferBytes": 101216150,
+        "textureRGBAEstimateBytes": 443136341,
+        "allocated": {
+          "geometries": 1136,
+          "textures": 262
+        },
+        "gpuTimerAvailable": true
+      }
+    },
+    {
+      "name": "enemy-and-transient-effects",
+      "interval": {
+        "samples": 40,
+        "median": 787.7999999999884,
+        "p95": 1549.4000000000233
+      },
+      "work": {
+        "samples": 40,
+        "median": 11.799999999988358,
+        "p95": 30.70000000001164
+      },
+      "render": {
+        "samples": 40,
+        "median": 10.099999999976717,
+        "p95": 26.20000000001164
+      },
+      "calls": {
+        "samples": 40,
+        "median": 476,
+        "p95": 476
+      },
+      "triangles": {
+        "samples": 40,
+        "median": 407655,
+        "p95": 407655
+      },
+      "resources": {
+        "geometryBufferBytes": 101216990,
+        "textureRGBAEstimateBytes": 443136341,
+        "allocated": {
+          "geometries": 1138,
+          "textures": 262
+        },
+        "gpuTimerAvailable": true
+      }
+    }
+  ],
+  "startupMs": 5110,
+  "inspection": {
+    "calls": 1,
+    "triangles": 1408,
+    "drawMs": {
+      "samples": 20,
+      "median": 0.09999999997671694,
+      "p95": 0.1000000000349246
+    }
+  },
+  "worker": [
+    {
+      "type": "init",
+      "start": 1657.7000000000116,
+      "requestBytes": 67,
+      "roundTripMs": 2794.600000000006,
+      "responseBytes": 37669
+    },
+    {
+      "type": "tick",
+      "start": 5194.700000000012,
+      "requestBytes": 193,
+      "roundTripMs": 28.29999999998836,
+      "responseBytes": 37738
+    },
+    {
+      "type": "tick",
+      "start": 8970.900000000023,
+      "requestBytes": 191,
+      "roundTripMs": 38.399999999965075,
+      "responseBytes": 37735
+    },
+    {
+      "type": "tick",
+      "start": 9020.299999999988,
+      "requestBytes": 177,
+      "roundTripMs": 13.600000000034925,
+      "responseBytes": 37735
+    },
+    {
+      "type": "import",
+      "start": 9414.900000000023,
+      "requestBytes": 33998,
+      "roundTripMs": 83.70000000001164,
+      "responseBytes": 37693
+    },
+    {
+      "type": "tick",
+      "start": 10909.799999999988,
+      "requestBytes": 185,
+      "roundTripMs": 41.90000000002328,
+      "responseBytes": 37692
+    },
+    {
+      "type": "tick",
+      "start": 10963.299999999988,
+      "requestBytes": 169,
+      "roundTripMs": 11.300000000046566,
+      "responseBytes": 37691
+    },
+    {
+      "type": "tick",
+      "start": 11732.900000000023,
+      "requestBytes": 184,
+      "roundTripMs": 11.200000000011642,
+      "responseBytes": 37687
+    },
+    {
+      "type": "tick",
+      "start": 12145.299999999988,
+      "requestBytes": 169,
+      "roundTripMs": 13.600000000034925,
+      "responseBytes": 37695
+    },
+    {
+      "type": "tick",
+      "start": 12552.400000000023,
+      "requestBytes": 186,
+      "roundTripMs": 15.099999999976717,
+      "responseBytes": 37688
+    },
+    {
+      "type": "tick",
+      "start": 12973.299999999988,
+      "requestBytes": 185,
+      "roundTripMs": 11.600000000034925,
+      "responseBytes": 37696
+    },
+    {
+      "type": "tick",
+      "start": 13378.600000000035,
+      "requestBytes": 186,
+      "roundTripMs": 14,
+      "responseBytes": 37703
+    },
+    {
+      "type": "tick",
+      "start": 13803.799999999988,
+      "requestBytes": 186,
+      "roundTripMs": 12.600000000034925,
+      "responseBytes": 37703
+    },
+    {
+      "type": "tick",
+      "start": 14169.5,
+      "requestBytes": 186,
+      "roundTripMs": 15.900000000023283,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 14550.299999999988,
+      "requestBytes": 185,
+      "roundTripMs": 15,
+      "responseBytes": 37680
+    },
+    {
+      "type": "tick",
+      "start": 14945.700000000012,
+      "requestBytes": 186,
+      "roundTripMs": 10,
+      "responseBytes": 37680
+    },
+    {
+      "type": "tick",
+      "start": 15400.600000000035,
+      "requestBytes": 185,
+      "roundTripMs": 9.099999999976717,
+      "responseBytes": 37665
+    },
+    {
+      "type": "tick",
+      "start": 16085.100000000035,
+      "requestBytes": 185,
+      "roundTripMs": 9.599999999976717,
+      "responseBytes": 37694
+    },
+    {
+      "type": "tick",
+      "start": 16850.900000000023,
+      "requestBytes": 185,
+      "roundTripMs": 7.2000000000116415,
+      "responseBytes": 37695
+    },
+    {
+      "type": "tick",
+      "start": 17269.900000000023,
+      "requestBytes": 185,
+      "roundTripMs": 9.799999999988358,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 17670.29999999999,
+      "requestBytes": 186,
+      "roundTripMs": 13.300000000046566,
+      "responseBytes": 37678
+    },
+    {
+      "type": "tick",
+      "start": 18059.70000000001,
+      "requestBytes": 186,
+      "roundTripMs": 13,
+      "responseBytes": 37680
+    },
+    {
+      "type": "tick",
+      "start": 18450.70000000001,
+      "requestBytes": 186,
+      "roundTripMs": 8.5,
+      "responseBytes": 37670
+    },
+    {
+      "type": "tick",
+      "start": 18867.400000000023,
+      "requestBytes": 185,
+      "roundTripMs": 12.700000000011642,
+      "responseBytes": 37702
+    },
+    {
+      "type": "tick",
+      "start": 19260.400000000023,
+      "requestBytes": 186,
+      "roundTripMs": 11.399999999965075,
+      "responseBytes": 37678
+    },
+    {
+      "type": "tick",
+      "start": 19662.79999999999,
+      "requestBytes": 185,
+      "roundTripMs": 8.800000000046566,
+      "responseBytes": 37680
+    },
+    {
+      "type": "tick",
+      "start": 20064.79999999999,
+      "requestBytes": 170,
+      "roundTripMs": 15.800000000046566,
+      "responseBytes": 37673
+    },
+    {
+      "type": "tick",
+      "start": 20465.79999999999,
+      "requestBytes": 186,
+      "roundTripMs": 14.400000000023283,
+      "responseBytes": 37702
+    },
+    {
+      "type": "tick",
+      "start": 20862.20000000001,
+      "requestBytes": 185,
+      "roundTripMs": 14,
+      "responseBytes": 37682
+    },
+    {
+      "type": "tick",
+      "start": 21273.900000000023,
+      "requestBytes": 185,
+      "roundTripMs": 13,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 21696.900000000023,
+      "requestBytes": 185,
+      "roundTripMs": 10.5,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 22096.5,
+      "requestBytes": 186,
+      "roundTripMs": 8.700000000011642,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 22489.70000000001,
+      "requestBytes": 170,
+      "roundTripMs": 14.099999999976717,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 22888.400000000023,
+      "requestBytes": 170,
+      "roundTripMs": 9.599999999976717,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 23280.79999999999,
+      "requestBytes": 185,
+      "roundTripMs": 8.800000000046566,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 23689.100000000035,
+      "requestBytes": 170,
+      "roundTripMs": 14.199999999953434,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 24078.400000000023,
+      "requestBytes": 185,
+      "roundTripMs": 8.899999999965075,
+      "responseBytes": 37682
+    },
+    {
+      "type": "tick",
+      "start": 24462.79999999999,
+      "requestBytes": 185,
+      "roundTripMs": 11,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 24864.400000000023,
+      "requestBytes": 185,
+      "roundTripMs": 11.099999999976717,
+      "responseBytes": 37682
+    },
+    {
+      "type": "tick",
+      "start": 25217.70000000001,
+      "requestBytes": 171,
+      "roundTripMs": 19,
+      "responseBytes": 37682
+    },
+    {
+      "type": "tick",
+      "start": 25583.600000000035,
+      "requestBytes": 186,
+      "roundTripMs": 5.899999999965075,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 25985.79999999999,
+      "requestBytes": 186,
+      "roundTripMs": 6.5,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 26399.79999999999,
+      "requestBytes": 185,
+      "roundTripMs": 8.200000000011642,
+      "responseBytes": 37704
+    },
+    {
+      "type": "tick",
+      "start": 26801.79999999999,
+      "requestBytes": 185,
+      "roundTripMs": 8.200000000011642,
+      "responseBytes": 37696
+    },
+    {
+      "type": "tick",
+      "start": 27178.400000000023,
+      "requestBytes": 186,
+      "roundTripMs": 13.099999999976717,
+      "responseBytes": 37687
+    },
+    {
+      "type": "tick",
+      "start": 27978.20000000001,
+      "requestBytes": 185,
+      "roundTripMs": 30.900000000023283,
+      "responseBytes": 37675
+    },
+    {
+      "type": "tick",
+      "start": 28393.70000000001,
+      "requestBytes": 170,
+      "roundTripMs": 8.099999999976717,
+      "responseBytes": 37697
+    },
+    {
+      "type": "tick",
+      "start": 29113.70000000001,
+      "requestBytes": 185,
+      "roundTripMs": 22,
+      "responseBytes": 37697
+    },
+    {
+      "type": "tick",
+      "start": 29984,
+      "requestBytes": 185,
+      "roundTripMs": 11.700000000011642,
+      "responseBytes": 37668
+    },
+    {
+      "type": "tick",
+      "start": 30500.70000000001,
+      "requestBytes": 185,
+      "roundTripMs": 8,
+      "responseBytes": 37696
+    },
+    {
+      "type": "import",
+      "start": 31589.70000000001,
+      "requestBytes": 34002,
+      "roundTripMs": 82,
+      "responseBytes": 37697
+    },
+    {
+      "type": "tick",
+      "start": 34292.5,
+      "requestBytes": 171,
+      "roundTripMs": 43.29999999998836,
+      "responseBytes": 37701
+    },
+    {
+      "type": "tick",
+      "start": 34396.79999999999,
+      "requestBytes": 171,
+      "roundTripMs": 17.400000000023283,
+      "responseBytes": 37694
+    },
+    {
+      "type": "tick",
+      "start": 37001.600000000035,
+      "requestBytes": 171,
+      "roundTripMs": 20.79999999998836,
+      "responseBytes": 37694
+    },
+    {
+      "type": "tick",
+      "start": 38273.70000000001,
+      "requestBytes": 171,
+      "roundTripMs": 13.599999999976717,
+      "responseBytes": 37700
+    },
+    {
+      "type": "tick",
+      "start": 39493.29999999999,
+      "requestBytes": 171,
+      "roundTripMs": 9,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 40736.29999999999,
+      "requestBytes": 171,
+      "roundTripMs": 7.600000000034925,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 41988,
+      "requestBytes": 171,
+      "roundTripMs": 12.5,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 44514.29999999999,
+      "requestBytes": 171,
+      "roundTripMs": 22.20000000001164,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 45811,
+      "requestBytes": 171,
+      "roundTripMs": 8.299999999988358,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 47094.600000000035,
+      "requestBytes": 171,
+      "roundTripMs": 9.5,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 48384.40000000002,
+      "requestBytes": 171,
+      "roundTripMs": 11.200000000011642,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 49579.70000000001,
+      "requestBytes": 171,
+      "roundTripMs": 11.400000000023283,
+      "responseBytes": 37709
+    },
+    {
+      "type": "tick",
+      "start": 50952.29999999999,
+      "requestBytes": 171,
+      "roundTripMs": 13.100000000034925,
+      "responseBytes": 37709
+    },
+    {
+      "type": "tick",
+      "start": 52248.79999999999,
+      "requestBytes": 171,
+      "roundTripMs": 12.600000000034925,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 53509.100000000035,
+      "requestBytes": 171,
+      "roundTripMs": 26.29999999998836,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 54837.100000000035,
+      "requestBytes": 171,
+      "roundTripMs": 7.5,
+      "responseBytes": 37709
+    },
+    {
+      "type": "tick",
+      "start": 56002.600000000035,
+      "requestBytes": 171,
+      "roundTripMs": 5.899999999965075,
+      "responseBytes": 37687
+    },
+    {
+      "type": "tick",
+      "start": 57492.5,
+      "requestBytes": 171,
+      "roundTripMs": 10.5,
+      "responseBytes": 37687
+    },
+    {
+      "type": "tick",
+      "start": 58852.29999999999,
+      "requestBytes": 171,
+      "roundTripMs": 9.800000000046566,
+      "responseBytes": 37709
+    },
+    {
+      "type": "tick",
+      "start": 60066.29999999999,
+      "requestBytes": 171,
+      "roundTripMs": 9.100000000034925,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 61458.40000000002,
+      "requestBytes": 171,
+      "roundTripMs": 9.099999999976717,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 62888.600000000035,
+      "requestBytes": 171,
+      "roundTripMs": 13.199999999953434,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 64386.20000000001,
+      "requestBytes": 171,
+      "roundTripMs": 13.099999999976717,
+      "responseBytes": 37709
+    },
+    {
+      "type": "tick",
+      "start": 65594.20000000001,
+      "requestBytes": 171,
+      "roundTripMs": 9.400000000023283,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 66815.60000000003,
+      "requestBytes": 171,
+      "roundTripMs": 23.899999999965075,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 68189.10000000003,
+      "requestBytes": 171,
+      "roundTripMs": 9.399999999965075,
+      "responseBytes": 37709
+    },
+    {
+      "type": "tick",
+      "start": 69186.20000000001,
+      "requestBytes": 171,
+      "roundTripMs": 15.799999999988358,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 70463.29999999999,
+      "requestBytes": 171,
+      "roundTripMs": 9.900000000023283,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 71680.70000000001,
+      "requestBytes": 171,
+      "roundTripMs": 9.900000000023283,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 73295.70000000001,
+      "requestBytes": 171,
+      "roundTripMs": 15.799999999988358,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 74694.10000000003,
+      "requestBytes": 171,
+      "roundTripMs": 10,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 76170.20000000001,
+      "requestBytes": 171,
+      "roundTripMs": 9.599999999976717,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 77495.29999999999,
+      "requestBytes": 171,
+      "roundTripMs": 15.400000000023283,
+      "responseBytes": 37709
+    },
+    {
+      "type": "tick",
+      "start": 78798.5,
+      "requestBytes": 171,
+      "roundTripMs": 7.2999999999883585,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 80151.79999999999,
+      "requestBytes": 171,
+      "roundTripMs": 10.400000000023283,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 81371.70000000001,
+      "requestBytes": 171,
+      "roundTripMs": 13.400000000023283,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 82687.90000000002,
+      "requestBytes": 171,
+      "roundTripMs": 6.099999999976717,
+      "responseBytes": 37709
+    },
+    {
+      "type": "tick",
+      "start": 83890.70000000001,
+      "requestBytes": 171,
+      "roundTripMs": 9.099999999976717,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 86267.79999999999,
+      "requestBytes": 171,
+      "roundTripMs": 8.600000000034925,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 87445,
+      "requestBytes": 171,
+      "roundTripMs": 11.900000000023283,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 88722.10000000003,
+      "requestBytes": 171,
+      "roundTripMs": 28.599999999976717,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 90080.79999999999,
+      "requestBytes": 171,
+      "roundTripMs": 10,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 91370.20000000001,
+      "requestBytes": 171,
+      "roundTripMs": 13.400000000023283,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 92844.70000000001,
+      "requestBytes": 171,
+      "roundTripMs": 6.599999999976717,
+      "responseBytes": 37709
+    },
+    {
+      "type": "tick",
+      "start": 93977.20000000001,
+      "requestBytes": 171,
+      "roundTripMs": 15.5,
+      "responseBytes": 37707
+    },
+    {
+      "type": "import",
+      "start": 97587.70000000001,
+      "requestBytes": 34015,
+      "roundTripMs": 102.79999999998836,
+      "responseBytes": 37710
+    },
+    {
+      "type": "tick",
+      "start": 101600.5,
+      "requestBytes": 188,
+      "roundTripMs": 57.29999999998836,
+      "responseBytes": 37718
+    },
+    {
+      "type": "tick",
+      "start": 101688,
+      "requestBytes": 203,
+      "roundTripMs": 25.70000000001164,
+      "responseBytes": 37718
+    },
+    {
+      "type": "tick",
+      "start": 103347.79999999999,
+      "requestBytes": 189,
+      "roundTripMs": 13.700000000011642,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 105119.10000000003,
+      "requestBytes": 189,
+      "roundTripMs": 24.899999999965075,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 108384.60000000003,
+      "requestBytes": 189,
+      "roundTripMs": 6.899999999965075,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 109875,
+      "requestBytes": 189,
+      "roundTripMs": 33.29999999998836,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 111486.29999999999,
+      "requestBytes": 189,
+      "roundTripMs": 6.800000000046566,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 114341.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 6.599999999976717,
+      "responseBytes": 37717
+    },
+    {
+      "type": "tick",
+      "start": 115689.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 13.700000000011642,
+      "responseBytes": 37717
+    },
+    {
+      "type": "tick",
+      "start": 117067.29999999999,
+      "requestBytes": 189,
+      "roundTripMs": 9.600000000034925,
+      "responseBytes": 37717
+    },
+    {
+      "type": "tick",
+      "start": 118482.20000000001,
+      "requestBytes": 189,
+      "roundTripMs": 9.200000000011642,
+      "responseBytes": 37717
+    },
+    {
+      "type": "tick",
+      "start": 119780,
+      "requestBytes": 189,
+      "roundTripMs": 15.799999999988358,
+      "responseBytes": 37716
+    },
+    {
+      "type": "tick",
+      "start": 121173.10000000003,
+      "requestBytes": 189,
+      "roundTripMs": 6.599999999976717,
+      "responseBytes": 37718
+    },
+    {
+      "type": "tick",
+      "start": 124011.40000000002,
+      "requestBytes": 189,
+      "roundTripMs": 26.099999999976717,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 125410,
+      "requestBytes": 189,
+      "roundTripMs": 7.2000000000116415,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 127042.5,
+      "requestBytes": 189,
+      "roundTripMs": 9.100000000034925,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 128193.60000000003,
+      "requestBytes": 189,
+      "roundTripMs": 7.2999999999883585,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 129689.20000000001,
+      "requestBytes": 189,
+      "roundTripMs": 7.400000000023283,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 132466.2,
+      "requestBytes": 189,
+      "roundTripMs": 14.5,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 133889.3,
+      "requestBytes": 189,
+      "roundTripMs": 9,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 136071.60000000003,
+      "requestBytes": 189,
+      "roundTripMs": 11.599999999976717,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 136542.2,
+      "requestBytes": 189,
+      "roundTripMs": 10.700000000011642,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 137949,
+      "requestBytes": 189,
+      "roundTripMs": 10.900000000023283,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 139358.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 9.799999999988358,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 140847.8,
+      "requestBytes": 189,
+      "roundTripMs": 14.800000000046566,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 142172.5,
+      "requestBytes": 189,
+      "roundTripMs": 9,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 143720.5,
+      "requestBytes": 189,
+      "roundTripMs": 19.900000000023283,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 145070.3,
+      "requestBytes": 189,
+      "roundTripMs": 14.300000000046566,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 146401.8,
+      "requestBytes": 189,
+      "roundTripMs": 11.5,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 147818.10000000003,
+      "requestBytes": 189,
+      "roundTripMs": 28.199999999953434,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 149291.7,
+      "requestBytes": 189,
+      "roundTripMs": 7.7999999999883585,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 150741.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 8.5,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 152040.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 8.700000000011642,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 153299.2,
+      "requestBytes": 189,
+      "roundTripMs": 7.599999999976717,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 154609.7,
+      "requestBytes": 189,
+      "roundTripMs": 25.5,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 156060.5,
+      "requestBytes": 189,
+      "roundTripMs": 12.900000000023283,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 157407,
+      "requestBytes": 189,
+      "roundTripMs": 41,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 160209,
+      "requestBytes": 189,
+      "roundTripMs": 13,
+      "responseBytes": 37720
+    },
+    {
+      "type": "tick",
+      "start": 161646,
+      "requestBytes": 189,
+      "roundTripMs": 11.400000000023283,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 162892.8,
+      "requestBytes": 189,
+      "roundTripMs": 11.700000000011642,
+      "responseBytes": 37719
+    },
+    {
+      "type": "tick",
+      "start": 164680.2,
+      "requestBytes": 189,
+      "roundTripMs": 12.099999999976717,
+      "responseBytes": 37719
+    },
+    {
+      "type": "import",
+      "start": 168678.40000000002,
+      "requestBytes": 34010,
+      "roundTripMs": 63.29999999998836,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 172988.7,
+      "requestBytes": 190,
+      "roundTripMs": 49.5,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 173194.60000000003,
+      "requestBytes": 189,
+      "roundTripMs": 7.899999999965075,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 173995.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 9.599999999976717,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 174768.2,
+      "requestBytes": 189,
+      "roundTripMs": 9,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 175496.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 9.599999999976717,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 177199,
+      "requestBytes": 175,
+      "roundTripMs": 7.600000000034925,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 178019.8,
+      "requestBytes": 189,
+      "roundTripMs": 15.900000000023283,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 178975.90000000002,
+      "requestBytes": 175,
+      "roundTripMs": 9.399999999965075,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 179666.3,
+      "requestBytes": 189,
+      "roundTripMs": 9.300000000046566,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 180495.60000000003,
+      "requestBytes": 189,
+      "roundTripMs": 9.5,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 181404.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 12.299999999988358,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 182151.10000000003,
+      "requestBytes": 189,
+      "roundTripMs": 9.699999999953434,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 183086.40000000002,
+      "requestBytes": 175,
+      "roundTripMs": 15.599999999976717,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 184050.8,
+      "requestBytes": 175,
+      "roundTripMs": 9.300000000046566,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 185054.90000000002,
+      "requestBytes": 175,
+      "roundTripMs": 7.899999999965075,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 185884,
+      "requestBytes": 189,
+      "roundTripMs": 8.799999999988358,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 186618.7,
+      "requestBytes": 189,
+      "roundTripMs": 25.099999999976717,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 188191,
+      "requestBytes": 175,
+      "roundTripMs": 8.400000000023283,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 189172.5,
+      "requestBytes": 175,
+      "roundTripMs": 9.700000000011642,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 189956.7,
+      "requestBytes": 189,
+      "roundTripMs": 9.099999999976717,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 190876.3,
+      "requestBytes": 174,
+      "roundTripMs": 9.5,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 191808.10000000003,
+      "requestBytes": 189,
+      "roundTripMs": 8.099999999976717,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 192609.60000000003,
+      "requestBytes": 174,
+      "roundTripMs": 25.79999999998836,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 193348.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 10.399999999965075,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 194246.10000000003,
+      "requestBytes": 174,
+      "roundTripMs": 13.5,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 195175,
+      "requestBytes": 189,
+      "roundTripMs": 7.2000000000116415,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 196559,
+      "requestBytes": 175,
+      "roundTripMs": 15.100000000034925,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 197447.2,
+      "requestBytes": 175,
+      "roundTripMs": 9.5,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 198395.60000000003,
+      "requestBytes": 175,
+      "roundTripMs": 11.699999999953434,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 199139.3,
+      "requestBytes": 189,
+      "roundTripMs": 12.5,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 200665.7,
+      "requestBytes": 175,
+      "roundTripMs": 9.5,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 200862.90000000002,
+      "requestBytes": 189,
+      "roundTripMs": 8.099999999976717,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 201557.40000000002,
+      "requestBytes": 189,
+      "roundTripMs": 7.7000000000116415,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 202369,
+      "requestBytes": 174,
+      "roundTripMs": 9.799999999988358,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 203211.8,
+      "requestBytes": 189,
+      "roundTripMs": 24.5,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 204098.2,
+      "requestBytes": 189,
+      "roundTripMs": 7.400000000023283,
+      "responseBytes": 37708
+    },
+    {
+      "type": "tick",
+      "start": 205565.2,
+      "requestBytes": 175,
+      "roundTripMs": 27.900000000023283,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 205796.2,
+      "requestBytes": 189,
+      "roundTripMs": 8.700000000011642,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 206661.60000000003,
+      "requestBytes": 189,
+      "roundTripMs": 12.5,
+      "responseBytes": 37707
+    },
+    {
+      "type": "tick",
+      "start": 207266.3,
+      "requestBytes": 189,
+      "roundTripMs": 9.300000000046566,
+      "responseBytes": 37705
+    },
+    {
+      "type": "tick",
+      "start": 208847.8,
+      "requestBytes": 175,
+      "roundTripMs": 8.600000000034925,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 209658,
+      "requestBytes": 189,
+      "roundTripMs": 8.299999999988358,
+      "responseBytes": 37706
+    },
+    {
+      "type": "tick",
+      "start": 210495.60000000003,
+      "requestBytes": 189,
+      "roundTripMs": 11.299999999988358,
+      "responseBytes": 37706
+    },
+    {
+      "type": "import",
+      "start": 212869.60000000003,
+      "requestBytes": 34018,
+      "roundTripMs": 94,
+      "responseBytes": 37713
+    },
+    {
+      "type": "tick",
+      "start": 215510.3,
+      "requestBytes": 199,
+      "roundTripMs": 50.5,
+      "responseBytes": 37804
+    },
+    {
+      "type": "tick",
+      "start": 215662,
+      "requestBytes": 200,
+      "roundTripMs": 16.400000000023283,
+      "responseBytes": 37784
+    },
+    {
+      "type": "tick",
+      "start": 216510.60000000003,
+      "requestBytes": 199,
+      "roundTripMs": 11.099999999976717,
+      "responseBytes": 37785
+    },
+    {
+      "type": "tick",
+      "start": 217456.3,
+      "requestBytes": 199,
+      "roundTripMs": 16.70000000001164,
+      "responseBytes": 37787
+    },
+    {
+      "type": "tick",
+      "start": 218256.5,
+      "requestBytes": 199,
+      "roundTripMs": 14.5,
+      "responseBytes": 37806
+    },
+    {
+      "type": "tick",
+      "start": 219117.40000000002,
+      "requestBytes": 199,
+      "roundTripMs": 30.70000000001164,
+      "responseBytes": 37786
+    },
+    {
+      "type": "tick",
+      "start": 220097.40000000002,
+      "requestBytes": 185,
+      "roundTripMs": 15.200000000011642,
+      "responseBytes": 37786
+    },
+    {
+      "type": "tick",
+      "start": 220879.5,
+      "requestBytes": 199,
+      "roundTripMs": 15.100000000034925,
+      "responseBytes": 37787
+    },
+    {
+      "type": "tick",
+      "start": 221695,
+      "requestBytes": 199,
+      "roundTripMs": 10.400000000023283,
+      "responseBytes": 37788
+    },
+    {
+      "type": "tick",
+      "start": 222561.40000000002,
+      "requestBytes": 199,
+      "roundTripMs": 15.5,
+      "responseBytes": 37787
+    },
+    {
+      "type": "tick",
+      "start": 223289.90000000002,
+      "requestBytes": 199,
+      "roundTripMs": 15.5,
+      "responseBytes": 37867
+    },
+    {
+      "type": "tick",
+      "start": 224154,
+      "requestBytes": 185,
+      "roundTripMs": 14.200000000011642,
+      "responseBytes": 37774
+    },
+    {
+      "type": "tick",
+      "start": 225004.2,
+      "requestBytes": 199,
+      "roundTripMs": 8,
+      "responseBytes": 37852
+    },
+    {
+      "type": "tick",
+      "start": 225738,
+      "requestBytes": 199,
+      "roundTripMs": 13.799999999988358,
+      "responseBytes": 37785
+    },
+    {
+      "type": "tick",
+      "start": 226470.2,
+      "requestBytes": 199,
+      "roundTripMs": 8.400000000023283,
+      "responseBytes": 37786
+    },
+    {
+      "type": "tick",
+      "start": 227239.3,
+      "requestBytes": 185,
+      "roundTripMs": 11.700000000011642,
+      "responseBytes": 37849
+    },
+    {
+      "type": "tick",
+      "start": 228021.60000000003,
+      "requestBytes": 199,
+      "roundTripMs": 15.399999999965075,
+      "responseBytes": 37788
+    },
+    {
+      "type": "tick",
+      "start": 228910.5,
+      "requestBytes": 199,
+      "roundTripMs": 27.100000000034925,
+      "responseBytes": 37791
+    },
+    {
+      "type": "tick",
+      "start": 229502.90000000002,
+      "requestBytes": 199,
+      "roundTripMs": 10.399999999965075,
+      "responseBytes": 37852
+    },
+    {
+      "type": "tick",
+      "start": 230390.8,
+      "requestBytes": 199,
+      "roundTripMs": 7,
+      "responseBytes": 37784
+    },
+    {
+      "type": "tick",
+      "start": 231977.7,
+      "requestBytes": 185,
+      "roundTripMs": 16.599999999976717,
+      "responseBytes": 37849
+    },
+    {
+      "type": "tick",
+      "start": 232964.8,
+      "requestBytes": 185,
+      "roundTripMs": 11.5,
+      "responseBytes": 37771
+    },
+    {
+      "type": "tick",
+      "start": 233659.8,
+      "requestBytes": 199,
+      "roundTripMs": 7.300000000046566,
+      "responseBytes": 37788
+    },
+    {
+      "type": "tick",
+      "start": 234398.90000000002,
+      "requestBytes": 199,
+      "roundTripMs": 11.599999999976717,
+      "responseBytes": 37849
+    },
+    {
+      "type": "tick",
+      "start": 235180.7,
+      "requestBytes": 199,
+      "roundTripMs": 9.799999999988358,
+      "responseBytes": 37788
+    },
+    {
+      "type": "tick",
+      "start": 235952.3,
+      "requestBytes": 185,
+      "roundTripMs": 6.100000000034925,
+      "responseBytes": 37789
+    },
+    {
+      "type": "tick",
+      "start": 236706.5,
+      "requestBytes": 199,
+      "roundTripMs": 11.299999999988358,
+      "responseBytes": 37852
+    },
+    {
+      "type": "tick",
+      "start": 237494.7,
+      "requestBytes": 199,
+      "roundTripMs": 9.700000000011642,
+      "responseBytes": 37788
+    },
+    {
+      "type": "tick",
+      "start": 238184.10000000003,
+      "requestBytes": 184,
+      "roundTripMs": 13.699999999953434,
+      "responseBytes": 37789
+    },
+    {
+      "type": "tick",
+      "start": 238964.8,
+      "requestBytes": 199,
+      "roundTripMs": 6.600000000034925,
+      "responseBytes": 37852
+    },
+    {
+      "type": "tick",
+      "start": 239749.90000000002,
+      "requestBytes": 199,
+      "roundTripMs": 15,
+      "responseBytes": 37788
+    },
+    {
+      "type": "tick",
+      "start": 241292.2,
+      "requestBytes": 185,
+      "roundTripMs": 11.299999999988358,
+      "responseBytes": 37852
+    },
+    {
+      "type": "tick",
+      "start": 242198.90000000002,
+      "requestBytes": 185,
+      "roundTripMs": 10,
+      "responseBytes": 37771
+    },
+    {
+      "type": "tick",
+      "start": 243754.40000000002,
+      "requestBytes": 185,
+      "roundTripMs": 15.399999999965075,
+      "responseBytes": 38725
+    },
+    {
+      "type": "tick",
+      "start": 244555.3,
+      "requestBytes": 193,
+      "roundTripMs": 10.700000000011642,
+      "responseBytes": 38515
+    },
+    {
+      "type": "tick",
+      "start": 245366.40000000002,
+      "requestBytes": 193,
+      "roundTripMs": 7.7000000000116415,
+      "responseBytes": 38513
+    },
+    {
+      "type": "tick",
+      "start": 246153.40000000002,
+      "requestBytes": 193,
+      "roundTripMs": 15.700000000011642,
+      "responseBytes": 38514
+    },
+    {
+      "type": "tick",
+      "start": 247767.60000000003,
+      "requestBytes": 179,
+      "roundTripMs": 8.399999999965075,
+      "responseBytes": 38512
+    },
+    {
+      "type": "tick",
+      "start": 248588.60000000003,
+      "requestBytes": 193,
+      "roundTripMs": 16.29999999998836,
+      "responseBytes": 38512
+    },
+    {
+      "type": "tick",
+      "start": 248972.3,
+      "requestBytes": 193,
+      "roundTripMs": 14.100000000034925,
+      "responseBytes": 38512
+    },
+    {
+      "type": "tick",
+      "start": 249163.40000000002,
+      "requestBytes": 178,
+      "roundTripMs": 22.79999999998836,
+      "responseBytes": 38511
+    }
+  ],
+  "loading": [
+    {
+      "name": "/assets/v7/models-0.json",
+      "durationMs": 820.8999999999942,
+      "transferBytes": 5514764,
+      "decodedBytes": 5514464
+    },
+    {
+      "name": "/assets/v7/models-2.json",
+      "durationMs": 818.2999999999884,
+      "transferBytes": 3765470,
+      "decodedBytes": 3765170
+    },
+    {
+      "name": "/assets/v7/models-1.json",
+      "durationMs": 805.5,
+      "transferBytes": 2291012,
+      "decodedBytes": 2290712
+    },
+    {
+      "name": "/assets/v7/surfaces.json",
+      "durationMs": 624,
+      "transferBytes": 3893151,
+      "decodedBytes": 3892851
+    },
+    {
+      "name": "/vendor/three.js",
+      "durationMs": 33.70000000001164,
+      "transferBytes": 691948,
+      "decodedBytes": 691648
+    },
+    {
+      "name": "/input.js",
+      "durationMs": 19.599999999976717,
+      "transferBytes": 7856,
+      "decodedBytes": 7556
+    },
+    {
+      "name": "/vendor/BufferGeometryUtils.js",
+      "durationMs": 18.60000000000582,
+      "transferBytes": 32073,
+      "decodedBytes": 31773
+    },
+    {
+      "name": "/world-v10.js",
+      "durationMs": 18.5,
+      "transferBytes": 9473,
+      "decodedBytes": 9173
+    },
+    {
+      "name": "/assets/v9/models.json",
+      "durationMs": 18,
+      "transferBytes": 5268504,
+      "decodedBytes": 5268204
+    },
+    {
+      "name": "/assets/textures/ferns.webp",
+      "durationMs": 16.800000000017462,
+      "transferBytes": 25074,
+      "decodedBytes": 24774
+    },
+    {
+      "name": "/assets/v10/models/old_bed_frame.glb",
+      "durationMs": 14.60000000000582,
+      "transferBytes": 1949672,
+      "decodedBytes": 1949372
+    },
+    {
+      "name": "/world.js",
+      "durationMs": 14.39999999999418,
+      "transferBytes": 29529,
+      "decodedBytes": 29229
+    },
+    {
+      "name": "/audio.js",
+      "durationMs": 13.700000000011642,
+      "transferBytes": 8943,
+      "decodedBytes": 8643
+    },
+    {
+      "name": "/assets/textures/wood-colour.jpg",
+      "durationMs": 13.60000000000582,
+      "transferBytes": 67385,
+      "decodedBytes": 67085
+    },
+    {
+      "name": "/assets/textures/pine.webp",
+      "durationMs": 13.5,
+      "transferBytes": 101478,
+      "decodedBytes": 101178
+    }
+  ],
+  "brush": {
+    "samples": 20,
+    "median": 9.399999999965075,
+    "p95": 16.099999999976717
+  },
+  "errors": []
+}

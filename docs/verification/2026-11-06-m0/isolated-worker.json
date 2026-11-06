@@ -1,0 +1,36 @@
+{
+  "environment": {
+    "node": "v24.22.1",
+    "platform": "linux",
+    "renderer": "Chromium SwiftShader; not a device benchmark",
+    "viewport": [
+      844,
+      500
+    ],
+    "pixelRatio": 0.35,
+    "shadows": false,
+    "browser": "141.0.7390.37"
+  },
+  "scenes": [],
+  "isolatedWorker": {
+    "init": {
+      "roundTripMs": 2139.9000000000233,
+      "handlerMs": 2117.3000000000466
+    },
+    "handlerMs": {
+      "samples": 100,
+      "median": 4.600000000093132,
+      "p95": 7.799999999930151
+    },
+    "roundTripMs": {
+      "samples": 100,
+      "median": 5.300000000046566,
+      "p95": 8.29999999993015
+    },
+    "responseBytes": {
+      "samples": 100,
+      "median": 37787,
+      "p95": 37789
+    }
+  }
+}

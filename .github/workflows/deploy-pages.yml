@@ -31,6 +31,7 @@ jobs:
           node site/tests/test_atlas.mjs
           node site/tests/test_layout.mjs
           node site/tests/test_world_v2.mjs
+          node site/tests/test_world_document.mjs
       - name: Build and validate runtime assets
         run: python3 tools/build.py
       - name: Install browser test runner
