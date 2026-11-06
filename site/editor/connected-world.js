@@ -3,6 +3,7 @@
 import {compileBuilding} from '../world-document.js';
 import {createLayoutLibrary,createMaterials,LayoutScene} from '../layout-renderer.js';
 import {objectHeight} from './world-core.js';
+import {cutawayWalls} from './tools/interior-core.js';
 
 export class ConnectedBuildingView {
   constructor({scene,context,notice=()=>{}}) {
@@ -21,7 +22,7 @@ export class ConnectedBuildingView {
     if(signature!==this.signature){for(const material of this.floorMaterials)material.dispose();this.floorMaterials.clear();this.floorBias.clear();await this.layout.load(this.compiled.layout);if(token!==this.generation)return;this.signature=signature;}
     this.biasFloorDepth();this.layout.group.visible=true;this.applyTransform(this.compiled.transform);
     for(const [id,node] of this.layout.objects)node.traverse(n=>{if(n.isMesh)n.userData={...n.userData,kind:'interior',id,buildingId};});
-    this.layout.view(this.options);this.layout.openDoors(true);
+    this.layout.view(this.options);if(this.options.cutaway&&!this.options.playing)for(const id of cutawayWalls(this.compiled.layout)){const node=this.layout.objects.get(id);if(node)node.visible=false;}this.layout.openDoors(true);
     if(this.layout.errors.length)this.notice('Some interior assets failed to load: '+this.layout.errors.join(', '));
   }
   biasFloorDepth(){
