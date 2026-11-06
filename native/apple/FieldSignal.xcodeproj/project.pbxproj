@@ -1,0 +1,812 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+		96C5605D501DB1CC10167268 = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "Sources/App/FieldSignalApp.swift";
+			sourceTree = "<group>";
+		};
+		34B3AB50B9F679E13079DD39 = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "Sources/App/NativeGameController.swift";
+			sourceTree = "<group>";
+		};
+		B330B3FF61C24FFC24B2CE34 = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "Sources/Core/GameSession.swift";
+			sourceTree = "<group>";
+		};
+		5CE819E74C24A04A48889822 = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "Sources/Core/SceneDocument.swift";
+			sourceTree = "<group>";
+		};
+		A03D4498385DA5516EDE8A26 = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "Sources/Rendering/NativeScene.swift";
+			sourceTree = "<group>";
+		};
+		7FABE174E0F7A3305D2AB747 = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "Tests/CoreTests.swift";
+			sourceTree = "<group>";
+		};
+		46D0F5640D7ABE208DD62726 = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "UITests/NativeSmokeTests.swift";
+			sourceTree = "<group>";
+		};
+		E89B30AA1DC30A6AD8C34610 = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "folder";
+			path = "Resources";
+			sourceTree = "<group>";
+		};
+		EB9DF9B0632B5C09E1F71FD9 = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.application";
+			includeInIndex = 0;
+			path = "FieldSignaliPad.app";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		67D02CCFF123BA295811D58D = {
+			isa = "PBXBuildFile";
+			fileRef = "96C5605D501DB1CC10167268";
+		};
+		13954341C223A76570A81550 = {
+			isa = "PBXBuildFile";
+			fileRef = "34B3AB50B9F679E13079DD39";
+		};
+		D9FAB249EF5F31ED7385109B = {
+			isa = "PBXBuildFile";
+			fileRef = "B330B3FF61C24FFC24B2CE34";
+		};
+		5C81F62BEA9200BC5CC21A80 = {
+			isa = "PBXBuildFile";
+			fileRef = "5CE819E74C24A04A48889822";
+		};
+		27838F9C4138B4FB383BF8EF = {
+			isa = "PBXBuildFile";
+			fileRef = "A03D4498385DA5516EDE8A26";
+		};
+		2702C51A1263CD1BD597A6C4 = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("67D02CCFF123BA295811D58D", "13954341C223A76570A81550", "D9FAB249EF5F31ED7385109B", "5C81F62BEA9200BC5CC21A80", "27838F9C4138B4FB383BF8EF");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70814824F2E5DB0F22F49B12 = {
+			isa = "PBXBuildFile";
+			fileRef = "E89B30AA1DC30A6AD8C34610";
+		};
+		7CDCB83EBCC6BFB0031B4938 = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("70814824F2E5DB0F22F49B12");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D47B718BBE1D2DB4B8EE759A = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26552E5DCAF230080A8063BA = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignalipad";
+				IPHONEOS_DEPLOYMENT_TARGET = "26.0";
+				INFOPLIST_KEY_CFBundleDisplayName = "Field Signal";
+				INFOPLIST_KEY_UILaunchScreen_Generation = "YES";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = "YES";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug";
+		};
+		FD2C258236F83A62AB5FB26F = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignalipad";
+				IPHONEOS_DEPLOYMENT_TARGET = "26.0";
+				INFOPLIST_KEY_CFBundleDisplayName = "Field Signal";
+				INFOPLIST_KEY_UILaunchScreen_Generation = "YES";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = "YES";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = "Release";
+		};
+		EC71C1A2E9B2770FD8A1635A = {
+			isa = "XCConfigurationList";
+			buildConfigurations = ("26552E5DCAF230080A8063BA", "FD2C258236F83A62AB5FB26F");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		1B659DC0B2958E079D962A57 = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = "EC71C1A2E9B2770FD8A1635A";
+			buildPhases = ("2702C51A1263CD1BD597A6C4", "7CDCB83EBCC6BFB0031B4938", "D47B718BBE1D2DB4B8EE759A");
+			buildRules = ();
+			dependencies = ();
+			name = "FieldSignaliPad";
+			productName = "FieldSignaliPad";
+			productReference = "EB9DF9B0632B5C09E1F71FD9";
+			productType = "com.apple.product-type.application";
+		};
+		453BB45D543E5252EAB872F9 = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.cfbundle";
+			includeInIndex = 0;
+			path = "FieldSignaliPadTests.xctest";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		9EC6F8B3E20B5B5DE9979696 = {
+			isa = "PBXBuildFile";
+			fileRef = "B330B3FF61C24FFC24B2CE34";
+		};
+		7ABDBA3E105FE5F5087D0C7D = {
+			isa = "PBXBuildFile";
+			fileRef = "5CE819E74C24A04A48889822";
+		};
+		9256C348463900300BB6BCA7 = {
+			isa = "PBXBuildFile";
+			fileRef = "7FABE174E0F7A3305D2AB747";
+		};
+		8FD615C777E9D36A7C1EF434 = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("9EC6F8B3E20B5B5DE9979696", "7ABDBA3E105FE5F5087D0C7D", "9256C348463900300BB6BCA7");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BD763ABEAB2E902CF113DF8 = {
+			isa = "PBXBuildFile";
+			fileRef = "E89B30AA1DC30A6AD8C34610";
+		};
+		750044D5663884E2CD772514 = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("7BD763ABEAB2E902CF113DF8");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69F3368F8CE67778A0060EEC = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5F2EF4B20F6D1E8DDEA6194 = {
+			isa = "PBXContainerItemProxy";
+			containerPortal = "985959785319747668373CC6";
+			proxyType = 1;
+			remoteGlobalIDString = "1B659DC0B2958E079D962A57";
+			remoteInfo = "FieldSignaliPad";
+		};
+		497BD9396E3EB18E1125FB1A = {
+			isa = "PBXTargetDependency";
+			target = "1B659DC0B2958E079D962A57";
+			targetProxy = "E5F2EF4B20F6D1E8DDEA6194";
+		};
+		CF0B47CA5F75FE18D62305C2 = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignalipadtests";
+				IPHONEOS_DEPLOYMENT_TARGET = "26.0";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FieldSignaliPad.app/FieldSignaliPad";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug";
+		};
+		09F96844F1247681072179D8 = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignalipadtests";
+				IPHONEOS_DEPLOYMENT_TARGET = "26.0";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FieldSignaliPad.app/FieldSignaliPad";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = "Release";
+		};
+		93EDC54B5FA36281AED50630 = {
+			isa = "XCConfigurationList";
+			buildConfigurations = ("CF0B47CA5F75FE18D62305C2", "09F96844F1247681072179D8");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		3ECCD0136E5ADBCB0A723E61 = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = "93EDC54B5FA36281AED50630";
+			buildPhases = ("8FD615C777E9D36A7C1EF434", "750044D5663884E2CD772514", "69F3368F8CE67778A0060EEC");
+			buildRules = ();
+			dependencies = ("497BD9396E3EB18E1125FB1A");
+			name = "FieldSignaliPadTests";
+			productName = "FieldSignaliPadTests";
+			productReference = "453BB45D543E5252EAB872F9";
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F15A77E6A86731FE57791A24 = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.cfbundle";
+			includeInIndex = 0;
+			path = "FieldSignaliPadUITests.xctest";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		8907E188B515C92BA992940A = {
+			isa = "PBXBuildFile";
+			fileRef = "46D0F5640D7ABE208DD62726";
+		};
+		6EED7AE12CB06CE1A3EF1B68 = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("8907E188B515C92BA992940A");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		239F5D4FE352EA7761B84127 = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9B639C8F010147DAF40B70C = {
+			isa = "PBXContainerItemProxy";
+			containerPortal = "985959785319747668373CC6";
+			proxyType = 1;
+			remoteGlobalIDString = "1B659DC0B2958E079D962A57";
+			remoteInfo = "FieldSignaliPad";
+		};
+		0C3C530B42148297AE6AEAC5 = {
+			isa = "PBXTargetDependency";
+			target = "1B659DC0B2958E079D962A57";
+			targetProxy = "D9B639C8F010147DAF40B70C";
+		};
+		D4412AFC8A28977131B27BB1 = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignalipaduitests";
+				IPHONEOS_DEPLOYMENT_TARGET = "26.0";
+				TEST_TARGET_NAME = "FieldSignaliPad";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug";
+		};
+		CC65B20E2A68447832F5578A = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignalipaduitests";
+				IPHONEOS_DEPLOYMENT_TARGET = "26.0";
+				TEST_TARGET_NAME = "FieldSignaliPad";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = "Release";
+		};
+		79AA52BD1B98E5D77AA0D355 = {
+			isa = "XCConfigurationList";
+			buildConfigurations = ("D4412AFC8A28977131B27BB1", "CC65B20E2A68447832F5578A");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		D5D00FBFC23BEA37C1867D48 = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = "79AA52BD1B98E5D77AA0D355";
+			buildPhases = ("6EED7AE12CB06CE1A3EF1B68", "239F5D4FE352EA7761B84127");
+			buildRules = ();
+			dependencies = ("0C3C530B42148297AE6AEAC5");
+			name = "FieldSignaliPadUITests";
+			productName = "FieldSignaliPadUITests";
+			productReference = "F15A77E6A86731FE57791A24";
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		28BAA51719E29740A937D6FF = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.application";
+			includeInIndex = 0;
+			path = "FieldSignalTV.app";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		1DA6B1E36F9253C3FDEAAA87 = {
+			isa = "PBXBuildFile";
+			fileRef = "96C5605D501DB1CC10167268";
+		};
+		883257B0BF9D11E21B8BD2A7 = {
+			isa = "PBXBuildFile";
+			fileRef = "34B3AB50B9F679E13079DD39";
+		};
+		74B6C83B1135209C1121C1F8 = {
+			isa = "PBXBuildFile";
+			fileRef = "B330B3FF61C24FFC24B2CE34";
+		};
+		4E1FCA84C60E38683297BCD4 = {
+			isa = "PBXBuildFile";
+			fileRef = "5CE819E74C24A04A48889822";
+		};
+		3D7D9F09ABA61D28C1BFEAC4 = {
+			isa = "PBXBuildFile";
+			fileRef = "A03D4498385DA5516EDE8A26";
+		};
+		8546ED95161B8027D34314C7 = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("1DA6B1E36F9253C3FDEAAA87", "883257B0BF9D11E21B8BD2A7", "74B6C83B1135209C1121C1F8", "4E1FCA84C60E38683297BCD4", "3D7D9F09ABA61D28C1BFEAC4");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4AB6B16A6B84FD5A3B082334 = {
+			isa = "PBXBuildFile";
+			fileRef = "E89B30AA1DC30A6AD8C34610";
+		};
+		1F353731085CE1E4E2E35017 = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("4AB6B16A6B84FD5A3B082334");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40F7F298BAB5534CDB29CFFC = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EEA6AACF346F9C579286D40 = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "appletvos";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				TARGETED_DEVICE_FAMILY = "3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignaltv";
+				TVOS_DEPLOYMENT_TARGET = "26.0";
+				INFOPLIST_KEY_CFBundleDisplayName = "Field Signal";
+				INFOPLIST_KEY_UILaunchScreen_Generation = "YES";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = "YES";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug";
+		};
+		90C551224B1EBEA668BF74D1 = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "appletvos";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				TARGETED_DEVICE_FAMILY = "3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignaltv";
+				TVOS_DEPLOYMENT_TARGET = "26.0";
+				INFOPLIST_KEY_CFBundleDisplayName = "Field Signal";
+				INFOPLIST_KEY_UILaunchScreen_Generation = "YES";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = "YES";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = "Release";
+		};
+		1E6A880B922EB21C3F2AFFC8 = {
+			isa = "XCConfigurationList";
+			buildConfigurations = ("8EEA6AACF346F9C579286D40", "90C551224B1EBEA668BF74D1");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		44E60C1381BEE5E47A591294 = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = "1E6A880B922EB21C3F2AFFC8";
+			buildPhases = ("8546ED95161B8027D34314C7", "1F353731085CE1E4E2E35017", "40F7F298BAB5534CDB29CFFC");
+			buildRules = ();
+			dependencies = ();
+			name = "FieldSignalTV";
+			productName = "FieldSignalTV";
+			productReference = "28BAA51719E29740A937D6FF";
+			productType = "com.apple.product-type.application";
+		};
+		224ACED8349F269C9D578A03 = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.cfbundle";
+			includeInIndex = 0;
+			path = "FieldSignalTVTests.xctest";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		7F7CE89E3F06EDA24BEB3E32 = {
+			isa = "PBXBuildFile";
+			fileRef = "B330B3FF61C24FFC24B2CE34";
+		};
+		8B5A7CB0C8E46C0B7A4218ED = {
+			isa = "PBXBuildFile";
+			fileRef = "5CE819E74C24A04A48889822";
+		};
+		2BB41ED7B9A6129F7B87C53F = {
+			isa = "PBXBuildFile";
+			fileRef = "7FABE174E0F7A3305D2AB747";
+		};
+		F5BFE52D31B98E1B41EF36CA = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("7F7CE89E3F06EDA24BEB3E32", "8B5A7CB0C8E46C0B7A4218ED", "2BB41ED7B9A6129F7B87C53F");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18C7367EFC357D20F1E3C48E = {
+			isa = "PBXBuildFile";
+			fileRef = "E89B30AA1DC30A6AD8C34610";
+		};
+		DE4B3388CCA8A38E65F5F71D = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("18C7367EFC357D20F1E3C48E");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89B42D918B54196FDF8C13F2 = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3506E1D651340EB3C0659C34 = {
+			isa = "PBXContainerItemProxy";
+			containerPortal = "985959785319747668373CC6";
+			proxyType = 1;
+			remoteGlobalIDString = "44E60C1381BEE5E47A591294";
+			remoteInfo = "FieldSignalTV";
+		};
+		9D9CFBE2BDD8D01EA0D207C5 = {
+			isa = "PBXTargetDependency";
+			target = "44E60C1381BEE5E47A591294";
+			targetProxy = "3506E1D651340EB3C0659C34";
+		};
+		30BA906E97F5C5413ACC90A9 = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "appletvos";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				TARGETED_DEVICE_FAMILY = "3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignaltvtests";
+				TVOS_DEPLOYMENT_TARGET = "26.0";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FieldSignalTV.app/FieldSignalTV";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug";
+		};
+		F3E9F2CC76E4D427B8762B7D = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "appletvos";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				TARGETED_DEVICE_FAMILY = "3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignaltvtests";
+				TVOS_DEPLOYMENT_TARGET = "26.0";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FieldSignalTV.app/FieldSignalTV";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = "Release";
+		};
+		4D6867F41CD8F880F3AF7406 = {
+			isa = "XCConfigurationList";
+			buildConfigurations = ("30BA906E97F5C5413ACC90A9", "F3E9F2CC76E4D427B8762B7D");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		6A4C574B5C7DDEAEDFC3AEF0 = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = "4D6867F41CD8F880F3AF7406";
+			buildPhases = ("F5BFE52D31B98E1B41EF36CA", "DE4B3388CCA8A38E65F5F71D", "89B42D918B54196FDF8C13F2");
+			buildRules = ();
+			dependencies = ("9D9CFBE2BDD8D01EA0D207C5");
+			name = "FieldSignalTVTests";
+			productName = "FieldSignalTVTests";
+			productReference = "224ACED8349F269C9D578A03";
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B56A11147D57264F36AECF43 = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.cfbundle";
+			includeInIndex = 0;
+			path = "FieldSignalTVUITests.xctest";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		404FFE0E8E4AF0EF0C1156D0 = {
+			isa = "PBXBuildFile";
+			fileRef = "46D0F5640D7ABE208DD62726";
+		};
+		1282F15A8A72F6490F847445 = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("404FFE0E8E4AF0EF0C1156D0");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		519FC4A2ECA17D5D8BE7CBBE = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C35C58EC666CC9911CD7045 = {
+			isa = "PBXContainerItemProxy";
+			containerPortal = "985959785319747668373CC6";
+			proxyType = 1;
+			remoteGlobalIDString = "44E60C1381BEE5E47A591294";
+			remoteInfo = "FieldSignalTV";
+		};
+		6A13F5FDBCB9908311664550 = {
+			isa = "PBXTargetDependency";
+			target = "44E60C1381BEE5E47A591294";
+			targetProxy = "8C35C58EC666CC9911CD7045";
+		};
+		C99B12359EF644866DA43D0B = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "appletvos";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				TARGETED_DEVICE_FAMILY = "3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignaltvuitests";
+				TVOS_DEPLOYMENT_TARGET = "26.0";
+				TEST_TARGET_NAME = "FieldSignalTV";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug";
+		};
+		AEF741856939030E4C79BAEB = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SDKROOT = "appletvos";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				TARGETED_DEVICE_FAMILY = "3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.fieldsignal.prototype.fieldsignaltvuitests";
+				TVOS_DEPLOYMENT_TARGET = "26.0";
+				TEST_TARGET_NAME = "FieldSignalTV";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = "Release";
+		};
+		563D3726BF92AC3A9660F850 = {
+			isa = "XCConfigurationList";
+			buildConfigurations = ("C99B12359EF644866DA43D0B", "AEF741856939030E4C79BAEB");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		47212964C668ABF52966E0F5 = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = "563D3726BF92AC3A9660F850";
+			buildPhases = ("1282F15A8A72F6490F847445", "519FC4A2ECA17D5D8BE7CBBE");
+			buildRules = ();
+			dependencies = ("6A13F5FDBCB9908311664550");
+			name = "FieldSignalTVUITests";
+			productName = "FieldSignalTVUITests";
+			productReference = "B56A11147D57264F36AECF43";
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		9EFA2C6CA26DEB6915DA53B4 = {
+			isa = "PBXGroup";
+			children = ("96C5605D501DB1CC10167268", "34B3AB50B9F679E13079DD39", "B330B3FF61C24FFC24B2CE34", "5CE819E74C24A04A48889822", "A03D4498385DA5516EDE8A26", "7FABE174E0F7A3305D2AB747", "46D0F5640D7ABE208DD62726", "E89B30AA1DC30A6AD8C34610");
+			sourceTree = "<group>";
+			name = "Source and resources";
+		};
+		7F8A16160AB74DBA0B0DE167 = {
+			isa = "PBXGroup";
+			children = ("EB9DF9B0632B5C09E1F71FD9", "453BB45D543E5252EAB872F9", "F15A77E6A86731FE57791A24", "28BAA51719E29740A937D6FF", "224ACED8349F269C9D578A03", "B56A11147D57264F36AECF43");
+			name = "Products";
+			sourceTree = "<group>";
+		};
+		97A63A01E61FD439E8760B8E = {
+			isa = "PBXGroup";
+			children = ("9EFA2C6CA26DEB6915DA53B4", "7F8A16160AB74DBA0B0DE167");
+			sourceTree = "<group>";
+		};
+		433548979C024CC63B5F3B8D = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug";
+		};
+		B800A40FDE6F0A0218D9BCD2 = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				CLANG_ENABLE_MODULES = "YES";
+				SWIFT_VERSION = "5.0";
+				CODE_SIGNING_ALLOWED = "NO";
+				GENERATE_INFOPLIST_FILE = "YES";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				MARKETING_VERSION = "0.1.0";
+				CURRENT_PROJECT_VERSION = "1";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_STRICT_CONCURRENCY = "minimal";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = "Release";
+		};
+		3C05BEEE7303EE3FA7B250FA = {
+			isa = "XCConfigurationList";
+			buildConfigurations = ("433548979C024CC63B5F3B8D", "B800A40FDE6F0A0218D9BCD2");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		985959785319747668373CC6 = {
+			isa = "PBXProject";
+			attributes = {
+				LastUpgradeCheck = "2600";
+				BuildIndependentTargetsInParallel = "YES";
+			};
+			buildConfigurationList = "3C05BEEE7303EE3FA7B250FA";
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "en";
+			hasScannedForEncodings = 0;
+			knownRegions = ("en", "Base");
+			mainGroup = "97A63A01E61FD439E8760B8E";
+			productRefGroup = "7F8A16160AB74DBA0B0DE167";
+			projectDirPath = "";
+			projectRoot = "";
+			targets = ("1B659DC0B2958E079D962A57", "3ECCD0136E5ADBCB0A723E61", "D5D00FBFC23BEA37C1867D48", "44E60C1381BEE5E47A591294", "6A4C574B5C7DDEAEDFC3AEF0", "47212964C668ABF52966E0F5");
+		};
+	};
+	rootObject = "985959785319747668373CC6";
+}

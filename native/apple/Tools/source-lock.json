@@ -1,0 +1,24 @@
+{
+  "format": "field-signal-native-source-lock",
+  "version": 1,
+  "revision": "25cd697be9d68a88fe8b66b5cfbcee268c565d6d",
+  "files": {
+    "site/world.json": "84fcc9d23960e75b84053d794636ce63c88a3ddd3d432b1d908fe8cd19a0d7c8",
+    "site/world-document.js": "68c59f54794cdde334f20fc312c6194302edd360bf63eb942269f7a8628ed59a",
+    "site/layout-core.js": "9ad7e13321eb050fe1b5d56aadfcd12d96725f751a7d5c6e3e15cde00912b627",
+    "site/editor/world-core.js": "be04aeaff3e7786c61d46c67ad7de9a888e4a13613ac16ff21e0b1d5e879ca02",
+    "site/campaign-interiors.js": "c4e3c9662c861c71db05ddb7a12b691e446e1de9991aa45ef626f5b6335026cc",
+    "site/search-props.js": "0c0c4623cc87c89cd35ec6894f1693b041f128273f875cf4cddee79e353d72cf",
+    "site/search-props.json": "e98180fa7731e841dff1ade133ce545b21f4988a4afcf1adb907027df3ae250f",
+    "site/assets/campaign/registry.json": "fa3a060af1aa908a57979c916ac8a37cb58d8deb441058bc31456b9a1b7f0ff4",
+    "site/assets/v11/models.json": "01062d725998f78ad73dbfb50b0f58b1efab9eb244ce3f64c914f15397bec1d0",
+    "site/vendor/three.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+    "site/vendor/BufferGeometryUtils.js": "c8a8b8dd3e018b5ef2ae0ef8bae598a8ae7f560a368780582f7466db4f11968f",
+    "site/assets/campaign/textures/city-kit-roads.png": "b2769b46841cebdf09e61ce88df64e48c8a0af63757ae8716ef4aa53f4a31919",
+    "site/assets/campaign/textures/city-kit-industrial.png": "7f60ce46ed0a1e705c571dfcaee4f68eeb1e4e050935cf58cd3d5fe76b8744a8",
+    "site/assets/campaign/textures/train-kit.png": "014bb931cc26ca1c237ce6c32746c32604a66d1c15dc7ff54c53b15eda8810c5",
+    "site/assets/campaign/textures/survival-kit.png": "edb512a79a648e94a2776d6d5aaee93aa304697f286c2364517a7cd82133c496",
+    "site/assets/v10/model-manifest.json": "b84949e5a8e0a4daa988b6cfc8a23f3677ad13bee2365b28b30b7f9c0d1306a3",
+    "site/assets/v10/models/painted_wooden_table.glb": "d41cd5e799f10ad9152933322baef8120cd483e9e4d4289fac2864b39d6b5723"
+  }
+}
