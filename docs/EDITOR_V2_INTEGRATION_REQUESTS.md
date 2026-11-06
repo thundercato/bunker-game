@@ -1,73 +1,85 @@
 # Editor v2 integration contracts — current continuation
 
-Main inspected: `be64a7f`. PR81 remains unmerged at `476441ee2def32752031c20124c6bbdc2077a14c`;
-PR83 successor inspected/tested at `edffe7b118961406a6516ac079f706375a725ab8`.
-No private/uncommitted work is assumed. See `EDITOR_V2_CONTRACT_AUDIT.md` and
-`EDITOR_V2_RUNTIME_COMPATIBILITY.md` for the exact available APIs and test artifact.
+The continuation began on main `be64a7f`. During execution PR83 was merged through
+PR81, and the approved Field Signal 11.1 release reached main. Editor merge
+checkpoint `8cd2b24` incorporates accepted main `0aacdb4` without replacing newer
+editor work. PR82 remains a separate editor review; it has not been merged or
+published. No other task's uncommitted files are assumed available.
 
-## IR-01 — RESOLVED in canonical packaging (CI result in progress record)
+See `EDITOR_V2_CONTRACT_AUDIT.md`, `EDITOR_V2_PROGRESS.md` and
+`EDITOR_V2_RUNTIME_COMPATIBILITY.md` for current interfaces, current acceptance and
+historical detached compatibility evidence respectively.
+
+## IR-01 — RESOLVED in canonical packaging (final CI in progress record)
 
 The user explicitly authorised this narrow ownership exception. `precache.json`
-now explicitly includes all editor resources and the existing world compiler;
-normal `tools/build.py` produces 309 files / 307 cache resources without overlays.
-The original 17-file omission was reproduced. New editor work increased the actual
-additive set to 36 public files. `tools/validate_editor_package.py` checks module
-imports/exports, workspace bootstrap targets, HTML/CSS resources and literal data
-fetches; it also rejects private/credential/test paths and escaping symlinks.
+explicitly includes the editor suite and accepted runtime resources; normal
+`tools/build.py` produces **597 explicit files / 595 cache resources**, without an
+overlay. The original 17-file omission was reproduced before integration. The
+current enumeration and dependencies are in
+`verification-editor-v2/editor-runtime-files.txt` and `editor-package-report.json`.
+`tools/validate_editor_package.py` checks module imports/exports, workspace
+bootstrap targets, HTML/CSS resources and literal data fetches; it rejects
+private/credential/test paths and escaping symlinks. Tests and build-only Shapely
+are excluded from the public bundle.
 
-Suite/bootstrap/SW expectations agree on
-`field-signal-overgrowth-v11-editor2.1.1`. Real prior-world2 and prior-editor2.1
-workers upgrade before stale modules execute, all five workspaces restart offline
-on `/bunker-game/`, and retained save/draft sentinels stay unchanged. No storage
-clear is used. CI runs all editor pure/browser suites and retains a successful
-canonical dist as an ordinary review artifact, never a PR deployment.
+Suite/bootstrap/SW expectations agree on `field-signal-11.1-editor2.1.2`. The merge
+retains accepted runtime startup helpers and network-fresh entry routes. Three
+prior-worker fixtures cover world2, the early editor2.1 review cache and the
+released 11.1 cache. Acceptance exercises upgrade before editor imports, all five
+packaged workspaces under `/bunker-game/`, explicit offline preparation, offline
+restart and byte-identical campaign/settings/journal/draft sentinels. No storage
+clearing is used. Exact results belong to the current progress/CI record, not an
+older cache run.
 
-Future PR83 integration must reconcile its `field-signal-game-first-candidate-1`
-cache, runtime-ready helpers and explicit manifest with these additions. Choose
-one new integrated release cache; retain network-fresh bootstrap routes, both
-runtime/editor public entries and all ownership changes. Do not replace whole files
-with either branch's older variant. Editor review cache retirement and preservation
-are tested; merging/publishing still requires review and approval.
+Normal CI includes every editor pure/browser suite, all three worker variants and
+the accepted game regressions. A successful PR run retains canonical dist as an
+ordinary review artifact. PR workflows do not deploy. Future runtime integration
+must preserve both accepted runtime and current editor public entries; whole-file
+replacement from an older branch is not an integration strategy.
 
-## IR-02 — connected authoring done; actual moved runtime adapter not bundled
+## IR-02 — RESOLVED code dependency for bounded existing-building preview
 
-The existing `field-signal-world-document/1` remains authoritative. The editor's
-session wrapper contains UI/history metadata around that envelope, not a new world
-schema. Existing world2/layout1 drafts are adopted without rewriting them on load;
-canonical/legacy conflicts and failed mirror writes have tested recovery paths.
+The authoritative envelope remains `field-signal-world-document/1`. The editor's
+session wrapper adds UI/history metadata around that envelope, not another world
+schema. Existing world2/layout1 drafts are adopted without primary writes on load;
+concurrent/rejected bytes and failed mirror writes have recoverable paths.
 
-In-world and focused views now edit the same layout. `compileBuilding` supplies
-one parent transform; local `LayoutScene` children remain local. Rendering,
-compiled colliders/interactions/mission anchors and exported identity are tested.
-No new-building instances or duplicated mission bindings are introduced.
+In-world and focused views edit the same layout. `compileBuilding` supplies one
+parent transform; `LayoutScene` children remain local. The accepted main runtime
+now bundles `world-preview`, `preview-document`, `layout-preview`, `world-layout`,
+engine/terrain transforms and the shared binding/stair fixes. The launcher consumes
+`compilePreviewWorld(document, buildingId, context)` and
+`{format:'field-signal-preview/1',buildingId,document}` in a fresh isolated namespace.
+Trusted source metadata now declares `worldPreview:true`. This applies one existing
+building, subject to the runtime's bounds/overlap/foundation limits; it does not
+publish edits to the normal campaign or compile the complete world draft.
 
-The optional launcher consumes `compilePreviewWorld(document, buildingId, context)`
-and `{format:'field-signal-preview/1',buildingId,document}` through the existing
-world-preview namespace. The underlying PR83 adapter supports existing buildings
-generally, although that branch's old UI only offers the hut. Actual detached
-compatibility tests passed for hut, forester and station, including physical stairs,
-search and Atlas. This is not approval, publication or inclusion of that adapter
-in PR82. Canonical source-context explicitly keeps `worldPreview:false`.
+`editor/source-adapter.js` consumes `loadCampaignSource`, `previewContext` and the
+runtime's `loadAssetIds`. The base source is checked against shipped
+`world-source.json` identity and SHA-256. All workspaces share the accepted 143
+container source and complete asset registry. Missing interiors start from actual
+campaign layouts (Forester has 52 objects), while explicit prior/recovered drafts
+remain authoritative. Missing districts are adopted in memory; existing district
+edits and hidden layers survive. **Nine pure integration checks passed**, including
+old-draft preservation, source-byte/metadata rejection and explicit-save-only
+adoption. No new-building IDs or copied quest bindings are introduced.
 
-**Smallest producer integration:** review the actual world-preview/preview-document,
-layout-preview/world-layout, engine/terrain transform and runtime-ready startup
-changes from the pinned runtime branch; retain its canonical bindingAnchor/stair
-fixes where required. Supply trusted `world-source.json` identity/hash and accepted
-asset registry/source loader. No new parallel runtime is requested. Reconcile
-campaign-scene import without replacing existing edited layouts with seeded rooms.
-Enable capability metadata only after the combined canonical build passes real
-old-worker, old-save, current-editor and three-building gameplay journeys.
+The earlier detached combination passed 38 actual-browser assertions for hut,
+forester and station. That result remains historical evidence pinned to `edffe7b`
+and recorded editor hashes. A fresh canonical three-building journey is being
+verified after this merge; its result is recorded in progress/CI and must not be
+inferred from the older compatibility run.
 
-Known structural contract issue: the baseline floor opening margin is 0.16 m,
-while baseline stair sampling ends 0.10 m past the top; PR83 extends it to 0.25 m
-and fixes floor slab lip collision. Rotated openings also use conservative AABBs.
-Editor landing generation rejects clipped floors and warns about transitions;
-it does not invent a competing walking surface. Acceptance requires rotated
-openings, headroom and actual top/bottom traversal with the reviewed shared fix.
+The accepted runtime extends stair sampling to 0.25 m past the top and handles the
+floor slab lip. Rotated floor openings still use conservative AABBs. Editor landing
+generation rejects clipped floors; arbitrary newly authored/rotated stairs and
+landings still require headroom and actual top/bottom traversal checks. No second
+editor-only walking algorithm substitutes for the shared runtime.
 
 ## IR-03 — weighted loot runtime API still absent
 
-The actual PR83 tree contains no accepted weighted runtime generator. Editor
+The accepted 11.1 runtime contains no weighted runtime generator. Editor
 proposal `field-signal-editor-loot-proposal/1` retains real container/item IDs,
 reusable defaults and overrides. It is not imported by gameplay. The simulator
 remains an authoring tool; legacy independent-roll profiles and guaranteed mission
@@ -87,7 +99,7 @@ parity, protected mission items, reload consistency and old loot/save behaviour.
 
 ## IR-04 — graph runtime/action registry still absent
 
-The actual PR83 tree has legacy missions and a new physical journal, not a graph
+The accepted 11.1 runtime has legacy missions and a physical journal, not a graph
 evaluator or accepted graph schema. This editor's declarative graph proposals do
 not execute. Existing collect/recover/deliver game actions are not relabelled as
 support for arbitrary authored graphs. Source/container links resolve real stable
@@ -106,9 +118,10 @@ normal campaign/settings/journal unchanged. Unsupported mechanics remain disable
 
 ## IR-05 — actual refuge/local-scene and gameplay components
 
-Current source provides five base rooms, service stations, container and portals;
-PR83 also has source districts/services. The editor can inspect/link those actual
-references now. Neither branch supplies a lossless editable local-scene contract
+Current accepted source provides five base rooms, service stations, container and
+portals, plus eight district sets with stable scenery/service entities. The editor
+can inspect/link those actual references. The accepted runtime still has no
+lossless editable local-scene contract
 for the rendered refuge's pipes, lights, corridors and coupled service colliders.
 A read-only source map deliberately does not pretend to be editable base geometry.
 
@@ -154,15 +167,18 @@ are authoring proxies; no drowning or walkable bridge is claimed. Acceptance is
 saved terrain/road/rail/bridge/water geometry agreeing with collisions, grounded
 locked objects and mission access in isolated game preview, with measured budgets.
 
-### Final remote reconciliation
+### Accepted runtime changes and remaining boundary
 
-PR83 advanced to `e31b72a8ff4096dfd94d74297d190af4426b62dd` while this task ran.
-Inspected changes include generated fixed campaign road polygons and their renderer/
-sampling inputs (`field-signal-campaign-road-surfaces/1`, development-only Shapely
-generator); no editor world2-draft adapter is added. This is useful producer work,
-not a reason to implement competing editor road physics. The three-building browser
-compatibility evidence remains pinned to `edffe7b` with exact hashes. Candidate
-notes still explicitly identify terrain/road/water/district-transform drafts as
-authoring-only. Added design notes clarify optional binding floor/anchor, roofRise
-and bounded same-floor legacy spawn clearance; they do not add missing loot/graph/
-APR/sleep/local-refuge contracts or approve publication.
+PR83's final inspected candidate `e31b72a` was subsequently merged through PR81;
+the accepted 11.1 runtime is now in this branch via main `0aacdb4`. Its generated
+fixed campaign road polygons and renderer/sampling inputs
+(`field-signal-campaign-road-surfaces/1`) are retained. The development-only Shapely
+generator stays outside the public package. These fixed routes are distinct from
+an editor world2-draft road adapter, which remains absent.
+
+Optional `binding.floor` / `binding.anchor`, `roofRise`, shared stair-transition
+fixes and bounded same-floor save clearance are accepted runtime interfaces now.
+They do not supply weighted-loot, graph, APR/sleep or complete editable-refuge
+contracts. Historical detached compatibility evidence remains pinned to `edffe7b`
+and its recorded editor hashes. Current canonical acceptance belongs to the merged
+checkpoint and is recorded separately in the progress/testing documents and CI.

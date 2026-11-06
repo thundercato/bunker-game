@@ -1,75 +1,90 @@
 # Editor v2 shared-contract audit — 6 November 2026
 
-This is a compatibility snapshot, not approval or publication of either draft PR.
-The editor continuation inspected main `be64a7fc17b6c8054a757c9e713739161a103436`,
-PR #81 `476441ee2def32752031c20124c6bbdc2077a14c`, and its successor PR #83
-`edffe7b118961406a6516ac079f706375a725ab8` on
-`feat/game-first-candidate`. Other tasks' uncommitted files are unavailable.
+Current editor merge checkpoint: `8cd2b24`, incorporating accepted main `0aacdb4`.
+PR83 was merged through PR81 and the approved Field Signal 11.1 runtime is now
+available in this checkout. PR82 remains an unpublished editor review. The earlier
+main `be64a7f` / detached PR83 `edffe7b` audit is historical; its exact compatibility
+results remain in `EDITOR_V2_RUNTIME_COMPATIBILITY.md`. Other tasks' uncommitted
+files are not assumed visible.
 
-## Available interfaces
+## Accepted interfaces consumed by the editor
 
 - The authoritative envelope remains `field-signal-world-document/1`, containing
-  existing world authoring v2 and existing interior layout v1. Stable building,
-  object and gameplay binding IDs remain authoritative. No editor component
-  schema is added by this continuation.
-- `compileBuilding(document, buildingId, context)` returns one building's resolved
-  parent transform, local layout, world objects/colliders/interactions,
-  container-bound mission targets and spawn. It already handles an existing
-  building generally; the runtime branch's old moved-preview UI is hut-bounded. The underlying
-  adapter is generic; the editor continuation subsequently proved hut, forester
-  and station in its detached compatibility artifact (see the runtime record).
-  This does not bundle or approve that adapter in PR82.
-- Child coordinates are local, Y up, metres/radians; parent position/yaw composes
-  once. `layout.origin` remains provenance. Compiler results must not be passed
-  back as local authored child positions.
-- Existing `source.containers`, `source.looseSlots`, object `binding` and `doorId`
-  provide real interaction identities. Existing `source.missions` refer to stable
-  containers and `missionSources`; the latter resolve to actual `stations`.
-- The actual underground refuge is visible in `zones.base`, five `rooms`, existing
-  `stations`, two base-origin `portals` and `base_locker`. A read-only reference
-  adapter can inspect these without moving a visible station independently of its
-  interaction. This is useful source navigation, not refuge authoring.
+  world authoring v2 and interior layout v1. Stable building, child and gameplay
+  binding IDs remain authoritative. No competing component schema is introduced.
+- `compileBuilding(document, buildingId, context)` resolves one building's parent
+  transform, local layout, world geometry/colliders, interactions, mission targets
+  and spawn. Child coordinates are local, Y up, metres/radians; the parent composes
+  once. `layout.origin` is provenance, not a second placement transform.
+- Accepted `compilePreviewWorld` and runtime adapters now support isolated
+  existing-building preview. The editor enables this through trusted capability
+  metadata, compiles before launch and creates a fresh preview UUID. Runtime
+  placement bounds and collision/foundation restrictions still apply. Ordinary
+  campaign/settings/journal state remains separate; preview is not publication.
+- `editor/source-adapter.js` uses the accepted `loadCampaignSource`, `previewContext`
+  source-digest check and `loadAssetIds` registry. The reviewed base source identity
+  remains `6b4f9fb9401398a65eee576f40b2d80805ef6c76`; the loader adds current accepted
+  campaign content. Imported JSON cannot select a source revision or asset URL.
+- All five workspaces consume the effective **143-container source**, retaining
+  the 139 original IDs plus four reviewed district bindings. Four actual campaign
+  interiors are available. An absent Forester interior opens the complete 52-object
+  authored layout; existing/recovered user drafts take precedence. Nine pure source
+  integration checks cover this, old-draft compatibility, complete registry,
+  rejected source bytes/metadata and storage-safe district adoption.
+- Existing container/loose `binding`, `doorId`, mission IDs and mission source station
+  references remain real interaction identities. Accepted optional `binding.floor`
+  and `binding.anchor` separate a wall-mounted visual from its search floor/anchor.
+  Optional `roofRise` retains a sealed ceiling rather than inventing a usable loft.
+- Shared stair-top sampling/floor-lip fixes are now bundled. Conservative rotated
+  opening AABBs and arbitrary newly authored landing traversal remain limits to
+  validate, not reasons to add a second editor collision implementation.
 
-## Candidate additions and their limits
+The earlier detached three-building run passed 38 assertions at its recorded
+revision. Fresh merged canonical acceptance is a separate run; consult the current
+progress and CI evidence rather than treating that historical pass as a new result.
 
-PR #83 adds a `field-signal-districts/1` source with eight district scene
-sets and 95 stable entities, including 13 refuge services. These are authored
-candidate game content. Its full-map district transform fields remain authoring
-proxies; they do not establish an editable underground local-scene contract.
+## Released campaign content and its limits
 
-The candidate includes four authored homes and four additional search bindings
-(143 effective containers while retaining the 139 original IDs). Loading those
-source additions requires the reviewed candidate source/context; the editor must
-not invent their IDs or copy the candidate gameplay implementation into its own
-schema. Compatibility results must name the exact candidate SHA.
+The retained `field-signal-districts/1` source contains eight scene sets and 95 stable
+entities, including 13 refuge services. District overview transforms remain saved
+authoring proxies; the normal runtime does not consume edited district drafts.
+Missing district data is adopted from the accepted source in memory, and storage
+changes only on explicit save. Existing authored district transforms and hidden
+layer settings remain intact.
 
-## Dependencies still absent
+The actual underground refuge still has five source rooms, existing stations, two
+base-origin portals and `base_locker`. Source references and linked offers are
+inspectable without moving a visible station independently of its interaction.
+The district service identities do not provide a lossless editable local-scene
+contract for all refuge corridors, pipes, lights and transitions.
 
-| Capability | Producer contract still required | Safe editor work now |
+Accepted fixed campaign road polygons have renderer/sampling data and a
+build-only generator. This does not compile edited world2 roads/rail/terrain/water
+into gameplay. The full-map draft remains distinct from the playable campaign.
+
+## Producer contracts still absent
+
+| Capability | Shared contract still required | Safe editor capability now |
 | --- | --- | --- |
-| Editable refuge | Local scene registry, source identity, shared render/collision/interaction transforms, pipe/light instances and migration | Inspect actual source rooms, stations, storage and transitions; expose linked offers |
-| Weighted loot in gameplay | Canonical weighted table API, seeded draw contract, capacity/overflow and mission guarantee policy | Existing proposal validation/simulation and actual container links |
-| Mission graph execution | Versioned graph evaluator/action registry, persisted deadlines/random choices, retry/death/abandon policies and reward idempotence | Existing typed proposals, source/target links and graph validation |
-| APR/protection/discovery, fuse/lever, siren/surge, pod/save/sleep | Versioned component definitions, geometry/reference resolver, event/save policies and actual runtime handlers | Visible unsupported status and actual existing references; no gameplay switch |
-| Terrain/path/water physics | Resolution/material/bridge/water/dry-exclusion contracts consumed by runtime | Reversible authoring brushes and diagnostic proposals |
+| Editable refuge | Lossless local scene import, render/collision/service transforms, pipe/light instances and migration | Inspect actual rooms/services/storage/transitions and linked offers |
+| Weighted loot gameplay | Canonical weighted API, seeded draws, persistence, mission guarantees and capacity/overflow policy | Proposal validation/simulation and actual container links |
+| Mission graph execution | Typed evaluator/action registry, persisted random choices/deadlines, retry/death/abandon policies and reward idempotence | Typed proposals, real source/target links and validation |
+| APR/protection/discovery, fuse/lever, siren/surge, pod/save/sleep | Versioned components, geometry/reference resolver and event/save handlers | Unsupported status and actual references; no unused gameplay switch |
+| Edited terrain/path/water physics | Resolution/material/foundation/bridge/water/dry-exclusion contracts consumed by runtime | Reversible authoring brushes, masks and diagnostics |
+| UV/support/prefab extensions | Per-object UV semantics, mesh support faces, instance update/remapped-binding policy | Existing material choices, authored top-face snapping and concrete unbound templates |
 
-No weighted-loot evaluator, mission graph evaluator, or APR/surge/pod/checkpoint/
-fatigue/drowning implementation was found in the inspected PR #83. Its progress
-document explicitly lists these as remaining work. Existing collect/return
-missions and station interactions must not be relabelled as execution of edited
-mission graphs.
+No weighted-loot evaluator, mission graph evaluator or new APR/surge/pod/checkpoint/
+fatigue/drowning authoring implementation was supplied by the accepted runtime.
+Existing collect/return missions and station interactions are not execution of
+edited graphs. See IR-03 through IR-07 in `EDITOR_V2_INTEGRATION_REQUESTS.md` for
+precise producer requests. IR-01 packaging and IR-02's bounded building adapter are
+integrated; those later shared mechanics remain separate work.
 
-The current smallest shared requests remain IR-02, IR-03 and IR-04 in
-`EDITOR_V2_INTEGRATION_REQUESTS.md`. A new field in editor JSON does not satisfy
-these dependencies. The bindings panel therefore exposes read-only source
-references, actionable invalid-reference diagnostics and stable authoring links.
+## Packaging reconciliation
 
-## Final observed successor
-
-A final fetch observed PR83 `e31b72a8ff4096dfd94d74297d190af4426b62dd`. Its added
-fixed-road polygon compilation and renderer/sampling data were inspected; they do
-not compile editable world2 draft paths into gameplay. Its new design notes document
-existing optional binding floor/anchor and roofRise, plus bounded same-floor save
-clearance. None supplies weighted-loot/graph or refuge-component authoring APIs.
-The recorded three-building compatibility run is deliberately still attributed to
-`edffe7b` and exact copied-editor hashes. Neither runtime PR has been merged here.
+The canonical build contains **597 explicit files / 595 cache resources** using
+`field-signal-11.1-editor2.1.2`. The allow-list/import closure retains runtime and
+editor resources without shipping tests, private files or build-only dependencies.
+CI exercises world2, editor2.1 and released11.1 prior-worker fixtures and all five
+workspaces. Exact fresh pass/failure results belong to the progress/testing record
+and current PR checks. This editor branch has not merged or deployed its suite.
