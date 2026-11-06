@@ -16,7 +16,12 @@ export function checkDocument(doc,source){
  if(!next.layers||['terrain','vegetation','buildings','roads','rail','water'].some(k=>typeof next.layers[k]!=='boolean'))throw Error('Invalid layer visibility');
  for(const b of doc.buildings)if(b.offset!==undefined&&!finite(b.offset))throw Error('Invalid foundation offset');
  for(const f of doc.foliage)if(![f.offset===undefined?0:f.offset,f.yaw,...(f.y===undefined?[]:[f.y])].every(finite)||typeof f.locked!=='boolean')throw Error('Invalid foliage transform or lock');
+ const safeId=id=>typeof id==='string'&&id.length<=80&&/^[\w-]+$/.test(id);
+ if(next.foliage.some(f=>!safeId(f.id)))throw Error('Invalid foliage instance ID');
  if(new Set(next.foliage.map(f=>f.id)).size!==next.foliage.length)throw Error('Duplicate foliage instance ID');
+ const paths=[...next.roads,next.rail];
+ if(paths.some(p=>!safeId(p.id)))throw Error('Invalid path ID');
+ if(new Set(paths.map(p=>p.id)).size!==paths.length)throw Error('Duplicate path ID');
  for(const p of [...next.roads,next.rail])if(!finite(p.width)||p.width<.2||p.width>30)throw Error('Path width must be 0.2–30 m');
  return next;
 }

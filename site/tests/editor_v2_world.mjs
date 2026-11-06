@@ -18,4 +18,6 @@ assert.deepEqual(checkDocument(JSON.parse(JSON.stringify(d)),source),d);assert.e
 for(const value of [NaN,Infinity,null]){const bad=clone(d);bad.buildings[0].offset=value;assert.throws(()=>checkDocument(bad,source),/offset/);}
 assert.throws(()=>checkDocument({...d,region:'invented'},source),/region/);
 assert.throws(()=>checkDocument({...d,layers:{...d.layers,terrain:'yes'}},source),/visibility/);
-console.log('PASS 29 editor world authoring constraints: grounding locks, bounds, snapping, paths, regions, JSON and detached invalid edits');
+for(const value of ['',undefined,'<script>','x'.repeat(81)]){const bad=clone(d);bad.foliage[0].id=value;assert.throws(()=>checkDocument(bad,source),/foliage instance ID/);}
+for(const value of [undefined,'bad id','x'.repeat(81),d.rail.id]){const bad=clone(d);bad.roads[0].id=value;assert.throws(()=>checkDocument(bad,source),/path ID/);}
+console.log('PASS 37 editor world authoring constraints: grounding locks, bounds, snapping, paths, regions, JSON and detached invalid edits');
