@@ -1,5 +1,6 @@
 /* Deterministic, reviewable detours preserve building/mission coordinates. */
 import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
 const source=JSON.parse(fs.readFileSync('site/world.json'));
 const inside=(p,r)=>p[0]>r[0]&&p[0]<r[2]&&p[1]>r[1]&&p[1]<r[3];
 function intersects(a,b,r){
@@ -38,8 +39,12 @@ function routing(width){
   return result.map(p=>p.map(n=>+n.toFixed(3)));
  };
 }
+// Retain the reviewed conservative detour clearance. The surface compiler uses
+// the actual visual widths: 3.5 m dirt (0/>3), 5.4 m asphalt (1–3).
 const roads=source.roads.map((p,i)=>routing(i===0?3.5:5.4)(p));
 const rail=routing(2.2)(source.rail.route);
 const output={format:'field-signal-campaign-routes/1',version:1,sourceRevision:'6b4f9fb9401398a65eee576f40b2d80805ef6c76',policy:'Preserve building, container and mission IDs/coordinates. Detour existing path indices around expanded footprints.',roads,rail};
-fs.writeFileSync('site/campaign-routes.json',JSON.stringify(output,null,2)+'\n');
-console.log(`Compiled ${roads.length} roads and ${rail.length} rail nodes without building intersections`);
+const compiled=execFileSync('python3',['tools/compile_campaign_road_surfaces.py','--source','site/world.json','--stdin'],{input:JSON.stringify(output),encoding:'utf8',maxBuffer:8*1024*1024});
+const final=JSON.parse(compiled); // Do not replace good committed data if generation fails.
+fs.writeFileSync('site/campaign-routes.json',JSON.stringify(final,null,2)+'\n');
+console.log(`Compiled ${roads.length} roads, ${rail.length} rail nodes and ${final.surfaceCompilation.polygonCount} surface polygons without building intersections`);

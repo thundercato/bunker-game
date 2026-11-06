@@ -51,7 +51,7 @@ export function assignSearchProps(source,catalogue) {
 export function applyCampaignSource(source,{districts,props,interiors=[],sourceRevision,routes=null,spawns=null}) {
  if(source.editorLayout)return source;
  let world=clone(source);
- if(routes){if(routes.format!=='field-signal-campaign-routes/1'||routes.roads.length!==source.roads.length)throw Error('Invalid candidate routes');world.roads=clone(routes.roads);world.rail.route=clone(routes.rail);}
+ if(routes){if(routes.format!=='field-signal-campaign-routes/1'||routes.roads.length!==source.roads.length||!Array.isArray(routes.surfaces?.asphalt)||!Array.isArray(routes.surfaces?.dirt))throw Error('Invalid candidate routes or road surfaces');world.roads=clone(routes.roads);world.roadsUnified=clone(routes.surfaces);world.rail.route=clone(routes.rail);}
  const geometry=compileDistricts(districts);
  if(spawns){if(spawns.format!=='field-signal-campaign-spawns/1')throw Error('Invalid spawn adjustments');for(const a of spawns.adjustments){const e=world.enemies.find(e=>e.id===a.id);if(!e||![...a.from,...a.to].every(finite)||Math.hypot(e.x-a.from[0],e.z-a.from[1])>.01)throw Error('Spawn source mismatch');e.x=a.to[0];e.z=a.to[1];}world.campaignSpawnAdjustments=clone(spawns.adjustments);}
  for(const district of districts.districts)for(const object of district.objects)for(const binding of object.containerBindings||[]){
