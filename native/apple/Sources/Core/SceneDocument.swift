@@ -102,7 +102,7 @@ public struct SceneDocument: Codable, Sendable {
         }
         func pose(_ p: Vec3, _ size: Vec3, _ yaw: Double) -> Bool {
             p.isFinite && size.isFinite && yaw.isFinite && size.x > 0 && size.y > 0 && size.z > 0 &&
-            max(abs(p.x), abs(p.y), abs(p.z)) < 10_000 && max(size.x, size.y, size.z) < 1000
+            max(abs(p.x), max(abs(p.y), abs(p.z))) < 10_000 && max(size.x, max(size.y, size.z)) < 1000
         }
         try require(format == "field-signal-native-scene" && version == 1, "Unsupported native scene version.")
         try require(source.revision.range(of: "^[a-f0-9]{40}$", options: .regularExpression) != nil, "Invalid pinned source revision.")

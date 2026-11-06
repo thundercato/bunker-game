@@ -16,6 +16,14 @@ final class NativeSmokeTests: XCTestCase {
         image.lifetime = .keepAlways
         add(image)
         #if os(iOS)
+        app.buttons["native.interact"].tap()
+        let opened = NSPredicate(format: "label BEGINSWITH %@", "Opened ")
+        expectation(for: opened, evaluatedWith: app.staticTexts["native.status"])
+        waitForExpectations(timeout: 5)
+        let doorImage = XCTAttachment(screenshot: app.screenshot())
+        doorImage.name = "Cottage door opened through native touch UI"
+        doorImage.lifetime = .keepAlways
+        add(doorImage)
         app.buttons["native.torch"].tap()
         app.buttons["native.inventory"].tap()
         XCTAssertTrue(app.buttons["native.inventory.close"].waitForExistence(timeout: 5))
@@ -23,11 +31,15 @@ final class NativeSmokeTests: XCTestCase {
         app.buttons["native.pause"].tap()
         XCTAssertTrue(app.buttons["native.resume"].waitForExistence(timeout: 5))
         app.buttons["native.resume"].tap()
+        expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: app.buttons["native.resume"])
+        waitForExpectations(timeout: 5)
         #elseif os(tvOS)
         XCUIRemote.shared.press(.menu)
         XCTAssertTrue(app.buttons["native.resume"].waitForExistence(timeout: 5))
         XCUIRemote.shared.press(.menu)
-        XCTAssertTrue(app.staticTexts["native.status"].waitForExistence(timeout: 5))
+        expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: app.buttons["native.resume"])
+        waitForExpectations(timeout: 5)
+        XCTAssertTrue(app.staticTexts["native.status"].exists)
         #endif
     }
 }

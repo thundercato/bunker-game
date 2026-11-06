@@ -22,3 +22,47 @@ own native-only persistence namespace.
 Work in progress: source, portable conversion tests, reproducible Xcode project,
 unsigned iPad/tvOS simulator CI, and Mac continuation instructions. No successful
 Apple compilation or device test is claimed by this initial checkpoint.
+
+## Recoverable source checkpoints
+
+- `2d1ce05`: baseline/isolation record.
+- `b606d7b`: first native scene, Swift Core, SwiftUI/SceneKit renderer and macOS CI.
+- `08e5867`: deterministic conversion tests, real imported-scene route test,
+  explicit native checkpoint UI, TV input ownership and texture rendering.
+
+PR: https://github.com/thundercato/bunker-game/pull/87 (no merge or release).
+The export contains 25 unique asset meshes / 15,952 unique triangles and
+2,336,597 resource bytes, 97 objects, 90 colliders and seven interactions
+(two doors, four containers, one loose surface). The actual scene uses the
+campaign interior factory, not a separately rebuilt cottage layout. Source GLBs
+retain registry hashes; original-composite search recipes are explicitly identified
+in provenance. Only diffuse maps and vertex colours are imported.
+
+Portable verification on the Linux cloud worker:
+
+- `node native/apple/Tools/test_pipeline.mjs`: 8 checks passed.
+- `node native/apple/Tools/convert_scene.mjs --check`: reproducible resources.
+- `python3 native/apple/Tools/generate_project.py --check`: reproducible project.
+- Python compile and bash syntax checks for native tooling passed.
+- Existing browser domain suite: 165 tests ran, OK with 5 existing skips.
+- Existing world-document suite: 57 passed; layout suite: 54 passed;
+  world-preview pure suite passed; `python3 tools/build.py`: 561 files built.
+
+These tests do not establish physical-device performance or native Apple
+compilation. This Linux worker has no Swift/Xcode installation; actual Apple
+results are supplied by Actions below. The web verification was read-only and did
+not alter source runtime, campaign/editor saves or the Pages workflow.
+
+Early CI checkpoint: push run 42303666577 was superseded by the PR event;
+PR run 42303709125 reached Xcode 26.6 and successful resource conversion, but its
+iPad pipeline step referred to `test_pipeline.mjs` before that file was committed.
+The file is included in 08e5867. Superseded runs are not green build evidence.
+
+[Run 42303844459](https://github.com/thundercato/bunker-game/actions/runs/42303844459)
+compiled both targets with Xcode 26.6 / iOS and tvOS 26.5 SDKs and exposed the same
+real source error: the `SCNView` options dictionary imported keys as String,
+so `.preferredRenderingAPI` failed to resolve (with two cascading type-inference
+errors). The fix uses `SCNView(frame: .zero)`, whose supported native backend is
+Metal, rather than an incorrectly inferred options key. Neither job passed at
+this checkpoint. Logs became accessible through `gh run view --log-failed` after
+the run completed; direct Azure artifact redirects initially returned 403.

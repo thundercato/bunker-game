@@ -60,7 +60,7 @@ available iPad or Apple TV UDID running OS 26 or newer, runs the XCTest model an
 UI suites with `xcodebuild test`, and separately installs and launches the native
 app with `simctl`. Missing compatible runtimes fail explicitly. The UI suite waits
 for the native scene and attaches a screenshot. iPad UI checks also open the
-inventory, toggle the torch, and pause/resume. The Apple TV UI check establishes
+inventory, open the cottage door through touch UI, toggle the torch, and pause/resume. The Apple TV UI check establishes
 launch and uses the simulated remote Menu command to pause/resume. It does not
 establish real controller input.
 
@@ -92,12 +92,10 @@ is needed for this phase.
 ## GitHub Actions evidence
 
 [apple-native-prototype.yml](../../.github/workflows/apple-native-prototype.yml)
-runs on `macos-latest` for native branch pushes, native-source PR changes and
-manual dispatch. It selects the highest installed Xcode >=26 and records the
+runs on `macos-latest` for native-source PR changes and manual dispatch. It selects the highest installed Xcode >=26 and records the
 actual macOS version, developer directory, Xcode version, SDKs, simulator runtimes
 and devices. iPad and TV jobs run independently; one target failure does not hide
-the other. Push and PR events share a branch concurrency group to avoid duplicate
-long-running matrix jobs.
+the other. PR updates share a branch concurrency group so superseded runs are cancelled.
 
 Each platform's artifact retains:
 

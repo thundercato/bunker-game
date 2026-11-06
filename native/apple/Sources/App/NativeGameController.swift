@@ -73,7 +73,7 @@ final class NativeGameController: NSObject, ObservableObject {
         guard let game, let rendering else { return }
         let dt = min(0.05, previousTime == 0 ? 1.0 / 60.0 : link.timestamp - previousTime)
         previousTime = link.timestamp
-        if let pad = gamepad {
+        if !inactive, let pad = gamepad {
             #if os(tvOS)
             // SwiftUI owns focused menu activation and Back. Exploration has no
             // focusable buttons, so a physical A press reaches only this path.
@@ -138,14 +138,27 @@ final class NativeGameController: NSObject, ObservableObject {
     func toggleInventory() {
         guard !inactive, !paused else { return }
         game?.toggleInventory()
+        rememberHeldButtons()
         touchMove = .zero
         refresh()
     }
     func setPaused(_ value: Bool) {
         game?.setPaused(value)
+        rememberHeldButtons()
         touchMove = .zero
         pendingLook = .zero
         refresh()
+    }
+    private func rememberHeldButtons() {
+        guard let pad = gamepad else { return }
+        // A used to activate a native Resume button must not also interact with
+        // the world on the first resumed frame. Require a fresh press.
+        let states = [("interact", pad.buttonA.isPressed), ("torch", pad.buttonX.isPressed),
+                      ("inventory", pad.buttonY.isPressed), ("menu", pad.buttonMenu.isPressed),
+                      ("back", pad.buttonB.isPressed)]
+        for (id, down) in states {
+            if down { buttonsHeld.insert(id) } else { buttonsHeld.remove(id) }
+        }
     }
     func sceneActive(_ value: Bool) {
         inactive = !value

@@ -217,6 +217,8 @@ final class NativeScene {
             "metal": UIColor(red: 0.29, green: 0.33, blue: 0.31, alpha: 1),
             "roof": UIColor(red: 0.23, green: 0.25, blue: 0.23, alpha: 1),
             "copper": UIColor(red: 0.68, green: 0.39, blue: 0.15, alpha: 1),
+            "earth": UIColor(red: 0.25, green: 0.29, blue: 0.19, alpha: 1),
+            "gravel": UIColor(red: 0.37, green: 0.35, blue: 0.29, alpha: 1),
             "grass": UIColor(red: 0.24, green: 0.29, blue: 0.18, alpha: 1)
         ]
         let result = SCNMaterial()

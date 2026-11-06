@@ -66,6 +66,7 @@ def source_phase(name, refs):
 
 app_files = file_refs(sorted((ROOT / 'Sources').rglob('*.swift')))
 core_files = [ref('file:' + p.relative_to(ROOT).as_posix()) for p in sorted((ROOT / 'Sources/Core').rglob('*.swift'))]
+render_files = [ref('file:' + p.relative_to(ROOT).as_posix()) for p in sorted((ROOT / 'Sources/Rendering').rglob('*.swift'))]
 test_files = file_refs(sorted((ROOT / 'Tests').rglob('*.swift')))
 ui_files = file_refs(sorted((ROOT / 'UITests').rglob('*.swift')))
 resource = add('Resources', 'PBXFileReference', lastKnownFileType='folder', path='Resources', sourceTree='<group>')
@@ -85,7 +86,7 @@ for platform, sdk, deployment, family in [('iPad', 'iphoneos', 'IPHONEOS_DEPLOYM
         product = add(name + 'Product', 'PBXFileReference', explicitFileType='wrapper.application' if index == 0 else 'wrapper.cfbundle',
                       includeInIndex=0, path=name + '.' + ext, sourceTree='BUILT_PRODUCTS_DIR')
         products.append(product)
-        sources = app_files if index == 0 else core_files + test_files if index == 1 else ui_files
+        sources = app_files if index == 0 else core_files + render_files + test_files if index == 1 else ui_files
         phases = [source_phase(name, sources)]
         if index < 2:
             built_resource = add(name + 'ResourceFile', 'PBXBuildFile', fileRef=resource)

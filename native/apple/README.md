@@ -20,6 +20,27 @@ Node modules. No signing identity, developer account or paid service is required
 for simulator builds. Generated resources and the Xcode project are checked in so
 Xcode can open the project directly.
 
+## Play the slice
+
+On iPad, drag the left circular pad to move and the right half of the screen to
+look. Use the labelled action to open the cottage door. Search a cupboard, then
+interact again to collect its supplies. The Inventory button opens the native
+pack, and Torch toggles the camera-mounted spotlight. Go through the inner door,
+return to the entrance hall and climb the stairs on the right to the upper floor.
+The copper coil on the table is a collectable native fixture.
+
+With an extended gamepad, left stick moves, right stick looks, A interacts,
+X toggles the torch and Y opens inventory. Menu/Back opens or closes native menus;
+focused menu buttons use the platform's native activation. Apple TV exploration
+requires a gamepad; the simulated remote tests only establish menu navigation.
+Disconnecting a controller or backgrounding the app pauses the session.
+
+Pause and choose **Save native checkpoint** to keep this experiment's position,
+doors and collected inventory. The next launch continues that separate checkpoint.
+UI tests use `--uitesting` to start a fresh session without loading or writing it.
+These checkpoint rules are specific to the experiment; they do not implement or
+replace the future browser campaign save design.
+
 ## Scope
 
 This is a playable technology experiment, not a port of the full survival engine.

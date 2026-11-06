@@ -4,11 +4,6 @@ on:
     paths:
       - 'native/apple/**'
       - '.github/workflows/apple-native-prototype.yml'
-  push:
-    branches: ['codex/apple-native-prototype']
-    paths:
-      - 'native/apple/**'
-      - '.github/workflows/apple-native-prototype.yml'
   workflow_dispatch:
 permissions:
   contents: read

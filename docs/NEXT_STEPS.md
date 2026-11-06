@@ -218,3 +218,13 @@ The PR/Pages checks record the eventual merge/deployment and public-link proof.
 priority: world audit, flagship playable region and structured/3D journal slices,
 using the completed M1 foundation. See `MEGA_BUILD_PROGRESS.md`. Target-device
 review remains needed; do not repeat M0/M1 or claim full-map integration.
+
+## Separate native Apple experiment — 6 November 2026
+
+A dedicated `codex/apple-native-prototype` branch starts from `25cd697`.
+This does not change the web/editor roadmap or make their in-progress branches
+obsolete. The bounded prototype reuses the Forester’s cottage through the existing
+world compiler; Swift gameplay and native rendering are isolated under
+`native/apple/`. See `native-apple/PROGRESS.md` for checkpoints and actual CI
+results, and `native-apple/MAC_HANDOFF.md` for continuation using Codex Local.
+Simulator verification and physical-device acceptance remain distinct.

@@ -17,7 +17,8 @@ struct FieldSignalApp: App {
 private struct NativeSceneView: UIViewRepresentable {
     let scene: NativeScene
     func makeUIView(context: Context) -> SCNView {
-        let view = SCNView(frame: .zero, options: [.preferredRenderingAPI: SCNRenderingAPI.metal.rawValue])
+        // SceneKit selects Metal on the supported iPadOS/tvOS 26 platforms.
+        let view = SCNView(frame: .zero)
         view.scene = scene.scene
         view.pointOfView = scene.camera
         view.isPlaying = true

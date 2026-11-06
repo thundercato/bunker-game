@@ -1,25 +1,94 @@
-# Later local MacBook/Codex handover
+# Continue this prototype on Adam’s MacBook
 
-This file is a template to be completed by the cloud-native task. The presence of this document is NOT evidence that any native application has compiled.
+Continue the existing branch and PR; the cloud implementation is recoverable from
+GitHub without this workspace. This is an independent experiment, not a replacement
+for the browser game or editor. Read [PROGRESS.md](PROGRESS.md) for exact compilation
+and test results and [BUILD_AND_TEST.md](BUILD_AND_TEST.md) for build details.
 
-## Before you start on the Mac
-- Clone or update https://github.com/thundercato/bunker-game, fetch the native Apple experiment PR, and verify its exact branch/commit.
-- Install compatible Xcode and the required iPadOS/tvOS simulator runtimes in Xcode Settings if needed.
-- Launch Codex in Local or Worktree mode, not Cloud, so it can use this Mac's files/Xcode. Do not restart from a blank project or touch unrelated game/editor branches.
-- Follow native/apple/README.md and BUILD_AND_TEST.md; first compile unsigned simulator builds and run tests in Xcode.
-- Then, if devices are available, use proper signing/provisioning in Xcode to test on physical iPad/Apple TV. Real hardware measurements and controllers are required before claiming native performance improvements.
-- Code signing, Apple account, TestFlight and App Store Connect are separate actions requiring Adam's explicit permission. Never commit signing assets or passwords.
+## Get the same work
 
-## Local Codex prompt
-Continue the Field Signal native Apple experiment from the PR branch in thundercato/bunker-game, on this physical Mac using Codex Local or a separate Worktree. Read docs/native-apple/CLOUD_FIRST_README.md, native/apple/README.md, BUILD_AND_TEST.md and the current PR/CI logs. Check Xcode/SDK versions. Build both existing simulator schemes, run tests, fix actual Mac/RealityKit issues without touching the web release. Request consent before real-device signing, installing or TestFlight; report actual device results and preserve all changes in GitHub.
+Use Codex **Local** in the repository or a separate worktree on the Mac, with Xcode
+26 or newer installed. The branch is `codex/apple-native-prototype`; review is
+[PR #87](https://github.com/thundercato/bunker-game/pull/87). Do not check out or
+replace the concurrent editor branch. In a fresh clone:
 
-## Cloud agent: fill this section before handoff
-- Branch / commit / PR:
-- iPad scheme / actual build result:
-- tvOS scheme / actual build result:
-- Xcode / macOS runner / installed SDKs:
-- Simulator test/launch results:
-- CI URL and saved artifacts:
-- World revision and asset conversion manifest:
-- Known source/render/input limitations:
-- Exact first commands to run on Adam's Mac:
+```sh
+git clone https://github.com/thundercato/bunker-game.git
+cd bunker-game
+git fetch origin codex/apple-native-prototype
+git switch --track origin/codex/apple-native-prototype
+xcodebuild -version
+xcodebuild -showsdks
+xcrun simctl list devices available
+node native/apple/Tools/convert_scene.mjs --check
+node native/apple/Tools/test_pipeline.mjs
+python3 native/apple/Tools/generate_project.py --check
+bash native/apple/Tools/ci_build.sh ipad
+bash native/apple/Tools/ci_build.sh tv
+open native/apple/FieldSignal.xcodeproj
+```
+
+For an existing dirty checkout, preserve it and create a separate worktree rather
+than running a forced switch/reset. If necessary, select the installed Xcode in
+Xcode Settings / Locations (or set `DEVELOPER_DIR` for these commands). Install
+iOS/iPadOS 26+ and tvOS 26+ simulator runtimes in Xcode Settings / Components if
+missing. The scripts report a missing runtime explicitly; no provisioning profile
+is needed. Select **FieldSignaliPad** or **FieldSignalTV**, choose a simulator and
+Run. `cd native/apple && swift test` separately runs the portable model tests.
+
+## Continue, rather than restart
+
+The project generator is `native/apple/Tools/generate_project.py`, using Python’s
+standard library and stable IDs. Add files under Sources/Tests/UITests and regenerate.
+The existing world/compiler inputs and asset notices are pinned in
+`native/apple/Tools/source-lock.json`; conversion details and the exported contract
+are in `native/apple/Tools/README.md`. Do not casually refresh hashes to silence a
+source mismatch: review changed canonical content and deliberately rebase the
+native export. All resource poses are already in world space.
+
+Swift Core is renderer independent. SwiftUI owns menus; SceneKit owns the genuine
+native 3D view and camera spotlight. GameController provides extended gamepad input.
+SceneKit remains available but is deprecated in Apple 26 SDKs; see
+`native/apple/FRAMEWORK_DECISION.md` before evaluating a RealityKit follow-up. A
+renderer replacement must preserve the existing geometry/interaction tests.
+
+The native-only save domain is `org.fieldsignal.native.prototype.v1`, with key
+`native-scene-checkpoint-v1`. Pause / Save native checkpoint is explicit. UI tests
+use `--uitesting` to avoid real checkpoints. No web campaign or editor storage is
+read, migrated or cleared.
+
+## First local acceptance work
+
+Inspect the actual simulator output and walk the cottage with touch simulation
+and a connected controller: entrance and inner doors, furniture clearance, upstairs
+landing, descent, search/collect once, table coil disappearance, torch, inventory,
+pause/resume, controller reconnect and checkpoint relaunch. Check TV focus and
+Back/Menu, including returning from menus without an accidental action. Keep
+simulator control tests separate from real hardware evidence.
+
+The imported garden is a bounded flat approach, not the campaign terrain. Loot is
+a deterministic three-item fixture, not the browser survival/mission/loot engine.
+Only diffuse maps and vertex colours are imported; full PBR maps, animated furniture,
+audio, combat, missions, terrain and a complete port are future work. Door leaves
+animate but open-door collision is a simplified passable doorway. No sustained
+frame-rate, thermal, memory or battery claim is established by a simulator.
+
+After simulator review, physical iPad and Apple TV checks should measure controller
+recognition, TV readability/focus, touch look sensitivity, loading, asset/material
+appearance, frame times, memory and sustained thermals. Compare the same scene
+against the browser game before recommending a full port. Device signing,
+provisioning and distribution require Adam’s separate approval and secure Apple
+developer setup. Never commit signing assets. Do not merge, publish or upload to
+TestFlight without approval.
+
+## Prompt for Codex Local
+
+> Continue PR #87 on `codex/apple-native-prototype` in this Mac checkout or an
+> isolated worktree. Read root/native AGENTS, docs/native-apple/PROGRESS.md,
+> BUILD_AND_TEST.md, MAC_HANDOFF.md and native/apple/README.md. Preserve the web
+> game, editor and concurrent branches. Reproduce the unsigned simulator builds
+> and tests with installed Xcode 26+, inspect screenshots, then test the actual
+> playable route and controller/menu behaviour. Fix real issues in this branch,
+> regenerate the project/assets when needed and checkpoint changes. Distinguish
+> simulator evidence from physical-device results. Do not sign, merge, publish
+> or upload to TestFlight without my approval.
