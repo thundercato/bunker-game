@@ -1,3 +1,9 @@
+## Full World Editor v2 (authoring preview)
+
+[Open the full map](https://thundercato.github.io/bunker-game/editor/world.html) · [Read scope and limitations](docs/WORLD_EDITOR_V2.md)
+
+Terrain sculpting, foliage painting, building placement, road/rail path nodes, water volumes, layers and local drafts. **These edits do not yet change the playable game.** Export JSON for reviewed integration. The existing building editor and game remain available.
+
 ## World Editor
 
 [Open the desktop editor](https://thundercato.github.io/bunker-game/editor/) · [Editor guide](docs/WORLD_EDITOR.md) · [Editor roadmap](docs/EDITOR_ROADMAP.md)
