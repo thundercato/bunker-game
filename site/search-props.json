@@ -1,0 +1,5165 @@
+{
+  "schema": "field-signal-search-props",
+  "version": 1,
+  "units": "metres",
+  "front": "+Z",
+  "coordinateSystem": "bottom-centre; +Y up",
+  "notes": "Visual variants only. Existing container IDs, loot profiles, saved contents, capacities and mission bindings remain authoritative. Bind editor instances with binding.type=container and the existing stable container ID.",
+  "props": [
+    {
+      "id": "search_wall_cupboard",
+      "name": "Single wall cupboard",
+      "category": "cabinet",
+      "profile": "cupboard",
+      "dimensions": [
+        0.72,
+        0.85,
+        0.38
+      ],
+      "rooms": [
+        "kitchen",
+        "storeroom"
+      ],
+      "mount": "wall",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cabinet",
+        "wall": true,
+        "doors": 1,
+        "shelves": 2,
+        "palette": "cream"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.4675,
+          0.27
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.72,
+          0.85,
+          0.38
+        ],
+        "offset": [
+          0,
+          0.425,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_wall_cupboard",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_double_wall_cupboard",
+      "name": "Double wall cupboard",
+      "category": "cabinet",
+      "profile": "cupboard",
+      "dimensions": [
+        1.08,
+        0.8,
+        0.38
+      ],
+      "rooms": [
+        "kitchen",
+        "canteen"
+      ],
+      "mount": "wall",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cabinet",
+        "wall": true,
+        "doors": 2,
+        "shelves": 2,
+        "palette": "cream"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.44000000000000006,
+          0.27
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.08,
+          0.8,
+          0.38
+        ],
+        "offset": [
+          0,
+          0.4,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_double_wall_cupboard",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_glazed_wall_cabinet",
+      "name": "Glazed crockery cabinet",
+      "category": "cabinet",
+      "profile": "cupboard",
+      "dimensions": [
+        0.9,
+        0.94,
+        0.4
+      ],
+      "rooms": [
+        "kitchen",
+        "canteen"
+      ],
+      "mount": "wall",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cabinet",
+        "wall": true,
+        "doors": 2,
+        "shelves": 3,
+        "glazed": true,
+        "palette": "oak"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.517,
+          0.28
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.9,
+          0.94,
+          0.4
+        ],
+        "offset": [
+          0,
+          0.47,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_glazed_wall_cabinet",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_corner_wall_cabinet",
+      "name": "Corner wall cupboard",
+      "category": "cabinet",
+      "profile": "cupboard",
+      "dimensions": [
+        0.72,
+        0.9,
+        0.55
+      ],
+      "rooms": [
+        "kitchen"
+      ],
+      "mount": "wall",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cabinet",
+        "wall": true,
+        "doors": 1,
+        "corner": true,
+        "shelves": 2,
+        "palette": "cream"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.35500000000000004
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.72,
+          0.9,
+          0.55
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_corner_wall_cabinet",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_utility_cabinet",
+      "name": "Utility cupboard",
+      "category": "cabinet",
+      "profile": "cupboard",
+      "dimensions": [
+        0.8,
+        1.2,
+        0.5
+      ],
+      "rooms": [
+        "storeroom",
+        "workshop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cabinet",
+        "doors": 2,
+        "shelves": 3,
+        "plinth": true,
+        "palette": "blue"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.66,
+          0.33
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.8,
+          1.2,
+          0.5
+        ],
+        "offset": [
+          0,
+          0.6,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_utility_cabinet",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_sideboard",
+      "name": "Dining sideboard",
+      "category": "cabinet",
+      "profile": "drawers",
+      "dimensions": [
+        1.35,
+        0.9,
+        0.47
+      ],
+      "rooms": [
+        "living",
+        "canteen"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cabinet",
+        "doors": 2,
+        "drawers": 2,
+        "feet": true,
+        "crown": true,
+        "palette": "oak"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.315
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.35,
+          0.9,
+          0.47
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_sideboard",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_bedside_drawers",
+      "name": "Bedside two drawer stand",
+      "category": "drawers",
+      "profile": "drawers",
+      "dimensions": [
+        0.48,
+        0.58,
+        0.42
+      ],
+      "rooms": [
+        "bedroom",
+        "refuge"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "drawers",
+        "rows": 2,
+        "feet": true,
+        "palette": "oak"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.319,
+          0.29
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.48,
+          0.58,
+          0.42
+        ],
+        "offset": [
+          0,
+          0.29,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_bedside_drawers",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_chest_drawers",
+      "name": "Chest of drawers",
+      "category": "drawers",
+      "profile": "drawers",
+      "dimensions": [
+        0.85,
+        1.05,
+        0.48
+      ],
+      "rooms": [
+        "bedroom",
+        "living"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "drawers",
+        "rows": 4,
+        "feet": true,
+        "palette": "oak"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.5775000000000001,
+          0.32
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.85,
+          1.05,
+          0.48
+        ],
+        "offset": [
+          0,
+          0.525,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_chest_drawers",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_wide_dresser",
+      "name": "Wide bedroom dresser",
+      "category": "drawers",
+      "profile": "drawers",
+      "dimensions": [
+        1.35,
+        0.9,
+        0.5
+      ],
+      "rooms": [
+        "bedroom"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "drawers",
+        "rows": 3,
+        "columns": 2,
+        "feet": true,
+        "palette": "oak"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.33
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.35,
+          0.9,
+          0.5
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_wide_dresser",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_apothecary_drawers",
+      "name": "Apothecary specimen drawers",
+      "category": "drawers",
+      "profile": "medical",
+      "dimensions": [
+        1.1,
+        1.05,
+        0.44
+      ],
+      "rooms": [
+        "clinic",
+        "laboratory"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "drawers",
+        "rows": 6,
+        "columns": 4,
+        "labels": true,
+        "palette": "oak"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.5775000000000001,
+          0.3
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.1,
+          1.05,
+          0.44
+        ],
+        "offset": [
+          0,
+          0.525,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_apothecary_drawers",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_card_index",
+      "name": "Card index cabinet",
+      "category": "drawers",
+      "profile": "drawers",
+      "dimensions": [
+        0.74,
+        0.86,
+        0.42
+      ],
+      "rooms": [
+        "office",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "drawers",
+        "rows": 5,
+        "columns": 3,
+        "labels": true,
+        "palette": "olive"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.47300000000000003,
+          0.29
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.74,
+          0.86,
+          0.42
+        ],
+        "offset": [
+          0,
+          0.43,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "olive",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_card_index",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_wardrobe_single",
+      "name": "Single wardrobe",
+      "category": "wardrobe",
+      "profile": "locker",
+      "dimensions": [
+        0.8,
+        1.95,
+        0.6
+      ],
+      "rooms": [
+        "bedroom",
+        "refuge"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "wardrobe",
+        "doors": 1,
+        "rail": true,
+        "feet": true,
+        "palette": "oak"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.8,
+          1.95,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.975,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_wardrobe_single",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_wardrobe_double",
+      "name": "Double wardrobe",
+      "category": "wardrobe",
+      "profile": "locker",
+      "dimensions": [
+        1.2,
+        2.0,
+        0.62
+      ],
+      "rooms": [
+        "bedroom"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "wardrobe",
+        "doors": 2,
+        "rail": true,
+        "topShelf": true,
+        "feet": true,
+        "palette": "oak"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.39
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.2,
+          2.0,
+          0.62
+        ],
+        "offset": [
+          0,
+          1.0,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_wardrobe_double",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_linen_press",
+      "name": "Louvred linen press",
+      "category": "wardrobe",
+      "profile": "cupboard",
+      "dimensions": [
+        0.95,
+        1.8,
+        0.54
+      ],
+      "rooms": [
+        "bedroom",
+        "bathroom"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "wardrobe",
+        "doors": 2,
+        "louvres": true,
+        "shelves": 4,
+        "palette": "cream"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.35000000000000003
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.95,
+          1.8,
+          0.54
+        ],
+        "offset": [
+          0,
+          0.9,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_linen_press",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_broom_cupboard",
+      "name": "Broom cupboard",
+      "category": "wardrobe",
+      "profile": "workshop",
+      "dimensions": [
+        0.65,
+        1.85,
+        0.5
+      ],
+      "rooms": [
+        "kitchen",
+        "workshop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "wardrobe",
+        "doors": 1,
+        "divider": true,
+        "rail": true,
+        "palette": "blue"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.33
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.65,
+          1.85,
+          0.5
+        ],
+        "offset": [
+          0,
+          0.925,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_broom_cupboard",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_writing_desk",
+      "name": "Writing desk with drawer",
+      "category": "desk",
+      "profile": "drawers",
+      "dimensions": [
+        1.15,
+        0.79,
+        0.6
+      ],
+      "rooms": [
+        "bedroom",
+        "office"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "desk",
+        "pedestals": 0,
+        "rows": 1,
+        "palette": "oak"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.43450000000000005,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.15,
+          0.79,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.395,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_writing_desk",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_pedestal_desk",
+      "name": "Single pedestal desk",
+      "category": "desk",
+      "profile": "drawers",
+      "dimensions": [
+        1.35,
+        0.8,
+        0.65
+      ],
+      "rooms": [
+        "office",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "desk",
+        "pedestals": 1,
+        "rows": 3,
+        "palette": "oak"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.44000000000000006,
+          0.405
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.35,
+          0.8,
+          0.65
+        ],
+        "offset": [
+          0,
+          0.4,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_pedestal_desk",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_office_desk",
+      "name": "Twin pedestal office desk",
+      "category": "desk",
+      "profile": "drawers",
+      "dimensions": [
+        1.6,
+        0.8,
+        0.72
+      ],
+      "rooms": [
+        "office",
+        "military"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "desk",
+        "pedestals": 2,
+        "rows": 3,
+        "palette": "olive"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.44000000000000006,
+          0.44
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.6,
+          0.8,
+          0.72
+        ],
+        "offset": [
+          0,
+          0.4,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "olive",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_office_desk",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_rolltop_desk",
+      "name": "Roll top clerk desk",
+      "category": "desk",
+      "profile": "drawers",
+      "dimensions": [
+        1.2,
+        1.14,
+        0.67
+      ],
+      "rooms": [
+        "office",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "desk",
+        "pedestals": 1,
+        "rows": 2,
+        "rolltop": true,
+        "palette": "oak"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.627,
+          0.41500000000000004
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.2,
+          1.14,
+          0.67
+        ],
+        "offset": [
+          0,
+          0.57,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_rolltop_desk",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_kitchen_base",
+      "name": "Kitchen base cupboard",
+      "category": "kitchen",
+      "profile": "cupboard",
+      "dimensions": [
+        0.9,
+        0.9,
+        0.6
+      ],
+      "rooms": [
+        "kitchen",
+        "canteen"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "kitchen",
+        "doors": 2,
+        "counter": true,
+        "palette": "cream"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.9,
+          0.9,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_kitchen_base",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_kitchen_drawers",
+      "name": "Kitchen drawer base",
+      "category": "kitchen",
+      "profile": "drawers",
+      "dimensions": [
+        0.6,
+        0.9,
+        0.6
+      ],
+      "rooms": [
+        "kitchen",
+        "canteen"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "drawers",
+        "rows": 3,
+        "counter": true,
+        "plinth": true,
+        "palette": "cream"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.6,
+          0.9,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_kitchen_drawers",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_kitchen_pantry",
+      "name": "Tall pantry cupboard",
+      "category": "kitchen",
+      "profile": "cupboard",
+      "dimensions": [
+        0.7,
+        1.95,
+        0.6
+      ],
+      "rooms": [
+        "kitchen",
+        "canteen"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cabinet",
+        "doors": 2,
+        "stacked": true,
+        "shelves": 5,
+        "plinth": true,
+        "palette": "cream"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.7,
+          1.95,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.975,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_kitchen_pantry",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_sink_unit",
+      "name": "Kitchen sink cupboard",
+      "category": "sink",
+      "profile": "cupboard",
+      "dimensions": [
+        1.1,
+        0.93,
+        0.62
+      ],
+      "rooms": [
+        "kitchen",
+        "canteen"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "sink",
+        "doors": 2,
+        "basins": 1,
+        "drainer": true,
+        "palette": "cream"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.5115000000000001,
+          0.39
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.1,
+          0.93,
+          0.62
+        ],
+        "offset": [
+          0,
+          0.465,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_sink_unit",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_double_sink",
+      "name": "Double basin wash unit",
+      "category": "sink",
+      "profile": "cupboard",
+      "dimensions": [
+        1.3,
+        0.95,
+        0.64
+      ],
+      "rooms": [
+        "kitchen",
+        "workshop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "sink",
+        "doors": 2,
+        "basins": 2,
+        "palette": "stainless"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.5225,
+          0.4
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.3,
+          0.95,
+          0.64
+        ],
+        "offset": [
+          0,
+          0.475,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "stainless",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_double_sink",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_gas_cooker",
+      "name": "Four ring gas cooker",
+      "category": "cooker",
+      "profile": "cupboard",
+      "dimensions": [
+        0.62,
+        0.92,
+        0.6
+      ],
+      "rooms": [
+        "kitchen",
+        "canteen"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cooker",
+        "gas": true,
+        "palette": "cream"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.5060000000000001,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.62,
+          0.92,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.46,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_gas_cooker",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_electric_cooker",
+      "name": "Solid hob electric cooker",
+      "category": "cooker",
+      "profile": "cupboard",
+      "dimensions": [
+        0.62,
+        0.9,
+        0.62
+      ],
+      "rooms": [
+        "kitchen",
+        "refuge"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cooker",
+        "gas": false,
+        "palette": "white"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.39
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.62,
+          0.9,
+          0.62
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "white",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_electric_cooker",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_tall_fridge",
+      "name": "Two compartment refrigerator",
+      "category": "fridge",
+      "profile": "cupboard",
+      "dimensions": [
+        0.66,
+        1.75,
+        0.65
+      ],
+      "rooms": [
+        "kitchen",
+        "clinic"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "fridge",
+        "compartments": 2,
+        "palette": "white"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.405
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.66,
+          1.75,
+          0.65
+        ],
+        "offset": [
+          0,
+          0.875,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "white",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_tall_fridge",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_under_counter_fridge",
+      "name": "Under counter refrigerator",
+      "category": "fridge",
+      "profile": "cupboard",
+      "dimensions": [
+        0.6,
+        0.85,
+        0.6
+      ],
+      "rooms": [
+        "kitchen",
+        "canteen"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "fridge",
+        "compartments": 1,
+        "palette": "white"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.4675,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.6,
+          0.85,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.425,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "white",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_under_counter_fridge",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_chest_freezer",
+      "name": "Chest freezer",
+      "category": "fridge",
+      "profile": "chest",
+      "dimensions": [
+        1.2,
+        0.9,
+        0.65
+      ],
+      "rooms": [
+        "kitchen",
+        "storeroom"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "freezer",
+        "palette": "white"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.405
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.2,
+          0.9,
+          0.65
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "white",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_chest_freezer",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_microwave_cabinet",
+      "name": "Microwave oven cupboard",
+      "category": "kitchen",
+      "profile": "cupboard",
+      "dimensions": [
+        0.68,
+        0.54,
+        0.44
+      ],
+      "rooms": [
+        "kitchen",
+        "office"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "microwave",
+        "palette": "stainless"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.29700000000000004,
+          0.3
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.68,
+          0.54,
+          0.44
+        ],
+        "offset": [
+          0,
+          0.27,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "stainless",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_microwave_cabinet",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_medicine_cabinet",
+      "name": "First aid wall cabinet",
+      "category": "medical",
+      "profile": "medical",
+      "dimensions": [
+        0.62,
+        0.7,
+        0.24
+      ],
+      "rooms": [
+        "clinic",
+        "bathroom",
+        "refuge"
+      ],
+      "mount": "wall",
+      "front": "+Z",
+      "recipe": {
+        "kind": "medical",
+        "wall": true,
+        "cross": true,
+        "doors": 1,
+        "palette": "white"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.385,
+          0.2
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.62,
+          0.7,
+          0.24
+        ],
+        "offset": [
+          0,
+          0.35,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "white",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_medicine_cabinet",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_mirror_cabinet",
+      "name": "Bathroom mirror cabinet",
+      "category": "bathroom",
+      "profile": "medical",
+      "dimensions": [
+        0.65,
+        0.78,
+        0.22
+      ],
+      "rooms": [
+        "bathroom"
+      ],
+      "mount": "wall",
+      "front": "+Z",
+      "recipe": {
+        "kind": "mirror",
+        "wall": true,
+        "doors": 1,
+        "palette": "white"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.42900000000000005,
+          0.19
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.65,
+          0.78,
+          0.22
+        ],
+        "offset": [
+          0,
+          0.39,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "white",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_mirror_cabinet",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_basin_vanity",
+      "name": "Washbasin vanity cupboard",
+      "category": "bathroom",
+      "profile": "medical",
+      "dimensions": [
+        0.72,
+        0.9,
+        0.53
+      ],
+      "rooms": [
+        "bathroom",
+        "clinic"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "sink",
+        "doors": 2,
+        "basins": 1,
+        "vanity": true,
+        "palette": "white"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.34500000000000003
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.72,
+          0.9,
+          0.53
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "white",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_basin_vanity",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_linen_hamper",
+      "name": "Lidded linen hamper",
+      "category": "bathroom",
+      "profile": "chest",
+      "dimensions": [
+        0.5,
+        0.7,
+        0.46
+      ],
+      "rooms": [
+        "bathroom",
+        "clinic"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "hamper",
+        "weave": true,
+        "palette": "canvas"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.385,
+          0.31
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.5,
+          0.7,
+          0.46
+        ],
+        "offset": [
+          0,
+          0.35,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "canvas",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_linen_hamper",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_medical_trolley",
+      "name": "Medical supply trolley",
+      "category": "medical",
+      "profile": "medical",
+      "dimensions": [
+        0.68,
+        0.93,
+        0.48
+      ],
+      "rooms": [
+        "clinic",
+        "laboratory"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "trolley",
+        "rows": 2,
+        "palette": "stainless"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.5115000000000001,
+          0.32
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.68,
+          0.93,
+          0.48
+        ],
+        "offset": [
+          0,
+          0.465,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "stainless",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_medical_trolley",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_locker_single",
+      "name": "Vented single locker",
+      "category": "locker",
+      "profile": "locker",
+      "dimensions": [
+        0.46,
+        1.9,
+        0.52
+      ],
+      "rooms": [
+        "military",
+        "refuge",
+        "workshop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "locker",
+        "doors": 1,
+        "vents": 2,
+        "palette": "olive"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.34
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.46,
+          1.9,
+          0.52
+        ],
+        "offset": [
+          0,
+          0.95,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "olive",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_locker_single",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_locker_double",
+      "name": "Two bay changing locker",
+      "category": "locker",
+      "profile": "locker",
+      "dimensions": [
+        0.85,
+        1.85,
+        0.52
+      ],
+      "rooms": [
+        "military",
+        "workshop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "locker",
+        "doors": 2,
+        "vents": 1,
+        "palette": "blue"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.34
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.85,
+          1.85,
+          0.52
+        ],
+        "offset": [
+          0,
+          0.925,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_locker_double",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_locker_split",
+      "name": "Four compartment locker",
+      "category": "locker",
+      "profile": "locker",
+      "dimensions": [
+        0.85,
+        1.8,
+        0.5
+      ],
+      "rooms": [
+        "military",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "locker",
+        "doors": 2,
+        "stacked": true,
+        "vents": 1,
+        "palette": "blue"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.33
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.85,
+          1.8,
+          0.5
+        ],
+        "offset": [
+          0,
+          0.9,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_locker_split",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_footlocker",
+      "name": "Military footlocker",
+      "category": "locker",
+      "profile": "chest",
+      "dimensions": [
+        0.92,
+        0.46,
+        0.48
+      ],
+      "rooms": [
+        "military",
+        "refuge"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "trunk",
+        "bands": 2,
+        "palette": "olive"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.25300000000000006,
+          0.32
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.92,
+          0.46,
+          0.48
+        ],
+        "offset": [
+          0,
+          0.23,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "olive",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_footlocker",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_arms_locker",
+      "name": "Locked equipment cupboard",
+      "category": "locker",
+      "profile": "locker",
+      "dimensions": [
+        1.04,
+        1.9,
+        0.5
+      ],
+      "rooms": [
+        "military",
+        "workshop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "locker",
+        "doors": 2,
+        "mesh": true,
+        "vents": 1,
+        "palette": "olive"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          0.33
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.04,
+          1.9,
+          0.5
+        ],
+        "offset": [
+          0,
+          0.95,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "olive",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_arms_locker",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_floor_safe",
+      "name": "Floor standing safe",
+      "category": "safe",
+      "profile": "locker",
+      "dimensions": [
+        0.68,
+        0.92,
+        0.62
+      ],
+      "rooms": [
+        "office",
+        "military"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "safe",
+        "dial": true,
+        "palette": "olive"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.5060000000000001,
+          0.39
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.68,
+          0.92,
+          0.62
+        ],
+        "offset": [
+          0,
+          0.46,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "olive",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_floor_safe",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_wall_safe",
+      "name": "Recessed wall safe",
+      "category": "safe",
+      "profile": "locker",
+      "dimensions": [
+        0.55,
+        0.55,
+        0.25
+      ],
+      "rooms": [
+        "office",
+        "bedroom"
+      ],
+      "mount": "wall",
+      "front": "+Z",
+      "recipe": {
+        "kind": "safe",
+        "wall": true,
+        "keypad": true,
+        "palette": "blue"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.30250000000000005,
+          0.20500000000000002
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.55,
+          0.55,
+          0.25
+        ],
+        "offset": [
+          0,
+          0.275,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_wall_safe",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_cash_box",
+      "name": "Portable cash strongbox",
+      "category": "safe",
+      "profile": "chest",
+      "dimensions": [
+        0.4,
+        0.19,
+        0.3
+      ],
+      "rooms": [
+        "office",
+        "shop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "trunk",
+        "cash": true,
+        "palette": "blue"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.10450000000000001,
+          0.22999999999999998
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.4,
+          0.19,
+          0.3
+        ],
+        "offset": [
+          0,
+          0.095,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_cash_box",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_filing_two",
+      "name": "Two drawer filing cabinet",
+      "category": "filing",
+      "profile": "drawers",
+      "dimensions": [
+        0.46,
+        0.76,
+        0.58
+      ],
+      "rooms": [
+        "office",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "files",
+        "rows": 2,
+        "labels": true,
+        "palette": "olive"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.41800000000000004,
+          0.37
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.46,
+          0.76,
+          0.58
+        ],
+        "offset": [
+          0,
+          0.38,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "olive",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_filing_two",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_filing_four",
+      "name": "Four drawer filing cabinet",
+      "category": "filing",
+      "profile": "drawers",
+      "dimensions": [
+        0.46,
+        1.35,
+        0.6
+      ],
+      "rooms": [
+        "office",
+        "military"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "files",
+        "rows": 4,
+        "labels": true,
+        "palette": "blue"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.7425000000000002,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.46,
+          1.35,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.675,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_filing_four",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_filing_lateral",
+      "name": "Lateral filing cabinet",
+      "category": "filing",
+      "profile": "drawers",
+      "dimensions": [
+        1.03,
+        0.8,
+        0.48
+      ],
+      "rooms": [
+        "office",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "files",
+        "rows": 2,
+        "labels": true,
+        "palette": "cream"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.44000000000000006,
+          0.32
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.03,
+          0.8,
+          0.48
+        ],
+        "offset": [
+          0,
+          0.4,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "cream",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_filing_lateral",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_document_sorter",
+      "name": "Pigeonhole document sorter",
+      "category": "filing",
+      "profile": "drawers",
+      "dimensions": [
+        0.95,
+        1.1,
+        0.38
+      ],
+      "rooms": [
+        "office",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "pigeonhole",
+        "rows": 4,
+        "columns": 4,
+        "palette": "oak"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.6050000000000001,
+          0.27
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.95,
+          1.1,
+          0.38
+        ],
+        "offset": [
+          0,
+          0.55,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_document_sorter",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_map_drawers",
+      "name": "Plan and chart drawers",
+      "category": "filing",
+      "profile": "drawers",
+      "dimensions": [
+        1.22,
+        0.8,
+        0.86
+      ],
+      "rooms": [
+        "office",
+        "military",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "map",
+        "rows": 5,
+        "labels": true,
+        "palette": "oak"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.44000000000000006,
+          0.51
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.22,
+          0.8,
+          0.86
+        ],
+        "offset": [
+          0,
+          0.4,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_map_drawers",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_tool_workbench",
+      "name": "Drawer workshop bench",
+      "category": "tools",
+      "profile": "workshop",
+      "dimensions": [
+        1.5,
+        1.3,
+        0.66
+      ],
+      "rooms": [
+        "workshop",
+        "military"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "workbench",
+        "rows": 3,
+        "pegboard": true,
+        "palette": "blue"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.715,
+          0.41000000000000003
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.5,
+          1.3,
+          0.66
+        ],
+        "offset": [
+          0,
+          0.65,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_tool_workbench",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_rolling_toolchest",
+      "name": "Rolling mechanics tool chest",
+      "category": "tools",
+      "profile": "workshop",
+      "dimensions": [
+        0.8,
+        1.0,
+        0.48
+      ],
+      "rooms": [
+        "workshop",
+        "garage"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "toolchest",
+        "rows": 5,
+        "wheels": true,
+        "palette": "red"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.55,
+          0.32
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.8,
+          1.0,
+          0.48
+        ],
+        "offset": [
+          0,
+          0.5,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "red",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_rolling_toolchest",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_wall_tool_cabinet",
+      "name": "Wall hung tool cupboard",
+      "category": "tools",
+      "profile": "workshop",
+      "dimensions": [
+        0.9,
+        0.72,
+        0.25
+      ],
+      "rooms": [
+        "workshop",
+        "garage"
+      ],
+      "mount": "wall",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cabinet",
+        "wall": true,
+        "doors": 2,
+        "pegboard": true,
+        "palette": "blue"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.396,
+          0.20500000000000002
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.9,
+          0.72,
+          0.25
+        ],
+        "offset": [
+          0,
+          0.36,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_wall_tool_cabinet",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_cantilever_toolbox",
+      "name": "Cantilever toolbox",
+      "category": "tools",
+      "profile": "workshop",
+      "dimensions": [
+        0.6,
+        0.32,
+        0.3
+      ],
+      "rooms": [
+        "workshop",
+        "garage"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "toolbox",
+        "cantilever": true,
+        "palette": "red"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.17600000000000002,
+          0.22999999999999998
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.6,
+          0.32,
+          0.3
+        ],
+        "offset": [
+          0,
+          0.16,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "red",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_cantilever_toolbox",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_electrical_cabinet",
+      "name": "Electrical spares cabinet",
+      "category": "tools",
+      "profile": "workshop",
+      "dimensions": [
+        0.65,
+        1.0,
+        0.3
+      ],
+      "rooms": [
+        "workshop",
+        "military",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "electrical",
+        "warning": true,
+        "palette": "blue"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.55,
+          0.22999999999999998
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.65,
+          1.0,
+          0.3
+        ],
+        "offset": [
+          0,
+          0.5,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_electrical_cabinet",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_parts_bins",
+      "name": "Small parts storage bins",
+      "category": "tools",
+      "profile": "workshop",
+      "dimensions": [
+        0.9,
+        0.9,
+        0.4
+      ],
+      "rooms": [
+        "workshop",
+        "garage"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "bins",
+        "rows": 4,
+        "columns": 3,
+        "palette": "blue"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.28
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.9,
+          0.9,
+          0.4
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_parts_bins",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_slatted_crate",
+      "name": "Slatted produce crate",
+      "category": "cargo",
+      "profile": "crate",
+      "dimensions": [
+        0.85,
+        0.6,
+        0.6
+      ],
+      "rooms": [
+        "storeroom",
+        "dock",
+        "shop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "crate",
+        "slats": 4,
+        "palette": "oak"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.33,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.85,
+          0.6,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.3,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_slatted_crate",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_reinforced_crate",
+      "name": "Reinforced shipping crate",
+      "category": "cargo",
+      "profile": "crate",
+      "dimensions": [
+        1.15,
+        0.85,
+        0.75
+      ],
+      "rooms": [
+        "storeroom",
+        "dock",
+        "military"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "crate",
+        "slats": 6,
+        "diagonal": true,
+        "bands": 2,
+        "palette": "oak"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.4675,
+          0.455
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.15,
+          0.85,
+          0.75
+        ],
+        "offset": [
+          0,
+          0.425,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_reinforced_crate",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_ammo_chest",
+      "name": "Ammunition transit chest",
+      "category": "cargo",
+      "profile": "chest",
+      "dimensions": [
+        0.85,
+        0.4,
+        0.43
+      ],
+      "rooms": [
+        "military",
+        "workshop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "trunk",
+        "bands": 3,
+        "stencil": true,
+        "palette": "olive"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.22000000000000003,
+          0.295
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.85,
+          0.4,
+          0.43
+        ],
+        "offset": [
+          0,
+          0.2,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "olive",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_ammo_chest",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_travel_trunk",
+      "name": "Banded travel trunk",
+      "category": "cargo",
+      "profile": "chest",
+      "dimensions": [
+        0.9,
+        0.55,
+        0.5
+      ],
+      "rooms": [
+        "bedroom",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "trunk",
+        "bands": 2,
+        "curved": true,
+        "palette": "oak"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.30250000000000005,
+          0.33
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.9,
+          0.55,
+          0.5
+        ],
+        "offset": [
+          0,
+          0.275,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_travel_trunk",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_shipping_container",
+      "name": "Short cargo container",
+      "category": "cargo",
+      "profile": "crate",
+      "dimensions": [
+        2.4,
+        2.25,
+        2.15
+      ],
+      "rooms": [
+        "dock",
+        "industrial"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "shipping",
+        "doors": 2,
+        "ribs": 9,
+        "palette": "red"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.9,
+          1.155
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          2.4,
+          2.25,
+          2.15
+        ],
+        "offset": [
+          0,
+          1.125,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "red",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_shipping_container",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_salvage_drum",
+      "name": "Lidded salvage drum",
+      "category": "cargo",
+      "profile": "crate",
+      "dimensions": [
+        0.6,
+        0.88,
+        0.6
+      ],
+      "rooms": [
+        "dock",
+        "industrial",
+        "workshop"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "drum",
+        "bands": 2,
+        "palette": "blue"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.48400000000000004,
+          0.38
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.6,
+          0.88,
+          0.6
+        ],
+        "offset": [
+          0,
+          0.44,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "blue",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_salvage_drum",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_water_barrel",
+      "name": "Potable water storage barrel",
+      "category": "cargo",
+      "profile": "crate",
+      "dimensions": [
+        0.5,
+        0.72,
+        0.5
+      ],
+      "rooms": [
+        "storeroom",
+        "camp"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "drum",
+        "bands": 1,
+        "spigot": true,
+        "palette": "plastic"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.396,
+          0.33
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.5,
+          0.72,
+          0.5
+        ],
+        "offset": [
+          0,
+          0.36,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "plastic",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_water_barrel",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_suitcase",
+      "name": "Traveller suitcase",
+      "category": "cargo",
+      "profile": "chest",
+      "dimensions": [
+        0.68,
+        0.24,
+        0.45
+      ],
+      "rooms": [
+        "bedroom",
+        "station"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "suitcase",
+        "bands": 0,
+        "palette": "canvas"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.132,
+          0.305
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.68,
+          0.24,
+          0.45
+        ],
+        "offset": [
+          0,
+          0.12,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "canvas",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_suitcase",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_kitbag",
+      "name": "Zipped equipment kitbag",
+      "category": "cargo",
+      "profile": "chest",
+      "dimensions": [
+        0.7,
+        0.33,
+        0.36
+      ],
+      "rooms": [
+        "military",
+        "camp"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "bag",
+        "palette": "canvas"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.18150000000000002,
+          0.26
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.7,
+          0.33,
+          0.36
+        ],
+        "offset": [
+          0,
+          0.165,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "canvas",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_kitbag",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_cooler",
+      "name": "Insulated provisions cooler",
+      "category": "cargo",
+      "profile": "chest",
+      "dimensions": [
+        0.6,
+        0.42,
+        0.38
+      ],
+      "rooms": [
+        "kitchen",
+        "camp"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cooler",
+        "palette": "plastic"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.231,
+          0.27
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.6,
+          0.42,
+          0.38
+        ],
+        "offset": [
+          0,
+          0.21,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "plastic",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_cooler",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_archive_shelf",
+      "name": "Archive box shelving",
+      "category": "cargo",
+      "profile": "drawers",
+      "dimensions": [
+        0.98,
+        1.4,
+        0.42
+      ],
+      "rooms": [
+        "office",
+        "storeroom"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "shelf",
+        "rows": 3,
+        "columns": 2,
+        "palette": "olive"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.77,
+          0.29
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.98,
+          1.4,
+          0.42
+        ],
+        "offset": [
+          0,
+          0.7,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "olive",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "original-composite",
+        "author": "Field Signal contributors",
+        "source": "site/search-props.js",
+        "licence": "Original project source (no third-party asset licence)",
+        "changes": "Original reusable geometry; no downloaded model or texture."
+      },
+      "editor": {
+        "asset": "search_archive_shelf",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_salvaged_cabinet",
+      "name": "Salvaged painted cabinet",
+      "category": "cabinet",
+      "profile": "drawers",
+      "dimensions": [
+        1.35,
+        0.9,
+        0.47
+      ],
+      "rooms": [
+        "living",
+        "canteen"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "cabinet",
+        "doors": 2,
+        "drawers": 2,
+        "feet": true,
+        "crown": true,
+        "palette": "oak"
+      },
+      "opening": "hinge",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.315
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.35,
+          0.9,
+          0.47
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "licensed-model-with-original-fallback",
+        "author": "Kirill Sannikov",
+        "source": "https://polyhaven.com/a/painted_wooden_cabinet",
+        "licence": "CC0-1.0",
+        "changes": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used. Runtime normalisation and separate movable named source meshes. Original composite fallback: search_sideboard."
+      },
+      "licensedAsset": {
+        "id": "painted_wooden_cabinet",
+        "path": "assets/v10/models/painted_wooden_cabinet.glb",
+        "movingParts": [
+          "painted_wooden_cabinet_door_01",
+          "painted_wooden_cabinet_door_02"
+        ],
+        "mode": "hinge",
+        "triangles": 2227
+      },
+      "editor": {
+        "asset": "search_salvaged_cabinet",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_vintage_drawers",
+      "name": "Vintage six drawer dresser",
+      "category": "drawers",
+      "profile": "drawers",
+      "dimensions": [
+        1.35,
+        0.9,
+        0.5
+      ],
+      "rooms": [
+        "bedroom"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "drawers",
+        "rows": 3,
+        "columns": 2,
+        "feet": true,
+        "palette": "oak"
+      },
+      "opening": "slide",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.49500000000000005,
+          0.33
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.35,
+          0.9,
+          0.5
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "licensed-model-with-original-fallback",
+        "author": "James Ray Cock",
+        "source": "https://polyhaven.com/a/vintage_wooden_drawer_01",
+        "licence": "CC0-1.0",
+        "changes": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used. Runtime normalisation and separate movable named source meshes. Original composite fallback: search_wide_dresser."
+      },
+      "licensedAsset": {
+        "id": "vintage_wooden_drawer_01",
+        "path": "assets/v10/models/vintage_wooden_drawer_01.glb",
+        "movingParts": [
+          "vintage_wooden_drawer_01_drawer01"
+        ],
+        "mode": "slide",
+        "triangles": 5184
+      },
+      "editor": {
+        "asset": "search_vintage_drawers",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_salvaged_crate",
+      "name": "Salvaged timber transit crate",
+      "category": "cargo",
+      "profile": "crate",
+      "dimensions": [
+        1.15,
+        0.85,
+        0.75
+      ],
+      "rooms": [
+        "storeroom",
+        "dock",
+        "military"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "crate",
+        "slats": 6,
+        "diagonal": true,
+        "bands": 2,
+        "palette": "oak"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.4675,
+          0.455
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          1.15,
+          0.85,
+          0.75
+        ],
+        "offset": [
+          0,
+          0.425,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "oak",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "licensed-model-with-original-fallback",
+        "author": "James Ray Cock",
+        "source": "https://polyhaven.com/a/wooden_crate_01",
+        "licence": "CC0-1.0",
+        "changes": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used. Runtime normalisation and separate movable named source meshes. Original composite fallback: search_reinforced_crate."
+      },
+      "licensedAsset": {
+        "id": "wooden_crate_01",
+        "path": "assets/v10/models/wooden_crate_01.glb",
+        "movingParts": [
+          "wooden_crate_01_lid",
+          "wooden_crate_01_latch"
+        ],
+        "mode": "lid",
+        "triangles": 6576
+      },
+      "editor": {
+        "asset": "search_salvaged_crate",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    },
+    {
+      "id": "search_field_medical_case",
+      "name": "Field medical transit case",
+      "category": "medical",
+      "profile": "medical",
+      "dimensions": [
+        0.48,
+        0.28,
+        0.32
+      ],
+      "rooms": [
+        "clinic",
+        "military",
+        "refuge"
+      ],
+      "mount": "floor",
+      "front": "+Z",
+      "recipe": {
+        "kind": "trunk",
+        "cross": true,
+        "palette": "white"
+      },
+      "opening": "lid",
+      "interaction": {
+        "binding": "container",
+        "anchor": [
+          0,
+          0.18,
+          0.24
+        ],
+        "reach": 2.4
+      },
+      "collision": {
+        "type": "box",
+        "size": [
+          0.48,
+          0.28,
+          0.32
+        ],
+        "offset": [
+          0,
+          0.14,
+          0
+        ]
+      },
+      "materials": {
+        "palette": "white",
+        "slots": [
+          "body",
+          "front",
+          "trim",
+          "dark",
+          "edge",
+          "metal",
+          "paper",
+          "mark",
+          "glass"
+        ]
+      },
+      "provenance": {
+        "type": "licensed-model-with-original-fallback",
+        "author": "Ulan Cabanilla",
+        "source": "https://polyhaven.com/a/medical_box",
+        "licence": "CC0-1.0",
+        "changes": "Textures reduced to 384 pixels; unused animations omitted. Geometry/materials reused in game. Selected modules may be used. Runtime normalisation and separate movable named source meshes. Original composite fallback: search_cash_box."
+      },
+      "licensedAsset": {
+        "id": "medical_box",
+        "path": "assets/v10/models/medical_box.glb",
+        "movingParts": [
+          "medical_box_lid",
+          "medical_box_latch",
+          "medical_box_latch_rings"
+        ],
+        "mode": "lid",
+        "triangles": 3718
+      },
+      "editor": {
+        "asset": "search_field_medical_case",
+        "bindingType": "container",
+        "requiresExistingContainerId": true,
+        "description": "Visual variant. Retain the existing container binding, saved contents and loot profile."
+      }
+    }
+  ],
+  "materialPalettes": {
+    "oak": {
+      "body": "#5a4834",
+      "front": "#766048",
+      "trim": "#9b805a",
+      "dark": "#252724",
+      "edge": "#3b3025"
+    },
+    "cream": {
+      "body": "#767968",
+      "front": "#b4b09a",
+      "trim": "#929885",
+      "dark": "#252e2c",
+      "edge": "#575d53"
+    },
+    "white": {
+      "body": "#919d96",
+      "front": "#d0d5c5",
+      "trim": "#a4b4ac",
+      "dark": "#273130",
+      "edge": "#69776d"
+    },
+    "olive": {
+      "body": "#485041",
+      "front": "#69735b",
+      "trim": "#87907a",
+      "dark": "#202823",
+      "edge": "#313a30"
+    },
+    "blue": {
+      "body": "#354c52",
+      "front": "#58727a",
+      "trim": "#8b9b98",
+      "dark": "#1e2a2c",
+      "edge": "#293b40"
+    },
+    "red": {
+      "body": "#633d35",
+      "front": "#8c5140",
+      "trim": "#a17b5e",
+      "dark": "#292827",
+      "edge": "#4d332e"
+    },
+    "stainless": {
+      "body": "#707f7c",
+      "front": "#9daaa3",
+      "trim": "#c0c9bc",
+      "dark": "#243230",
+      "edge": "#516360"
+    },
+    "plastic": {
+      "body": "#435b5e",
+      "front": "#668482",
+      "trim": "#b9bba4",
+      "dark": "#27312e",
+      "edge": "#394c4b"
+    },
+    "canvas": {
+      "body": "#5c5942",
+      "front": "#848069",
+      "trim": "#a8a183",
+      "dark": "#292c25",
+      "edge": "#444735"
+    }
+  }
+}
