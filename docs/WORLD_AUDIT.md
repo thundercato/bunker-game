@@ -88,6 +88,10 @@ and checks the adjusted spawn against actual collision. Regression tests verify
 that save loading moves only a living patrol trapped at the old cargo location,
 preserves health/inventory/progression and pursuit targets, leaves dead or already
 clear patrols alone, and remains idempotent after a serialised reload.
+Candidate save validation also finds deterministic clearance for a saved player
+overlapping changed furniture while preserving the same house, zone and floor.
+Valid poses, including crane landings, remain exact; inventory and progression
+are retained. Dedicated regressions cover this bounded recovery and reloads.
 
 Each building entrance is sampled closed and open, every legacy two-storey stair
 centre has 65 height/collision samples, both bridge centres have 81 samples, and
@@ -130,7 +134,7 @@ No browser/GPU run or new performance benchmark is claimed by this audit.
 
 Verification: all 19 audit tests passed. The generated candidate report passed
 its structural/reference checks and all 264 real-engine navigation checks.
-Final integrated verification passed all 150 Python tests on Python 3.12.14,
-all 11 Node pure suites and 51 JavaScript syntax checks on Node 22.23.4. Exact
+Final integrated verification passed all 158 Python tests on Python 3.12.14,
+all 12 Node pure suites and 51 JavaScript syntax checks on Node 22.23.4. Exact
 command/output logs are in [`final-python.log`](../test-results/final-python.log)
 and [`final-node.log`](../test-results/final-node.log).

@@ -28,6 +28,14 @@ test_height_floor_and_door_filters_match_walking_geometry (test_campaign_geometr
 test_rotated_translated_boxes_keep_local_footprints (test_campaign_geometry.CampaignSightLines.test_rotated_translated_boxes_keep_local_footprints) ... ok
 test_seeded_sampler_parity_never_loses_a_detected_collision (test_campaign_geometry.CampaignSightLines.test_seeded_sampler_parity_never_loses_a_detected_collision) ... ok
 test_strict_padding_edges_and_corner_tangency (test_campaign_geometry.CampaignSightLines.test_strict_padding_edges_and_corner_tangency) ... ok
+test_changed_base_cupboard_keeps_the_player_in_the_base (test_campaign_save_clearance.CampaignSaveClearance.test_changed_base_cupboard_keeps_the_player_in_the_base) ... ok
+test_every_canonical_crane_endpoint_is_preserved (test_campaign_save_clearance.CampaignSaveClearance.test_every_canonical_crane_endpoint_is_preserved) ... ok
+test_no_clear_same_floor_pose_rejects_without_mutating_snapshot (test_campaign_save_clearance.CampaignSaveClearance.test_no_clear_same_floor_pose_rejects_without_mutating_snapshot) ... ok
+test_normal_campaign_has_no_candidate_relocation (test_campaign_save_clearance.CampaignSaveClearance.test_normal_campaign_has_no_candidate_relocation) ... ok
+test_old_ground_cupboard_position_moves_to_nearest_clear_same_house_pose (test_campaign_save_clearance.CampaignSaveClearance.test_old_ground_cupboard_position_moves_to_nearest_clear_same_house_pose) ... ok
+test_old_upstairs_bed_position_stays_on_upper_floor (test_campaign_save_clearance.CampaignSaveClearance.test_old_upstairs_bed_position_stays_on_upper_floor) ... ok
+test_repaired_pose_round_trips_without_another_adjustment (test_campaign_save_clearance.CampaignSaveClearance.test_repaired_pose_round_trips_without_another_adjustment) ... ok
+test_valid_saved_pose_is_preserved_exactly (test_campaign_save_clearance.CampaignSaveClearance.test_valid_saved_pose_is_preserved_exactly) ... ok
 test_actions_do_not_double_count_time (test_dead_air.DeadAir.test_actions_do_not_double_count_time) ... ok
 test_anomalies_begin_hidden (test_dead_air.DeadAir.test_anomalies_begin_hidden) ... ok
 test_base_clock_one_minute_per_minute (test_dead_air.DeadAir.test_base_clock_one_minute_per_minute) ... ok
@@ -156,7 +164,7 @@ test_spawn_is_transformed_and_raised (test_world_preview.WorldPreview.test_spawn
 test_upstairs_container_rejects_ground_floor (test_world_preview.WorldPreview.test_upstairs_container_rejects_ground_floor) ... ok
 
 ----------------------------------------------------------------------
-Ran 150 tests in 43.226s
+Ran 158 tests in 31.591s
 
 OK
 Exit code: 0

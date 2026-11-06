@@ -350,6 +350,31 @@ PASS Binding cannot be transplanted onto structural geometry
 54 layout unit tests passed
 Exit code: 0
 
+$ /home/agent/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node site/tests/test_roofs.mjs
+PASS Legacy documents round trip byte-for-byte without adding roof metadata
+PASS Optional numeric zero and pitched rise survive portable layout validation and export
+PASS Reject invalid roof rise -0.1
+PASS Reject invalid roof rise 6.01
+PASS Reject invalid roof rise NaN
+PASS Reject invalid roof rise Infinity
+PASS Reject invalid roof rise 2
+PASS Reject invalid roof rise null
+PASS Reject invalid roof rise true
+PASS Reject invalid roof rise [object Object]
+PASS Reject invalid roof rise 
+PASS Roof rise cannot be assigned to walls, furniture or a floor
+PASS Absent and zero rise keep the original flat slab pieces and renderer bounds
+PASS Pitched render pieces are finite, pure and within exact eave and ridge dimensions
+PASS Actual pitched meshes have two material batches, sound normals and exact closed dimensions
+PASS Minimum roof dimensions and a tiny positive rise retain finite nonempty geometry
+PASS Visual pitch leaves the sealed ceiling collision and existing floor sampling unchanged
+PASS Roof children follow their object and parent building transforms exactly once
+PASS World-document compile preserves optional pitch while keeping physical ceiling pieces
+PASS Every authored home retains its stable roof ID, two-metre pitch and 35 cm overhang
+PASS Existing hide-roof view hides the full pitched assembly
+21 roof geometry and compatibility tests passed.
+Exit code: 0
+
 $ /home/agent/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node site/tests/test_search_props.mjs
 PASS Catalogue has at least 50 meaningful variants across domestic, medical and industrial rooms
 PASS All 69 editor thumbnails are distinct local 192 by 160 WebP files below the total asset budget
@@ -507,4 +532,4 @@ $ /home/agent/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node site/tests/t
 PASS world v2 schema, brushes, scatter, buildings, warnings and invalid imports
 Exit code: 0
 
-Commands: 62; failures: 0
+Commands: 63; failures: 0

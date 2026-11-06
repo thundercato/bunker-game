@@ -13,17 +13,17 @@
       "revision": "6b4f9fb9401398a65eee576f40b2d80805ef6c76",
       "sha256": "84fcc9d23960e75b84053d794636ce63c88a3ddd3d432b1d908fe8cd19a0d7c8"
     },
-    "engineSha256": "c28950db8b6857948f172b22012c999bd433c9d45d938b3d8cd7632b5714351f",
+    "engineSha256": "a984494ddaf351cb9d0c986ae88682d23c7953203ecc9cb5cf266f62060553f2",
     "effectiveSource": "campaign adapter",
     "runtimeModules": {
       "terrain.js": "748ea37f5a9e48923b651efafb25ddd2c76dfe3bb3515aa2198f852b84469c80",
       "campaign-core.js": "53b41592d64d7ceb10a8c9bc8425a72e25fc0f76054c566bbc75cff49f3bf25c",
-      "campaign-interiors.js": "e1aad8b32610394d5f2eba9dcc08dbaa48f28af4b4274fee32a725e1596e4b0a",
+      "campaign-interiors.js": "c4e3c9662c861c71db05ddb7a12b691e446e1de9991aa45ef626f5b6335026cc",
       "campaign-routes.json": "1be208e325a9a2deed0232a64571a2224174eb8d07af9bbd0b9372056be6c31c",
       "campaign_rules.py": "dfb491f3e288e060a409e21bd58bbf6f77c4558f901a013d78d5d4fe01d6ee28",
       "campaign-spawns.json": "0b8ac29cbcdefa94a8771bbbdd9f04a65dcf21da0de77c5eec1b4df25c3c8726"
     },
-    "effectiveWorldSha256": "d3031722ff39ab03d1b64726b645c94c875f9448acb522eba8194ffd1cad546d"
+    "effectiveWorldSha256": "5d83793796c82c7c48d6952d5af69f6a9ce01e44c81b8f86fadc1c8e990c6983"
   },
   "counts": {
     "buildings": 37,
