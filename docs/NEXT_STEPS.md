@@ -19,9 +19,10 @@ Acceptance: reproducible baseline, isolated preview intact, a ranked bottleneck 
 
 ## M1. Authoritative world data and one end-to-end building
 
-Status: schema/compiler foundation implemented, preview adapter next. The v2
-draft is still not a playable game world. See `WORLD_DOCUMENT.md` for the contract,
-57 compiler tests and exact adapter checkpoint. Do not rebuild the v2 editor UI.
+Status: schema/compiler and bounded Survey hut actual-game preview implemented.
+The world editor can test that building's placement with its saved v1 interior;
+the shareable example opens an isolated moved/rotated hut. Other v2 world drafts
+are still authoring-only. See `WORLD_DOCUMENT.md`; do not rebuild the v2 editor UI.
 
 Create a versioned world-document contract that combines terrain, building instances, local interior definitions, roads/rails, water, objects, regions and stable gameplay references. Validate before applying. Compile it into the data both rendering and gameplay consume. Keep renderer-specific caches separate from authored state and player state.
 
@@ -144,3 +145,35 @@ Audit both JS and Python coordinate assumptions. Prove door traversal, physical
 search, furniture/collision/floor alignment and Atlas target through browser UI,
 preview reload/return and production sentinels; preserve legacy v1 links and offline
 upgrade behaviour. Do not claim roads/water/terrain are integrated or start M2–M6.
+
+### 2026-11-06: playable building-preview update
+
+The subsequent request, “make the new version and give me the link to play it”,
+authorises publishing this bounded preview update after verification. PR #80 passed
+GitHub verification and was merged as `24de65a`; work continued from that latest
+main on `feat/moved-building-preview`. The prior adapter checkpoint is implemented.
+
+`?buildingPreview=hut&play=1` opens the reviewed hut at `(35,-48)` with 90° yaw,
+without requiring an editor draft/UUID. The v2 editor Test button adopts the hut's
+actual saved interior and current placement in a separate preview. Source metadata
+and manifest IDs are validated before application. Rendering, door/container/loose
+anchors, mission position, collision, floors and Python rules share the compiled
+building transform. Manual raised previews have a matching support platform.
+Unsupported placements fail visibly; other map drafts are explicitly not applied.
+
+Normal schema-9 save/settings keys stay unchanged. Preview journal isolation now
+covers the actual v9 key; the former regression test only protected the legacy v8
+journal. New entry filenames and a new cache version upgrade the old worker before
+loading any preview application modules. Old v1 preview payloads remain supported.
+
+The new browser flow has passed all 15 checks, including real keyboard door use,
+walking around furniture, cupboard search, Atlas, raised floor, actual v9 sentinels,
+old-worker upgrade, offline reload without reroll, exact draft return and a fresh
+shareable link. Python discovery: 107 tests passed, including JS/Python upstairs
+surface parity, old-location rejection and sight lines crossing the moved wall.
+Final full-suite/public-release results and screenshots belong in the accompanying
+execution note. No physical Apple-device tests are claimed.
+
+**Next task:** validate this preview on target devices and review the real output;
+then choose the next bounded editor/building slice. Do not repeat this adapter or
+claim full-map terrain/road/water integration. M2–M6 remain future work.

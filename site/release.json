@@ -1,14 +1,17 @@
 {
   "name": "Field Signal: Overgrowth",
   "version": "11.0.0",
-  "build": "overgrowth-11.0.0-20261105",
+  "build": "overgrowth-11.0.0-building-preview-1-20261106",
   "baseScore": "Relay Lanterns",
   "saveSchema": 9,
-  "builtAt": "2026-11-05",
+  "builtAt": "2026-11-06",
   "sourceRepository": "thundercato/bunker-game",
   "worldEditor": {
-    "version": "1.0.0",
+    "version": "2.1.0-preview",
     "path": "editor/",
-    "previewCampaignIsolated": true
+    "previewCampaignIsolated": true,
+    "worldMap": "editor/world.html",
+    "buildingPreview": "?buildingPreview=hut&play=1",
+    "worldDocument": "field-signal-world-document/1"
   }
 }

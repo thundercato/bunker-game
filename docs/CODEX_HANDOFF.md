@@ -4,10 +4,10 @@ Prepared 6 November 2026. Implementation audit baseline: `d31f178a674ec16d730a7d
 
 Continuation update: M0 is reproduced and measured in
 [`EXECUTION_2026-11-06_M0.md`](EXECUTION_2026-11-06_M0.md). The first M1 slice is a
-tested pure world document/compiler, described in
-[`WORLD_DOCUMENT.md`](WORLD_DOCUMENT.md). It is not wired to the runtime yet.
-Continue with that document's isolated preview adapter checkpoint; the original
-v2 authoring-only boundary below still applies.
+tested world document/compiler with a bounded Survey hut isolated game preview,
+described in [`WORLD_DOCUMENT.md`](WORLD_DOCUMENT.md). Normal play remains v11;
+other building moves and terrain/roads/water remain authoring-only. The historical
+audit below predates this adapter; use the latest NEXT_STEPS checkpoint to continue.
 
 ## What Adam is trying to build
 

@@ -9,8 +9,8 @@ try{
  browser=await chromium.launch({headless:true,args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  const context=await browser.newContext({viewport:{width:844,height:500}}),page=await context.newPage();
  page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)missing.push([r.status(),r.url()])});
- let release=null;
- for(let i=0;i<30;i++){try{const r=await page.request.get(BASE+'release.json?verify='+Date.now(),{timeout:20000});if(r.ok()){const j=await r.json();if(j.version==='11.0.0'){release=j;break;}}}catch{}await page.waitForTimeout(5000)}
+ let release=null;const expectedRelease=JSON.parse(fs.readFileSync(path.join(ROOT,'site/release.json')));
+ for(let i=0;i<30;i++){try{const r=await page.request.get(BASE+'release.json?verify='+Date.now(),{timeout:20000});if(r.ok()){const j=await r.json();if(j.build===expectedRelease.build){release=j;break;}}}catch{}await page.waitForTimeout(5000)}
  check('Actual public release is Overgrowth 11.0.0',!!release,release);
  await page.addInitScript(fixture=>{if(!localStorage.getItem('fieldcraft-release-test-seeded')){localStorage.setItem('field-signal-dead-air-v9',JSON.stringify(fixture));localStorage.setItem('fieldcraft-release-test-seeded','yes')}},fixture);
  await page.goto(BASE,{waitUntil:'domcontentloaded'});await page.locator('#load-world').click();await page.locator('#silent:enabled').waitFor({timeout:240000});await page.locator('#silent').click();

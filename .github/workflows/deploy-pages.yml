@@ -32,6 +32,7 @@ jobs:
           node site/tests/test_layout.mjs
           node site/tests/test_world_v2.mjs
           node site/tests/test_world_document.mjs
+          node site/tests/test_world_preview.mjs
       - name: Build and validate runtime assets
         run: python3 tools/build.py
       - name: Install browser test runner
@@ -54,6 +55,8 @@ jobs:
       - name: World v2 full-map editor browser checks
         timeout-minutes: 5
         run: node tests/world_v2_browser.cjs
+      - name: Moved building, real-game preview and old-worker upgrade
+        run: node tests/world_preview_browser.cjs
       - name: Preserve verification output
         if: always()
         uses: actions/upload-artifact@v4
@@ -107,6 +110,10 @@ jobs:
         env:
           GAME_URL: https://thundercato.github.io/bunker-game/
         run: node tests/editor_browser.cjs
+      - name: Test actual published moved-building play link
+        env:
+          GAME_URL: https://thundercato.github.io/bunker-game/
+        run: node tests/world_preview_browser.cjs
       - name: Preserve public-site verification
         if: always()
         uses: actions/upload-artifact@v4
@@ -115,4 +122,5 @@ jobs:
           path: |
             test-results/public-release.json
             test-results/editor-browser.json
+            test-results/world-preview-browser.json
           if-no-files-found: ignore

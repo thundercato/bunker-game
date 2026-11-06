@@ -36,6 +36,7 @@ node site/tests/test_atlas.mjs
 node site/tests/test_layout.mjs
 node site/tests/test_world_v2.mjs
 node site/tests/test_world_document.mjs
+node site/tests/test_world_preview.mjs
 python3 tools/build.py
 ```
 
@@ -50,6 +51,7 @@ node tests/overgrowth_browser.cjs
 node tests/editor_controls.cjs
 node tests/editor_browser.cjs
 node tests/world_v2_browser.cjs
+node tests/world_preview_browser.cjs
 ```
 
 Optional M0 diagnostics, run sequentially after building (no frame-budget gate):
