@@ -133,8 +133,10 @@ when the adapter starts shipping. Test commands and compiler demonstration are i
 Measured priority: rendering/submission and asset budgets first; worker handler
 4.6 ms median / 7.8 ms p95 in an isolated base test does not justify a Python port.
 No engine change, gameplay version bump, music/control/licence change, normal save
-migration, merge or publication. Review is via a feature-branch PR; record its link
-and the final commit IDs in the closing checkpoint after creation.
+migration, merge or publication. Implementation commits: `4a4667e` (M0) and
+`cf4ef0e` (M1). Review: [PR #80](https://github.com/thundercato/bunker-game/pull/80).
+PR verification was running when this checkpoint was written; local results above
+are complete. No Pages deployment is requested by this PR.
 
 **Next task:** implement only the explicit isolated Survey hut preview adapter in
 the six steps under `WORLD_DOCUMENT.md`, using the existing drafts and this compiler.
