@@ -22,7 +22,8 @@ export class World extends OvergrowthWorld {
    const registry = await response.json();
    this.library.files = {...this.library.files, ...Object.fromEntries(registry.assets.map(a => [a.id, a.path]))};
   }
-  const compiled = new LayoutScene({library: this.library, materials: await createMaterials(), editor: false});
+  this.layoutMaterials ??= await createMaterials();
+  const compiled = new LayoutScene({library: this.library, materials: this.layoutMaterials, editor: false});
   await compiled.load(doc);
   if (compiled.errors.length) throw Error('Preview model failed: ' + compiled.errors.join('; '));
   this.layoutPreview = compiled;
