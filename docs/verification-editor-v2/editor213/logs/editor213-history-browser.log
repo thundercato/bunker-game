@@ -1,0 +1,17 @@
+PASS Real localStorage saves5000UUID instances, three interiors and all30 history states without quota failure {
+  checkpointChars: 792185,
+  utf16StorageEstimate: 3168256,
+  hiddenVegetation: true
+}
+PASS Checkpoint uses the lossless history encoding while canonical document and legacy mirrors remain exact
+PASS Actual reload preserves SHA256 of the current document, every30 undo frame and all foliage IDs
+PASS Real undo/redo buttons and keyboard restore growing strokes as complete transactions
+PASS World/focused navigation and map reload retain full history, selection and hidden forest without reroll
+PASS Normal campaign, settings, both journals and unrelated preview state remain byte-identical during dense history edits
+PASS An actual older full-snapshot checkpoint loads200 instances and all28undo+2redo frames unchanged
+PASS Explicit Save converts old snapshots losslessly and actual reload retains both history stacks
+PASS Concurrent external legacy checkpoint is backed up byte-for-byte before Save retains active compressed history
+PASS Invalid encoded splice preserves raw checkpoint, offers exact download and refuses an unsafe restore
+PASS Explicit recovery Save retains corrupt bytes in backup, persists the valid mirror design and survives reload
+PASS Both fresh profiles preserve every normal and unrelated preview sentinel without clearing storage
+PASS Canonical production-subpath history journeys have no browser exceptions or failed asset/module requests

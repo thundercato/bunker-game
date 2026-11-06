@@ -1,0 +1,59 @@
+{
+  "browser": "Linux Chromium / SwiftShader",
+  "rows": [
+    {
+      "name": "Shared manifest model library is mounted and searchable",
+      "pass": true
+    },
+    {
+      "name": "Author + model search resolves real table",
+      "pass": true
+    },
+    {
+      "name": "Actual shared model renders with observed geometry cost",
+      "pass": true
+    },
+    {
+      "name": "Real mouse orbit changes rendered model view",
+      "pass": true
+    },
+    {
+      "name": "Model workspace fits 1280 × 800 laptop viewport",
+      "pass": true
+    },
+    {
+      "name": "Cost + placement filters exclude unmeasured facade",
+      "pass": true
+    },
+    {
+      "name": "Low-cost registered model remains available",
+      "pass": true
+    },
+    {
+      "name": "Intentional placement uses reviewed dimensions and decorative identity",
+      "pass": true
+    },
+    {
+      "name": "Existing gameplay binding IDs survive model placement",
+      "pass": true
+    },
+    {
+      "name": "Unreviewed model remains inspection only",
+      "pass": true
+    },
+    {
+      "name": "Escape dismisses model inspection",
+      "pass": true
+    },
+    {
+      "name": "No browser exceptions or asset HTTP failures",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "failures": []
+      }
+    }
+  ],
+  "errors": [],
+  "failures": []
+}

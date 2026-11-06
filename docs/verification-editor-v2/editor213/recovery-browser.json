@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Recovery lists only editor backups and validates the concurrent real hut design",
+    "Corrupt backup remains download-only and downloads its exact original bytes",
+    "Explicit restore reloads the actual design, retains history and backup, and preserves campaign/settings/journal",
+    "Real recovery list and validator work in editor/world.html",
+    "Real recovery list and validator work in editor/loot.html",
+    "Real recovery list and validator work in editor/missions.html",
+    "Real recovery list and validator work in editor/validation.html",
+    "Packaged subpath recovery has no browser exceptions or missing resources"
+  ],
+  "errors": [],
+  "missing": []
+}

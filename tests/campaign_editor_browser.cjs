@@ -99,6 +99,12 @@ const server=http.createServer((req,res)=>{
    exported.objects.find(o=>o.binding?.id==='forester_c0').position[2]===-3.3);
   await editor.locator('#cutaway').check();await editor.locator('#floor').selectOption('0');
   await screenshot(editor,'forester-editor-ground');await editor.locator('#floor').selectOption('3.2');
+  await editor.locator('#cutaway').uncheck();
+  const collidersBeforeCutaway=await editor.evaluate(async()=>{const {collidersFor}=await import('./layout-core.js');return collidersFor(FieldEditor.getDocument(),{doorsOpen:false});});
+  assert.ok(await editor.evaluate(()=>['upper-wall-front','upper-wall-east'].every(id=>FieldEditor.getScene().objects.get(id).visible)),'Upper exterior walls are present before the cutaway');
+  await editor.locator('#cutaway').check();
+  const upperCutaway=await editor.evaluate(async()=>{const {collidersFor}=await import('./layout-core.js'),scene=FieldEditor.getScene();return {hidden:['upper-wall-front','upper-wall-east'].every(id=>!scene.objects.get(id).visible),retained:['upper-wall-west','upper-wall-north','upper','bedroom-bed'].every(id=>scene.objects.get(id).visible),colliders:collidersFor(FieldEditor.getDocument(),{doorsOpen:false})};});
+  check('Upper-storey cutaway reveals the authored room and retains exact physical colliders',upperCutaway.hidden&&upperCutaway.retained&&JSON.stringify(upperCutaway.colliders)===JSON.stringify(collidersBeforeCutaway),{hiddenFrontAndEast:upperCutaway.hidden,retainedBackWallsFloorAndFurniture:upperCutaway.retained,collidersBefore:collidersBeforeCutaway.length,collidersAfter:upperCutaway.colliders.length});
   await screenshot(editor,'forester-editor-upper');
   fs.writeFileSync(path.join(out,'editor-models.json'),JSON.stringify({info:editorInfo,models:editorModels},null,2));
 

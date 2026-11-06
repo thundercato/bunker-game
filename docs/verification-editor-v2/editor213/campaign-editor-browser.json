@@ -1,0 +1,431 @@
+{
+  "results": [
+    {
+      "name": "Building selector opens the 52-object authored Forester candidate",
+      "pass": true,
+      "detail": {
+        "previewReady": true,
+        "updating": false,
+        "objects": 52,
+        "building": "forester",
+        "models": 15,
+        "errors": [],
+        "playing": false,
+        "undo": 0
+      }
+    },
+    {
+      "name": "All four original search containers and the physical loose surface remain bound",
+      "pass": true,
+      "detail": [
+        "forester_c0",
+        "forester_c1",
+        "forester_c2",
+        "forester_kitchen"
+      ]
+    },
+    {
+      "name": "Editor renders actual Kenney furnishings and semantic search models without wireframe fallbacks",
+      "pass": true,
+      "detail": {
+        "imported": [
+          {
+            "id": "kitchen-cooker",
+            "asset": "campaign_kitchen_stove",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "kitchen-sink",
+            "asset": "campaign_kitchen_sink",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "kitchen-fridge",
+            "asset": "campaign_kitchen_fridge",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "dining-chair-north",
+            "asset": "campaign_chair",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "dining-chair-south",
+            "asset": "campaign_chair",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "living-sofa",
+            "asset": "campaign_lounge_sofa",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "hall-radio-table",
+            "asset": "campaign_cabinet_bed",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "hall-radio",
+            "asset": "campaign_radio",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "bedroom-bed",
+            "asset": "campaign_bed_double",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "bedroom-nightstand",
+            "asset": "campaign_cabinet_bed",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "bedroom-lamp",
+            "asset": "campaign_lamp_square_table",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "bedroom-bookcase",
+            "asset": "campaign_bookcase_open",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "bedroom-reading-chair",
+            "asset": "campaign_lounge_chair",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "bathroom-basin",
+            "asset": "campaign_bathroom_sink",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "bathroom-toilet",
+            "asset": "campaign_toilet",
+            "loaded": true,
+            "meshes": 1
+          },
+          {
+            "id": "bathroom-shower",
+            "asset": "campaign_shower",
+            "loaded": true,
+            "meshes": 1
+          }
+        ],
+        "semantic": [
+          {
+            "id": "container-forester_c0",
+            "asset": "search_double_wall_cupboard",
+            "rendered": "search_double_wall_cupboard"
+          },
+          {
+            "id": "container-forester_c1",
+            "asset": "search_tool_workbench",
+            "rendered": "search_tool_workbench"
+          },
+          {
+            "id": "container-forester_c2",
+            "asset": "search_wardrobe_single",
+            "rendered": "search_wardrobe_single"
+          },
+          {
+            "id": "container-forester_kitchen",
+            "asset": "search_kitchen_drawers",
+            "rendered": "search_kitchen_drawers"
+          },
+          {
+            "id": "kitchen-base",
+            "asset": "search_kitchen_base",
+            "rendered": "search_kitchen_base"
+          },
+          {
+            "id": "bedroom-dresser",
+            "asset": "search_wide_dresser",
+            "rendered": "search_wide_dresser"
+          },
+          {
+            "id": "bathroom-mirror",
+            "asset": "search_mirror_cabinet",
+            "rendered": "search_mirror_cabinet"
+          },
+          {
+            "id": "bathroom-hamper",
+            "asset": "search_linen_hamper",
+            "rendered": "search_linen_hamper"
+          }
+        ],
+        "errors": []
+      }
+    },
+    {
+      "name": "All 69 searchable catalogue variants have decoded real thumbnails",
+      "pass": true
+    },
+    {
+      "name": "Numeric cupboard edit preserves its ID, catalogue anchor and original physical floor",
+      "pass": true
+    },
+    {
+      "name": "Edited authored home saves only to its independent editor draft",
+      "pass": true
+    },
+    {
+      "name": "Portable export retains new furniture assets and the edited search binding",
+      "pass": true
+    },
+    {
+      "name": "Upper-storey cutaway reveals the authored room and retains exact physical colliders",
+      "pass": true,
+      "detail": {
+        "hiddenFrontAndEast": true,
+        "retainedBackWallsFloorAndFurniture": true,
+        "collidersBefore": 92,
+        "collidersAfter": 92
+      }
+    },
+    {
+      "name": "Test in game opens a genuine isolated editor-preview URL",
+      "pass": true,
+      "detail": "http://127.0.0.1:37441/bunker-game/?editorPreview=0bea85d1-5775-4e75-8c6c-86fbb7654a2f"
+    },
+    {
+      "name": "Real Python/WebGL preview loads all 52 edited home objects",
+      "pass": true,
+      "detail": {
+        "building": "forester",
+        "objects": 52,
+        "transform": {
+          "position": [
+            -30,
+            0,
+            -59
+          ],
+          "yaw": 0
+        },
+        "versioned": false,
+        "errors": []
+      }
+    },
+    {
+      "name": "Preview resolves new licensed model paths, semantic props and each original interaction once",
+      "pass": true,
+      "detail": {
+        "objects": 52,
+        "errors": [],
+        "licensed": [
+          {
+            "id": "kitchen-cooker",
+            "asset": "campaign_kitchen_stove",
+            "loaded": true
+          },
+          {
+            "id": "kitchen-sink",
+            "asset": "campaign_kitchen_sink",
+            "loaded": true
+          },
+          {
+            "id": "kitchen-fridge",
+            "asset": "campaign_kitchen_fridge",
+            "loaded": true
+          },
+          {
+            "id": "dining-chair-north",
+            "asset": "campaign_chair",
+            "loaded": true
+          },
+          {
+            "id": "dining-chair-south",
+            "asset": "campaign_chair",
+            "loaded": true
+          },
+          {
+            "id": "living-sofa",
+            "asset": "campaign_lounge_sofa",
+            "loaded": true
+          },
+          {
+            "id": "hall-radio-table",
+            "asset": "campaign_cabinet_bed",
+            "loaded": true
+          },
+          {
+            "id": "hall-radio",
+            "asset": "campaign_radio",
+            "loaded": true
+          },
+          {
+            "id": "bedroom-bed",
+            "asset": "campaign_bed_double",
+            "loaded": true
+          },
+          {
+            "id": "bedroom-nightstand",
+            "asset": "campaign_cabinet_bed",
+            "loaded": true
+          },
+          {
+            "id": "bedroom-lamp",
+            "asset": "campaign_lamp_square_table",
+            "loaded": true
+          },
+          {
+            "id": "bedroom-bookcase",
+            "asset": "campaign_bookcase_open",
+            "loaded": true
+          },
+          {
+            "id": "bedroom-reading-chair",
+            "asset": "campaign_lounge_chair",
+            "loaded": true
+          },
+          {
+            "id": "bathroom-basin",
+            "asset": "campaign_bathroom_sink",
+            "loaded": true
+          },
+          {
+            "id": "bathroom-toilet",
+            "asset": "campaign_toilet",
+            "loaded": true
+          },
+          {
+            "id": "bathroom-shower",
+            "asset": "campaign_shower",
+            "loaded": true
+          }
+        ],
+        "semantic": [
+          {
+            "id": "container-forester_c0",
+            "rendered": "search_double_wall_cupboard",
+            "asset": "search_double_wall_cupboard"
+          },
+          {
+            "id": "container-forester_c1",
+            "rendered": "search_tool_workbench",
+            "asset": "search_tool_workbench"
+          },
+          {
+            "id": "container-forester_c2",
+            "rendered": "search_wardrobe_single",
+            "asset": "search_wardrobe_single"
+          },
+          {
+            "id": "container-forester_kitchen",
+            "rendered": "search_kitchen_drawers",
+            "asset": "search_kitchen_drawers"
+          },
+          {
+            "id": "kitchen-base",
+            "rendered": "search_kitchen_base",
+            "asset": "search_kitchen_base"
+          },
+          {
+            "id": "bedroom-dresser",
+            "rendered": "search_wide_dresser",
+            "asset": "search_wide_dresser"
+          },
+          {
+            "id": "bathroom-mirror",
+            "rendered": "search_mirror_cabinet",
+            "asset": "search_mirror_cabinet"
+          },
+          {
+            "id": "bathroom-hamper",
+            "rendered": "search_linen_hamper",
+            "asset": "search_linen_hamper"
+          }
+        ],
+        "cupboard": [
+          -34.69,
+          1.38,
+          -62.3
+        ],
+        "bindings": [
+          {
+            "id": "forester_c0",
+            "interactions": 1
+          },
+          {
+            "id": "forester_c1",
+            "interactions": 1
+          },
+          {
+            "id": "forester_c2",
+            "interactions": 1
+          },
+          {
+            "id": "forester_kitchen",
+            "interactions": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "Edited cupboard mesh reaches its exported world coordinates once",
+      "pass": true,
+      "detail": [
+        -34.69,
+        1.38,
+        -62.3
+      ]
+    },
+    {
+      "name": "Normal campaign, options, legacy entries and structured book survive preview startup byte-for-byte",
+      "pass": true
+    },
+    {
+      "name": "Actual Use and keyboard movement open and enter the authored house",
+      "pass": true
+    },
+    {
+      "name": "Retained wardrobe performs a real Python search through Use input",
+      "pass": true
+    },
+    {
+      "name": "Actual journal uses this preview’s own structured and legacy storage keys",
+      "pass": true,
+      "detail": {
+        "book": "field-signal-editor-book:0bea85d1-5775-4e75-8c6c-86fbb7654a2f",
+        "legacy": "field-signal-editor-journal:0bea85d1-5775-4e75-8c6c-86fbb7654a2f"
+      }
+    },
+    {
+      "name": "Journal note persists in the preview book without importing normal-campaign notes",
+      "pass": true
+    },
+    {
+      "name": "Preview save and search journal persist under the preview ID",
+      "pass": true
+    },
+    {
+      "name": "Normal save, options and both journal formats remain byte-identical after actual preview play",
+      "pass": true
+    },
+    {
+      "name": "No editor/preview exceptions or missing runtime assets",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "missing": []
+      }
+    }
+  ],
+  "errors": [],
+  "missing": [],
+  "environment": "Linux Chromium / SwiftShader; actual built candidate, not a physical Apple-device benchmark"
+}

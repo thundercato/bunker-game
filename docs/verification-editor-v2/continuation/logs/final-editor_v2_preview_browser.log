@@ -1,0 +1,4 @@
+PASS Canonical main reports moved-world adapter unavailable
+PASS Unavailable preview explains dependency without importing absent module
+PASS Blocked preview creates no isolated payload or game state
+PASS No browser exceptions or failed asset/module requests

@@ -1,0 +1,283 @@
+{
+  "kind": "unmerged-runtime-compatibility-only",
+  "runtimeRevision": "edffe7b118961406a6516ac079f706375a725ab8",
+  "checks": [
+    {
+      "name": "Explicit compatibility artifact enables adapter capability",
+      "pass": true,
+      "detail": "edffe7b118961406a6516ac079f706375a725ab8"
+    },
+    {
+      "name": "hut numeric interior edit uses canonical local position",
+      "pass": true,
+      "detail": [
+        1.2,
+        0,
+        -2.3999999999999986
+      ]
+    },
+    {
+      "name": "hut world view preserves selected whole building",
+      "pass": true
+    },
+    {
+      "name": "hut focused view keeps local transform and selection after world move",
+      "pass": true
+    },
+    {
+      "name": "hut canonical JSON export/import/reload keeps complete design",
+      "pass": true
+    },
+    {
+      "name": "hut actual runtime composes moved/rotated/raised parent exactly once",
+      "pass": true,
+      "detail": {
+        "building": "hut",
+        "objects": 12,
+        "transform": {
+          "position": [
+            35,
+            1.25,
+            -48
+          ],
+          "yaw": 1.5707963267948966
+        },
+        "versioned": true,
+        "errors": []
+      }
+    },
+    {
+      "name": "hut rendered container agrees with canonical transformed position",
+      "pass": true,
+      "detail": {
+        "expected": [
+          32.6,
+          1.25,
+          -49.2
+        ],
+        "actual": [
+          32.6,
+          1.25,
+          -49.2
+        ],
+        "spawn": {
+          "x": 39.9,
+          "z": -48,
+          "y": 1.25,
+          "yaw": 1.5707963267948966,
+          "pitch": 0
+        }
+      }
+    },
+    {
+      "name": "hut real Use opens door and keyboard crosses raised rotated entrance",
+      "pass": true
+    },
+    {
+      "name": "hut real Use searches relocated bound container",
+      "pass": true
+    },
+    {
+      "name": "Mission-critical recorder survives moved container authoring",
+      "pass": true
+    },
+    {
+      "name": "Actual Atlas objective targets the moved mission cupboard",
+      "pass": true,
+      "detail": {
+        "x": 32.6,
+        "z": -49.2
+      }
+    },
+    {
+      "name": "hut campaign/settings/journal/book stay isolated",
+      "pass": true
+    },
+    {
+      "name": "hut return recovers exact canonical authoring document",
+      "pass": true
+    },
+    {
+      "name": "forester numeric interior edit uses canonical local position",
+      "pass": true,
+      "detail": [
+        -3.5,
+        0,
+        -2.8
+      ]
+    },
+    {
+      "name": "forester world view preserves selected whole building",
+      "pass": true
+    },
+    {
+      "name": "forester focused view keeps local transform and selection after world move",
+      "pass": true
+    },
+    {
+      "name": "forester canonical JSON export/import/reload keeps complete design",
+      "pass": true
+    },
+    {
+      "name": "forester actual runtime composes moved/rotated/raised parent exactly once",
+      "pass": true,
+      "detail": {
+        "building": "forester",
+        "objects": 19,
+        "transform": {
+          "position": [
+            -140,
+            0.75,
+            -40
+          ],
+          "yaw": 0.6457718232379019
+        },
+        "versioned": true,
+        "errors": []
+      }
+    },
+    {
+      "name": "forester rendered container agrees with canonical transformed position",
+      "pass": true,
+      "detail": {
+        "expected": [
+          -144.48030634999125,
+          0.75,
+          -40.12982684710025
+        ],
+        "actual": [
+          -144.48030634999125,
+          0.75,
+          -40.12982684710025
+        ],
+        "spawn": {
+          "x": -136.44929136340292,
+          "z": -35.28805049072098,
+          "y": 0.75,
+          "yaw": 0.6457718232379019,
+          "pitch": 0
+        }
+      }
+    },
+    {
+      "name": "forester real Use opens door and keyboard crosses raised rotated entrance",
+      "pass": true
+    },
+    {
+      "name": "forester keyboard physically ascends transformed stairs to upper floor",
+      "pass": true
+    },
+    {
+      "name": "forester upper-floor keyboard movement retains parent plus floor height",
+      "pass": true
+    },
+    {
+      "name": "forester real Use searches relocated bound container",
+      "pass": true
+    },
+    {
+      "name": "forester campaign/settings/journal/book stay isolated",
+      "pass": true
+    },
+    {
+      "name": "forester return recovers exact canonical authoring document",
+      "pass": true
+    },
+    {
+      "name": "station numeric interior edit uses canonical local position",
+      "pass": true,
+      "detail": [
+        -4.1,
+        0,
+        -2.6
+      ]
+    },
+    {
+      "name": "station world view preserves selected whole building",
+      "pass": true
+    },
+    {
+      "name": "station focused view keeps local transform and selection after world move",
+      "pass": true
+    },
+    {
+      "name": "station canonical JSON export/import/reload keeps complete design",
+      "pass": true
+    },
+    {
+      "name": "station actual runtime composes moved/rotated/raised parent exactly once",
+      "pass": true,
+      "detail": {
+        "building": "station",
+        "objects": 19,
+        "transform": {
+          "position": [
+            -160,
+            1.5,
+            -145
+          ],
+          "yaw": -0.4886921905584123
+        },
+        "versioned": true,
+        "errors": []
+      }
+    },
+    {
+      "name": "station rendered container agrees with canonical transformed position",
+      "pass": true,
+      "detail": {
+        "expected": [
+          -162.3994590674783,
+          1.5,
+          -149.22049714885534
+        ],
+        "actual": [
+          -162.3994590674783,
+          1.5,
+          -149.22049714885534
+        ],
+        "spawn": {
+          "x": -162.76988222043676,
+          "z": -139.79060920213232,
+          "y": 1.5,
+          "yaw": -0.4886921905584123,
+          "pitch": 0
+        }
+      }
+    },
+    {
+      "name": "station real Use opens door and keyboard crosses raised rotated entrance",
+      "pass": true
+    },
+    {
+      "name": "station keyboard physically ascends transformed stairs to upper floor",
+      "pass": true
+    },
+    {
+      "name": "station upper-floor keyboard movement retains parent plus floor height",
+      "pass": true
+    },
+    {
+      "name": "station real Use searches relocated bound container",
+      "pass": true
+    },
+    {
+      "name": "station campaign/settings/journal/book stay isolated",
+      "pass": true
+    },
+    {
+      "name": "station return recovers exact canonical authoring document",
+      "pass": true
+    },
+    {
+      "name": "No browser exceptions or failed asset/module requests",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "missing": []
+      }
+    }
+  ],
+  "errors": [],
+  "missing": []
+}

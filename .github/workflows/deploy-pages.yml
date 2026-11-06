@@ -15,7 +15,8 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # Includes dense history recovery and four prior-worker browser journeys.
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,7 +31,7 @@ jobs:
         run: python3 -m unittest discover -s site/tests -p 'test_*.py' -v
       - name: JavaScript, audio, atlas and shared-layout unit tests
         run: |
-          for file in site/*.js site/editor/*.js; do node --check "$file"; done
+          for file in site/*.js $(find site/editor -name '*.js' -type f); do node --check "$file"; done
           node site/tests/test_client.mjs
           node site/tests/test_atlas.mjs
           node site/tests/test_layout.mjs
@@ -44,6 +45,7 @@ jobs:
           node site/tests/test_campaign.mjs
           node site/tests/test_roofs.mjs
           node site/tests/test_campaign_road_surfaces.mjs
+          for file in site/tests/editor_v2_*.mjs; do node "$file"; done
       - name: Build and validate runtime assets
         run: |
           python3 tools/compile_campaign_road_surfaces.py --check
@@ -76,6 +78,22 @@ jobs:
           node tests/journal_browser.cjs
           node tests/campaign_browser.cjs
           node tests/campaign_editor_browser.cjs
+      - name: Packaged editor suite mouse, graph, model and persistence checks
+        run: |
+          for file in tests/editor_v2_*_browser.cjs; do node "$file"; done
+          node tests/editor_v2_offline.cjs
+          EDITOR_PRIOR_WORKER=editor21 node tests/editor_v2_offline.cjs
+          EDITOR_PRIOR_WORKER=release111 node tests/editor_v2_offline.cjs
+          EDITOR_PRIOR_WORKER=editor212 node tests/editor_v2_offline.cjs
+      - name: Verify accepted package still has exact canonical bytes
+        run: python3 tools/validate_editor_package.py dist
+      - name: Preserve canonical editor review build
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-editor-dist
+          path: dist/
+          if-no-files-found: error
       - name: Preserve verification output
         if: always()
         uses: actions/upload-artifact@v4

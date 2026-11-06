@@ -1,0 +1,10 @@
+PASS Real building drag Escape restores document
+PASS Real snapped building drag is one undo transaction
+PASS Locked building rejects mouse movement
+PASS Numeric yaw uses degrees and persists radians
+PASS Actual sculpt stroke cancels atomically
+PASS Individual foliage lock survives terrain stroke
+PASS Curved road control insertion and deletion
+PASS World draft JSON reload and region UI sync
+PASS Rejected world draft retained before explicit replacement save
+PASS No browser exceptions or missing assets

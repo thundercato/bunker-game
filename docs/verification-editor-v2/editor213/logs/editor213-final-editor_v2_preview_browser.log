@@ -1,0 +1,41 @@
+PASS Canonical package enables the accepted moved-building adapter
+PASS hut numeric interior edit uses canonical local position
+PASS hut world view preserves selected whole building
+PASS hut focused view keeps local transform and selection after world move
+PASS hut canonical JSON export/import/reload keeps complete design
+PASS hut actual runtime composes moved/rotated/raised parent exactly once
+PASS hut rendered container agrees with canonical transformed position
+PASS hut real Use opens door and keyboard crosses raised rotated entrance
+PASS hut real Use searches relocated bound container
+PASS Mission-critical recorder survives moved container authoring
+PASS Actual Atlas objective targets the moved mission cupboard
+PASS hut campaign/settings/journal/book stay isolated
+PASS hut return recovers exact canonical authoring document
+PASS forester numeric interior edit uses canonical local position
+PASS forester world view preserves selected whole building
+PASS forester focused view keeps local transform and selection after world move
+PASS forester canonical JSON export/import/reload keeps complete design
+PASS forester actual runtime composes moved/rotated/raised parent exactly once
+PASS forester rendered container agrees with canonical transformed position
+PASS forester real Use opens door and keyboard crosses raised rotated entrance
+PASS forester keyboard physically ascends transformed stairs to upper floor
+PASS forester upper-floor keyboard movement retains parent plus floor height
+PASS forester real Use searches relocated bound container
+PASS forester campaign/settings/journal/book stay isolated
+PASS forester return recovers exact canonical authoring document
+PASS station one-sided upper-floor resize keeps its front edge fixed and removes the rear strip
+PASS station adds a unique concrete landing that alone supports the removed upper-floor strip
+PASS station numeric interior edit uses canonical local position
+PASS station world view preserves selected whole building
+PASS station focused view keeps local transform and selection after world move
+PASS station canonical JSON export/import/reload keeps complete design
+PASS station actual runtime composes moved/rotated/raised parent exactly once
+PASS station rendered container agrees with canonical transformed position
+PASS station real Use opens door and keyboard crosses raised rotated entrance
+PASS station keyboard physically ascends transformed stairs to upper floor
+PASS station continuously walks from the stairs onto its new physical landing with matching worker height
+PASS station upper-floor keyboard movement retains parent plus floor height
+PASS station real Use searches relocated bound container
+PASS station campaign/settings/journal/book stay isolated
+PASS station return recovers exact canonical authoring document
+PASS No browser exceptions or failed asset/module requests

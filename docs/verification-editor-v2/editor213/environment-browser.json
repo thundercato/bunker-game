@@ -1,0 +1,24 @@
+{
+  "checks": [
+    "Real terrain hover previews deterministic candidates without changing authored data",
+    "Actual mouse dab commits displayed rock instances and is one undo/redo operation",
+    "Escape restores a real multi-dab brush gesture atomically",
+    "Real drag spaces new instances against earlier dabs and keeps one history transaction",
+    "Mouse erasing preserves the individually locked object and undo restores its neighbours",
+    "Export and reload preserve concrete stable IDs and transforms without a seed reroll or campaign writes",
+    "Actual sculpt updates local GPU buffers without rebuilding terrain and retains cancel/undo/redo",
+    "Packaged production subpath has no browser exceptions or missing resources"
+  ],
+  "errors": [],
+  "missing": [],
+  "measurements": [
+    {
+      "sculptUpdate": {
+        "positionVertices": 42,
+        "normalVertices": 72,
+        "totalVertices": 3672
+      },
+      "replacedGeometryDuringDab": false
+    }
+  ]
+}

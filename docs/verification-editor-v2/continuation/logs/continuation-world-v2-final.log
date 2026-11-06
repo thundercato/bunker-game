@@ -1,0 +1,12 @@
+READY {
+  buildings: 37,
+  roads: 15,
+  foliage: 0,
+  terrainCells: 0,
+  waterVolumes: 0,
+  undo: 0,
+  redo: 0,
+  cutaway: { buildingId: null, objects: 0, errors: [], compiled: null },
+  renderStats: { rebuilds: 1, foliageCreated: 0 }
+}
+PASS world v2 browser draft persistence, brushes, building movement, link and export

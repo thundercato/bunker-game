@@ -1,0 +1,8 @@
+READY {
+  buildings: 37,
+  roads: 15,
+  foliage: 0,
+  terrainCells: 0,
+  waterVolumes: 0
+}
+PASS world v2 browser draft persistence, brushes, building movement, link and export

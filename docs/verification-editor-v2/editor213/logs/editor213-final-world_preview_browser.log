@@ -1,0 +1,15 @@
+PASS Old worker upgraded before importing editor or game
+PASS Versioned preview runs moved, rotated and raised hut
+PASS Spawn follows building once
+PASS Saved interior cupboard and decorative chair follow whole-building pose
+PASS Door opens through real Use input
+PASS Keyboard traverses rotated door on the raised floor
+PASS Physical search reaches moved mission cupboard
+PASS Actual Atlas targets the moved cupboard front binding
+PASS Actual v9 campaign, settings and journal remain untouched
+PASS Preview events use their own journal key
+PASS Moved preview reloads offline without rerolling searched container
+PASS Production data survives offline preview restart
+PASS Return to editor retains exact world draft
+PASS Shareable link works without drafts even when offline storage is unavailable
+PASS No missing assets or browser errors

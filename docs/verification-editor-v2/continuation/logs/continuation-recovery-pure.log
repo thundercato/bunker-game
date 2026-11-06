@@ -1,0 +1,17 @@
+PASS strict backup key allowlist excludes all campaign, settings, journals and arbitrary editor keys
+PASS enumeration reads only allowed editor backup and rejected keys
+PASS malformed original bytes remain unchanged and cannot restore
+PASS template libraries are download-only
+PASS selection collection backups remain downloadable but cannot overwrite scene data
+PASS foreign building IDs cannot restore through another building recovery key
+PASS canonical world document and checkpoint wrapper validate through existing contract
+PASS source revision mismatches cannot restore
+PASS world authoring validates through existing world-v2 validator
+PASS loot and mission proposals use their existing validators
+PASS a stale backup cannot restore a different raw value
+PASS restoring a layout retains exact original backup and stable IDs
+PASS active unsaved design is backed up before restored layout replaces it
+PASS backup quota failure prevents all primary changes and retains active work
+PASS proposal restore preserves both stored and unsaved proposal designs before write
+PASS normal campaign bytes are untouched by all recovery operations
+16 editor recovery tests passed

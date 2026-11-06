@@ -32,10 +32,17 @@ const server=http.createServer((req,res)=>{let relative=new URL(req.url,'http://
    await page.evaluate(()=>FieldSignal3D.openPanel('saves'));await page.locator('#file-input').setInputFiles({name:'candidate-fixture.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(s))});await page.locator('[data-cmd="restore"]').click();await page.waitForFunction(x=>Math.abs(FieldSignal3D.getPlayer().x-x)<.02,x);await page.locator('#close-panel').click();
   }
   async function face(id){
+   // Climb commands commit the worker's endpoint before their visible animation
+   // finishes. Looking while input is paused is deliberately ignored by the game.
+   await page.waitForFunction(()=>!FieldSignal3D.getInput().paused,null,{timeout:30000});
    await page.evaluate(async id=>{const w=FieldSignal3D.getWorld(),p=FieldSignal3D.getPlayer(),it=w.interact.find(q=>q.id===id);if(!it)throw Error('Missing interaction '+id);const T=await import('./vendor/three.js');w.scene.updateMatrixWorld(true);const target=it.type==='container'?new T.Box3().setFromObject(it.obj).getCenter(new T.Vector3()):it.anchor,dx=target.x-p.x,dz=target.z-p.z;FieldSignal3D.getInput().look(-Math.atan2(dx,-dz)-p.yaw,Math.atan2(target.y-p.y-1.67,Math.hypot(dx,dz))-p.pitch);},id);
-   try{await page.waitForFunction(id=>FieldSignal3D.getWorld().select()?.id===id,id,{timeout:30000});}catch(error){const probe=await page.evaluate(id=>{const w=FieldSignal3D.getWorld(),it=w.interact.find(q=>q.id===id);w.rayAt();const describe=h=>({distance:h.distance,point:h.point,object:h.object.name,data:{...h.object.userData,interact:h.object.userData.interact?.id}});return{player:FieldSignal3D.getPlayer(),interaction:{id:it.id,anchor:it.anchor,visible:w.visible(it.obj)},selected:w.select()?.id,hits:w.ray.intersectObject(it.obj,true).map(describe).slice(0,6),occluders:w.ray.intersectObjects(w.activeOccluders(),false).slice(0,6).map(describe)};},id);fs.writeFileSync(path.join(out,id+'-ray.json'),JSON.stringify(probe,null,2));throw error;}
+   try{await page.waitForFunction(id=>FieldSignal3D.getWorld().select()?.id===id,id,{timeout:30000});}catch(error){const probe=await page.evaluate(id=>{const w=FieldSignal3D.getWorld(),it=w.interact.find(q=>q.id===id);w.rayAt();const describe=h=>({distance:h.distance,point:h.point,object:h.object.name,data:{...h.object.userData,interact:h.object.userData.interact?.id}});return{player:FieldSignal3D.getPlayer(),worker:FieldSignal3D.getState().player,inputPaused:FieldSignal3D.getInput().paused,interaction:{id:it.id,anchor:it.anchor,visible:w.visible(it.obj)},selected:w.select()?.id,hits:w.ray.intersectObject(it.obj,true).map(describe).slice(0,6),occluders:w.ray.intersectObjects(w.activeOccluders(),false).slice(0,6).map(describe)};},id);console.log('RAY_PROBE',JSON.stringify(probe));fs.writeFileSync(path.join(out,id.replace(/[^\w.-]+/g,'-')+'-ray.json'),JSON.stringify(probe,null,2));throw error;}
   }
   async function move(key,predicate,timeout=60000){await page.keyboard.down(key);try{await page.waitForFunction(predicate,null,{timeout});}finally{await page.keyboard.up(key);}}
+  async function climbFinished(route){
+   await page.waitForFunction(to=>{const player=FieldSignal3D.getPlayer(),worker=FieldSignal3D.getState().player;return !FieldSignal3D.getInput().paused&&['x','y','z'].every(axis=>Math.abs(player[axis]-to[axis])<.02&&Math.abs(worker[axis]-to[axis])<.02);},route.to,{timeout:30000});
+   console.log('Completed real Use route',route.id,JSON.stringify(await page.evaluate(()=>({player:FieldSignal3D.getPlayer(),worker:FieldSignal3D.getState().player,inputPaused:FieldSignal3D.getInput().paused}))));
+  }
   if(!process.argv.includes('--crane-only')){
   // Physical journal inside actual game, not the isolated component fixture.
   await page.locator('#open-journal').click();await page.waitForFunction(()=>FieldSignal3D.getJournal()?.info().mode==='2d');
@@ -90,8 +97,7 @@ const server=http.createServer((req,res)=>{let relative=new URL(req.url,'http://
    await face(station);await page.keyboard.press('KeyE');
    if(level>4)await page.locator(`[data-ladder-route="${route.id}"]`).click();
    if(level===8){await page.waitForTimeout(350);await page.evaluate(()=>dispatchEvent(new Event('pagehide')));check('Closing during ladder animation saves the canonical safe landing',await page.evaluate(()=>JSON.parse(localStorage.getItem('field-signal-dead-air-v9')).player.y===8));}
-   await page.waitForFunction(y=>Math.abs(FieldSignal3D.getPlayer().y-y)<.02,level,{timeout:30000});
-   await page.waitForTimeout(3100);
+   await climbFinished(route);
   }
   check('Crane climbs three real guarded landings through actual Use controls',await page.evaluate(()=>Math.abs(FieldSignal3D.getPlayer().y-12)<.02));
   await page.evaluate(()=>{const p=FieldSignal3D.getPlayer();FieldSignal3D.getInput().look(-Math.PI/2-p.yaw,-p.pitch);});await move('KeyD',()=>FieldSignal3D.getPlayer().z>-149.65);await move('KeyW',()=>FieldSignal3D.getPlayer().x>111.15);await face('dock_crane_tools');await page.keyboard.press('KeyE');await page.waitForFunction(()=>!!FieldSignal3D.getState().containers.dock_crane_tools,null,{timeout:30000});
@@ -99,7 +105,7 @@ const server=http.createServer((req,res)=>{let relative=new URL(req.url,'http://
   const before=await page.evaluate(()=>FieldSignal3D.getPlayer());const guarded=await page.evaluate(p=>{const w=FieldSignal3D.getWorld();return w.movePlayer(p,-3,0);},before);
   check('Rail opening cannot accidentally drop the player off the platform',guarded.y>11.2);
   await page.evaluate(()=>{const p=FieldSignal3D.getPlayer();FieldSignal3D.getInput().look(-Math.PI/2-p.yaw,-p.pitch);});await move('KeyS',()=>FieldSignal3D.getPlayer().x<110.5);await move('KeyA',()=>FieldSignal3D.getPlayer().z<-150.95);
-  for(const level of [8,4,0]){const route=routes.find(r=>r.to.y===level&&r.to.y<r.from.y);const station=await page.evaluate(()=>{const p=FieldSignal3D.getPlayer();return FieldSignal3D.getWorld().interact.filter(i=>i.type==='climb').sort((a,b)=>Math.hypot(a.anchor.x-p.x,a.anchor.y-p.y-.8,a.anchor.z-p.z)-Math.hypot(b.anchor.x-p.x,b.anchor.y-p.y-.8,b.anchor.z-p.z))[0].id;});await face(station);await page.keyboard.press('KeyE');if(level<8)await page.locator(`[data-ladder-route="${route.id}"]`).click();await page.waitForFunction(y=>Math.abs(FieldSignal3D.getPlayer().y-y)<.02,level,{timeout:30000});await page.waitForTimeout(3100);}check('Crane returns through all three real down-ladder routes',await page.evaluate(()=>Math.abs(FieldSignal3D.getPlayer().y)<.02));
+  for(const level of [8,4,0]){const route=routes.find(r=>r.to.y===level&&r.to.y<r.from.y);const station=await page.evaluate(()=>{const p=FieldSignal3D.getPlayer();return FieldSignal3D.getWorld().interact.filter(i=>i.type==='climb').sort((a,b)=>Math.hypot(a.anchor.x-p.x,a.anchor.y-p.y-.8,a.anchor.z-p.z)-Math.hypot(b.anchor.x-p.x,b.anchor.y-p.y-.8,b.anchor.z-p.z))[0].id;});await face(station);await page.keyboard.press('KeyE');if(level<8)await page.locator(`[data-ladder-route="${route.id}"]`).click();await climbFinished(route);}check('Crane returns through all three real down-ladder routes',await page.evaluate(()=>Math.abs(FieldSignal3D.getPlayer().y)<.02));
   // Actual domain expedition was generated by test_campaign.py, not fabricated rewards.
   const completedPath=path.join(root,'test-results/candidate-completed-mission.json');
   if(!fs.existsSync(completedPath))execFileSync('python3',['-m','unittest','discover','-s','site/tests','-p','test_campaign.py'],{cwd:root,stdio:'pipe'});

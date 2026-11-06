@@ -1,0 +1,8 @@
+PASS Real terrain hover previews deterministic candidates without changing authored data
+PASS Actual mouse dab commits displayed rock instances and is one undo/redo operation
+PASS Escape restores a real multi-dab brush gesture atomically
+PASS Real drag spaces new instances against earlier dabs and keeps one history transaction
+PASS Mouse erasing preserves the individually locked object and undo restores its neighbours
+PASS Export and reload preserve concrete stable IDs and transforms without a seed reroll or campaign writes
+PASS Actual sculpt updates local GPU buffers without rebuilding terrain and retains cancel/undo/redo
+PASS Packaged production subpath has no browser exceptions or missing resources

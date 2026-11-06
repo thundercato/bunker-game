@@ -1,0 +1,310 @@
+{
+  "baselineCommit": "de5d758",
+  "baselineBuildFiles": 273,
+  "baselineMissingEditorFiles": [
+    "editor/loot.html",
+    "editor/missions.html",
+    "editor/panels/assets-core.js",
+    "editor/panels/assets.css",
+    "editor/panels/assets.js",
+    "editor/panels/hierarchy-core.js",
+    "editor/panels/hierarchy.js",
+    "editor/panels/loot-core.js",
+    "editor/panels/loot.css",
+    "editor/panels/loot.js",
+    "editor/panels/missions-core.js",
+    "editor/panels/missions.css",
+    "editor/panels/missions.js",
+    "editor/tools/resize-core.js",
+    "editor/tools/resize-handles.js",
+    "editor/tools/world-authoring.js",
+    "editor/tools/world-inspector.js"
+  ],
+  "canonicalBuildFiles": 598,
+  "manifestResources": 596,
+  "addedPublicFiles": [
+    {
+      "path": "editor/connected-world.js",
+      "dependencies": [
+        "editor/tools/interior-core.js",
+        "editor/world-core.js",
+        "layout-renderer.js",
+        "world-document.js"
+      ]
+    },
+    {
+      "path": "editor/history-codec.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/loot.html",
+      "dependencies": [
+        "assets/ui/icon-192.png",
+        "editor/panels/loot.css",
+        "editor/panels/loot.js",
+        "editor/suite-bootstrap.js"
+      ]
+    },
+    {
+      "path": "editor/missions.html",
+      "dependencies": [
+        "assets/ui/icon-192.png",
+        "editor/panels/missions.css",
+        "editor/panels/missions.js",
+        "editor/suite-bootstrap.js"
+      ]
+    },
+    {
+      "path": "editor/panels/assets-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/assets.css",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/assets.js",
+      "dependencies": [
+        "editor/panels/assets-core.js",
+        "layout-renderer.js",
+        "search-props.js",
+        "vendor/OrbitControls.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/panels/bindings-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/bindings.js",
+      "dependencies": [
+        "editor/panels/bindings-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/environment-brush.js",
+      "dependencies": [
+        "editor/tools/environment-brush-core.js",
+        "editor/world-core.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/panels/hierarchy-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/hierarchy.js",
+      "dependencies": [
+        "editor/panels/hierarchy-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/interior-tools.js",
+      "dependencies": [
+        "layout-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/loot-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/loot.css",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/loot.js",
+      "dependencies": [
+        "editor/panels/loot-core.js",
+        "editor/source-adapter.js"
+      ]
+    },
+    {
+      "path": "editor/panels/missions-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/missions.css",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/missions.js",
+      "dependencies": [
+        "editor/panels/missions-core.js",
+        "editor/source-adapter.js"
+      ]
+    },
+    {
+      "path": "editor/panels/recovery-core.js",
+      "dependencies": [
+        "editor/history-codec.js",
+        "editor/panels/loot-core.js",
+        "editor/panels/missions-core.js",
+        "editor/session.js",
+        "editor/tools/world-authoring.js",
+        "layout-core.js"
+      ]
+    },
+    {
+      "path": "editor/panels/recovery.js",
+      "dependencies": [
+        "editor/panels/recovery-core.js",
+        "editor/session.js",
+        "editor/source-adapter.js"
+      ]
+    },
+    {
+      "path": "editor/panels/validation-core.js",
+      "dependencies": [
+        "editor/panels/loot-core.js",
+        "editor/panels/missions-core.js",
+        "editor/tools/interior-core.js",
+        "editor/tools/world-authoring.js",
+        "editor/world-core.js",
+        "layout-core.js",
+        "world-document.js"
+      ]
+    },
+    {
+      "path": "editor/panels/validation.css",
+      "dependencies": []
+    },
+    {
+      "path": "editor/panels/validation.js",
+      "dependencies": [
+        "editor/panels/assets-core.js",
+        "editor/panels/loot-core.js",
+        "editor/panels/validation-core.js",
+        "editor/session.js",
+        "editor/source-adapter.js"
+      ]
+    },
+    {
+      "path": "editor/preview-launcher.js",
+      "dependencies": [
+        "world-document.js"
+      ]
+    },
+    {
+      "path": "editor/session.js",
+      "dependencies": [
+        "editor/history-codec.js",
+        "editor/source-adapter.js",
+        "editor/tools/world-authoring.js",
+        "layout-core.js",
+        "world-document.js"
+      ]
+    },
+    {
+      "path": "editor/source-adapter.js",
+      "dependencies": [
+        "asset-ids.js",
+        "campaign-loader.js",
+        "editor/source-context.json",
+        "layout-core.js",
+        "preview-document.js",
+        "world.json"
+      ]
+    },
+    {
+      "path": "editor/source-context.json",
+      "dependencies": []
+    },
+    {
+      "path": "editor/suite-bootstrap.js",
+      "dependencies": [
+        "editor/panels/recovery.js"
+      ]
+    },
+    {
+      "path": "editor/tools/environment-brush-core.js",
+      "dependencies": [
+        "editor/world-core.js",
+        "layout-core.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/tools/interior-core.js",
+      "dependencies": []
+    },
+    {
+      "path": "editor/tools/resize-core.js",
+      "dependencies": [
+        "layout-core.js"
+      ]
+    },
+    {
+      "path": "editor/tools/resize-handles.js",
+      "dependencies": [
+        "editor/tools/resize-core.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/tools/terrain-dirty-core.js",
+      "dependencies": [
+        "editor/world-core.js",
+        "vendor/three.js"
+      ]
+    },
+    {
+      "path": "editor/tools/world-authoring.js",
+      "dependencies": [
+        "editor/world-core.js"
+      ]
+    },
+    {
+      "path": "editor/tools/world-inspector.js",
+      "dependencies": [
+        "editor/tools/world-authoring.js"
+      ]
+    },
+    {
+      "path": "editor/validation.html",
+      "dependencies": [
+        "assets/ui/icon-192.png",
+        "editor/panels/validation.css",
+        "editor/panels/validation.js",
+        "editor/suite-bootstrap.js"
+      ]
+    }
+  ],
+  "status": "Original17-file packaging failure resolved in canonical production build and green normal CI; current2.1.3 build includes lossless history explicitly, strict41-check gameplay suite and four offline upgrades pass. Final full CI gate remains.",
+  "acceptance": [
+    "Canonical python3 tools/build.py:598 explicit public files /596 cache resources,37 editor additions over acceptedmain; no overlay.",
+    "All16 editor pure suites passed Node22 and173 Python tests passed with zero skips.",
+    "Current browser suites cover strict41 actual-game checks, history13 including real5000instance/30frame storage and unchanged normal/preview namespaces.",
+    "All4 prior-worker variants:7 checks each;596resources cached and all5 workspaces restart offline with retained save/draft bytes.",
+    "All23 local browser executables passed with zero final error/missing/failure arrays; final-head normalCI/artifact linked from PR82."
+  ],
+  "cacheReconciliation": {
+    "originalCanonicalPrior": "field-signal-overgrowth-v11-world2.0.0",
+    "priorReview": "field-signal-overgrowth-v11-editor2.1.0",
+    "acceptedRuntimePrior": "field-signal-game-first-release-11-1",
+    "editorSuite": "field-signal-11.1-editor2.1.3",
+    "resolution": "Preserve accepted main resource traversal order and runtime fresh-entry gates, append explicit editor additions, use one matching cache in SW/runtime-ready/suite-bootstrap. Retire public caches only after complete cache-all; no storage clearing.",
+    "priorReview212": "field-signal-11.1-editor2.1.2"
+  },
+  "addedPublicFileCount": 37,
+  "priorReviewCache": "field-signal-overgrowth-v11-editor2.1.0",
+  "optionalRuntimeDependencies": {
+    "editor/preview-launcher.js": "world-preview.js is now bundled from accepted main; capability metadata validated against shipped source revision/digest"
+  },
+  "developmentOverlayRequired": false,
+  "additiveBaseCommit": "0aacdb48f1cdbef3480dc7f8812a8fd5604c5f5e",
+  "acceptedRuntimeIntegrationCommit": "8cd2b24a7218c99bae383df1ef38c4a270842d18",
+  "finalDocumentationMain": "220fb45",
+  "ciResult": "Final-head normal CI and canonical-editor-dist are linked from PR82; earlier green packaging proof is historical, not a substitute for final-head checks.",
+  "currentEditorSource": "e3719dbbb6b709020452e4e8ce6b65f4c08eff4b",
+  "currentEditorVersion": "2.1.3-preview",
+  "firstGreenCanonicalCI": "https://github.com/thundercato/bunker-game/actions/runs/42285211842",
+  "firstGreenCheckpoint": "7bd5db1",
+  "historyFormatScope": "Optional lossless UI checkpoint metadata only; canonical document, game schema and legacy draft keys unchanged.",
+  "previousMetadataCountCommit": "5056290",
+  "lastPublicSourceCommit": "e3719db",
+  "previousFullAcceptanceSource": "8567fc7f5d52ead7ac6037941b503bf3681ba56d",
+  "currentPackageProvenance": "editor213-upgrade/package-provenance.json"
+}

@@ -1,0 +1,47 @@
+{
+  "format": "field-signal-editor-object-template",
+  "version": 1,
+  "name": "Workshop pair",
+  "objects": [
+    {
+      "id": "object-91764499-4e49-4da4-b744-7f659dd6ad19",
+      "name": "Workshop table",
+      "type": "prop",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        2.1,
+        0.985,
+        1.25
+      ],
+      "yaw": 0,
+      "material": "wood",
+      "solid": true,
+      "locked": false,
+      "asset": "painted_wooden_table"
+    },
+    {
+      "id": "object-f11a0ebb-0ae8-449a-bf62-f1c34e8d3c75",
+      "name": "Workshop medical case",
+      "type": "prop",
+      "position": [
+        0.35000000000000003,
+        0.985,
+        -1.3877787807814457e-16
+      ],
+      "size": [
+        0.3,
+        0.2,
+        0.24
+      ],
+      "yaw": 0,
+      "material": "wood",
+      "solid": true,
+      "locked": false,
+      "asset": "medical_box"
+    }
+  ]
+}

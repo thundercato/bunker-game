@@ -1,0 +1,37 @@
+{
+  "checks": [
+    "Prior production service worker upgrades before importing stale editor modules",
+    "All five editor workspaces start from canonical dist under /bunker-game/",
+    "Actual Prepare editor for offline action completes the public package without overwriting save status",
+    "Complete explicit offline manifest cached (596 resources), prior public cache retired safely",
+    "Every workspace restarts offline, including never-cached directory navigation",
+    "Campaign, settings, both legacy journals, current field journal, existing preview namespaces and backward-compatible drafts remain byte-for-byte intact",
+    "No browser exceptions or missing packaged network resources"
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "missing": [],
+  "requests": [],
+  "cancelledRequests": [
+    {
+      "url": "http://127.0.0.1:40063/bunker-game/assets/v10/models/painted_wooden_table.glb",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:40063/bunker-game/assets/v10/models/painted_wooden_cabinet.glb",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:40063/bunker-game/assets/v10/models/medical_box.glb",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:40063/bunker-game/assets/v10/models/vintage_wooden_drawer_01.glb",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:40063/bunker-game/assets/v10/models/medical_box.glb",
+      "error": "net::ERR_ABORTED"
+    }
+  ]
+}

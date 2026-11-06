@@ -1,0 +1,185 @@
+{
+  "rows": [
+    {
+      "name": "37 degree floor numeric anchored resize",
+      "pass": true,
+      "detail": {
+        "id": "ground",
+        "name": "Ground floor",
+        "type": "floor",
+        "position": [
+          0.4492324744016022,
+          0,
+          -0.33852095052302716
+        ],
+        "size": [
+          9.125,
+          0.16,
+          7
+        ],
+        "yaw": 0.6457718232379019,
+        "material": "concrete",
+        "solid": true,
+        "locked": false
+      }
+    },
+    {
+      "name": "Input undo and shortcut letters stay in field",
+      "pass": true
+    },
+    {
+      "name": "Real rotated edge drag fixes opposite edge and creates one transaction",
+      "pass": true,
+      "detail": {
+        "before": {
+          "id": "ground",
+          "name": "Ground floor",
+          "type": "floor",
+          "position": [
+            0.4492324744016022,
+            0,
+            -0.33852095052302716
+          ],
+          "size": [
+            9.125,
+            0.16,
+            7
+          ],
+          "yaw": 0.6457718232379019,
+          "material": "concrete",
+          "solid": true,
+          "locked": false
+        },
+        "after": {
+          "id": "ground",
+          "name": "Ground floor",
+          "type": "floor",
+          "position": [
+            1.2977827038268508,
+            0,
+            -0.9779494126220785
+          ],
+          "size": [
+            11.25,
+            0.16,
+            7
+          ],
+          "yaw": 0.6457718232379019,
+          "material": "concrete",
+          "solid": true,
+          "locked": false
+        }
+      }
+    },
+    {
+      "name": "Resized geometry and canonical collision agree",
+      "pass": true
+    },
+    {
+      "name": "Undo/redo restores both dimensions and position",
+      "pass": true
+    },
+    {
+      "name": "Escape cancels resize without history or durable draft changes",
+      "pass": true
+    },
+    {
+      "name": "blur cancels resize without history or durable draft changes",
+      "pass": true
+    },
+    {
+      "name": "Real corner drag preserves opposite local corner and one history entry",
+      "pass": true,
+      "detail": {
+        "before": [
+          11.25,
+          0.16,
+          7
+        ],
+        "after": [
+          13,
+          0.16,
+          8.75
+        ]
+      }
+    },
+    {
+      "name": "Escape cancels existing mouse gizmo drag without committing undo",
+      "pass": true
+    },
+    {
+      "name": "Invalid doorway resize is rejected with visible explanation",
+      "pass": true
+    },
+    {
+      "name": "63 degree wall numeric width and height retain anchor and collision agreement",
+      "pass": true,
+      "detail": {
+        "before": {
+          "id": "wall-west",
+          "name": "West wall",
+          "type": "wall",
+          "position": [
+            -4,
+            0,
+            0
+          ],
+          "size": [
+            7,
+            3.2,
+            0.22
+          ],
+          "yaw": 1.0995574287564276,
+          "material": "plaster",
+          "solid": true,
+          "locked": false
+        },
+        "after": {
+          "id": "wall-west",
+          "name": "West wall",
+          "type": "wall",
+          "position": [
+            -3.8581279688313916,
+            0,
+            -0.27843953880886496
+          ],
+          "size": [
+            7.625,
+            3.575,
+            0.22
+          ],
+          "yaw": 1.0995574287564276,
+          "material": "plaster",
+          "solid": true,
+          "locked": false
+        }
+      }
+    },
+    {
+      "name": "Precise numeric offset follows rotated local X",
+      "pass": true
+    },
+    {
+      "name": "Portable JSON export/import retains resized rotated pose",
+      "pass": true
+    },
+    {
+      "name": "Browser reload restores draft without changing IDs",
+      "pass": true
+    },
+    {
+      "name": "No browser exceptions",
+      "pass": true
+    },
+    {
+      "name": "Asset request report",
+      "pass": true,
+      "detail": {
+        "failures": []
+      }
+    }
+  ],
+  "errors": [],
+  "missing": [],
+  "platform": "Linux Chromium / SwiftShader"
+}

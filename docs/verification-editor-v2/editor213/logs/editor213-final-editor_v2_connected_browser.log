@@ -1,0 +1,10 @@
+PASS Focused edit and stable selection enter the same canonical map document
+PASS Moved and rotated building returns with contents, camera, selection and canonical placement
+PASS Focused undo/redo crosses workspace boundaries and restores the world transform
+PASS Actual in-world local geometry uses one canonical parent transform and retains interaction binding [ 20.059907975537293, 0, -36.536053276763354 ]
+PASS In-world object numeric edits return to the focused inspector without copying objects
+PASS Both editor views open the real upper-storey cutaway; height edits keep binding floors and exact undo
+PASS One session retains authored hut, two-storey cottage and station layouts
+PASS Canonical portable JSON round trip and reload retain all buildings, IDs and durable history
+PASS Normal campaign/settings/journal remain isolated and accepted runtime adapter is available
+PASS No browser exceptions or missing packaged assets

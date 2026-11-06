@@ -1,0 +1,48 @@
+{
+  "format": "field-signal-editor-validation-report/1",
+  "digest": "c4ace25e",
+  "sourceRevision": "6b4f9fb9401398a65eee576f40b2d80805ef6c76",
+  "issues": [
+    {
+      "level": "warning",
+      "scope": "Building hut",
+      "message": "Medicine cabinet has no complete supporting top face.",
+      "href": "editor/?building=hut&select=container-hut_c2",
+      "repair": "Focus the object, enable collisions and check its floor, supports and door/stair clearance."
+    },
+    {
+      "level": "warning",
+      "scope": "Water / hut",
+      "message": "An authored water surface intersects the entrance approach.",
+      "href": "editor/?building=hut&select=entrance",
+      "repair": "Lower the water or raise the approach. This checks visual surfaces, not runtime drowning or underground exclusion rules."
+    }
+  ],
+  "regions": {
+    "north": {
+      "foliage": 0,
+      "buildings": 16,
+      "lights": 1
+    },
+    "central": {
+      "foliage": 0,
+      "buildings": 15,
+      "lights": 0
+    },
+    "south": {
+      "foliage": 0,
+      "buildings": 6,
+      "lights": 0
+    }
+  },
+  "coverage": {
+    "interiors": 1,
+    "buildings": 37,
+    "unchecked": 36
+  },
+  "counts": {
+    "errors": 0,
+    "warnings": 2
+  },
+  "status": "Review only; no publication or runtime approval"
+}

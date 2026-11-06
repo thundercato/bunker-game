@@ -1,0 +1,102 @@
+verify	Structured journal and candidate gameplay browser checks	﻿2026-11-06T21:43:48.2881166Z ##[group]Run node tests/journal_browser.cjs
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2881548Z [36;1mnode tests/journal_browser.cjs[0m
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2881837Z [36;1mnode tests/campaign_browser.cjs[0m
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2882136Z [36;1mnode tests/campaign_editor_browser.cjs[0m
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2902846Z shell: /usr/bin/bash -e {0}
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2903106Z env:
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2903377Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2903829Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2904256Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2904659Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2905076Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2905469Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:48.2905790Z ##[endgroup]
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:49.3522590Z PASS 3D initialisation succeeds {"format":"field-signal-journal/1","events":5,"notes":0,"discarded":0,"legacyAvailable":0,"legacyAdopted":false,"persistent":true,"error":"","mode":"3d","model":"layered covers, paper stacks, metal binder and flexible sheet","fallback":false,"sceneError":null,"section":"active","page":0,"turning":false,"turns":0,"renders":1,"drawCalls":13,"triangles":912}
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:49.3567176Z PASS Real vendored Three notebook includes covers, paper and binder {"format":"field-signal-journal/1","events":5,"notes":0,"discarded":0,"legacyAvailable":0,"legacyAdopted":false,"persistent":true,"error":"","mode":"3d","model":"layered covers, paper stacks, metal binder and flexible sheet","fallback":false,"sceneError":null,"section":"active","page":0,"turning":false,"turns":0,"renders":1,"drawCalls":13,"triangles":912}
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:49.3963398Z PASS Journal header stays in its component instead of inheriting fixed HUD positioning
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:49.4021075Z PASS Mission text uses readable DOM and exact campaign data
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:50.6630541Z PASS Atlas action preserves stable mission ID
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:50.7260439Z PASS Balanced mode preserves an available manual 2D to 3D toggle
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:50.7600212Z PASS Tab focuses the first available journal control before global game input
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:50.7700974Z PASS Shift+Tab reaches the last journal control
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:50.7805254Z PASS Enter turns exactly one instant 2D page despite global interact mapping
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:50.7832261Z PASS Space activates a focused journal control once
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:51.4669874Z PASS Page actually bends out of the notebook during turn
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:52.3869845Z PASS Keyboard turn reaches next readable spread
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:52.7418648Z PASS Idle journal does not run a render loop
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:53.3646954Z PASS Controller right shoulder turns a page
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:54.0559639Z PASS Controller left shoulder turns back
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:54.0604817Z PASS Controller can focus journal controls
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:56.8319718Z PASS Landscape journal stays inside viewport and keeps page controls visible
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:56.8328594Z PASS Mission Atlas, pin and dossier buttons stay visible below scrollable paper
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:57.2069663Z PASS A real vertical touch gesture scrolls paper without turning pages
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:57.9957878Z PASS A real horizontal touch gesture turns a page instead of scrolling the document
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:58.0120908Z PASS Escape immediately disposes an in-progress journal turn
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:58.0279845Z PASS Low-power mode creates the 2D fallback without a WebGL renderer
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:58.0320437Z PASS Battery saver describes and disables the unavailable 3D action
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:58.5382736Z PASS Communications show the exact encountered written briefing
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:58.8715779Z PASS Completed assignment remains in archive with real reward and time
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:59.2910888Z PASS Player note is explicit, stored and navigable
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:59.3467151Z PASS Explicit legacy adoption preserves original v9 storage
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:59.3538715Z PASS Remount and reload do not duplicate journal records
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:59.6741592Z PASS OS reduced motion selects fallback without WebGL
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:59.6761954Z PASS Reduced motion describes and disables the unavailable 3D action
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:43:59.6763142Z PASS No browser exceptions []
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:13.3055460Z PASS Candidate boots real Python, original features and all new scene assets {"id":"field-signal-game-first-candidate-1","baselineModelFamilies":58,"scenes":4,"searchCatalogue":69,"placedSearchVariants":68,"props":118,"districts":{"districts":8,"objects":95,"assetInstances":37,"proceduralObjects":58,"mergedMeshes":169,"meshes":185,"triangles":94027,"visibleCells":3},"climbs":6,"errors":[]}
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:13.3228123Z PASS Existing schema-9 credits and inventory continue unchanged
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:13.3229461Z PASS New dock searches retain all original container IDs
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:14.7847436Z PASS Calmer Relay Lanterns soundtrack is retained and decodes
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:16.8239692Z PASS Low-quality game gets an accessible real-mission journal
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:17.0815204Z PASS Journal pauses the real simulation
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:23.2949189Z PASS Actual 3D paper deforms and completes a page turn
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:24.0680091Z PASS Real controller shoulder input turns the in-game journal
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:25.2919727Z PASS Journal and mission buttons fit phone landscape
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:27.7546075Z PASS Journal records a conversation only after actual contact
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:31.4360452Z PASS Real workbench pickup, magazine insertion, rack and safety controls work
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:44:38.1953056Z PASS Actual keyboard fire consumes a round and damages the visible enemy
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:46:05.1327430Z PASS Actual keyboard stairs reach the refurbished upper landing
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:48:03.1425254Z PASS Actual keyboard return stairs and front entrance remain clear
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:49:10.5144470Z PASS Quayside inspection crate performs persistent actual loot search
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:49:23.0378832Z Climbing toward 4
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:49:26.6579562Z Climbing toward 8
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:49:28.0044642Z PASS Closing during ladder animation saves the canonical safe landing
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:49:31.1083158Z Climbing toward 12
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:49:35.4548705Z PASS Crane climbs three real guarded landings through actual Use controls
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:49:41.8439894Z PASS Upper gantry tool case is physically searchable on its own floor
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:49:47.7796825Z PASS Rail opening cannot accidentally drop the player off the platform
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:50:25.6231847Z FAILURE_STATE {
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:50:25.6258928Z   boot: 'Ready · Field Journal & Quayside · Journal, districts and furnished rooms',
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:50:25.6278850Z   player: { x: 110.4, z: -151, y: 8, yaw: -1.5707963267948966, pitch: 0 },
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:50:25.6279827Z   title: 'Gantry maintenance tool case'
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:50:25.6280500Z }
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:50:30.6953043Z page.waitForFunction: Timeout 30000ms exceeded.
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:50:30.6953834Z     at face (/home/runner/work/bunker-game/bunker-game/tests/campaign_browser.cjs:36:19)
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:50:30.6954506Z     at async /home/runner/work/bunker-game/bunker-game/tests/campaign_browser.cjs:102:375
+verify	Structured journal and candidate gameplay browser checks	2026-11-06T21:50:30.7114870Z ##[error]Process completed with exit code 1.
+verify	Preserve verification output	﻿2026-11-06T21:50:30.7209142Z ##[group]Run actions/upload-artifact@v4
+verify	Preserve verification output	2026-11-06T21:50:30.7209485Z with:
+verify	Preserve verification output	2026-11-06T21:50:30.7209696Z   name: field-signal-verification
+verify	Preserve verification output	2026-11-06T21:50:30.7209956Z   path: test-results/
+verify	Preserve verification output	2026-11-06T21:50:30.7210176Z   if-no-files-found: ignore
+verify	Preserve verification output	2026-11-06T21:50:30.7210412Z   compression-level: 6
+verify	Preserve verification output	2026-11-06T21:50:30.7210621Z   overwrite: false
+verify	Preserve verification output	2026-11-06T21:50:30.7210829Z   include-hidden-files: false
+verify	Preserve verification output	2026-11-06T21:50:30.7211069Z env:
+verify	Preserve verification output	2026-11-06T21:50:30.7211317Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Preserve verification output	2026-11-06T21:50:30.7211742Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+verify	Preserve verification output	2026-11-06T21:50:30.7212165Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Preserve verification output	2026-11-06T21:50:30.7212545Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Preserve verification output	2026-11-06T21:50:30.7212921Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+verify	Preserve verification output	2026-11-06T21:50:30.7213295Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+verify	Preserve verification output	2026-11-06T21:50:30.7213610Z ##[endgroup]
+verify	Preserve verification output	2026-11-06T21:50:30.8960138Z (node:5188) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+verify	Preserve verification output	2026-11-06T21:50:30.8961519Z (Use `node --trace-deprecation ...` to show where the warning was created)
+verify	Preserve verification output	2026-11-06T21:50:30.9135018Z With the provided path, there will be 53 files uploaded
+verify	Preserve verification output	2026-11-06T21:50:30.9142786Z Artifact name is valid!
+verify	Preserve verification output	2026-11-06T21:50:30.9143783Z Root directory input is valid!
+verify	Preserve verification output	2026-11-06T21:50:30.9172281Z ##[error]The path for one of the files in artifact is not valid: /campaign/docks-crane-climb-4-8:down-ray.json. Contains the following character:  Colon :
+verify	Preserve verification output
+verify	Preserve verification output	Invalid characters include:  Double quote ", Colon :, Less than <, Greater than >, Vertical bar |, Asterisk *, Question mark ?, Carriage return \r, Line feed \n
+verify	Preserve verification output
+verify	Preserve verification output	The following characters are not allowed in files that are uploaded due to limitations with certain file systems such as NTFS. To maintain file system agnostic behavior, these characters are intentionally not allowed to prevent potential problems with downloads on different file systems.
+verify	Preserve verification output

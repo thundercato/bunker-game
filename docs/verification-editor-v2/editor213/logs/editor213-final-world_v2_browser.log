@@ -1,0 +1,15 @@
+READY {
+  buildings: 37,
+  roads: 15,
+  foliage: 0,
+  terrainCells: 0,
+  waterVolumes: 0,
+  undo: 0,
+  redo: 0,
+  cutaway: { buildingId: null, objects: 0, errors: [], compiled: null },
+  districtObjects: 95,
+  renderStats: { rebuilds: 1, foliageCreated: 0 }
+}
+PASS candidate district inspector retains stable ID and numeric draft transform
+PASS all district assets, collider/route children and search bindings survive draft reload
+PASS world v2 browser draft persistence, brushes, building movement, link and export

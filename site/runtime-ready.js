@@ -1,5 +1,5 @@
 // A new HTML entry must not import cached application modules from an old worker.
-export const RUNTIME_CACHE = 'field-signal-game-first-release-11-1';
+export const RUNTIME_CACHE = 'field-signal-11.1-editor2.1.3';
 export async function ensureRuntime() {
  if (!('serviceWorker' in navigator) || !isSecureContext) return;
  const current = () => new Promise(resolve => {

@@ -1,0 +1,7 @@
+PASS Prior production service worker upgrades before importing stale editor modules
+PASS All five editor workspaces start from canonical dist under /bunker-game/
+PASS Actual Prepare editor for offline action completes the public package without overwriting save status
+PASS Complete explicit offline manifest cached (595 resources), prior public cache retired safely
+PASS Every workspace restarts offline, including never-cached directory navigation
+PASS Campaign, settings, both legacy journals, current field journal, existing preview namespaces and backward-compatible drafts remain byte-for-byte intact
+PASS No browser exceptions or missing packaged network resources

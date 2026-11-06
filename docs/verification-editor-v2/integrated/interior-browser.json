@@ -1,0 +1,22 @@
+{
+  "checks": [
+    "Real asset placement and numeric rotated top-face snap use one undo transaction",
+    "Snapped pose survives undo and redo",
+    "Collection rigid rotation and reversal preserve one local pivot and child pose",
+    "Collection bottom alignment uses canonical face convention and undo",
+    "Portable template import/export inserts unique concrete children with explicit overrides atomically",
+    "Bound container templates are visibly rejected without duplicating mission bindings",
+    "Overlapping top faces can be selected and nearby workspace isolation stays view-only",
+    "Support diagnostic selects actual offending child and gives a concrete repair",
+    "Layout round trip, recovered draft and private template library preserve campaign/settings/journal sentinels",
+    "Wall endpoint joint on a two-storey building respects shared local coordinates and undo",
+    "Existing two-storey stair creates a real top landing floor as one undo step; traversal remains explicitly gated",
+    "Template quota failure retains old storage and exports the unsaved new design",
+    "Packaged /bunker-game/ editor has no exceptions, missing assets or failed requests"
+  ],
+  "errors": [],
+  "missing": [],
+  "failed": [],
+  "platform": "Linux Chromium / SwiftShader",
+  "build": "Canonical dist; no overlay"
+}

@@ -1,0 +1,14 @@
+Editor package/import closure valid: 307 explicit public files
+PASS Real asset placement and numeric rotated top-face snap use one undo transaction
+PASS Snapped pose survives undo and redo
+PASS Collection rigid rotation and reversal preserve one local pivot and child pose
+PASS Collection bottom alignment uses canonical face convention and undo
+PASS Portable template import/export inserts unique concrete children with explicit overrides atomically
+PASS Bound container templates are visibly rejected without duplicating mission bindings
+PASS Overlapping top faces can be selected and nearby workspace isolation stays view-only
+PASS Support diagnostic selects actual offending child and gives a concrete repair
+PASS Layout round trip, recovered draft and private template library preserve campaign/settings/journal sentinels
+PASS Wall endpoint joint on a two-storey building respects shared local coordinates and undo
+PASS Existing two-storey stair creates a real top landing floor as one undo step; traversal remains explicitly gated
+PASS Template quota failure retains old storage and exports the unsaved new design
+PASS Packaged /bunker-game/ editor has no exceptions, missing assets or failed requests

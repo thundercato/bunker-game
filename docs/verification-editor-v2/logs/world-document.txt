@@ -1,0 +1,58 @@
+PASS v1 interiors and v2 authoring adopt and round-trip without migration
+PASS Unedited container and mission output agrees with the current v1 compiler
+PASS 90-degree moved and raised cupboard, door, furniture and mission agree
+PASS Inverse transform restores local positions across rotations and negative coordinates
+PASS Each compiled collider transforms once and keeps local dimensions and stable door ID
+PASS Closed/open door and crossing its threshold agree in the transformed local frame
+PASS Search distances are preserved and the old cupboard position is no longer its anchor
+PASS Loose loot surface dimensions, yaw and height follow its parent prop
+PASS Upstairs item and floor, stair cut-out and stair slope survive building rotation/raise
+PASS World floor cut-out retains the same hole after transforming floor and staircase
+PASS Auto foundation uses draft height; manual and locked heights remain explicit
+PASS Recompile is deterministic without accumulating transformations or mutating drafts/source
+PASS Legacy origins stay fixed; applying a placement cannot rewrite child coordinates
+PASS World collision samples agree with local collision at arbitrary building rotation
+PASS Only container-bound existing missions get targets; unrelated missions remain unchanged
+PASS All source templates preserve binding IDs when compiled: hut
+PASS All source templates preserve binding IDs when compiled: forester
+PASS All source templates preserve binding IDs when compiled: pump
+PASS All source templates preserve binding IDs when compiled: ranger
+PASS All source templates preserve binding IDs when compiled: crossing
+PASS All source templates preserve binding IDs when compiled: station
+PASS All source templates preserve binding IDs when compiled: freight
+PASS All source templates preserve binding IDs when compiled: coastguard
+PASS All source templates preserve binding IDs when compiled: boathouse
+PASS All source templates preserve binding IDs when compiled: v1
+PASS All source templates preserve binding IDs when compiled: v2
+PASS All source templates preserve binding IDs when compiled: v3
+PASS All source templates preserve binding IDs when compiled: v4
+PASS All source templates preserve binding IDs when compiled: v5
+PASS All source templates preserve binding IDs when compiled: v6
+PASS All source templates preserve binding IDs when compiled: clinic
+PASS All source templates preserve binding IDs when compiled: store
+PASS All source templates preserve binding IDs when compiled: ticket
+PASS All source templates preserve binding IDs when compiled: cafe
+PASS All source templates preserve binding IDs when compiled: arcade
+PASS All source templates preserve binding IDs when compiled: north
+PASS All source templates preserve binding IDs when compiled: lodge
+PASS All source templates preserve binding IDs when compiled: tower
+PASS All source templates preserve binding IDs when compiled: substation
+PASS All source templates preserve binding IDs when compiled: logging
+PASS All source templates preserve binding IDs when compiled: northstore
+PASS All source templates preserve binding IDs when compiled: barracks
+PASS All source templates preserve binding IDs when compiled: ferry
+PASS All source templates preserve binding IDs when compiled: mill
+PASS All source templates preserve binding IDs when compiled: east1
+PASS All source templates preserve binding IDs when compiled: east2
+PASS All source templates preserve binding IDs when compiled: mast
+PASS All source templates preserve binding IDs when compiled: hangar
+PASS All source templates preserve binding IDs when compiled: garrison
+PASS All source templates preserve binding IDs when compiled: command
+PASS All source templates preserve binding IDs when compiled: armoury
+PASS All source templates preserve binding IDs when compiled: yard
+PASS Reject unsupported versions, missing/stale source revisions and raw legacy drafts
+PASS Reject duplicate/missing interiors and unsupported new building instances
+PASS Reject invalid transforms before returning any compiled data
+PASS Reject protected binding deletion, foreign IDs and asset URL injection
+PASS Uncompiled terrain/roads/water remain in the authoring document, never a runtime override
+57 world document tests passed

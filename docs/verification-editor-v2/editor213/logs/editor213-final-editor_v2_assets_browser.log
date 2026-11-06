@@ -1,0 +1,21 @@
+PASS Shared manifest model library is mounted and searchable
+PASS Author + model search resolves real table
+PASS Actual shared model renders with observed geometry cost
+PASS Real mouse orbit changes rendered model view
+PASS Model workspace fits 1280 × 800 laptop viewport
+PASS Cost + placement filters exclude unmeasured facade
+PASS Low-cost registered model remains available
+PASS Intentional placement uses reviewed dimensions and decorative identity
+PASS Existing gameplay binding IDs survive model placement
+PASS Unreviewed model remains inspection only
+PASS Escape dismisses model inspection
+PASS Accepted registry extends the original catalogue without replacing it
+PASS Real campaign mesh inspection retains Kenney provenance, cost and metre dimensions
+PASS Campaign placement uses reviewed collider bounds and a fresh decorative ID
+PASS Inspector displays the actual selected campaign asset without substituting a legacy model
+PASS Accepted model placement preserves every existing gameplay binding
+PASS Campaign placement remains one complete undo operation
+PASS Semantic variant renders actual shared geometry and original provenance
+PASS Semantic appearance cannot create a new container or silently add loot
+PASS Authored opening collision stays inspection-only with its real limitation
+PASS No browser exceptions or asset HTTP failures { errors: [], failures: [] }

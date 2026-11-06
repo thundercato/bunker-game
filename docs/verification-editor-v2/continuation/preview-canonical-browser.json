@@ -1,0 +1,33 @@
+{
+  "kind": "canonical-dist",
+  "checks": [
+    {
+      "name": "Canonical main reports moved-world adapter unavailable",
+      "pass": true
+    },
+    {
+      "name": "Unavailable preview explains dependency without importing absent module",
+      "pass": true
+    },
+    {
+      "name": "Blocked preview creates no isolated payload or game state",
+      "pass": true
+    },
+    {
+      "name": "Moved/rotated/raised game journey",
+      "status": "unsupported in canonical main; run explicit PR83 compatibility build",
+      "runtimeAdapter": false,
+      "published": false
+    },
+    {
+      "name": "No browser exceptions or failed asset/module requests",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "missing": []
+      }
+    }
+  ],
+  "errors": [],
+  "missing": []
+}

@@ -38,21 +38,24 @@ const server=http.createServer((req,res)=>{
   });
   await p.goto(base+'editor/world.html');await p.waitForFunction(()=>window.FieldWorldEditor?.ready(),null,{timeout:120000});
   const cache=await p.evaluate(()=>new Promise(resolve=>{const c=new MessageChannel();c.port1.onmessage=e=>resolve(e.data.cache);navigator.serviceWorker.controller.postMessage({type:'editor-version'},[c.port2]);}));
-  check('Old worker upgraded before importing editor or game',cache==='field-signal-game-first-release-11-1');
+  check('Old worker upgraded before importing editor or game',cache==='field-signal-11.1-editor2.1.3');
   const expectedMission=await p.evaluate(async()=>{
    const {seedLayout}=await import('./layout-core.js');const d=seedLayout(FieldWorldEditor.getSource(),'hut');
    d.objects.find(o=>o.binding?.id==='hut_c1').position=[1.2,0,-2.4];
    d.objects.push({id:'test-chair',name:'Preview chair',type:'prop',position:[-2.5,0,0],size:[.55,.95,.55],yaw:.3,material:'wood',solid:true,locked:false,asset:'painted_wooden_chair_01'});
    localStorage.setItem('field-signal-editor-v1:hut',JSON.stringify(d));
-   FieldWorldEditor.select({kind:'building',id:'hut'});
    // Independent known-90-degree transform of the authored front anchor.
    const o=d.objects.find(o=>o.binding?.id==='hut_c1'),a=o.binding.anchor||[0,0,0],c=Math.cos(o.yaw),s=Math.sin(o.yaw);
    return{x:35+o.position[2]-a[0]*s+a[2]*c,z:-48-o.position[0]-a[0]*c-a[2]*s};
   });
-  for(const [field,value]of [['x','35'],['z','-48'],['yaw',String(Math.PI/2)],['y','1.25']]){
-   const input=p.getByLabel(field,{exact:true});await input.fill(value);await input.press('Tab');
+  // Loading the legacy editor draft is an actual session boundary. Reload so
+  // the connected canonical session adopts it before any placement edits.
+  await p.reload();await p.waitForFunction(()=>window.FieldWorldEditor?.ready(),null,{timeout:120000});
+  await p.evaluate(()=>FieldWorldEditor.select({kind:'building',id:'hut'}));
+  await p.locator('[data-world-field="foundation"]').selectOption('manual');
+  for(const [field,value]of [['x','35'],['z','-48'],['yaw','90'],['y','1.25']]){
+   const input=p.locator('[data-world-field="'+field+'"]');await input.fill(value);await input.press('Tab');
   }
-  await p.locator('#selected-fields select').selectOption('manual');
   const draft=await p.evaluate(()=>JSON.stringify(FieldWorldEditor.getDocument()));
   await p.screenshot({path:path.join(out,'world-preview-editor.jpg'),type:'jpeg',quality:75});
   const popup=context.waitForEvent('page');await p.locator('#world-game-test').click();const g=await popup;observe(g);

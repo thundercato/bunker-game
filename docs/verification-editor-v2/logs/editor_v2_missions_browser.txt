@@ -1,0 +1,15 @@
+PASS Real source missions and typed graphs load without validation errors
+PASS Source and item search filter actual mission identities
+PASS Real node drag Escape restores the complete proposal
+PASS Saving during a drag cannot persist a cancelled transient node pose
+PASS Delete during a drag cancels the gesture before the undoable edit
+PASS Real graph drag is one undo/redo step
+PASS Actual right-drag pan, wheel zoom and fit operate
+PASS Numeric reward proposal persists without changing world source
+PASS Storage failure protects unsaved edits until a successful save
+PASS Typed connection form rejects item-to-flow links
+PASS Connection deletion and undo repair the real graph
+PASS Stable target link and unsupported mechanics state actual integration limits
+PASS Real JSON download and file import round trip
+PASS Reload retains proposals and captures actual workspace
+PASS No browser exceptions or missing assets

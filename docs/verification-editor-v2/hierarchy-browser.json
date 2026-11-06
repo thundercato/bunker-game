@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Stable binding deep link selects actual existing container",
+    "Filtered bulk selection and named collection restore stable children",
+    "Bulk local translation is one reversible layout transaction",
+    "Bulk lock prevents an accidental partial group move",
+    "Hide and isolate detach gizmos and preserve document",
+    "Portable collection export/import and reload preserve references",
+    "Rejected building draft is retained before fallback replaces its key",
+    "Laptop editor has no exceptions or failed asset requests"
+  ],
+  "errors": [],
+  "missing": []
+}

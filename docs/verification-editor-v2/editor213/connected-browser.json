@@ -1,0 +1,42 @@
+{
+  "platform": "Linux Chromium / SwiftShader",
+  "checks": [
+    {
+      "name": "Focused edit and stable selection enter the same canonical map document"
+    },
+    {
+      "name": "Moved and rotated building returns with contents, camera, selection and canonical placement"
+    },
+    {
+      "name": "Focused undo/redo crosses workspace boundaries and restores the world transform"
+    },
+    {
+      "name": "Actual in-world local geometry uses one canonical parent transform and retains interaction binding",
+      "detail": [
+        20.059907975537293,
+        0,
+        -36.536053276763354
+      ]
+    },
+    {
+      "name": "In-world object numeric edits return to the focused inspector without copying objects"
+    },
+    {
+      "name": "Both editor views open the real upper-storey cutaway; height edits keep binding floors and exact undo"
+    },
+    {
+      "name": "One session retains authored hut, two-storey cottage and station layouts"
+    },
+    {
+      "name": "Canonical portable JSON round trip and reload retain all buildings, IDs and durable history"
+    },
+    {
+      "name": "Normal campaign/settings/journal remain isolated and accepted runtime adapter is available"
+    },
+    {
+      "name": "No browser exceptions or missing packaged assets"
+    }
+  ],
+  "errors": [],
+  "missing": []
+}
