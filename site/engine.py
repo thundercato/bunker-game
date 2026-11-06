@@ -60,7 +60,11 @@ def rng(s):
 def note(s,text,sound=None,level='info',**extras):s['events'].append({'text':text,'sound':sound,'level':level,**extras})
 def near(s,xy,r=3.5):
  if dist(s['player'],xy)>r:raise ValueError('Move closer to interact.')
-def inside(p,b):return abs(p['x']-b['x'])<b['w']/2-.12 and abs(p['z']-b['z'])<b['d']/2-.12
+def inside(p,b):
+ if b.get('editorTransform'):
+  a=b['editorTransform']['yaw'];dx=p['x']-b['x'];dz=p['z']-b['z']
+  return abs(dx*math.cos(a)-dz*math.sin(a))<b['editorBounds'][0]/2-.12 and abs(dx*math.sin(a)+dz*math.cos(a))<b['editorBounds'][1]/2-.12
+ return abs(p['x']-b['x'])<b['w']/2-.12 and abs(p['z']-b['z'])<b['d']/2-.12
 
 def indoors(p):return (-5.9<p['x']<5.9 and .1<p['z']<13.9) or any(inside(p,b) for b in BUILDINGS)
 def refuge(p):return -5.9<p['x']<5.9 and .1<p['z']<13.9
@@ -546,7 +550,7 @@ def surface_height(x,z,last_y=0):
  if zone=='cave':return -5*clamp((z-7)/15)
  if zone=='bunker':return -4.2*clamp((z-3)/12)
  for b in BUILDINGS:
-  if b.get('floors')==2 and abs(x-b['x'])<b['w']/2-.15 and abs(z-b['z'])<b['d']/2-.15:
+  if not b.get('editorScene') and b.get('floors')==2 and abs(x-b['x'])<b['w']/2-.15 and abs(z-b['z'])<b['d']/2-.15:
    lo=b['x']+b['w']/2-2.6;hi=b['x']+b['w']/2-.35;front=b['z']+b['d']/2-1;back=b['z']-b['d']/2+1
    if lo<x<hi and back-.15<z<front+.3:return 3.2*clamp((front-z)/(front-back))
    return 3.2 if last_y>1.75 else 0.
@@ -838,7 +842,7 @@ WALLS.extend(FORT_WALLS);VISION_WALLS[:]=WALLS[:]
 WALLS[:]=[r for r in WALLS if not(abs(r[0])<=6.1 and -.3<=r[1]<=14.3)]
 VISION_WALLS[:]=WALLS[:]
 
-def building_at(x,z):return next((b['id']for b in BUILDINGS if abs(x-b['x'])<b['w']/2-.15 and abs(z-b['z'])<b['d']/2-.15),None)
+def building_at(x,z):return next((b['id']for b in BUILDINGS if (inside({'x':x,'z':z},b)if b.get('editorTransform')else abs(x-b['x'])<b['w']/2-.15 and abs(z-b['z'])<b['d']/2-.15)),None)
 def boundary_passable(x,z):
  r=DATA['river'];p=DATA['pier'];b=DATA['bounds']
  if not (b['minX']<=x<=b['maxX'] and b['minZ']<=z<=DATA['swamp']['limit']):return False
@@ -875,7 +879,7 @@ def surface_height(x,z,last_y=0):
   for br in r['bridges']:
    if abs(z-br['z'])<br['halfWidth']+1:return .45*min(smooth((x-(r['west']-7))/7),smooth(((r['east']+7)-x)/7))
  for b in BUILDINGS:
-  if b.get('floors')==2 and abs(x-b['x'])<b['w']/2-.15 and abs(z-b['z'])<b['d']/2-.15:
+  if not b.get('editorScene') and b.get('floors')==2 and abs(x-b['x'])<b['w']/2-.15 and abs(z-b['z'])<b['d']/2-.15:
    front=b['z']+b['d']/2-1;back=b['z']-b['d']/2+1
    if b['x']+b['w']/2-2.6<x<b['x']+b['w']/2-.35 and back-.15<z<front+.3:return 3.2*clamp((front-z)/(front-back))
    return 3.2 if last_y>1.75 else 0.
@@ -1208,6 +1212,17 @@ def validate_save(s):
 # Optional editor preview is supplied as validated data by the same-origin UI.
 # No ordinary campaign geometry is changed without an explicit preview URL.
 _EDITOR_DOC=DATA.get('editorLayout')
+_EDITOR_BUILDING=DATA.get('editorBuilding')
+_EDITOR_TRANSFORM=_EDITOR_BUILDING['transform']if _EDITOR_BUILDING else {'position':_EDITOR_DOC['origin']if _EDITOR_DOC else [0,0,0],'yaw':0}
+
+def _editor_point(x,z,y=0):
+ a=_EDITOR_TRANSFORM['yaw'];ox,oy,oz=_EDITOR_TRANSFORM['position'];dx=x-ox;dz=z-oz
+ return dx*math.cos(a)-dz*math.sin(a),dx*math.sin(a)+dz*math.cos(a),y-oy
+
+def _editor_world_point(x,y,z):
+ a=_EDITOR_TRANSFORM['yaw'];ox,oy,oz=_EDITOR_TRANSFORM['position']
+ return ox+x*math.cos(a)+z*math.sin(a),oy+y,oz-x*math.sin(a)+z*math.cos(a)
+
 _EDITOR_SURFACE=surface_height
 _EDITOR_NEW=new_game
 _EDITOR_CLEAR=clear_line
@@ -1217,29 +1232,33 @@ def _editor_local(o,x,z):
  a=o.get('yaw',0);dx=x-o['position'][0];dz=z-o['position'][2]
  return dx*math.cos(a)-dz*math.sin(a),dx*math.sin(a)+dz*math.cos(a)
 
-def _editor_inside(x,z,margin=.35):
- return bool(_EDITOR_DOC and abs(x-_EDITOR_DOC['origin'][0])<_EDITOR_DOC['bounds'][0]/2+margin and abs(z-_EDITOR_DOC['origin'][2])<_EDITOR_DOC['bounds'][1]/2+margin)
+def _editor_inside(x,z,margin=2.5):
+ if not _EDITOR_DOC:return False
+ x,z,_=_editor_point(x,z)
+ return abs(x)<_EDITOR_DOC['bounds'][0]/2+margin and abs(z)<_EDITOR_DOC['bounds'][1]/2+margin
 
 def surface_height(x,z,last_y=0):
  if not _editor_inside(x,z):return _EDITOR_SURFACE(x,z,last_y)
- x-=_EDITOR_DOC['origin'][0];z-=_EDITOR_DOC['origin'][2]
+ x,z,last_y=_editor_point(x,z,last_y)
+ base_y=_EDITOR_TRANSFORM['position'][1]
  for o in _EDITOR_DOC['objects']:
   if o['type']!='stairs':continue
   lx,lz=_editor_local(o,x,z);w,h,d=o['size']
   if abs(lx)<=w/2-.06 and -d/2-.1<=lz<=d/2+.25:
    y=o['position'][1]+clamp((d/2-lz)/d)*h
-   if abs(last_y-y)<.65 or last_y>=o['position'][1]and lz>d/2-.25:return y
+   if abs(last_y-y)<.65 or last_y>=o['position'][1]and lz>d/2-.25:return base_y+y
  floor=0.
  for o in DATA.get('editorFloors',[]):
   lx,lz=_editor_local(o,x,z)
   if o['position'][1]<=last_y+.45:
    for p in o['pieces']:
     if abs(lx-p['position'][0])<=p['size'][0]/2 and abs(lz-p['position'][2])<=p['size'][2]/2:floor=max(floor,o['position'][1])
- return floor
+ return base_y+floor
 
 def _editor_collides(s,x,z,y=0):
  if not _EDITOR_DOC:return False
- x-=_EDITOR_DOC['origin'][0];z-=_EDITOR_DOC['origin'][2]
+ if not _EDITOR_BUILDING:
+  x-=_EDITOR_DOC['origin'][0];z-=_EDITOR_DOC['origin'][2]
  for c in DATA.get('editorColliders',[]):
   if c.get('doorId')and s['doors'].get(c['doorId'],True):continue
   if y>=c['y']+c['h']-.035 or y+1.65<=c['y']+.02:continue
@@ -1248,29 +1267,30 @@ def _editor_collides(s,x,z,y=0):
  return False
 
 def walkable(s,x,z,r=.22):
- if _editor_inside(x,z,.6):return land(x,z)and not _editor_collides(s,x,z,surface_height(x,z))
+ if _editor_inside(x,z):return land(x,z)and not _editor_collides(s,x,z,surface_height(x,z,s['player'].get('y',0)))
  return _EDITOR_WALKABLE(s,x,z,r)
 
 def clear_line(s,a,b):
- if not _EDITOR_DOC or not(_editor_inside(*a,1)or _editor_inside(*b,1)):return _EDITOR_CLEAR(s,a,b)
+ if not _EDITOR_DOC:return _EDITOR_CLEAR(s,a,b)
  n=max(1,int(math.hypot(a[0]-b[0],a[1]-b[1])/.15))
  for i in range(n+1):
   t=i/n;x=a[0]+(b[0]-a[0])*t;z=a[1]+(b[1]-a[1])*t
-  if _editor_inside(x,z,.3)and _editor_collides(s,x,z):return False
- return zone_at(*a)==zone_at(*b)
+  if _editor_inside(x,z)and _editor_collides(s,x,z,surface_height(x,z,s['player'].get('y',0))):return False
+ return _EDITOR_CLEAR(s,a,b)
 
 def new_game(profiles=None):
  s=_EDITOR_NEW(profiles)
  if _EDITOR_DOC:
-  o=next(o for o in _EDITOR_DOC['objects']if o['type']=='spawn');x=_EDITOR_DOC['origin'][0]+o['position'][0];z=_EDITOR_DOC['origin'][2]+o['position'][2]
-  s['player']={'x':x,'z':z,'y':o['position'][1],'yaw':o['yaw'],'pitch':0.};s['zone']='field'
+  o=next(o for o in _EDITOR_DOC['objects']if o['type']=='spawn');x,y,z=_editor_world_point(*o['position'])
+  s['player']={'x':x,'z':z,'y':y,'yaw':_EDITOR_TRANSFORM['yaw']+o['yaw'],'pitch':0.};s['zone']='field'
   # Safe isolated layout preview; real campaign remains a different storage key.
   for e in s['enemies']:e['health']=0
  return s
 
 if _EDITOR_DOC:
  for o in _EDITOR_DOC['objects']:
-  if o['type']=='doorway'and o.get('doorId'):DOORS[o['doorId']]=(_EDITOR_DOC['origin'][0]+o['position'][0],_EDITOR_DOC['origin'][2]+o['position'][2])
+  if o['type']=='doorway'and o.get('doorId'):
+   x,y,z=_editor_world_point(*o['position']);DOORS[o['doorId']]=(x,z)
 
 
 _state=None

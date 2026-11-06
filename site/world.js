@@ -1,11 +1,12 @@
 import * as T from './vendor/three.js';
 import {BaseWorld} from './world-core.js';
 import {applyEditorPreview} from './layout-preview.js';
-export const DATA=await applyEditorPreview(await (await fetch('./world.json')).json());
+const sourceJSON=await(await fetch('./world.json')).text();
+export const DATA=await applyEditorPreview(JSON.parse(sourceJSON),sourceJSON);
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));let seed=604921;
 function r(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;}
 function merge(parts){const pos=[],nor=[],uv=[];for(let g of parts){if(g.index)g=g.toNonIndexed();pos.push(...g.attributes.position.array);if(g.attributes.normal)nor.push(...g.attributes.normal.array);if(g.attributes.uv)uv.push(...g.attributes.uv.array);}let g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(pos,3));if(nor.length===pos.length)g.setAttribute('normal',new T.Float32BufferAttribute(nor,3));else g.computeVertexNormals();if(uv.length===pos.length/3*2)g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.computeBoundingSphere();return g;}
-function inBuilding(p,b){return Math.abs(p.x-b.x)<b.w/2&&Math.abs(p.z-b.z)<b.d/2;}
+function inBuilding(p,b){if(b.editorTransform){const a=b.editorTransform.yaw,dx=p.x-b.x,dz=p.z-b.z;return Math.abs(dx*Math.cos(a)-dz*Math.sin(a))<b.editorBounds[0]/2&&Math.abs(dx*Math.sin(a)+dz*Math.cos(a))<b.editorBounds[1]/2;}return Math.abs(p.x-b.x)<b.w/2&&Math.abs(p.z-b.z)<b.d/2;}
 export function land(x,z){let b=DATA.bounds,p=DATA.pier;return x>b.minX&&x<b.maxX&&z>b.minZ&&z<b.maxZ&&(x<DATA.shore-.3||(x>p.minX&&x<p.maxX-.4&&z>p.minZ+.4&&z<p.maxZ-.4));}
 function distSegment(x,z,a,b){let dx=b[0]-a[0],dz=b[1]-a[1],u=clamp(((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz||1),0,1);return Math.hypot(x-a[0]-dx*u,z-a[1]-dz*u);}
 export class World extends BaseWorld{

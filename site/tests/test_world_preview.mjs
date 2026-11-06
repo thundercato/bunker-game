@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {createWorldDocument, toWorld} from '../world-document.js';
+import {seedLayout} from '../layout-core.js';
+import {compilePreviewWorld, insidePreview, previewSurface, moveInPreview} from '../world-preview.js';
+import {sampleDocument} from '../preview-document.js';
+const source=JSON.parse(fs.readFileSync(new URL('../world.json',import.meta.url)));
+const metadata=JSON.parse(fs.readFileSync(new URL('../world-source.json',import.meta.url)));
+const context={source,sourceRevision:metadata.revision};
+const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`);
+const doc=sampleDocument(context),before=JSON.stringify(source);
+const world=compilePreviewWorld(doc,'hut',context),b=world.editorBuilding;
+near(world.containers.find(c=>c.id==='hut_c1').x,32.6);
+near(world.missions.find(m=>m.id==='signal').z,-51.5);
+assert.equal(JSON.stringify(source),before);
+assert.equal(world.buildings.find(b=>b.id==='hut').editorScene,true);
+assert.ok(!insidePreview(b,14,-31.5));assert.ok(insidePreview(b,35,-48));
+const closed=moveInPreview(b,{x:39.9,y:0,z:-48,yaw:Math.PI/2},-3,0,{doorsOpen:false});
+assert.ok(closed.x>38.5);
+const open=moveInPreview(b,{x:39.9,y:0,z:-48},-3,0,{doorsOpen:false,openDoors:{hut:true}});
+assert.ok(open.x<38.5);near(open.y,0);
+const raised=sampleDocument(context);raised.authoring.buildings.find(b=>b.id==='hut').y=2;
+const rb=compilePreviewWorld(raised,'hut',context).editorBuilding;
+near(previewSurface(rb,35,-48,2),2);
+near(moveInPreview(rb,{x:39.9,y:2,z:-48},-3,0,{doorsOpen:true}).y,2);
+for(const patch of [{x:99},{x:27,z:-79},{y:-1},{y:9}]){
+ const invalid=sampleDocument(context);Object.assign(invalid.authoring.buildings.find(b=>b.id==='hut'),patch);
+ assert.throws(()=>compilePreviewWorld(invalid,'hut',context));
+}
+const upper=createWorldDocument({...context,layouts:[seedLayout(source,'forester')]});
+Object.assign(upper.authoring.buildings.find(b=>b.id==='forester'),{x:35,z:-48,y:2,yaw:.7,foundation:'manual'});
+const ub=compilePreviewWorld(upper,'forester',context).editorBuilding;
+const p=toWorld(ub.transform,[-2,3.2,0]);near(previewSurface(ub,p[0],p[2],p[1]),5.2);
+console.log('PASS world preview adapter: source isolation, moved targets, doors, raised floors, placement rejection and upstairs sampling');

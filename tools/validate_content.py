@@ -1,7 +1,9 @@
 from pathlib import Path
-import json
+import json, hashlib
 root=Path(__file__).resolve().parents[1]/'site'
 w=json.loads((root/'world.json').read_text());catalogue=w['catalogue']
+world_source=json.loads((root/'world-source.json').read_text())
+if world_source['sha256']!=hashlib.sha256((root/'world.json').read_bytes()).hexdigest():raise ValueError('World source snapshot digest must match reviewed content')
 for key in ['buildings','containers','enemies','missions']:
  ids=[x['id']for x in w[key]]
  if len(ids)!=len(set(ids)):raise ValueError(f'Duplicate {key} ids')
