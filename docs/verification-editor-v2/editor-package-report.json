@@ -298,11 +298,13 @@
   "acceptedRuntimeIntegrationCommit": "8cd2b24a7218c99bae383df1ef38c4a270842d18",
   "finalDocumentationMain": "220fb45",
   "ciResult": "Final-head normal CI and canonical-editor-dist are linked from PR82; earlier green packaging proof is historical, not a substitute for final-head checks.",
-  "currentEditorSource": "8567fc7f5d52ead7ac6037941b503bf3681ba56d",
+  "currentEditorSource": "e3719dbbb6b709020452e4e8ce6b65f4c08eff4b",
   "currentEditorVersion": "2.1.3-preview",
   "firstGreenCanonicalCI": "https://github.com/thundercato/bunker-game/actions/runs/42285211842",
   "firstGreenCheckpoint": "7bd5db1",
   "historyFormatScope": "Optional lossless UI checkpoint metadata only; canonical document, game schema and legacy draft keys unchanged.",
   "previousMetadataCountCommit": "5056290",
-  "lastPublicSourceCommit": "8567fc7"
+  "lastPublicSourceCommit": "e3719db",
+  "previousFullAcceptanceSource": "8567fc7f5d52ead7ac6037941b503bf3681ba56d",
+  "currentPackageProvenance": "editor213-upgrade/package-provenance.json"
 }
