@@ -33,11 +33,16 @@ const workspaces=[
  {name:'validation',url:'editor/validation.html',ready:()=>window.FieldValidation?.ready()}
 ];
 (async()=>{
- await new Promise(resolve=>host.listen(0,'127.0.0.1',resolve));let browser;const checks=[],errors=[],missing=[],pass=message=>{checks.push(message);console.log('PASS',message);};
+ await new Promise(resolve=>host.listen(0,'127.0.0.1',resolve));let browser,page,failure;const checks=[],errors=[],consoleErrors=[],missing=[],requests=[],cancelledRequests=[],pass=message=>{checks.push(message);console.log('PASS',message);};
  try{
   browser=await chromium.launch({args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-  const context=await browser.newContext({viewport:{width:1280,height:800}}),page=await context.newPage(),base=`http://127.0.0.1:${host.address().port}/bunker-game/`;
+  const context=await browser.newContext({viewport:{width:1280,height:800}}),base=`http://127.0.0.1:${host.address().port}/bunker-game/`;page=await context.newPage();
   page.on('pageerror',error=>errors.push(error.message));page.on('response',response=>{if(response.status()>=400)missing.push(`${response.status()} ${response.url()}`);});
+  page.on('console',message=>{if(message.type()==='error')consoleErrors.push(message.text());});
+  // Explicit workspace navigation can cancel background model loads. Keep those
+  // visible separately; a missing module/network failure must still fail below.
+  page.on('requestfailed',request=>{const item={url:request.url(),error:request.failure()?.errorText};(item.error==='net::ERR_ABORTED'?cancelledRequests:requests).push(item);});
+  const openWorkspace=async workspace=>{await page.goto(base+workspace.url);await page.waitForFunction(workspace.ready,null,{timeout:120000});await page.waitForLoadState('networkidle');};
   await page.goto(base+'editor-upgrade-fixture.html');
   await page.evaluate(async()=>{await navigator.serviceWorker.register('./sw.js',{scope:'./'});await navigator.serviceWorker.ready;});
   await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
@@ -48,10 +53,10 @@ const workspaces=[
   const retained={'field-signal-dead-air-v9':'campaign-retention-sentinel','field-signal-dead-air-options':'{"music":0.23}','field-signal-v8-journal':'[]','field-signal-v9-journal':'[{"text":"protected current journal"}]','field-signal-field-journal-v1':'{"format":"field-signal-journal/1","protected":true}','field-signal-editor-game:retained':'preview-campaign-sentinel','field-signal-editor-options:retained':'preview-options-sentinel','field-signal-editor-journal:retained':'preview-journal-sentinel','field-signal-editor-book:retained':'preview-book-sentinel','field-signal-editor-v1:hut':JSON.stringify(layout),'field-signal-world-v2-draft':JSON.stringify(world)};
   await page.evaluate(values=>{for(const [key,value]of Object.entries(values))localStorage.setItem(key,value);},retained);
   legacy=false;
-  await page.goto(base+workspaces[0].url);await page.waitForFunction(workspaces[0].ready,null,{timeout:120000});
+  await openWorkspace(workspaces[0]);
   const actualCache=await page.evaluate(()=>new Promise(resolve=>{const channel=new MessageChannel();channel.port1.onmessage=e=>resolve(e.data.cache);navigator.serviceWorker.controller.postMessage({type:'editor-version'},[channel.port2]);}));
   assert.equal(actualCache,CACHE);assert.ok(!errors.some(e=>e.includes('STALE_EDITOR_MODULE_EXECUTED')));pass('Prior production service worker upgrades before importing stale editor modules');
-  for(const workspace of workspaces.slice(1)){await page.goto(base+workspace.url);await page.waitForFunction(workspace.ready,null,{timeout:120000});}pass('All five editor workspaces start from canonical dist under /bunker-game/');
+  for(const workspace of workspaces.slice(1))await openWorkspace(workspace);pass('All five editor workspaces start from canonical dist under /bunker-game/');
   await page.locator('#prepare-offline').click();
   await page.waitForFunction(()=>document.querySelector('#prepare-offline')?.dataset.state==='ready',null,{timeout:180000});
   pass('Actual Prepare editor for offline action completes the public package without overwriting save status');
@@ -62,8 +67,15 @@ const workspaces=[
   // even when only cache-all has installed that workspace.
   await page.evaluate(async cache=>{const stored=await caches.open(cache);await stored.delete(new URL('editor/',document.baseURI));},CACHE);
   await context.setOffline(true);
-  for(const workspace of workspaces){await page.goto(base+workspace.url);await page.waitForFunction(workspace.ready,null,{timeout:120000});await page.screenshot({path:path.join(out,`offline-${workspace.name}.png`)});}pass('Every workspace restarts offline, including never-cached directory navigation');
+  for(const workspace of workspaces){await openWorkspace(workspace);await page.screenshot({path:path.join(out,`offline-${workspace.name}.png`)});}pass('Every workspace restarts offline, including never-cached directory navigation');
   assert.deepEqual(await page.evaluate(keys=>Object.fromEntries(keys.map(key=>[key,localStorage.getItem(key)])),Object.keys(retained)),retained);pass('Campaign, settings, both legacy journals, current field journal, existing preview namespaces and backward-compatible drafts remain byte-for-byte intact');
-  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);pass('No browser exceptions or missing packaged network resources');
- }finally{fs.writeFileSync(path.join(out,previous.report),JSON.stringify({checks,errors,missing},null,2));await browser?.close();await new Promise(resolve=>host.close(resolve));}
+  assert.deepEqual(errors,[]);assert.deepEqual(consoleErrors,[]);assert.deepEqual(missing,[]);assert.deepEqual(requests,[]);pass('No browser exceptions or missing packaged network resources');
+ }catch(error){
+  failure={message:error.message,priorKind};
+  if(page){
+   failure.startup=await page.evaluate(async()=>{const registration=await navigator.serviceWorker.getRegistration();return {url:location.href,status:document.querySelector('#status,#save-state')?.textContent,loading:document.querySelector('#loading,#world-loading')?.textContent,controller:navigator.serviceWorker.controller?.scriptURL,active:registration?.active?.state,installing:registration?.installing?.state,waiting:registration?.waiting?.state,caches:await caches.keys()};}).catch(problem=>({diagnosticError:problem.message}));
+   await page.screenshot({path:path.join(out,`offline-${priorKind}-failure.png`)}).catch(()=>{});
+  }
+  console.error('Offline upgrade failure',JSON.stringify({...failure,errors,consoleErrors,missing,requests,cancelledRequests}));throw error;
+ }finally{fs.writeFileSync(path.join(out,previous.report),JSON.stringify({checks,errors,consoleErrors,missing,requests,cancelledRequests,...(failure?{failure}:{})},null,2));await browser?.close();await new Promise(resolve=>host.close(resolve));}
 })().catch(error=>{console.error(error.stack);process.exitCode=1;});

@@ -85,6 +85,8 @@ jobs:
           EDITOR_PRIOR_WORKER=editor21 node tests/editor_v2_offline.cjs
           EDITOR_PRIOR_WORKER=release111 node tests/editor_v2_offline.cjs
           EDITOR_PRIOR_WORKER=editor212 node tests/editor_v2_offline.cjs
+      - name: Verify accepted package still has exact canonical bytes
+        run: python3 tools/validate_editor_package.py dist
       - name: Preserve canonical editor review build
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4

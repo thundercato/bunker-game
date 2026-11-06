@@ -4,11 +4,34 @@ export const EXPECTED_EDITOR_CACHE='field-signal-11.1-editor2.1.3';
 export async function editorRuntimeCurrent() {
  const worker=navigator.serviceWorker?.controller;
  if(!worker)return false;
- return new Promise(resolve=>{
+ return new Promise((resolve,reject)=>{
   const channel=new MessageChannel(),timer=setTimeout(()=>{channel.port1.close();resolve(false);},1000);
   channel.port1.onmessage=e=>{clearTimeout(timer);channel.port1.close();resolve(e.data?.cache===EXPECTED_EDITOR_CACHE);};
-  worker.postMessage({type:'editor-version'},[channel.port2]);
+  try{worker.postMessage({type:'editor-version'},[channel.port2]);}
+  catch(error){
+   clearTimeout(timer);channel.port1.close();
+   // A controller captured just before handoff can become redundant. Recheck
+   // through the normal update/cache gate; never grant readiness on this race.
+   if(error.name==='InvalidStateError')resolve(false);else reject(error);
+  }
  });
+}
+export async function ensureEditorRuntime() {
+ if(!('serviceWorker' in navigator)||!isSecureContext||await editorRuntimeCurrent())return;
+ const registration=await navigator.serviceWorker.register(new URL('sw.js',document.baseURI),{scope:new URL('./',document.baseURI).pathname,updateViaCache:'none'});
+ // register() can already be installing the replacement. A second update may
+ // reject with InvalidStateError while that job changes state; let it finish.
+ // Neither an installing worker nor that exception proves it is our runtime.
+ if(!registration.installing&&!registration.waiting){
+  try{await registration.update();}
+  catch(error){if(error.name!=='InvalidStateError')throw error;}
+ }
+ let current=false;
+ for(let i=0;i<24;i++){
+  if(await editorRuntimeCurrent()){current=true;break;}
+  await new Promise(resolve=>setTimeout(resolve,250));
+ }
+ if(!current)throw Error('The offline runtime could not update. Reconnect and reload; your drafts and campaign are preserved.');
 }
 // Real user action: cache the explicit public manifest without touching drafts.
 // Keeping this separate from save/status text prevents cache progress hiding errors.
@@ -32,16 +55,7 @@ function mountOfflinePreparation(){
 export async function startEditorWorkspace(modulePath) {
  try {
   if(!/^editor\/[\w/-]+\.js$/.test(modulePath))throw Error('Unsupported editor workspace module.');
-  if('serviceWorker' in navigator&&isSecureContext&&!await editorRuntimeCurrent()){
-   const registration=await navigator.serviceWorker.register(new URL('sw.js',document.baseURI),{scope:new URL('./',document.baseURI).pathname,updateViaCache:'none'});
-   await registration.update();
-   let current=false;
-   for(let i=0;i<24;i++){
-    if(await editorRuntimeCurrent()){current=true;break;}
-    await new Promise(resolve=>setTimeout(resolve,250));
-   }
-   if(!current)throw Error('The offline runtime could not update. Reconnect and reload; your drafts and campaign are preserved.');
-  }
+  await ensureEditorRuntime();
   await import(new URL(modulePath,document.baseURI).href);
   mountOfflinePreparation();
   const {mountRecovery}=await import('./panels/recovery.js');

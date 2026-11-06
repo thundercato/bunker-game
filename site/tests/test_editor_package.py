@@ -77,6 +77,15 @@ class EditorPackageTests(unittest.TestCase):
         for name in [*files, 'sw.js', 'precache.json']:
             self.write(name, (self.source / name).read_text(), package=True)
         editor_package.validate(self.source, list(files), self.package)
+        self.write('math.js', 'unreviewed overlay', package=True)
+        with self.assertRaisesRegex(ValueError, 'Built package differs from canonical source: math.js'):
+            editor_package.validate(self.source, list(files), self.package)
+        self.write('math.js', files['math.js'], package=True)
+        for name in ['tests/private.json', '.env']:
+            self.write(name, 'must never ship', package=True)
+            with self.assertRaisesRegex(ValueError, 'Unexpected built package file'):
+                editor_package.validate(self.source, list(files), self.package)
+            (self.package/name).unlink()
         (self.package / 'editor/nested/tool.js').unlink()
         with self.assertRaisesRegex(ValueError, 'Missing built package file: editor/nested/tool.js'):
             editor_package.validate(self.source, list(files), self.package)

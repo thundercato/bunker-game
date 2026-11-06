@@ -5,6 +5,7 @@ literal imports and public editor resources are followed. Dynamic model referenc
 continue to be validated by the existing content/asset validator.
 """
 from pathlib import Path, PurePosixPath
+import hashlib
 import json
 import posixpath
 import re
@@ -45,8 +46,22 @@ def validate(source=SOURCE, paths=None, package=None):
             errors.append('Missing source package entry: '+name)
         elif not (source/name).resolve().is_relative_to(source.resolve()):
             errors.append('Package entry escapes public source: '+name)
-        if package is not None and not (Path(package)/name).is_file():
-            errors.append('Missing built package file: '+name)
+        if package is not None:
+            built=Path(package)/name
+            if not built.is_file():
+                errors.append('Missing built package file: '+name)
+            elif not built.resolve().is_relative_to(Path(package).resolve()):
+                errors.append('Built package entry escapes public root: '+name)
+            elif (source/name).is_file():
+                if hashlib.sha256(built.read_bytes()).digest()!=hashlib.sha256((source/name).read_bytes()).digest():
+                    errors.append('Built package differs from canonical source: '+name)
+    if package is not None:
+        actual={file.relative_to(package).as_posix() for file in Path(package).rglob('*') if file.is_file()}
+        for name in sorted(actual-listed-{'.nojekyll'}):
+            errors.append('Unexpected built package file: '+name)
+        marker=Path(package)/'.nojekyll'
+        if marker.is_file() and marker.read_bytes():
+            errors.append('Unexpected deployment marker contents')
     # Explicit editor sources are the authoring application, not tests or tools.
     # New files must be reviewed and added to precache.json rather than silently
     # copied by a broad directory build step.
@@ -79,7 +94,7 @@ def validate(source=SOURCE, paths=None, package=None):
 if __name__=='__main__':
     try:
         count=validate(package=sys.argv[1] if len(sys.argv)>1 else None)
-        print(f'Editor package/import closure valid: {count} explicit public files')
+        print(f'Editor package/import closure valid: {count} explicit public files'+('; exact canonical bytes, no extra shipped files' if len(sys.argv)>1 else ''))
     except (ValueError, FileNotFoundError) as error:
         print(str(error),file=sys.stderr)
         sys.exit(1)
