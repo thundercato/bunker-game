@@ -6,7 +6,9 @@ spec=importlib.util.spec_from_file_location('campaign_audit',ROOT/'tools/audit_w
 
 class Campaign(unittest.TestCase):
  @classmethod
- def setUpClass(cls):cls.world=audit.runtime_source(ROOT/'site');cls.engine=audit.load_engine(ROOT/'site',cls.world)
+ def setUpClass(cls):
+  cls.world=audit.runtime_source(ROOT/'site');cls.engine=audit.load_engine(ROOT/'site',cls.world)
+  cls.source_engine=audit.load_engine(ROOT/'site',audit.read_json(ROOT/'site/world.json'))
  def fresh(self):
   s=self.engine['new_game']()
   for e in s['enemies']:e['health']=0
@@ -33,6 +35,51 @@ class Campaign(unittest.TestCase):
     c=next(c for c in self.world['containers']if c['id']==o['binding']['id']);self.assertEqual(c['floor'],o['binding']['floor'])
  def test_pier_and_buried_car_fix_use_the_same_rule_as_movement(self):
   self.assertEqual(self.engine['surface_height'](110,-151),0);c=self.engine['CONTAINERS']['car7'];self.assertAlmostEqual(c['floor'],self.engine['surface_height'](c['x'],c['z']))
+ def old_quayside_patrol(self,health=37):
+  state=self.source_engine['new_game']();state['credits']=732;state['bag']['ammo']=27
+  patrol=next(e for e in state['enemies']if e['id']=='st4');patrol['health']=health
+  adjustment=next(a for a in self.world['campaignSpawnAdjustments']if a['id']=='st4')
+  self.assertEqual([patrol['x'],patrol['z']],adjustment['from'])
+  return state,patrol,adjustment
+ def test_new_quayside_patrol_starts_at_clear_authored_spawn_without_changing_identity(self):
+  state=self.engine['new_game']();patrol=next(e for e in state['enemies']if e['id']=='st4')
+  adjustment=next(a for a in self.world['campaignSpawnAdjustments']if a['id']=='st4')
+  old=next(e for e in self.source_engine['new_game']()['enemies']if e['id']=='st4')
+  self.assertEqual([patrol['x'],patrol['z']],adjustment['to'])
+  self.assertEqual(patrol['home'],adjustment['to']);self.assertEqual(patrol['target'],adjustment['to'])
+  self.assertEqual((patrol['id'],patrol['kind'],patrol['health']),(old['id'],old['kind'],old['health']))
+  self.assertTrue(self.engine['walkable'](state,patrol['x'],patrol['z']))
+  self.assertEqual(self.engine['validate_save'](json.loads(json.dumps(state)))['enemies'],state['enemies'])
+ def test_alive_old_patrol_moves_clear_preserving_save_progress_and_input(self):
+  state,patrol,adjustment=self.old_quayside_patrol();before=copy.deepcopy(state)
+  self.assertTrue(self.engine['_CAMPAIGN'].blocked(patrol['x'],patrol['z'],patrol['y'],state['doors']))
+  out=self.engine['validate_save'](state);moved=next(e for e in out['enemies']if e['id']=='st4')
+  self.assertEqual([moved['x'],moved['z']],adjustment['to'])
+  self.assertEqual(moved['home'],adjustment['to']);self.assertEqual(moved['target'],adjustment['to'])
+  self.assertEqual(moved['health'],37);self.assertEqual(moved['y'],self.engine['surface_height'](*adjustment['to']))
+  self.assertTrue(self.engine['walkable'](out,moved['x'],moved['z']))
+  for key in state:
+   if key not in ('enemies','events'):self.assertEqual(out[key],state[key],key)
+  self.assertEqual([e for e in out['enemies']if e['id']!='st4'],[e for e in state['enemies']if e['id']!='st4'])
+  self.assertEqual(state,before,'Validation must not mutate the supplied save')
+  self.assertEqual([e['id']for e in out['events']],['candidate-patrol-clearance:st4'])
+ def test_dead_old_patrol_is_not_relocated_or_resurrected(self):
+  state,patrol,_=self.old_quayside_patrol(health=0)
+  out=self.engine['validate_save'](state);dead=next(e for e in out['enemies']if e['id']=='st4')
+  self.assertEqual(dead,patrol);self.assertEqual(out['events'],[])
+ def test_patrol_relocation_is_idempotent_after_serialised_reload(self):
+  state,_,_=self.old_quayside_patrol();first=self.engine['validate_save'](state)
+  second=self.engine['validate_save'](json.loads(json.dumps(first)));expected=copy.deepcopy(first);expected['events']=[]
+  self.assertEqual(second,expected)
+ def test_patrol_already_away_from_old_cargo_keeps_its_live_position(self):
+  state,patrol,_=self.old_quayside_patrol();patrol.update(x=84,z=-147.75)
+  out=self.engine['validate_save'](state)
+  self.assertEqual(next(e for e in out['enemies']if e['id']=='st4'),patrol);self.assertEqual(out['events'],[])
+ def test_relocated_patrol_keeps_an_existing_pursuit_target(self):
+  state,patrol,adjustment=self.old_quayside_patrol();patrol.update(mode='chase',target=[90,-145],memory=8.5)
+  out=self.engine['validate_save'](state);moved=next(e for e in out['enemies']if e['id']=='st4')
+  self.assertEqual(moved['home'],adjustment['to']);self.assertEqual(moved['target'],[90,-145])
+  self.assertEqual((moved['mode'],moved['memory'],moved['health']),('chase',8.5,37))
  def test_full_first_signal_expedition_search_return_deliver_reload_is_idempotent(self):
   e=self.engine;s=self.fresh();credits=s['credits']
   # Static collision navigation uses real engine geometry. Browser tests separately

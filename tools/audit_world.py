@@ -472,6 +472,11 @@ def navigation_inventory(site, world, issues):
         state['doors'][identity] = True
     p = state['player']
     check('spawn-floor', 'campaign-spawn', engine['walkable'](state, p['x'], p['z']), 'new game spawn is blocked')
+    for adjustment in world.get('campaignSpawnAdjustments', []):
+        enemy = next(e for e in state['enemies'] if e['id'] == adjustment['id'])
+        state['player']['y'] = enemy['y']
+        check('enemy-spawn-clear', enemy['id'], engine['walkable'](state, enemy['x'], enemy['z']),
+              'adjusted enemy spawn overlaps authored collision')
     for identity, (x, z) in world['stations'].items():
         candidates = [(x + dx, z + dz) for dx, dz in ((0, 0), (.7, 0), (-.7, 0), (0, .7), (0, -.7))]
         check('station-approach', identity, any(engine['walkable'](state, xx, zz) for xx, zz in candidates),
@@ -610,6 +615,33 @@ def optional_registries(site, world, issues):
         registry = read_json(campaign_path)
         result['campaignAssets'] = {'path': 'assets/campaign/registry.json', 'sha256': digest(campaign_path.read_bytes()),
                                     'summary': registry.get('summary', {}), 'format': registry.get('format')}
+    spawns_path = site / 'campaign-spawns.json'
+    if spawns_path.exists():
+        registry = read_json(spawns_path)
+        original_enemies = {e['id']: e for e in read_json(site / 'world.json')['enemies']}
+        effective_enemies = {e['id']: e for e in world['enemies']}
+        seen = set()
+        for adjustment in registry.get('adjustments', []):
+            identity = adjustment.get('id')
+            problem = None
+            if not identity or identity in seen or identity not in original_enemies:
+                problem = 'missing/duplicate/unknown enemy ID'
+            seen.add(identity)
+            for key in ('from', 'to'):
+                point = adjustment.get(key, [])
+                if len(point) != 2 or not all(finite(v) for v in point):
+                    problem = 'invalid source/destination coordinates'
+            if not problem:
+                original = original_enemies[identity]
+                if adjustment['from'] != [original['x'], original['z']]:
+                    problem = 'source coordinates differ from preserved enemy spawn'
+                effective = effective_enemies.get(identity)
+                if world.get('campaign') and (not effective or adjustment['to'] != [effective['x'], effective['z']]):
+                    problem = 'effective enemy spawn differs from authored adjustment'
+            if problem:
+                issues.append({'severity': 'error', 'code': 'spawn-adjustment', 'id': identity, 'detail': problem})
+        result['spawnAdjustments'] = {'path': 'campaign-spawns.json', 'sha256': digest(spawns_path.read_bytes()),
+                                      'format': registry.get('format'), 'adjustments': registry.get('adjustments', [])}
     return result
 
 
@@ -686,7 +718,7 @@ def audit(root=ROOT, world=None, include_assets=True):
                    'effectiveSource': 'campaign adapter' if world.get('campaign') else 'preserved world.json',
                    'runtimeModules': {name: digest((site / name).read_bytes()) for name in
                                       ('terrain.js', 'campaign-core.js', 'campaign-interiors.js', 'campaign-routes.json',
-                                       'campaign_rules.py') if (site / name).exists()},
+                                       'campaign_rules.py', 'campaign-spawns.json') if (site / name).exists()},
                    'effectiveWorldSha256': digest(json.dumps(world, sort_keys=True, separators=(',', ':')).encode())},
         'counts': counts,
         'historicalCounts': {'scope': 'MEGA_BUILD_README historical baseline; no count is a permanent content target',
@@ -701,6 +733,7 @@ def audit(root=ROOT, world=None, include_assets=True):
                      'underground': world['zones'],
                      'note': 'Underground zones intentionally use separate coordinates outside field bounds.'},
         'buildings': building_records,
+        'enemySpawns': world['enemies'],
         'containers': [{**c, 'renderedSearchProp': next((o.get('asset') for s in world.get('campaignScenes', [])
                                                         for o in s['layout']['objects'] if o.get('binding', {}).get('id') == c['id']),
                                                        c.get('searchProp'))} for c in world['containers']],
@@ -744,7 +777,8 @@ const source=read('world.json'),districts=read('districts.json'),props=read('sea
 const sourceRevision=read('world-source.json').revision;
 const interiors=fs.existsSync('campaign-interiors.js')?(await import('./campaign-interiors.js')).createCampaignInteriors(source):[];
 const routes=fs.existsSync('campaign-routes.json')?read('campaign-routes.json'):undefined;
-console.log(JSON.stringify(applyCampaignSource(source,{districts,props,interiors,routes,sourceRevision})));
+const spawns=fs.existsSync('campaign-spawns.json')?read('campaign-spawns.json'):undefined;
+console.log(JSON.stringify(applyCampaignSource(source,{districts,props,interiors,routes,sourceRevision,spawns})));
 """
     return json.loads(subprocess.check_output(['node', '--input-type=module', '-e', script], cwd=site, text=True))
 

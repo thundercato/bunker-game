@@ -13,20 +13,21 @@
       "revision": "6b4f9fb9401398a65eee576f40b2d80805ef6c76",
       "sha256": "84fcc9d23960e75b84053d794636ce63c88a3ddd3d432b1d908fe8cd19a0d7c8"
     },
-    "engineSha256": "0b31873430f99a092b0a5a787b89edee1ed31b87d1c7c404efb00193af76779c",
+    "engineSha256": "c28950db8b6857948f172b22012c999bd433c9d45d938b3d8cd7632b5714351f",
     "effectiveSource": "campaign adapter",
     "runtimeModules": {
       "terrain.js": "748ea37f5a9e48923b651efafb25ddd2c76dfe3bb3515aa2198f852b84469c80",
-      "campaign-core.js": "e361c1e303c886c5b5cd46f078b5511ffb2ba1cd05d0322ae72fbee76b570847",
+      "campaign-core.js": "53b41592d64d7ceb10a8c9bc8425a72e25fc0f76054c566bbc75cff49f3bf25c",
       "campaign-interiors.js": "e1aad8b32610394d5f2eba9dcc08dbaa48f28af4b4274fee32a725e1596e4b0a",
       "campaign-routes.json": "1be208e325a9a2deed0232a64571a2224174eb8d07af9bbd0b9372056be6c31c",
-      "campaign_rules.py": "379de4a262a477c13b582994db0e3f0034deefe5b7b66f379b183fa068d74f79"
+      "campaign_rules.py": "dfb491f3e288e060a409e21bd58bbf6f77c4558f901a013d78d5d4fe01d6ee28",
+      "campaign-spawns.json": "0b8ac29cbcdefa94a8771bbbdd9f04a65dcf21da0de77c5eec1b4df25c3c8726"
     },
-    "effectiveWorldSha256": "889c8e28ae19e49781fc553a27b58533d4830ed8e8eb60e714366399226751d2"
+    "effectiveWorldSha256": "d3031722ff39ab03d1b64726b645c94c875f9448acb522eba8194ffd1cad546d"
   },
   "counts": {
     "buildings": 37,
-    "containers": 139,
+    "containers": 143,
     "missions": 15,
     "enemies": 35,
     "profiles": 9,
@@ -45,18 +46,18 @@
       "base": 1,
       "bunker": 2,
       "cave": 2,
-      "field": 132,
+      "field": 136,
       "sewer": 2
     },
     "containersByProfile": {
       "chest": 18,
-      "crate": 21,
+      "crate": 24,
       "cupboard": 19,
       "drawers": 44,
       "locker": 14,
       "medical": 6,
       "vehicle": 8,
-      "workshop": 9
+      "workshop": 10
     }
   },
   "historicalCounts": {
@@ -67,7 +68,12 @@
       "missions": 15,
       "roads": 15
     },
-    "discrepancies": {},
+    "discrepancies": {
+      "containers": {
+        "historical": 139,
+        "actual": 143
+      }
+    },
     "preservedSourceFieldTargetDrift": [
       {
         "id": "tower",
@@ -3092,6 +3098,293 @@
       "missionIds": []
     }
   ],
+  "enemySpawns": [
+    {
+      "id": "dr1",
+      "kind": "drifter",
+      "x": 1,
+      "z": -46,
+      "yaw": 1.2,
+      "zone": "field"
+    },
+    {
+      "id": "dr2",
+      "kind": "drifter",
+      "x": -26,
+      "z": -84,
+      "yaw": -1,
+      "zone": "field"
+    },
+    {
+      "id": "dr3",
+      "kind": "drifter",
+      "x": 35,
+      "z": -110,
+      "yaw": 2,
+      "zone": "field"
+    },
+    {
+      "id": "dr4",
+      "kind": "drifter",
+      "x": -45,
+      "z": -158,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "st1",
+      "kind": "stalker",
+      "x": -67,
+      "z": -115,
+      "yaw": 1,
+      "zone": "field"
+    },
+    {
+      "id": "st2",
+      "kind": "stalker",
+      "x": 8,
+      "z": -145,
+      "yaw": 2,
+      "zone": "field"
+    },
+    {
+      "id": "st3",
+      "kind": "stalker",
+      "x": 43,
+      "z": -180,
+      "yaw": -1,
+      "zone": "field"
+    },
+    {
+      "id": "st4",
+      "kind": "stalker",
+      "x": 84,
+      "z": -149,
+      "yaw": 1.6,
+      "zone": "field"
+    },
+    {
+      "id": "wr1",
+      "kind": "wraith",
+      "x": -18,
+      "z": -211,
+      "yaw": 2,
+      "zone": "field"
+    },
+    {
+      "id": "wr2",
+      "kind": "wraith",
+      "x": -103,
+      "z": -209,
+      "yaw": 0.5,
+      "zone": "field"
+    },
+    {
+      "id": "wr3",
+      "kind": "wraith",
+      "x": 113,
+      "z": -151,
+      "yaw": 1.4,
+      "zone": "field"
+    },
+    {
+      "id": "skitter0",
+      "kind": "skitter",
+      "x": -17,
+      "z": -83,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "skitter1",
+      "kind": "skitter",
+      "x": -46,
+      "z": -137,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "skitter2",
+      "kind": "skitter",
+      "x": 24,
+      "z": -223,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "skitter3",
+      "kind": "skitter",
+      "x": -81,
+      "z": -332,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "skitter4",
+      "kind": "skitter",
+      "x": 17,
+      "z": -367,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "cave_drifter",
+      "kind": "drifter",
+      "x": -804,
+      "z": 38,
+      "yaw": 0,
+      "zone": "cave"
+    },
+    {
+      "id": "cave_stalker",
+      "kind": "stalker",
+      "x": -791,
+      "z": 48,
+      "yaw": 0,
+      "zone": "cave"
+    },
+    {
+      "id": "bunker_drifter",
+      "kind": "drifter",
+      "x": -645,
+      "z": 26,
+      "yaw": 0,
+      "zone": "bunker"
+    },
+    {
+      "id": "rifle_echo0",
+      "kind": "rifleman",
+      "x": 222,
+      "z": -497,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "rifle_echo1",
+      "kind": "rifleman",
+      "x": 263,
+      "z": -505,
+      "yaw": 3.141592653589793,
+      "zone": "field"
+    },
+    {
+      "id": "rifle_echo2",
+      "kind": "rifleman",
+      "x": 201,
+      "z": -545,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "rifle_echo3",
+      "kind": "rifleman",
+      "x": 243,
+      "z": -557,
+      "yaw": 3.141592653589793,
+      "zone": "field"
+    },
+    {
+      "id": "rifle_echo4",
+      "kind": "rifleman",
+      "x": 273,
+      "z": -587,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "rifle_echo5",
+      "kind": "rifleman",
+      "x": 223,
+      "z": -589,
+      "yaw": 3.141592653589793,
+      "zone": "field"
+    },
+    {
+      "id": "rifle_echo6",
+      "kind": "rifleman",
+      "x": 240,
+      "z": -627,
+      "yaw": 0,
+      "zone": "field"
+    },
+    {
+      "id": "rifle_echo7",
+      "kind": "rifleman",
+      "x": 162,
+      "z": -459,
+      "yaw": 3.141592653589793,
+      "zone": "field"
+    },
+    {
+      "id": "indoors0",
+      "kind": "drifter",
+      "x": -31,
+      "z": -61,
+      "yaw": 3.141592653589793,
+      "zone": "field",
+      "building": "forester"
+    },
+    {
+      "id": "indoors1",
+      "kind": "stalker",
+      "x": -30,
+      "z": -191,
+      "yaw": 3.141592653589793,
+      "zone": "field",
+      "building": "v4"
+    },
+    {
+      "id": "indoors2",
+      "kind": "drifter",
+      "x": 175,
+      "z": -380,
+      "yaw": 3.141592653589793,
+      "zone": "field",
+      "building": "east1"
+    },
+    {
+      "id": "indoors3",
+      "kind": "stalker",
+      "x": 183,
+      "z": -333,
+      "yaw": 3.141592653589793,
+      "zone": "field",
+      "building": "mill"
+    },
+    {
+      "id": "indoors4",
+      "kind": "rifleman",
+      "x": 204,
+      "z": -539,
+      "yaw": 3.141592653589793,
+      "zone": "field",
+      "building": "garrison"
+    },
+    {
+      "id": "sewer_echo",
+      "kind": "stalker",
+      "x": -1100,
+      "z": 63,
+      "yaw": 0,
+      "zone": "sewer"
+    },
+    {
+      "id": "east_drifter",
+      "kind": "drifter",
+      "x": 160,
+      "z": -300,
+      "yaw": 1.2,
+      "zone": "field"
+    },
+    {
+      "id": "east_skitter",
+      "kind": "skitter",
+      "x": 192,
+      "z": -411,
+      "yaw": 1,
+      "zone": "field"
+    }
+  ],
   "containers": [
     {
       "id": "hut_c0",
@@ -3337,7 +3630,7 @@
       "id": "ranger_c1",
       "name": "Supply crate",
       "profile": "crate",
-      "x": -42.5,
+      "x": -42.535,
       "z": -103.4,
       "y": 0.5,
       "building": "ranger",
@@ -3444,7 +3737,7 @@
       "id": "station_c1",
       "name": "Tall locker",
       "profile": "locker",
-      "x": -80.5,
+      "x": -83.26,
       "z": -146.4,
       "y": 0.5,
       "building": "station",
@@ -3470,7 +3763,7 @@
       "id": "station_c2",
       "name": "Supply crate",
       "profile": "crate",
-      "x": -91.5,
+      "x": -90.765,
       "z": -142.6,
       "y": 0.5,
       "building": "station",
@@ -3655,7 +3948,7 @@
       "id": "boathouse_c0",
       "name": "Supply crate",
       "profile": "crate",
-      "x": 48.5,
+      "x": 48.535,
       "z": -198.4,
       "y": 0.5,
       "building": "boathouse",
@@ -3979,7 +4272,7 @@
       "id": "v4_c1",
       "name": "Drawer unit",
       "profile": "drawers",
-      "x": -24.5,
+      "x": -27.36,
       "z": -192.4,
       "y": 0.5,
       "building": "v4",
@@ -4213,7 +4506,7 @@
       "id": "clinic_c1",
       "name": "Medicine cabinet",
       "profile": "medical",
-      "x": 30,
+      "x": 27.235,
       "z": -174.4,
       "y": 1,
       "building": "clinic",
@@ -4531,7 +4824,7 @@
       "id": "north_c0",
       "name": "Supply crate",
       "profile": "crate",
-      "x": -26.5,
+      "x": -26.465,
       "z": -239.4,
       "y": 0.5,
       "building": "north",
@@ -4749,7 +5042,7 @@
       "id": "lodge_c0",
       "name": "Supply cupboard",
       "profile": "crate",
-      "x": -77.5,
+      "x": -77.465,
       "z": -325.35,
       "y": 0.5,
       "floor": 0,
@@ -4775,7 +5068,7 @@
       "id": "lodge_c1",
       "name": "Supply cupboard",
       "profile": "drawers",
-      "x": -62.5,
+      "x": -65.43,
       "z": -325.35,
       "y": 0.5,
       "floor": 0,
@@ -4858,7 +5151,7 @@
       "id": "tower_c1",
       "name": "Supply cupboard",
       "profile": "drawers",
-      "x": -23.5,
+      "x": -26.21,
       "z": -366.85,
       "y": 0.5,
       "floor": 0,
@@ -4913,7 +5206,7 @@
       "id": "substation_c0",
       "name": "Supply cupboard",
       "profile": "crate",
-      "x": 32.5,
+      "x": 32.535,
       "z": -277.35,
       "y": 0.5,
       "floor": 0,
@@ -4965,8 +5258,8 @@
       "id": "logging_c0",
       "name": "Supply cupboard",
       "profile": "crate",
-      "x": -150,
-      "z": -372.85,
+      "x": -149.26500000000001,
+      "z": -372.64,
       "y": 0.5,
       "floor": 0,
       "zone": "field",
@@ -5308,7 +5601,7 @@
       "name": "Supply crate",
       "profile": "crate",
       "x": -112,
-      "z": -80.5,
+      "z": -80.465,
       "y": 0.7,
       "floor": 0,
       "zone": "field",
@@ -5961,7 +6254,7 @@
       "building": "garrison",
       "zone": "field",
       "floor": 0,
-      "x": 196.5,
+      "x": 196.52,
       "z": -539.8,
       "y": 0.7,
       "yaw": 1.5707963267948966,
@@ -6712,6 +7005,110 @@
       ],
       "searchMount": 0,
       "renderedSearchProp": "search_arms_locker"
+    },
+    {
+      "id": "dock_cargo_1",
+      "name": "Quayside cargo inspection 1",
+      "profile": "crate",
+      "searchProp": "search_reinforced_crate",
+      "x": 74.65,
+      "z": -151.65,
+      "y": 0.4,
+      "floor": 0,
+      "yaw": 0,
+      "zone": "field",
+      "building": "district:docks-container-01",
+      "foundationObject": "docks-container-01",
+      "searchDimensions": [
+        1.15,
+        0.85,
+        0.75
+      ],
+      "searchAnchor": [
+        0,
+        0.4675,
+        0.455
+      ],
+      "searchMount": 0,
+      "renderedSearchProp": "search_reinforced_crate"
+    },
+    {
+      "id": "dock_cargo_3",
+      "name": "Quayside cargo inspection 3",
+      "profile": "crate",
+      "searchProp": "search_slatted_crate",
+      "x": 84.65,
+      "z": -151.65,
+      "y": 0.4,
+      "floor": 0,
+      "yaw": 0,
+      "zone": "field",
+      "building": "district:docks-container-03",
+      "foundationObject": "docks-container-03",
+      "searchDimensions": [
+        0.85,
+        0.6,
+        0.6
+      ],
+      "searchAnchor": [
+        0,
+        0.33,
+        0.38
+      ],
+      "searchMount": 0,
+      "renderedSearchProp": "search_slatted_crate"
+    },
+    {
+      "id": "dock_cargo_4",
+      "name": "Quayside cargo inspection 4",
+      "profile": "crate",
+      "searchProp": "search_salvaged_crate",
+      "x": 94.65,
+      "z": -151.65,
+      "y": 0.4,
+      "floor": 0,
+      "yaw": 0,
+      "zone": "field",
+      "building": "district:docks-container-04",
+      "foundationObject": "docks-container-04",
+      "searchDimensions": [
+        1.15,
+        0.85,
+        0.75
+      ],
+      "searchAnchor": [
+        0,
+        0.4675,
+        0.455
+      ],
+      "searchMount": 0,
+      "renderedSearchProp": "search_salvaged_crate"
+    },
+    {
+      "id": "dock_crane_tools",
+      "name": "Gantry maintenance tool case",
+      "profile": "workshop",
+      "searchProp": "search_cantilever_toolbox",
+      "x": 111.2,
+      "z": -150.35,
+      "y": 12.4,
+      "floor": 12,
+      "yaw": 0,
+      "zone": "field",
+      "building": "district:docks-crane-01",
+      "foundationObject": "docks-crane-01",
+      "searchDimensions": [
+        0.6,
+        0.32,
+        0.3
+      ],
+      "searchAnchor": [
+        0,
+        0.17600000000000002,
+        0.22999999999999998
+      ],
+      "searchMount": 0,
+      "renderedSearchProp": "search_cantilever_toolbox"
     }
   ],
   "profiles": [
@@ -7064,11 +7461,11 @@
       "count": 1,
       "container": "north_c0",
       "mapTarget": [
-        -26.5,
+        -26.465,
         -239.4
       ],
       "containerPosition": [
-        -26.5,
+        -26.465,
         0,
         -239.4
       ],
@@ -7996,7 +8393,7 @@
       "Container approach uses actual search dispatch but does not prove a renderer ray hit",
       "No physical-device/browser playtest"
     ],
-    "passed": 259,
+    "passed": 264,
     "failed": 0,
     "checks": [
       {
@@ -9220,8 +9617,33 @@
         "passed": true
       },
       {
+        "check": "container-approach",
+        "id": "dock_cargo_1",
+        "passed": true
+      },
+      {
+        "check": "container-approach",
+        "id": "dock_cargo_3",
+        "passed": true
+      },
+      {
+        "check": "container-approach",
+        "id": "dock_cargo_4",
+        "passed": true
+      },
+      {
+        "check": "container-approach",
+        "id": "dock_crane_tools",
+        "passed": true
+      },
+      {
         "check": "spawn-floor",
         "id": "campaign-spawn",
+        "passed": true
+      },
+      {
+        "check": "enemy-spawn-clear",
+        "id": "st4",
         "passed": true
       },
       {
@@ -10195,11 +10617,11 @@
         "id": "ranger_c1",
         "originWalkable": false,
         "approach": [
-          -43.25,
+          -43.285,
           0,
           -103.4
         ],
-        "sampledWalkableApproaches": 103,
+        "sampledWalkableApproaches": 102,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -10245,26 +10667,26 @@
       },
       {
         "id": "station_c1",
-        "originWalkable": true,
+        "originWalkable": false,
         "approach": [
-          -80.5,
+          -84.01,
           0.0,
-          -147.15
+          -146.4
         ],
-        "sampledWalkableApproaches": 113,
+        "sampledWalkableApproaches": 121,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
-        "originSurfaceHeight": 3.154286
+        "originSurfaceHeight": 0.0
       },
       {
         "id": "station_c2",
         "originWalkable": false,
         "approach": [
-          -90.114359,
+          -89.379359,
           0.0,
           -143.4
         ],
-        "sampledWalkableApproaches": 76,
+        "sampledWalkableApproaches": 72,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0.0
@@ -10351,11 +10773,11 @@
         "id": "boathouse_c0",
         "originWalkable": false,
         "approach": [
-          49.25,
+          49.285,
           0,
           -198.4
         ],
-        "sampledWalkableApproaches": 104,
+        "sampledWalkableApproaches": 103,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -10505,16 +10927,16 @@
       },
       {
         "id": "v4_c1",
-        "originWalkable": true,
+        "originWalkable": false,
         "approach": [
-          -25.149519,
+          -28.11,
           0.0,
-          -192.775
+          -192.4
         ],
-        "sampledWalkableApproaches": 108,
+        "sampledWalkableApproaches": 102,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
-        "originSurfaceHeight": 3.154286
+        "originSurfaceHeight": 0.0
       },
       {
         "id": "v4_c2",
@@ -10622,16 +11044,16 @@
       },
       {
         "id": "clinic_c1",
-        "originWalkable": true,
+        "originWalkable": false,
         "approach": [
-          30.0,
+          26.485,
           0.0,
-          -175.15
+          -174.4
         ],
-        "sampledWalkableApproaches": 113,
+        "sampledWalkableApproaches": 114,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
-        "originSurfaceHeight": 3.154286
+        "originSurfaceHeight": 0.0
       },
       {
         "id": "clinic_c2",
@@ -10780,11 +11202,11 @@
         "id": "north_c0",
         "originWalkable": false,
         "approach": [
-          -25.75,
+          -25.715,
           0,
           -239.4
         ],
-        "sampledWalkableApproaches": 105,
+        "sampledWalkableApproaches": 104,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -10862,7 +11284,7 @@
           3.2,
           -146.0
         ],
-        "sampledWalkableApproaches": 103,
+        "sampledWalkableApproaches": 104,
         "authoredFloor": 3.2,
         "effectiveSearchFloor": 3.2,
         "originSurfaceHeight": 3.2
@@ -10884,27 +11306,27 @@
         "id": "lodge_c0",
         "originWalkable": false,
         "approach": [
-          -76.75,
+          -76.715,
           0.0,
           -325.35
         ],
-        "sampledWalkableApproaches": 106,
+        "sampledWalkableApproaches": 105,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0.0
       },
       {
         "id": "lodge_c1",
-        "originWalkable": true,
+        "originWalkable": false,
         "approach": [
-          -61.547372,
-          0,
-          -324.8
+          -66.18,
+          0.0,
+          -325.35
         ],
-        "sampledWalkableApproaches": 109,
+        "sampledWalkableApproaches": 105,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
-        "originSurfaceHeight": 3.156364
+        "originSurfaceHeight": 0.0
       },
       {
         "id": "lodge_chest",
@@ -10934,16 +11356,16 @@
       },
       {
         "id": "tower_c1",
-        "originWalkable": true,
+        "originWalkable": false,
         "approach": [
-          -23.5,
+          -26.96,
           0.0,
-          -367.6
+          -366.85
         ],
-        "sampledWalkableApproaches": 113,
+        "sampledWalkableApproaches": 120,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
-        "originSurfaceHeight": 3.14
+        "originSurfaceHeight": 0.0
       },
       {
         "id": "tower_chest",
@@ -10962,11 +11384,11 @@
         "id": "substation_c0",
         "originWalkable": false,
         "approach": [
-          33.25,
+          33.285,
           0,
           -277.35
         ],
-        "sampledWalkableApproaches": 106,
+        "sampledWalkableApproaches": 105,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -10988,11 +11410,11 @@
         "id": "logging_c0",
         "originWalkable": false,
         "approach": [
-          -148.4,
+          -147.665,
           0,
-          -372.85
+          -372.64
         ],
-        "sampledWalkableApproaches": 78,
+        "sampledWalkableApproaches": 69,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -11148,7 +11570,7 @@
           0,
           -149.25
         ],
-        "sampledWalkableApproaches": 137,
+        "sampledWalkableApproaches": 136,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -11211,9 +11633,9 @@
         "approach": [
           -112.0,
           0,
-          -79.75
+          -79.715
         ],
-        "sampledWalkableApproaches": 111,
+        "sampledWalkableApproaches": 109,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0
@@ -11521,7 +11943,7 @@
         "id": "garrison_c1",
         "originWalkable": false,
         "approach": [
-          197.25,
+          197.27,
           0.0,
           -539.8
         ],
@@ -11742,11 +12164,11 @@
         "id": "v4_kitchen",
         "originWalkable": false,
         "approach": [
-          -27.7,
+          -28.23033,
           0.0,
-          -192.22
+          -192.43967
         ],
-        "sampledWalkableApproaches": 111,
+        "sampledWalkableApproaches": 101,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0.0
@@ -11785,7 +12207,7 @@
           0.0,
           -174.22
         ],
-        "sampledWalkableApproaches": 118,
+        "sampledWalkableApproaches": 108,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0.0
@@ -11811,7 +12233,7 @@
           0.0,
           -325.22
         ],
-        "sampledWalkableApproaches": 119,
+        "sampledWalkableApproaches": 114,
         "authoredFloor": 0,
         "effectiveSearchFloor": 0,
         "originSurfaceHeight": 0.0
@@ -11880,6 +12302,58 @@
         "authoredFloor": -4.2,
         "effectiveSearchFloor": -4.2,
         "originSurfaceHeight": -4.2
+      },
+      {
+        "id": "dock_cargo_1",
+        "originWalkable": false,
+        "approach": [
+          74.65,
+          0,
+          -150.9
+        ],
+        "sampledWalkableApproaches": 96,
+        "authoredFloor": 0,
+        "effectiveSearchFloor": 0,
+        "originSurfaceHeight": 0
+      },
+      {
+        "id": "dock_cargo_3",
+        "originWalkable": false,
+        "approach": [
+          84.65,
+          0,
+          -150.9
+        ],
+        "sampledWalkableApproaches": 103,
+        "authoredFloor": 0,
+        "effectiveSearchFloor": 0,
+        "originSurfaceHeight": 0
+      },
+      {
+        "id": "dock_cargo_4",
+        "originWalkable": false,
+        "approach": [
+          94.65,
+          0,
+          -150.9
+        ],
+        "sampledWalkableApproaches": 99,
+        "authoredFloor": 0,
+        "effectiveSearchFloor": 0,
+        "originSurfaceHeight": 0
+      },
+      {
+        "id": "dock_crane_tools",
+        "originWalkable": false,
+        "approach": [
+          111.2,
+          12,
+          -149.6
+        ],
+        "sampledWalkableApproaches": 113,
+        "authoredFloor": 12,
+        "effectiveSearchFloor": 12,
+        "originSurfaceHeight": 12
       }
     ]
   },
@@ -11902,7 +12376,7 @@
     },
     "districts": {
       "path": "districts.json",
-      "sha256": "93c0fc652c5eff10d444ebe20615e713eb58cf21a1cb1cfc6e4a0876c71185ae",
+      "sha256": "cdc619032ded900116e105b37a3eb2c72b927a5ab62e582bfa45c5c6d92680e6",
       "count": 8,
       "objects": 95,
       "ids": [
@@ -14933,7 +15407,21 @@
               "grounding": {
                 "mode": "pier-deck",
                 "offset": 0
-              }
+              },
+              "containerBindings": [
+                {
+                  "id": "dock_cargo_1",
+                  "name": "Quayside cargo inspection 1",
+                  "profile": "crate",
+                  "searchProp": "search_reinforced_crate",
+                  "position": [
+                    3.65,
+                    0,
+                    0.35
+                  ],
+                  "yaw": 0
+                }
+              ]
             },
             {
               "id": "docks-container-02",
@@ -15009,7 +15497,21 @@
               "grounding": {
                 "mode": "pier-deck",
                 "offset": 0
-              }
+              },
+              "containerBindings": [
+                {
+                  "id": "dock_cargo_3",
+                  "name": "Quayside cargo inspection 3",
+                  "profile": "crate",
+                  "searchProp": "search_slatted_crate",
+                  "position": [
+                    3.65,
+                    0,
+                    0.35
+                  ],
+                  "yaw": 0
+                }
+              ]
             },
             {
               "id": "docks-container-04",
@@ -15047,7 +15549,21 @@
               "grounding": {
                 "mode": "pier-deck",
                 "offset": 0
-              }
+              },
+              "containerBindings": [
+                {
+                  "id": "dock_cargo_4",
+                  "name": "Quayside cargo inspection 4",
+                  "profile": "crate",
+                  "searchProp": "search_salvaged_crate",
+                  "position": [
+                    3.65,
+                    0,
+                    0.35
+                  ],
+                  "yaw": 0
+                }
+              ]
             },
             {
               "id": "docks-bollard-01",
@@ -15709,7 +16225,21 @@
               "grounding": {
                 "mode": "pier-deck",
                 "offset": 0
-              }
+              },
+              "containerBindings": [
+                {
+                  "id": "dock_crane_tools",
+                  "name": "Gantry maintenance tool case",
+                  "profile": "workshop",
+                  "searchProp": "search_cantilever_toolbox",
+                  "position": [
+                    -1.8,
+                    12,
+                    0.65
+                  ],
+                  "yaw": 0
+                }
+              ]
             }
           ]
         },
@@ -16613,6 +17143,25 @@
         "searchableSuitableModels": 49
       },
       "format": "field-signal-asset-registry/1"
+    },
+    "spawnAdjustments": {
+      "path": "campaign-spawns.json",
+      "sha256": "0b8ac29cbcdefa94a8771bbbdd9f04a65dcf21da0de77c5eec1b4df25c3c8726",
+      "format": "field-signal-campaign-spawns/1",
+      "adjustments": [
+        {
+          "id": "st4",
+          "from": [
+            84,
+            -151
+          ],
+          "to": [
+            84,
+            -149
+          ],
+          "reason": "Move the existing quayside patrol out of the newly authored cargo container and into the clear rear quay. Preserve identity, health, inventory and mission state."
+        }
+      ]
     }
   },
   "assets": {

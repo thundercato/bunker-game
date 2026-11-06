@@ -25,6 +25,9 @@ The preserved source contains **37 buildings, 14 two-storey buildings, 51 storey
 139 searchable containers, 15 missions, 15 roads, 9 loot profiles, 8 searchable
 vehicles, 31 loose-loot surfaces, 28 partitions and 14 portals**. The historical
 37/139/15/15 counts agree with the data.
+The candidate retains those IDs and adds four searchable dock-cargo targets,
+bringing its current container count to 143; that intentional difference is
+recorded in the machine-readable historical comparison.
 The file's `version: 6` and older `build` label are legacy content/schema fields,
 not evidence that the live game is a new v6 release.
 
@@ -71,13 +74,20 @@ Original findings remain under `preservedSourceLayoutFindings` and
 transport overlaps and validation results are separate, so a corrected candidate
 does not erase the evidence or misrepresent an old defect as still active.
 
-The current candidate passes **259 navigation checks with zero errors and zero
-warnings**. All 139 containers have a sampled approach accepted by actual search
+The current candidate passes **264 navigation checks with zero errors and zero
+warnings**. All 143 containers have a sampled approach accepted by actual search
 rules. The report includes four compiled house interiors, 95 district objects,
-109 local colliders, three deck surfaces and one ladder structure, plus 69
+153 local colliders, three deck surfaces and one ladder structure, plus 69
 searchable prop variants with 68 actually placed after interior overrides.
 Candidate transport has no remaining centreline/building
 footprint intersections. These counts are generated, not content targets.
+
+`campaign-spawns.json` moves the existing `st4` patrol from (84,-151) to the clear
+quay at (84,-149). The audit records the original and effective spawn definitions
+and checks the adjusted spawn against actual collision. Regression tests verify
+that save loading moves only a living patrol trapped at the old cargo location,
+preserves health/inventory/progression and pursuit targets, leaves dead or already
+clear patrols alone, and remains idempotent after a serialised reload.
 
 Each building entrance is sampled closed and open, every legacy two-storey stair
 centre has 65 height/collision samples, both bridge centres have 81 samples, and
@@ -119,4 +129,8 @@ regression checks and device testing belong to the campaign execution record.
 No browser/GPU run or new performance benchmark is claimed by this audit.
 
 Verification: all 19 audit tests passed. The generated candidate report passed
-its structural/reference checks and all 259 real-engine navigation checks.
+its structural/reference checks and all 264 real-engine navigation checks.
+Final integrated verification passed all 150 Python tests on Python 3.12.14,
+all 11 Node pure suites and 51 JavaScript syntax checks on Node 22.23.4. Exact
+command/output logs are in [`final-python.log`](../test-results/final-python.log)
+and [`final-node.log`](../test-results/final-node.log).
