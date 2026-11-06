@@ -43,7 +43,7 @@ const server=http.createServer((req,res)=>{
    const protectedState=p=>p.evaluate(()=>['field-signal-dead-air-v9','field-signal-dead-air-options','field-signal-v9-journal','field-signal-field-journal-v1'].map(k=>localStorage.getItem(k)));
    for(const spec of [
     {id:'hut',container:'hut_c1',position:[1.2,0,-2.4],pose:[35,1.25,-48],degrees:90},
-    {id:'forester',container:'forester_c1',position:[-3.5,0,-2.8],pose:[-140,.75,-40],degrees:37,upperFixture:[1.25,3.2,-2.9],searchStandOff:.75},
+    {id:'forester',container:'forester_c1',position:[-3.5,0,-2.8],pose:[-140,.75,-40],degrees:37,upperFixture:[1.25,3.2,-2.9],searchStandOff:.75,searchLateral:.2},
     {id:'station',container:'station_c0',position:[-4.1,0,-2.6],pose:[-160,1.5,-145],degrees:-28},
    ]){
     await page.setViewportSize({width:1440,height:1000});
@@ -82,7 +82,12 @@ const server=http.createServer((req,res)=>{
     const geometry=await game.evaluate(async s=>{const {toWorld}=await import('./world-document.js'),world=FieldSignal3D.getWorld(),transform=world.data?.editorBuilding?.transform||FieldSignal3D.getInfo().editorPreview.transform,expected=toWorld(transform,s.position),mesh=world.containerMeshes[s.container].group;return {expected,actual:mesh.position.toArray(),spawn:FieldSignal3D.getPlayer()};},spec);
     check(spec.id+' rendered container agrees with canonical transformed position',geometry.expected.every((n,i)=>near(n,geometry.actual[i])),geometry);
     async function face(id){
-     const name=await game.evaluate(id=>{const world=FieldSignal3D.getWorld(),p=FieldSignal3D.getPlayer(),it=world.interact.find(i=>i.id===id);if(!it)throw Error('Missing runtime interaction '+id);const dx=it.anchor.x-p.x,dz=it.anchor.z-p.z;FieldSignal3D.getInput().look(-Math.atan2(dx,-dz)-p.yaw,Math.atan2(it.anchor.y-p.y-1.67,Math.hypot(dx,dz))-p.pitch);return it.name;},id);
+     const name=await game.evaluate(async id=>{const world=FieldSignal3D.getWorld(),p=FieldSignal3D.getPlayer(),it=world.interact.find(i=>i.id===id);if(!it)throw Error('Missing runtime interaction '+id);
+      // The semantic workbench's logical anchor is between its drawer pedestal
+      // and legs. Aim at a real moving drawer/door mesh, as a player would,
+      // instead of expecting an empty point to receive a geometry raycast.
+      let target=it.anchor;if(it.type==='container'){const T=await import('./vendor/three.js');world.scene.updateMatrixWorld(true);let part;it.obj.userData.searchPropModel?.traverse(node=>{if(!part&&node.userData.searchMotion)part=node;});target=new T.Box3().setFromObject(part||it.obj).getCenter(new T.Vector3());}
+      const dx=target.x-p.x,dz=target.z-p.z;FieldSignal3D.getInput().look(-Math.atan2(dx,-dz)-p.yaw,Math.atan2(target.y-p.y-1.67,Math.hypot(dx,dz))-p.pitch);return it.name;},id);
      await game.waitForFunction(id=>FieldSignal3D.getWorld().select()?.id===id,id,{timeout:30000});await game.waitForFunction(name=>document.querySelector('#target strong').textContent===name,name,{timeout:30000});
     }
     await face(spec.id);await game.keyboard.press('KeyE');await game.waitForFunction(id=>FieldSignal3D.getState().doors[id],spec.id,{timeout:30000});
@@ -111,8 +116,9 @@ const server=http.createServer((req,res)=>{
     }
     const authoredContainer=authoredLayout.objects.find(o=>o.binding?.id===spec.container);
     // Forester's authored rear aisle is narrow; its known staging point is
-    // 0.75 m in front of the cabinet binding, clear of the exterior wall.
-    const searchFixture=await game.evaluate(async({o,standOff})=>{const {bindingAnchor}=await import('./layout-core.js'),a=bindingAnchor(o);return [a[0]+Math.sin(o.yaw)*standOff,o.binding.floor??o.position[1],a[2]+Math.cos(o.yaw)*standOff];},{o:authoredContainer,standOff:spec.searchStandOff||1.55});
+    // 0.75 m in front with 0.2 m lateral clearance from the kitchen cooker.
+    // The canonical collision query rejects a staging point inside furniture.
+    const searchFixture=await game.evaluate(async({layout,o,standOff,lateral})=>{const {bindingAnchor,blocked}=await import('./layout-core.js'),a=bindingAnchor(o),p=[a[0]+Math.sin(o.yaw)*standOff+Math.cos(o.yaw)*lateral,o.binding.floor??o.position[1],a[2]+Math.cos(o.yaw)*standOff-Math.sin(o.yaw)*lateral];if(blocked(layout,p[0],p[2],p[1],{doorsOpen:true}))throw Error('Search fixture intersects an authored collider for '+o.id);return p;},{layout:authoredLayout,o:authoredContainer,standOff:spec.searchStandOff||1.55,lateral:spec.searchLateral||0});
     await restoreLocal(searchFixture);await face(spec.container);await game.keyboard.press('KeyE');await game.waitForFunction(id=>!!FieldSignal3D.getState().containers[id],spec.container,{timeout:30000});
     check(spec.id+' real Use searches relocated bound container',!!(await game.evaluate(id=>FieldSignal3D.getState().containers[id],spec.container)));
     await game.screenshot({path:path.join(out,'preview-'+spec.id+'-search.png')});await game.locator('#close-panel').click();
