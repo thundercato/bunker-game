@@ -31,7 +31,7 @@ export class FieldJournal {
   node.innerHTML = `<header class="fj-toolbar"><div><span class="fj-eyebrow">RELAY 07 · PERSONAL FIELD RECORD</span><h2>Field journal</h2></div><div class="fj-tools">${button('mode', '2D reading', 'aria-pressed="false"')}${button('close', 'Close journal', 'aria-label="Close journal immediately"')}</div></header>
    <nav class="fj-tabs" aria-label="Journal sections">${JOURNAL_SECTIONS.map(([id, title]) => button('section', title, `data-section="${id}" aria-pressed="${id === this.section}"`)).join('')}</nav>
    <div class="fj-stage" tabindex="0" aria-label="Journal pages. Left and right arrows turn pages; up and down change sections; Escape closes."><canvas class="fj-scene" aria-hidden="true"></canvas><div class="fj-binding" aria-hidden="true"></div><div class="fj-spread"><article class="fj-paper fj-left" aria-label="Left page"></article><article class="fj-paper fj-right" aria-label="Right page"></article></div><div class="fj-turn-edge fj-edge-left" aria-hidden="true">‹</div><div class="fj-turn-edge fj-edge-right" aria-hidden="true">›</div></div>
-   <footer class="fj-footer">${button('previous', '‹ Previous page')}<output class="fj-position" aria-live="polite"></output>${button('next', 'Next page ›')}</footer><div class="fj-status" role="status"></div><p class="fj-hint">Swipe the paper or use ← → · ↑ ↓ sections · Controller shoulders or D-pad · Esc / B closes</p>`;
+   <footer class="fj-footer">${button('previous', '‹ Previous page')}<output class="fj-position" aria-live="polite"></output>${button('next', 'Next page ›')}</footer><div class="fj-status" role="status"></div><p class="fj-hint">Swipe paper / ← → pages · ↑ ↓ sections · Controller shoulders / D-pad · X selects controls · Esc / B closes</p>`;
   parent.appendChild(node); this.node = node; this.stage = node.querySelector('.fj-stage'); this.canvas = node.querySelector('canvas');
   this.abort = new AbortController(); const opts = {signal: this.abort.signal};
   node.addEventListener('click', e => this.click(e), opts);
@@ -90,7 +90,7 @@ export class FieldJournal {
    this.backGeometry = this.pageGeometry.clone(); const uv=this.backGeometry.attributes.uv; for(let i=0;i<uv.count;i++)uv.setX(i,1-uv.getX(i));
    this.sheet = new T.Group(); this.sheet.add(new T.Mesh(this.pageGeometry,this.frontMat),new T.Mesh(this.backGeometry,this.backMat)); this.sheet.visible=false; this.scene.add(this.sheet);
    this.modeReason = ''; this.setMode('3d'); this.resize(); this.renderPages();
-  } catch { if (token === this.generation) this.useFallback('3D unavailable · 2D reading'); }
+  } catch (error) { this.sceneError=String(error?.message||error);if (token === this.generation) this.useFallback('3D unavailable · 2D reading'); }
  }
  surfaceTexture(kind) {
   const T = this.T, c = document.createElement('canvas'); c.width=c.height=256; const g=c.getContext('2d');
@@ -207,13 +207,14 @@ export class FieldJournal {
  handleAction(name) {
   if(!this.node)return false;
   if(name==='pause'||name==='crouch'){this.cancelTurn();this.onClose?.();return true;}
-  if(name==='safe'||name==='previous'||name==='page-left'){this.turn(-1);return true;}
-  if(name==='torch'||name==='next'||name==='page-right'){this.turn(1);return true;}
+  if(name==='safe'||name==='probe'||name==='previous'||name==='page-left'){this.turn(-1);return true;}
+  if(name==='torch'||name==='rack'||name==='next'||name==='page-right'){this.turn(1);return true;}
   if(name==='detector'||name==='heal'){this.nextSection(name==='detector'?-1:1);return true;}
   if(name==='interact'){const focused=document.activeElement;if(this.node.contains(focused)&&focused.tagName==='BUTTON')focused.click();else this.node.querySelector('[data-journal="next"]:not(:disabled)')?.focus({preventScroll:true});return true;}
+  if(name==='magazine'){const controls=[...this.node.querySelectorAll('button:not(:disabled),textarea')].filter(b=>b.getClientRects().length),i=controls.indexOf(document.activeElement);controls[(i+1)%controls.length]?.focus({preventScroll:true});return true;}
   return true;
  }
- info() {return {...this.store.info(),mode:this.mode,model:this.scene?'layered covers, paper stacks, metal binder and flexible sheet':'accessible paper spread',fallback:this.mode!=='3d',section:this.section,page:this.page,turning:!!this.turning,turns:this.turnCount,renders:this.renderCount,drawCalls:this.renderer?.info.render.calls||0,triangles:this.renderer?.info.render.triangles||0};}
+ info() {return {...this.store.info(),mode:this.mode,model:this.scene?'layered covers, paper stacks, metal binder and flexible sheet':'accessible paper spread',fallback:this.mode!=='3d',sceneError:this.sceneError||null,section:this.section,page:this.page,turning:!!this.turning,turns:this.turnCount,renders:this.renderCount,drawCalls:this.renderer?.info.render.calls||0,triangles:this.renderer?.info.render.triangles||0};}
  disposeScene() {
   const geometries=new Set(),materials=new Set(),textures=new Set();
   this.scene?.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const m of (Array.isArray(o.material)?o.material:o.material?[o.material]:[])){materials.add(m);if(m.map)textures.add(m.map);}});
