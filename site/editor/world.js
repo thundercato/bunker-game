@@ -1,5 +1,6 @@
 import {loadEditorSource} from './source-adapter.js';
 import {EditorSession} from './session.js';
+import {updateMovedBindingFloors} from './tools/interior-core.js';
 import {ConnectedBuildingView} from './connected-world.js';
 import {launchWorldPreview} from './preview-launcher.js';
 import {mountEnvironmentBrush} from './panels/environment-brush.js';
@@ -52,7 +53,7 @@ function canonicalDocument(){return {...worldSession.getDocument(),authoring:clo
 function syncConnected(){if(!connected)return;if(!cutawayId){connected.hide();return;}worldSession.ensureLayout(cutawayId);const placement=doc.buildings.find(b=>b.id===cutawayId);connected.show(canonicalDocument(),cutawayId,{hideRoof:true,cutaway:true,floor:'all'}).then(()=>{if(connected.layout)connected.layout.group.visible=doc.layers.buildings&&inRegion(doc.region,placement.z)&&!hidden.has(selectionKey({kind:'building',id:cutawayId}));}).catch(e=>notice('Interior could not load: '+e.message));}
 function toggleCutaway(){const id=selectedBuilding()||cutawayId;if(!id){notice('Select a building first.');return;}cutawayId=cutawayId===id?null:id;if(cutawayId)worldSession.ensureLayout(cutawayId);refresh();persist();}
 function navigateInterior(id=selectedBuilding(),objectId=selected?.kind==='interior'?selected.id:null){if(!id)return;rememberWorldView();if(objectId){const view=worldSession.getView('interior:'+id)||{};if(view.position)worldSession.setView('interior:'+id,{...view,selection:objectId});}if(!persist())return false;location.href='editor/?building='+encodeURIComponent(id)+(objectId?'&select='+encodeURIComponent(objectId):'');}
-function changeInterior(fn){const id=selectedBuilding();if(!id)return;try{const layout=worldSession.ensureLayout(id);fn(layout);worldSession.setLayout(layout);syncHistory();refresh();persist();}catch(e){notice('Interior edit rejected: '+e.message);renderSelection();}}
+function changeInterior(fn){const id=selectedBuilding();if(!id)return;try{const layout=worldSession.ensureLayout(id),previous=clone(layout);fn(layout);updateMovedBindingFloors(previous,layout);worldSession.setLayout(layout);syncHistory();refresh();persist();}catch(e){notice('Interior edit rejected: '+e.message);renderSelection();}}
 function renderHierarchy(){renderWorldHierarchy({doc,source,selected,select,hidden});if(!cutawayId)return;const layout=worldSession.getLayout(cutawayId);if(!layout)return;const query=$('#world-filter').value.toLowerCase(),host=$('#world-hierarchy'),details=document.createElement('details'),summary=document.createElement('summary');details.open=true;summary.textContent='In-world contents · '+cutawayId;details.append(summary);for(const o of layout.objects){if(query&&!`${o.id} ${o.name} ${o.type}`.toLowerCase().includes(query))continue;const button=document.createElement('button');button.dataset.interiorId=o.id;button.textContent=o.name+' · '+o.type+(o.binding?' · '+o.binding.id:'');button.classList.toggle('selected-item',selected?.kind==='interior'&&selected.id===o.id);button.onclick=()=>select({kind:'interior',buildingId:cutawayId,id:o.id});details.append(button);}host.append(details);}
 function renderSelection(){
  if(selected?.kind==='interior'){

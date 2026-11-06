@@ -73,7 +73,7 @@ const server=http.createServer((req,res)=>{
     const info=await game.evaluate(()=>FieldSignal3D.getInfo().editorPreview);
     check(spec.id+' actual runtime composes moved/rotated/raised parent exactly once',info.versioned&&near(info.transform.position[0],spec.pose[0])&&near(info.transform.position[1],spec.pose[1])&&near(info.transform.position[2],spec.pose[2])&&near(info.transform.yaw,spec.degrees*Math.PI/180),info);
     const geometry=await game.evaluate(async s=>{const {toWorld}=await import('./world-document.js'),world=FieldSignal3D.getWorld(),transform=world.data?.editorBuilding?.transform||FieldSignal3D.getInfo().editorPreview.transform,expected=toWorld(transform,s.position),mesh=world.containerMeshes[s.container].group;return {expected,actual:mesh.position.toArray(),spawn:FieldSignal3D.getPlayer()};},spec);
-    check(spec.id+' rendered container agrees with canonical transformed position',near(geometry.expected[0],geometry.actual[0])&&near(geometry.expected[2],geometry.actual[2]),geometry);
+    check(spec.id+' rendered container agrees with canonical transformed position',geometry.expected.every((n,i)=>near(n,geometry.actual[i])),geometry);
     async function face(id){
      const name=await game.evaluate(id=>{const world=FieldSignal3D.getWorld(),p=FieldSignal3D.getPlayer(),it=world.interact.find(i=>i.id===id);if(!it)throw Error('Missing runtime interaction '+id);const dx=it.anchor.x-p.x,dz=it.anchor.z-p.z;FieldSignal3D.getInput().look(-Math.atan2(dx,-dz)-p.yaw,Math.atan2(it.anchor.y-p.y-1.67,Math.hypot(dx,dz))-p.pitch);return it.name;},id);
      await game.waitForFunction(id=>FieldSignal3D.getWorld().select()?.id===id,id,{timeout:30000});await game.waitForFunction(name=>document.querySelector('#target strong').textContent===name,name,{timeout:30000});
@@ -85,6 +85,8 @@ const server=http.createServer((req,res)=>{
     await game.screenshot({path:path.join(out,'preview-'+spec.id+'-door.png')});
     // Position through the supported save importer to isolate each physical
     // collision/reach test. Movement and Use after positioning are real input.
+    // Search staging uses each authored model's front-facing binding, not a
+    // fixed map axis that can miss a rotated low or wall-mounted prop.
     async function restoreLocal(position,yaw=0){
      let state=await game.evaluate(()=>FieldSignal3D.getState());const player=await game.evaluate(async({position,yaw})=>{const {toWorld}=await import('./world-document.js'),t=FieldSignal3D.getInfo().editorPreview.transform,[x,y,z]=toWorld(t,position);return {x,y,z,yaw:t.yaw+yaw,pitch:0};},{position,yaw});state.player=player;
      await game.evaluate(()=>FieldSignal3D.openPanel('saves'));await game.locator('#file-input').setInputFiles({name:'preview-position-fixture.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(state))});await game.locator('[data-cmd="restore"]').click();await game.waitForFunction(p=>Math.abs(FieldSignal3D.getPlayer().x-p.x)<.025&&Math.abs(FieldSignal3D.getPlayer().z-p.z)<.025,player);await game.locator('#close-panel').click();
@@ -100,13 +102,19 @@ const server=http.createServer((req,res)=>{
      await restoreLocal([0,3.2,0],0);const prior=await game.evaluate(()=>FieldSignal3D.getPlayer());await game.keyboard.down('KeyW');try{await game.waitForFunction(p=>Math.hypot(FieldSignal3D.getPlayer().x-p.x,FieldSignal3D.getPlayer().z-p.z)>.7,prior,{timeout:30000});}finally{await game.keyboard.up('KeyW');}
      check(spec.id+' upper-floor keyboard movement retains parent plus floor height',near((await game.evaluate(()=>FieldSignal3D.getPlayer())).y,spec.pose[1]+3.2));
     }
-    await restoreLocal([spec.position[0],spec.position[1],spec.position[2]+1.55]);await face(spec.container);await game.keyboard.press('KeyE');await game.waitForFunction(id=>!!FieldSignal3D.getState().containers[id],spec.container,{timeout:30000});
+    const authoredContainer=authoredLayout.objects.find(o=>o.binding?.id===spec.container);
+    const searchFixture=await game.evaluate(async o=>{const {bindingAnchor}=await import('./layout-core.js'),a=bindingAnchor(o);return [a[0]+Math.sin(o.yaw)*1.55,o.binding.floor??o.position[1],a[2]+Math.cos(o.yaw)*1.55];},authoredContainer);
+    await restoreLocal(searchFixture);await face(spec.container);await game.keyboard.press('KeyE');await game.waitForFunction(id=>!!FieldSignal3D.getState().containers[id],spec.container,{timeout:30000});
     check(spec.id+' real Use searches relocated bound container',!!(await game.evaluate(id=>FieldSignal3D.getState().containers[id],spec.container)));
     await game.screenshot({path:path.join(out,'preview-'+spec.id+'-search.png')});await game.locator('#close-panel').click();
     if(spec.id==='hut'){
      check('Mission-critical recorder survives moved container authoring',await game.evaluate(()=>FieldSignal3D.getState().containers.hut_c1.items.recorder>=1));
      await game.locator('#open-atlas10').click();await game.locator('[data-atlas="target"]').click();
-     const camera=await game.evaluate(()=>({x:FieldSignal3D.getAtlas().camera.cx,z:FieldSignal3D.getAtlas().camera.cz}));check('Actual Atlas objective targets the moved mission cupboard',near(camera.x,geometry.expected[0])&&near(camera.z,geometry.expected[2]),camera);await game.screenshot({path:path.join(out,'preview-hut-atlas.png')});await game.locator('#close-panel').click();
+     const camera=await game.evaluate(()=>({x:FieldSignal3D.getAtlas().camera.cx,z:FieldSignal3D.getAtlas().camera.cz}));
+     // Independently compose the authored binding's front offset and parent pose;
+     // an interaction target can differ from its visible mesh origin.
+     const a=authoredContainer.binding.anchor||[0,Math.min(.8,authoredContainer.size[1]/2),0],childC=Math.cos(authoredContainer.yaw),childS=Math.sin(authoredContainer.yaw),localX=authoredContainer.position[0]+a[0]*childC+a[2]*childS,localZ=authoredContainer.position[2]-a[0]*childS+a[2]*childC,parentC=Math.cos(spec.degrees*Math.PI/180),parentS=Math.sin(spec.degrees*Math.PI/180),expectedTarget={x:spec.pose[0]+localX*parentC+localZ*parentS,z:spec.pose[2]-localX*parentS+localZ*parentC};
+     check('Actual Atlas objective targets the moved mission cupboard',near(camera.x,expectedTarget.x)&&near(camera.z,expectedTarget.z),{expected:expectedTarget,actual:camera});await game.screenshot({path:path.join(out,'preview-hut-atlas.png')});await game.locator('#close-panel').click();
     }
     assert.deepEqual(await protectedState(game),expected);check(spec.id+' campaign/settings/journal/book stay isolated',true);
     await game.locator('#editor-preview-banner a').click();await game.waitForFunction(()=>window.FieldWorldEditor?.ready(),null,{timeout:120000});

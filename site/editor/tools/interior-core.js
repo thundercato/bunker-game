@@ -172,3 +172,16 @@ export function interiorDiagnostics(doc,{reachability=true,limit=1200}={}) {
 export function interiorIssues(doc,options) {
   return [...validateSpatial(doc).map(q=>({...q,fix:'Select/focus the object, then adjust its dimensions or placement.'})),...interiorDiagnostics(doc,options)];
 }
+
+// Preserve the accepted editor policy for a bound object's authored support floor
+// when a UI transform changes its height. Imports retain their explicit binding.
+export function updateMovedBindingFloors(previous,next) {
+  for(const object of next.objects){
+    if(object.binding?.floor===undefined)continue;
+    const old=previous.objects.find(item=>item.id===object.id);
+    if(old&&old.position[1]!==object.position[1])object.binding.floor=Math.max(0,...next.objects
+      .filter(item=>item.type==='floor'&&item.position[1]<=object.position[1]+.1)
+      .map(item=>item.position[1]));
+  }
+  return next;
+}
