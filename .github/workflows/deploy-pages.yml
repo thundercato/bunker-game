@@ -2,6 +2,8 @@ name: Field Signal · verify and publish
 on:
   push:
     branches: [main]
+    # The static game build does not include repository documentation.
+    paths-ignore: ["docs/**", "README.md", "AGENTS.md"]
   pull_request:
     branches: [main, feat/moved-building-preview]
   workflow_dispatch:
