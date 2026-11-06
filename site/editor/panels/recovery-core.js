@@ -14,6 +14,7 @@ function destination(key) {
   if (key === LOOT_KEY) return 'loot proposal';
   if (key === MISSION_KEY) return 'mission proposal';
   if (key === TEMPLATE_KEY) return 'template library';
+  if (/^field-signal-editor-selection-sets:[\w-]{1,60}$/.test(key)) return 'selection sets';
   if (key.startsWith(LAYOUT_DRAFT_PREFIX) && /^[\w-]{1,80}$/.test(key.slice(LAYOUT_DRAFT_PREFIX.length))) return 'building layout';
   return null;
 }
@@ -40,7 +41,7 @@ export function validateRecovery(entry, {context}) {
     if (!entry || !(recoveryTarget(entry.key) === entry.target || entry.rejected && entry.key === entry.target && destination(entry.target))) throw Error('Not an allowed editor recovery key.');
     if (typeof entry.raw !== 'string' || entry.raw.length > 4_000_000) throw Error('Recovery validation limit is 4 MB; download the original bytes for review.');
     const kind = destination(entry.target);
-    if (kind === 'template library') throw Error('Template libraries are download-only here. Import reviewed individual templates through Interior tools.');
+    if (kind === 'template library' || kind === 'selection sets') throw Error('Template libraries and selection sets are download-only here. Repair/import them through their existing tools.');
     const input = JSON.parse(entry.raw), probe = new EditorSession({...context, storage:null});
     let value;
     if (kind === 'connected world') {
