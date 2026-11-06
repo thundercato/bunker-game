@@ -35,6 +35,22 @@ upstairs homes have a double bed and reading chair. Grey gable has a ground-floo
 rear bedroom and a separate front bathroom. Its original single-storey structure
 is retained.
 
+Each retained `roof` object now has a pitched exterior: 2.1 m rise on the three
+two-storey homes and 1.9 m on Grey gable, with a 35 cm eave overhang on every side.
+The shared optional `roofRise` property accepts a finite number from 0 to 6 metres
+on roof objects. Omission or zero keeps the existing flat-roof rendering; omitted
+metadata remains omitted through validation/export. The editor exposes a numeric
+roof-rise field. The ridge runs along the object's local Z axis, so the roof and
+its panels, inset timber gable ends, fascia and ridge trim move/rotate together.
+They reuse the existing licensed roof/wood materials in two merged mesh batches.
+`size[1]` still means ceiling thickness, and the original sealed ceiling slab is
+the only roof collider. Pitch adds no attic floor, loft access or gameplay volume.
+`node site/tests/test_roofs.mjs` passes 21 pure checks covering validation,
+legacy/JSON compatibility, actual Three.js geometry, dimensions, material batches,
+ceiling collision, child transforms, moved-building compilation and roof hiding.
+This slice did not run a browser/GPU test; the parent integration owns the final
+street-view roof inspection.
+
 Actual CC0 Kenney models provide sofas, beds, chairs, bookcases, bedside stands,
 kitchen sinks, cookers, refrigerators, washbasins, toilets and showers. The existing
 licensed table remains the physical loose-loot surface. New semantic cabinet,

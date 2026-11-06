@@ -28,6 +28,7 @@ export function validateLayout(input,{world=null,assets=null,strictBindings=true
   if(!Array.isArray(o.size)||o.size.length!==3||o.size.some(n=>!finite(n)||n<.02||n>65))fail('Invalid dimensions: '+oid);
   if(!finite(o.yaw)||Math.abs(o.yaw)>Math.PI*16)fail('Invalid rotation: '+oid);
   const q={id:oid,name:str(o.name,'object name'),type:o.type,position:[...o.position],size:[...o.size],yaw:o.yaw,material:MATERIALS.includes(o.material)?o.material:'plaster',solid:o.solid!==false,locked:!!o.locked};
+  if(o.roofRise!==undefined){if(o.type!=='roof'||!finite(o.roofRise)||o.roofRise<0||o.roofRise>6)fail('Roof rise must be 0–6 metres on a roof: '+oid);q.roofRise=o.roofRise;}
   if(o.type==='prop'){q.asset=str(o.asset,'asset ID',90);if(!/^[\w-]+$/.test(q.asset)||assets&&!assets.has(q.asset))fail('Unknown asset: '+q.asset);}
   if(['doorway','window'].includes(o.type)){q.opening={width:Number(o.opening?.width??1.9),height:Number(o.opening?.height??2.45),sill:o.type==='window'?Number(o.opening?.sill??1.05):0};if(!Object.values(q.opening).every(finite)||q.opening.width<.65||q.opening.width>q.size[0]-.1||q.opening.height<.3||q.opening.height+q.opening.sill>q.size[1]-.05)fail('Opening does not fit its wall: '+oid);q.doorId=typeof o.doorId==='string'?o.doorId:null;}
   if(o.type==='light'){q.intensity=finite(o.intensity)?clamp(o.intensity,0,100):20;q.colour=/^#[0-9a-f]{6}$/i.test(o.colour||'')?o.colour:'#efd9ae';q.solid=false;}
@@ -78,6 +79,33 @@ export function geometryPieces(doc,o){
  if(['wall','roof','prop'].includes(o.type))return [{position:[0,h/2,0],size:[w,h,d]}];
  if(['doorway','window'].includes(o.type)){const q=o.opening,side=(w-q.width)/2,parts=[{position:[-(q.width+side)/2,h/2,0],size:[side,h,d]},{position:[(q.width+side)/2,h/2,0],size:[side,h,d]},{position:[0,(q.sill+q.height+h)/2,0],size:[q.width,h-q.height-q.sill,d]}];if(q.sill>0)parts.push({position:[0,q.sill/2,0],size:[q.width,q.sill,d]});return parts;}
  return [];
+}
+
+/** Visible roof pieces in the roof object's frame. The existing ceiling slab
+ * remains the only collision piece: pitched roofs do not create a usable loft.
+ * The ridge runs along local Z; width/depth include the eaves. */
+export function roofRenderPieces(o){
+ const [w,h,d]=o.size,rise=o.roofRise||0;
+ const ceiling={kind:'box',position:[0,h/2,0],size:[w,h,d],material:'surface'};
+ if(rise<=0)return [ceiling];
+ const half=w/2,sheet=Math.min(.09,rise*.25,h*.5),edge=Math.min(.08,d*.1);
+ const left=[[-half,h],[-half,h+sheet],[0,h+rise],[0,h+rise-sheet]];
+ const right=[[0,h+rise-sheet],[0,h+rise],[half,h+sheet],[half,h]];
+ const pieces=[ceiling];
+ for(const profile of [left,right]){
+  pieces.push({kind:'prism',profile,depth:d-2*edge,z:0,material:'surface'});
+  for(const sign of [-1,1])pieces.push({kind:'prism',profile,depth:edge,z:sign*(d-edge)/2,material:'wood'});
+ }
+ const overhang=Math.min(.35,w*.1,d*.1),gableHalf=half-overhang;
+ const gableEave=h+(rise-sheet)*overhang/half;
+ const gable=[[-gableHalf,h],[gableHalf,h],[gableHalf,gableEave],[0,h+rise-sheet],[-gableHalf,gableEave]];
+ for(const sign of [-1,1]){
+  pieces.push({kind:'prism',profile:gable,depth:Math.min(.12,d*.04),z:sign*(d/2-overhang),material:'wood'});
+  const fascia=Math.min(.07,w*.03);
+  pieces.push({kind:'box',position:[sign*(half-fascia/2),h+sheet/2,0],size:[fascia,sheet,d],material:'wood'});
+ }
+ pieces.push({kind:'box',position:[0,h+rise-sheet/4,0],size:[Math.min(.12,w*.04,rise*.2),sheet/2,d],material:'wood'});
+ return pieces;
 }
 export function collidersFor(doc,{doorsOpen=false}={}){const out=[];for(const o of doc.objects){if(!o.solid||['stairs','light','spawn'].includes(o.type))continue;for(const p of geometryPieces(doc,o)){const[x,z]=worldPoint(o,p.position[0],p.position[2]);out.push({id:o.id,x,z,y:o.position[1]+p.position[1]-p.size[1]/2,w:p.size[0],h:p.size[1],d:p.size[2],yaw:o.yaw,kind:o.type});}if(o.type==='doorway'&&!doorsOpen)out.push({id:o.id,x:o.position[0],z:o.position[2],y:o.position[1],w:o.opening.width,h:o.opening.height,d:.10,yaw:o.yaw,doorId:o.doorId||o.id});if(o.type==='window')out.push({id:o.id,x:o.position[0],z:o.position[2],y:o.position[1]+o.opening.sill,w:o.opening.width,h:o.opening.height,d:.06,yaw:o.yaw});}return out;}
 export function blocked(doc,x,z,y,{doorsOpen=true,radius=.25,openDoors=null}={}){return collidersFor(doc,{doorsOpen}).some(c=>{if(c.doorId&&openDoors?.[c.doorId])return false;if(y>=c.y+c.h-(c.kind==='floor'?.15:.035)||y+1.65<=c.y+.02)return false;const p=localPoint({position:[c.x,c.y,c.z],yaw:c.yaw},x,z);return Math.abs(p[0])<c.w/2+radius&&Math.abs(p[1])<c.d/2+radius;});}

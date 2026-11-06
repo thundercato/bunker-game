@@ -79,6 +79,9 @@ function author(source, buildingId) {
  windowWall(find('wall-east'),'East window',[5,0,0],[9,3.2,.22],quarterTurn,1.7);
  find('entrance').size[1]=3.2;
  find('entrance').name='Front entrance';
+ // The retained roof object owns its ceiling, pitched panels and gable trim.
+ // A 35 cm overhang clears the wall faces; the sealed loft adds no playable floor.
+ Object.assign(find('roof'),{name:'Pitched roof / sealed ceiling',size:[10.7,.18,9.7],roofRise:upper?2.1:1.9});
  if (upper) {
   for (const [id,name,pos,size,yaw,width] of [
    ['upper-wall-north','Upper landing rear window',[0,3.2,-4.5],[10,3.2,.22],0,1.65],
