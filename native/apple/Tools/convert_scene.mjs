@@ -5,6 +5,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import * as T from '../../../site/vendor/three.js';
+import {seedLayout} from '../../../site/layout-core.js';
 import {createCampaignInteriors} from '../../../site/campaign-interiors.js';
 import {createWorldDocument, compileBuilding, toWorld} from '../../../site/world-document.js';
 import {createSearchProp, validateSearchPropCatalogue} from '../../../site/search-props.js';
@@ -51,9 +52,13 @@ function meshFromGLB(assetID,bytes,sourcePath){
    const uvs=p.attributes.TEXCOORD_0===undefined?[]:accessor(doc,bin,p.attributes.TEXCOORD_0);
    for(let i=0;i<positions.length;i+=3){const v=new T.Vector3(...positions.slice(i,i+3)).applyMatrix4(world);positions.splice(i,3,...v.toArray());const n=new T.Vector3(...normals.slice(i,i+3)).applyMatrix3(normal).normalize();normals.splice(i,3,...n.toArray());}
    const material=doc.materials[p.material]||{},pbr=material.pbrMetallicRoughness||{};
-   const m={positions:vector(positions),normals:vector(normals),colors:vector(colors),indices,baseColor:pbr.baseColorFactor||[1,1,1,1],doubleSided:material.doubleSided===true};
+   const m={positions:vector(positions),normals:vector(normals),colors:vector(colors),indices,baseColor:pbr.baseColorFactor||[1,1,1,1],doubleSided:material.doubleSided===true,roughness:pbr.roughnessFactor??1,metallic:pbr.metallicFactor??0};
    if(uvs.length)m.uvs=vector(uvs);
    const tex=pbr.baseColorTexture;if(tex){const image=doc.images[doc.textures[tex.index].source];let textureBytes,mime=image.mimeType;if(image.uri){const resolved=path.resolve(root,path.dirname(sourcePath),image.uri);if(!resolved.startsWith(path.join(root,'site/assets')+path.sep)||!/^[-a-zA-Z0-9_./]+\.png$/.test(image.uri))fail('Unsafe external texture URI');textureBytes=fs.readFileSync(resolved);mime='image/png';}else{const view=doc.bufferViews[image.bufferView];if(!view||!['image/png','image/jpeg'].includes(mime))fail('Unsupported embedded texture');textureBytes=bin.subarray(view.byteOffset||0,(view.byteOffset||0)+view.byteLength);}const name=`${assetID}-${tex.index}.${mime==='image/png'?'png':'jpg'}`;output(`Textures/${name}`,textureBytes);m.texture=name;m.alphaMode=material.alphaMode||'OPAQUE';m.alphaCutoff=material.alphaCutoff??0.5;}
+   for(const [key,tex]of Object.entries({normalTexture:material.normalTexture,ormTexture:pbr.metallicRoughnessTexture,occlusionTexture:material.occlusionTexture})){
+    if(!tex)continue;const image=doc.images[doc.textures[tex.index].source],view=doc.bufferViews[image.bufferView];
+    if(!view)continue;const name=`${assetID}-pbr-${tex.index}.${image.mimeType==='image/png'?'png':'jpg'}`;output('Textures/'+name,bin.subarray(view.byteOffset||0,(view.byteOffset||0)+view.byteLength));m[key]=name;
+   }
    meshes.push(m);
   }
   for(const child of node.children||[])visit(child,world,new Set([...ancestors,index]));
@@ -103,42 +108,68 @@ async function main(){
  verifySourceLock(lock);
  const source=json('site/world.json'),catalogue=validateSearchPropCatalogue(json('site/search-props.json'));
  const layout=createCampaignInteriors(source).find(x=>x.buildingId==='forester');
- const document=createWorldDocument({source,sourceRevision:lock.revision,layouts:[layout]});
+ const campaign=createCampaignInteriors(source);
+ const layouts=['forester','hut','pump','ranger'].map(id=>campaign.find(x=>x.buildingId===id)||seedLayout(source,id));
+ const document=createWorldDocument({source,sourceRevision:lock.revision,layouts});
+ for(const placement of document.authoring.buildings.filter(x=>layouts.some(l=>l.buildingId===x.id)))Object.assign(placement,{y:0,foundation:'manual'});
  const b=document.authoring.buildings.find(x=>x.id==='forester');Object.assign(b,{y:0,foundation:'manual'});
  const compiled=compileBuilding(document,'forester',{source,sourceRevision:lock.revision});
  const scene={format:'field-signal-native-scene',version:1,source:{revision:lock.revision,worldSHA256:lock.files['site/world.json']},buildingID:'forester',name:layout.name,sourceSpawn:compiled.spawn.position.map(rounded),spawn:nativeApproachSpawn(compiled),objects:[],colliders:[],stairs:[],interactions:[],items:[]};
  const objects=scene.objects,world=(o,p)=>toWorld({position:o.position,yaw:o.yaw},p);
- for(const o of compiled.objects){
+ for(const buildingID of ['forester','hut','pump','ranger']){
+ const compiled=compileBuilding(document,buildingID,{source,sourceRevision:lock.revision});
+ const layout=layouts.find(l=>l.buildingId===buildingID);
+ const prefix=id=>buildingID==='forester'?id:buildingID+'__'+id;
+ for(const original of compiled.objects){
+  const o={...original,id:prefix(original.id)};
   const shared={parentID:o.id,name:o.name,yaw:rounded(o.yaw),material:o.material};
   if(['prop','light','stairs'].includes(o.type)){objects.push({id:o.id,kind:o.type,position:vector(o.position),size:vector(o.size),...shared,...(o.asset?{assetID:o.asset}:{})});if(o.type==='stairs')scene.stairs.push({id:o.id,position:vector(o.position),size:vector(o.size),yaw:rounded(o.yaw)});}
   else for(const[pieceIndex,p]of o.pieces.entries()){const centre=world(o,p.position),position=[centre[0],centre[1]-(o.type==='floor'?-p.size[1]/2:p.size[1]/2),centre[2]];objects.push({id:`${o.id}-piece-${pieceIndex}`,kind:o.type,position:vector(position),size:vector(p.size),...shared});}
   if(o.type==='doorway'&&o.doorId){objects.push({id:`${o.id}-leaf`,kind:'door',doorID:o.doorId,position:vector(o.position),size:[o.opening.width,o.opening.height,.1],...shared});}
  }
  // Compiled colliders use bottom-centred world poses, exactly as the browser.
- scene.colliders=compiled.colliders.filter(c=>!c.doorId||compiled.interactions.some(i=>i.type==='door'&&i.id===c.doorId)).map((c,index)=>({id:`collider-${index}`,parentID:c.id,position:vector([c.x,c.y,c.z]),size:vector([c.w,c.h,c.d]),yaw:rounded(c.yaw),...(c.doorId?{doorID:c.doorId}:{})}));
+ scene.colliders.push(...compiled.colliders.filter(c=>!c.doorId||compiled.interactions.some(i=>i.type==='door'&&i.id===c.doorId)).map((c,index)=>({id:prefix(`collider-${index}`),parentID:prefix(c.id),position:vector([c.x,c.y,c.z]),size:vector([c.w,c.h,c.d]),yaw:rounded(c.yaw),...(c.doorId?{doorID:c.doorId}:{})})));
  // Search content is a deliberate tiny native fixture, not a port of weighted loot.
  const itemIDs=['med','water','wire'];const candidates=Object.entries(source.catalogue).filter(([id])=>itemIDs.includes(id)).map(([id,data])=>({id,...data}));
  if(candidates.length!==itemIDs.length)fail('Native fixture item no longer exists');scene.items=candidates.map(x=>({id:x.id,name:x.name}));
  for(const [index,i]of compiled.interactions.entries()){const o=layout.objects.find(o=>o.id===i.objectId),entity=i.type==='door'?source.buildings.find(x=>x.id===i.id)||source.partitions.find(x=>x.id===i.id):source.containers.find(x=>x.id===i.id);const item=i.type==='container'?itemIDs[index%itemIDs.length]:i.type==='loose'?'wire':undefined;
-  scene.interactions.push({id:i.id,kind:i.type,objectID:i.type==='door'?`${i.objectId}-leaf`:i.objectId,name:entity?.name||o?.name||i.id,position:vector(i.position),...(item?{itemID:item}:{})});
+  scene.interactions.push({id:i.id,kind:i.type,objectID:prefix(i.type==='door'?`${i.objectId}-leaf`:i.objectId),name:entity?.name||o?.name||i.id,position:vector(i.position),...(item?{itemID:item}:{})});
+ }
  }
  // A visible copper-wire coil uses the source item's wire silhouette; collection
  // hides this child alone, retaining its source-authored physical table.
  const loose=scene.interactions.find(i=>i.id==='forester_table');
  objects.push({id:'native-loot-forester_table',kind:'loot',position:[loose.position[0],rounded(loose.position[1]+.02),loose.position[2]],size:[.18,.09,.18],yaw:0,material:'copper'});
- // Native-only bounded approach, no claim of compiling the campaign terrain.
- objects.push({id:'native-outdoor',kind:'floor',position:[-30,0,-59],size:[48,.12,48],yaw:0,material:'earth'});
+ // Sample the actual pinned browser terrain function without importing its DOM/fetch renderer.
+ const terrainCode=read('site/terrain.js').toString().replace(/^import .*;$/gm,'');
+ const {terrainHeight}=await import('data:text/javascript;base64,'+Buffer.from('const DATA='+JSON.stringify(source)+';\n'+terrainCode).toString('base64'));
+ const origin=[-100,0,-130],columns=71,rows=71,spacing=2;
+ const heights=[];for(let z=0;z<rows;z++)for(let x=0;x<columns;x++)heights.push(rounded(terrainHeight(origin[0]+x*spacing,origin[2]+z*spacing)));
+ scene.terrain={origin,columns,rows,spacing,heights};
+ objects.push({id:'native-outdoor',kind:'floor',position:[-30,0,-60],size:[140,.12,140],yaw:0,material:'earth'});
  objects.push({id:'native-path',kind:'floor',position:[-30,.01,-46],size:[2.4,.02,15],yaw:0,material:'gravel'});
- for(const [index,x,z,height]of [[0,-41,-48,13],[1,-18,-47,14],[2,-43,-69,12],[3,-17,-70,13],[4,-40,-77,14]])objects.push({id:`native-pine-${index}`,kind:'prop',assetID:'pine_01',position:[x,0,z],size:[height*.48,height,height*.48],yaw:rounded(index*1.37),material:'wood'});
- objects.push({id:'native-log',kind:'prop',assetID:'campaign_tree_log_small',position:[-37,0,-48],size:[1.2,.35,.45],yaw:.6,material:'wood'});
+ // The world.js forest placement recipe, replayed with its declared PRNG seed;
+ // subset filtering is deterministic and does not repaint editor authoring data.
+ let seed=604921;const random=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};
+ const distance=(x,z,a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz||1)));return Math.hypot(x-a[0]-t*dx,z-a[1]-t*dz);};
+ for(let i=0;i<1700;i++){
+ const x=-137+random()*188,z=-255+random()*290;
+ if(Math.abs(x)<10&&z>-13||source.buildings.some(b=>Math.abs(x-b.x)<b.w/2+3.2&&Math.abs(z-b.z)<b.d/2+3.2)||source.anomalies.some(a=>Math.hypot(x-a.x,z-a.z)<7)||source.roads.some(r=>r.some((b,j)=>j&&distance(x,z,r[j-1],b)<4.5))||Math.abs(x-source.rail.x)<5.2||x>-42&&x<38&&z<-155&&z>-203)continue;
+ const scale=.65+random()*.65,yaw=random()*Math.PI*2;
+ if(x<-97||x>37||z<-127||z>7||i%3!==0)continue;
+ const height=10*scale;
+ objects.push({id:`native-forest-${i}`,kind:'prop',assetID:'pine_01',position:vector([x,terrainHeight(x,z),z]),size:[height*.48,height,height*.48],yaw:rounded(yaw),material:'wood'});
+ }
+ scene.roads=source.roads.map(r=>r.map(([x,z])=>[x,rounded(terrainHeight(x,z)+.035),z]));
  const registry=json('site/assets/campaign/registry.json').assets,v11=json('site/assets/v11/models.json'),v10=json('site/assets/v10/model-manifest.json'),assets=[];
  for(const id of [...new Set(objects.map(o=>o.assetID).filter(Boolean))].sort()){
-  let mesh,provenance;const a=registry.find(a=>a.id===id)||v11.find(a=>a.id===id)||v10.find(a=>a.id===id),p=catalogue.props.find(p=>p.id===id);
+  let mesh,provenance;const lookupID=id==='painted_wooden_cabinet_02'?'painted_wooden_cabinet':id;const a=registry.find(a=>a.id===lookupID)||v11.find(a=>a.id===lookupID)||v10.find(a=>a.id===lookupID),p=catalogue.props.find(p=>p.id===id);
   if(a){const bytes=read('site/'+a.path);if(sha(bytes)!==(a.sha256||lock.files['site/'+a.path]))fail('Asset digest mismatch '+id);mesh=meshFromGLB(id,bytes,'site/'+a.path);provenance={id,authors:a.authors,source:a.source,licence:a.licence,sourcePath:'site/'+a.path,sourceSHA256:sha(bytes),modifications:'Decoded static GLB triangles; baked node transforms; normalised bottom-centre pivot; exported native mesh JSON; preserved colours and diffuse textures.'};}
   else if(p){mesh=await meshFromRecipe(id,catalogue);provenance={id,...p.provenance,sourcePath:'site/search-props.js',sourceSHA256:lock.files['site/search-props.js'],modifications:'Baked canonical Field Signal procedural closed-pose recipe, including moving-assembly transforms; native mesh JSON. Uses original-composite tier rather than optional licensed-model replacement.'};}
   else fail('Unlicensed/unknown asset '+id);
   output(`Meshes/${id}.json`,mesh);assets.push({...provenance,triangles:mesh.meshes.reduce((n,m)=>n+m.indices.length/3,0),dimensions:mesh.dimensions});
  }
+ for(const name of ['ground','wall','wood','bark'])output('Textures/surface-'+name+'.jpg',read('site/assets/textures/'+name+'-colour.jpg'));
  validateScene(scene);
  output('scene.json',scene);output('world-document.json',document);
  output('provenance.json',{format:'field-signal-native-provenance',version:1,sourceRevision:lock.revision,assets});

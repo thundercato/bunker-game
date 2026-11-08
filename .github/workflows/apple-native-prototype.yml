@@ -81,6 +81,7 @@ jobs:
           path: |
             native/apple/BuildResults/sdk-and-simulators.log
             native/apple/BuildResults/core-swiftpm.log
+            native/apple/BuildResults/${{ matrix.platform }}/performance.json
             native/apple/BuildResults/${{ matrix.platform }}/build.log
             native/apple/BuildResults/${{ matrix.platform }}/build-for-testing.log
             native/apple/BuildResults/${{ matrix.platform }}/install.log

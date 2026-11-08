@@ -122,7 +122,7 @@ public final class GameSession {
                 }
             }
         }
-        var result = 0.0
+        var result = scene.terrain?.height(x: x, z: z) ?? 0.0
         for floor in scene.objects where floor.kind == "floor" {
             let p = local(x: x, z: z, origin: floor.position, yaw: floor.yaw)
             if abs(p.x) <= floor.size.x/2 && abs(p.z) <= floor.size.z/2 && floor.position.y <= lastY + 0.46 {

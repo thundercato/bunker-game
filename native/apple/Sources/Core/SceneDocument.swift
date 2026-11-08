@@ -75,12 +75,31 @@ public enum NativeSceneError: Error, CustomStringConvertible {
     }
 }
 
+/// Exact triangle sampling of the exported runtime terrain grid (same diagonal as rendering).
+public struct SceneTerrain: Codable, Sendable {
+    public let origin: Vec3
+    public let columns: Int
+    public let rows: Int
+    public let spacing: Double
+    public let heights: [Double]
+    public func height(x: Double, z: Double) -> Double {
+        let u = min(Double(columns - 1) - 0.00001, max(0, (x-origin.x)/spacing))
+        let v = min(Double(rows - 1) - 0.00001, max(0, (z-origin.z)/spacing))
+        let ix = Int(u), iz = Int(v), a = u-Double(ix), b = v-Double(iz)
+        let h = heights[iz*columns+ix], right = heights[iz*columns+ix+1]
+        let down = heights[(iz+1)*columns+ix], diagonal = heights[(iz+1)*columns+ix+1]
+        return origin.y + (a+b <= 1 ? h+(right-h)*a+(down-h)*b : diagonal+(down-diagonal)*(1-a)+(right-diagonal)*(1-b))
+    }
+}
+
 public struct SceneDocument: Codable, Sendable {
     public let format: String
     public let version: Int
     public let source: SceneSource
     public let buildingID: String
     public let spawn: Vec3
+    public let terrain: SceneTerrain?
+    public let roads: [[Vec3]]?
     public let objects: [SceneObject]
     public let colliders: [SceneCollider]
     public let stairs: [SceneStair]
@@ -114,6 +133,9 @@ public struct SceneDocument: Codable, Sendable {
         try require(objects.allSatisfy { pose($0.position, $0.size, $0.yaw) }, "Invalid object pose.")
         try require(colliders.allSatisfy { pose($0.position, $0.size, $0.yaw) }, "Invalid collider pose.")
         try require(stairs.allSatisfy { pose($0.position, $0.size, $0.yaw) }, "Invalid stair pose.")
+        if let t = terrain {
+            try require(t.columns >= 2 && t.rows >= 2 && t.columns <= 128 && t.rows <= 128 && t.spacing.isFinite && t.spacing > 0 && t.origin.isFinite && t.heights.count == t.columns*t.rows && t.heights.allSatisfy(\.isFinite), "Invalid terrain grid.")
+        }
         let objectIDs = Set(objects.map(\.id)), itemIDs = Set(items.map(\.id))
         for interaction in interactions {
             try require(["door", "container", "loose"].contains(interaction.kind), "Unsupported interaction kind.")

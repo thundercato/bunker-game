@@ -110,7 +110,12 @@ wait_for_simulator
 xcrun simctl install "$udid" "$app"
 xcrun simctl launch --terminate-running-process "$udid" "$bundle" --uitesting 2>&1 | tee "$output/launch.log"
 # The XCTest attachment above waits for native.scene. Allow initial presentation here too.
-sleep 3
+sleep 8
+container_path="$(xcrun simctl get_app_container "$udid" "$bundle" data)"
+if [ -f "$container_path/Documents/native-metrics.json" ]; then
+  cp "$container_path/Documents/native-metrics.json" "$output/performance.json"
+  cat "$output/performance.json"
+fi
 xcrun simctl io "$udid" screenshot "$output/launched.png"
 # A small actual-scene preview also travels in logs for cloud environments whose
 # artifact download redirects are unavailable. Full PNG/xcresult remain artifacts.

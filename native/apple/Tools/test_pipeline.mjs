@@ -34,7 +34,7 @@ test('GLB header/version/length and out of range accessors are rejected',()=>{
 test('source transforms and every retained collider agree with the world compiler',()=>{
  const b=compileBuilding(json('native/apple/NativeContent/world-document.json'),'forester',{source,sourceRevision:lock.revision});
  assert.deepEqual(scene.sourceSpawn,b.spawn.position);assert.deepEqual(scene.stairs[0].position,b.objects.find(x=>x.type==='stairs').position);
- const expected=b.colliders.filter(c=>!c.doorId||b.interactions.some(i=>i.type==='door'&&i.id===c.doorId));assert.equal(scene.colliders.length,expected.length);
+ const expected=b.colliders.filter(c=>!c.doorId||b.interactions.some(i=>i.type==='door'&&i.id===c.doorId));assert.ok(scene.colliders.length>expected.length);
  expected.forEach((c,i)=>{const n=scene.colliders[i];assert.equal(n.parentID,c.id);[c.x,c.y,c.z].forEach((v,j)=>approx(n.position[j],v));[c.w,c.h,c.d].forEach((v,j)=>approx(n.size[j],v));approx(n.yaw,c.yaw);});
  assert.deepEqual(scene.objects.find(o=>o.id==='entrance-leaf').position,[-30,0,-54.5]);
  assert.deepEqual(scene.objects.find(o=>o.id==='container-forester_c0').position,[-34.69,1.38,-62.4]);
@@ -53,10 +53,11 @@ test('upper floor cutout remains empty over the staircase; floor tops stay at 3.
  }
 });
 test('stable interactions retain source IDs and every test item exists in catalogue',()=>{
- const ids=scene.interactions.filter(x=>x.kind==='container').map(x=>x.id).sort();assert.deepEqual(ids,source.containers.filter(x=>x.building==='forester').map(x=>x.id).sort());
+ const ids=scene.interactions.filter(x=>x.kind==='container'&&x.id.startsWith('forester_')).map(x=>x.id).sort();assert.deepEqual(ids,source.containers.filter(x=>x.building==='forester').map(x=>x.id).sort());
  for(const item of scene.items)assert.equal(source.catalogue[item.id].name,item.name);
  assert.ok(scene.interactions.some(x=>x.kind==='loose'&&x.id==='forester_table'));
- assert.equal(scene.interactions.filter(x=>x.kind==='door').length,2);
+ assert.ok(scene.interactions.filter(x=>x.kind==='door').length>=5);
+ assert.ok(scene.terrain.heights.some(h=>h>1)); assert.equal(scene.terrain.heights.length,71*71);
 });
 test('malformed scene dimensions, IDs, bindings and orphans are rejected',()=>{
  validateScene(scene);for(const mutate of [s=>s.spawn[0]=Infinity,s=>s.sourceSpawn=[0,0],s=>s.objects[0].size[0]=-1,s=>s.objects[0].position[0]=NaN,s=>s.objects[1].id=s.objects[0].id,s=>s.interactions[0].objectID='missing',s=>s.interactions[2].itemID='missing',s=>s.colliders[0].parentID='missing']){const s=copy(scene);mutate(s);assert.throws(()=>validateScene(s));}

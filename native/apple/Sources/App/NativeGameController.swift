@@ -1,6 +1,7 @@
 import SwiftUI
 import SceneKit
 import GameController
+import Darwin
 
 @MainActor
 final class NativeGameController: NSObject, ObservableObject {
@@ -22,12 +23,17 @@ final class NativeGameController: NSObject, ObservableObject {
     private var touchMove = SIMD2<Double>(0, 0)
     private var pendingLook = SIMD2<Double>(0, 0)
     private var inactive = false
+    private var intervals: [Double] = []
+    private var processing: [Double] = []
+    private var loadingMilliseconds = 0.0
+    private var metricFrames = 0
     private var uiElapsed = 0.0
     private let saveStore = NativeSaveStore()
     private let isUITesting = ProcessInfo.processInfo.arguments.contains("--uitesting")
 
     override init() {
         super.init()
+        let loadStart = CACurrentMediaTime()
         do {
             guard let resourceRoot = Bundle.main.resourceURL else { throw CocoaError(.fileNoSuchFile) }
             let url = resourceRoot.appendingPathComponent("NativeContent/scene.json")
@@ -38,6 +44,7 @@ final class NativeGameController: NSObject, ObservableObject {
                 catch { checkpointStatus = "Checkpoint preserved but could not be loaded: \(error.localizedDescription)" }
             }
             rendering = try NativeScene(document: scene, resourceURL: url.deletingLastPathComponent())
+            loadingMilliseconds = (CACurrentMediaTime()-loadStart)*1000
             refresh()
             NotificationCenter.default.addObserver(self, selector: #selector(controllersChanged), name: .GCControllerDidConnect, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(controllerLost), name: .GCControllerDidDisconnect, object: nil)
@@ -71,7 +78,9 @@ final class NativeGameController: NSObject, ObservableObject {
 
     @objc private func frame(_ link: CADisplayLink) {
         guard let game, let rendering else { return }
-        let dt = min(0.05, previousTime == 0 ? 1.0 / 60.0 : link.timestamp - previousTime)
+        let frameStart = CACurrentMediaTime()
+        if previousTime > 0 && isUITesting { intervals.append((link.timestamp-previousTime)*1000); if intervals.count > 600 { intervals.removeFirst() } }
+        let dt = min(0.1, previousTime == 0 ? 1.0 / 60.0 : link.timestamp - previousTime)
         previousTime = link.timestamp
         if !inactive, let pad = gamepad {
             #if os(tvOS)
@@ -107,6 +116,32 @@ final class NativeGameController: NSObject, ObservableObject {
             torchOn: game.torchOn, doorsOpen: game.doorsOpen, collected: game.collected)
         uiElapsed += dt
         if uiElapsed >= 0.1 { uiElapsed = 0; refresh() }
+        if isUITesting {
+            processing.append((CACurrentMediaTime()-frameStart)*1000)
+            if processing.count > 600 { processing.removeFirst() }
+            metricFrames += 1
+            if metricFrames % 30 == 0 { writeMetrics() }
+        }
+    }
+
+    private func writeMetrics() {
+        var info = mach_task_basic_info_data_t()
+        var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info_data_t>.size / MemoryLayout<integer_t>.size)
+        let result = withUnsafeMutablePointer(to: &info) { pointer in
+            pointer.withMemoryRebound(to: integer_t.self, capacity: Int(count)) {
+                task_info(mach_task_self_, task_flavor_t(MACH_TASK_BASIC_INFO), $0, &count)
+            }
+        }
+        func percentile(_ values: [Double], _ fraction: Double) -> Double {
+            let sorted = values.sorted(); return sorted.isEmpty ? 0 : sorted[min(sorted.count-1,Int(Double(sorted.count-1)*fraction))]
+        }
+        let metrics: [String: Any] = ["scope":"simulator instrumented; CPU update excludes GPU work", "frames":metricFrames,
+            "sourceLoadMs":loadingMilliseconds, "displayLinkMedianMs":percentile(intervals,0.5), "displayLinkP95Ms":percentile(intervals,0.95),
+            "cpuUpdateP95Ms":percentile(processing,0.95), "residentMB":result == KERN_SUCCESS ? Double(info.resident_size)/1048576 : -1]
+        if let data = try? JSONSerialization.data(withJSONObject: metrics, options: [.sortedKeys]),
+           let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            try? data.write(to: directory.appendingPathComponent("native-metrics.json"), options: .atomic)
+        }
     }
 
     private func edge(_ id: String, _ down: Bool, action: () -> Void) {
@@ -183,11 +218,11 @@ final class NativeGameController: NSObject, ObservableObject {
     }
     private func refresh() {
         guard let game else { return }
-        status = game.status
-        interaction = game.interactionPrompt
-        inventory = game.inventory
-        inventoryVisible = game.inventoryVisible
-        paused = game.isPaused
-        torchOn = game.torchOn
+        if status != game.status { status = game.status }
+        if interaction != game.interactionPrompt { interaction = game.interactionPrompt }
+        if inventory != game.inventory { inventory = game.inventory }
+        if inventoryVisible != game.inventoryVisible { inventoryVisible = game.inventoryVisible }
+        if paused != game.isPaused { paused = game.isPaused }
+        if torchOn != game.torchOn { torchOn = game.torchOn }
     }
 }
