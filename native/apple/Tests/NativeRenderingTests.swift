@@ -71,5 +71,17 @@ final class NativeRenderingTests: XCTestCase {
         let torch = try XCTUnwrap(rendered.camera.childNodes.first { $0.light?.type == .spot })
         XCTAssertTrue(torch.isHidden)
     }
+    func testForestInstancesShareGeometryAndTerrainIsNativeMesh() throws {
+        let (document, rendered) = try load()
+        let trees = document.objects.filter { $0.id.hasPrefix("native-forest-") }
+        XCTAssertGreaterThan(trees.count,30)
+        let a = try XCTUnwrap(rendered.scene.rootNode.childNode(withName: trees[0].id, recursively:true)?.childNodes.first?.childNodes.first?.geometry)
+        let b = try XCTUnwrap(rendered.scene.rootNode.childNode(withName: trees[1].id, recursively:true)?.childNodes.first?.childNodes.first?.geometry)
+        XCTAssertTrue(a === b, "Repeated source assets must share native GPU geometry buffers")
+        let terrain = try XCTUnwrap(rendered.scene.rootNode.childNode(withName:"runtime-terrain",recursively:true)?.geometry)
+        XCTAssertEqual(terrain.elements[0].primitiveCount,70*70*2)
+        XCTAssertNotNil(terrain.firstMaterial?.diffuse.contents)
+    }
+
 }
 #endif

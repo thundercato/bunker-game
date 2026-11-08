@@ -258,4 +258,19 @@ final class CoreTests: XCTestCase {
         session.handleBack()
         XCTAssertTrue(session.isPaused)
     }
+    func testTerrainSamplingMatchesRenderedTriangleDiagonal() throws {
+        let t = SceneTerrain(origin: Vec3(0,0,0), columns: 2, rows: 2, spacing: 2, heights: [0,2,4,8])
+        XCTAssertEqual(t.height(x: 1,z: 1),3,accuracy: 0.0001)
+        XCTAssertEqual(t.height(x: 1.5,z: 1.5),5.5,accuracy: 0.0001)
+        let world = try importedScene()
+        XCTAssertNotNil(world.terrain)
+        XCTAssertGreaterThan(world.objects.count,200)
+        for id in ["hut", "pump", "ranger"] {
+            XCTAssertTrue(world.interactions.contains { $0.id == id }, "Source building door retained: \(id)")
+        }
+        let game = try GameSession(scene: world)
+        let terrain = try XCTUnwrap(world.terrain)
+        XCTAssertEqual(game.surfaceHeight(x:-90,z:-120,lastY:10),terrain.height(x:-90,z:-120),accuracy:0.0001)
+    }
+
 }
