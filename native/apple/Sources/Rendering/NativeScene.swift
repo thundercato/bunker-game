@@ -49,7 +49,16 @@ final class NativeScene {
         scene.fogColor = UIColor(red: 0.25, green: 0.29, blue: 0.28, alpha: 1)
         scene.fogStartDistance = 45
         scene.fogEndDistance = 125
-        scene.lightingEnvironment.intensity = 0.45
+        let sky = UIGraphicsImageRenderer(size: CGSize(width:128,height:64)).image { context in
+            let colours = [UIColor(red:0.28,green:0.38,blue:0.46,alpha:1).cgColor,
+                           UIColor(red:0.62,green:0.64,blue:0.57,alpha:1).cgColor,
+                           UIColor(red:0.12,green:0.16,blue:0.10,alpha:1).cgColor]
+            if let gradient = CGGradient(colorsSpace:CGColorSpaceCreateDeviceRGB(),colors:colours as CFArray,locations:[0,0.55,1]) {
+                context.cgContext.drawLinearGradient(gradient,start:CGPoint(x:0,y:0),end:CGPoint(x:0,y:64),options:[])
+            }
+        }
+        scene.lightingEnvironment.contents = sky
+        scene.lightingEnvironment.intensity = 0.6
 
         let ambient = SCNNode()
         ambient.light = SCNLight()
@@ -172,6 +181,14 @@ final class NativeScene {
         } else {
             node.geometry = SCNBox(width: object.size.x, height: object.size.y, length: object.size.z, chamferRadius: 0)
             node.geometry?.firstMaterial = material(object.kind == "door" ? "wood" : object.material)
+            if let base = node.geometry?.firstMaterial {
+                let sizes = [(object.size.x,object.size.y),(object.size.z,object.size.y),(object.size.x,object.size.y),(object.size.z,object.size.y),(object.size.x,object.size.z),(object.size.x,object.size.z)]
+                node.geometry?.materials = sizes.map { width, height in
+                    let face = base.copy() as! SCNMaterial
+                    face.diffuse.contentsTransform = SCNMatrix4MakeScale(Float(width/2),Float(height/2),1)
+                    return face
+                }
+            }
             // Floors are top-centred; every other primitive is bottom-centred.
             node.pivot = SCNMatrix4MakeTranslation(0, Float(object.kind == "floor" ? object.size.y / 2 : -object.size.y / 2), 0)
         }

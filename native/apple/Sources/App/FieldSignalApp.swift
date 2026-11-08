@@ -110,7 +110,7 @@ struct FieldSignalView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 6) {
                 Text("FIELD SIGNAL").font(.system(.title2, design: .monospaced).weight(.bold)).tracking(3)
-                Text("FORESTER’S COTTAGE · NATIVE EXPERIMENT").font(.caption.monospaced())
+                Text("FORESTER TRAIL · NATIVE EXPERIMENT").font(.caption.monospaced())
                 Text(model.controllerName).font(.caption).foregroundStyle(.white.opacity(0.72))
             }
             Spacer()

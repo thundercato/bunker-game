@@ -53,7 +53,7 @@ function meshFromGLB(assetID,bytes,sourcePath){
    const uvs=p.attributes.TEXCOORD_0===undefined?[]:accessor(doc,bin,p.attributes.TEXCOORD_0);
    for(let i=0;i<positions.length;i+=3){const v=new T.Vector3(...positions.slice(i,i+3)).applyMatrix4(world);positions.splice(i,3,...v.toArray());const n=new T.Vector3(...normals.slice(i,i+3)).applyMatrix3(normal).normalize();normals.splice(i,3,...n.toArray());}
    const material=doc.materials[p.material]||{},pbr=material.pbrMetallicRoughness||{};
-   const m={positions:vector(positions),normals:vector(normals),colors:vector(colors),indices,baseColor:pbr.baseColorFactor||[1,1,1,1],doubleSided:material.doubleSided===true,roughness:pbr.roughnessFactor??1,metallic:pbr.metallicFactor??0};
+   const m={positions:vector(positions),normals:vector(normals),colors:vector(colors),indices,baseColor:pbr.baseColorFactor||[1,1,1,1],doubleSided:material.doubleSided===true,roughness:pbr.roughnessFactor??1,metallic:pbr.metallicFactor??1};
    if(uvs.length)m.uvs=vector(uvs);
    const tex=pbr.baseColorTexture;if(tex){const image=doc.images[doc.textures[tex.index].source];let textureBytes,mime=image.mimeType;if(image.uri){const resolved=path.resolve(root,path.dirname(sourcePath),image.uri);if(!resolved.startsWith(path.join(root,'site/assets')+path.sep)||!/^[-a-zA-Z0-9_./]+\.png$/.test(image.uri))fail('Unsafe external texture URI');textureBytes=fs.readFileSync(resolved);mime='image/png';}else{const view=doc.bufferViews[image.bufferView];if(!view||!['image/png','image/jpeg'].includes(mime))fail('Unsupported embedded texture');textureBytes=bin.subarray(view.byteOffset||0,(view.byteOffset||0)+view.byteLength);}const name=`${assetID}-${tex.index}.${mime==='image/png'?'png':'jpg'}`;output(`Textures/${name}`,textureBytes);m.texture=name;m.alphaMode=material.alphaMode||'OPAQUE';m.alphaCutoff=material.alphaCutoff??0.5;}
    for(const [key,tex]of Object.entries({normalTexture:material.normalTexture,ormTexture:pbr.metallicRoughnessTexture,occlusionTexture:material.occlusionTexture})){
@@ -80,7 +80,7 @@ async function meshFromRecipe(id,catalogue){
   if(Array.isArray(mat))fail('Recipe multi-material needs explicit split');
   const colour=c?Array.from(c.array):[];
   if(c&&c.itemSize===3){const rgba=[];for(let i=0;i<colour.length;i+=3)rgba.push(...colour.slice(i,i+3),1);colour.splice(0,colour.length,...rgba);}
-  meshes.push({positions:vector(Array.from(p.array)),normals:vector(Array.from(n.array)),colors:vector(colour),indices:g.index?Array.from(g.index.array):Array.from({length:p.count},(_,i)=>i),baseColor:[...mat.color.toArray(),mat.opacity??1],doubleSided:mat.side===T.DoubleSide});g.dispose();
+  meshes.push({positions:vector(Array.from(p.array)),normals:vector(Array.from(n.array)),colors:vector(colour),indices:g.index?Array.from(g.index.array):Array.from({length:p.count},(_,i)=>i),roughness:mat.roughness??1,metallic:mat.metalness??0,baseColor:[...mat.color.toArray(),mat.opacity??1],doubleSided:mat.side===T.DoubleSide});g.dispose();
  });return normaliseMesh(meshes);
 }
 
@@ -156,7 +156,7 @@ async function main(){
  const distance=(x,z,a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz||1)));return Math.hypot(x-a[0]-t*dx,z-a[1]-t*dz);};
  for(let i=0;i<1700;i++){
  const x=-137+random()*188,z=-255+random()*290;
- if(Math.abs(x)<10&&z>-13||source.buildings.some(b=>Math.abs(x-b.x)<b.w/2+3.2&&Math.abs(z-b.z)<b.d/2+3.2)||source.anomalies.some(a=>Math.hypot(x-a.x,z-a.z)<7)||source.roads.some(r=>r.some((b,j)=>j&&distance(x,z,r[j-1],b)<4.5))||Math.abs(x-source.rail.x)<5.2||x>-42&&x<38&&z<-155&&z>-203)continue;
+ if(Math.abs(x)<10&&z>-13||source.buildings.some(b=>Math.abs(x-b.x)<b.w/2+3.2&&Math.abs(z-b.z)<b.d/2+3.2)||source.anomalies.some(a=>Math.hypot(x-a.x,z-a.z)<7)||terrainSource.roads.some(r=>r.some((b,j)=>j&&distance(x,z,r[j-1],b)<4.5))||Math.abs(x-source.rail.x)<5.2||x>-42&&x<38&&z<-155&&z>-203)continue;
  const scale=.65+random()*.65,yaw=random()*Math.PI*2;
  if(x<-97||x>37||z<-127||z>7||i%3!==0)continue;
  const height=10*scale;
