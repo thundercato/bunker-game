@@ -1,5 +1,11 @@
 # Field Signal — native Apple experiment
 
+Current expanded-region implementation and real build/measurement results:
+[8 November phase 2](../../docs/native-apple/PHASE_2_2026-11-08.md).
+Four source buildings, sampled runtime terrain, campaign roads, PBR channels,
+shared mesh buffers and simulator instrumentation extend the original cottage.
+
+
 This is a separate, unsigned, non-AR Swift prototype. SwiftUI presents the HUD and
 menus; SceneKit renders a real first-person 3D scene. It does not load the website
 or run Pyodide. The browser game and World Editor remain the content source of

@@ -1,5 +1,14 @@
 # Pinned native content exporter
 
+The 8 November exporter extends the original contract with optional `terrain`
+(origin/columns/rows/spacing/heights) and `roads` world-point arrays, plus three
+additional compiled buildings. It samples the pinned campaign runtime terrain;
+Core and SceneKit use the same triangular interpolation. Imported PBR primitives
+also retain roughness/metallic factors and available normal/ORM/occlusion images.
+Read [phase 2](../../../docs/native-apple/PHASE_2_2026-11-08.md) before relying on
+historical single-cottage/diffuse-only scope below.
+
+
 Run at repository root with Node.js 22 or newer; no npm dependencies or Apple tools:
 
 ```sh

@@ -1,5 +1,18 @@
 # Continue this prototype on Adam’s MacBook
 
+## Current continuation — 8 November 2026
+
+Expanded-region source `a82d77adee71e50613afb6caf9835b5196750fdf` passed both native
+jobs in [run 42503185166](https://github.com/thundercato/bunker-game/actions/runs/42503185166).
+Each platform passed 11 Core + 4 rendering + 1 UI = **16 tests**, zero failures;
+standalone SwiftPM passed 11, portable conversion passed 9. Both unsigned apps
+installed, launched and produced real screenshots and instrumented metrics.
+See [phase 2 scope/results](PHASE_2_2026-11-08.md) and
+[actual images/metrics](verification-phase2/README.md). This supersedes the older
+flat-garden scope below without deleting the original verified baseline.
+No physical devices, real controllers, signing, merge or distribution were tested/performed.
+
+
 Continue the existing branch and PR; the cloud implementation is recoverable from
 GitHub without this workspace. This is an independent experiment, not a replacement
 for the browser game or editor. Read [PROGRESS.md](PROGRESS.md) for exact compilation
@@ -107,3 +120,14 @@ TestFlight without approval.
 > regenerate the project/assets when needed and checkpoint changes. Distinguish
 > simulator evidence from physical-device results. Do not sign, merge, publish
 > or upload to TestFlight without my approval.
+
+## Region/rendering continuation (8 November)
+
+Read `PHASE_2_2026-11-08.md` before relying on the older flat-garden scope above.
+The branch now has four compiled buildings, sampled campaign terrain/roads,
+PBR channels, shared asset buffers and instrumented simulator metrics. The original
+prototype remains at tag `native-apple-verified-20261106`. Reproduce the same scripts;
+`performance.json` is included in CI artifacts. It records instrumented simulator
+cadence, CPU updates and resident memory, not physical GPU performance. Do not
+refresh source hashes to match the concurrent editor branch without explicit
+content review. Full editor terrain/draft integration remains outside this slice.

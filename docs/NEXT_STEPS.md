@@ -243,3 +243,16 @@ are in the native execution note. Next native task: reproduce this same branch
 with Codex Local/Xcode on the Mac, then perform approved physical-device/controller
 and sustained performance checks. Do not restart the project or infer device
 performance from these simulator passes. No merge/signing/publication authorised.
+
+## Native phase 2 — 8 November 2026
+
+PR #87 continues the same native project. Four compiled buildings, sampled runtime
+terrain/roads, PBR channels, cached asset geometry and simulator instrumentation
+are implemented. See `native-apple/PHASE_2_2026-11-08.md` for measured results and
+implemented/outstanding scope. Baseline recovery tag is retained. No web/editor
+source, campaign saves or Pages workflow changes belong to this workstream.
+
+Phase2 native CI completed at a82d77a, run42503185166: both apps compiled/installed/
+launched, 16 tests per platform passed; simulator-only metrics and real captures
+are recorded. Next native task is physical/GPU route profiling and a bounded
+RealityKit comparison, not restarting the prototype. Main/editor files unchanged.

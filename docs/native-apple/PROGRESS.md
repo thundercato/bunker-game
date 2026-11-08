@@ -1,5 +1,18 @@
 # Native Apple experiment — execution record
 
+## Current continuation — 8 November 2026
+
+Expanded-region source `a82d77adee71e50613afb6caf9835b5196750fdf` passed both native
+jobs in [run 42503185166](https://github.com/thundercato/bunker-game/actions/runs/42503185166).
+Each platform passed 11 Core + 4 rendering + 1 UI = **16 tests**, zero failures;
+standalone SwiftPM passed 11, portable conversion passed 9. Both unsigned apps
+installed, launched and produced real screenshots and instrumented metrics.
+See [phase 2 scope/results](PHASE_2_2026-11-08.md) and
+[actual images/metrics](verification-phase2/README.md). This supersedes the older
+flat-garden scope below without deleting the original verified baseline.
+No physical devices, real controllers, signing, merge or distribution were tested/performed.
+
+
 ## Verified result — 6 November 2026
 
 [PR #87](https://github.com/thundercato/bunker-game/pull/87), branch
