@@ -5,6 +5,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import * as T from '../../../site/vendor/three.js';
+import {applyCampaignSource} from '../../../site/campaign-core.js';
 import {seedLayout} from '../../../site/layout-core.js';
 import {createCampaignInteriors} from '../../../site/campaign-interiors.js';
 import {createWorldDocument, compileBuilding, toWorld} from '../../../site/world-document.js';
@@ -141,8 +142,9 @@ async function main(){
  const loose=scene.interactions.find(i=>i.id==='forester_table');
  objects.push({id:'native-loot-forester_table',kind:'loot',position:[loose.position[0],rounded(loose.position[1]+.02),loose.position[2]],size:[.18,.09,.18],yaw:0,material:'copper'});
  // Sample the actual pinned browser terrain function without importing its DOM/fetch renderer.
+ const terrainSource=applyCampaignSource(source,{districts:json('site/districts.json'),props:catalogue,interiors:createCampaignInteriors(source),sourceRevision:json('site/world-source.json').revision,routes:json('site/campaign-routes.json'),spawns:json('site/campaign-spawns.json')});
  const terrainCode=read('site/terrain.js').toString().replace(/^import .*;$/gm,'');
- const {terrainHeight}=await import('data:text/javascript;base64,'+Buffer.from('const DATA='+JSON.stringify(source)+';\n'+terrainCode).toString('base64'));
+ const {terrainHeight}=await import('data:text/javascript;base64,'+Buffer.from('const DATA='+JSON.stringify(terrainSource)+';\n'+terrainCode).toString('base64'));
  const origin=[-100,0,-130],columns=71,rows=71,spacing=2;
  const heights=[];for(let z=0;z<rows;z++)for(let x=0;x<columns;x++)heights.push(rounded(terrainHeight(origin[0]+x*spacing,origin[2]+z*spacing)));
  scene.terrain={origin,columns,rows,spacing,heights};
@@ -160,7 +162,7 @@ async function main(){
  const height=10*scale;
  objects.push({id:`native-forest-${i}`,kind:'prop',assetID:'pine_01',position:vector([x,terrainHeight(x,z),z]),size:[height*.48,height,height*.48],yaw:rounded(yaw),material:'wood'});
  }
- scene.roads=source.roads.map(r=>r.map(([x,z])=>[x,rounded(terrainHeight(x,z)+.035),z]));
+ scene.roads=terrainSource.roads.map(r=>r.map(([x,z])=>[x,rounded(terrainHeight(x,z)+.035),z]));
  const registry=json('site/assets/campaign/registry.json').assets,v11=json('site/assets/v11/models.json'),v10=json('site/assets/v10/model-manifest.json'),assets=[];
  for(const id of [...new Set(objects.map(o=>o.assetID).filter(Boolean))].sort()){
   let mesh,provenance;const lookupID=id==='painted_wooden_cabinet_02'?'painted_wooden_cabinet':id;const a=registry.find(a=>a.id===lookupID)||v11.find(a=>a.id===lookupID)||v10.find(a=>a.id===lookupID),p=catalogue.props.find(p=>p.id===id);
@@ -179,6 +181,6 @@ async function main(){
   for(const[name,bytes]of outputs){const file=path.join(native,'NativeContent',name);if(!fs.existsSync(file)||!fs.readFileSync(file).equals(bytes))fail('Generated output differs: '+name);}
   const existing=fs.readdirSync(path.join(native,'NativeContent/Meshes'));if(existing.some(name=>!outputs.has('Meshes/'+name)))fail('Unexpected stale generated mesh');
   console.log(`Native asset reproducibility passed: ${outputs.size} files, ${assets.length} assets, ${objects.length} objects.`);
- }else{for(const[name,bytes]of outputs){const file=path.join(native,'NativeContent',name);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,bytes);}console.log(`Exported Forester’s cottage: ${outputs.size} files, ${assets.length} assets, ${objects.length} objects.`);}
+ }else{for(const dir of ['Meshes','Textures'])for(const name of fs.readdirSync(path.join(native,'NativeContent',dir)))if(!outputs.has(dir+'/'+name))fs.unlinkSync(path.join(native,'NativeContent',dir,name));for(const[name,bytes]of outputs){const file=path.join(native,'NativeContent',name);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,bytes);}console.log(`Exported Forester’s cottage: ${outputs.size} files, ${assets.length} assets, ${objects.length} objects.`);}
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))await main();

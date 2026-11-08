@@ -52,6 +52,11 @@
     "site/assets/v10/models/wooden_ladder.glb": "f0358eac74c488e07f5e5947b001a0ae6d217221b33d9754b216da8004f303fa",
     "site/assets/v10/models/metal_trash_can.glb": "1d6d8bc30b4d5adb494c439d7632d5f87c898512cb96a776b314782e839e8a76",
     "site/assets/v10/models/small_oil_can_01.glb": "1b3e848797a35422d2e192f9989c1e914632833da3033a726eb4093799449abe",
-    "site/assets/v10/models/plastic_crate_01.glb": "d8829102d0b733621b9c41bb0b0679535ea4fb867a151dfeaa484f86e4386dd0"
+    "site/assets/v10/models/plastic_crate_01.glb": "d8829102d0b733621b9c41bb0b0679535ea4fb867a151dfeaa484f86e4386dd0",
+    "site/campaign-core.js": "0a6ae8cb2bcdf59cc867157afff4a5ed89dae5379671fd765c90a0c973ad9a15",
+    "site/districts.json": "cdc619032ded900116e105b37a3eb2c72b927a5ab62e582bfa45c5c6d92680e6",
+    "site/campaign-routes.json": "44069e55ddca419f1c230ae782c830c04b43b1f074cd860b0b7fd8186aaa37ff",
+    "site/campaign-spawns.json": "0b8ac29cbcdefa94a8771bbbdd9f04a65dcf21da0de77c5eec1b4df25c3c8726",
+    "site/world-source.json": "77a15a3542ee705a5b4b8826482727f8e3f3f1193165077144fc525ef43ade06"
   }
 }
