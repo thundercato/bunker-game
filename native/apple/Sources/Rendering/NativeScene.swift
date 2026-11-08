@@ -91,7 +91,6 @@ final class NativeScene {
         camera.camera?.maximumExposure = 0.5
         camera.camera?.screenSpaceAmbientOcclusionIntensity = 0.45
         camera.camera?.screenSpaceAmbientOcclusionRadius = 0.35
-        camera.camera?.screenSpaceAmbientOcclusionSampleCount = 8
         scene.rootNode.addChildNode(camera)
 
         torch.light = SCNLight()

@@ -148,8 +148,11 @@ async function main(){
  const origin=[-100,0,-130],columns=71,rows=71,spacing=2;
  const heights=[];for(let z=0;z<rows;z++)for(let x=0;x<columns;x++)heights.push(rounded(terrainHeight(origin[0]+x*spacing,origin[2]+z*spacing)));
  scene.terrain={origin,columns,rows,spacing,heights};
+ const u=(scene.spawn[0]-origin[0])/spacing,v=(scene.spawn[2]-origin[2])/spacing,ix=Math.floor(u),iz=Math.floor(v),a=u-ix,c=v-iz;
+ const h=heights[iz*columns+ix],r=heights[iz*columns+ix+1],d=heights[(iz+1)*columns+ix],di=heights[(iz+1)*columns+ix+1];
+ scene.spawn[1]=rounded(a+c<=1?h+(r-h)*a+(d-h)*c:di+(d-di)*(1-a)+(r-di)*(1-c));
  objects.push({id:'native-outdoor',kind:'floor',position:[-30,0,-60],size:[140,.12,140],yaw:0,material:'earth'});
- objects.push({id:'native-path',kind:'floor',position:[-30,.01,-46],size:[2.4,.02,15],yaw:0,material:'gravel'});
+
  // The world.js forest placement recipe, replayed with its declared PRNG seed;
  // subset filtering is deterministic and does not repaint editor authoring data.
  let seed=604921;const random=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};
@@ -163,6 +166,7 @@ async function main(){
  objects.push({id:`native-forest-${i}`,kind:'prop',assetID:'pine_01',position:vector([x,terrainHeight(x,z),z]),size:[height*.48,height,height*.48],yaw:rounded(yaw),material:'wood'});
  }
  scene.roads=terrainSource.roads.map(r=>r.map(([x,z])=>[x,rounded(terrainHeight(x,z)+.035),z]));
+ scene.roads.push([scene.spawn,scene.sourceSpawn]);
  const registry=json('site/assets/campaign/registry.json').assets,v11=json('site/assets/v11/models.json'),v10=json('site/assets/v10/model-manifest.json'),assets=[];
  for(const id of [...new Set(objects.map(o=>o.assetID).filter(Boolean))].sort()){
   let mesh,provenance;const lookupID=id==='painted_wooden_cabinet_02'?'painted_wooden_cabinet':id;const a=registry.find(a=>a.id===lookupID)||v11.find(a=>a.id===lookupID)||v10.find(a=>a.id===lookupID),p=catalogue.props.find(p=>p.id===id);
@@ -176,7 +180,7 @@ async function main(){
  output('scene.json',scene);output('world-document.json',document);
  output('provenance.json',{format:'field-signal-native-provenance',version:1,sourceRevision:lock.revision,assets});
  for(const [src,dest]of [['site/assets/campaign/licences/furniture-kit.txt','furniture-kit.txt'],['site/assets/campaign/licences/survival-kit.txt','survival-kit.txt'],['site/assets/v11/EZ-TREE-LICENSE.txt','EZ-TREE-LICENSE.txt']])output('Licences/'+dest,read(src));
- output('Licences/FIELD_SIGNAL_CONTENT.txt','Field Signal scene and original procedural search recipes are reused from this repository at the revision recorded in provenance.json. Preserve the repository licence and the third-party notices in this directory. Native additions: bounded approach plane/path; deterministic test loot fixture.\n');
+ output('Licences/FIELD_SIGNAL_CONTENT.txt','Field Signal scene and original procedural search recipes are reused from this repository at the revision recorded in provenance.json. Preserve the repository licence and the third-party notices in this directory. Native additions: sampled runtime terrain region, forest recipe adaptation and approach trail; deterministic test loot fixture.\n');
  if(process.argv.includes('--check')){
   for(const[name,bytes]of outputs){const file=path.join(native,'NativeContent',name);if(!fs.existsSync(file)||!fs.readFileSync(file).equals(bytes))fail('Generated output differs: '+name);}
   const existing=fs.readdirSync(path.join(native,'NativeContent/Meshes'));if(existing.some(name=>!outputs.has('Meshes/'+name)))fail('Unexpected stale generated mesh');
