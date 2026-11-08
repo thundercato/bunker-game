@@ -1,0 +1,20 @@
+{
+  "tv": {
+    "cpuUpdateP95Ms": 0.8086250001042572,
+    "displayLinkMedianMs": 16.66666666665151,
+    "displayLinkP95Ms": 16.666666666765195,
+    "frames": 480,
+    "residentMB": 242.3125,
+    "scope": "simulator instrumented; CPU update excludes GPU work",
+    "sourceLoadMs": 518.7469166667142
+  },
+  "ipad": {
+    "cpuUpdateP95Ms": 0.43545833329972083,
+    "displayLinkMedianMs": 16.66666666665151,
+    "displayLinkP95Ms": 16.666666666708352,
+    "frames": 450,
+    "residentMB": 317.6875,
+    "scope": "simulator instrumented; CPU update excludes GPU work",
+    "sourceLoadMs": 466.66166666665276
+  }
+}

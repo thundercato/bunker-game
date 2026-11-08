@@ -1,0 +1,211 @@
+# Native Apple experiment — execution record
+
+## Current continuation — 8 November 2026
+
+Expanded-region source `a82d77adee71e50613afb6caf9835b5196750fdf` passed both native
+jobs in [run 42503185166](https://github.com/thundercato/bunker-game/actions/runs/42503185166).
+Each platform passed 11 Core + 4 rendering + 1 UI = **16 tests**, zero failures;
+standalone SwiftPM passed 11, portable conversion passed 9. Both unsigned apps
+installed, launched and produced real screenshots and instrumented metrics.
+See [phase 2 scope/results](PHASE_2_2026-11-08.md) and
+[actual images/metrics](verification-phase2/README.md). This supersedes the older
+flat-garden scope below without deleting the original verified baseline.
+No physical devices, real controllers, signing, merge or distribution were tested/performed.
+
+
+## Verified result — 6 November 2026
+
+[PR #87](https://github.com/thundercato/bunker-game/pull/87), branch
+`codex/apple-native-prototype`. Tested native source:
+`9df6a2761e41182dfad9a90d330f13ae3eae7cd6`.
+[Native run 42310250562](https://github.com/thundercato/bunker-game/actions/runs/42310250562)
+completed **successfully on both platforms**.
+
+| Evidence gate | Actual result |
+| --- | --- |
+| Prepared source, pinned asset conversion and generated Xcode project | Complete; 9 portable pipeline checks pass |
+| iPadOS Simulator unsigned build | Passed, including test-product compilation |
+| iPad Simulator tests | 10 Core + 3 rendering + 1 UI = 14 passed, zero failures |
+| tvOS Simulator unsigned build | Passed, including test-product compilation |
+| Apple TV Simulator tests | 10 Core + 3 rendering + 1 UI = 14 passed, zero failures |
+| Independent macOS SwiftPM model tests | 10 passed, zero failures |
+| Direct simulator install / launch / screenshot | Passed on both platforms |
+| Physical iPad / Apple TV / real gamepad testing | Not performed |
+| Device signing, merge, publication or TestFlight | Not performed |
+
+Actual toolchain: `macos-latest`, macOS 26.6.2 (25G83), Xcode 26.6 (17F113),
+iOS/tvOS Simulator SDKs 26.5; iPad mini (A17 Pro) and Apple TV 4K (3rd generation,
+1080p) simulators on OS 26.5. iPad's UI case completed in 85.764 s; TV's in 12.703 s.
+These are test durations, not frame-rate measurements. Both actual screenshots
+were inspected; [persistent evidence](verification/README.md) accompanies the
+[dated execution note](EXECUTION_2026-11-06.md) and [Mac handoff](MAC_HANDOFF.md).
+
+The latest separate [web run 42310250505](https://github.com/thundercato/bunker-game/actions/runs/42310250505)
+also **passed** at the same 9df6a27 checkpoint. An earlier run 42308083323 exposed
+an intermittent existing `this.crackle is not a function` audio fault, reproduced
+against unchanged baseline files. The later pass does not resolve that latent
+name collision; exact isolation proof and follow-up are in the execution note.
+No canonical browser/editor code or deployment workflow was changed.
+
+The history below preserves failed and superseded checkpoints rather than hiding
+compilation, packaging, test or presentation issues found during development.
+
+## Baseline and isolation
+
+Started 6 November 2026 on `codex/apple-native-prototype`, from main
+`25cd697be9d68a88fe8b66b5cfbcee268c565d6d`. Reviewed root and native AGENTS,
+NATIVE_CLOUD_TO_MAC, CLOUD_FIRST_README, CODEX_HANDOFF, WORLD_DOCUMENT,
+DESIGN_DECISIONS, NEXT_STEPS, ARCHITECTURE_REVIEW and CODEX_CLOUD_SETUP.
+Reviewed concurrent PR #82 (editor; no changes adopted) and #86 (native guidance).
+The source web runtime, editor, saves, schemas, assets and Pages workflow remain
+read-only. No merge, publication, signing or TestFlight is authorised.
+
+## Implementation checkpoint
+
+The bounded scene is the existing two-storey Forester’s cottage, compiled from
+the reviewed world-document/layout compiler. Swift simulation and native Apple
+rendering consume one exported world-pose scene; stable IDs link doors, collision
+and searches. Licensed source meshes are converted deterministically, with hashes
+and provenance, rather than downloading replacement art. The prototype has its
+own native-only persistence namespace.
+
+Initial checkpoint (since completed): source, portable conversion tests, reproducible Xcode project,
+unsigned iPad/tvOS simulator CI, and Mac continuation instructions. No successful
+Apple compilation or device test is claimed by this initial checkpoint.
+
+## Recoverable source checkpoints
+
+- `2d1ce05`: baseline/isolation record.
+- `b606d7b`: first native scene, Swift Core, SwiftUI/SceneKit renderer and macOS CI.
+- `08e5867`: deterministic conversion tests, real imported-scene route test,
+  explicit native checkpoint UI, TV input ownership and texture rendering.
+
+PR: https://github.com/thundercato/bunker-game/pull/87 (no merge or release).
+The export contains 25 unique asset meshes / 15,952 unique triangles and
+2,336,597 resource bytes, 97 objects, 90 colliders and seven interactions
+(two doors, four containers, one loose surface). The actual scene uses the
+campaign interior factory, not a separately rebuilt cottage layout. Source GLBs
+retain registry hashes; original-composite search recipes are explicitly identified
+in provenance. Only diffuse maps and vertex colours are imported.
+
+Portable verification on the Linux cloud worker:
+
+- `node native/apple/Tools/test_pipeline.mjs`: 8 checks passed.
+- `node native/apple/Tools/convert_scene.mjs --check`: reproducible resources.
+- `python3 native/apple/Tools/generate_project.py --check`: reproducible project.
+- Python compile and bash syntax checks for native tooling passed.
+- Existing browser domain suite: 165 tests ran, OK with 5 existing skips.
+- Existing world-document suite: 57 passed; layout suite: 54 passed;
+  world-preview pure suite passed; `python3 tools/build.py`: 561 files built.
+
+These tests do not establish physical-device performance or native Apple
+compilation. This Linux worker has no Swift/Xcode installation; actual Apple
+results are supplied by Actions below. The web verification was read-only and did
+not alter source runtime, campaign/editor saves or the Pages workflow.
+
+Early CI checkpoint: push run 42303666577 was superseded by the PR event;
+PR run 42303709125 reached Xcode 26.6 and successful resource conversion, but its
+iPad pipeline step referred to `test_pipeline.mjs` before that file was committed.
+The file is included in 08e5867. Superseded runs are not green build evidence.
+
+[Run 42303844459](https://github.com/thundercato/bunker-game/actions/runs/42303844459)
+compiled both targets with Xcode 26.6 / iOS and tvOS 26.5 SDKs and exposed the same
+real source error: the `SCNView` options dictionary imported keys as String,
+so `.preferredRenderingAPI` failed to resolve (with two cascading type-inference
+errors). The fix uses `SCNView(frame: .zero)`, whose supported native backend is
+Metal, rather than an incorrectly inferred options key. Neither job passed at
+this checkpoint. Logs became accessible through `gh run view --log-failed` after
+the run completed; direct Azure artifact redirects initially returned 403.
+
+- `82c9bc4`: fixed the real SceneKit initializer error, added three Apple renderer
+  boundary tests and completed playable controls/Mac continuation documentation.
+- [Run 42304229866](https://github.com/thundercato/bunker-game/actions/runs/42304229866):
+  **both generic simulator builds succeeded**, with Xcode 26.6 and iOS/tvOS 26.5
+  SDKs. Both XCTest installations then failed with `IXErrorDomain 13`, “Missing
+  bundle ID”. This is a generated app metadata defect, not missing Apple SDK
+  support. No test or simulator launch passed in this run. The generator is being
+  corrected to emit complete bundle metadata, with pre-install validation.
+
+The official run-log archive endpoint (`gh api repos/thundercato/bunker-game/actions/runs/42304229866/logs`)
+provided the completed build/test logs even while `gh run view --log` was waiting
+for the overall run status. Direct artifact blob downloads still returned 403;
+logs and result links remain recorded instead of assuming a pass.
+
+- `cf2a24a`: explicit complete app/test plists, built-bundle validation, independent
+  macOS SwiftPM checks and pause/inventory lifecycle regression.
+- [Run 42305029792](https://github.com/thundercato/bunker-game/actions/runs/42305029792):
+  9 of 10 Core tests passed; the imported-route test had six cascading assertions
+  after an extra interaction correctly closed the inner door following collection.
+  The route test now checks the exhausted container and resumes walking, retaining
+  collision protection. TV compilation and initial bundle validation passed, but
+  XCTest installation still reported missing bundle ID. Next diagnostics separate
+  `build-for-testing` / `test-without-building`, validate every prepared app/test
+  plist and attempt direct CoreSimulator installation. No simulator test pass or
+  launch is claimed by this run.
+
+- `0d96cd0`: corrected route interaction and isolated build/test/install phases.
+  Run 42305682175 passed all **10 macOS Swift Core tests**. TV direct installation
+  failed despite correct root plist fields. A read-only packaging audit identified
+  the literal root `Resources` directory as CoreFoundation's legacy-bundle marker:
+  Apple bundle lookup searched for `Resources/Info.plist` instead of the root file.
+  Content is now packaged as `NativeContent` and every loader/export/check updated;
+  original generated data bytes are unchanged. CI now rejects reserved root bundle
+  layout directories and verifies `Bundle(path:).bundleIdentifier` through actual
+  Apple Foundation. Boot waits are bounded with simulator diagnostics on timeout.
+  Completed logs confirm iPad direct installation also rejected the same
+  legacy bundle layout; neither platform reached a simulator test/launch pass.
+
+- `3b6fa25`: renamed bundled data to NativeContent and added real Foundation
+  identification plus reserved-layout guards. In run 42306411049 both platforms
+  installed successfully and executed native tests: 10/10 Core cases and 2/3
+  renderer cases passed. The door assertion incorrectly treated SceneKit's
+  pivot-adjusted node centre as the source bottom; it now tests actual converted
+  geometry bottom/top/corner world positions. TV UI launched the scene, but the
+  pause/Back check failed. Exploration lacked a focus context, allowing Menu to
+  go Home and lifecycle pause to masquerade as opening the in-app pause menu.
+  The viewport now has explicit non-button focus; overlays focus their native
+  controls and the smoke test checks that Menu leaves the app in foreground.
+
+Run 42306411049 was cancelled after roughly ten minutes overall while iPad UI
+was still progressing through real door, torch and inventory touch actions. Its
+partial UI result is **inconclusive**, not a pass or proof of a hang. The next run
+will be allowed to complete its UI flow. CI now attempts a direct scene screenshot
+even after an XCTest failure, while preserving that original nonzero exit status.
+
+- `c355adc`: TV exploration focus and actual rendered door surface assertions.
+  [Run 42308083339](https://github.com/thundercato/bunker-game/actions/runs/42308083339):
+  TV **green**, 13 unit/render cases + 1 UI case passed, direct launch and capture
+  passed. iPad compiled and passed all 13 unit/render cases plus 10 standalone
+  SwiftPM cases; its UI case failed because a parent accessibility identifier
+  propagated to the Close button. Hierarchy confirms the inventory actually opened
+  and survived backgrounding. The parent identifier is removed; exact child and
+  lifecycle assertions remain.
+
+Both actual screenshots were inspected. The close source spawn filled the view
+with a wall and an overexposed torch hotspot. The native-only approach spawn now
+starts 6.6 m further along the source building's local +Z, preserving the original
+marker separately as sourceSpawn. The torch intensity is reduced from 1600 to 80.
+The iPad target's family was verified as [2]; it was not an iPhone wrapper. Current
+Apple guidance favours native iPad window sizing rather than deprecated fullscreen
+compatibility mode, so the plist now supports all four iPad orientations and UI
+automation explicitly rotates to landscape. The UI test now physically walks the
+path with the native touch pad before opening the door, with a bounded number of
+held gestures for slower simulator rendering. Nine portable pipeline checks pass.
+
+
+## Final native checkpoint
+
+`9df6a27` fixes inventory accessibility inheritance, native iPad sizing and
+landscape test orientation, starts on the outdoor approach, softens the torch,
+and verifies a real held touch-pad walk before door use. All native gates listed
+above passed in run 42310250562. UI tests retain exact inventory, foreground,
+pause/resume and background/restore assertions. The source-derived scene still
+has 25 unique asset meshes, 15,952 unique imported triangles, 97 objects,
+90 source colliders and seven interactions. The original source spawn remains
+recorded separately; canonical content, world-document, mesh and texture bytes
+are preserved.
+
+Final documentation/evidence commits do not change tested executable source,
+project generation, workflows or bundled data. They may use `[skip ci]` to avoid
+repeating these completed macOS jobs solely for screenshots and handoff prose.
+The authoritative compiled/tested source SHA remains the full 9df6a27 SHA above.

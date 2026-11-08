@@ -1,0 +1,1 @@
+Field Signal scene and original procedural search recipes are reused from this repository at the revision recorded in provenance.json. Preserve the repository licence and the third-party notices in this directory. Native additions: sampled runtime terrain region, forest recipe adaptation and approach trail; deterministic test loot fixture.

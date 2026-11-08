@@ -1,0 +1,96 @@
+name: Field Signal · native Apple prototype
+on:
+  pull_request:
+    paths:
+      - 'native/apple/**'
+      - '.github/workflows/apple-native-prototype.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: field-signal-apple-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  simulator:
+    name: ${{ matrix.platform }} · unsigned build and simulator tests
+    runs-on: macos-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ipad, tv]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Select installed Xcode 26 or newer and record actual SDKs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p native/apple/BuildResults
+          python3 - <<'PY'
+          import glob, os, re, subprocess
+          choices = []
+          for app in glob.glob('/Applications/Xcode*.app'):
+              developer = app + '/Contents/Developer'
+              value = subprocess.check_output(['xcodebuild', '-version'], env=dict(os.environ, DEVELOPER_DIR=developer), text=True)
+              version = re.search(r'Xcode (\d+(?:\.\d+)*)', value).group(1)
+              parts = tuple(map(int, version.split('.')))
+              if parts[0] >= 26:
+                  choices.append((parts, developer))
+          if not choices:
+              raise SystemExit('No installed Xcode >=26; SDK requirements cannot be met')
+          selected = sorted(choices)[-1][1]
+          with open(os.environ['GITHUB_ENV'], 'a') as output:
+              output.write('DEVELOPER_DIR=' + selected + '\n')
+          print('Selected ' + selected)
+          PY
+      - name: Capture toolchain and simulator evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            sw_vers
+            printf 'DEVELOPER_DIR=%s\n' "$DEVELOPER_DIR"
+            xcodebuild -version
+            xcodebuild -showsdks
+            xcrun simctl list runtimes
+            xcrun simctl list devices available
+          } 2>&1 | tee native/apple/BuildResults/sdk-and-simulators.log
+      - name: Verify pinned native scene and reproducible Xcode project
+        shell: bash
+        run: |
+          set -euo pipefail
+          node native/apple/Tools/convert_scene.mjs --check
+          node native/apple/Tools/test_pipeline.mjs
+          python3 native/apple/Tools/generate_project.py --check
+      - name: Run portable Swift Core tests independently of simulator installation
+        if: matrix.platform == 'ipad'
+        shell: bash
+        run: |
+          set -euo pipefail
+          swift test --package-path native/apple 2>&1 | tee native/apple/BuildResults/core-swiftpm.log
+      - name: Compile, test and launch native simulator app
+        run: bash native/apple/Tools/ci_build.sh '${{ matrix.platform }}'
+      - name: Upload compiler logs, test results and unsigned simulator app
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-apple-${{ matrix.platform }}-${{ github.sha }}
+          path: |
+            native/apple/BuildResults/sdk-and-simulators.log
+            native/apple/BuildResults/core-swiftpm.log
+            native/apple/BuildResults/${{ matrix.platform }}/performance.json
+            native/apple/BuildResults/${{ matrix.platform }}/build.log
+            native/apple/BuildResults/${{ matrix.platform }}/build-for-testing.log
+            native/apple/BuildResults/${{ matrix.platform }}/install.log
+            native/apple/BuildResults/${{ matrix.platform }}/tests.log
+            native/apple/BuildResults/${{ matrix.platform }}/launch.log
+            native/apple/BuildResults/${{ matrix.platform }}/simulator-udid.txt
+            native/apple/BuildResults/${{ matrix.platform }}/Tests.xcresult
+            native/apple/BuildResults/${{ matrix.platform }}/launched.png
+            native/apple/BuildResults/${{ matrix.platform }}/launched-preview.jpg
+            native/apple/BuildResults/${{ matrix.platform }}/*-unsigned-simulator.zip
+          retention-days: 14
+          if-no-files-found: warn
