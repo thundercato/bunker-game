@@ -162,6 +162,9 @@ async function main(){
  if(Math.abs(x)<10&&z>-13||source.buildings.some(b=>Math.abs(x-b.x)<b.w/2+3.2&&Math.abs(z-b.z)<b.d/2+3.2)||source.anomalies.some(a=>Math.hypot(x-a.x,z-a.z)<7)||terrainSource.roads.some(r=>r.some((b,j)=>j&&distance(x,z,r[j-1],b)<4.5))||Math.abs(x-source.rail.x)<5.2||x>-42&&x<38&&z<-155&&z>-203)continue;
  const scale=.65+random()*.65,yaw=random()*Math.PI*2;
  if(x<-97||x>37||z<-127||z>7||i%3!==0)continue;
+ // Keep the native arrival/trail navigable and visually readable, while
+ // retaining the surrounding source-rule forest. Tree IDs outside this clearing do not shift.
+ if(Math.hypot(x-scene.spawn[0],z-scene.spawn[2])<8||Math.abs(x+30)<4&&z>-56&&z<-39)continue;
  const height=10*scale;
  objects.push({id:`native-forest-${i}`,kind:'prop',assetID:'pine_01',position:vector([x,terrainHeight(x,z),z]),size:[height*.48,height,height*.48],yaw:rounded(yaw),material:'wood'});
  }

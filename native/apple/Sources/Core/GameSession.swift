@@ -11,7 +11,7 @@ public final class GameSession {
     public private(set) var searched = Set<String>()
     public private(set) var collected = Set<String>()
     public private(set) var inventory: [String: Int] = [:]
-    public private(set) var torchOn = true
+    public private(set) var torchOn = false
     public private(set) var inventoryVisible = false
     public private(set) var isPaused = false
     public private(set) var status = "Explore the forester's cottage. Search supplies and try the stairs."

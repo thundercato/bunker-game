@@ -45,7 +45,7 @@ final class NativeSmokeTests: XCTestCase {
         // Exercise a real lifecycle pause above an already open inventory.
         XCUIDevice.shared.press(.home)
         app.activate()
-        XCTAssertEqual(app.state, .runningForeground)
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 10), "Foreground activation must complete before resuming")
         XCTAssertTrue(app.buttons["native.resume"].waitForExistence(timeout: 10))
         app.buttons["native.resume"].tap()
         XCTAssertTrue(app.buttons["native.inventory.close"].waitForExistence(timeout: 5))

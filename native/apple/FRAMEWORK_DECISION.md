@@ -64,3 +64,18 @@ key in iPadOS 26 and documents that it requests a fixed-scene compatibility mode
 rather than guaranteeing a full-screen native window.
 
 See [Apple's UIRequiresFullScreen documentation](https://developer.apple.com/documentation/bundleresources/information-property-list/uirequiresfullscreen).
+
+## 8 November evidence update
+
+Live Apple metadata rechecked: SceneKit deprecated at 26.0; RealityKit introduced
+on tvOS 26.0 (iPadOS 13). The expanded region uses supported SceneKit APIs. An
+attempted AO sample-count property did not exist in SCNCamera and was removed
+after the real compiler rejected it; only supported intensity/radius controls
+remain. No fictitious fixed AO sample count is claimed.
+
+RealityKit is the maintained Apple backend to evaluate next, but availability is
+not evidence of a speedup. Retain Core and compiled content, implement one
+comparable MeshResource region on an isolated branch, then compare identical
+assets/routes with GPU tools on the Mac. Current display-link/CPU/RSS telemetry
+cannot determine comparative GPU efficiency. Custom Metal offers control at a
+much larger maintenance cost. No destructive backend rewrite was performed.
